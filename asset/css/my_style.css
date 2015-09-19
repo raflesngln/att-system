@@ -1,0 +1,65 @@
+/*
+|--------------------------------------------------------------------------
+| My tracking CSS
+|--------------------------------------------------------------------------
+|
+| @author 		: Rafles Nainggolan;
+
+|
+*/
+.company-name{
+
+	background-color: rgba(140, 34, 34, 0.94);
+	padding:7px;
+	margin-top:5px;
+	border-radius:0px 50px 50px 0px;
+	}
+.brand{font-size:xx-large;}
+ 
+   #stcode,#stname2,#stname,#stcode2,
+ 	#couname,#coucode,#couname2,#coucode2,
+	#cyname,#cycode,#cyname2,#cycode2
+   {
+	   text-transform:uppercase;
+	   
+	 }
+	 
+	
+	 .alert-error{
+		 background-color:rgba(234, 85, 80, 0.94);
+		 color:#FFF;
+	 }
+   
+   .modal-header{
+	   background-color:#052F2F;
+	   height:70px;
+	   text-align:center;
+	   color:#FFF;
+   }
+   .modal-header #myModalLabel{
+	   margin-top:-1px;
+   }
+   .close{
+	   color:#F00;
+   }
+
+  .pagin a{
+	  background-color:#008080;
+	  padding:7px 18px;
+	  color:#FFF;
+  }
+    .pagin a:active{
+	  background-color:#008080;
+	  padding:10px 10px;
+  }
+  
+  .modal-dialog{
+	  max-height:100%;
+	  width:100%;
+	  height:auto;
+	  overflow-x:hidden;
+	  overflow-y:auto;
+	  margin-bottom:15px;
+}
+  
+  

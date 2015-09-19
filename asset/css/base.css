@@ -1,0 +1,110 @@
+
+  /* General styles for all menus */
+  .smartcity-spmenu {
+    background: #fff;
+    position: fixed;
+    padding:0;
+    margin:0 !important;
+    overflow-x:hidden;
+    overflow-y:visible;
+    display:block;
+    visibility:visible;
+    border-right: 1px solid #dedede;
+  }
+  .smartcity-spmenu-push .navbar-default .navbar-collapse, .smartcity-spmenu-push .navbar-default .navbar-form {border: none;}
+  .smartcity-spmenu .navbar-nav > li {padding-left: 20px;border-bottom: 1px solid #5f5f5f;height: 50px;}
+  .smartcity-spmenu .navbar-nav > li > a {color: #fff;padding: 15px 20px 10px 0;display: block;position: relative;font-weight: normal;}
+  .smartcity-spmenu .navbar-nav > li > a > i.fa-angle-right {font-size: 20px;position: absolute;right: 20px;top: 15px;}
+  .smartcity-spmenu .navbar-nav > li > a.fusion-logout {
+    height: 26px !important;
+    background-color: #444444;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    float: right;
+    padding: 2px 20px !important;
+    margin-right: 15px;
+    margin-top: 12px;
+  }
+  .navbar-fixed-top .smartcity-spmenu {
+    bottom:0;
+  }
+  .smartcity-spmenu .navbar-nav > li.divider {height: auto;}
+  /* Orientation-dependent styles for the content of the menu */
+  .smartcity-spmenu-vertical {
+    width: 305px;
+    height: 100%;
+    top: 0;
+    z-index: 1000;
+  }
+  .smartcity-spmenu-horizontal {
+    width: 100%;
+    height: 150px;
+    left: 0;
+    z-index: 1000;
+    overflow: hidden;
+  }
+  .smartcity-spmenu-horizontal h3 {
+    height: 100%;
+    width: 20%;
+    float: left;
+  }
+  .smartcity-spmenu-horizontal a {
+    float: left;
+    width: 20%;
+    padding: 0.8em;
+    border-left: 1px solid #258ecd;
+  }
+  /* Vertical menu that slides from the left or right */
+  .smartcity-spmenu-left {
+    left: -305px;
+  }
+  .smartcity-spmenu-right {
+    right: 0;
+  }
+  .smartcity-spmenu-right,
+  .smartcity-spmenu-push-toleft .navbar-fixed-top .smartcity-spmenu-right.smartcity-spmenu-open {
+    right: -305px;
+  }
+  .smartcity-spmenu-left.smartcity-spmenu-open,
+  .smartcity-spmenu-push-toright .navbar-fixed-top .smartcity-spmenu-left.smartcity-spmenu-open {
+    left: 0px;
+  }
+  .smartcity-spmenu-right.smartcity-spmenu-open {
+    right: 0px !important;
+  }
+  /* Horizontal menu that slides from the top or bottom */
+  .smartcity-spmenu-top {
+    top: -150px;
+  }
+  .smartcity-spmenu-bottom {
+    bottom: -150px;
+  }
+  .smartcity-spmenu-top.smartcity-spmenu-open {
+    top: 0px;
+  }
+  .smartcity-spmenu-bottom.smartcity-spmenu-open {
+    bottom: 0px;
+  }
+  /* Push classes applied to the body */
+  .smartcity-spmenu-push {
+    overflow-x: hidden;
+    position: relative;
+    left: 0;
+  }
+  .smartcity-spmenu-push-toright,
+  .smartcity-spmenu-push-toright .navbar-fixed-top {
+    left: 305px;
+  }
+  .smartcity-spmenu-push-toleft,
+  .smartcity-spmenu-push-toleft .navbar-fixed-top {
+    left: -305px;
+  }
+  /* Transitions */
+  .smartcity-spmenu,
+  .smartcity-spmenu-push,
+  .navbar {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+  }
