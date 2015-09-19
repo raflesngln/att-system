@@ -1,10 +1,10 @@
 <<<<<<< HEAD
 ### ATT internal sytem 
 
-# V.2 
+# V.1 
 - Fixed Bugs
-- Added Report Menu 
-- Using dynamic base_url
+- Design  View
+
 
 Credit : Rafles Nainggolan
 =======
