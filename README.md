@@ -1,12 +1,12 @@
 <<<<<<< HEAD
-### Simple Retail Application Using CodeIgniter & Bootstrap v.2.x.x ###
+### ATT internal sytem 
 
 # V.2 
 - Fixed Bugs
 - Added Report Menu 
 - Using dynamic base_url
 
-Credit : gilangsonar.com
+Credit : Rafles Nainggolan
 =======
 # att-system
 att-system this is the information may use to undertand system license
