@@ -20,18 +20,12 @@ function view_staff(){
 		$offset = $page;
 		endif;
 		
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;	
-		
         $data['title']='list Staff';
 		$data['scrumb_name']='Data Staff';
 		$data['scrumb']='staff/view_staff';
 		$data['list']=$this->model_app->getdata('ms_staff',"order by empCode ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_staff a',"order by empCode ASC");
-        					//create for pagination		
+        	//create for pagination		
 			$config['base_url'] = base_url() . 'staff/view_staff/';
         	$config['total_rows'] = $tot_hal->num_rows();
         	$config['per_page'] = $limit;
@@ -124,10 +118,107 @@ function delete_staff(){
 	redirect('login'); 
  }
 }
+function search_staff(){  
+	 
+	 	$page=$this->uri->segment(3);
+	 	$cari=$this->input->post('txtsearch');
+      	$limit=10;
+		if(!$page):
+		$offset = 0;
+		else:
+		$offset = $page;
+		endif;
+		
+		if(!$page):
+		$offset = 0;
+		else:
+		$offset = $page;
+		endif;	
+		
+        $data['title']='list Staff';
+		$data['scrumb_name']='Data Staff';
+		$data['scrumb']='staff/view_staff';
+		$data['list']=$this->model_app->getdata('ms_staff',"where empInitial like '%$cari%' OR empName like '%$cari%' order by empCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_staff a',"where empInitial like '%$cari%' OR empName like '%$cari%' order by empCode ASC");
+        					//create for pagination		
+			$config['base_url'] = base_url() . 'staff/view_staff/';
+        	$config['total_rows'] = $tot_hal->num_rows();
+        	$config['per_page'] = $limit;
+			$config['uri_segment'] = 3;
+	    	$config['first_link'] = 'First';
+			$config['last_link'] = 'last';
+			$config['next_link'] = 'Next';
+			$config['prev_link'] = 'Prev';
+       		$this->pagination->initialize($config);
+			$data["paginator"] =$this->pagination->create_links();
+		
+		$data['view']='pages/staff/v_staff';
+        $this->load->view('home/home',$data);
+     }
 
+function filter_staff(){
 
+        $cari=$this->input->post('txtsearch');
+		$filter=$this->input->post('filter');
+		 	$page=$this->uri->segment(3);
+      	$limit=10;
+		if(!$page):
+		$offset = 0;
+		else:
+		$offset = $page;
+		endif;
+		
+		$data['title']='list Staff';
+		$data['scrumb_name']='Data Staff';
+		$data['scrumb']='staff/view_staff';
+		$data['list']=$this->model_app->getdata('ms_staff',"ORDER BY Address ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_staff',"ORDER BY Address ASC");
+	//create for pagination		
+			$config['base_url'] = base_url() . 'staff/filter_staff/';
+        	$config['total_rows'] = $tot_hal->num_rows();
+        	$config['per_page'] = $limit;
+			$config['uri_segment'] = 3;
+	    	$config['first_link'] = 'First';
+			$config['last_link'] = 'last';
+			$config['next_link'] = 'Next';
+			$config['prev_link'] = 'Prev';
+       		$this->pagination->initialize($config);
+			$data["paginator"] =$this->pagination->create_links();
+		
+		//$data['view']='pages/staff/filter';
+		//$data['jumlah']=$data['list'];
+       $this->load->view('pages/staff/filter',$data);
+}
+function search_staff_ajax(){
+
+        $cari=$this->input->post('txtsearch');
+		$filter=$this->input->post('filter');
+		 	$page=$this->uri->segment(3);
+      	$limit=10;
+		if(!$page):
+		$offset = 0;
+		else:
+		$offset = $page;
+		endif;
+		
+		$data['list']=$this->model_app->getdata('ms_staff',"where empInitial like '$cari%' OR empName like '$cari%' order by empCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_staff a',"where empInitial like '$cari%' OR empName like '$cari%' order by empCode ASC");
+
+	//create for pagination		
+			$config['base_url'] = base_url() . 'staff/filter_staff/';
+        	$config['total_rows'] = $tot_hal->num_rows();
+        	$config['per_page'] = $limit;
+			$config['uri_segment'] = 3;
+	    	$config['first_link'] = 'First';
+			$config['last_link'] = 'last';
+			$config['next_link'] = 'Next';
+			$config['prev_link'] = 'Prev';
+       		$this->pagination->initialize($config);
+			$data["paginator"] =$this->pagination->create_links();
+			
+        $this->load->view('pages/staff/filter',$data);
+}
 	
-
 
 
 }

@@ -1,6 +1,7 @@
  <style>
  .btn-search{ height:32px; margin-left:-10px;}
  </style>
+ <script type="text/javascript" src="<?php echo base_url();?>asset/js/jquery.js"></script>
    <div class="row-fluid">
     <div class="span12">
                   <?php
@@ -16,6 +17,7 @@
 
            <h2><i class="fa fa-male fa-1.5x"></i> &nbsp; <strong>Staff</strong> List</h2> 
             </div>
+      <div id="loading">ibcdcd</div>
       <div class="headerrr col-md-4 pull-right">
       
             
@@ -24,19 +26,19 @@
                         <div class="col-sm-5">
                         <p></p>
                         <strong><label> Filter by</label></strong>
-                              <select name="filter" id="select" class="form-control">
-                                <option value="name">Name</option>
-                                <option value="0">Devisi</option>
+                              <select name="filter" id="filter" class="form-control">
+                                <option value="empName">Name</option>
+                                <option value="Address">Address</option>
                               </select>
               </div>
                        
               </div>
-<form action="<?php echo base_url();?>search_master/search_staff" method="post"> 
+<form action="<?php echo base_url();?>staff/search_staff" method="post"> 
            <div class="col-sm-7">
            <div class="row">
            
  <div class="col-md-10">Search Staff<span class="controls">
-   <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="Search name" />
+   <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="name or initial" />
    </span></div>
             <div class="col-md-2">&nbsp;<input type="submit" name="button" id="button" value="Search" class="btn btn-mini btn-search btn-primary" /></div>
            </div>
@@ -48,11 +50,11 @@
 
             <div class="row">
                 <div class="col-lg-12 portlets ui-sortable">
-                    <div class="panel">
+                    <div class="panel" id="panel">
                         <!--<div class="panel-header"></div>-->
                         
                                     <div class="form-group">
-                                        <div class="table-responsive" id="table-responsive">
+                                        <div class="table-responsive" id="table_responsive">
                                         <table class="table table-striped table-bordered table-hover">
                                               <thead>
                                                 <tr>
@@ -281,15 +283,20 @@ if($status=='1'){ $statusname='<font color="#0033FF">Aktif</font>';} else{$statu
  
  
 <script type="text/javascript">			
-$("#custCode").change(function(){
-            var custCode = $("#custCode").val();
+	$(window).load(function(){
+		$("#loading").fadeOut("slow");
+	})
+	
+$("#txtsearch").keyup(function(){
+
+            var txtsearch = $("#txtsearch").val();
             $.ajax({
                 type: "POST",
-                url : "<?php echo base_url('transaksi/get_sub'); ?>",
-                data: "custCode="+custCode,
+                url : "<?php echo base_url('staff/search_staff_ajax'); ?>",
+                data: "txtsearch="+txtsearch,
                 cache:false,
                 success: function(data){
-                    $('#transc_id').html(data);
+                    $('#table_responsive').html(data);
                     //document.frm.add.disabled=false;
                 }
             });
@@ -297,16 +304,18 @@ $("#custCode").change(function(){
        
 	   
 	   
-	 $("#transc_id").change(function(){
-            var transc_id = $("#transc_id").val();
+	 $("#filter").change(function(){
+            var filter = $("#filter").val();
           $.ajax({
                 type: "POST",
-                url : "<?php echo base_url('transaksi/get_detail_invoice'); ?>",
-                data: "transc_id="+transc_id,
+                url : "<?php echo base_url('staff/filter_staff'); ?>",
+                data: "filter="+filter,
                 success: function(data){
-                    $('#detail').html(data);
+                    $('#table_responsive').html(data);
                 }
             });
+
         });
+		
 </script>
  

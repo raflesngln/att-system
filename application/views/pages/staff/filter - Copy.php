@@ -2,8 +2,7 @@
                                               <thead>
                                                 <tr>
                                                   <th height="21" colspan="12"><div align="left"><a class="btn-addnew" href="#modaladd" data-toggle="modal" title="Add">
-                                                    <button class="btn btn-primary"><i class="icon-plus icons"></i>Add Staff</button>
-                                                  <?php echo $jumlah;?></a></div></th>
+                                                    <button class="btn btn-primary"><i class="icon-plus icons"></i>Add Staff</button></a></div></th>
                                                 </tr>
                                                 <tr>
                                                   <th>No.</th>
@@ -27,8 +26,8 @@ $status=$data->isActive;
 
 if($status=='1'){ $statusname='<font color="#0033FF">Aktif</font>';} else{$statusname='<font color="#FF0000">Nonaktif</font>';}
 
-        
-      ?>
+				
+			?>
                                                 <tr class="gradeX">
                                                     <th scope="row"><?php echo $no?></th>
                                                     <td><?php echo $data->empCode?></td>
@@ -50,8 +49,8 @@ if($status=='1'){ $statusname='<font color="#0033FF">Aktif</font>';} else{$statu
              <td>
     <a href="<?php echo base_url();?>staff/delete_staff/<?php echo $data->empCode?>" onClick="return confirm('Yakin Hapus  Data !!');">
  <button class="btn btn-danger btn-small" title="Delete Data">
-  <i class="icon-trash icon-1x icon-only"></i>
-  </button>
+	<i class="icon-trash icon-1x icon-only"></i>
+	</button>
     </a>
                                        
                                                     </td>
@@ -59,7 +58,7 @@ if($status=='1'){ $statusname='<font color="#0033FF">Aktif</font>';} else{$statu
         <?php $no++; } ;?>
                                                 <tr class="gradeX pagin">
                                                   <th colspan="12" scope="row">
-                          <?php echo $paginator;?></th>
+												  <?php echo $paginator;?></th>
                                                 </tr>                                
                                                 
                                               </tbody>
