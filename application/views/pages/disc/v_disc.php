@@ -2,6 +2,8 @@
  <style>
  .btn-search{ height:32px; margin-left:-10px;}
  </style>
+  <script type="text/javascript" src="<?php echo base_url();?>asset/js/jquery.js"></script>
+
    <div class="row-fluid">
     <div class="span12">
                   <?php
@@ -32,7 +34,7 @@
               </div>
                        
               </div>
-<form action="<?php echo base_url();?>search_master/search_staff" method="post"> 
+<form action="<?php echo base_url();?>search/search_discount" method="post"> 
            <div class="col-sm-7">
            <div class="row">
            
@@ -53,7 +55,7 @@
                         <!--<div class="panel-header"></div>-->
                         
                                     <div class="form-group">
-                                        <div class="table-responsive">
+                                        <div class="table-responsive" id="table_responsive">
                                         <table class="table table-striped table-bordered table-hover">
                                               <thead>
                                                 <tr>
@@ -353,3 +355,36 @@ $no=1;
         </div>
     </div>
     </div>
+    
+<script type="text/javascript">			
+	$(window).load(function(){
+		$("#loading").fadeOut("slow");
+	})
+	
+$("#txtsearch").keyup(function(){
+
+            var txtsearch = $("#txtsearch").val();
+            $.ajax({
+                type: "POST",
+                url : "<?php echo base_url('search/search_discount_ajax'); ?>",
+                data: "txtsearch="+txtsearch,
+                cache:false,
+                success: function(data){
+                    $('#table_responsive').html(data);
+                    //document.frm.add.disabled=false;
+                }
+            });
+        });
+	 $("#filter").change(function(){
+            var filter = $("#filter").val();
+          $.ajax({
+                type: "POST",
+                url : "<?php echo base_url('search/filter_discount'); ?>",
+                data: "filter="+filter,
+                success: function(data){
+                    $('#table_responsive').html(data);
+                }
+            });
+
+        });
+</script>

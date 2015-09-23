@@ -17,7 +17,7 @@
 
            <h2><i class="fa fa-male fa-1.5x"></i> &nbsp; <strong>Staff</strong> List</h2> 
             </div>
-      <div id="loading">ibcdcd</div>
+     
       <div class="headerrr col-md-4 pull-right">
       
             
@@ -279,9 +279,7 @@ if($status=='1'){ $statusname='<font color="#0033FF">Aktif</font>';} else{$statu
         </div>
     
     </div>
-    
- 
- 
+     
 <script type="text/javascript">			
 	$(window).load(function(){
 		$("#loading").fadeOut("slow");
@@ -316,6 +314,5 @@ $("#txtsearch").keyup(function(){
             });
 
         });
-		
 </script>
  

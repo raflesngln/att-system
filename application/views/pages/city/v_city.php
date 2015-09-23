@@ -1,6 +1,9 @@
  <style>
  .btn-search{ height:32px; margin-left:-10px;}
+ #txtsearch{ font-size:12px;}
  </style>
+  <script type="text/javascript" src="<?php echo base_url();?>asset/js/jquery.js"></script>
+
    <div class="row-fluid">
     <div class="span12">
                   <?php
@@ -23,20 +26,15 @@
                         
                         <div class="col-sm-5">
                         <p></p>
-                        <strong><label> Filter by</label></strong>
-                              <select name="filter" id="select" class="form-control">
-                                <option value="name">City</option>
-                                <option value="0">Devisi</option>
-                              </select>
-              </div>
+                        <strong><label> &nbsp;</label></strong></div>
                        
               </div>
-<form action="<?php echo base_url();?>search_master/search_staff" method="post"> 
+<form action="<?php echo base_url();?>search/search_city" method="post"> 
            <div class="col-sm-7">
            <div class="row">
            
  <div class="col-md-10">Search City<span class="controls">
-   <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="Search City" />
+   <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="cyName,couName,stName" />
    </span></div>
             <div class="col-md-2">&nbsp;<input type="submit" name="button" id="button" value="Search" class="btn btn-mini btn-search btn-primary" /></div>
            </div>
@@ -51,7 +49,7 @@
                         <!--<div class="panel-header"></div>-->
                         
                                     <div class="form-group">
-                                        <div class="table-responsive">
+                                        <div class="table-responsive" id="table_responsive">
                                         <table class="table table-striped table-bordered table-hover">
                                               <thead>
                                                 <tr>
@@ -328,6 +326,41 @@ if($sea=='1'){ $issea='<font color="#0000FF">Yes</font>';} else{$issea='<font co
         </div>
     </div>
     </div>
-    
+   
+<script type="text/javascript">			
+	$(window).load(function(){
+		$("#loading").fadeOut("slow");
+	})
+	
+$("#txtsearch").keyup(function(){
+
+            var txtsearch = $("#txtsearch").val();
+            $.ajax({
+                type: "POST",
+                url : "<?php echo base_url('search/search_city_ajax'); ?>",
+                data: "txtsearch="+txtsearch,
+                cache:false,
+                success: function(data){
+                    $('#table_responsive').html(data);
+                    //document.frm.add.disabled=false;
+                }
+            });
+        });
+       
+	   
+	   
+	 $("#filter").change(function(){
+            var filter = $("#filter").val();
+          $.ajax({
+                type: "POST",
+                url : "<?php echo base_url('search/filter_city'); ?>",
+                data: "filter="+filter,
+                success: function(data){
+                    $('#table_responsive').html(data);
+                }
+            });
+
+        });
+</script>
     
  

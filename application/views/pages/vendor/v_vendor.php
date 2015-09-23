@@ -1,15 +1,54 @@
+ <style>
+ .btn-search{ height:32px; margin-left:-10px;}
+ </style>
+  <script type="text/javascript" src="<?php echo base_url();?>asset/js/jquery.js"></script>
+
    <div class="row-fluid">
     <div class="span12">
-            <div class="header">
-                <h2><i class="fa fa-cubes fa-2x"></i> &nbsp;<strong>Vendor</strong> List</h2>
+                  <?php
+			if(isset($eror)){?>
+            <label class="alert alert-error col-sm-12">
+			<button type="button" class="close" data-dismiss="alert">
+			<i class="icon-remove"></i>	</button>							
+			<?php echo isset($eror)?$eror:'';?>
+			<br />
+			</label>
+            <?php }?>   
+      <div class="header col-md-3">
+
+           <h2><i class="fa fa-industry fa-1.5x"></i> &nbsp; <strong>Vendor</strong> List</h2> 
             </div>
+      <div class="headerrr col-md-4 pull-right">
+      
+            
+            <div class="form-group">
+                        
+                        <div class="col-sm-5">
+                        <p></p>
+                        <strong><label> &nbsp;</label></strong></div>
+                       
+              </div>
+<form action="<?php echo base_url();?>search/search_vendor" method="post"> 
+           <div class="col-sm-7">
+           <div class="row">
+           
+ <div class="col-md-10">Search Vendor<span class="controls">
+   <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="vendor name" />
+   </span></div>
+            <div class="col-md-2">&nbsp;<input type="submit" name="button" id="button" value="Search" class="btn btn-mini btn-search btn-primary" /></div>
+           </div>
+             </div>          
+                      
+
+      </form>
+  </div>
             <div class="row">
                 <div class="col-lg-12 portlets ui-sortable">
                     <div class="panel">
                         <!--<div class="panel-header"></div>-->
                         
                                     <div class="form-group">
-                                        <div class="table-responsive">
+                                        <div class="table-responsive" id="table_responsive">
                                         <table class="table table-striped table-bordered table-hover">
                                               <thead>
                                                 <tr>
@@ -17,7 +56,7 @@
                                                 </tr>
                                                 <tr>
                                                   <th>No.</th>
-                                                  <th>customer Name</th>
+                                                  <th>Vendor Name</th>
                                                   <th>Address</th>
                                                   <th>Phone</th>
                                                   <th>Postal Code</th>
@@ -471,3 +510,37 @@ $no=1;
         </div>
     </div>
     </div>
+    
+<script type="text/javascript">			
+	
+$("#txtsearch").keyup(function(){
+
+            var txtsearch = $("#txtsearch").val();
+            $.ajax({
+                type: "POST",
+                url : "<?php echo base_url('search/search_vendor_ajax'); ?>",
+                data: "txtsearch="+txtsearch,
+                cache:false,
+                success: function(data){
+                    $('#table_responsive').html(data);
+                    //document.frm.add.disabled=false;
+                }
+            });
+        });
+       
+	   
+	   
+	 $("#filter").change(function(){
+            var filter = $("#filter").val();
+          $.ajax({
+                type: "POST",
+                url : "<?php echo base_url('search/filter_vendor'); ?>",
+                data: "filter="+filter,
+                success: function(data){
+                    $('#table_responsive').html(data);
+                }
+            });
+
+        });
+</script>
+ 

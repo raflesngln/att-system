@@ -1,15 +1,54 @@
+ <style>
+ .btn-search{ height:32px; margin-left:-10px;}
+ </style>
+  <script type="text/javascript" src="<?php echo base_url();?>asset/js/jquery.js"></script>
+
    <div class="row-fluid">
     <div class="span12">
-            <div class="header">
-                <h2><i class="fa fa-opencart fa-2x"></i> &nbsp; <strong>Customers</strong> List</h2>
+                  <?php
+			if(isset($eror)){?>
+            <label class="alert alert-error col-sm-12">
+			<button type="button" class="close" data-dismiss="alert">
+			<i class="icon-remove"></i>	</button>							
+			<?php echo isset($eror)?$eror:'';?>
+			<br />
+			</label>
+            <?php }?>   
+      <div class="header col-md-3">
+
+           <h2><i class="fa fa-industry fa-1.5x"></i> &nbsp; <strong>Customer's</strong> List</h2> 
             </div>
+      <div class="headerrr col-md-4 pull-right">
+      
+            
+            <div class="form-group">
+                        
+                        <div class="col-sm-5">
+                        <p></p>
+                        <strong><label> &nbsp;</label></strong></div>
+                       
+              </div>
+<form action="<?php echo base_url();?>search/search_customer" method="post"> 
+           <div class="col-sm-7">
+           <div class="row">
+           
+ <div class="col-md-10">Search Customer<span class="controls">
+   <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="Search Customer" />
+   </span></div>
+            <div class="col-md-2">&nbsp;<input type="submit" name="button" id="button" value="Search" class="btn btn-mini btn-search btn-primary" /></div>
+           </div>
+             </div>          
+                      
+
+      </form>
+  </div>
             <div class="row">
                 <div class="col-lg-12 portlets ui-sortable">
                     <div class="panel">
                         <!--<div class="panel-header"></div>-->
                         
                                     <div class="form-group">
-                                        <div class="table-responsive">
+                                        <div class="table-responsive" id="table_responsive">
                                         <table class="table table-striped table-bordered table-hover">
                                               <thead>
                                                 <tr>
@@ -432,25 +471,25 @@ $no=1;
                         
 <div class="col-sm-3"><span class="controls">
                           <label><span> PIC 01</span>
-                            <input name="pic01" type="text" class="form-control" placeholder="" id="pic01" value="<?php echo $row->PIC01;?>" />
+                            <input name="pic01" type="text" class="form-control" placeholder="" id="pic01"  />
                             
 </label>
     </span></div>
 <div class="col-sm-3"><span class="controls">
                           <label><span> PIC 02</span>
-                            <input name="pic02" type="text" class="form-control" placeholder="" id="pic02" value="<?php echo $row->PIC02;?>" />
+                            <input name="pic02" type="text" class="form-control" placeholder="" id="pic02" />
                             
 </label>
     </span></div>
    <div class="col-sm-3"><span class="controls">
                           <label><span>  Mobile 01</span>
-                            <input name="hppic01" type="text" class="form-control" placeholder="" id="hppic01" value="<?php echo $row->HPPIC01;?>" />
+                            <input name="hppic01" type="text" class="form-control" placeholder="" id="hppic01"  />
                             
 </label>
     </span></div>
  <div class="col-sm-3"><span class="controls">
                           <label><span>  Mobile 02</span>
-                            <input name="hppic02" type="text" class="form-control" placeholder="" id="hppic02" value="<?php echo $row->HPPIC02;?>" />
+                            <input name="hppic02" type="text" class="form-control" placeholder="" id="hppic02"  />
                             
 </label>
     </span></div>
@@ -499,3 +538,37 @@ $no=1;
         </div>
     </div>
     </div>
+    
+    
+<script type="text/javascript">			
+$("#txtsearch").keyup(function(){
+
+            var txtsearch = $("#txtsearch").val();
+            $.ajax({
+                type: "POST",
+                url : "<?php echo base_url('search/search_customer_ajax'); ?>",
+                data: "txtsearch="+txtsearch,
+                cache:false,
+                success: function(data){
+                    $('#table_responsive').html(data);
+                    //document.frm.add.disabled=false;
+                }
+            });
+        });
+       
+	   
+	   
+	 $("#filter").change(function(){
+            var filter = $("#filter").val();
+          $.ajax({
+                type: "POST",
+                url : "<?php echo base_url('search/filter_customer'); ?>",
+                data: "filter="+filter,
+                success: function(data){
+                    $('#table_responsive').html(data);
+                }
+            });
+
+        });
+</script>
+ 

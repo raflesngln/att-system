@@ -205,7 +205,7 @@ function search_staff_ajax(){
 		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_staff a',"where empInitial like '$cari%' OR empName like '$cari%' order by empCode ASC");
 
 	//create for pagination		
-			$config['base_url'] = base_url() . 'staff/filter_staff/';
+			$config['base_url'] = base_url() . 'staff/search_staff_ajax/';
         	$config['total_rows'] = $tot_hal->num_rows();
         	$config['per_page'] = $limit;
 			$config['uri_segment'] = 3;
@@ -219,6 +219,36 @@ function search_staff_ajax(){
         $this->load->view('pages/staff/filter',$data);
 }
 	
+function search_service(){  
+	    $cari=$this->input->post('txtsearch');
+	 	$page=$this->uri->segment(3);
+      	$limit=25;
+		if(!$page):
+		$offset = 0;
+		else:
+		$offset = $page;
+		endif;
+		
+        $data['title']='list Service';
+		$data['scrumb_name']='Data Service';
+		$data['scrumb']='master/view_service';
+		$data['list']=$this->model_app->getdata('ms_service',"WHERE Name like '%$cari%' order by svCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_service',"WHERE Name like '%$cari%' order by svCode ASC");
+        					//create for pagination		
+			$config['base_url'] = base_url() . 'master/view_service/';
+        	$config['total_rows'] = $tot_hal->num_rows();
+        	$config['per_page'] = $limit;
+			$config['uri_segment'] = 3;
+	    	$config['first_link'] = 'First';
+			$config['last_link'] = 'last';
+			$config['next_link'] = 'Next';
+			$config['prev_link'] = 'Prev';
+       		$this->pagination->initialize($config);
+			$data["paginator"] =$this->pagination->create_links();
+		
+		$data['view']='pages/service/v_service';
+        $this->load->view('home/home',$data);
+     }
 
 
 }

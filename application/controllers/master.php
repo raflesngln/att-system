@@ -25,14 +25,7 @@ function view_user(){
 		$offset = 0;
 		else:
 		$offset = $page;
-		endif;
-		
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;	
-		
+endif;
         $data['title']='list User';
 		$data['scrumb_name']='Data User';
 		$data['scrumb']='master/view_user';
@@ -66,13 +59,6 @@ function view_country(){
 		else:
 		$offset = $page;
 		endif;
-		
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;	
-		
         $data['title']='list Country';
 		$data['scrumb_name']='Data Country';
 		$data['scrumb']='master/view_country';
@@ -102,14 +88,7 @@ function view_vendor(){
 		$offset = 0;
 		else:
 		$offset = $page;
-		endif;
-		
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;	
-		
+endif;
         $data['title']='list vendor';
 		$data['scrumb_name']='Data vendor';
 		$data['scrumb']='master/view_vendor';
@@ -149,14 +128,7 @@ function view_disc(){
 		$offset = 0;
 		else:
 		$offset = $page;
-		endif;
-		
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;	
-		
+endif;
         $data['title']='list Disc';
 		$data['scrumb_name']='Data Disc';
 		$data['scrumb']='master/view_disc';
@@ -178,8 +150,6 @@ function view_disc(){
 		a.isACtive,a.Remarks,a.createBy,a.CreateDate,a.ModifiedBy,a.ModifiedDate,b.custCode,b.custName,c.svCode,c.Name,d.cyCode,d.cyName,
 		e.venCode,e.venName',"ms_disc a","inner join ms_customer b on a.custCode=b.custCode inner join ms_service c on a.svCode=c.svCode left join ms_city d on a.cyCode=d.cyCode
 		inner join ms_vendor e on a.venCode=e.venCode order by a.discCode");
-		
-
         					//create for pagination		
 			$config['base_url'] = base_url() . 'master/view_disc/';
         	$config['total_rows'] = $tot_hal->num_rows();
@@ -205,14 +175,7 @@ function view_service(){
 		$offset = 0;
 		else:
 		$offset = $page;
-		endif;
-		
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;	
-		
+endif;
         $data['title']='list Service';
 		$data['scrumb_name']='Data Service';
 		$data['scrumb']='master/view_service';
@@ -243,12 +206,6 @@ function view_city(){
 		else:
 		$offset = $page;
 		endif;
-		
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;	
 		
         $data['title']='list City';
 		$data['scrumb_name']='Data City';
@@ -291,13 +248,7 @@ function view_state(){
 		else:
 		$offset = $page;
 		endif;
-		
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;	
-		
+	
         $data['title']='list State';
 		$data['scrumb_name']='Data State';
 		$data['scrumb']='master/view_state';
@@ -327,14 +278,7 @@ function view_state(){
 		$offset = 0;
 		else:
 		$offset = $page;
-		endif;
-		
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;	
-		
+endif;
         $data=array(
 			'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
 			'city'=>$this->model_app->getdata('ms_city',""),
@@ -388,14 +332,7 @@ $page=$this->uri->segment(3);
 		$offset = 0;
 		else:
 		$offset = $page;
-		endif;
-		
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;	
-		
+endif;
         $data['title']='list_customer';
 		$data['scrumb_name']='Data User';
 		$data['scrumb']='master/view_user';
@@ -451,14 +388,7 @@ $page=$this->uri->segment(3);
 		$offset = 0;
 		else:
 		$offset = $page;
-		endif;
-		
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;	
-		
+endif;
         $data['title']='list Country';
 		$data['scrumb_name']='Data Country';
 		$data['scrumb']='master/view_country';
@@ -517,14 +447,7 @@ $page=$this->uri->segment(3);
 		$offset = 0;
 		else:
 		$offset = $page;
-		endif;
-		
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;	
-		
+endif;
         $data['title']='list disc';
 		$data['scrumb_name']='Data disc';
 		$data['scrumb']='master/view_disc';
@@ -591,14 +514,7 @@ $page=$this->uri->segment(3);
 		$offset = 0;
 		else:
 		$offset = $page;
-		endif;
-		
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;	
-		
+endif;
         $data['title']='list Service';
 		$data['scrumb_name']='Data Service';
 		$data['scrumb']='master/view_service';
@@ -658,14 +574,7 @@ $page=$this->uri->segment(3);
 		$offset = 0;
 		else:
 		$offset = $page;
-		endif;
-		
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;	
-		
+endif;
         $data['title']='list State';
 		$data['scrumb_name']='Data State';
 		$data['scrumb']='master/view_state';
@@ -723,14 +632,7 @@ $page=$this->uri->segment(3);
 		$offset = 0;
 		else:
 		$offset = $page;
-		endif;
-		
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;	
-		
+endif;
         $data['title']='list City';
 		$data['scrumb_name']='Data City';
 		$data['scrumb']='master/view_city';
@@ -922,14 +824,7 @@ $page=$this->uri->segment(3);
 		$offset = 0;
 		else:
 		$offset = $page;
-		endif;
-		
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;	
-		
+endif;
         $data['title']='list Country';
 		$data['scrumb_name']='Data Country';
 		$data['scrumb']='master/view_country';
@@ -1068,14 +963,7 @@ $page=$this->uri->segment(3);
 		$offset = 0;
 		else:
 		$offset = $page;
-		endif;
-		
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;	
-		
+endif;
         $data['title']='list State';
 		$data['scrumb_name']='Data State';
 		$data['scrumb']='master/view_state';
@@ -1140,14 +1028,7 @@ $page=$this->uri->segment(3);
 		$offset = 0;
 		else:
 		$offset = $page;
-		endif;
-		
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;	
-		
+endif;
         $data['title']='list service';
 		$data['scrumb_name']='Data service';
 		$data['scrumb']='master/view_service';
@@ -1265,14 +1146,7 @@ if($code==$code2)
 		$offset = 0;
 		else:
 		$offset = $page;
-		endif;
-		
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;	
-		
+endif;
         $data['title']='list City';
 		$data['scrumb_name']='Data City';
 		$data['scrumb']='master/view_city';
@@ -1336,14 +1210,7 @@ $page=$this->uri->segment(3);
 		$offset = 0;
 		else:
 		$offset = $page;
-		endif;
-		
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;	
-		
+endif;
         $data['title']='list_customer';
 		$data['scrumb_name']='Data User';
 		$data['scrumb']='master/view_user';
