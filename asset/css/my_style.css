@@ -7,6 +7,9 @@
 
 |
 */
+*{
+	font-size: 14px;
+}
 .company-name{
 
 	background-color: rgba(140, 34, 34, 0.94);

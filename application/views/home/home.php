@@ -7,6 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 		<!--basic styles-->
+			<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 	<link href="<?php echo base_url();?>asset/fontawesome/css/font-awesome.css" rel="stylesheet" />
     	<link href="<?php echo base_url();?>asset/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
 		<link href="<?php echo base_url();?>asset/css/my_style.css" rel="stylesheet" />
@@ -21,15 +22,12 @@
 		<![endif]-->
 
 		<!--page specific plugin styles-->
-
 		<!--fonts-->
-
-		<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
 
 		<!--ace styles-->
-
-<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace.min.css" />
-<link rel="stylesheet" href=<?php echo base_url();?>"assets/css/ace-responsive.min.css" />
+<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace.min.css"/>
+<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-responsive.min.css"/>
 <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-skins.min.css" />
 
 		<!--[if lte IE 8]>
@@ -253,7 +251,21 @@
                       </ul>
 				  </li>
          <li>
-           <label>&nbsp; TRANSACTION    &raquo;</label></li>
+
+
+           <label>&nbsp; TRANSACTION    &raquo;</label>
+
+           <li> <a href="#" class="dropdown-toggle"> <span class="glyphicon glyphicon-link" aria-hidden="true"></span> <span class="menu-text"> Booking </span> <b class="arrow icon-angle-down"></b> </a>
+              <ul class="submenu">
+             <li><a href="<?php echo base_url();?>transaction/booking_shipment"> <i class="icon-double-angle-right"></i> </i>
+		<i class="fa fa-cubes"></i> &nbsp; Booking Shipment </a> </li>
+            <li> <a href="<?php echo base_url();?>transaction/booking_list"> <i class="icon-double-angle-right"></i> </i>
+		<i class="fa fa-list"></i> &nbsp; Booking List</a></li>
+		 <li> <a href="<?php echo base_url();?>transaction/domesctic_outgoing"> <i class="icon-double-angle-right"></i> </i>
+		<i class="fa fa-list"></i> &nbsp;Air Dom. Outgoing</a></li>
+                      </ul>
+				  </li>
+         
 					<li>
 						<a href="<?php echo base_url('transaksi/add_transaksi')?>">
 							<i class="icon-exchange"></i>
@@ -334,7 +346,7 @@
 
 		<!--[if !IE]>-->
 
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		
 
 		<!--<![endif]-->
 
