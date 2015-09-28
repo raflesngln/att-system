@@ -15,34 +15,32 @@
 			<br />
 			</label>
             <?php }?>   
-      <div class="header col-md-3">
 
-           <h2><i class="fa fa-industry fa-1.5x"></i> &nbsp; <strong>City</strong> List</h2> 
+      <div class="row">  
+      <div class="col-sm-6">
+           <h1><i class="fa fa-industry fa-2x"></i> &nbsp; City  List</h1> 
+           <p>&nbsp;</p>
             </div>
-      <div class="headerrr col-md-4 pull-right">
-      
-            
-            <div class="form-group">
-                        
-                        <div class="col-sm-5">
-                        <p></p>
-                        <strong><label> &nbsp;</label></strong></div>
-                       
-              </div>
-<form action="<?php echo base_url();?>search/search_city" method="post"> 
+     
+      <div class="top-hdr col-sm-6">              
+      <div class="col-sm-5"> </div>   
+
+      <form action="<?php echo base_url();?>search/search_city" method="post"> 
            <div class="col-sm-7">
            <div class="row">
-           
- <div class="col-md-10">Search City<span class="controls">
-   <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="cyName,couName,stName" />
-   </span></div>
-            <div class="col-md-2">&nbsp;<input type="submit" name="button" id="button" value="Search" class="btn btn-mini btn-search btn-primary" /></div>
+          <div class="col-sm-9">Search Service<span class="controls">
+           <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="cyName,couName" />
+            </span>
+          </div>
+         <div class="col-md-2">
+         &nbsp;<input type="submit" name="button" id="button" value="Search" class="btn btn-mini btn-search btn-primary" />
+         </div>
            </div>
-             </div>          
-                      
+        </div>              
+      </form> 
+   </div>
+</div>
 
-      </form>
-  </div>
 <div class="row">
                 <div class="col-lg-12 portlets ui-sortable">
                     <div class="panel">

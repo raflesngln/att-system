@@ -1,13 +1,29 @@
 
  <style>
  .btn-search{ height:32px; margin-left:-10px;}
- input[type=text],input[type=select]{
+
+  input{
   border:1px #B5B5B5 solid;
-  margin-bottom:3px;
+  margin-bottom:5px;
   margin-top: 3px;
  }
+   .select,.combo{
+  border:1px #B5B5B5 solid;
+  margin-bottom:5px;
+  margin-top: 3px;
+ }
+ 
  </style>
-  <script type="text/javascript" src="<?php echo base_url();?>asset/js/jquery.js"></script>
+       <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
+  <script src="<?php echo base_url();?>asset/jquery_ui/external/jquery/jquery.js"></script>
+  <script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
+  <script>
+  $(function() {
+    $("#tgl").datepicker();
+    $("#tgl2").datepicker();
+
+  });
+  </script>
 
    <div class="row-fluid">
     <div class="span12">
@@ -22,90 +38,123 @@
             <?php }?>   
       <div class="header col-md-11">
 
-                <h2><i class="fa fa-star-half-full fa-2x"></i> &nbsp; <strong>Domestic</strong> Outgoing</h2>
+                <h3><i class="icon icon-fighter-jet bigger-230"></i> &nbsp;Air Domestic Outgoing</h3>
             </div>
       
 
 <br style="clear:both">
-
-<form method="post" action="<?php echo base_url();?>trasaction/save_shipment">
+<form method="post" action="save.php">
 <div class="container">
   <div class="row">
                <!--LEFT INPUT-->
   <div class="col-sm-6">      
       <div class="col-sm-11">
                        
-          <strong><label class="col-sm-4"> Booking No</label></strong>
+          <strong><label class="col-sm-4"> JOB No</label></strong>
+          <div class="col-sm-7">
+           <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly" />
+          </div>
+          <strong><label class="col-sm-4"> House No</label></strong>
+          <div class="col-sm-7">
+           <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly"/>
+          </div>
+           <strong><label class="col-sm-4"> SMU No</label></strong>
           <div class="col-sm-7">
            <input name="name" type="text" class="form-control"  id="name" required="required" />
           </div>
-          <strong><label class="col-sm-4"> Customer Acc</label></strong>
+              <strong><label class="col-sm-4"> Service</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" />
+           <select name="service" id="filter" class="form-control combo">
+            <option value="empName">Name</option>
+          <option value="Address">Address</option>
+          </select>
           </div>
-                    <strong><label class="col-sm-4"> Service</label></strong>
+          <strong><label class="col-sm-4"> Origin</label></strong>
           <div class="col-sm-7">
-           <select name="filter" id="filter" class="form-control">
+           <select name="filter" id="filter" class="form-control combo">
+            <option value="empName">Name</option>
+          <option value="Address">Address</option>
+          </select>
+          </div>
+          <strong><label class="col-sm-4"> Destination</label></strong>
+          <div class="col-sm-7">
+           <select name="filter" id="filter" class="form-control combo">
             <option value="empName">Name</option>
           <option value="Address">Address</option>
           </select>
           </div>
           <strong><label class="col-sm-4"> Shipper</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" />
+           <select name="filter" id="filter" class="form-control combo">
+            <option value="empName">Name</option>
+          <option value="Address">Address</option>
+          </select>
           </div>
           <strong><label class="col-sm-4"> Name</label></strong>
           <div class="col-sm-7">
            <input name="name" type="text" class="form-control"  id="name" required="required" />
           </div>
-                    <strong><label class="col-sm-4"> Origin</label></strong>
+          <strong><label class="col-sm-4"> Phone</label></strong>
+          <div class="col-sm-7">
+           <input name="name" type="text" class="form-control"  id="name" required="required" />
+          </div>
+          <strong><label class="col-sm-4"> Address</label></strong>
+          <div class="col-sm-7">
+           <textarea class="form-control select" name="address"></textarea>
+          </div>
+          <strong><label class="col-sm-4"> Desc. of Good</label></strong>
           <div class="col-sm-7">
            <select name="filter" id="filter" class="form-control">
             <option value="empName">Name</option>
           <option value="Address">Address</option>
           </select>
           </div>
-          <strong><label class="col-sm-4"> ETD</label></strong>
-          <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" />
-          </div>
 
-      </div>
-
-                           
+      </div>             
       </div>
                 <!--RIGHT INPUT-->
       <div class="col-sm-6">
         <div class="col-sm-11">
-        <strong><label class="col-sm-4">Date Of Issue</label></strong>
+        <strong><label class="col-sm-4">Booking No</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" />
+           <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly"/>
           </div>
-          <strong><label class="col-sm-4"> Name</label></strong>
-          <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" />
-          </div>
-
-          <strong><label class="col-sm-4"> &nbsp;</label></strong>
-          <div class="col-sm-7">
-           <p><hr></p>
-
-          </div>
-
-          <strong><label class="col-sm-4"> Consignee</label></strong>
-          <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" />
-          </div>
-          <strong><label class="col-sm-4"> Name</label></strong>
-          <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" />
-          </div>
-              <strong><label class="col-sm-4"> Destination</label></strong>
+          <strong><label class="col-sm-4"> Payment Type</label></strong>
           <div class="col-sm-7">
            <select name="filter" id="filter" class="form-control">
             <option value="empName">Name</option>
           <option value="Address">Address</option>
           </select>
+          </div>
+           <strong><label class="col-sm-4"> ETD</label></strong>
+          <div class="col-sm-7">
+           <input name="name" type="text" class="form-control"  id="tgl" required="required" readonly="readonly" required="required" placeholder="<?php echo date("m/d/Y") ;?>"/>
+          </div>
+
+
+            <strong><label class="col-sm-4"> onsigne</label></strong>
+          <div class="col-sm-7">
+           <select name="filter" id="filter" class="form-control">
+            <option value="empName">Name</option>
+          <option value="Address">Address</option>
+          </select>
+          </div>
+          <strong><label class="col-sm-4"> Name</label></strong>
+          <div class="col-sm-7">
+           <input name="name" type="text" class="form-control"  id="name" required="required" />
+          </div>
+              <strong><label class="col-sm-4"> Phone</label></strong>
+          <div class="col-sm-7">
+            <input name="name" type="text" class="form-control"  id="name" required="required" />
+          </div>
+          <strong><label class="col-sm-4"> Address</label></strong>
+          <div class="col-sm-7">
+            <textarea name="address2" class="form-control select"></textarea>
+          </div>
+          <strong><label class="col-sm-4">Remarks</label></strong>
+          <div class="col-sm-7">
+          <textarea name="remarks" class="form-control select"  id="remarks" /></textarea>
+
           </div>
 
           </div>
@@ -114,9 +163,7 @@
       </div>
    </div>
 </div>
-</form>
 <br style="clear:both;margin-bottom:40px;">
-
             <div class="row">
                 <div class="col-lg-12 portlets ui-sortable">
                     <div class="panel">
@@ -137,7 +184,7 @@
                                                   <th>Height ( T )</th>
                                                   <th>Volume</th>
                                                   <th>Gross Weight</th>
-                                                  <th>Commodity</th>
+                                                  <th>CWT</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                               </thead>
@@ -184,33 +231,45 @@ $no=1;
                                                 </tr>                                
                                                 <?php $no++; } ;?>
                                                  <tr>
-                                                  <td>1</td>
-                                                  <td>Loremipsum</td>
-                                                  <td>Loremipsum</td>
-                                                  <td>Loremipsum</td>
-                                                  <td>LLoremipsum</td>
-                                                  <td>Loremipsum</td>
-                                                  <td>Loremipsum</td>
-                                                  <td>Loremipsum</td>
-                                                  <td>gfhfhfog  </td>
+                                                  <td>&nbsp;</td>
+                                                  <td>&nbsp;</td>
+                                                  <td>&nbsp;</td>
+                                                  <td>&nbsp;</td>
+                                                  <td>&nbsp;</td>
+                                                  <td>&nbsp;</td>
+                                                  <td>&nbsp;</td>
+                                                  <td>&nbsp;</td>
+                                                  <td>&nbsp;</td>
+                                                </tr>
+                                                 <tr>
+                                                  <td colspan="2">Total</td>
+                                                  
+                                                  <td>999</td>
+                                                  <td>999</td>
+                                                  <td>999</td>
+                                                  <td>999</td>
+                                                  <td>999</td>
+                                                  <td>999</td>
+                                                  <td>&nbsp;</td>
                                                 </tr>
 
                                               </tbody>
                                             </table>
                                             <div style="margin-bottom:70px;"></div>
                                             <div class="col-md-4"></div>
-                                            <div class="col-md-2">
-                                            <a class="btn btn-primary btn-addnew" href="#modaladd" data-toggle="modal" title="Add"><i class="icon-save bigger-160 icons"></i> &nbsp; Save &nbsp;</a>
+                                         <div class="col-md-2">
+                                             <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
                                           </div>
                                             <div class="col-md-2">
-                                            <a class="btn btn-danger btn-addnew" href="#modaladd" data-toggle="modal" title="Add"><i class="icon-reply bigger-160 icons"></i>Cancel </a>
+                                            <a class="btn btn-danger btn-addnew" href="<?php echo base_url();?>transaction/cancel_outgoing" data-toggle="modal" title="Add"><i class="icon-reply bigger-160 icons"></i>Cancel </a>
                                           </div>
                                         </div>
                                     </div>
-                                </form>
+                                       
+                                
               </div>
           </div>
-      </div>
+      </div></form>
   </div>
             </div>
   

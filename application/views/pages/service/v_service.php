@@ -13,35 +13,30 @@
 			<br />
 			</label>
             <?php }?>   
-      <div class="header col-md-3">
-
-           <h2><i class="fa fa-male fa-1.5x"></i> &nbsp; <strong>Service</strong> List</h2> 
+      <div class="row">  
+      <div class="col-sm-6">
+           <h1><i class="fa fa-coffee fa-2x"></i> &nbsp; Service  List</h1> 
+           <p>&nbsp;</p>
             </div>
      
-      <div class="headerrr col-md-4 pull-right">
-      
-            
-            <div class="form-group">
-                        
-                        <div class="col-sm-5">
-                        <p></p>
-                        <strong><label></label></strong></div>
-                       
-              </div>
-<form action="<?php echo base_url();?>search/search_service" method="post"> 
+      <div class="top-hdr col-sm-6">              
+               <div class="col-sm-5"> </div>   
+
+      <form action="<?php echo base_url();?>search/search_service" method="post"> 
            <div class="col-sm-7">
            <div class="row">
-           
- <div class="col-md-10">Search Sevice<span class="controls">
-   <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="Service name" />
-   </span></div>
-            <div class="col-md-2">&nbsp;<input type="submit" name="button" id="button" value="Search" class="btn btn-mini btn-search btn-primary" /></div>
+          <div class="col-sm-9">Search Service<span class="controls">
+           <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="Service Name" />
+            </span>
+          </div>
+         <div class="col-md-2">
+         &nbsp;<input type="submit" name="button" id="button" value="Search" class="btn btn-mini btn-search btn-primary" />
+         </div>
            </div>
-             </div>          
-                      
-
-      </form>
-  </div>
+        </div>              
+      </form> 
+   </div>
+</div>
             <div class="row">
                 <div class="col-lg-12 portlets ui-sortable">
                     <div class="panel">
@@ -76,7 +71,7 @@ $no=1;
                                                     <th scope="row"><?php echo $no?></th>
                                                     <td><?php echo $data->svCode?></td>
                                                     <td><?php echo $data->Name?></td>
-                                                    <td><?php echo $data->Remarks?></td>
+                                                    <td><?php echo substr($data->Remarks,0,40);?></td>
                                                     <td><?php echo $data->CreateBy?></td>
                                                     <td><?php echo date("d-m-Y / h:m:s",strtotime($data->CreateDate)); ?></td>
                                                     <td><?php echo $data->ModifiedBy?></td>

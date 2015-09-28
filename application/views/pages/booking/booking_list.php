@@ -31,7 +31,7 @@
             <?php }?>   
       <div class="header col-md-11">
 
-                <h2><i class="fa fa-star-half-full fa-2x"></i> &nbsp; <strong></strong>List Booking</h2>
+                <h3><i class="icon icon-file-text bigger-230"></i> &nbsp; <strong></strong>List Booking</h3>
             </div>
       
 
@@ -41,41 +41,44 @@
 <div class="container">
   <div class="row">
                <!--LEFT INPUT-->
-  <div class="col-sm-4">      
+  <div class="col-sm-3">      
       <div class="col-sm-12">
           <h4>Periode Booking</h4>     
           <strong><label class="col-sm-10">FROM</label></strong>
-          <div class="col-sm-10">
-           <input name="name" type="text" class="form-control"  id="tgl" required="required" placeholder="<?php echo date("m/d/Y") ;?>" />
+          <div class="col-sm-12">
+           <input name="name" readonly="readonly" type="text" class="form-control"  id="tgl" required="required" placeholder="<?php echo date("m/d/Y") ;?>" />
           </div>
-          <div class="col-sm-2">S/D</div>
-        <strong><label class="col-sm-10">&nbsp;</label></strong>
-          <strong><label class="col-sm-10">Customr Acc#</label></strong>
+          
+      </div>
+  </div>
+  <!--MIDLE SEPARATE-->
+   <div class="col-sm-1">
+   <h1>&nbsp;</h1>
+    <label class="col-sm-12">S / D</label>
+   </div>
+            <!--RIGHT INPUT-->
+      <div class="col-sm-3">
+        <div class="col-sm-12">
+         <h4>&nbsp;</h4>
+        <strong><label class="col-sm-10">TO</label></strong>
           <div class="col-sm-10">
+           <input name="name" readonly="readonly" type="text" class="form-control"  id="tgl2" required="required" placeholder="<?php echo date("m/d/Y") ;?>"/>
+          </div>
+          </div> 
+      </div>
+       <!--RIGHT INPUT-->
+      <div class="col-sm-11">
+          <p>&nbsp;</p>
+          <strong><label class="col-sm-10">&nbsp; &nbsp; Customer Acc#</label></strong>
+          <div class="col-sm-4" style="margin-left:15px">
            <select name="filter" id="filter" class="form-control">
             <option value="empName">Name</option>
           <option value="Address">Address</option>
           </select>
           </div>
-
-      </div>
-
-
-      </div>
-                <!--RIGHT INPUT-->
-      <div class="col-sm-4">
-        <div class="col-sm-12">
-         <h4>&nbsp;</h4>  
-        <strong><label class="col-sm-10">TO</label></strong>
-          <div class="col-sm-10">
-           <input name="name" type="text" class="form-control"  id="tgl2" required="required" />
           </div>
-      
-          </div>
-                       
-            
-      </div>
    </div>
+
 </div>
 </form>
 <br style="clear:both;margin-bottom:40px;">

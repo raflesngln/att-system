@@ -38,7 +38,7 @@ class Transaction extends CI_Controller{
         $data = array(
             'title'=>'Domestic_outgoing',
             'scrumb_name'=>'domestic_outgoing',
-            'scrumb'=>'transaction/domestic_outgoing',
+            'scrumb'=>'transaction/domesctic_outgoing',
             'view'=>'pages/booking/domesctic_outgoing',
         );  
       $this->load->view('home/home',$data);

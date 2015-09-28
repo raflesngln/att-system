@@ -14,34 +14,30 @@
 			<br />
 			</label>
             <?php }?>   
-      <div class="header col-md-3">
-
-           <h2><i class="fa fa-industry fa-1.5x"></i> &nbsp; <strong>Country</strong> List</h2> 
+  <div class="row">  
+      <div class="col-sm-6">
+           <h1><i class="fa fa-flag fa-2x"></i> &nbsp; Country  List</h1> 
+           <p>&nbsp;</p>
             </div>
-      <div class="headerrr col-md-4 pull-right">
+     
+      <div class="top-hdr col-sm-6">              
+      <div class="col-sm-5"> </div>                
       
-            
-            <div class="form-group">
-                        
-                        <div class="col-sm-5">
-                        <p></p>
-                        <strong><label> &nbsp;</label></strong></div>
-                       
-              </div>
-<form action="<?php echo base_url();?>search/search_country" method="post"> 
+      <form action="<?php echo base_url();?>search/search_country" method="post"> 
            <div class="col-sm-7">
            <div class="row">
-           
- <div class="col-md-10">Search Country<span class="controls">
-   <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="country name" />
-   </span></div>
-            <div class="col-md-2">&nbsp;<input type="submit" name="button" id="button" value="Search" class="btn btn-mini btn-search btn-primary" /></div>
+          <div class="col-sm-9">Search Country<span class="controls">
+           <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="name or initial" />
+            </span>
+          </div>
+         <div class="col-md-2">
+         &nbsp;<input type="submit" name="button" id="button" value="Search" class="btn btn-mini btn-search btn-primary" />
+         </div>
            </div>
-             </div>          
-                      
-
-      </form>
-  </div>
+        </div>              
+      </form> 
+   </div>
+</div>
             <div class="row">
                 <div class="col-lg-12 portlets ui-sortable">
                     <div class="panel">

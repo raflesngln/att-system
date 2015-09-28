@@ -7,13 +7,14 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 		<!--basic styles-->
-			<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 	<link href="<?php echo base_url();?>asset/fontawesome/css/font-awesome.css" rel="stylesheet" />
-    	<link href="<?php echo base_url();?>asset/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="<?php echo base_url();?>asset/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+
 		<link href="<?php echo base_url();?>asset/css/my_style.css" rel="stylesheet" />
         <link href="<?php echo base_url();?>asset/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="<?php echo base_url();?>assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome.min.css" />
   
         <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/themes/base/jquery.ui.all.css">
 
@@ -255,14 +256,14 @@
 
            <label>&nbsp; TRANSACTION    &raquo;</label>
 
-           <li> <a href="#" class="dropdown-toggle"> <span class="glyphicon glyphicon-link" aria-hidden="true"></span> <span class="menu-text"> Booking </span> <b class="arrow icon-angle-down"></b> </a>
+           <li> <a href="#" class="dropdown-toggle"> <i class="icon icon-strikethrough bigger-270" aria-hidden="true"></i> <span class="menu-text"> Booking </span> <b class="arrow icon-angle-down"></b> </a>
               <ul class="submenu">
              <li><a href="<?php echo base_url();?>transaction/booking_shipment"> <i class="icon-double-angle-right"></i> </i>
-		<i class="fa fa-cubes"></i> &nbsp; Booking Shipment </a> </li>
+		<i class="fa fa-book"></i> &nbsp; Booking Shipment </a> </li>
             <li> <a href="<?php echo base_url();?>transaction/booking_list"> <i class="icon-double-angle-right"></i> </i>
-		<i class="fa fa-list"></i> &nbsp; Booking List</a></li>
+		<i class="icon icon-file-text bigger-120"></i> &nbsp; Booking List</a></li>
 		 <li> <a href="<?php echo base_url();?>transaction/domesctic_outgoing"> <i class="icon-double-angle-right"></i> </i>
-		<i class="fa fa-list"></i> &nbsp;Air Dom. Outgoing</a></li>
+		<i class="icon icon-fighter-jet bigger-120"></i> &nbsp;Air Dom. Outgoing</a></li>
                       </ul>
 				  </li>
          

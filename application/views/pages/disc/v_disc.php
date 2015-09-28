@@ -7,48 +7,38 @@
    <div class="row-fluid">
     <div class="span12">
                   <?php
-			if(isset($eror)){?>
+      if(isset($eror)){?>
             <label class="alert alert-error col-sm-12">
-			<button type="button" class="close" data-dismiss="alert">
-			<i class="icon-remove"></i>	</button>							
-			<?php echo isset($eror)?$eror:'';?>
-			<br />
-			</label>
+      <button type="button" class="close" data-dismiss="alert">
+      <i class="icon-remove"></i> </button>             
+      <?php echo isset($eror)?$eror:'';?>
+      <br />
+      </label>
             <?php }?>   
-      <div class="header col-md-3">
-
-                <h2><i class="fa fa-star-half-full fa-2x"></i> &nbsp; <strong>Disc</strong> List</h2>
+  <div class="row">  
+      <div class="col-sm-6">
+           <h1><i class="fa fa-star-half-full fa-2x"></i> &nbsp; Staff  List</h1> 
+           <p>&nbsp;</p>
             </div>
-      <div class="headerrr col-md-4 pull-right">
-      
-            
-            <div class="form-group">
-                        
-                        <div class="col-sm-5">
-                        <p></p>
-                        <strong><label> Filter by</label></strong>
-                              <select name="filter" id="select" class="form-control">
-                                <option value="name">Vendor</option>
-                                <option value="0">Devisi</option>
-                              </select>
-              </div>
-                       
-              </div>
-<form action="<?php echo base_url();?>search/search_discount" method="post"> 
+     
+      <div class="top-hdr col-sm-6">              
+               <div class="col-sm-5"> </div>   
+
+      <form action="<?php echo base_url();?>search/search_discount" method="post"> 
            <div class="col-sm-7">
            <div class="row">
-           
- <div class="col-md-10">Search Disc<span class="controls">
-   <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="Search discount" />
-   </span></div>
-            <div class="col-md-2">&nbsp;<input type="submit" name="button" id="button" value="Search" class="btn btn-mini btn-search btn-primary" /></div>
+          <div class="col-sm-9">Search Staff<span class="controls">
+           <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="discount name" />
+            </span>
+          </div>
+         <div class="col-md-2">
+         &nbsp;<input type="submit" name="button" id="button" value="Search" class="btn btn-mini btn-search btn-primary" />
+         </div>
            </div>
-             </div>          
-                      
-
-      </form>
-  </div>
-
+        </div>              
+      </form> 
+   </div>
+</div>
             <div class="row">
                 <div class="col-lg-12 portlets ui-sortable">
                     <div class="panel">
@@ -76,9 +66,9 @@
                                               <tbody>
                                         <?php 
 $no=1;
-			foreach($list as $data){
-				
-			?>
+      foreach($list as $data){
+        
+      ?>
                                                 <tr class="gradeX">
                                                     <th scope="row"><?php echo $no?></th>
                                                     <td><?php echo $data->custName?></td>
@@ -114,14 +104,14 @@ $no=1;
 <?php
 
     foreach($list as $row){
-		$isagen=$row->isAgent;
-		$isaktif=$row->isAktive;
-		$isCnee=$row->isCnee;
-		$isShipper=$row->isShipper;
-		if($isagen==1){ $status1='YES';}else{$status1='NO';}
-		if($isShipper==1){ $status2='YES';}else{$status2='NO';}
-		if($isCnee==1){ $status3='YES';}else{$status3='NO';}
-		if($isaktif==1){ $status4='YES';}else{$status4='NO';}
+    $isagen=$row->isAgent;
+    $isaktif=$row->isAktive;
+    $isCnee=$row->isCnee;
+    $isShipper=$row->isShipper;
+    if($isagen==1){ $status1='YES';}else{$status1='NO';}
+    if($isShipper==1){ $status2='YES';}else{$status2='NO';}
+    if($isCnee==1){ $status3='YES';}else{$status3='NO';}
+    if($isaktif==1){ $status4='YES';}else{$status4='NO';}
         ?>
 <div id="modaledit<?php echo $row->discCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
@@ -140,8 +130,8 @@ $no=1;
 <select name="cust" id="cust" required="required" class="form-control">
                             <option value="<?php echo $row->custCode;?>"><?php echo $row->custName;?></option>
                             <?php
-	foreach($cust as $ct){
-	    ?>
+  foreach($cust as $ct){
+      ?>
                             <option value="<?php echo $ct->custCode;?>"><?php echo $ct->custName;?></option>
                             <?php } ?>
                           </select>
@@ -156,8 +146,8 @@ $no=1;
 <select name="service" id="service" required="required" class="form-control">
                             <option value="<?php echo $row->svCode;?>"><?php echo $row->Name;?></option>
                             <?php
-	foreach($service as $sv){
-	    ?>
+  foreach($service as $sv){
+      ?>
                             <option value="<?php echo $sv->svCode;?>"><?php echo $sv->Name;?></option>
                             <?php } ?>
                           </select>
@@ -170,8 +160,8 @@ $no=1;
 <select name="ori" id="ori" required="required" class="form-control">
                             <option value="<?php echo $row->Ori;?>"><?php echo $row->Ori;?></option>
                             <?php
-	foreach($city as $cty){
-	    ?>
+  foreach($city as $cty){
+      ?>
                             <option value="<?php echo $cty->cyName;?>"><?php echo $cty->cyName;?></option>
                             <?php } ?>
                           </select>
@@ -184,8 +174,8 @@ $no=1;
 <select name="dest" id="dest" required="required" class="form-control">
                             <option value="<?php echo $row->Dest;?>"><?php echo $row->Dest;?></option>
                             <?php
-	foreach($city as $cty){
-	    ?>
+  foreach($city as $cty){
+      ?>
                             <option value="<?php echo $cty->cyName;?>"><?php echo $cty->cyName;?></option>
                             <?php } ?>
                           </select>
@@ -198,8 +188,8 @@ $no=1;
 <select name="vendor" id="vendor" required="required" class="form-control">
                             <option value="<?php echo $row->venCode;?>"><?php echo $row->venName;?></option>
                             <?php
-	foreach($vendor as $vd){
-	    ?>
+  foreach($vendor as $vd){
+      ?>
                             <option value="<?php echo $vd->venCode;?>"><?php echo $vd->venName;?></option>
                             <?php } ?>
                           </select>
@@ -258,8 +248,8 @@ $no=1;
 <select name="cust" id="cust" required="required" class="form-control">
                             <option value="">Chosse Customer</option>
                             <?php
-	foreach($cust as $ct){
-	    ?>
+  foreach($cust as $ct){
+      ?>
                             <option value="<?php echo $ct->custCode;?>"><?php echo $ct->custName;?></option>
                             <?php } ?>
                           </select>
@@ -272,8 +262,8 @@ $no=1;
 <select name="service" id="service" required="required" class="form-control">
                             <option value="">Chosse Service</option>
                             <?php
-	foreach($service as $sv){
-	    ?>
+  foreach($service as $sv){
+      ?>
                             <option value="<?php echo $sv->svCode;?>"><?php echo $sv->Name;?></option>
                             <?php } ?>
                           </select>
@@ -286,8 +276,8 @@ $no=1;
 <select name="ori" id="ori" required="required" class="form-control">
                             <option value="">Chosse Origin</option>
                             <?php
-	foreach($city as $cty){
-	    ?>
+  foreach($city as $cty){
+      ?>
                             <option value="<?php echo $cty->cyName;?>"><?php echo $cty->cyName;?></option>
                             <?php } ?>
                           </select>
@@ -300,8 +290,8 @@ $no=1;
 <select name="dest" id="dest" required="required" class="form-control">
                             <option value="">Chosse Destination</option>
                             <?php
-	foreach($city as $cty){
-	    ?>
+  foreach($city as $cty){
+      ?>
                             <option value="<?php echo $cty->cyName;?>"><?php echo $cty->cyName;?></option>
                             <?php } ?>
                           </select>
@@ -314,8 +304,8 @@ $no=1;
 <select name="vendor" id="vendor" required="required" class="form-control">
                             <option value="">Chosse Vendor</option>
                             <?php
-	foreach($vendor as $vd){
-	    ?>
+  foreach($vendor as $vd){
+      ?>
                             <option value="<?php echo $vd->venCode;?>"><?php echo $vd->venName;?></option>
                             <?php } ?>
                           </select>
@@ -356,11 +346,11 @@ $no=1;
     </div>
     </div>
     
-<script type="text/javascript">			
-	$(window).load(function(){
-		$("#loading").fadeOut("slow");
-	})
-	
+<script type="text/javascript">     
+  $(window).load(function(){
+    $("#loading").fadeOut("slow");
+  })
+  
 $("#txtsearch").keyup(function(){
 
             var txtsearch = $("#txtsearch").val();
@@ -375,7 +365,7 @@ $("#txtsearch").keyup(function(){
                 }
             });
         });
-	 $("#filter").change(function(){
+   $("#filter").change(function(){
             var filter = $("#filter").val();
           $.ajax({
                 type: "POST",

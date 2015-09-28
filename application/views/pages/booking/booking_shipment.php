@@ -7,12 +7,14 @@
   margin-top: 3px;
  }
  </style>
-   <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
+     <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
   <script src="<?php echo base_url();?>asset/jquery_ui/external/jquery/jquery.js"></script>
   <script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
   <script>
   $(function() {
     $("#tgl").datepicker();
+    $("#tgl2").datepicker();
+
   });
   </script>
 
@@ -30,8 +32,8 @@
             <?php }?>   
       <div class="header col-md-11">
 
-                <h2><i class="fa fa-star-half-full fa-2x"></i> &nbsp; <strong>Boooking</strong> Shipment</h2>
-            </div>
+                <h2><i class="fa fa-book fa-2x"></i> &nbsp; Boooking Shipment</h2>
+      </div>
       
 
 <br style="clear:both">
@@ -45,11 +47,11 @@
                        
           <strong><label class="col-sm-4"> Booking No</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" />
+           <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly" />
           </div>
           <strong><label class="col-sm-4"> Customer Acc</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" />
+           <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly"/>
           </div>
                     <strong><label class="col-sm-4"> Service</label></strong>
           <div class="col-sm-7">
@@ -87,11 +89,11 @@
         <div class="col-sm-11">
         <strong><label class="col-sm-4">Date Of Issue</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" />
+           <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly"/>
           </div>
           <strong><label class="col-sm-4"> Name</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" />
+           <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly"/>
           </div>
 
           <strong><label class="col-sm-4"> &nbsp;</label></strong>
@@ -121,8 +123,6 @@
             
       </div>
    </div>
-</div>
-</form>
 <br style="clear:both;margin-bottom:40px;">
 
             <div class="row">
@@ -169,9 +169,9 @@
                                                 </tr>
                                         <?php 
 $no=1;
-			foreach($list as $data){
-				
-			?>
+      foreach($list as $data){
+        
+      ?>
                                                 <tr class="gradeX">
                                                     <th scope="row"><?php echo $no?></th>
                                                     <td><?php echo $data->custName?></td>
@@ -196,10 +196,7 @@ $no=1;
                                             <div style="margin-bottom:70px;"></div>
                                             <div class="col-md-4"></div>
                                             <div class="col-md-2">
-                                            <a class="btn btn-primary btn-addnew" href="#modaladd" data-toggle="modal" title="Add"><i class="icon-save bigger-160 icons"></i> &nbsp; Save &nbsp;</a>
-                                          </div>
-                                            <div class="col-md-2">
-                                            <a class="btn btn-danger btn-addnew" href="#modaladd" data-toggle="modal" title="Add"><i class="icon-reply bigger-160 icons"></i>Cancel </a>
+                                         <button type="submit" class="btn btn-primary btn-large"><i class="icon-save bigger-160 icons"></i>&nbsp; Save booking</button>
                                           </div>
                                         </div>
                                     </div>
@@ -208,6 +205,10 @@ $no=1;
           </div>
       </div>
   </div>
+
+</div>
+
+</form>
             </div>
   
 
