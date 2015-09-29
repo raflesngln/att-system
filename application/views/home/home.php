@@ -13,8 +13,8 @@
 
 		<link href="<?php echo base_url();?>asset/css/my_style.css" rel="stylesheet" />
         <link href="<?php echo base_url();?>asset/css/bootstrap.min.css" rel="stylesheet" />
-		<link href="<?php echo base_url();?>assets/css/bootstrap-responsive.min.css" rel="stylesheet" />
-	<link rel="stylesheet" href="<?php echo base_url();?>assets/css/font-awesome.min.css" />
+		<link href="<?php echo base_url();?>asset/css/bootstrap-responsive.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="<?php echo base_url();?>asset/css/font-awesome.min.css" />
   
         <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/themes/base/jquery.ui.all.css">
 
@@ -27,9 +27,9 @@
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
 
 		<!--ace styles-->
-<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace.min.css"/>
-<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-responsive.min.css"/>
-<link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-skins.min.css" />
+<link rel="stylesheet" href="<?php echo base_url();?>asset/css/ace.min.css"/>
+<link rel="stylesheet" href="<?php echo base_url();?>asset/css/ace-responsive.min.css"/>
+<link rel="stylesheet" href="<?php echo base_url();?>asset/css/ace-skins.min.css" />
 
 		<!--[if lte IE 8]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
@@ -52,7 +52,7 @@
 				  <ul class="nav ace-nav pull-right">
                         <li class="light-blue">
                           <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                            <img class="nav-user-photo" src="<?php echo base_url();?>assets/avatars/user.jpg" alt="Jason's Photo" />
+                            <img class="nav-user-photo" src="<?php echo base_url();?>asset/avatars/avatar2.png"/>
                             <span class="user-info">
                               <small>Welcome,</small>
                               <?php echo $this->session->userdata('username');?>
@@ -90,7 +90,7 @@
                     	<ul class="nav ace-nav pull-right"><li class="purple"><li class="purple">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-bell-alt icon-animated-bell"></i>
-								<span class="badge badge-important">8 Notification</span>
+								<span class="badge badge-important">8 New Notif</span>
 							</a>
 
 							<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
@@ -104,7 +104,7 @@
 										<div class="clearfix">
 											<span class="pull-left">
 												<i class="btn btn-mini no-hover btn-pink icon-comment"></i>
-												New Order
+												New Booking changed
 											</span>
 											<span class="pull-right badge badge-info">+12</span>
 										</div>
@@ -114,7 +114,7 @@
 								<li>
 									<a href="#">
 										<i class="btn btn-mini btn-primary icon-user"></i>
-										Bob just Change user data...
+										Andi edit Shipment...
 									</a>
 								</li>
 
@@ -123,21 +123,9 @@
 										<div class="clearfix">
 											<span class="pull-left">
 												<i class="btn btn-mini no-hover btn-success icon-shopping-cart"></i>
-												Transaction
+												Raffles Approve Invoice
 											</span>
 											<span class="pull-right badge badge-success">+8</span>
-										</div>
-									</a>
-								</li>
-
-								<li>
-									<a href="#">
-										<div class="clearfix">
-											<span class="pull-left">
-												<i class="btn btn-mini no-hover btn-info icon-twitter"></i>
-												Followers
-											</span>
-											<span class="pull-right badge badge-info">+11</span>
 										</div>
 									</a>
 								</li>
@@ -256,35 +244,26 @@
 
            <label>&nbsp; TRANSACTION    &raquo;</label>
 
-           <li> <a href="#" class="dropdown-toggle"> <i class="icon icon-strikethrough bigger-270" aria-hidden="true"></i> <span class="menu-text"> Booking </span> <b class="arrow icon-angle-down"></b> </a>
-              <ul class="submenu">
-             <li><a href="<?php echo base_url();?>transaction/booking_shipment"> <i class="icon-double-angle-right"></i> </i>
-		<i class="fa fa-book"></i> &nbsp; Booking Shipment </a> </li>
-            <li> <a href="<?php echo base_url();?>transaction/booking_list"> <i class="icon-double-angle-right"></i> </i>
-		<i class="icon icon-file-text bigger-120"></i> &nbsp; Booking List</a></li>
-		 <li> <a href="<?php echo base_url();?>transaction/domesctic_outgoing"> <i class="icon-double-angle-right"></i> </i>
-		<i class="icon icon-fighter-jet bigger-120"></i> &nbsp;Air Dom. Outgoing</a></li>
-                      </ul>
-				  </li>
+      <li> <a href="#" class="dropdown-toggle"> <i class="icon icon-strikethrough bigger-270" aria-hidden="true"></i> <span class="menu-text"> Booking </span> <b class="arrow icon-angle-down"></b> </a>
+        <ul class="submenu">
+         <li><a href="<?php echo base_url();?>transaction/booking_shipment"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-book"></i> &nbsp; Booking Shipment </a> </li>
+         <li> <a href="<?php echo base_url();?>transaction/booking_list"> <i class="icon-double-angle-right"></i> </i><i class="icon icon-file-text bigger-120"></i> &nbsp; Booking List</a></li>
+		 <li> <a href="<?php echo base_url();?>transaction/domesctic_outgoing"> <i class="icon-double-angle-right"></i> </i><i class="icon icon-fighter-jet bigger-120"></i> &nbsp;Air Dom. Outgoing</a></li>
+        </ul>
+	  </li>
+
+	   <li> <a href="#" class="dropdown-toggle"> <i class="icon icon-strikethrough bigger-270" aria-hidden="true"></i> <span class="menu-text"> Invoice </span> <b class="arrow icon-angle-down"></b> </a>
+        <ul class="submenu">
+       	<li><a href="<?php echo base_url('transaksi/add_transaksi')?>"><i class="icon-exchange"></i><span class="menu-text"> Add Trans </span></a></li>        
+     <li><a href="<?php echo base_url();?>transaksi/add_invoice"><i class="icon-list"></i><span class="menu-text"> Invoice </span></a></li>                      					<li>
+	<li><a href="<?php echo base_url();?>trace"><i class="icon-fighter-jet"></i><span class="menu-text"> Trace </span></a></li>
+	
+         </ul>
+	  </li>
          
-					<li>
-						<a href="<?php echo base_url('transaksi/add_transaksi')?>">
-							<i class="icon-exchange"></i>
-							<span class="menu-text"> Add Trans </span>
-						</a>
-					</li>
-                   
-                 					<li>
-						<a href="<?php echo base_url();?>transaksi/add_invoice">
-							<i class="icon-list"></i>
-							<span class="menu-text"> Invoice </span>
-					</a></li>
-                               					<li>
-						<a href="<?php echo base_url();?>trace">
-							<i class="icon-fighter-jet"></i>
-							<span class="menu-text"> Trace </span>
-					</a></li>
-			  </ul><!--/.nav-list-->
+	<li><a href="<?php echo base_url();?>trace"><i class="icon-gear"></i><span class="menu-text"> Setting </span></a></li>
+	
+	</ul><!--/.nav-list-->
 
 <div class="sidebar-collapse" id="sidebar-collapse">
 					<i class="icon-double-angle-left"></i>
@@ -321,10 +300,10 @@
 				<div class="page-content">
 					<div class="row-fluid">
 						<div class="span12">
-							<!--PAGE CONTENT BEGINS-->
 
-							<!--PAGE CONTENT ENDS-->
-						<?php $this->load->view($view);?>
+							<!--PAGE CONTENT BEGINS-->
+							<?php $this->load->view($view);?>
+							<!--PAGE CONTENT ENDS-->						
                         
                         </div><!--/.span-->
 					</div><!--/.row-fluid-->
@@ -358,7 +337,7 @@
 		<!--[if !IE]>-->
 
 		<script type="text/javascript">
-			window.jQuery || document.write("<script src='<?php echo base_url();?>assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+			window.jQuery || document.write("<script src='<?php echo base_url();?>asset/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
 		</script>
 
 		<!--<![endif]-->
@@ -370,16 +349,16 @@
 <![endif]-->
 
 		<script type="text/javascript">
-			if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+			if("ontouchend" in document) document.write("<script src='asset/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		</script>
-		<script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
+		<script src="<?php echo base_url();?>asset/js/bootstrap.min.js"></script>
 
 		<!--page specific plugin scripts-->
 
 		<!--ace scripts-->
 
-		<script src="<?php echo base_url();?>assets/js/ace-elements.min.js" type="text/javascript"></script>
-		<script src="<?php echo base_url();?>assets/js/ace.min.js"></script>
+		<script src="<?php echo base_url();?>asset/js/ace-elements.min.js" type="text/javascript"></script>
+		<script src="<?php echo base_url();?>asset/js/ace.min.js"></script>
 
 		<!--inline scripts related to this page-->
 	</body>

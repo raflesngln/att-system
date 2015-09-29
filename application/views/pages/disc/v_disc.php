@@ -17,7 +17,7 @@
             <?php }?>   
   <div class="row">  
       <div class="col-sm-6">
-           <h1><i class="fa fa-star-half-full fa-2x"></i> &nbsp; Staff  List</h1> 
+           <h1><i class="fa fa-star-half-full fa-2x"></i> &nbsp; Diskon  List</h1> 
            <p>&nbsp;</p>
             </div>
      
@@ -28,7 +28,7 @@
            <div class="col-sm-7">
            <div class="row">
           <div class="col-sm-9">Search Staff<span class="controls">
-           <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="discount name" />
+           <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="custName/discName" />
             </span>
           </div>
          <div class="col-md-2">
@@ -158,7 +158,7 @@ $no=1;
                         <label class="col-sm-3 control-label">Origin</label>
                         <div class="col-sm-9"><span class="controls">
 <select name="ori" id="ori" required="required" class="form-control">
-                            <option value="<?php echo $row->Ori;?>"><?php echo $row->Ori;?></option>
+                            <option value="<?php echo $row->ori;?>"><?php echo $row->ori;?></option>
                             <?php
   foreach($city as $cty){
       ?>
@@ -172,7 +172,7 @@ $no=1;
                         <label class="col-sm-3 control-label">Destination</label>
                         <div class="col-sm-9"><span class="controls">
 <select name="dest" id="dest" required="required" class="form-control">
-                            <option value="<?php echo $row->Dest;?>"><?php echo $row->Dest;?></option>
+                            <option value="<?php echo $row->dest;?>"><?php echo $row->dest;?></option>
                             <?php
   foreach($city as $cty){
       ?>

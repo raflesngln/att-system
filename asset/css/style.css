@@ -37,7 +37,7 @@ body {
 }
 
 body {
-	background-color: #fff;
+
 	font-family: 'GothamRnd-Book', sans-serif;
     line-height: normal;
 }
@@ -1402,7 +1402,7 @@ header {position: relative;margin-top: -21px;}
 
 #wrapper-login {
   font-family: 'GothamRnd-Light', sans-serif;
-  background: url(../images/login/bg.png) repeat top center; 
+  
 }
 
 #wrapper-login .login-main {
@@ -1411,11 +1411,12 @@ header {position: relative;margin-top: -21px;}
 }
 
 #wrapper-login .login-main-top {
-  background-color: #fff;
   margin-bottom: 30px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
+  background-color:#fff;
+  opacity: 0.8;
 }
 
 #wrapper-login .login-main .login-right {

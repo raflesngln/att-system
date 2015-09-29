@@ -27,7 +27,7 @@
            <div class="col-sm-7">
            <div class="row">
           <div class="col-sm-9">Search Country<span class="controls">
-           <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="name or initial" />
+           <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="Country Name" />
             </span>
           </div>
          <div class="col-md-2">

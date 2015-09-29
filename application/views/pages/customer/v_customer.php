@@ -27,7 +27,7 @@
            <div class="col-sm-7">
            <div class="row">
           <div class="col-sm-9">Search Customer<span class="controls">
-           <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="Customer Name" />
+           <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="Name / Address" />
             </span>
           </div>
          <div class="col-md-2">

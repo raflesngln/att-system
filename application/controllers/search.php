@@ -158,7 +158,7 @@ $tot_hal = $this->model_app->hitung_isi_tabel('a.discCode,a.Ori,a.Dest,a.DiscPer
 		$offset = $page;
 		endif;
 
-$data['list']=$this->model_app->getdatapaging('a.discCode,a.Ori,a.Dest,a.DiscPersen,a.DiscRupiah,
+$data['list']=$this->model_app->getdatapaging('a.discCode,a.ori,a.dest,a.DiscPersen,a.DiscRupiah,
 		a.isACtive,a.Remarks,a.createBy,a.CreateDate,a.ModifiedBy,a.ModifiedDate,b.custCode,b.custName,c.svCode,c.Name,d.cyCode,d.cyName,
 		e.venCode,e.venName',"ms_disc a","
 		inner join ms_customer b on a.custCode=b.custCode

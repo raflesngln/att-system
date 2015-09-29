@@ -29,7 +29,7 @@
            <div class="col-sm-7">
            <div class="row">
           <div class="col-sm-9">Search Service<span class="controls">
-           <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="cyName,couName" />
+           <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="cyName / couName" />
             </span>
           </div>
          <div class="col-md-2">

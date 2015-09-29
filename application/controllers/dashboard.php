@@ -10,7 +10,7 @@ class Dashboard extends CI_Controller{
     }
 
     function index(){
-       redirect('transaksi/add_transaksi');
+       redirect('master/view_customer');
 	}
 
 }
