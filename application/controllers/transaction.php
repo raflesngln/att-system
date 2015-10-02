@@ -34,16 +34,25 @@ class Transaction extends CI_Controller{
       $this->load->view('home/home',$data);
     }
      //     DATA TO SESSION
-    function domesctic_outgoing(){
+    function domesctic_outgoing_house(){
         $data = array(
-            'title'=>'Domestic_outgoing',
-            'scrumb_name'=>'domestic_outgoing',
-            'scrumb'=>'transaction/domesctic_outgoing',
-            'view'=>'pages/booking/domesctic_outgoing',
+            'title'=>'domesctic-outgoing-house',
+            'scrumb_name'=>'Domesctic outgoing house',
+            'scrumb'=>'transaction/domesctic_outgoing_house',
+            'view'=>'pages/booking/domesctic_outgoing_house',
         );  
       $this->load->view('home/home',$data);
     }
-
+     //     DATA TO SESSION
+    function domesctic_outgoing_master(){
+        $data = array(
+            'title'=>'domesctic-outgoing-master',
+            'scrumb_name'=>'Domesctic outgoing master',
+            'scrumb'=>'transaction/domesctic_outgoing_master',
+            'view'=>'pages/booking/domesctic_outgoing_master',
+        );  
+      $this->load->view('home/home',$data);
+    }
     
 //------------delete data----------------------------------
 function hapus_item_temp(){

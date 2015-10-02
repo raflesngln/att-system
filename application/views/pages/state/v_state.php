@@ -50,7 +50,7 @@
                                         <table class="table table-striped table-bordered table-hover">
                                               <thead>
                                                 <tr>
-                                                  <th height="21" colspan="8"> <div align="left"><a class="btn-addnew" href="#modaladd" data-toggle="modal" title="Add"><button class="btn btn-primary"><i class="icon-plus icons"></i>Add State</button></a></div></th>
+                                                  <th height="21" colspan="8"> <div align="left"><a class="btn-addnew" href="#modaladd" data-toggle="modal" title="Add"><button class="btn btn-blue"><i class="icon-plus icons"></i>Add State</button></a></div></th>
                                                 </tr>
                                                 <tr>
                                                   <th>No.</th>
@@ -70,7 +70,7 @@ $no=1;
 				
 			?>
                                                 <tr class="gradeX">
-                                                    <th scope="row"><?php echo $no?></th>
+                                                    <td><?php echo $no?></td>
                                                     <td><?php echo $data->stCode?></td>
                                                     <td><?php echo $data->stName?></td>
                                                     <td><?php echo $data->CreateBy?></td>

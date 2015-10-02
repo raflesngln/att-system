@@ -49,7 +49,7 @@
                                         <table class="table table-striped table-bordered table-hover">
                                               <thead>
                                                 <tr>
-                                                  <th colspan="9"> <div align="left"><a class="btn btn-primary btn-addnew" href="#modaladd" data-toggle="modal" title="Add"><i class="icon-plus icons"></i>Add Customer</a></div></th>
+                                                  <th colspan="9"> <div align="left"><a class="btn btn-blue btn-addnew" href="#modaladd" data-toggle="modal" title="Add"><i class="icon-plus icons"></i>Add Customer</a></div></th>
                                                 </tr>
                                                 <tr>
                                                   <th>No.</th>
@@ -70,7 +70,7 @@ $no=1;
 				
 			?>
                                                 <tr class="gradeX">
-                                                    <th scope="row"><?php echo $no?></th>
+                                                    <td><?php echo $no?></td>
                                                     <td><?php echo $data->custName?></td>
                                                     <td><?php echo $data->Address?></td>
                                                     <td><?php echo $data->Phone?></td>
@@ -108,6 +108,7 @@ $no=1;
 		$isaktif=$row->isAktive;
 		$isCnee=$row->isCnee;
 		$isShipper=$row->isShipper;
+
 		if($isagen==1){ $status1='YES';}else{$status1='NO';}
 		if($isShipper==1){ $status2='YES';}else{$status2='NO';}
 		if($isCnee==1){ $status3='YES';}else{$status3='NO';}
@@ -127,7 +128,7 @@ $no=1;
                       <div class="form-group">
                         <label class="col-sm-3 control-label"> Initial </label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="initial" type="text" class="form-control" placeholder="initial" id="initial" value="<?php echo $row->custInitial;?>" />
+                          <input name="initial" type="text" class="form-control" id="initial" value="<?php echo $row->custInitial;?>" />
                         </span>
                           <input type="hidden" name="id" id="id" value="<?php echo $row->custCode;?>" />
                         </div>
@@ -291,28 +292,40 @@ $no=1;
               </em>
                         <div class="col-sm-2"></div>
                         
+ <div class="col-sm-4"><span class="controls">
+   <label><span> &nbsp;Is Agent</span>
+      <select name="agen" id="agen" class="form-control">
+      <option value="<?php echo $isagen;?>">&nbsp;<?php echo $status1;?>&nbsp;</option>
+        <option value="1">&nbsp;Yes&nbsp;</option>
+        <option value="0">&nbsp;No&nbsp;</option>
+      </select>                      
+      </label>
+    </span>  
+</div>
+
 <div class="col-sm-4"><span class="controls">
-                          <label>
+   <label><span> &nbsp;Is Shipper</span>
+      <select name="shipper" id="agen" class="form-control">
+      <option value="<?php echo $Shipper;?>">&nbsp;<?php echo $status2;?>&nbsp;</option>
 
-<input name="agen" type="checkbox" id="agen" />
-<span class="lbl"> Is Agen</span>
-</label>
-    </span></div>
+        <option value="1">&nbsp;Yes&nbsp;</option>
+        <option value="0">&nbsp;No&nbsp;</option>
+      </select>                      
+      </label>
+    </span>
+</div>
+
 <div class="col-sm-4"><span class="controls">
-                          <label>
+   <label><span> &nbsp;Is CNee</span>
+      <select name="cnee" id="cnee" class="form-control">
+      <option value="<?php echo $isCnee;?>">&nbsp;<?php echo $status3;?>&nbsp;</option>
 
-<input name="shipper" type="checkbox" id="shipper" />
-<span class="lbl"> Is Shipper</span>
-</label>
-    </span></div>
-<div class="col-sm-4">
-<label>
-
-<input name="cnee" type="checkbox" id="cnee" />
-<span class="lbl"> Is Cnee</span>
-</label>
-    </div>
-    
+        <option value="1">&nbsp;Yes&nbsp;</option>
+        <option value="0">&nbsp;No&nbsp;</option>
+      </select>                      
+      </label>
+    </span>
+</div>
 <div class="clearfix"></div>
                       </div> 
                   <div class="modal-footer">
@@ -329,7 +342,6 @@ $no=1;
 <?php } ?>
 
 <div id="modaladd" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -486,41 +498,50 @@ $no=1;
     </span></div>
  <div class="col-sm-3"><span class="controls">
                           <label><span>  Mobile 02</span>
-                            <input name="hppic02" type="text" class="form-control" placeholder="" id="hppic02"  />
+                          <input name="hppic02" type="text" class="form-control" placeholder="" id="hppic02"  />
                             
 </label>
     </span></div>
 
 </div>
 <hr /> 
+
 <div class="form-group">
                        <em>
                         <label class="col-sm-4 control-label">&nbsp;</label> 
-                        <label class="col-sm-6 control-label">Status Active</label>
+                        <label class="col-sm-6 control-label">Status</label>
               </em>
-                        <div class="col-sm-2"></div>
-                        
+<div class="col-sm-2"></div>
+
+ <div class="col-sm-4"><span class="controls">
+   <label><span> &nbsp;Is Agent</span>
+      <select name="agen" id="agen" class="form-control">
+        <option value="1">&nbsp;Yes&nbsp;</option>
+        <option value="0">&nbsp;No&nbsp;</option>
+      </select>                      
+      </label>
+    </span>
+</div>
+
 <div class="col-sm-4"><span class="controls">
-                          <label>
+   <label><span> &nbsp;Is Agent</span>
+      <select name="shipper" id="agen" class="form-control">
+        <option value="1">&nbsp;Yes&nbsp;</option>
+        <option value="0">&nbsp;No&nbsp;</option>
+      </select>                      
+      </label>
+    </span>
+</div>
 
-<input name="agen" type="checkbox" id="agen" />
-<span class="lbl"> Is Agen</span>
-</label>
-    </span></div>
 <div class="col-sm-4"><span class="controls">
-                          <label>
-
-<input name="shipper" type="checkbox" id="shipper" />
-<span class="lbl"> Is Shipper</span>
-</label>
-    </span></div>
-<div class="col-sm-4">
-<label>
-
-<input name="cnee" type="checkbox" id="cnee" />
-<span class="lbl"> Is Cnee</span>
-</label>
-    </div>
+   <label><span> &nbsp;Is Agent</span>
+      <select name="cnee" id="cnee" class="form-control">
+        <option value="1">&nbsp;Yes&nbsp;</option>
+        <option value="0">&nbsp;No&nbsp;</option>
+      </select>                      
+      </label>
+    </span>
+</div>
     
 <div class="clearfix"></div>
                       </div>

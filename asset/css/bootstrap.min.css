@@ -3630,11 +3630,17 @@ button.close {
     line-height: 1.42857143}
 .modal-body {
     position: relative;
-    padding: 15px}
+    padding: 15px;
+    background-color: rgba(240, 242, 246, 0.9);
+    color: #1619E1;
+    border: 1px #99A9B6 solid;
+}
 .modal-footer {
     padding: 15px;
     text-align: right;
-    border-top: 1px solid #e5e5e5}
+    border-top: 1px solid #e5e5e5;
+    background-color: #1F486B;
+}
 .modal-footer .btn+.btn {
     margin-bottom: 0;
     margin-left: 5px}

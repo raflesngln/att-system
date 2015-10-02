@@ -8,6 +8,7 @@ class Master extends CI_Controller{
         };
         $this->load->model('model_app');
         $this->load->helper('currency_format_helper');
+        $nm="rafles nainggolan";
     }	
 
 function gallery(){  
@@ -289,13 +290,13 @@ endif;
 		$data['scrumb']='master/view_customer';
 		$data['list']=$this->model_app->getdatapaging('a.Fax,a.email,a.isAgent,a.isActive,a.isShipper,a.isCnee,a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,
 		a.TermsPayment,a.PostalCode,a.custCode,a.custName,a.Remarks,a.NPWPAddress,
-		a.Address,a.Phone,a.Email,a.CreditLimit,a.Deposit,a.NPWP,
+		a.Address,a.custInitial,a.Phone,a.Email,a.CreditLimit,a.Deposit,a.NPWP,
 		a.ModifiedBy,a.ModifiedDate,b.empCode,b.empName,b.devisi,c.cyCode,c.cyName',
 		'ms_customer a',"inner join ms_staff b on a.empCode=b.empCode
 		inner join ms_city c on a.cyCode=c.cyCode
 		where b.devisi='sales'
 		 order by a.custCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('a.Fax,a.email,a.isAgent,a.isActive,a.isShipper,a.isCnee,a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,
+		$tot_hal = $this->model_app->hitung_isi_tabel('a.Fax,a.custInitial,a.email,a.isAgent,a.isActive,a.isShipper,a.isCnee,a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,
 		a.TermsPayment,a.PostalCode,a.custCode,a.custName,a.Remarks,a.NPWPAddress,
 		a.Address,a.Phone,a.Email,a.CreditLimit,a.Deposit,a.NPWP,
 		a.ModifiedBy,a.ModifiedDate,b.empCode,b.empName,b.devisi,c.cyCode,c.cyName',
@@ -735,9 +736,11 @@ function save_customer()
 {	
 $name =$this->input->post('name');
 $address =$this->input->post('address');
-isset($_POST['agen'])?$isagen=1:$isagen=0;
+
+/*isset($_POST['agen'])?$isagen=1:$isagen=0;
 isset($_POST['shipper'])?$isshipper=1:$isshipper=0;
 isset($_POST['cnee'])?$iscnee=1:$iscnee=0;
+*/
 
  if($this->session->userdata('login_status') == TRUE )
  {
@@ -758,9 +761,9 @@ $this->form_validation->set_rules('name','name','required|trim|xss_clean');
 		'Phone' =>$this->input->post('phone'),
 		'Fax' =>$this->input->post('fax'),
 		'PostalCode' =>$this->input->post('postcode'),
-		'isAgent' =>$isagen,
-		'isShipper' =>$isshipper,
-		'isCnee' =>$iscnee,
+		'isAgent' =>$this->input->post('agen'),
+		'isShipper' =>$this->input->post('shipper'),
+		'isCnee' =>$this->input->post('cnee'),
 		'Email' =>$this->input->post('email'),
 		'PIC01' =>$this->input->post('pic01'),
 		'PIC02' =>$this->input->post('pic02'),
@@ -1057,19 +1060,16 @@ endif;
 function update_customer()
 {	
 $idcustomer=$this->input->post('id');
+/*
 isset($_POST['agen'])?$isagen=1:$isagen=0;
 isset($_POST['shipper'])?$isshipper=1:$isshipper=0;
 isset($_POST['cnee'])?$iscnee=1:$iscnee=0;
-
+*/
  if($this->session->userdata('login_status') == TRUE ){
  $this->form_validation->set_rules('name','name','required|trim|xss_clean');
-	 if ($this->form_validation->run() == FALSE)
-		{
-			
+	 if ($this->form_validation->run() == FALSE) {	
 		redirect('master/view_customer');
-		}
-		else
-		{
+		}  else  {
 	$dataubah=array(
 		'custInitial' =>$this->input->post('initial'),
 		'custName' =>$this->input->post('name'),
@@ -1078,9 +1078,9 @@ isset($_POST['cnee'])?$iscnee=1:$iscnee=0;
 		'Phone' =>$this->input->post('phone'),
 		'Fax' =>$this->input->post('fax'),
 		'PostalCode' =>$this->input->post('postcode'),
-		'isAgent' =>$isagen,
-		'isShipper' =>$isshipper,
-		'isCnee' =>$iscnee,
+		'isAgent' =>$this->input->post('agen'),
+		'isShipper' =>$this->input->post('shipper'),
+		'isCnee' =>$this->input->post('cnee'),
 		'Email' =>$this->input->post('email'),
 		'PIC01' =>$this->input->post('pic01'),
 		'PIC02' =>$this->input->post('pic02'),

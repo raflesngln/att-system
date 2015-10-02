@@ -1,5 +1,6 @@
  <style>
  .btn-search{ height:32px; margin-left:-10px;}
+
  </style>
  <script type="text/javascript" src="<?php echo base_url();?>asset/js/jquery.js"></script>
    <div class="row-fluid">
@@ -59,9 +60,9 @@
                                               <thead>
                                                 <tr>
                                                   <th height="21" colspan="12"><div align="left"><a class="btn-addnew" href="#modaladd" data-toggle="modal" title="Add">
-                                                    <button class="btn btn-primary"><i class="icon-plus icons"></i>Add Staff</button></a></div></th>
+                                                    <button class="btn btn-blue"><i class="icon-plus icons"></i>Add Staff</button></a></div></th>
                                                 </tr>
-                                                <tr>
+                                                <tr height="50">
                                                   <th>No.</th>
                                                   <th>Code</th>
                                                   <th>Initial</th>
@@ -86,7 +87,7 @@ if($status=='1'){ $statusname='<font color="#0033FF">Aktif</font>';} else{$statu
 				
 			?>
                                                 <tr class="gradeX">
-                                                    <th scope="row"><?php echo $no?></th>
+                                                    <td><?php echo $no?></td>
                                                     <td><?php echo $data->empCode?></td>
                                                     <td><?php echo $data->empInitial?></td>
                                                     <td><?php echo $data->empName?></td>

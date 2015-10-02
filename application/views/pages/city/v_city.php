@@ -52,7 +52,7 @@
                                               <thead>
                                                 <tr>
                                                   <th height="21" colspan="13"><div align="left"><a class="btn-addnew" href="#modaladd" data-toggle="modal" title="Add">
-                                                    <button class="btn btn-primary"><i class="icon-plus icons"></i>Add City</button></a></div></th>
+                                                    <button class="btn btn-blue"><i class="icon-plus icons"></i>Add City</button></a></div></th>
                                                 </tr>
                                                 <tr>
                                                   <th>No.</th>
@@ -81,7 +81,7 @@ if($sea=='1'){ $issea='<font color="#0000FF">Yes</font>';} else{$issea='<font co
 				
 			?>
                                                 <tr class="gradeX">
-                                                    <th scope="row"><?php echo $no?></th>
+                                                    <td><?php echo $no?></td>
                                                     <td><?php echo $data->cyCode?></td>
                                                     <td><?php echo $data->cyName?></td>
                                                     <td><?php echo $data->couName?></td>

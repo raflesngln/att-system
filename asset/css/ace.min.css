@@ -1422,6 +1422,16 @@ button.btn:active {
     border-color: #92a3ac}
 .btn.disabled,.btn-default.disabled,.btn[disabled],.btn-default[disabled] {
     background-color: #abbac3!important}
+.btn-blue {
+    background-color:rgb(42, 134, 49)!important;
+    border: none;
+    border-radius: 4px;
+    transition:all 0.5s;
+    -moz-transition:all 0.5s;
+    -webkit-transition:all 0.5s;
+}
+.btn-blue:hover {
+    background-color:rgb(38, 99, 43)!important;}
 .btn-primary {
     background-color: #2283c5!important;
     border-color: #2283c5}
@@ -2629,13 +2639,13 @@ textarea,input[type="text"],input[type="password"],input[type="datetime"],input[
     -o-transition-duration: .1s;
     transition-duration: .1s}
 textarea:hover,input[type="text"]:hover,input[type="password"]:hover,input[type="datetime"]:hover,input[type="datetime-local"]:hover,input[type="date"]:hover,input[type="month"]:hover,input[type="time"]:hover,input[type="week"]:hover,input[type="number"]:hover,input[type="email"]:hover,input[type="url"]:hover,input[type="search"]:hover,input[type="tel"]:hover,input[type="color"]:hover {
-    border-color: #b5b5b5}
+    border:1px #16B8CA solid;}
 textarea:focus,input[type="text"]:focus,input[type="password"]:focus,input[type="datetime"]:focus,input[type="datetime-local"]:focus,input[type="date"]:focus,input[type="month"]:focus,input[type="time"]:focus,input[type="week"]:focus,input[type="number"]:focus,input[type="email"]:focus,input[type="url"]:focus,input[type="search"]:focus,input[type="tel"]:focus,input[type="color"]:focus {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
     color: #696969;
-    border-color: #f59942;
+    border:2px #16B8CA solid;
     background-color: #fff}
 input.block {
     display: block;
@@ -3727,7 +3737,12 @@ input[type=checkbox].ace-switch.ace-switch-7: checked+.lbl: :after {
 .accordion-inner.no-padding {
     padding: 0}
 th,td,.table-bordered {
-    border-radius: 0!important}
+    border-radius: 0!important;
+    font-size:10pt;
+    transition:all 0.5s;
+    -webkit-transition:all 0.5s;
+    -moz-transition:all 0.5s;
+}
 .table thead tr {
     color: #707070;
     font-weight: normal;
@@ -3741,8 +3756,10 @@ th,td,.table-bordered {
     background-repeat: repeat-x;
     filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#fff8f8f8',endColorstr='#ffececec',GradientType=0)}
 .table thead tr th {
-    border-color: #DDD;
-    font-weight: bold}
+    border-color: #D1D7DC;
+    font-weight: bold;
+    color: #172EA9;
+}
 .table thead tr th [class*="icon-"]:first-child {
     margin-right: 2px}
 .table thead tr th:first-child {
@@ -3754,7 +3771,11 @@ th,td,.table-bordered {
 .table.table-bordered thead tr th:first-child {
     border-left-color: #DDD}
 .table.table-hover tbody tr:hover td {
-    background-color: #f1f1f1}
+    background-color: red}
+.table.table-hover tbody tr:hover td {
+    background-color: #D5E4E4;
+    color: #1D7308;
+}
 th.center,td.center {
     text-align: center}
 th .lbl,td .lbl {

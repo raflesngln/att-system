@@ -22,7 +22,7 @@
                                         <table class="table table-striped table-bordered table-hover">
                                               <thead>
                                                 <tr>
-                                                  <th height="21" colspan="2"> <div align="left"><a class="btn-addnew" href="#modaladd" data-toggle="modal" title="Add"><button class="btn btn-primary"><i class="icon-plus icons"></i>Add User</button></a></div></th>
+                                                  <th height="21" colspan="2"> <div align="left"><a class="btn-addnew btn-blue" href="#modaladd" data-toggle="modal" title="Add"><button class="btn btn-blue"><i class="icon-plus icons"></i>Add User</button></a></div></th>
                                                   <th>&nbsp;</th>
                                                   <th class="text-center">&nbsp;</th>
                                                 </tr>
@@ -40,7 +40,7 @@ $no=1;
 				
 			?>
                                                 <tr class="gradeX">
-                                                    <th scope="row"><?php echo $no?></th>
+                                                    <td><?php echo $no?></th>
                                                     <td><a href="<?php echo base_url();?>transaksi/det_transaksi/<?php echo $data->cust_id;?>"><?php echo $data->FullName?></a></td>
                                                     <td><?php echo $data->UserName?></td>
                                                     <td class="text-center">

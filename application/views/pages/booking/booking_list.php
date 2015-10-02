@@ -31,37 +31,37 @@
             <?php }?>   
       <div class="header col-md-11">
 
-                <h3><i class="icon icon-file-text bigger-230"></i> &nbsp; <strong></strong>List Booking</h3>
+                <h3><i class="icon icon-file-text bigger-230"></i> &nbsp; <strong></strong> Booking List</h3>
             </div>
       
 
 <br style="clear:both">
 
 <form method="post" action="<?php echo base_url();?>trasaction/booking_periode">
-<div class="container">
+<div class="container" style="">
   <div class="row">
                <!--LEFT INPUT-->
   <div class="col-sm-3">      
       <div class="col-sm-12">
-          <h4>Periode Booking</h4>     
+          <h4>&nbsp;</h4>     
           <strong><label class="col-sm-10">FROM</label></strong>
           <div class="col-sm-12">
            <input name="name" readonly="readonly" type="text" class="form-control"  id="tgl" required="required" placeholder="<?php echo date("m/d/Y") ;?>" />
           </div>
-          
       </div>
   </div>
+
   <!--MIDLE SEPARATE-->
    <div class="col-sm-1">
    <h1>&nbsp;</h1>
-    <label class="col-sm-12">S / D</label>
+    <label>--</label>
    </div>
             <!--RIGHT INPUT-->
       <div class="col-sm-3">
         <div class="col-sm-12">
          <h4>&nbsp;</h4>
         <strong><label class="col-sm-10">TO</label></strong>
-          <div class="col-sm-10">
+          <div class="col-sm-12">
            <input name="name" readonly="readonly" type="text" class="form-control"  id="tgl2" required="required" placeholder="<?php echo date("m/d/Y") ;?>"/>
           </div>
           </div> 
@@ -78,8 +78,11 @@
           </div>
           </div>
    </div>
+   <div class="clearfx">&nbsp;</div>
 
 </div>
+
+
 </form>
 <br style="clear:both;margin-bottom:40px;">
 
@@ -123,10 +126,10 @@
                                                   <td>Loremipsum</td>
                                                   <td>
                                                   <div align="center">
-                                                  <a href="<?php echo base_url();?>transaction/delete_disc/<?php echo $data->id?>" title="confirm">
-                                                  <button class="btn btn-mini btn-primary"><i class="icon-save bigger-120"></i></button>
+                                                  <a href="<?php echo base_url();?>transaction/delete_disc/<?php echo $data->id?>" title="Confir shipment for Job">
+                                                  <button class="btn btn-mini btn-primary"><i class="icon-check bigger-120"></i></button>
                                                   </a> 
-                                                  <a href="<?php echo base_url();?>transaction/delete_disc/<?php echo $data->id?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
+                                                  <a href="<?php echo base_url();?>transaction/delete_disc/<?php echo $data->id?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete item">
                                                   <button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>
                                                   </a> 
                                                   </div>
@@ -152,7 +155,7 @@ $no=1;
                                                       <button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>
                                                       </a>
                                                       
-                                                      <a href="<?php echo base_url();?>master/delete_disc/<?php echo $data->discCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
+                                                      <a href="<?php echo base_url();?>master/delete_disc/<?php echo $data->discCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete item">
                                                         <button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>
                                                       </a>          
                                                     </div></td>

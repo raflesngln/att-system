@@ -23,7 +23,7 @@ class Login extends CI_Controller{
             foreach($result as $row) {
                 //create the session
                 $sess_array = array(
-                    'id' => $row->user_id,
+                    'id' => $row->id_user,
                     'username' => $row->UserName,
                     'pass'=>$row->password,
                     'name'=>$row->FullName,

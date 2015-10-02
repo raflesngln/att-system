@@ -9,8 +9,6 @@ class Search extends CI_Controller{
         $this->load->model('model_app');
         $this->load->helper('currency_format_helper');
     }	
-	 
-
 function search_staff(){  
 	 
 	 	$page=$this->uri->segment(3);
@@ -21,7 +19,6 @@ function search_staff(){
 		else:
 		$offset = $page;
 		endif;
-		
         $data['title']='list Staff';
 		$data['scrumb_name']='Data Staff';
 		$data['scrumb']='staff/view_staff';
@@ -42,7 +39,6 @@ function search_staff(){
 		$data['view']='pages/staff/v_staff';
         $this->load->view('home/home',$data);
      }
-
 function filter_staff(){
 
         $cari=$this->input->post('txtsearch');
@@ -53,8 +49,7 @@ function filter_staff(){
 		$offset = 0;
 		else:
 		$offset = $page;
-		endif;
-		
+		endif;	
 		$data['title']='list Staff';
 		$data['scrumb_name']='Data Staff';
 		$data['scrumb']='staff/view_staff';
