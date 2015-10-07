@@ -1597,8 +1597,9 @@ output {
 .form-control: : -webkit-input-placeholder {
     color: #999}
 .form-control[disabled],.form-control[readonly],fieldset[disabled] .form-control {
-    cursor: not-allowed;
-    background-color: #eee;
+    cursor:s-resize;
+    background-color:#F3EBEA;
+    color: #153EEF;
     opacity: 1}
 textarea.form-control {
     height: auto}

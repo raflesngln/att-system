@@ -275,6 +275,16 @@ $no=1;
 <div class="col-sm-4"><span class="controls">
                           <label>
 
+<div class="col-sm-4"><span class="controls">
+   <label><span> &nbsp;Is Agent</span>
+      <select name="agen" id="agen" class="form-control">
+        <option value="1">&nbsp;Yes&nbsp;</option>
+        <option value="0">&nbsp;No&nbsp;</option>
+      </select>                      
+      </label>
+    </span>
+</div>
+
 <input name="air" type="checkbox" id="air" />
 <span class="lbl"> Is Air</span>
 </label>
@@ -313,8 +323,9 @@ $no=1;
     </div>
 <?php } ?>
 
+
+<!-- ADD FORM MODAL-->
 <div id="modaladd" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -463,12 +474,15 @@ $no=1;
 <div class="col-sm-4"><span class="controls">
                           <label>
 
-<input name="agen" type="checkbox" id="agen" />
-<span class="lbl"> Is Agen</span>
-</label>
-    </span></div>
 <div class="col-sm-4"><span class="controls">
-                          <label>
+   <label><span> &nbsp;Is Agentssss</span>
+      <select name="shipper" id="agen" class="form-control">
+        <option value="1">&nbsp;Yes&nbsp;</option>
+        <option value="0">&nbsp;No&nbsp;</option>
+      </select>                      
+      </label>
+    </span>
+</div>
 
 <input name="air" type="checkbox" id="air" />
 <span class="lbl"> Is Air</span>

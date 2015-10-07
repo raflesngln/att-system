@@ -210,7 +210,7 @@
                                             <div class="col-md-12">
                                               <div class="row">
                                                 <div class="col-md-12">
-                                              <label class="col-sm-2">Gros Weight &nbsp;</label>
+                                              <label class="col-sm-2">Gross Weight &nbsp;</label>
                                               <div class="col-sm-3"><input type="text" name="gross" id="gross" class="form-control"></div>
                                                 </div>
 
@@ -373,54 +373,54 @@
     </div>
 <?php } ?>
 
-<div id="modaladd" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    
+<!-- ADD NEW ITEMS -->
+<div id="modaladd" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">   
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add Data Disc</h3>
+                <h3 id="myModalLabel">Add Item</h3>
             </div>
             <div class="smart-form scroll">
                 <form method="post" action="<?php echo site_url('master/save_disc')?>">
                     <div class="modal-body">
-                     
-                   
+                                       
 <div class="form-group">
-                        <label class="col-sm-3 control-label">No of Packs </label>
+                        <label class="col-sm-3 control-label">No of Pcs </label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
-</span></div>
+                          <input name="pcs" type="text" class="form-control" placeholder="" id="pcs" />
+            </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Length &nbsp; ( P )</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
-</span></div>
+                          <input name="p" type="text" class="form-control" placeholder="" id="p" />
+            </span></div>
                         <div class="clearfix"></div>
                       </div>
-  <div class="form-group">
+<div class="form-group">
                         <label class="col-sm-3 control-label">Width &nbsp; ( L )</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
-</span></div>
+                          <input name="l" type="text" class="form-control" placeholder="" id="l" />
+            </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Height &nbsp; ( T )</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
-</span></div>
+                          <input name="t" type="text" class="form-control" placeholder="" id="t" />
+            </span></div>
                         <div class="clearfix"></div>
                       </div>                    
  <div class="form-group">
                         <label class="col-sm-3 control-label">Volume</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="rp" type="text" class="form-control" placeholder="" id="rp" />
-    </span></div>
+                          <input name="v" type="text" class="form-control" placeholder="" id="v" Readonly="readonly" />
+            </span></div>
                         <div class="clearfix"></div>
                       </div>
+
   <div class="modal-footer">
 <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
                         <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>

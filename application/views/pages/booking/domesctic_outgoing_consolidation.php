@@ -12,8 +12,7 @@
   margin-bottom:5px;
   margin-top: 3px;
  }
- #flightno{margin-left: 15px;}
- #flightdate1,#flightdate2,#flightdate3{margin-left: 10px;}
+ 
  </style>
        <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
   <script src="<?php echo base_url();?>asset/jquery_ui/external/jquery/jquery.js"></script>
@@ -22,10 +21,7 @@
   $(function() {
     $("#tgl").datepicker();
     $("#tgl2").datepicker();
-    $("#flightdate1").datepicker();
-    $("#flightdate2").datepicker();
-    $("#flightdate3").datepicker();
-      
+
   });
   </script>
 
@@ -42,7 +38,7 @@
             <?php }?>   
       <div class="header col-md-11">
 
-                <h3><i class="icon icon-fighter-jet bigger-230"></i> &nbsp;Air Domestic Outgoing - Master</h3>
+                <h3><i class="icon icon-fighter-jet bigger-230"></i> &nbsp;Consolidation</h3>
             </div>
       
 
@@ -58,60 +54,15 @@
           <div class="col-sm-7">
            <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly" />
           </div>
+          <strong><label class="col-sm-4"> House No</label></strong>
+          <div class="col-sm-7">
+           <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly"/>
+          </div>
            <strong><label class="col-sm-4"> SMU No</label></strong>
           <div class="col-sm-7">
            <input name="name" type="text" class="form-control"  id="name" required="required" />
           </div>
-          <strong><label class="col-sm-4"> Origin</label></strong>
-          <div class="col-sm-7">
-           <select name="filter" id="filter" class="form-control combo">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
-          </select>
-          </div>
-          <strong><label class="col-sm-4"> Destination</label></strong>
-          <div class="col-sm-7">
-           <select name="filter" id="filter" class="form-control combo">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
-          </select>
-          </div>
-          <strong><label class="col-sm-4">Flight No / Date (1)</label></strong>
-          <div class="col-sm-7">
-                  <div class="row">
-                       <div class="col-sm-5">
-                       <input type="text" class="form-control" id="flightno" name="flightno" placeholder="flight no">
-                      </div>
-                       <div class="col-sm-1">/</div>
-                      <div class="col-sm-5">
-                       <input id="flightdate1" type="text" class="form-control" readonly="readonly" name="flightdate" value="<?php echo date('m/d/Y');?>">
-                      </div>
-                  </div>
-          </div>
-          <strong><label class="col-sm-4">Flight No / Date (2)</label></strong>
-          <div class="col-sm-7">
-                  <div class="row">
-                       <div class="col-sm-5">
-                       <input type="text" class="form-control" id="flightno" name="flightno" placeholder="flight no">
-                      </div>
-                      <div class="col-sm-1">/</div>
-                      <div class="col-sm-5">
-                       <input id="flightdate2" type="text" class="form-control" readonly="readonly" name="flightdate" value="<?php echo date('m/d/Y');?>">
-                      </div>
-                  </div>
-          </div>
-          <strong><label class="col-sm-4">Flight No / Date (3)</label></strong>
-          <div class="col-sm-7">
-                  <div class="row">
-                       <div class="col-sm-5">
-                       <input type="text" class="form-control" id="flightno" name="flightno" placeholder="flight no">
-                      </div>
-                       <div class="col-sm-1">/</div>
-                      <div class="col-sm-5">
-                       <input id="flightdate3" type="text" class="form-control" readonly="readonly" name="flightdate" value="<?php echo date('m/d/Y');?>">
-                      </div>
-                  </div>
-          </div>
+              
           <strong><label class="col-sm-4"> Shipper</label></strong>
           <div class="col-sm-7">
            <select name="filter" id="filter" class="form-control combo">
@@ -147,13 +98,20 @@
           <div class="col-sm-7">
            <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly"/>
           </div>
-          <strong><label class="col-sm-4"> ETD</label></strong>
+          <strong><label class="col-sm-4"> Payment Type</label></strong>
+          <div class="col-sm-7">
+           <select name="filter" id="filter" class="form-control">
+            <option value="empName">Name</option>
+          <option value="Address">Address</option>
+          </select>
+          </div>
+           <strong><label class="col-sm-4"> ETD</label></strong>
           <div class="col-sm-7">
            <input name="name" type="text" class="form-control"  id="tgl" required="required" readonly="readonly" required="required" placeholder="<?php echo date("m/d/Y") ;?>"/>
           </div>
 
 
-            <strong><label class="col-sm-4"> Consigne</label></strong>
+            <strong><label class="col-sm-4"> Consignee</label></strong>
           <div class="col-sm-7">
            <select name="filter" id="filter" class="form-control">
             <option value="empName">Name</option>
@@ -280,7 +238,7 @@ $no=1;
                                   <div class="row">
                                       <div class="col-md-4"></div>
                                         <div class="col-md-2">
-                                            <a class="btn btn-danger btn-addnew" href="<?php echo base_url();?>transaction/domesctic_outgoing_master" data-toggle="modal" title="Add"><i class="icon-reply bigger-120 icons"></i>Cancel </a>
+                                            <a class="btn btn-danger btn-addnew" href="<?php echo base_url();?>transaction/domesctic_outgoing_house" data-toggle="modal" title="Add"><i class="icon-reply bigger-120 icons"></i>Cancel </a>
                                         </div>
                                          <div class="col-md-2">
                                              <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
@@ -424,7 +382,6 @@ $no=1;
     </div>
     </div>
 <?php } ?>
-
 <!--adding form-->
 <div id="modaladd" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
@@ -474,8 +431,6 @@ $no=1;
     </span></div>
                         <div class="clearfix"></div>
                       </div>
-  
- 
   <div class="modal-footer">
 <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
                         <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>

@@ -39,7 +39,17 @@ class Transaction extends CI_Controller{
             'title'=>'domesctic-outgoing-house',
             'scrumb_name'=>'Domesctic outgoing house',
             'scrumb'=>'transaction/domesctic_outgoing_house',
-            'view'=>'pages/booking/domesctic_outgoing_house',
+            'view'=>'pages/booking/domesctic_outgoing_consolidation',
+        );  
+      $this->load->view('home/home',$data);
+    }
+   //     consolidation
+    function outgoing_consolidation(){
+        $data = array(
+            'title'=>'outgoing_consolidation',
+            'scrumb_name'=>'outgoing_consolidation',
+            'scrumb'=>'transaction/outgoing_consolidation',
+            'view'=>'pages/booking/outgoing_consolidation',
         );  
       $this->load->view('home/home',$data);
     }
@@ -53,7 +63,16 @@ class Transaction extends CI_Controller{
         );  
       $this->load->view('home/home',$data);
     }
-    
+  //     DATA TO SESSION
+    function domesctic_incoming_master(){
+        $data = array(
+            'title'=>'domesctic_incoming_master',
+            'scrumb_name'=>'domesctic_incoming_master',
+            'scrumb'=>'transaction/domesctic_incoming_master',
+            'view'=>'pages/booking/domesctic_incoming_master',
+        );  
+      $this->load->view('home/home',$data);
+    }  
 //------------delete data----------------------------------
 function hapus_item_temp(){
 	$kode=$this->uri->segment(3);

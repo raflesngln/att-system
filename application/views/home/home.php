@@ -230,26 +230,28 @@
 
            <label>&nbsp; TRANSACTION    &raquo;</label>
 
-      <li> <a href="#" class="dropdown-toggle"> <i class="icon icon-bookmark bigger-270" aria-hidden="true"></i> <span class="menu-text"> Booking </span> <b class="arrow icon-angle-down"></b> </a>
+      <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-bookmark bigger-140" aria-hidden="true"></i> <span class="menu-text">&nbsp;Booking </span> <b class="arrow icon-angle-down"></b> </a>
         <ul class="submenu">
          <li><a href="<?php echo base_url();?>transaction/booking_shipment"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-book"></i> &nbsp; Booking Shipment </a> </li>
          <li> <a href="<?php echo base_url();?>transaction/booking_list"> <i class="icon-double-angle-right"></i> </i><i class="icon icon-file-text bigger-120"></i> &nbsp; Booking List</a></li>
-		 <li> <a href="<?php echo base_url();?>transaction/domesctic_outgoing_master"> <i class="icon-double-angle-right"></i> </i><i class="icon icon-home bigger-120"></i> &nbsp;Outgoing-master</a></li>
- 		<li> <a href="<?php echo base_url();?>transaction/domesctic_outgoing_house"> <i class="icon-double-angle-right"></i> </i><i class="icon icon-fighter-jet bigger-120"></i> &nbsp;Outgoing-House</a></li>
+		 </ul>
+	  </li>
+	  <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-mail-reply bigger-140" aria-hidden="true"></i> <span class="menu-text">&nbsp;Incoming Book </span> <b class="arrow icon-angle-down"></b> </a>
+        <ul class="submenu">
+          <li> <a href="<?php echo base_url();?>transaction/domesctic_incoming_master"> <i class="icon-double-angle-right"></i> </i><i class="icon icon-home bigger-120"></i> &nbsp;Incoming-Master</a></li>
+ 		<li> <a href="<?php echo base_url();?>transaction/outgoing_consolidation"> <i class="icon-double-angle-right"></i> </i><i class="icon icon-fighter-jet bigger-120"></i> &nbsp;Consolidation</a></li>
         </ul>
 	  </li>
-
-	   <li> <a href="#" class="dropdown-toggle"> <i class="icon icon-strikethrough bigger-270" aria-hidden="true"></i> <span class="menu-text"> Invoice </span> <b class="arrow icon-angle-down"></b> </a>
+	  <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-mail-forward bigger-140" aria-hidden="true"></i> <span class="menu-text">&nbsp;Outgoing Book </span> <b class="arrow icon-angle-down"></b> </a>
         <ul class="submenu">
-       	<li><a href="<?php echo base_url('transaksi/add_transaksi')?>"><i class="icon-exchange"></i><span class="menu-text"> Add Trans </span></a></li>        
-     <li><a href="<?php echo base_url();?>transaksi/add_invoice"><i class="icon-list"></i><span class="menu-text"> Invoice </span></a></li>               
-	<li><a href="<?php echo base_url();?>trace"><i class="icon-fighter-jet"></i><span class="menu-text"> Trace </span></a></li>
-	
-         </ul>
+         <li> <a href="<?php echo base_url();?>transaction/domesctic_outgoing_master"> <i class="icon-double-angle-right"></i> </i><i class="icon icon-home bigger-120"></i> &nbsp;Outgoing-Master</a></li>
+ 		<li> <a href="<?php echo base_url();?>transaction/domesctic_outgoing_house"> <i class="icon-double-angle-right"></i> </i><i class="icon icon-fighter-jet bigger-120"></i> &nbsp;Outgoing-House</a></li>
+		<li> <a href="<?php echo base_url();?>transaction/outgoing_consolidation"> <i class="icon-double-angle-right"></i> </i><i class="icon icon-fighter-jet bigger-120"></i> &nbsp;Consolidation</a></li>
+        
+        </ul>
 	  </li>
-         
-	<li><a href="<?php echo base_url();?>trace"><i class="icon-gear"></i><span class="menu-text"> Setting </span></a></li>
-	
+	<!-- CUT MENU FROM HERE  -->
+
 	</ul><!--/.nav-list-->
 
 <div class="sidebar-collapse" id="sidebar-collapse">

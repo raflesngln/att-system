@@ -12,8 +12,7 @@
   margin-bottom:5px;
   margin-top: 3px;
  }
- #flightno{margin-left: 15px;}
- #flightdate1,#flightdate2,#flightdate3{margin-left: 10px;}
+ 
  </style>
        <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
   <script src="<?php echo base_url();?>asset/jquery_ui/external/jquery/jquery.js"></script>
@@ -22,10 +21,7 @@
   $(function() {
     $("#tgl").datepicker();
     $("#tgl2").datepicker();
-    $("#flightdate1").datepicker();
-    $("#flightdate2").datepicker();
-    $("#flightdate3").datepicker();
-      
+
   });
   </script>
 
@@ -42,7 +38,7 @@
             <?php }?>   
       <div class="header col-md-11">
 
-                <h3><i class="icon icon-fighter-jet bigger-230"></i> &nbsp;Air Domestic Outgoing - Master</h3>
+                <h3><i class="icon icon-fighter-jet bigger-230"></i> &nbsp;Consolidation</h3>
             </div>
       
 
@@ -54,124 +50,43 @@
   <div class="col-sm-6">      
       <div class="col-sm-11">
                        
-          <strong><label class="col-sm-4"> JOB No</label></strong>
-          <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly" />
-          </div>
-           <strong><label class="col-sm-4"> SMU No</label></strong>
+          <strong><label class="col-sm-4"> SMU No</label></strong>
           <div class="col-sm-7">
            <input name="name" type="text" class="form-control"  id="name" required="required" />
           </div>
           <strong><label class="col-sm-4"> Origin</label></strong>
           <div class="col-sm-7">
-           <select name="filter" id="filter" class="form-control combo">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
-          </select>
+           <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly"/>
           </div>
-          <strong><label class="col-sm-4"> Destination</label></strong>
+           <strong><label class="col-sm-4"> Destinatioln</label></strong>
           <div class="col-sm-7">
-           <select name="filter" id="filter" class="form-control combo">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
-          </select>
+           <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly" />
           </div>
-          <strong><label class="col-sm-4">Flight No / Date (1)</label></strong>
+              
+        
+          <div class="col-sm-4"></div>
           <div class="col-sm-7">
-                  <div class="row">
-                       <div class="col-sm-5">
-                       <input type="text" class="form-control" id="flightno" name="flightno" placeholder="flight no">
-                      </div>
-                       <div class="col-sm-1">/</div>
-                      <div class="col-sm-5">
-                       <input id="flightdate1" type="text" class="form-control" readonly="readonly" name="flightdate" value="<?php echo date('m/d/Y');?>">
-                      </div>
-                  </div>
-          </div>
-          <strong><label class="col-sm-4">Flight No / Date (2)</label></strong>
-          <div class="col-sm-7">
-                  <div class="row">
-                       <div class="col-sm-5">
-                       <input type="text" class="form-control" id="flightno" name="flightno" placeholder="flight no">
-                      </div>
-                      <div class="col-sm-1">/</div>
-                      <div class="col-sm-5">
-                       <input id="flightdate2" type="text" class="form-control" readonly="readonly" name="flightdate" value="<?php echo date('m/d/Y');?>">
-                      </div>
-                  </div>
-          </div>
-          <strong><label class="col-sm-4">Flight No / Date (3)</label></strong>
-          <div class="col-sm-7">
-                  <div class="row">
-                       <div class="col-sm-5">
-                       <input type="text" class="form-control" id="flightno" name="flightno" placeholder="flight no">
-                      </div>
-                       <div class="col-sm-1">/</div>
-                      <div class="col-sm-5">
-                       <input id="flightdate3" type="text" class="form-control" readonly="readonly" name="flightdate" value="<?php echo date('m/d/Y');?>">
-                      </div>
-                  </div>
-          </div>
-          <strong><label class="col-sm-4"> Shipper</label></strong>
-          <div class="col-sm-7">
-           <select name="filter" id="filter" class="form-control combo">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
-          </select>
-          </div>
-          <strong><label class="col-sm-4"> Name</label></strong>
-          <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" />
-          </div>
-          <strong><label class="col-sm-4"> Phone</label></strong>
-          <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" />
-          </div>
-          <strong><label class="col-sm-4"> Address</label></strong>
-          <div class="col-sm-7">
-           <textarea class="form-control select" name="address"></textarea>
-          </div>
-          <strong><label class="col-sm-4"> Commodity</label></strong>
-          <div class="col-sm-7">
-           <select name="filter" id="filter" class="form-control">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
-          </select>
+          <button class="btn btn-blue">Search</button>
           </div>
       </div>             
       </div>
                 <!--RIGHT INPUT-->
       <div class="col-sm-6">
         <div class="col-sm-11">
-        <strong><label class="col-sm-4">Booking No</label></strong>
+        <strong><label class="col-sm-4">ETD</label></strong>
           <div class="col-sm-7">
            <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly"/>
           </div>
-          <strong><label class="col-sm-4"> ETD</label></strong>
+          <strong><label class="col-sm-4"> Tot. Qty</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="tgl" required="required" readonly="readonly" required="required" placeholder="<?php echo date("m/d/Y") ;?>"/>
+        <input name="name" type="text" class="form-control" required="required" readonly="readonly" required="required"/>
           </div>
 
+           <strong><label class="col-sm-4"> Tot CWT</label></strong>
+          <div class="col-sm-7">
+           <input name="name" type="text" class="form-control" required="required" readonly="readonly" required="required"/>
+          </div>
 
-            <strong><label class="col-sm-4"> Consigne</label></strong>
-          <div class="col-sm-7">
-           <select name="filter" id="filter" class="form-control">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
-          </select>
-          </div>
-          <strong><label class="col-sm-4"> Name</label></strong>
-          <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" />
-          </div>
-              <strong><label class="col-sm-4"> Phone</label></strong>
-          <div class="col-sm-7">
-            <input name="name" type="text" class="form-control"  id="name" required="required" />
-          </div>
-          <strong><label class="col-sm-4"> Address</label></strong>
-          <div class="col-sm-7">
-            <textarea name="address2" class="form-control select"></textarea>
-          </div>
 
           </div>
                        
@@ -191,11 +106,13 @@
                                               <thead>
                                                 
                                                   <th>No.</th>
-                                                  <th>No Of Pcs</th>
-                                                  <th>Length ( P )</th>
-                                                  <th>Width ( L )</th>
-                                                  <th>Height ( T )</th>
-                                                  <th>Volume</th>
+                                                  <th>House No</th>
+                                                  <th>Shipper/th>
+                                                  <th>Consigne</th>
+                                                  <th>Origin</th>
+                                                  <th>Destination</th>
+                                                  <th>Tot Qty</th>
+                                                  <th>Tot CWT</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                               </thead>
@@ -207,12 +124,14 @@
                                                   <td>999</td>
                                                   <td>999</td>
                                                   <td>999</td>
+                                                  <td>999</td>
+                                                  <td>999</td>
                                                   <td>
                                                   <div align="center">
+                                                  <input type="checkbox" name="form-field-checkbox"></input>
                                                   <a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a>
-                                                  <a href="<?php echo base_url();?>master/delete_disc/<?php echo $data->id?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete item">
-                                                  <button class="btn btn-mini btn-danger"><i class="fa fa-times bigger-120"></i></button>
-                                                  </a> 
+
+                                                 
                                                   </div>
                                                   </td>
                                                 </tr>
@@ -239,7 +158,7 @@ $no=1;
                                                 </tr>                                
                                                 <?php $no++; } ;?>
                                                  <tr>
-                                                  <td colspan="7">&nbsp;</td>
+                                                  <td colspan="9">&nbsp;</td>
                                                 </tr>
                                                 <thead>
                                                  <tr>
@@ -250,6 +169,8 @@ $no=1;
                                                   <td>&nbsp;</td>
                                                   <td><strong>xxx</strong></td>  
                                                   <td>&nbsp;</td>
+                                                  <td>&nbsp;</td>
+                                                  <td>&nbsp;</td>
                                                 </tr>
                                                 </thead>
                                               </tbody>
@@ -257,33 +178,16 @@ $no=1;
                                         </div>
                                     </div>
                                     
-                                            <div class="col-md-12">
-                                              <div class="row">
-                                                <div class="col-md-12">
-                                              <label class="col-sm-2">Gross Weight &nbsp;</label>
-                                              <div class="col-sm-3"><input type="text" name="gross" id="gross" class="form-control"></div>
-                                                </div>
-                                                <div class="col-md-12">
-                                              <label class="col-sm-2">CWT &nbsp;</label>
-                                              <div class="col-sm-3"><input type="text" name="gross" id="gross" class="form-control"></div>
-                                             </div>
-                                                <div class="col-md-12">
-                                              <label class="col-sm-2">Remarks &nbsp;</label>
-                                              <div class="col-sm-4">
-                                                <textarea name="remarks" class="form-control" rows="5"></textarea>
-                                              </div>
-                                             </div>
-                                              </div>
-                                            </div>
+                    
 
                                   <div class="cpl-sm-12"><h2>&nbsp;</h2>
                                   <div class="row">
                                       <div class="col-md-4"></div>
                                         <div class="col-md-2">
-                                            <a class="btn btn-danger btn-addnew" href="<?php echo base_url();?>transaction/domesctic_outgoing_master" data-toggle="modal" title="Add"><i class="icon-reply bigger-120 icons"></i>Cancel </a>
+                                            <a class="btn btn-danger btn-addnew" href="<?php echo base_url();?>transaction/domesctic_outgoing_house" data-toggle="modal" title="Add"><i class="icon-reply bigger-120 icons"></i>Cancel </a>
                                         </div>
                                          <div class="col-md-2">
-                                             <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
+                                             <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Process Consol</button>
                                         </div>  </div>     
               </div>
           </div>
@@ -424,7 +328,6 @@ $no=1;
     </div>
     </div>
 <?php } ?>
-
 <!--adding form-->
 <div id="modaladd" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
@@ -474,8 +377,6 @@ $no=1;
     </span></div>
                         <div class="clearfix"></div>
                       </div>
-  
- 
   <div class="modal-footer">
 <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
                         <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>

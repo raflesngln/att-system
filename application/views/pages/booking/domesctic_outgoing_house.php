@@ -238,7 +238,7 @@ $no=1;
                                             <div class="col-md-12">
                                               <div class="row">
                                                 <div class="col-md-12">
-                                              <label class="col-sm-2">Gros Weight &nbsp;</label>
+                                              <label class="col-sm-2">Gross Weight &nbsp;</label>
                                               <div class="col-sm-3"><input type="text" name="gross" id="gross" class="form-control"></div>
                                                 </div>
                                                 <div class="col-md-12">
@@ -402,14 +402,14 @@ $no=1;
     </div>
     </div>
 <?php } ?>
-
+<!--adding form-->
 <div id="modaladd" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add Data Disc</h3>
+                <h3 id="myModalLabel">Add Item</h3>
             </div>
             <div class="smart-form scroll">
                 <form method="post" action="<?php echo site_url('master/save_disc')?>">
@@ -447,7 +447,7 @@ $no=1;
  <div class="form-group">
                         <label class="col-sm-3 control-label">Volume</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="rp" type="text" class="form-control" placeholder="" id="rp" />
+                          <input name="rp" type="text" class="form-control" placeholder="" id="rp" readonly="readonly" />
     </span></div>
                         <div class="clearfix"></div>
                       </div>

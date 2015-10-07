@@ -14,18 +14,18 @@
                                                 </tr>
                                               </thead>
                                               <tbody>
-  <?php
-$i=1;
-foreach($detail as $row)
-{	
-	$cwt+=$row->cwt;
-	$total=10000*$cwt;
-	
-	$totcwt+=$row->cwt;
-	$totqty+=$row->qty;
-	$grandtotal+=$total;
-	
-?>
+                                      <?php
+                                    $i=1;
+                                    foreach($detail as $row)
+                                    {	
+                                    	$cwt+=$row->cwt;
+                                    	$total=10000*$cwt;
+                                    	
+                                    	$totcwt+=$row->cwt;
+                                    	$totqty+=$row->qty;
+                                    	$grandtotal+=$total;
+                                    	
+                                    ?>
                                                 <tr class="gradeX">
                                                     <th scope="row"><?php echo $i ;?></th>
                                                     <td><a href="<?php echo base_url();?>transaksi/det_transaksi/<?php echo $data->custCode;?>"><?php echo $row->awb_no ;?></a></td>

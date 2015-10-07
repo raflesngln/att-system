@@ -22,6 +22,7 @@
   $(function() {
     $("#tgl").datepicker();
     $("#tgl2").datepicker();
+    $("#tgl3").datepicker();
     $("#flightdate1").datepicker();
     $("#flightdate2").datepicker();
     $("#flightdate3").datepicker();
@@ -42,7 +43,7 @@
             <?php }?>   
       <div class="header col-md-11">
 
-                <h3><i class="icon icon-fighter-jet bigger-230"></i> &nbsp;Air Domestic Outgoing - Master</h3>
+                <h3><i class="icon icon-fighter-jet bigger-230"></i> &nbsp;Air Domestic Incoming - Master</h3>
             </div>
       
 
@@ -143,15 +144,27 @@
                 <!--RIGHT INPUT-->
       <div class="col-sm-6">
         <div class="col-sm-11">
-        <strong><label class="col-sm-4">Booking No</label></strong>
+        <strong><label class="col-sm-4">ETA</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly"/>
+           <input name="name" type="text" class="form-control"  id="tgl3" required="required" readonly="readonly" value="<?php echo date("m/d/Y") ;?>"/>
           </div>
-          <strong><label class="col-sm-4"> ETD</label></strong>
+          <strong><label class="col-sm-4"> Pre Alert Date</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="tgl" required="required" readonly="readonly" required="required" placeholder="<?php echo date("m/d/Y") ;?>"/>
+           <input name="name" type="text" class="form-control"  id="tgl" required="required" readonly="readonly" required="required" value="<?php echo date("m/d/Y") ;?>"/>
           </div>
 
+          <div class="col-sm-12">
+          <h2>&nbsp;</h2>
+          </div>
+
+                  <div class="controls">
+                    <input readonly="" type="text" id="form-input-readonly" value="This text field is readonly!" />
+                    &nbsp; &nbsp;
+                    <input type="checkbox" id="id-disable-check" />
+                    <label class="lbl" for="id-disable-check"> Disable it!</label>
+                  </div>
+                </div>
+                
 
             <strong><label class="col-sm-4"> Consigne</label></strong>
           <div class="col-sm-7">
