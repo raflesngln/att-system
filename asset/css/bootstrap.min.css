@@ -1583,7 +1583,9 @@ output {
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
     -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
     -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s}
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    margin-bottom: 5px;
+}
 .form-control:focus {
     border-color: #66afe9;
     outline: 0;
@@ -3632,8 +3634,8 @@ button.close {
 .modal-body {
     position: relative;
     padding: 15px;
-    background-color: rgba(240, 242, 246, 0.9);
-    color: #1619E1;
+    background-color: rgb(242, 242, 242);
+    color: rgba(8, 8, 23, 0.68);
     border: 1px #99A9B6 solid;
 }
 .modal-footer {

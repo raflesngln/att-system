@@ -53,7 +53,8 @@
                <!--LEFT INPUT-->
   <div class="col-sm-6">      
       <div class="col-sm-11">
-                       
+<label class="col-sm-12"><span class="span3 label label-large label-pink arrowed-in-right"><strong>Job Data</strong></span></label>                       
+ <div class="col-sm-12">&nbsp;</div>       
           <strong><label class="col-sm-4"> JOB No</label></strong>
           <div class="col-sm-7">
            <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly" />
@@ -64,16 +65,22 @@
           </div>
           <strong><label class="col-sm-4"> Origin</label></strong>
           <div class="col-sm-7">
-           <select name="filter" id="filter" class="form-control combo">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
+           <select name="origin" id="filter" class="form-control" required="required">
+          <option>Choose origin</option>
+          <?php foreach ($city as $ct) {
+          ?>
+          <option value="<?php echo $ct->cyCode;?>"><?php echo $ct->cyName;?></option>
+          <?php } ?>
           </select>
           </div>
           <strong><label class="col-sm-4"> Destination</label></strong>
           <div class="col-sm-7">
-           <select name="filter" id="filter" class="form-control combo">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
+           <select name="desti" id="filter" class="form-control" required="required">
+          <option>Choose Destination</option>
+          <?php foreach ($city as $ct) {
+          ?>
+          <option value="<?php echo $ct->cyCode;?>"><?php echo $ct->cyName;?></option>
+          <?php } ?>
           </select>
           </div>
           <strong><label class="col-sm-4">Flight No / Date (1)</label></strong>
@@ -143,6 +150,8 @@
                 <!--RIGHT INPUT-->
       <div class="col-sm-6">
         <div class="col-sm-11">
+<label class="col-sm-12"><span class="span3 label label-large label-pink arrowed-in-right"><strong>Booking Data</strong></span></label>                       
+ <div class="col-sm-12">&nbsp;</div>  
         <strong><label class="col-sm-4">Booking No</label></strong>
           <div class="col-sm-7">
            <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly"/>

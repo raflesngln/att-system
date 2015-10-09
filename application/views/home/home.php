@@ -10,12 +10,13 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 	<link href="<?php echo base_url();?>asset/fontawesome/css/font-awesome.css" rel="stylesheet" />
     <link href="<?php echo base_url();?>asset/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="<?php echo base_url();?>asset/css/font-awesome.min.css" />
+  
 
 		<link href="<?php echo base_url();?>asset/css/my_style.css" rel="stylesheet" />
         <link href="<?php echo base_url();?>asset/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="<?php echo base_url();?>asset/css/bootstrap-responsive.min.css" rel="stylesheet" />
-	<link rel="stylesheet" href="<?php echo base_url();?>asset/css/font-awesome.min.css" />
-  
+	
         <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/themes/base/jquery.ui.all.css">
 
 		<!--[if IE 7]>
@@ -55,7 +56,7 @@
                             <img class="nav-user-photo" src="<?php echo base_url();?>asset/avatars/avatar2.png"/>
                             <span class="user-info">
                               <small>Welcome,</small>
-                              <?php echo $this->session->userdata('username');?>
+                              <?php echo $this->session->userdata('nameusr');?>
                           </span>
                             
                             <i class="icon-caret-down"></i>
@@ -63,9 +64,8 @@
                           
                           <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
                            
-                       <li><a href="<?php echo base_url()?>user/profil_user"><i class="icon-cog"></i>Setting</a></li>
                             
-                       <li><a href="#"><i class="icon-user"></i>Profile</a></li>
+                       <li><a href="<?php echo base_url()?>user/profil_user"><i class="icon-user"></i>Profile</a></li>
                             
                        <li class="divider"></li>
                             
@@ -238,13 +238,13 @@
 	  </li>
 	  <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-mail-reply bigger-140" aria-hidden="true"></i> <span class="menu-text">&nbsp;Incoming Book </span> <b class="arrow icon-angle-down"></b> </a>
         <ul class="submenu">
-          <li> <a href="<?php echo base_url();?>transaction/domesctic_incoming_master"> <i class="icon-double-angle-right"></i> </i><i class="icon icon-home bigger-120"></i> &nbsp;Incoming-Master</a></li>
- 		<li> <a href="<?php echo base_url();?>transaction/outgoing_consolidation"> <i class="icon-double-angle-right"></i> </i><i class="icon icon-fighter-jet bigger-120"></i> &nbsp;Consolidation</a></li>
+          <li> <a href="<?php echo base_url();?>transaction/domesctic_incoming_master"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-file-archive-o bigger-120"></i> &nbsp;Master-Incoming</a></li>
+ 		<li> <a href="<?php echo base_url();?>transaction/incoming_consolidation"> <i class="icon-double-angle-right"></i> </i><i class="icon icon-fighter-jet bigger-120"></i> &nbsp;Consolidation</a></li>
         </ul>
 	  </li>
 	  <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-mail-forward bigger-140" aria-hidden="true"></i> <span class="menu-text">&nbsp;Outgoing Book </span> <b class="arrow icon-angle-down"></b> </a>
         <ul class="submenu">
-         <li> <a href="<?php echo base_url();?>transaction/domesctic_outgoing_master"> <i class="icon-double-angle-right"></i> </i><i class="icon icon-home bigger-120"></i> &nbsp;Outgoing-Master</a></li>
+         <li> <a href="<?php echo base_url();?>transaction/domesctic_outgoing_master"> <i class="icon-double-angle-right"></i> </i><i class="icon icon-home bigger-120"></i> &nbsp;Master-Outgoing</a></li>
  		<li> <a href="<?php echo base_url();?>transaction/domesctic_outgoing_house"> <i class="icon-double-angle-right"></i> </i><i class="icon icon-fighter-jet bigger-120"></i> &nbsp;Outgoing-House</a></li>
 		<li> <a href="<?php echo base_url();?>transaction/outgoing_consolidation"> <i class="icon-double-angle-right"></i> </i><i class="icon icon-fighter-jet bigger-120"></i> &nbsp;Consolidation</a></li>
         

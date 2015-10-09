@@ -49,7 +49,8 @@
                <!--LEFT INPUT-->
   <div class="col-sm-6">      
       <div class="col-sm-11">
-                       
+<label class="col-sm-12"> <span class=" span3 label label-large label-pink arrowed-in-right">Job Data</span></label> 
+<div class="clearfx">&nbsp;</div>         
           <strong><label class="col-sm-4"> JOB No</label></strong>
           <div class="col-sm-7">
            <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly" />
@@ -58,29 +59,42 @@
           <div class="col-sm-7">
            <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly"/>
           </div>
-           <strong><label class="col-sm-4"> SMU No</label></strong>
-          <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" />
-          </div>
-              <strong><label class="col-sm-4"> Service</label></strong>
+
+          <strong><label class="col-sm-4"> Payment Type</label></strong>
           <div class="col-sm-7">
            <select name="service" id="filter" class="form-control combo">
             <option value="empName">Name</option>
           <option value="Address">Address</option>
           </select>
           </div>
+          <strong><label class="col-sm-4"> Service</label></strong>
+          <div class="col-sm-7">
+           <select name="service" id="filter" class="form-control" required="required">
+          <option>Choose Service</option>
+          <?php foreach ($service as $sv) {
+          ?>
+          <option value="<?php echo $sv->svCode;?>"><?php echo $sv->Name;?></option>
+          <?php } ?>
+          </select>
+          </div>
           <strong><label class="col-sm-4"> Origin</label></strong>
           <div class="col-sm-7">
-           <select name="filter" id="filter" class="form-control combo">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
+           <select name="origin" id="filter" class="form-control" required="required">
+          <option>Choose Origin</option>
+          <?php foreach ($city as $ct) {
+          ?>
+          <option value="<?php echo $ct->cyCode;?>"><?php echo $ct->cyName;?></option>
+          <?php } ?>
           </select>
           </div>
           <strong><label class="col-sm-4"> Destination</label></strong>
           <div class="col-sm-7">
-           <select name="filter" id="filter" class="form-control combo">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
+           <select name="desti" id="filter" class="form-control" required="required">
+          <option>Choose Destination</option>
+          <?php foreach ($city as $ct) {
+          ?>
+          <option value="<?php echo $ct->cyCode;?>"><?php echo $ct->cyName;?></option>
+          <?php } ?>
           </select>
           </div>
           <strong><label class="col-sm-4"> Shipper</label></strong>
@@ -102,18 +116,24 @@
           <div class="col-sm-7">
            <textarea class="form-control select" name="address"></textarea>
           </div>
+          <strong><label class="col-sm-4"> Code Shipper</label></strong>
+          <div class="col-sm-7">
+             <input name="codeshipper" type="text" class="form-control"  id="name" required="required" />
+          </div>
           <strong><label class="col-sm-4"> Commodity</label></strong>
           <div class="col-sm-7">
-           <select name="filter" id="filter" class="form-control">
-            <option value="empName">Name</option>
+          <select name="commodity" id="filter" class="form-control">
+          <option value="empName">Name</option>
           <option value="Address">Address</option>
           </select>
-          </div>
+           </div>
       </div>             
       </div>
                 <!--RIGHT INPUT-->
       <div class="col-sm-6">
         <div class="col-sm-11">
+<label class="col-sm-12"> <span class="span3 label label-large label-pink arrowed-in-right">Boooking Data</span></label> 
+<div class="clearfx">&nbsp;</div>
         <strong><label class="col-sm-4">Booking No</label></strong>
           <div class="col-sm-7">
            <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly"/>
@@ -150,6 +170,10 @@
           <div class="col-sm-7">
             <textarea name="address2" class="form-control select"></textarea>
           </div>
+          <strong><label class="col-sm-4"> Code Consignee</label></strong>
+          <div class="col-sm-7">
+            <input name="codeconsignee" type="text" class="form-control"  id="tgl" required="required" required="required"/>
+          </div>
 
           </div>
                        
@@ -164,6 +188,7 @@
                         <!--<div class="panel-header"></div>-->
                         
                                     <div class="form-group">
+<h2><span class="label label-large label-pink arrowed-in-right"><strong>List Item's</strong></span></h2>
                                         <div class="table-responsive" id="table_responsive">
                                         <table class="table table-striped table-bordered table-hover">
                                               <thead>
@@ -194,28 +219,6 @@
                                                   </div>
                                                   </td>
                                                 </tr>
-                                        <?php 
-$no=1;
-			foreach($list as $data){
-				
-			?>
-                                                <tr class="gradeX">
-                                                    <th scope="row"><?php echo $no?></th>
-                                                    <td><?php echo $data->custName?></td>
-                                                    <td><?php echo $data->Name?></td>
-                                                    <td><?php echo $data->ori?></td>
-                                                    <td><?php echo $data->dest?></td>
-                                                    <td><?php echo $data->venName?></td>
-                                                    <td class="text-center"><div align="center"><a class="btn-action" href="#modaledit<?php echo $data->discCode?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i>
-                                                      <button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>
-                                                      </a>
-                                                      
-                                                      <a href="<?php echo base_url();?>master/delete_disc/<?php echo $data->discCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
-                                                        <button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>
-                                                      </a>          
-                                                    </div></td>
-                                                </tr>                                
-                                                <?php $no++; } ;?>
                                                  <tr>
                                                   <td colspan="7">&nbsp;</td>
                                                 </tr>
@@ -253,6 +256,48 @@ $no=1;
                                              </div>
                                               </div>
                                             </div>
+<h2><span class="label label-large label-pink arrowed-in-right"><strong>Consol to Master/ SMU</strong></span></h2>
+                                    <div class="form-group">
+                                        <div class="table-responsive" id="table_responsive">
+                                        <table class="table table-striped table-bordered table-hover">
+                                              <thead>
+                                                
+                                                  <th>No.</th>
+                                                  <th>SMU No</th>
+                                                  <th>Origin</th>
+                                                  <th>Dest</th>
+                                                  <th>Qty</th>
+                                                  <th>CWT</th>
+                                                  <th class="text-center"><div align="center">Action</div></th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                  <tr>
+                                                  <td>1</td>
+                                                  <td>xxx</td>
+                                                  <td>999</td>
+                                                  <td>999</td>
+                                                  <td>999</td>
+                                                  <td>999</td>
+                                                  <td>
+                                                  <div align="center">
+                                                  <a class="btn btn-success btn-addnew btn-mini" href="#modaladd2" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a>
+                                                  <a href="<?php echo base_url();?>master/delete_disc/<?php echo $data->id?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete item">
+                                                  <button class="btn btn-mini btn-danger"><i class="fa fa-times bigger-120"></i></button>
+                                                  </a> 
+                                                  </div>
+                                                  </td>
+                                                </tr>
+                                                 <tr>
+                                                  <td colspan="7">&nbsp;</td>
+                                                </tr>
+                                                <thead>
+                                            
+                                                </thead>
+                                              </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
 
                                   <div class="cpl-sm-12"><h2>&nbsp;</h2>
                                   <div class="row">
@@ -272,7 +317,7 @@ $no=1;
             </div>
   
 
-<!-----edit data------->
+<!--edit form-->
 <?php
 
     foreach($list as $row){
@@ -448,6 +493,67 @@ $no=1;
                         <label class="col-sm-3 control-label">Volume</label>
                         <div class="col-sm-9"><span class="controls">
                           <input name="rp" type="text" class="form-control" placeholder="" id="rp" readonly="readonly" />
+    </span></div>
+                        <div class="clearfix"></div>
+                      </div>
+  <div class="modal-footer">
+<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
+                        <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
+    </div>
+                    </div>
+            
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+<!--adding form 2-->
+<div id="modaladd2" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Add consol master/SMU</h3>
+            </div>
+            <div class="smart-form scroll">
+                <form method="post" action="<?php echo site_url('master/save_disc')?>">
+                    <div class="modal-body">
+                     
+                   
+<div class="form-group">
+                        <label class="col-sm-3 control-label">SMU No </label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
+</span></div>
+                        <div class="clearfix"></div>
+                      </div>
+<div class="form-group">
+                        <label class="col-sm-3 control-label">Origin</label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
+</span></div>
+                        <div class="clearfix"></div>
+                      </div>
+  <div class="form-group">
+                        <label class="col-sm-3 control-label">Destination</label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
+</span></div>
+                        <div class="clearfix"></div>
+                      </div>
+<div class="form-group">
+                        <label class="col-sm-3 control-label">QTY</label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
+</span></div>
+                        <div class="clearfix"></div>
+                      </div>                    
+ <div class="form-group">
+                        <label class="col-sm-3 control-label">CWT</label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="rp" type="text" class="form-control" placeholder="" id="rp" />
     </span></div>
                         <div class="clearfix"></div>
                       </div>

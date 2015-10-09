@@ -23,12 +23,12 @@ class Login extends CI_Controller{
             foreach($result as $row) {
                 //create the session
                 $sess_array = array(
-                    'id' => $row->id_user,
-                    'username' => $row->UserName,
-                    'pass'=>$row->password,
-                    'name'=>$row->FullName,
-					'phone'=>$row->phone,
-                    'level' => $row->level,
+                    'idusr' => $row->id_user,
+                    'usnm' => $row->UserName,
+                    'passusr'=>$row->password,
+                    'nameusr'=>$row->FullName,
+					'emailusr'=>$row->Email,
+                    'levelusr' => $row->Level,
                     'login_status'=>true,
                 );
                 //set session with value from database
@@ -44,11 +44,12 @@ class Login extends CI_Controller{
     }
 
     function logout() {
-        $this->session->unset_userdata('id');
-        $this->session->unset_userdata('username');
-        $this->session->unset_userdata('PASS');
-        $this->session->unset_userdata('name');
-        $this->session->unset_userdata('level');
+        $this->session->unset_userdata('idusr');
+        $this->session->unset_userdata('ususr');
+        $this->session->unset_userdata('passusr');
+        $this->session->unset_userdata('nameusr');
+        $this->session->unset_userdata('emailusr');
+        $this->session->unset_userdata('levelusr');
         $this->session->unset_userdata('login_status');
         $this->session->set_flashdata('notif','THANK YOU FOR LOGIN IN THIS APP');
         redirect('login');

@@ -54,38 +54,45 @@
                <!--LEFT INPUT-->
   <div class="col-sm-6">      
       <div class="col-sm-11">
-                       
+<label class="col-sm-12"><span class="span3 label label-large label-pink arrowed-in-right"><strong>Job Data</strong></span></label>                       
+ <div class="col-sm-12">&nbsp;</div>              
           <strong><label class="col-sm-4"> JOB No</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly" />
+           <input name="job" type="text" class="form-control"  id="name" required="required" readonly="readonly" />
           </div>
            <strong><label class="col-sm-4"> SMU No</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" />
+           <input name="smu" type="text" class="form-control"  id="name" required="required" />
           </div>
           <strong><label class="col-sm-4"> Origin</label></strong>
           <div class="col-sm-7">
-           <select name="filter" id="filter" class="form-control combo">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
+           <select name="origin" id="filter" class="form-control" required="required">
+          <option>Choose City</option>
+          <?php foreach ($city as $ct) {
+          ?>
+          <option value="<?php echo $ct->cyCode;?>"><?php echo $ct->cyName;?></option>
+          <?php } ?>
           </select>
           </div>
           <strong><label class="col-sm-4"> Destination</label></strong>
           <div class="col-sm-7">
-           <select name="filter" id="filter" class="form-control combo">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
+           <select name="origin" id="filter" class="form-control" required="required">
+          <option>Choose Destination</option>
+          <?php foreach ($city as $ct) {
+          ?>
+          <option value="<?php echo $ct->cyCode;?>"><?php echo $ct->cyName;?></option>
+          <?php } ?>
           </select>
           </div>
           <strong><label class="col-sm-4">Flight No / Date (1)</label></strong>
           <div class="col-sm-7">
                   <div class="row">
                        <div class="col-sm-5">
-                       <input type="text" class="form-control" id="flightno" name="flightno" placeholder="flight no">
+                       <input type="text" class="form-control" id="flightno" name="flightno1" placeholder="flight no">
                       </div>
                        <div class="col-sm-1">/</div>
                       <div class="col-sm-5">
-                       <input id="flightdate1" type="text" class="form-control" readonly="readonly" name="flightdate" value="<?php echo date('m/d/Y');?>">
+                       <input id="flightdate1" type="text" class="form-control" readonly="readonly" name="flightdate1" value="<?php echo date('m/d/Y');?>">
                       </div>
                   </div>
           </div>
@@ -93,11 +100,11 @@
           <div class="col-sm-7">
                   <div class="row">
                        <div class="col-sm-5">
-                       <input type="text" class="form-control" id="flightno" name="flightno" placeholder="flight no">
+                       <input type="text" class="form-control" id="flightno" name="flightno2" placeholder="flight no">
                       </div>
                       <div class="col-sm-1">/</div>
                       <div class="col-sm-5">
-                       <input id="flightdate2" type="text" class="form-control" readonly="readonly" name="flightdate" value="<?php echo date('m/d/Y');?>">
+                       <input id="flightdate2" type="text" class="form-control" readonly="readonly" name="flightdate2" value="<?php echo date('m/d/Y');?>">
                       </div>
                   </div>
           </div>
@@ -105,36 +112,36 @@
           <div class="col-sm-7">
                   <div class="row">
                        <div class="col-sm-5">
-                       <input type="text" class="form-control" id="flightno" name="flightno" placeholder="flight no">
+                       <input type="text" class="form-control" id="flightno" name="flightno3" placeholder="flight no">
                       </div>
                        <div class="col-sm-1">/</div>
                       <div class="col-sm-5">
-                       <input id="flightdate3" type="text" class="form-control" readonly="readonly" name="flightdate" value="<?php echo date('m/d/Y');?>">
+                       <input id="flightdate3" type="text" class="form-control" readonly="readonly" name="flightdate3" value="<?php echo date('m/d/Y');?>">
                       </div>
                   </div>
           </div>
           <strong><label class="col-sm-4"> Shipper</label></strong>
           <div class="col-sm-7">
-           <select name="filter" id="filter" class="form-control combo">
+           <select name="shipper" id="filter" class="form-control combo">
             <option value="empName">Name</option>
           <option value="Address">Address</option>
           </select>
           </div>
           <strong><label class="col-sm-4"> Name</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" />
+           <input name="name1" type="text" class="form-control"  id="name" required="required" />
           </div>
           <strong><label class="col-sm-4"> Phone</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" />
+           <input name="phone1" type="text" class="form-control"  id="name" required="required" />
           </div>
           <strong><label class="col-sm-4"> Address</label></strong>
           <div class="col-sm-7">
-           <textarea class="form-control select" name="address"></textarea>
+           <textarea class="form-control select" name="address1"></textarea>
           </div>
           <strong><label class="col-sm-4"> Commodity</label></strong>
           <div class="col-sm-7">
-           <select name="filter" id="filter" class="form-control">
+           <select name="commodity" id="filter" class="form-control">
             <option value="empName">Name</option>
           <option value="Address">Address</option>
           </select>
@@ -144,42 +151,35 @@
                 <!--RIGHT INPUT-->
       <div class="col-sm-6">
         <div class="col-sm-11">
+<label class="col-sm-12"><span class="span3 label label-large label-pink arrowed-in-right"><strong>Booking Data</strong></span></label>                       
+ <div class="col-sm-12">&nbsp;</div>  
         <strong><label class="col-sm-4">ETA</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="tgl3" required="required" readonly="readonly" value="<?php echo date("m/d/Y") ;?>"/>
+           <input name="eta" type="text" class="form-control"  id="tgl3" required="required" readonly="readonly" value="<?php echo date("m/d/Y") ;?>"/>
           </div>
           <strong><label class="col-sm-4"> Pre Alert Date</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="tgl" required="required" readonly="readonly" required="required" value="<?php echo date("m/d/Y") ;?>"/>
+           <input name="pad" type="text" class="form-control"  id="tgl" required="required" readonly="readonly" required="required" value="<?php echo date("m/d/Y") ;?>"/>
           </div>
 
           <div class="col-sm-12">
           <h2>&nbsp;</h2>
           </div>
 
-                  <div class="controls">
-                    <input readonly="" type="text" id="form-input-readonly" value="This text field is readonly!" />
-                    &nbsp; &nbsp;
-                    <input type="checkbox" id="id-disable-check" />
-                    <label class="lbl" for="id-disable-check"> Disable it!</label>
-                  </div>
-                </div>
-                
-
             <strong><label class="col-sm-4"> Consigne</label></strong>
           <div class="col-sm-7">
-           <select name="filter" id="filter" class="form-control">
+           <select name="consigne" id="filter" class="form-control">
             <option value="empName">Name</option>
           <option value="Address">Address</option>
           </select>
           </div>
           <strong><label class="col-sm-4"> Name</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" />
+           <input name="name2" type="text" class="form-control"  id="name" required="required" />
           </div>
               <strong><label class="col-sm-4"> Phone</label></strong>
           <div class="col-sm-7">
-            <input name="name" type="text" class="form-control"  id="name" required="required" />
+            <input name="phone2" type="text" class="form-control"  id="name" required="required" />
           </div>
           <strong><label class="col-sm-4"> Address</label></strong>
           <div class="col-sm-7">
@@ -278,7 +278,7 @@ $no=1;
                                                 </div>
                                                 <div class="col-md-12">
                                               <label class="col-sm-2">CWT &nbsp;</label>
-                                              <div class="col-sm-3"><input type="text" name="gross" id="gross" class="form-control"></div>
+                                              <div class="col-sm-3"><input type="text" name="cwt" id="gross" class="form-control"></div>
                                              </div>
                                                 <div class="col-md-12">
                                               <label class="col-sm-2">Remarks &nbsp;</label>

@@ -38,7 +38,7 @@
             <?php }?>   
       <div class="header col-md-11">
 
-                <h3><i class="icon icon-fighter-jet bigger-230"></i> &nbsp;Consolidation</h3>
+                <h3><i class="icon icon-fighter-jet bigger-230"></i> &nbsp;Outgoing-Consolidation</h3>
             </div>
       
 
@@ -128,9 +128,7 @@
                                                   <td>999</td>
                                                   <td>
                                                   <div align="center">
-                                                  <input type="checkbox" name="form-field-checkbox"></input>
-                                                  <a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a>
-
+                                                <input type="checkbox" name="ck" class="ace-checkbox-2"> 
                                                  
                                                   </div>
                                                   </td>

@@ -18,6 +18,8 @@ class Transaction extends CI_Controller{
 	  		'title'=>'Booking Shipment',
 			'scrumb_name'=>'Booking Shipment',
 			'scrumb'=>'transaction/booking_shipment',
+            'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
+            'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
 			'view'=>'pages/booking/booking_shipment',
         );	
       //$this->load->view('pages/booking/ship',$data);
@@ -29,6 +31,7 @@ class Transaction extends CI_Controller{
 	  		'title'=>'Booking list',
 			'scrumb_name'=>'Booking list',
 			'scrumb'=>'transaction/booking_list',
+            'customer'=>$this->model_app->getdatapaging("custName,custInitial","ms_customer","ORDER BY custName"),
 			'view'=>'pages/booking/booking_list',
         );	
       $this->load->view('home/home',$data);
@@ -39,7 +42,9 @@ class Transaction extends CI_Controller{
             'title'=>'domesctic-outgoing-house',
             'scrumb_name'=>'Domesctic outgoing house',
             'scrumb'=>'transaction/domesctic_outgoing_house',
-            'view'=>'pages/booking/domesctic_outgoing_consolidation',
+            'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
+            'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
+            'view'=>'pages/booking/domesctic_outgoing_house',
         );  
       $this->load->view('home/home',$data);
     }
@@ -53,12 +58,24 @@ class Transaction extends CI_Controller{
         );  
       $this->load->view('home/home',$data);
     }
+     //     consolidation
+    function incoming_consolidation(){
+        $data = array(
+            'title'=>'incoming_consolidation',
+            'scrumb_name'=>'incoming_consolidation',
+            'scrumb'=>'transaction/incoming_consolidation',
+            'view'=>'pages/booking/incoming_consolidation',
+        );  
+      $this->load->view('home/home',$data);
+    }
+
      //     DATA TO SESSION
     function domesctic_outgoing_master(){
         $data = array(
             'title'=>'domesctic-outgoing-master',
             'scrumb_name'=>'Domesctic outgoing master',
             'scrumb'=>'transaction/domesctic_outgoing_master',
+            'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
             'view'=>'pages/booking/domesctic_outgoing_master',
         );  
       $this->load->view('home/home',$data);
@@ -69,6 +86,7 @@ class Transaction extends CI_Controller{
             'title'=>'domesctic_incoming_master',
             'scrumb_name'=>'domesctic_incoming_master',
             'scrumb'=>'transaction/domesctic_incoming_master',
+            'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
             'view'=>'pages/booking/domesctic_incoming_master',
         );  
       $this->load->view('home/home',$data);
