@@ -38,7 +38,7 @@
             <?php }?>   
       <div class="header col-md-11">
 
-                <h3><i class="icon icon-fighter-jet bigger-230"></i> &nbsp;Outgoing-Consolidation</h3>
+                <h3><i class="fa fa-clone bigger-230"></i> &nbsp;Outgoing-Consolidation</h3>
             </div>
       
 

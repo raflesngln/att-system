@@ -47,6 +47,17 @@ class Transaction extends CI_Controller{
             'view'=>'pages/booking/domesctic_outgoing_house',
         );  
       $this->load->view('home/home',$data);
+    }  //     DATA TO SESSION
+    function domesctic_incoming_house(){
+        $data = array(
+            'title'=>'domesctic-incoming-house',
+            'scrumb_name'=>'Domesctic incoming house',
+            'scrumb'=>'transaction/domesctic_incoming_house',
+            'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
+            'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
+            'view'=>'pages/booking/domesctic_incoming_house',
+        );  
+      $this->load->view('home/home',$data);
     }
    //     consolidation
     function outgoing_consolidation(){
@@ -81,11 +92,14 @@ class Transaction extends CI_Controller{
       $this->load->view('home/home',$data);
     }
   //     DATA TO SESSION
+    
     function domesctic_incoming_master(){
         $data = array(
             'title'=>'domesctic_incoming_master',
             'scrumb_name'=>'domesctic_incoming_master',
             'scrumb'=>'transaction/domesctic_incoming_master',
+            'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
+            'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
             'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
             'view'=>'pages/booking/domesctic_incoming_master',
         );  

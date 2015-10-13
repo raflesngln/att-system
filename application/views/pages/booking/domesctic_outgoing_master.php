@@ -42,7 +42,7 @@
             <?php }?>   
       <div class="header col-md-11">
 
-                <h3><i class="icon icon-fighter-jet bigger-230"></i> &nbsp;Air Domestic Outgoing - Master</h3>
+                <h3><i class="fa fa-file-archive-o bigger-230"></i> &nbsp;Air Domestic Outgoing - Master</h3>
             </div>
       
 
@@ -53,7 +53,7 @@
                <!--LEFT INPUT-->
   <div class="col-sm-6">      
       <div class="col-sm-11">
-<label class="col-sm-12"><span class="span3 label label-large label-pink arrowed-in-right"><strong>Job Data</strong></span></label>                       
+<label class="col-sm-12"><span class="span3 label label-large label-pink arrowed-in-right"><strong>Sender</strong></span></label>                       
  <div class="col-sm-12">&nbsp;</div>       
           <strong><label class="col-sm-4"> JOB No</label></strong>
           <div class="col-sm-7">
@@ -150,7 +150,7 @@
                 <!--RIGHT INPUT-->
       <div class="col-sm-6">
         <div class="col-sm-11">
-<label class="col-sm-12"><span class="span3 label label-large label-pink arrowed-in-right"><strong>Booking Data</strong></span></label>                       
+<label class="col-sm-12"><span class="span3 label label-large label-pink arrowed-in-right"><strong>Receivement</strong></span></label>                       
  <div class="col-sm-12">&nbsp;</div>  
         <strong><label class="col-sm-4">Booking No</label></strong>
           <div class="col-sm-7">
@@ -160,6 +160,10 @@
           <div class="col-sm-7">
            <input name="name" type="text" class="form-control"  id="tgl" required="required" readonly="readonly" required="required" placeholder="<?php echo date("m/d/Y") ;?>"/>
           </div>
+
+<div class="col-sm-12"><h1>&nbsp;</h1></div>
+<div class="col-sm-12"><h1>&nbsp;</h1></div>
+<div class="col-sm-12"><h1>&nbsp;</h1></div>
 
 
             <strong><label class="col-sm-4"> Consigne</label></strong>

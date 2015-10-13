@@ -100,7 +100,7 @@ $no=1;
             </div>
   
 
-<!-----edit data------->
+<!-- edit data -->
 <?php
 
     foreach($list as $row){
@@ -341,6 +341,7 @@ $no=1;
     </div>
 <?php } ?>
 
+<!--ADD DATA-->
 <div id="modaladd" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -507,10 +508,9 @@ $no=1;
 <hr /> 
 
 <div class="form-group">
-                       <em>
-                        <label class="col-sm-4 control-label">&nbsp;</label> 
-                        <label class="col-sm-6 control-label">Status</label>
-              </em>
+     <em><label class="col-sm-4 control-label">&nbsp;</label> 
+    <label class="col-sm-6 control-label">&nbsp;</label></em>
+
 <div class="col-sm-2"></div>
 
  <div class="col-sm-4"><span class="controls">
@@ -524,7 +524,7 @@ $no=1;
 </div>
 
 <div class="col-sm-4"><span class="controls">
-   <label><span> &nbsp;Is Agent</span>
+   <label><span> &nbsp;Is SHipper</span>
       <select name="shipper" id="agen" class="form-control">
         <option value="1">&nbsp;Yes&nbsp;</option>
         <option value="0">&nbsp;No&nbsp;</option>
@@ -534,7 +534,7 @@ $no=1;
 </div>
 
 <div class="col-sm-4"><span class="controls">
-   <label><span> &nbsp;Is Agent</span>
+   <label><span> &nbsp;Is CNEE</span>
       <select name="cnee" id="cnee" class="form-control">
         <option value="1">&nbsp;Yes&nbsp;</option>
         <option value="0">&nbsp;No&nbsp;</option>
@@ -545,10 +545,11 @@ $no=1;
     
 <div class="clearfix"></div>
                       </div>
-                  <div class="modal-footer">
+<div class="modal-footer">
 <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
-    </div>
+<button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
+</div>
+<div class="clearfx">&nbsp;</div>
                     </div>
             
                 </form>

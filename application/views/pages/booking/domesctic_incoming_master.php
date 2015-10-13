@@ -1,3 +1,6 @@
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>asset/css/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>asset/css/bootstrap-min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>asset/css/bootstrap-dialog-min.css">
 
  <style>
  .btn-search{ height:32px; margin-left:-10px;}
@@ -15,7 +18,7 @@
  #flightno{margin-left: 15px;}
  #flightdate1,#flightdate2,#flightdate3{margin-left: 10px;}
  </style>
-       <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
+  <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
   <script src="<?php echo base_url();?>asset/jquery_ui/external/jquery/jquery.js"></script>
   <script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
   <script>
@@ -43,7 +46,7 @@
             <?php }?>   
       <div class="header col-md-11">
 
-                <h3><i class="icon icon-fighter-jet bigger-230"></i> &nbsp;Air Domestic Incoming - Master</h3>
+                <h3><i class="fa fa-file-archive-o bigger-230"></i> &nbsp;Air Domestic Incoming - Master</h3>
             </div>
       
 
@@ -54,7 +57,7 @@
                <!--LEFT INPUT-->
   <div class="col-sm-6">      
       <div class="col-sm-11">
-<label class="col-sm-12"><span class="span3 label label-large label-pink arrowed-in-right"><strong>Job Data</strong></span></label>                       
+<label class="col-sm-12"><span class="span3 label label-large label-pink arrowed-in-right"><strong>Sender</strong></span></label>                       
  <div class="col-sm-12">&nbsp;</div>              
           <strong><label class="col-sm-4"> JOB No</label></strong>
           <div class="col-sm-7">
@@ -122,22 +125,26 @@
           </div>
           <strong><label class="col-sm-4"> Shipper</label></strong>
           <div class="col-sm-7">
-           <select name="shipper" id="filter" class="form-control combo">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
+           <select name="shipper" id="shipper" class="form-control combo">
+            <option>Select Shipper</option>
+         <?php
+          foreach($shipper as $sv){
+           ?>
+          <option value="<?php echo $sv->custCode;?>"><?php echo $sv->custName;?></option>
+          <?php } ?>
           </select>
           </div>
           <strong><label class="col-sm-4"> Name</label></strong>
           <div class="col-sm-7">
-           <input name="name1" type="text" class="form-control"  id="name" required="required" />
+           <input name="name1" type="text" class="form-control"  id="name1" required="required" />
           </div>
           <strong><label class="col-sm-4"> Phone</label></strong>
           <div class="col-sm-7">
-           <input name="phone1" type="text" class="form-control"  id="name" required="required" />
+           <input name="phone1" type="text" class="form-control"  id="phone1" required="required" />
           </div>
           <strong><label class="col-sm-4"> Address</label></strong>
           <div class="col-sm-7">
-           <textarea class="form-control select" name="address1"></textarea>
+           <textarea class="form-control select" name="address1" id="address1"></textarea>
           </div>
           <strong><label class="col-sm-4"> Commodity</label></strong>
           <div class="col-sm-7">
@@ -151,7 +158,7 @@
                 <!--RIGHT INPUT-->
       <div class="col-sm-6">
         <div class="col-sm-11">
-<label class="col-sm-12"><span class="span3 label label-large label-pink arrowed-in-right"><strong>Booking Data</strong></span></label>                       
+<label class="col-sm-12"><span class="span3 label label-large label-pink arrowed-in-right"><strong>Receivement</strong></span></label>                       
  <div class="col-sm-12">&nbsp;</div>  
         <strong><label class="col-sm-4">ETA</label></strong>
           <div class="col-sm-7">
@@ -162,15 +169,20 @@
            <input name="pad" type="text" class="form-control"  id="tgl" required="required" readonly="readonly" required="required" value="<?php echo date("m/d/Y") ;?>"/>
           </div>
 
-          <div class="col-sm-12">
-          <h2>&nbsp;</h2>
-          </div>
+          <div class="col-sm-12"><h2>&nbsp;</h2></div>
+          <div class="col-sm-12"><h2>&nbsp;</h2></div>
+          <div class="col-sm-12"><h2>&nbsp;</h2></div>
+          <div class="col-sm-12"><h2>&nbsp;</h2></div>
 
             <strong><label class="col-sm-4"> Consigne</label></strong>
           <div class="col-sm-7">
            <select name="consigne" id="filter" class="form-control">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
+            <option>Select Shipper</option>
+         <?php
+          foreach($cnee as $sv){
+           ?>
+          <option value="<?php echo $sv->custCode;?>"><?php echo $sv->custName;?></option>
+          <?php } ?>
           </select>
           </div>
           <strong><label class="col-sm-4"> Name</label></strong>
@@ -307,7 +319,7 @@ $no=1;
             </div>
   
 
-<!-----edit data------->
+<!-- edit data -->
 <?php
 
     foreach($list as $row){
@@ -500,7 +512,14 @@ $no=1;
         </div>
     </div>
     </div>
-    
+
+        <script type="text/javascript" src="<?php echo base_url();?>asset/js/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url();?>asset/js/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url();?>asset/js/bootstrap-min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url();?>asset/js/bootstrap-dialog-min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url();?>asset/js/cari.js"></script>
+
+
 <script type="text/javascript">			
 	$(window).load(function(){
 		$("#loading").fadeOut("slow");

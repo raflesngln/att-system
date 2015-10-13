@@ -424,7 +424,7 @@ $this->form_validation->set_rules('coucode','coucode','required|trim|xss_clean')
 		$data=array(
 		'couCode' =>strtoupper($this->input->post('coucode')),
 		'couName'=>strtoupper($this->input->post('couname')),
-		'CreateBy'=>$this->session->userdata('name'),
+		'CreateBy'=>$this->session->userdata('nameusr'),
 		'CreateDate'=>date('Y-m-d:h-s-m'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
@@ -490,7 +490,7 @@ $this->form_validation->set_rules('cust','cust','required|trim|xss_clean');
 		'DiscPersen'=>$this->input->post('persen'),
 		'DiscRupiah'=>$this->input->post('rp'),
 		'Remarks'=>$this->input->post('remarks'),
-		'CreateBy'=>$this->session->userdata('name'),
+		'CreateBy'=>$this->session->userdata('nameusr'),
 		'CreateDate'=>date('Y-m-d:h-s-m'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
@@ -504,6 +504,7 @@ $this->form_validation->set_rules('cust','cust','required|trim|xss_clean');
 //--SAVE---------
 function save_service()
 {	
+	
 $code =$this->input->post('code');
 $cek=$this->model_app->getdata('ms_service',"where svCode='$code'");
 if($cek)
@@ -551,7 +552,7 @@ $this->form_validation->set_rules('name','name','required|trim|xss_clean');
 		'svCode' =>strtoupper($this->input->post('code')),
 		'Name'=>strtoupper($this->input->post('name')),
 		'Remarks'=>$this->input->post('remarks'),
-		'CreateBy'=>$this->session->userdata('name'),
+		'CreateBy'=>$this->session->userdata('nameusr'),
 		'CreateDate'=>date('Y-m-d:h-s-m'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
@@ -609,7 +610,7 @@ $this->form_validation->set_rules('stcode','stcode','required|trim|xss_clean');
 		$data=array(
 		'stCode' =>strtoupper($this->input->post('stcode')),
 		'stName'=>strtoupper($this->input->post('stname')),
-		'CreateBy'=>$this->session->userdata('name'),
+		'CreateBy'=>$this->session->userdata('nameusr'),
 		'CreateDate'=>date('Y-m-d:h-s-m'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
@@ -672,7 +673,7 @@ $this->form_validation->set_rules('cycode','cycode','required|trim|xss_clean');
 		'stCode'=>$this->input->post('tstcode'),
 		'isAirport'=>$this->input->post('airport'),
 		'isSeaport'=>$this->input->post('seaport'),
-		'CreateBy'=>$this->session->userdata('name'),
+		'CreateBy'=>$this->session->userdata('nameusr'),
 		'CreateDate'=>date('Y-m-d:h-s-m'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
@@ -685,12 +686,12 @@ $this->form_validation->set_rules('cycode','cycode','required|trim|xss_clean');
 //--SAve master---------
 function save_vendor()
 {	
-	isset($_POST['agen'])?$isagen=1:$isagen=0;
+	/* isset($_POST['agen'])?$isagen=1:$isagen=0;
 	isset($_POST['air'])?$isair=1:$isair=0;
 	isset($_POST['shipping'])?$isshipping=1:$isshipping=0;
 	isset($_POST['trucking'])?$istrucking=1:$istrucking=0;
 	isset($_POST['warehouse'])?$iswarehouse=1:$iswarehouse=0;
-	
+	*/
 $this->form_validation->set_rules('initial','initial','required|trim|xss_clean');
 $this->form_validation->set_rules('name','name','required|trim|xss_clean');
 	 if ($this->form_validation->run() == FALSE)
@@ -707,11 +708,11 @@ $this->form_validation->set_rules('name','name','required|trim|xss_clean');
 		'Phone'=>$this->input->post('phone'),
 		'Fax'=>$this->input->post('fax'),
 		'PostalCode'=>$this->input->post('postcode'),
-		'isAgent'=>$isagen,
-		'isAirlines'=>$isair,
-		'isShippingLines'=>$isshipping,
-		'isTrucking'=>$istrucking,
-		'isWarehouse'=>$iswarehouse,
+		'isAgent'=>$this->input->post('agen'),
+		'isAirlines'=>$this->input->post('air'),
+		'isShippingLines'=>$this->input->post('shipping'),
+		'isTrucking'=>$this->input->post('trucking'),
+		'isWarehouse'=>$this->input->post('warehouse'),
 		'Email'=>$this->input->post('email'),
 		'PIC01'=>$this->input->post('pic01'),
 		'PIC02'=>$this->input->post('pic02'),
@@ -721,7 +722,7 @@ $this->form_validation->set_rules('name','name','required|trim|xss_clean');
 		'NPWP'=>$this->input->post('npwp'),
 		'NPWPAddress'=>$this->input->post('npwpaddress'),
 		'Remarks'=>$this->input->post('remarks'),
-		'CreateBy'=>$this->session->userdata('name'),
+		'CreateBy'=>$this->session->userdata('nameusr'),
 		'CreateDate'=>date('Y-m-d:h-s-m'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
@@ -776,7 +777,7 @@ $this->form_validation->set_rules('name','name','required|trim|xss_clean');
 		'NPWP' =>$this->input->post('npwp'),
 		'NPWPAddress' =>$this->input->post('npwpaddress'),
 		'Remarks' =>$this->input->post('remarks'),
-		'CreateBy' =>$this->session->userdata('name'),
+		'CreateBy' =>$this->session->userdata('nameusr'),
 		'CreateDate' =>date('Y-m-d: h:i:s'),
 		'ModifiedBy' =>'',
 		'ModifiedDate' =>'',	
@@ -808,7 +809,7 @@ if($code==$code2)
 		$update=array(
 		'couCode'=>strtoupper($this->input->post('coucode2')),
 		'couName'=>strtoupper($this->input->post('couname2')),
-		'ModifiedBy'=>$this->session->userdata('name'),
+		'ModifiedBy'=>$this->session->userdata('nameusr'),
 		'ModifiedDate'=>date('Y-m-d : h-m-s')
 		);
 		$this->model_app->update('ms_country','couCode',$code,$update);
@@ -871,7 +872,7 @@ $this->form_validation->set_rules('service','service','required|trim|xss_clean')
 		'DiscPersen'=>$this->input->post('persen'),
 		'DiscRupiah'=>$this->input->post('rp'),
 		'Remarks'=>$this->input->post('remarks'),
-		'ModifiedBy'=>$this->session->userdata('name'),
+		'ModifiedBy'=>$this->session->userdata('nameusr'),
 		'ModifiedDate'=>date('Y-m-d:h-s-m'),
 		);
 		$this->model_app->update('ms_disc','discCode',$code,$update);
@@ -881,12 +882,13 @@ $this->form_validation->set_rules('service','service','required|trim|xss_clean')
 //----update------------
 function update_vendor()
 {
-	isset($_POST['agen'])?$isagen=1:$isagen=0;
+	/*isset($_POST['agen'])?$isagen=1:$isagen=0;
 	isset($_POST['air'])?$isair=1:$isair=0;
 	isset($_POST['shipping'])?$isshipping=1:$isshipping=0;
 	isset($_POST['trucking'])?$istrucking=1:$istrucking=0;
 	isset($_POST['warehouse'])?$iswarehouse=1:$iswarehouse=0;
-	
+	*/
+
 	$code=$this->input->post('id');
  	$this->form_validation->set_rules('name','name','required|trim|xss_clean');
  	$this->form_validation->set_rules('address','address','required|trim|xss_clean');
@@ -904,11 +906,11 @@ function update_vendor()
 		'Phone'=>$this->input->post('phone'),
 		'Fax'=>$this->input->post('fax'),
 		'PostalCode'=>$this->input->post('postcode'),
-		'isAgent'=>$isagen,
-		'isAirlines'=>$isair,
-		'isShippingLines'=>$isshipping,
-		'isTrucking'=>$istrucking,
-		'isWarehouse'=>$iswarehouse,
+		'isAgent'=>$this->input->post('agen'),
+		'isAirlines'=>$this->input->post('air'),
+		'isShippingLines'=>$this->input->post('shipping'),
+		'isTrucking'=>$this->input->post('trucking'),
+		'isWarehouse'=>$this->input->post('warehouse'),
 		'Email'=>$this->input->post('email'),
 		'PIC01'=>$this->input->post('pic01'),
 		'PIC02'=>$this->input->post('pic02'),
@@ -918,7 +920,7 @@ function update_vendor()
 		'NPWP'=>$this->input->post('npwp'),
 		'NPWPAddress'=>$this->input->post('npwpaddress'),
 		'Remarks'=>$this->input->post('remarks'),
-		'ModifiedBy'=>$this->session->userdata('name'),
+		'ModifiedBy'=>$this->session->userdata('nameusr'),
 		'ModifiedDate'=>date('Y-m-d:h-s-m'),
 		);	
 		$this->model_app->update('ms_vendor','venCode',$code,$update);
@@ -946,7 +948,7 @@ if($code==$code2)
 		$update=array(
 		'stCode'=>strtoupper($this->input->post('stcode2')),
 		'stName'=>strtoupper($this->input->post('stname2')),
-		'ModifiedBy'=>$this->session->userdata('name'),
+		'ModifiedBy'=>$this->session->userdata('nameusr'),
 		'ModifiedDate'=>date('Y-m-d'),
 		);
 		
@@ -1011,7 +1013,7 @@ if($code==$code2)
 		'svCode'=>strtoupper($this->input->post('code')),
 		'Name'=>strtoupper($this->input->post('name')),
 		'Remarks'=>$this->input->post('remarks'),
-		'ModifiedBy'=>$this->session->userdata('name'),
+		'ModifiedBy'=>$this->session->userdata('nameusr'),
 		'ModifiedDate'=>date('Y-m-d'),
 		);
 		
@@ -1093,7 +1095,7 @@ isset($_POST['cnee'])?$iscnee=1:$iscnee=0;
 		'NPWP' =>$this->input->post('npwp'),
 		'NPWPAddress' =>$this->input->post('npwpaddress'),
 		'Remarks' =>$this->input->post('remarks'),
-		'ModifiedBy' =>$this->session->userdata('name'),
+		'ModifiedBy' =>$this->session->userdata('nameusr'),
 		'ModifiedDate' =>date('Y-m-d: h:i:s')	
 		);
 		
@@ -1127,7 +1129,7 @@ if($code==$code2)
 		'stCode'=>$this->input->post('tstcode'),
 		'isAirport'=>$this->input->post('airport'),
 		'isSeaport'=>$this->input->post('seaport'),
-		'ModifiedBy'=>$this->session->userdata('name'),
+		'ModifiedBy'=>$this->session->userdata('nameusr'),
 		'ModifiedDate'=>date('Y-m-d : h-m-s')
 		);
 		$this->model_app->update('ms_city','cyCode',$code,$update);

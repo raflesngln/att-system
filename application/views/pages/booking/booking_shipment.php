@@ -46,7 +46,8 @@
                <!--LEFT INPUT-->
   <div class="col-sm-6">      
       <div class="col-sm-11">
-                       
+  <label class="col-sm-12"><span class="span3 label label-large label-pink arrowed-in-right"><strong>Sender</strong></span></label>                       
+    <div class="col-sm-12">&nbsp;</div>                     
           <strong><label class="col-sm-4"> Booking No</label></strong>
           <div class="col-sm-7">
            <input name="bookno" type="text" class="form-control"  id="name" required="required" readonly="readonly" />
@@ -103,6 +104,8 @@
                 <!--RIGHT INPUT-->
       <div class="col-sm-6">
         <div class="col-sm-11">
+  <label class="col-sm-12"><span class="span3 label label-large label-pink arrowed-in-right"><strong>Receivement</strong></span></label>
+    <div class="col-sm-12">&nbsp;</div>  
         <strong><label class="col-sm-4">Date Of Issue</label></strong>
           <div class="col-sm-7">
            <input name="issue" type="text" class="form-control"  id="name" required="required" readonly="readonly"/>

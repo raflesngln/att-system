@@ -38,7 +38,7 @@
             <?php }?>   
       <div class="header col-md-11">
 
-                <h3><i class="icon icon-fighter-jet bigger-230"></i> &nbsp;Air Domestic Outgoing - House</h3>
+                <h3><i class="fa fa-calendar-check-o bigger-230"></i> &nbsp;Air Domestic Outgoing - House</h3>
             </div>
       
 
@@ -49,7 +49,7 @@
                <!--LEFT INPUT-->
   <div class="col-sm-6">      
       <div class="col-sm-11">
-<label class="col-sm-12"> <span class=" span3 label label-large label-pink arrowed-in-right">Job Data</span></label> 
+<label class="col-sm-12"> <span class=" span3 label label-large label-pink arrowed-in-right">Sender</span></label> 
 <div class="clearfx">&nbsp;</div>         
           <strong><label class="col-sm-4"> JOB No</label></strong>
           <div class="col-sm-7">
@@ -132,7 +132,7 @@
                 <!--RIGHT INPUT-->
       <div class="col-sm-6">
         <div class="col-sm-11">
-<label class="col-sm-12"> <span class="span3 label label-large label-pink arrowed-in-right">Boooking Data</span></label> 
+<label class="col-sm-12"> <span class="span3 label label-large label-pink arrowed-in-right">Receivement</span></label> 
 <div class="clearfx">&nbsp;</div>
         <strong><label class="col-sm-4">Booking No</label></strong>
           <div class="col-sm-7">
@@ -150,6 +150,8 @@
            <input name="name" type="text" class="form-control"  id="tgl" required="required" readonly="readonly" required="required" placeholder="<?php echo date("m/d/Y") ;?>"/>
           </div>
 
+<div class="col-sm-12"><h2>&nbsp;</h2></div>
+<div class="col-sm-12"><h2>&nbsp;</h2></div>
 
             <strong><label class="col-sm-4"> Consignee</label></strong>
           <div class="col-sm-7">

@@ -99,7 +99,7 @@ $no=1;
             </div>
   
 
-<!-----edit data------->
+<!--EDIT DATA -->
 <?php
 
     foreach($list as $row){
@@ -259,25 +259,55 @@ $no=1;
 
 <div class="form-group">
 <hr />
-                       <em>
-                        <label class="col-sm-4 control-label">&nbsp;</label> 
-                        <label class="col-sm-6 control-label">Status Active</label>
-              </em>
-                        <div class="col-sm-2"></div>
-                        
-<div class="col-sm-4"><span class="controls">
-                          <label>
+          <em><label class="col-sm-4 control-label">&nbsp;</label> 
+           <label class="col-sm-6 control-label">Status Active</label></em>
 
-<input name="agen" type="checkbox" id="agen" />
-<span class="lbl"> Is Agen</span>
-</label>
-    </span></div>
-<div class="col-sm-4"><span class="controls">
-                          <label>
+ <div class="col-sm-2"></div>
 
-<div class="col-sm-4"><span class="controls">
-   <label><span> &nbsp;Is Agent</span>
+<div class="col-sm-3"><span class="controls">
+   <label><span> &nbsp;Is agen</span>
       <select name="agen" id="agen" class="form-control">
+      <option value="<?php echo $isagent;?>">&nbsp;<?php echo $status1;?>&nbsp;</option>
+        <option value="1">&nbsp;Yes&nbsp;</option>
+        <option value="0">&nbsp;No&nbsp;</option>
+      </select>                      
+      </label>
+    </span>
+</div>
+<div class="col-sm-3"><span class="controls">
+   <label><span> &nbsp;Is Air</span>
+      <select name="air" id="air" class="form-control">
+      <option value="<?php echo $isAirlines;?>">&nbsp;<?php echo $status2;?>&nbsp;</option>
+        <option value="1">&nbsp;Yes&nbsp;</option>
+        <option value="0">&nbsp;No&nbsp;</option>
+      </select>                      
+      </label>
+    </span>
+</div>
+<div class="col-sm-3"><span class="controls">
+   <label><span>ShippingLines</span>
+      <select name="shipping" id="air" class="form-control">
+      <option value="<?php echo $isShippingLines;?>">&nbsp;<?php echo $status3;?>&nbsp;</option>
+        <option value="1">&nbsp;Yes&nbsp;</option>
+        <option value="0">&nbsp;No&nbsp;</option>
+      </select>                      
+      </label>
+    </span>
+</div>
+<div class="col-sm-3"><span class="controls">
+   <label><span>isTrucking</span>
+      <select name="trucking" id="air" class="form-control">
+      <option value="<?php echo $isTrucking;?>">&nbsp;<?php echo $status4;?>&nbsp;</option>
+        <option value="1">&nbsp;Yes&nbsp;</option>
+        <option value="0">&nbsp;No&nbsp;</option>
+      </select>                      
+      </label>
+    </span>
+</div>
+<div class="col-sm-3"><span class="controls">
+   <label><span>isWarehouse</span>
+      <select name="warehouse" id="air" class="form-control">
+      <option value="<?php echo $isWarehouse;?>">&nbsp;<?php echo $status5;?>&nbsp;</option>
         <option value="1">&nbsp;Yes&nbsp;</option>
         <option value="0">&nbsp;No&nbsp;</option>
       </select>                      
@@ -285,28 +315,7 @@ $no=1;
     </span>
 </div>
 
-<input name="air" type="checkbox" id="air" />
-<span class="lbl"> Is Air</span>
-</label>
-    </span></div>
-<div class="col-sm-4">
-<label>
-<input name="shipping" type="checkbox" id="shipping" />
-<span class="lbl"> Is Shipping</span>
-</label>
-    </div>
-<div class="col-sm-4">
-<label>
-<input name="trucking" type="checkbox" id="trucking" />
-<span class="lbl"> Is Trucking</span>
-</label>
-    </div>
- <div class="col-sm-4">
-<label>
-<input name="warehouse" type="checkbox" id="warehouse" />
-<span class="lbl"> Is Warehouse</span>
-</label>
-    </div>
+
     
 <div class="clearfix"></div>
                       </div>
@@ -335,148 +344,156 @@ $no=1;
             <div class="smart-form scroll">
                 <form method="post" action="<?php echo site_url('master/save_vendor')?>">
                     <div class="modal-body">
-                      <div class="form-group">
-                        <label class="col-sm-3 control-label"> Initial </label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="initial" type="text" class="form-control"  id="initial" />
-                        </span></div>
-                        <div class="clearfix"></div>
-                      </div>
-                      <div class="form-group">
+<div class="form-group">
+                      <label class="col-sm-3 control-label"> Initial </label>
+                      <div class="col-sm-9"><span class="controls">
+                      <input name="initial" type="text" class="form-control"  id="initial" />
+                      </span></div>
+                      <div class="clearfix"></div>
+  </div>
+
+<div class="form-group">
                         <label class="col-sm-3 control-label">Name</label>
                         <div class="col-sm-9"><span class="controls">
                           <input name="name" type="text" class="form-control"  id="name" />
                         </span></div>
                         <div class="clearfix"></div>
-                      </div>
+  </div>
+
 <div class="form-group">
                         <label class="col-sm-3 control-label">Address</label>
                         <div class="col-sm-9">
                           <textarea name="address" cols="30" rows="2" class="form-control" id="address" required="required"></textarea>
                         </div>
                         <div class="clearfix"></div>
-                      </div>
+ </div>
+
  <div class="form-group">
-                        <label class="col-sm-3 control-label">City</label>
-    <div class="col-sm-9"><span class="controls">
-      <select name="city" id="city" required="required" class="form-control">
+          <label class="col-sm-3 control-label">City</label>
+          <div class="col-sm-9"><span class="controls">
+          <select name="city" id="city" required="required" class="form-control">
           <option value="">Chosse City</option>
           <?php
-	foreach($city as $ct){
-	    ?>
+	           foreach($city as $ct){ ?>
           <option value="<?php echo $ct->cyCode;?>"><?php echo $ct->cyName;?></option>
-          <?php } ?>
-</select>
-      </span></div>
-                        <div class="clearfix"></div>
-                      </div>
- <div class="form-group">
-              <label class="col-sm-3 control-label">Phone</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="phone" type="text" class="form-control" placeholder="" id="phone" />
-              </span></div>
-                        <div class="clearfix"></div>
-                      </div>
+               <?php } ?>
+          </select>
+          </span></div>
+          <div class="clearfix"></div>
+  </div>
+
 <div class="form-group">
-                        <label class="col-sm-3 control-label">Fax</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="fax" type="text" class="form-control" placeholder="" id="fax" />
+              <label class="col-sm-3 control-label">Phone</label>
+              <div class="col-sm-9"><span class="controls">
+              <input name="phone" type="text" class="form-control" placeholder="" id="phone" />
               </span></div>
-                        <div class="clearfix"></div>
-                      </div>
+              <div class="clearfix"></div>
+ </div>
+
+<div class="form-group">
+                <label class="col-sm-3 control-label">Fax</label>
+               <div class="col-sm-9"><span class="controls">
+               <input name="fax" type="text" class="form-control" placeholder="" id="fax" />
+              </span></div>
+               <div class="clearfix"></div>
+ </div>
+
  <div class="form-group">
                         <label class="col-sm-3 control-label">Postal Code</label>
                         <div class="col-sm-9"><span class="controls">
                           <input name="postcode" type="text" class="form-control" placeholder="" id="postcode" />
-    </span></div>
+                        </span></div>
                         <div class="clearfix"></div>
-                      </div>
- <div class="form-group">
-    <label class="col-sm-3 control-label">Email</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="email" type="email" class="form-control"  id="email" />
-              </span></div>
-                        <div class="clearfix"></div>
-                      </div>
- <div class="form-group">
-<label class="col-sm-3 control-label">Terms Payment</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="payment" type="text" class="form-control" placeholder="" id="payment" />
-              </span></div>
-                        <div class="clearfix"></div>
-                    </div>
- <div class="form-group">
-<label class="col-sm-3 control-label">NPWP</label>
-                        <div class="col-sm-9">
-                          <textarea name="npwp" cols="30" rows="2" class="form-control" id="npwp" required="required"></textarea>
 </div>
+
+ <div class="form-group">
+                        <label class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-9"><span class="controls">
+                        <input name="email" type="email" class="form-control"  id="email" />
+                        </span></div>
                         <div class="clearfix"></div>
-                  </div> 
+  </div>
+
+<div class="form-group">
+                        <label class="col-sm-3 control-label">Terms Payment</label>
+                        <div class="col-sm-9"><span class="controls">
+                        <input name="payment" type="text" class="form-control" placeholder="" id="payment" />
+                        </span></div>
+                        <div class="clearfix"></div>
+</div>
+
+<div class="form-group">
+                          <label class="col-sm-3 control-label">NPWP</label>
+                          <div class="col-sm-9">
+                          <textarea name="npwp" cols="30" rows="2" class="form-control" id="npwp" required="required"></textarea>
+                          </div>
+                          <div class="clearfix"></div>
+  </div> 
 <div class="form-group">
                         <label class="col-sm-3 control-label">NPWP Address</label>
                         <div class="col-sm-9">
                           <textarea name="npwpaddress" cols="30" rows="2" class="form-control" id="npwpaddress" required="required"></textarea>
-              </div>
+                         </div>
                         <div class="clearfix"></div>
-                      </div> 
+  </div> 
  <div class="form-group">
                         <label class="col-sm-3 control-label">Remarks</label>
                         <div class="col-sm-9">
                           <textarea name="remarks" cols="30" rows="2" class="form-control" id="remarks" required="required"></textarea>
-              </div>
+                          </div>
                         <div class="clearfix"></div>
-                      </div> 
+  </div> 
 <hr />
 
 <div class="form-group">
                        <em>
                         <label class="col-sm-4 control-label">&nbsp;</label> 
                         <label class="col-sm-6 control-label">PIC & HPPIC</label>
-              </em>
+                        </em>
                         <div class="col-sm-2"></div>
-                        
+</div>                    
 <div class="col-sm-3"><span class="controls">
-                          <label><span> PIC 01</span>
-                            <input name="pic01" type="text" class="form-control" placeholder="" id="pic01" />
-                            
-</label>
-    </span></div>
+                        <label><span> PIC 01</span>
+                        <input name="pic01" type="text" class="form-control" placeholder="" id="pic01" />  
+                        </label>
+                        </span>
+  </div>
 <div class="col-sm-3"><span class="controls">
                           <label><span> PIC 02</span>
-                            <input name="pic02" type="text" class="form-control" placeholder="" id="pic02" />
-                            
-</label>
-    </span></div>
-   <div class="col-sm-3"><span class="controls">
+                          <input name="pic02" type="text" class="form-control" placeholder="" id="pic02" />                    
+                          </label>
+                          </span>
+</div>
+<div class="col-sm-3"><span class="controls">
                           <label><span>  Mobile 01</span>
-                            <input name="hppic01" type="text" class="form-control" placeholder="" id="hppic01"/>
+                          <input name="hppic01" type="text" class="form-control" placeholder="" id="hppic01"/>
                             
-</label>
-    </span></div>
+                        </label>
+                        </span>
+    </div>
+
  <div class="col-sm-3"><span class="controls">
                           <label><span>  Mobile 02</span>
-                            <input name="hppic02" type="text" class="form-control" placeholder="" id="hppic02"  />
-                            
-</label>
-    </span></div>
+                          <input name="hppic02" type="text" class="form-control" placeholder="" id="hppic02"  />
+                        </label>
+                        </span>
+  </div>
 
-</div> 
 <hr />
-
 <div class="form-group">
-<hr />
+
                        <em>
                         <label class="col-sm-4 control-label">&nbsp;</label> 
                         <label class="col-sm-6 control-label">Status Active</label>
               </em>
                         <div class="col-sm-2"></div>
+                          
+</div>
                         
-<div class="col-sm-4"><span class="controls">
-                          <label>
 
-<div class="col-sm-4"><span class="controls">
-   <label><span> &nbsp;Is Agentssss</span>
-      <select name="shipper" id="agen" class="form-control">
+<div class="col-sm-3"><span class="controls">
+   <label><span> &nbsp;Is Agent</span>
+      <select name="agen" id="agen" class="form-control">
         <option value="1">&nbsp;Yes&nbsp;</option>
         <option value="0">&nbsp;No&nbsp;</option>
       </select>                      
@@ -484,28 +501,46 @@ $no=1;
     </span>
 </div>
 
-<input name="air" type="checkbox" id="air" />
-<span class="lbl"> Is Air</span>
-</label>
-    </span></div>
-<div class="col-sm-4">
-<label>
-<input name="shipping" type="checkbox" id="shipping" />
-<span class="lbl"> Is Shipping</span>
-</label>
-    </div>
-<div class="col-sm-4">
-<label>
-<input name="trucking" type="checkbox" id="trucking" />
-<span class="lbl"> Is Trucking</span>
-</label>
-    </div>
- <div class="col-sm-4">
-<label>
-<input name="warehouse" type="checkbox" id="warehouse" />
-<span class="lbl"> Is Warehouse</span>
-</label>
-    </div>
+<div class="col-sm-3"><span class="controls">
+   <label><span> &nbsp;Is Air</span>
+      <select name="air" id="agen" class="form-control">
+        <option value="1">&nbsp;Yes&nbsp;</option>
+        <option value="0">&nbsp;No&nbsp;</option>
+      </select>                      
+      </label>
+    </span>
+</div>
+
+<div class="col-sm-3"><span class="controls">
+   <label><span> &nbsp;Is Shipping</span>
+      <select name="shipping" id="agen" class="form-control">
+        <option value="1">&nbsp;Yes&nbsp;</option>
+        <option value="0">&nbsp;No&nbsp;</option>
+      </select>                      
+      </label>
+    </span>
+</div>
+
+<div class="col-sm-3"><span class="controls">
+   <label><span> &nbsp;Is Trucking</span>
+      <select name="trucking" id="agen" class="form-control">
+        <option value="1">&nbsp;Yes&nbsp;</option>
+        <option value="0">&nbsp;No&nbsp;</option>
+      </select>                      
+      </label>
+    </span>
+</div>
+
+<div class="col-sm-3"><span class="controls">
+   <label><span> &nbsp;Is Warehouse</span>
+      <select name="warehouse" id="agen" class="form-control">
+        <option value="1">&nbsp;Yes&nbsp;</option>
+        <option value="0">&nbsp;No&nbsp;</option>
+      </select>                      
+      </label>
+    </span>
+</div>
+
     
 <div class="clearfix"></div>
                       </div>
