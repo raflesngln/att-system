@@ -239,14 +239,14 @@
 	  </li>
 	  <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-mail-reply bigger-140" aria-hidden="true"></i> <span class="menu-text">&nbsp;Incoming Book </span> <b class="arrow icon-angle-down"></b> </a>
         <ul class="submenu">
-          <li> <a href="<?php echo base_url();?>transaction/domesctic_incoming_master"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-file-archive-o bigger-120"></i> &nbsp;Master-Incoming</a></li>
+          <li> <a href="<?php echo base_url();?>transaction/domesctic_incoming_master"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-file-archive-o bigger-120"></i> &nbsp;Incoming-Master</a></li>
  		<li> <a href="<?php echo base_url();?>transaction/domesctic_incoming_house"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Incoming-House</a></li>
  		<li> <a href="<?php echo base_url();?>transaction/incoming_consolidation"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-clone bigger-120"></i> &nbsp;Consolidation</a></li>
         </ul>
 	  </li>
 	  <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-mail-forward bigger-140" aria-hidden="true"></i> <span class="menu-text">&nbsp;Outgoing Book </span> <b class="arrow icon-angle-down"></b> </a>
         <ul class="submenu">
-         <li> <a href="<?php echo base_url();?>transaction/domesctic_outgoing_master"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-file-archive-o bigger-120"></i> &nbsp;Master-Outgoing</a></li>
+         <li> <a href="<?php echo base_url();?>transaction/domesctic_outgoing_master"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-file-archive-o bigger-120"></i> &nbsp;Outgoing-Master</a></li>
  		<li> <a href="<?php echo base_url();?>transaction/domesctic_outgoing_house"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Outgoing-House</a></li>
 		<li> <a href="<?php echo base_url();?>transaction/outgoing_consolidation"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-clone bigger-120"></i> &nbsp;Consolidation</a></li>
         
