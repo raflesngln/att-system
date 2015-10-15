@@ -7,7 +7,7 @@
                                                 </tr>
                                                 <tr>
                                                   <th>No.</th>
-                                                  <th>Code</th>
+                                                  <th>Code </th>
                                                   <th>Initial</th>
                                                   <th>Name</th>
                                                   <th>Address</th>

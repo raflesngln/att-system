@@ -1,7 +1,4 @@
- <style>
- .btn-search{ height:32px; margin-left:-10px;}
 
- </style>
  <script type="text/javascript" src="<?php echo base_url();?>asset/js/jquery.js"></script>
    <div class="row-fluid">
     <div class="span12">
@@ -220,8 +217,7 @@ if($status=='1'){ $statusname='<font color="#0033FF">Aktif</font>';} else{$statu
 <?php } ?>
 
 
-
-<!-----add data------->
+<!-- ADD DATA -->
 <div id="modaladd" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
     <div class="modal-dialog" role="document">
@@ -311,6 +307,7 @@ $("#txtsearch").keyup(function(){
                 data: "filter="+filter,
                 success: function(data){
                     $('#table_responsive').html(data);
+                    $('#raf').html('Raflesia Naingogolan');
                 }
             });
 

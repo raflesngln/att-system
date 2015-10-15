@@ -88,6 +88,10 @@ $no=1;
                                                     </div></td>
                                                 </tr>                                
                                                 <?php $no++; } ;?>
+                                              <tr class="gradeX pagin">
+                                                  <th colspan="12" scope="row">
+                          <?php echo $paginator;?></th>
+                                                </tr> 
                                               </tbody>
                                             </table>
                                         </div>
@@ -306,7 +310,7 @@ $no=1;
 <div class="col-sm-4"><span class="controls">
    <label><span> &nbsp;Is Shipper</span>
       <select name="shipper" id="agen" class="form-control">
-      <option value="<?php echo $Shipper;?>">&nbsp;<?php echo $status2;?>&nbsp;</option>
+      <option value="<?php echo $isShipper;?>">&nbsp;<?php echo $status2;?>&nbsp;</option>
 
         <option value="1">&nbsp;Yes&nbsp;</option>
         <option value="0">&nbsp;No&nbsp;</option>
@@ -575,8 +579,6 @@ $("#txtsearch").keyup(function(){
             });
         });
        
-	   
-	   
 	 $("#filter").change(function(){
             var filter = $("#filter").val();
           $.ajax({

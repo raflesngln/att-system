@@ -123,38 +123,25 @@
                       </div>
                   </div>
           </div>
+<div class="col-sm-12"><hr></div>
           <strong><label class="col-sm-4"> Shipper</label></strong>
           <div class="col-sm-7">
-           <select name="shipper" id="shipper" class="form-control combo">
+           <select name="idshipper" id="idshipper" class="form-control combo">
             <option>Select Shipper</option>
          <?php
           foreach($shipper as $sv){
            ?>
-          <option value="<?php echo $sv->custCode;?>"><?php echo $sv->custName;?></option>
+          <option value="<?php echo $sv->custCode;?>"><?php echo $sv->custInitial;?></option>
           <?php } ?>
           </select>
           </div>
-          <strong><label class="col-sm-4"> Name</label></strong>
-          <div class="col-sm-7">
-           <input name="name1" type="text" class="form-control"  id="name1" required="required" />
-          </div>
-          <strong><label class="col-sm-4"> Phone</label></strong>
-          <div class="col-sm-7">
-           <input name="phone1" type="text" class="form-control"  id="phone1" required="required" />
-          </div>
-          <strong><label class="col-sm-4"> Address</label></strong>
-          <div class="col-sm-7">
-           <textarea class="form-control select" name="address1" id="address1"></textarea>
-          </div>
-          <strong><label class="col-sm-4"> Commodity</label></strong>
-          <div class="col-sm-7">
-           <select name="commodity" id="filter" class="form-control">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
-          </select>
-          </div>
-      </div>             
-      </div>
+<div class="col-sm-1"><a class="btn btn-success btn-addnew btn-mini" href="#modaladdcust" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a></div>
+
+<div class="col-sm-13" id="contenshipper"><!-- CONTENT AJAX VIEW HERE --></div>
+
+
+  </div>             
+</div>
                 <!--RIGHT INPUT-->
       <div class="col-sm-6">
         <div class="col-sm-11">
@@ -169,42 +156,31 @@
            <input name="pad" type="text" class="form-control"  id="tgl" required="required" readonly="readonly" required="required" value="<?php echo date("m/d/Y") ;?>"/>
           </div>
 
-          <div class="col-sm-12"><h2>&nbsp;</h2></div>
-          <div class="col-sm-12"><h2>&nbsp;</h2></div>
-          <div class="col-sm-12"><h2>&nbsp;</h2></div>
-          <div class="col-sm-12"><h2>&nbsp;</h2></div>
-
+          <div class="col-sm-12"><hr/></div>
+          
             <strong><label class="col-sm-4"> Consigne</label></strong>
           <div class="col-sm-7">
-           <select name="consigne" id="filter" class="form-control">
-            <option>Select Shipper</option>
+           <select name="idconsigne" id="idconsigne" class="form-control">
+            <option>Select Cnee</option>
          <?php
           foreach($cnee as $sv){
            ?>
           <option value="<?php echo $sv->custCode;?>"><?php echo $sv->custName;?></option>
           <?php } ?>
           </select>
-          </div>
-          <strong><label class="col-sm-4"> Name</label></strong>
-          <div class="col-sm-7">
-           <input name="name2" type="text" class="form-control"  id="name" required="required" />
-          </div>
-              <strong><label class="col-sm-4"> Phone</label></strong>
-          <div class="col-sm-7">
-            <input name="phone2" type="text" class="form-control"  id="name" required="required" />
-          </div>
-          <strong><label class="col-sm-4"> Address</label></strong>
-          <div class="col-sm-7">
-            <textarea name="address2" class="form-control select"></textarea>
-          </div>
+          </div> 
+<div class="col-sm-1"><a class="btn btn-success btn-addnew btn-mini" href="#modaladdcust" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a></div>
 
-          </div>
-                       
-            
+<div class="col-sm-13" id="contencnee"><!-- CONTENT AJAX VIEW HERE --></div>
+
+          </div>              
       </div>
+
+
    </div>
 </div>
 <br style="clear:both;margin-bottom:40px;">
+<label class="col-sm-5"><span class="span3 label label-large label-pink arrowed-in-right"><strong>Item's Booking</strong></span></label> 
             <div class="row">
                 <div class="col-lg-12 portlets ui-sortable">
                     <div class="panel">
@@ -241,28 +217,7 @@
                                                   </div>
                                                   </td>
                                                 </tr>
-                                        <?php 
-$no=1;
-			foreach($list as $data){
-				
-			?>
-                                                <tr class="gradeX">
-                                                    <th scope="row"><?php echo $no?></th>
-                                                    <td><?php echo $data->custName?></td>
-                                                    <td><?php echo $data->Name?></td>
-                                                    <td><?php echo $data->ori?></td>
-                                                    <td><?php echo $data->dest?></td>
-                                                    <td><?php echo $data->venName?></td>
-                                                    <td class="text-center"><div align="center"><a class="btn-action" href="#modaledit<?php echo $data->discCode?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i>
-                                                      <button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>
-                                                      </a>
-                                                      
-                                                      <a href="<?php echo base_url();?>master/delete_disc/<?php echo $data->discCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
-                                                        <button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>
-                                                      </a>          
-                                                    </div></td>
-                                                </tr>                                
-                                                <?php $no++; } ;?>
+                            
                                                  <tr>
                                                   <td colspan="7">&nbsp;</td>
                                                 </tr>
@@ -317,7 +272,6 @@ $no=1;
       </form>
   </div>
             </div>
-  
 
 <!-- edit data -->
 <?php
@@ -450,7 +404,7 @@ $no=1;
     </div>
 <?php } ?>
 
-<!--adding form-->
+<!--a ADDING FORM ITEM -->
 <div id="modaladd" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
     <div class="modal-dialog" role="document">
@@ -513,11 +467,224 @@ $no=1;
     </div>
     </div>
 
-        <script type="text/javascript" src="<?php echo base_url();?>asset/js/jquery-2.0.3.min.js"></script>
-        <script type="text/javascript" src="<?php echo base_url();?>asset/js/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="<?php echo base_url();?>asset/js/bootstrap-min.js"></script>
-        <script type="text/javascript" src="<?php echo base_url();?>asset/js/bootstrap-dialog-min.js"></script>
-        <script type="text/javascript" src="<?php echo base_url();?>asset/js/cari.js"></script>
+<!--ADDING NEW CUSTOMERS MODAL-->
+<div id="modaladdcust" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Add New Customer </h3>
+            </div>
+            <div class="smart-form scroll">
+                <form method="post" action="<?php echo site_url('booking/save_customer')?>">
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label"> Initial <input type="hidden" name="page" id="page" value="incomaster"></label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="initial" type="text" class="form-control" placeholder="initial" id="initial" />
+                        </span></div>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">Name</label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="name" type="text" class="form-control" placeholder="name" id="name" />
+                        </span></div>
+                        <div class="clearfix"></div>
+                      </div>
+<div class="form-group">
+                        <label class="col-sm-3 control-label">Address</label>
+                        <div class="col-sm-9">
+                          <textarea name="address" cols="30" rows="2" class="form-control" id="address" required="required"></textarea>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+ <div class="form-group">
+                        <label class="col-sm-3 control-label">City</label>
+    <div class="col-sm-9"><span class="controls">
+      <select name="city" id="city" required="required" class="form-control">
+          <option value="">Chosse City</option>
+          <?php
+  foreach($city as $ct){
+      ?>
+          <option value="<?php echo $ct->cyCode;?>"><?php echo $ct->cyName;?></option>
+          <?php } ?>
+</select>
+      </span></div>
+                        <div class="clearfix"></div>
+                      </div>
+ <div class="form-group">
+              <label class="col-sm-3 control-label">Phone</label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="phone" type="text" class="form-control" placeholder="" id="phone" />
+              </span></div>
+                        <div class="clearfix"></div>
+                      </div>
+<div class="form-group">
+                        <label class="col-sm-3 control-label">Fax</label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="fax" type="text" class="form-control" placeholder="" id="fax" />
+              </span></div>
+                        <div class="clearfix"></div>
+                      </div>
+ <div class="form-group">
+                        <label class="col-sm-3 control-label">Postal Code</label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="postcode" type="text" class="form-control" placeholder="" id="postcode" />
+    </span></div>
+                        <div class="clearfix"></div>
+                      </div>
+ <div class="form-group">
+   <label class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="email" type="email" class="form-control" placeholder="Email" id="email" />
+              </span></div>
+                        <div class="clearfix"></div>
+                    </div>
+ <div class="form-group">
+    <label class="col-sm-3 control-label">Cradit Limit</label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="credit" type="text" class="form-control" placeholder="" id="credit" />
+              </span></div>
+                        <div class="clearfix"></div>
+                      </div>
+<div class="form-group">
+                        <label class="col-sm-3 control-label">Terms Payment</label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="payment" type="text" class="form-control" placeholder="" id="payment" />
+              </span></div>
+                        <div class="clearfix"></div>
+                      </div>
+ <div class="form-group">
+                        <label class="col-sm-3 control-label">Deposit</label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="deposit" type="text" class="form-control" placeholder="" id="deposit" />
+              </span></div>
+                        <div class="clearfix"></div>
+                      </div>
+<div class="form-group">
+                        <label class="col-sm-3 control-label">Sales</label>
+                        <div class="col-sm-9"><span class="controls">
+                          <select name="empcode" id="empcode" required="required" class="form-control">
+                            <option value="">Chosse Sales</option>
+                            <?php
+  foreach($sales as $ct){
+      ?>
+                            <option value="<?php echo $ct->empCode;?>"><?php echo $ct->empName;?></option>
+                            <?php } ?>
+                          </select>
+                        </span></div>
+                        <div class="clearfix"></div>
+                      </div>
+<div class="form-group">
+    <label class="col-sm-3 control-label">NPWP</label>
+                        <div class="col-sm-9">
+                          <textarea name="npwp" cols="30" rows="2" class="form-control" id="npwp" required="required"></textarea>
+</div>
+                        <div class="clearfix"></div>
+                      </div> 
+<div class="form-group">
+                        <label class="col-sm-3 control-label">NPWP Address</label>
+                        <div class="col-sm-9">
+                          <textarea name="npwpaddress" cols="30" rows="2" class="form-control" id="npwpaddress" required="required"></textarea>
+              </div>
+                        <div class="clearfix"></div>
+                      </div> 
+ <div class="form-group">
+                        <label class="col-sm-3 control-label">Remarks</label>
+                        <div class="col-sm-9">
+                          <textarea name="remarks" cols="30" rows="2" class="form-control" id="remarks" required="required"></textarea>
+              </div>
+                        <div class="clearfix"></div>
+                      </div>
+ <hr /> 
+<div class="form-group">
+                       <em>
+                        <label class="col-sm-4 control-label">&nbsp;</label> 
+                        <label class="col-sm-6 control-label">PIC & HPPIC</label>
+              </em>
+                        <div class="col-sm-2"></div>
+                        
+<div class="col-sm-3"><span class="controls">
+                          <label><span> PIC 01</span>
+                            <input name="pic01" type="text" class="form-control" placeholder="" id="pic01"  />
+                            
+</label>
+    </span></div>
+<div class="col-sm-3"><span class="controls">
+                          <label><span> PIC 02</span>
+                            <input name="pic02" type="text" class="form-control" placeholder="" id="pic02" />
+                            
+</label>
+    </span></div>
+   <div class="col-sm-3"><span class="controls">
+                          <label><span>  Mobile 01</span>
+                            <input name="hppic01" type="text" class="form-control" placeholder="" id="hppic01"  />
+                            
+</label>
+    </span></div>
+ <div class="col-sm-3"><span class="controls">
+                          <label><span>  Mobile 02</span>
+                          <input name="hppic02" type="text" class="form-control" placeholder="" id="hppic02"  />
+                            
+</label>
+    </span></div>
+
+</div>
+<hr /> 
+
+<div class="form-group">
+     <em><label class="col-sm-4 control-label">&nbsp;</label> 
+    <label class="col-sm-6 control-label">&nbsp;</label></em>
+
+<div class="col-sm-2"></div>
+
+ <div class="col-sm-4"><span class="controls">
+   <label><span> &nbsp;Is Agent</span>
+      <select name="agen" id="agen" class="form-control">
+        <option value="1">&nbsp;Yes&nbsp;</option>
+        <option value="0">&nbsp;No&nbsp;</option>
+      </select>                      
+      </label>
+    </span>
+</div>
+
+<div class="col-sm-4"><span class="controls">
+   <label><span> &nbsp;Is SHipper</span>
+      <select name="shipper" id="agen" class="form-control">
+        <option value="1">&nbsp;Yes&nbsp;</option>
+        <option value="0">&nbsp;No&nbsp;</option>
+      </select>                      
+      </label>
+    </span>
+</div>
+
+<div class="col-sm-4"><span class="controls">
+   <label><span> &nbsp;Is CNEE</span>
+      <select name="cnee" id="cnee" class="form-control">
+        <option value="1">&nbsp;Yes&nbsp;</option>
+        <option value="0">&nbsp;No&nbsp;</option>
+      </select>                      
+      </label>
+    </span>
+</div>
+    
+<div class="clearfix"></div>
+                      </div>
+<div class="modal-footer">
+<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
+<button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
+</div>
+<div class="clearfx">&nbsp;</div>
+                    </div>
+            
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
 
 
 <script type="text/javascript">			
@@ -539,16 +706,29 @@ $("#txtsearch").keyup(function(){
                 }
             });
         });
-	 $("#filter").change(function(){
-            var filter = $("#filter").val();
+	 $("#idshipper").change(function(){
+            var custCode = $("#idshipper").val();
           $.ajax({
                 type: "POST",
-                url : "<?php echo base_url('search/filter_discount'); ?>",
-                data: "filter="+filter,
+                url : "<?php echo base_url('booking/getshipper'); ?>",
+                data: "custCode="+custCode,
                 success: function(data){
-                    $('#table_responsive').html(data);
+                    $('#contenshipper').html(data);
                 }
             });
 
         });
+     $("#idconsigne").change(function(){
+            var custCode = $("#idconsigne").val();
+          $.ajax({
+                type: "POST",
+                url : "<?php echo base_url('booking/getcnee'); ?>",
+                data: "custCode="+custCode,
+                success: function(data){
+                    $('#contencnee').html(data);
+                }
+            });
+
+        });
+
 </script>

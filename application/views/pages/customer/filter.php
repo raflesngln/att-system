@@ -40,5 +40,9 @@ $no=1;
                                                     </div></td>
                                                 </tr>                                
                                                 <?php $no++; } ;?>
+                                              <tr class="gradeX pagin">
+                                                  <th colspan="12" scope="row">
+                          <?php echo $paginator;?></th>
+                                                </tr> 
                                               </tbody>
                                             </table>

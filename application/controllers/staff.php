@@ -205,7 +205,7 @@ function search_staff_ajax(){
 		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_staff a',"where empInitial like '$cari%' OR empName like '$cari%' order by empCode ASC");
 
 	//create for pagination		
-			$config['base_url'] = base_url() . 'staff/search_staff_ajax/';
+			$config['base_url'] = base_url() . 'staff/view_staff/';
         	$config['total_rows'] = $tot_hal->num_rows();
         	$config['per_page'] = $limit;
 			$config['uri_segment'] = 3;

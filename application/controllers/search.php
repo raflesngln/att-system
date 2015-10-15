@@ -56,7 +56,7 @@ function filter_staff(){
 		$data['list']=$this->model_app->getdata('ms_staff',"ORDER BY Address ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_staff',"ORDER BY Address ASC");
 	//create for pagination		
-			$config['base_url'] = base_url() . 'staff/filter_staff/';
+			$config['base_url'] = base_url() . 'staff/view_staff/';
         	$config['total_rows'] = $tot_hal->num_rows();
         	$config['per_page'] = $limit;
 			$config['uri_segment'] = 3;
@@ -87,7 +87,7 @@ function search_staff_ajax(){
 		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_staff a',"where empInitial like '$cari%' OR empName like '$cari%' order by empCode ASC");
 
 	//create for pagination		
-			$config['base_url'] = base_url() . 'staff/search_staff_ajax/';
+			$config['base_url'] = base_url() . 'staff/view_staff/';
         	$config['total_rows'] = $tot_hal->num_rows();
         	$config['per_page'] = $limit;
 			$config['uri_segment'] = 3;
@@ -473,7 +473,7 @@ function search_customer(){
  function search_customer_ajax(){
         $cari=$this->input->post('txtsearch');
 		 	$page=$this->uri->segment(3);
-      	$limit=10;
+      	$limit=30;
 		if(!$page):
 		$offset = 0;
 		else:
@@ -496,7 +496,7 @@ function search_customer(){
 		WHERE b.devisi='sales' AND a.custName like '$cari%' OR a.Address LIKE '%$cari%'
 		 order by a.custCode");
 		 	//create for pagination		
-			$config['base_url'] = base_url() . 'search/search_customer/';
+			$config['base_url'] = base_url() . 'master/view_customer/';
         	$config['total_rows'] = $tot_hal->num_rows();
         	$config['per_page'] = $limit;
 			$config['uri_segment'] = 3;
