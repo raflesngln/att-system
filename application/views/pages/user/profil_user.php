@@ -24,10 +24,11 @@
 <label class="col-sm-12"><span class="span5 label label-large label-info arrowed-in arrowed-in-right">&nbsp; <?php echo $row->FullName;?>&nbsp;</span></label>
 
  <ul class="unstyled spaced">
+ <em>
   <li><i class="icon-caret-right green"></i>Username  : <?php echo $row->UserName;?></li>
-  <li><i class="icon-caret-right green"></i></i>Username  : <?php echo $row->Email;?></li>
+  <li><i class="icon-caret-right green"></i></i>Email  : <?php echo $row->Email;?></li>
  <li><i class="icon-caret-right green"></i></i>Level  : <?php echo $row->Level;?></li>
-
+</em>
        </ul>
   </div>
 

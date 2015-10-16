@@ -130,7 +130,7 @@ $no=1;
                       <div class="form-group">
                         <label class="col-sm-3 control-label"> Initial </label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="initial" type="text" class="form-control" placeholder="initial" id="initial" value="<?php echo $row->venInitial ;?>" />
+                          <input name="initial" type="text" class="form-control" required="required" id="initial" value="<?php echo $row->venInitial ;?>" />
                         </span>
                           <input type="hidden" name="id" id="id" value="<?php echo $row->venCode?>" />
                         </div>
@@ -139,7 +139,7 @@ $no=1;
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Name</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="name" type="text" class="form-control" placeholder="name" id="name" value="<?php echo $row->venName ;?>"/>
+                          <input name="name" type="text" class="form-control" required="required" id="name" value="<?php echo $row->venName ;?>"/>
                         </span></div>
                         <div class="clearfix"></div>
                       </div>
@@ -167,21 +167,21 @@ $no=1;
  <div class="form-group">
               <label class="col-sm-3 control-label">Phone</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="phone" type="text" class="form-control" placeholder="" id="phone" value="<?php echo $row->Phone ;?>"/>
+                          <input name="phone" type="text" class="form-control" required="required" id="phone" value="<?php echo $row->Phone ;?>"/>
               </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Fax</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="fax" type="text" class="form-control" placeholder="" id="fax" value="<?php echo $row->Fax ;?>"/>
+                          <input name="fax" type="text" class="form-control" required="required" id="fax" value="<?php echo $row->Fax ;?>"/>
               </span></div>
                         <div class="clearfix"></div>
                       </div>
  <div class="form-group">
                         <label class="col-sm-3 control-label">Postal Code</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="postcode" type="text" class="form-control" placeholder="" id="postcode" value="<?php echo $row->PostalCode ;?>"/>
+                          <input name="postcode" type="text" class="form-control"  id="postcode" value="<?php echo $row->PostalCode ;?>"/>
     </span></div>
                         <div class="clearfix"></div>
                       </div>
@@ -194,9 +194,10 @@ $no=1;
                     </div>
  <div class="form-group">
 <label class="col-sm-3 control-label">Terms Payment</label>
-                        <div class="col-sm-9"><span class="controls">
+                        <div class="col-sm-4"><span class="controls">
                           <input name="payment" type="text" class="form-control"  id="payment" value="<?php echo $row->TermsPayment ;?>"/>
               </span></div>
+              <h4 class="col-sm-4">day's</h4>
                         <div class="clearfix"></div>
                     </div>
  <div class="form-group">
@@ -265,7 +266,7 @@ $no=1;
  <div class="col-sm-2"></div>
 
 <div class="col-sm-3"><span class="controls">
-   <label><span> &nbsp;Is agen</span>
+   <label><span> &nbsp;Agen</span>
       <select name="agen" id="agen" class="form-control">
       <option value="<?php echo $isagent;?>">&nbsp;<?php echo $status1;?>&nbsp;</option>
         <option value="1">&nbsp;Yes&nbsp;</option>
@@ -275,7 +276,7 @@ $no=1;
     </span>
 </div>
 <div class="col-sm-3"><span class="controls">
-   <label><span> &nbsp;Is Air</span>
+   <label><span> &nbsp; Air</span>
       <select name="air" id="air" class="form-control">
       <option value="<?php echo $isAirlines;?>">&nbsp;<?php echo $status2;?>&nbsp;</option>
         <option value="1">&nbsp;Yes&nbsp;</option>
@@ -347,7 +348,7 @@ $no=1;
 <div class="form-group">
                       <label class="col-sm-3 control-label"> Initial </label>
                       <div class="col-sm-9"><span class="controls">
-                      <input name="initial" type="text" class="form-control"  id="initial" />
+                      <input name="initial" type="text" class="form-control"  id="initial" required="required"/>
                       </span></div>
                       <div class="clearfix"></div>
   </div>
@@ -355,7 +356,7 @@ $no=1;
 <div class="form-group">
                         <label class="col-sm-3 control-label">Name</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="name" type="text" class="form-control"  id="name" />
+                          <input name="name" type="text" class="form-control"  id="name" required="required"/>
                         </span></div>
                         <div class="clearfix"></div>
   </div>
@@ -385,7 +386,7 @@ $no=1;
 <div class="form-group">
               <label class="col-sm-3 control-label">Phone</label>
               <div class="col-sm-9"><span class="controls">
-              <input name="phone" type="text" class="form-control" placeholder="" id="phone" />
+              <input name="phone" type="text" class="form-control" required="required" id="phone" />
               </span></div>
               <div class="clearfix"></div>
  </div>
@@ -393,7 +394,7 @@ $no=1;
 <div class="form-group">
                 <label class="col-sm-3 control-label">Fax</label>
                <div class="col-sm-9"><span class="controls">
-               <input name="fax" type="text" class="form-control" placeholder="" id="fax" />
+               <input name="fax" type="text" class="form-control" required="required" id="fax" />
               </span></div>
                <div class="clearfix"></div>
  </div>
@@ -401,7 +402,7 @@ $no=1;
  <div class="form-group">
                         <label class="col-sm-3 control-label">Postal Code</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="postcode" type="text" class="form-control" placeholder="" id="postcode" />
+                          <input name="postcode" type="text" class="form-control" id="postcode" />
                         </span></div>
                         <div class="clearfix"></div>
 </div>
@@ -416,9 +417,10 @@ $no=1;
 
 <div class="form-group">
                         <label class="col-sm-3 control-label">Terms Payment</label>
-                        <div class="col-sm-9"><span class="controls">
-                        <input name="payment" type="text" class="form-control" placeholder="" id="payment" />
+                        <div class="col-sm-4"><span class="controls">
+                        <input name="payment" type="text" class="form-control" id="payment" value="0" />
                         </span></div>
+              <h4 class="col-sm-4">day's</h4>
                         <div class="clearfix"></div>
 </div>
 
@@ -492,7 +494,7 @@ $no=1;
                         
 
 <div class="col-sm-3"><span class="controls">
-   <label><span> &nbsp;Is Agent</span>
+   <label><span> &nbsp; Agent</span>
       <select name="agen" id="agen" class="form-control">
         <option value="1">&nbsp;Yes&nbsp;</option>
         <option value="0">&nbsp;No&nbsp;</option>
@@ -502,7 +504,7 @@ $no=1;
 </div>
 
 <div class="col-sm-3"><span class="controls">
-   <label><span> &nbsp;Is Air</span>
+   <label><span> &nbsp; Air</span>
       <select name="air" id="agen" class="form-control">
         <option value="1">&nbsp;Yes&nbsp;</option>
         <option value="0">&nbsp;No&nbsp;</option>
@@ -512,7 +514,7 @@ $no=1;
 </div>
 
 <div class="col-sm-3"><span class="controls">
-   <label><span> &nbsp;Is Shipping</span>
+   <label><span> &nbsp; Shipping</span>
       <select name="shipping" id="agen" class="form-control">
         <option value="1">&nbsp;Yes&nbsp;</option>
         <option value="0">&nbsp;No&nbsp;</option>
@@ -522,7 +524,7 @@ $no=1;
 </div>
 
 <div class="col-sm-3"><span class="controls">
-   <label><span> &nbsp;Is Trucking</span>
+   <label><span> &nbsp; Trucking</span>
       <select name="trucking" id="agen" class="form-control">
         <option value="1">&nbsp;Yes&nbsp;</option>
         <option value="0">&nbsp;No&nbsp;</option>
@@ -532,7 +534,7 @@ $no=1;
 </div>
 
 <div class="col-sm-3"><span class="controls">
-   <label><span> &nbsp;Is Warehouse</span>
+   <label><span> &nbsp; Warehouse</span>
       <select name="warehouse" id="agen" class="form-control">
         <option value="1">&nbsp;Yes&nbsp;</option>
         <option value="0">&nbsp;No&nbsp;</option>

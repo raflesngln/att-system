@@ -473,7 +473,7 @@ function search_customer(){
  function search_customer_ajax(){
         $cari=$this->input->post('txtsearch');
 		 	$page=$this->uri->segment(3);
-      	$limit=30;
+      	$limit=25;
 		if(!$page):
 		$offset = 0;
 		else:

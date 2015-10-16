@@ -13,8 +13,7 @@
   <script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
   <script>
   $(function() {
-    $("#tgl").datepicker();
-    $("#tgl2").datepicker();
+    $("#datepr").datepicker();
 
   });
   </script>
@@ -33,113 +32,61 @@
             <?php }?>   
       <div class="header col-md-11">
 
-                <h2><i class="fa fa-book fa-2x"></i> &nbsp; Boooking Shipment</h2>
+                <h2><i class="fa fa-arrow-circle-o-left fa-2x"></i> &nbsp; Settlement Payment Request (Tutup Bon )</h2>
 
       </div>
       
 
 <br style="clear:both">
 
-<form method="post" action="<?php echo base_url();?>trasaction/save_shipment">
+<form method="post" action="<?php echo base_url();?>payment/save_payment_request">
 <div class="container">
   <div class="row">
                <!--LEFT INPUT-->
   <div class="col-sm-6">      
       <div class="col-sm-11">
-  <label class="col-sm-12"><span class="span3 label label-large label-pink arrowed-in-right"><strong>Sender</strong></span></label>                       
+  <label class="col-sm-12"><span class="span3 label label-large label-pink arrowed-in-right"><strong>Job Detail</strong></span></label>                       
     <div class="col-sm-12">&nbsp;</div>                     
-          <strong><label class="col-sm-4"> Booking No</label></strong>
+          <strong><label class="col-sm-4"> Job No</label></strong>
           <div class="col-sm-7">
-           <input name="bookno" type="text" class="form-control"  id="name" required="required" readonly="readonly" />
+           <input name="bookno" type="text" class="form-control"  id="name" required="required" />
           </div>
-          <strong><label class="col-sm-4"> Customer Acc#</label></strong>
+          <strong><label class="col-sm-4"> House No</label></strong>
           <div class="col-sm-7">
            <input name="custacc" type="text" class="form-control"  id="name" required="required" readonly="readonly"/>
           </div>
-                    <strong><label class="col-sm-4"> Service</label></strong>
+
+          <strong><label class="col-sm-4"> Origin</label></strong>
           <div class="col-sm-7">
-           <select name="service" id="filter" class="form-control" required="required">
-           <option>Choose Service</option>
-          <?php foreach ($service as $srv) {
-          ?>
-          <option value="<?php echo $srv->svCode;?>"><?php echo $srv->Name;?></option>
-          <?php } ?>
-          </select>
-          
+           <input name="shipper" type="text" class="form-control"  id="name" required="required" readonly="readonlly"/>
           </div>
           <strong><label class="col-sm-4"> Shipper</label></strong>
           <div class="col-sm-7">
-           <input name="shipper" type="text" class="form-control"  id="name" required="required" />
+           <input name="name1" type="text" class="form-control"  id="name" required="required" readonly="readonlly"/>
           </div>
-          <strong><label class="col-sm-4"> Name</label></strong>
-          <div class="col-sm-7">
-           <input name="name1" type="text" class="form-control"  id="name" required="required" />
-          </div>
-  <strong><label class="col-sm-4"> Origin</label></strong>
-  <div class="col-sm-7">
-  <select data-placeholder="Choose an Address..." class="chosen-select form-control" tabindex="2" name="origin">
-
-           <option>Choose Origin</option>
-          <?php foreach ($city as $cy) {
-          ?>
-            <option value="<?php echo $cy->cyCode;?>"><?php echo $cy->cyName;?></option>
-          <?php } ?>
-          </select>
-  </div>
-          <strong><label class="col-sm-4"> ETD</label></strong>
-          <div class="col-sm-7">
-           <input name="etd" placeholder="<?php echo date("m/d/Y") ;?>" type="text" class="form-control"  id="tgl" required="required" readonly="readonly"/>
-          </div>
-           <strong><label class="col-sm-4"> Commodity</label></strong>
-          <div class="col-sm-7">
-        <select name="commodity" id="filter" class="form-control">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
-          </select>
-           </div>
+  
 
       </div>
 
                            
       </div>
-                <!--RIGHT INPUT-->
+<!--RIGHT INPUT-->
       <div class="col-sm-6">
         <div class="col-sm-11">
-  <label class="col-sm-12"><span class="span3 label label-large label-pink arrowed-in-right"><strong>Receivement</strong></span></label>
+  <label class="col-sm-12">&nbsp;</label>
     <div class="col-sm-12">&nbsp;</div>  
-        <strong><label class="col-sm-4">Date Of Issue</label></strong>
+        <strong><label class="col-sm-4">Service</label></strong>
           <div class="col-sm-7">
            <input name="issue" type="text" class="form-control"  id="name" required="required" readonly="readonly"/>
           </div>
-          <strong><label class="col-sm-4"> Name</label></strong>
+          <strong><label class="col-sm-4"> Destination</label></strong>
           <div class="col-sm-7">
            <input name2="name" type="text" class="form-control"  id="name" required="required" readonly="readonly"/>
           </div>
 
-          <strong><label class="col-sm-4"> &nbsp;</label></strong>
-          <div class="col-sm-7">
-           <p><hr></p>
-
-          </div>
-
           <strong><label class="col-sm-4"> Consignee</label></strong>
           <div class="col-sm-7">
-           <input name="consignee" type="text" class="form-control"  id="name" required="required" />
-          </div>
-          <strong><label class="col-sm-4"> Name</label></strong>
-          <div class="col-sm-7">
-           <input name="name3" type="text" class="form-control"  id="name" required="required" />
-          </div>
-              <strong><label class="col-sm-4"> Destination</label></strong>
-          <div class="col-sm-7">
-          <select name="desti" id="filter" class="form-control" required="required">
-          <option>Choose Destination</option>
-          <?php foreach ($city as $cy) {
-          ?>
-            <option value="<?php echo $cy->cyCode;?>"><?php echo $cy->cyName;?></option>
-          <?php } ?>
-          </select>
-          </select>
+           <input name="consignee" type="text" class="form-control"  id="name" required="required" readonly="readonlly" />
           </div>
 
           </div>
@@ -148,8 +95,8 @@
       </div>
    </div>
 <br style="clear:both;margin-bottom:40px;">
-
             <div class="row">
+             <label class="col-sm-12"><span class="span3 label label-large label-pink arrowed-in-right"><strong>Outstanding Payment Request</strong></span></label>                       
                 <div class="col-lg-12 portlets ui-sortable">
                     <div class="panel">
                         <!--<div class="panel-header"></div>-->
@@ -161,11 +108,11 @@
                                                
                                                 <tr height="50">
                                                   <th>No.</th>
-                                                  <th>No Of Pcs</th>
-                                                  <th>Length ( P )</th>
-                                                  <th>Width ( L )</th>
-                                                  <th>Height ( T )</th>
-                                                  <th>Volume</th>
+                                                  <th>Payment Request No</th>
+                                                  <th>Receiver</th>
+                                                  <th>Date PR</th>
+                                                  <th>IDR</th>
+                                                  <th>USD</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                               </thead>
@@ -187,11 +134,8 @@
                                                 </tr>
                                              <thead>
                                              <tr>
-                                                  <th>Total</th>
-                                                  <th>XXX</th>
-                                                  <th></th>
-                                                  <th></th>
-                                                  <th></th>
+                                                  <th colspan="4">Total</th>
+                                                  <th>xxx</th>
                                                   <th>XXX</th>
                                                   <th></th>
                                                 </tr>
@@ -200,21 +144,55 @@
                                             </table>
                                         </div>
                                     </div>
-                                            <div class="col-md-12">
-                                              <div class="row">
-                                                <div class="col-md-12">
-                                              <label class="col-sm-2">Gross Weight &nbsp;</label>
-                                              <div class="col-sm-3"><input type="text" name="gross" id="gross" class="form-control"></div>
-                                                </div>
+<div class="container">
+  <div class="row">
+               <!--LEFT INPUT-->
+  <div class="col-sm-6">      
+      <div class="col-sm-11">
+          <strong><label class="col-sm-4"> PR Number</label></strong>
+          <div class="col-sm-7">
+           <input name="pr" type="text" class="form-control"  id="name" required="required" />
+          </div>
+          <strong><label class="col-sm-4"> Receiver</label></strong>
+          <div class="col-sm-7">
+           <select name="receiver" class="form-control">
+             <option value="chosee">Chosse</option>
+           </select>
+          </div>
 
-                                                <div class="col-md-12">
-                                              <label class="col-sm-2">CWT &nbsp;</label>
-                                              <div class="col-sm-3"><input type="text" name="cwt" id="gross" class="form-control"></div>
-                                             </div>
-                                              </div>
-                                            </div>
+          <strong><label class="col-sm-4"> Currency</label></strong>
+          <div class="col-sm-7">
+           <select name="currency" class="form-control">
+             <option value="chosee">Chosse</option>
+           </select>
+          </div>
+          <strong><label class="col-sm-4"> Amount</label></strong>
+          <div class="col-sm-7">
+           <input name="amount" type="text" class="form-control"  id="name" required="required" />
+          </div>
+          <strong><label class="col-sm-4"> Remarks</label></strong>
+          <div class="col-sm-7">
+           <textarea name="remarks" class="form-control" cols="35" rows="3"></textarea>
+          </div>
+      </div>
+                           
+ </div>
+<!--RIGHT INPUT-->
+<div class="col-sm-6">
+  <div class="col-sm-11">
+  <label class="col-sm-12">&nbsp;</label>
+    <div class="col-sm-12">&nbsp;</div>  
+        <strong><label class="col-sm-3">Date of PR</label></strong>
+          <div class="col-sm-8">
+           <input name="datepr" type="text" class="form-control"  id="datepr" required="required" value="<?php echo date('m/d/Y');?>" readonly="readonly"/>
+          </div>
+    
+          </div>             
+            
+      </div>
+   </div>
 
-                                        <div style="margin-bottom:150px;"></div>
+                                        <div style="margin-bottom:50px;"></div>
                                           <div class="col-md-4"></div>
                                           <div class="col-md-2">
                                          <a href="<?php echo base_url();?>transaction/booking_shipment"><button type="button" class="btn btn-danger btn-large"><i class="icon-reply bigger-160 icons"></i>&nbsp;Cancel</button></a>
@@ -235,18 +213,11 @@
             </div>
   
 
-<!-----edit data------->
+<!--  -edit data   -->
 <?php
 
     foreach($list as $row){
-		$isagen=$row->isAgent;
-		$isaktif=$row->isAktive;
-		$isCnee=$row->isCnee;
-		$isShipper=$row->isShipper;
-		if($isagen==1){ $status1='YES';}else{$status1='NO';}
-		if($isShipper==1){ $status2='YES';}else{$status2='NO';}
-		if($isCnee==1){ $status3='YES';}else{$status3='NO';}
-		if($isaktif==1){ $status4='YES';}else{$status4='NO';}
+
         ?>
 <div id="modaledit<?php echo $row->discCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     

@@ -59,7 +59,7 @@ $this->form_validation->set_rules('name','name','required|trim|xss_clean');
 		'Address'=>$this->input->post('address'),
 		'Phone'=>$this->input->post('phone'),
 		'Remarks'=>$this->input->post('remarks'),
-		'CreateBy'=>$this->session->userdata('name'),
+		'CreateBy'=>$this->session->userdata('nameusr'),
 		'CreateDate'=>date('Y-m-d:h-s-m'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
@@ -90,7 +90,7 @@ $this->form_validation->set_rules('name2','name2','required|trim|xss_clean');
 		'Phone'=>$this->input->post('phone2'),
 		'isActive'=>$this->input->post('status2'),
 		'Remarks'=>$this->input->post('remarks2'),
-		'ModifiedBy'=>$this->session->userdata('name'),
+		'ModifiedBy'=>$this->session->userdata('nameusr'),
 		'ModifiedDate'=>date('Y-m-d:h-s-m'),
 		);	
 		$this->model_app->update('ms_staff','empCode',$code,$update);
@@ -219,36 +219,6 @@ function search_staff_ajax(){
         $this->load->view('pages/staff/filter',$data);
 }
 	
-function search_service(){  
-	    $cari=$this->input->post('txtsearch');
-	 	$page=$this->uri->segment(3);
-      	$limit=25;
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;
-		
-        $data['title']='list Service';
-		$data['scrumb_name']='Data Service';
-		$data['scrumb']='master/view_service';
-		$data['list']=$this->model_app->getdata('ms_service',"WHERE Name like '%$cari%' order by svCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_service',"WHERE Name like '%$cari%' order by svCode ASC");
-        					//create for pagination		
-			$config['base_url'] = base_url() . 'master/view_service/';
-        	$config['total_rows'] = $tot_hal->num_rows();
-        	$config['per_page'] = $limit;
-			$config['uri_segment'] = 3;
-	    	$config['first_link'] = 'First';
-			$config['last_link'] = 'last';
-			$config['next_link'] = 'Next';
-			$config['prev_link'] = 'Prev';
-       		$this->pagination->initialize($config);
-			$data["paginator"] =$this->pagination->create_links();
-		
-		$data['view']='pages/service/v_service';
-        $this->load->view('home/home',$data);
-     }
 
 
 }

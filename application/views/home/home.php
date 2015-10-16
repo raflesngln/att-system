@@ -143,19 +143,23 @@
                         <i class="icon-envelope"></i>
                    
 						</button></a>
-
+<a href="<?php echo base_url();?>master/gallery">
 						<button class="btn btn-small btn-info">
 							<i class="icon-pencil"></i>
 						</button>
+</a>
 
+<a href="<?php echo base_url();?>master/gallery">
 						<button class="btn btn-small btn-warning">
 							<i class="icon-group"></i>
 						</button>
-
+</a>
+<a href="<?php echo base_url();?>master/gallery">
 						<button class="btn btn-small btn-danger">
 							<i class="icon-cogs"></i>
 						</button>
 					</div>
+</a>
 
 					<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
 						<span class="btn btn-success"></span>
@@ -185,6 +189,7 @@
                         <li> <a href="<?php echo base_url();?>staff/view_staff"> <i class="icon-double-angle-right"></i><i class="fa fa-male"></i> &nbsp;&nbsp; Staff </a> </li>
                         <li> <a href="<?php echo base_url();?>master/view_disc"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-star-half-full"></i> &nbsp; Discount</a></li>
                         <li> <a href="<?php echo base_url();?>master/view_service"> <i class="icon-double-angle-right"></i><i class="fa fa-coffee"></i> &nbsp; Service</a></li>
+ 						<li> <a href="<?php echo base_url();?>commodity/view_commodity"> <i class="icon-double-angle-right"></i><i class="fa fa-diamond"></i> &nbsp; Commodity</a></li>
 
                       </ul>
 				  </li>
@@ -252,6 +257,14 @@
         
         </ul>
 	  </li>
+ <li> <label class="label label-large label-purple">&nbsp; PAYMENT    &nbsp;</label></li>
+       <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-cc-visa bigger-150" aria-hidden="true"></i> <span class="menu-text">&nbsp;PAYMENT </span> <b class="arrow icon-angle-down"></b> </a>
+        <ul class="submenu">
+         <li><a href="<?php echo base_url();?>Payment/payment_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-arrow-circle-o-left bigger-140"></i> &nbsp; Payment Request </a> </li>
+         <li> <a href="<?php echo base_url();?>Payment/settlement_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-arrow-circle-o-right  bigger-140"></i> &nbsp; Sentlement Req</a></li>
+		 </ul>
+	  </li>
+	  
 	<!-- CUT MENU FROM HERE  -->
 
 	</ul><!--/.nav-list-->

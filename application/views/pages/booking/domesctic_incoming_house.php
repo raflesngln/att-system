@@ -542,19 +542,20 @@
     </div>
     </div>
 
+
 <!--ADDING NEW CUSTOMERS MODAL-->
 <div id="modaladdcust" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add New Customer</h3>
+                <h3 id="myModalLabel">Add New Customer </h3>
             </div>
             <div class="smart-form scroll">
                 <form method="post" action="<?php echo site_url('booking/save_customer')?>">
                     <div class="modal-body">
                       <div class="form-group">
-                        <label class="col-sm-3 control-label"> Initial  <input type="hidden" name="page" id="page" value="incomhouse"></label>
+                        <label class="col-sm-3 control-label"> Initial <input type="hidden" name="page" id="page" value="incomaster"></label>
                         <div class="col-sm-9"><span class="controls">
                           <input name="initial" type="text" class="form-control" placeholder="initial" id="initial" />
                         </span></div>
@@ -563,7 +564,7 @@
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Name</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="name" type="text" class="form-control" placeholder="name" id="name" />
+                          <input name="name" type="text" class="form-control" required="required" id="name" />
                         </span></div>
                         <div class="clearfix"></div>
                       </div>
@@ -591,21 +592,21 @@
  <div class="form-group">
               <label class="col-sm-3 control-label">Phone</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="phone" type="text" class="form-control" placeholder="" id="phone" />
+                          <input name="phone" type="text" class="form-control" required="required" id="phone" />
               </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Fax</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="fax" type="text" class="form-control" placeholder="" id="fax" />
+                          <input name="fax" type="text" class="form-control" required="required" id="fax" />
               </span></div>
                         <div class="clearfix"></div>
                       </div>
  <div class="form-group">
                         <label class="col-sm-3 control-label">Postal Code</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="postcode" type="text" class="form-control" placeholder="" id="postcode" />
+                          <input name="postcode" type="text" class="form-control" id="postcode" />
     </span></div>
                         <div class="clearfix"></div>
                       </div>
@@ -617,23 +618,24 @@
                         <div class="clearfix"></div>
                     </div>
  <div class="form-group">
-    <label class="col-sm-3 control-label">Cradit Limit</label>
+    <label class="col-sm-3 control-label">Credit Limit</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="credit" type="text" class="form-control" placeholder="" id="credit" />
+                          <input name="credit" type="text" class="form-control" id="credit" />
               </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Terms Payment</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="payment" type="text" class="form-control" placeholder="" id="payment" />
+                        <div class="col-sm-4"><span class="controls">
+                          <input name="payment" type="text" class="form-control" required="required" value="0" id="payment" />
               </span></div>
+            <h4 class="cols-sm-4">day's</h4>
                         <div class="clearfix"></div>
                       </div>
  <div class="form-group">
                         <label class="col-sm-3 control-label">Deposit</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="deposit" type="text" class="form-control" placeholder="" id="deposit" />
+                          <input name="deposit" type="text" class="form-control" required="required" value="0" id="deposit" />
               </span></div>
                         <div class="clearfix"></div>
                       </div>
@@ -715,7 +717,7 @@
 <div class="col-sm-2"></div>
 
  <div class="col-sm-4"><span class="controls">
-   <label><span> &nbsp;Is Agent</span>
+   <label><span> &nbsp; Agent</span>
       <select name="agen" id="agen" class="form-control">
         <option value="1">&nbsp;Yes&nbsp;</option>
         <option value="0">&nbsp;No&nbsp;</option>
@@ -725,7 +727,7 @@
 </div>
 
 <div class="col-sm-4"><span class="controls">
-   <label><span> &nbsp;Is SHipper</span>
+   <label><span> &nbsp; SHipper</span>
       <select name="shipper" id="agen" class="form-control">
         <option value="1">&nbsp;Yes&nbsp;</option>
         <option value="0">&nbsp;No&nbsp;</option>
@@ -735,7 +737,7 @@
 </div>
 
 <div class="col-sm-4"><span class="controls">
-   <label><span> &nbsp;Is CNEE</span>
+   <label><span> &nbsp; CNEE</span>
       <select name="cnee" id="cnee" class="form-control">
         <option value="1">&nbsp;Yes&nbsp;</option>
         <option value="0">&nbsp;No&nbsp;</option>
@@ -758,6 +760,7 @@
         </div>
     </div>
     </div>
+
     
 
 
