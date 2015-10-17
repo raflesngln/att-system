@@ -39,7 +39,7 @@ public function insert($table,$data) {
 	//=====================get data all============================
     public function getdata($tabel,$where)
     {
-        $query = $this->db->query("select*from ".$tabel." $where");
+        $query = $this->db->query("select * from ".$tabel." $where");
 		return $query->result();
     }
 			//=====================get data all============================

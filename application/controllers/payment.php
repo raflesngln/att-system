@@ -28,8 +28,8 @@ class Payment extends CI_Controller{
     function settlement_request(){
         $data = array(
             'title'=>' settlement_request',
-            'scrumb_name'=>'Booking settlement_request',
-            'scrumb'=>'transaction/settlement_request',
+            'scrumb_name'=>' settlement_request',
+            'scrumb'=>'payment/settlement_request',
             'view'=>'pages/payment/settlement_request',
         );  
        $this->load->view('home/home',$data);

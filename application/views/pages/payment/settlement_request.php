@@ -113,7 +113,7 @@
                                                   <th>Date PR</th>
                                                   <th>IDR</th>
                                                   <th>USD</th>
-                                                  <th class="text-center"><div align="center">Action</div></th>
+                                                  
                                                 </tr>
                                               </thead>
                                               <tbody>  
@@ -124,17 +124,11 @@
                                                   <th>99</th>
                                                   <th>99</th>
                                                   <th>99</th>
-                                                  <th>
-                                                  <div align="center">
-                                                  <a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add Item"><i class="icon-plus icons"></i></a>
-                                                  <a href="<?php echo base_url();?>master/delete_disc/<?php echo $data->id?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete item">
-                                                  <button class="btn btn-mini btn-danger"><i class="fa fa-times bigger-120"></i></button>
-                                                  </a>                                                                         
-                                                                           
+                                                                   
                                                 </tr>
                                              <thead>
                                              <tr>
-                                                  <th colspan="4">Total</th>
+                                                  <th colspan="3">Total</th>
                                                   <th>xxx</th>
                                                   <th>XXX</th>
                                                   <th></th>
@@ -149,31 +143,22 @@
                <!--LEFT INPUT-->
   <div class="col-sm-6">      
       <div class="col-sm-11">
-          <strong><label class="col-sm-4"> PR Number</label></strong>
+          <strong><label class="col-sm-5"> Settlement Number</label></strong>
           <div class="col-sm-7">
-           <input name="pr" type="text" class="form-control"  id="name" required="required" />
+           <input name="pr" type="text" class="form-control"  id="name" required="required" readonly="readonly" />
           </div>
-          <strong><label class="col-sm-4"> Receiver</label></strong>
-          <div class="col-sm-7">
-           <select name="receiver" class="form-control">
-             <option value="chosee">Chosse</option>
-           </select>
+          <strong><label class="col-sm-5"> By</label></strong>
+          <div class="col-sm-6">
+            <input name="amount" type="text" class="form-control"  id="name" required="required" />
           </div>
 
-          <strong><label class="col-sm-4"> Currency</label></strong>
+          <strong><label class="col-sm-5"> Currency</label></strong>
           <div class="col-sm-7">
            <select name="currency" class="form-control">
              <option value="chosee">Chosse</option>
            </select>
           </div>
-          <strong><label class="col-sm-4"> Amount</label></strong>
-          <div class="col-sm-7">
-           <input name="amount" type="text" class="form-control"  id="name" required="required" />
-          </div>
-          <strong><label class="col-sm-4"> Remarks</label></strong>
-          <div class="col-sm-7">
-           <textarea name="remarks" class="form-control" cols="35" rows="3"></textarea>
-          </div>
+ 
       </div>
                            
  </div>
@@ -191,7 +176,72 @@
             
       </div>
    </div>
+   </div>
+             <h2 style="background-color:#D6487E; width:20%;padding:2px 10px;color:white">Items Add</h2>
 
+                                    <div class="form-group">
+                                        <div class="table-responsive" id="table_responsive">
+                                        <table class="table table-striped table-bordered table-hover">
+                                              <thead>
+                                               
+                                                <tr height="50">
+                                                  <th>No.</th>
+                                                  <th>Charges</th>
+                                                  <th>Desc</th>
+                                                  <th>Value PR</th>
+                                                  <th>Qty</th>
+                                                  <th>Total</th>
+                                                  <th>Vendor</th>
+                                                  <th class="text-center"><div align="center">Action</div></th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>  
+                                             <tr>
+                                                  <th>1</th>
+                                                  <th>99</th>
+                                                  <th>99</th>
+                                                  <th>99</th>
+                                                  <th>99</th>
+                                                  <th>99</th>
+                                                  <th>99</th>
+                                                  <th>
+                                                  <div align="center">
+                                                  <a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add Item"><i class="icon-plus icons"></i></a>
+                                                  <a href="<?php echo base_url();?>master/delete_disc/<?php echo $data->id?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete item">
+                                                  <button class="btn btn-mini btn-danger"><i class="fa fa-times bigger-120"></i></button>
+                                                  </a>                                                                         
+                                                                           
+                                                </tr>
+                                             <thead>
+                                             <tr>
+                                                  <th colspan="5">Total</th>
+                                                  <th>xxx</th>
+                                                  <th>XXX</th>
+                                                  <th></th>
+                                                </tr>
+                                                </thead>
+                                              </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+<div class="container">
+  <div class="row">
+               <!--LEFT INPUT-->
+  <div class="col-sm-6">      
+      <div class="col-sm-12">
+          
+          <strong><label class="col-sm-4"> Remarks</label></strong>
+          <div class="col-sm-8">
+            <textarea name="rermarks" class="form-control" rows="4"></textarea>
+          </div>
+ 
+      </div>
+                           
+ </div>
+<!--RIGHT INPUT-->
+
+   </div>
+   </div>
                                         <div style="margin-bottom:50px;"></div>
                                           <div class="col-md-4"></div>
                                           <div class="col-md-2">
