@@ -14,7 +14,7 @@
 
   <div class="row">  
       <div class="col-sm-6">
-           <h1><i class="fa fa-diamond fa-2x"></i> &nbsp; Charges  List</h1> 
+           <h1><i class="fa fa-hourglass-start bigger220"></i> &nbsp; Charges  List</h1> 
            <p>&nbsp;</p>
             </div>
      
@@ -60,7 +60,7 @@
                                                   <th>isCode</th>
                                                   <th>AccDebet</th>
                                                   <th>AccCredit</th>
-                                                  <th>isActive</th>
+                                               
                                                   <th colspan="2" class="text-center">Actions</th>
                                                 </tr>
                                               </thead>
@@ -68,18 +68,24 @@
  <?php 
 $no=1;
 foreach($list as $data){
+      $isCost=$data->isCost;
+      $isSales=$data->isSales;
+      $isActive=$data->isActive;
+
+      if($isCost=='1'){ $status1="<font color='blue'>Yes</font>";}else{$status1="<font color='red'>No</font>";}
+      if($isSales=='1'){ $status2="<font color='blue'>Yes</font>";}else{$status2="<font color='red'>No</font>";} 
 				
 			?>
                                                 <tr class="gradeX">
                                                     <td><?php echo $no?></td>
                                                     <td><?php echo $data->ChargeCode?></td>
                                                     <td><?php echo $data->Description?></td>
-                                                    <td><?php echo $data->isCost?></td>
-                                                    <td><?php echo $data->isSales?></td>
+                                                    <td><?php echo $status1?></td>
+                                                    <td><?php echo $status2?></td>
                                                     <td><?php echo $data->Name?></td>
                                                     <td><?php echo $data->AccDebet; ?></td>
                                                     <td><?php echo $data->AccCredit?></td>
-                                                    <td><?php echo $data->isActive; ?></td>
+                                                   
                                                     <td class="text-center">
                                                       <a href="#modaledit<?php echo $data->ChargeCode?>" data-toggle="modal" title="Edit">
                                                       <button class="btn btn-primary btn-small tooltip-info" title="Edit data">

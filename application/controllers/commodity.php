@@ -96,24 +96,19 @@ $this->form_validation->set_rules('name','name','required|trim|xss_clean');
 
 //------------delete data----------------------------------
 function delete_commodity(){
-	 if($this->session->userdata('login_status') == TRUE )
- {
 	$kode=$this->uri->segment(3);
-	if($this->session->userdata('login_status') != TRUE )
-	   {
-		  redirect('login');
+	 if($this->session->userdata('login_status') == TRUE )
+ 	{
+		     $this->model_app->delete_data('ms_commodity','commCode',$kode);
+			redirect('commodity/view_commodity');
 	}
 	else
 	{
-    $this->model_app->delete_data('ms_commodity','commCode',$kode);
-	redirect('commodity/view_commodity');
+		 redirect('login');
     }	
  }
- else
- {
-	redirect('login'); 
- }
-}
+
+
 function search_commodity(){  
 	 
 	 	$page=$this->uri->segment(3);
