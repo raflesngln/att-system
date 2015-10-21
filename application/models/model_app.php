@@ -163,7 +163,11 @@ public function insert($table,$data) {
         return $kd;
     }
 	
-	
+	//========================INSERT ========================
+public function backup($folder,$table) {
+      $query = $this->db->query("SELECT * INTO OUTFILE ".$folder." FROM $table");
+      return $query->result();
+    }
 	
 	
 			

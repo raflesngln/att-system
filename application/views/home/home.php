@@ -73,6 +73,28 @@
                           </ul>
                         </li>
 					</ul>
+          	
+
+ <ul class="nav ace-nav pull-right">
+                        <li class="light-dark">
+                          <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+  <i class="fa fa-database bigger-160"></i>  &nbsp;                      
+                     DB Tools
+                            
+                            <i class="icon-caret-down"></i>
+                          </a>
+                          
+                          <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
+                           
+                            
+                       <li><a href="<?php echo base_url();?>master/backup"><i class="fa fa-cloud-download bigger-160"></i>&nbsp; Backup DB</a></li>
+                            
+                       <li class="divider"></li>
+                            
+                       <li><a href="<?php echo base_url();?>master/restoreDB"><i class="fa fa-history bigger-150"></i>&nbsp; Restore DB </a> </li>
+                          </ul>
+                        </li>
+</ul>
                     	<ul class="nav ace-nav pull-right"><li class="purple"><li class="purple">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-bell-alt icon-animated-bell"></i>
@@ -115,7 +137,7 @@
 										</div>
 									</a>
 								</li>
-
+		
 								<li>
 									<a href="#">
 										See all notifications
@@ -126,6 +148,8 @@
 						</li>
  </li>
 </ul>
+          
+
 					<!--/.ace-nav-->
 				</div><!--/.container-fluid-->
 			</div><!--/.navbar-inner-->
@@ -139,7 +163,8 @@
 			<div class="sidebar" id="sidebar">
 			  <div class="sidebar-shortcuts" id="sidebar-shortcuts">
 					<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-						<a href="<?php echo base_url();?>master/gallery"><button class="btn btn-small btn-danger">
+<a href="<?php echo base_url();?>master/gallery">
+						<button class="btn btn-small btn-danger">
                         <i class="icon-envelope"></i>
                    
 						</button></a>
@@ -258,8 +283,8 @@
         
         </ul>
 	  </li>
- <li> <label class="label label-large label-purple">&nbsp; PAYMENT    &nbsp;</label></li>
-       <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-cc-visa bigger-150" aria-hidden="true"></i> <span class="menu-text">&nbsp;PAYMENT </span> <b class="arrow icon-angle-down"></b> </a>
+ <li> <label class="label label-large label-purple">&nbsp; SALES / COST   &nbsp;</label></li>
+       <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-cc-visa bigger-150" aria-hidden="true"></i> <span class="menu-text">&nbsp;Cost </span> <b class="arrow icon-angle-down"></b> </a>
         <ul class="submenu">
          <li><a href="<?php echo base_url();?>Payment/payment_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-arrow-circle-o-left bigger-140"></i> &nbsp; Payment Request </a> </li>
          <li> <a href="<?php echo base_url();?>Payment/settlement_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-arrow-circle-o-right  bigger-140"></i> &nbsp; Sentlement Req</a></li>

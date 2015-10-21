@@ -1340,6 +1340,78 @@ $idsubparent=$this->input->post('idsubparent');
  }
 }
 
+public function backup()
+  {
+     $this->load->dbutil(); 
+     $this->load->helper('file');
+      $this->load->helper('download');
+     $prefs = array(
+         'tables'      => array('ms_currency','ms_state','ms_charges','ms_city','ms_commodity','ms_country','ms_customer','ms_disc','ms_service','ms_staff','ms_user',
+         					'ms_vendor',),  
+         'ignore'      => array(),           
+         'format'      => 'txt',             
+         'filename'    => 'mybackup.sql',    
+         'add_drop'    => TRUE,              
+         'add_insert'  => TRUE,              
+         'newline'     => "\n"               
+     );
+     // Backup your entire database and assign it to a variable
+     $backup =& $this->dbutil->backup($prefs);
+ 
+     // Load the file helper and write the file to your server
+    
+     $file_name = date('dmY:hi').'-backup_data.sql';
+     write_file('/'.$file_name, $backup);
+     // Load the download helper and send the file to your desktop
+     force_download($file_name, $backup);
+ }
+ function restoreDB(){
+ 	    $data=array(
+ 	    'title'=>'Restore Database',
+		'scrumb_name'=>'Restore Database',
+		'scrumb'=>'master/restoreDB',
+		'view'=>'pages/backup/restore'
+		);
+        $this->load->view('home/home',$data);
+ }
+function restore(){
+		//upload dulu filenya
+		$fupload = $_FILES['fileku'];
+		 $nama = $_FILES['fileku']['name'];
+	
+		//if(isset($fupload)){
+		$lokasi_file = $fupload['tmp_name'];
+		$direktori="./asset/backup/$nama";
+		move_uploaded_file($lokasi_file,"$direktori");
+
+		//$isi_file=file_get_contents('./asset/backup/20102015-102426-backup_data.sql');
+		$isi_file=file_get_contents($direktori);
+		$string_query=rtrim($isi_file,"\n;");
+		$array_query=explode(";",$string_query);
+		foreach($array_query as $query){
+		$result=$this->db->query($query);
+	}
+		if($result){
+			$message='Restoring database Success !';
+			$status='success';
+			} else {
+				$message='Failed to restore database !';
+				$status='error';
+			}
+		   $data=array(
+	 	    'title'=>'Restore Database',
+			'scrumb_name'=>'Restore Database',
+			'scrumb'=>'master/restoreDB',
+			'message'=>$message,
+			'status'=>$status,
+			'view'=>'pages/backup/restore',
+			);
+      		$this->load->view('home/home',$data);			
+		
+
+	}
+
+
 
 
 

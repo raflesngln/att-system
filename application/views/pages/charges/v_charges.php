@@ -188,7 +188,7 @@ foreach($list as $data){
  <div class="form-group">
                         <label class="col-sm-3 control-label"> Service</label>
                         <div class="col-sm-9"><span class="controls">
-                        <select name="service" class="form-control">
+                        <select name="service" class="form-control" required="required">
                           <option value="<?php echo $row->svCode;?>"><?php echo $row->Name;?></option>
                       <?php
                       foreach ($service as $rw) {
@@ -288,7 +288,7 @@ foreach($list as $data){
  <div class="form-group">
                         <label class="col-sm-3 control-label"> Service</label>
                         <div class="col-sm-9"><span class="controls">
-                        <select name="service" class="form-control">
+                        <select name="service" class="form-control" required="required">
                           <option value="">Select Service</option>
                       <?php
                       foreach ($service as $rw) {

@@ -18,6 +18,8 @@ class Payment extends CI_Controller{
 	  		'title'=>'payment_request',
 			'scrumb_name'=>'payment_request',
 			'scrumb'=>'payment/payment_request',
+            'staff'=>$this->model_app->getdatapaging("empCode,empInitial,empName","ms_staff","ORDER BY empName"),
+            'currency'=>$this->model_app->getdatapaging("curCode,curName,curDetail","ms_currency","ORDER BY curName"),
 			'view'=>'pages/payment/payment_request',
         );	
       //$this->load->view('pages/booking/ship',$data);

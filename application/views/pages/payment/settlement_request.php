@@ -111,27 +111,27 @@
                                                   <th>Payment Request No</th>
                                                   <th>Receiver</th>
                                                   <th>Date PR</th>
-                                                  <th>IDR</th>
-                                                  <th>USD</th>
+                                                  <th><div align="center">IDR</div></th>
+                                                  <th><div align="center">USD</div></th>
                                                   
                                                 </tr>
                                               </thead>
                                               <tbody>  
                                              <tr>
                                                   <th>1</th>
+                                                  <th>S</th>
+                                                  <th>Sstring</th>
                                                   <th>99</th>
-                                                  <th>99</th>
-                                                  <th>99</th>
-                                                  <th>99</th>
-                                                  <th>99</th>
+                                                  <th><div align="right"><?php echo number_format('999999',0,'.','.');?></div></th>
+                                                  <th><div align="right"><?php echo number_format('999',0,'.','.');?></div></th>
                                                                    
                                                 </tr>
                                              <thead>
                                              <tr>
                                                   <th colspan="3">Total</th>
-                                                  <th>xxx</th>
-                                                  <th>XXX</th>
                                                   <th></th>
+                                                  <th><div align="right"><?php echo 'Rp. '. number_format('999999',0,'.','.');?></div></th>
+                                                  <th><div align="right"><?php echo number_format('999',0,'.','.').' USD';?></div></th>
                                                 </tr>
                                                 </thead>
                                               </tbody>
@@ -177,7 +177,7 @@
       </div>
    </div>
    </div>
-             <h2 style="background-color:#D6487E; width:20%;padding:2px 10px;color:white">Items Add</h2>
+             <h4 style="background-color:#D6487E; width:10%; border-radius: 0px 100px  100px 0px  ;padding:8px 10px;color:white">Items Add</h4>
 
                                     <div class="form-group">
                                         <div class="table-responsive" id="table_responsive">
@@ -188,7 +188,7 @@
                                                   <th>No.</th>
                                                   <th>Charges</th>
                                                   <th>Desc</th>
-                                                  <th>Value PR</th>
+                                                  <th>Value</th>
                                                   <th>Qty</th>
                                                   <th>Total</th>
                                                   <th>Vendor</th>

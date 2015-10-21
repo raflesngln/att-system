@@ -113,31 +113,24 @@
                                                   <th>Date PR</th>
                                                   <th>IDR</th>
                                                   <th>USD</th>
-                                                  <th class="text-center"><div align="center">Action</div></th>
+                                                
                                                 </tr>
                                               </thead>
                                               <tbody>  
                                              <tr>
                                                   <th>1</th>
                                                   <th>99</th>
-                                                  <th>99</th>
-                                                  <th>99</th>
-                                                  <th>99</th>
-                                                  <th>99</th>
-                                                  <th>
-                                                  <div align="center">
-                                                  <a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add Item"><i class="icon-plus icons"></i></a>
-                                                  <a href="<?php echo base_url();?>master/delete_disc/<?php echo $data->id?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete item">
-                                                  <button class="btn btn-mini btn-danger"><i class="fa fa-times bigger-120"></i></button>
-                                                  </a>                                                                         
-                                                                           
-                                                </tr>
+                                                  <th>String</th>
+                                                  <th>99/99/99</th>
+                                                  <th><div align="right"><?php echo number_format('999999',0,'.','.');?></div></th>
+                                                  <th><div align="right"><?php echo number_format('999',0,'.','.');?></div></th>
+                                                  
                                              <thead>
                                              <tr>
                                                   <th colspan="4">Total</th>
-                                                  <th>xxx</th>
-                                                  <th>XXX</th>
-                                                  <th></th>
+                                                 <th><div align="right"><?php echo 'Rp. '. number_format('999999',0,'.','.');?></div></th>
+                                                  <th><div align="right"><?php echo number_format('999',0,'.','.').' USD';?></div></th>
+                                                  
                                                 </tr>
                                                 </thead>
                                               </tbody>
@@ -155,15 +148,24 @@
           </div>
           <strong><label class="col-sm-4"> Receiver</label></strong>
           <div class="col-sm-7">
-           <select name="receiver" class="form-control">
-             <option value="chosee">Chosse</option>
+           <select name="receiver" class="form-control" required="required">
+           <option value="">Choose Receiver</option>
+           <?php
+           foreach ($staff as $st) {
+           ?>
+             <option value="<?php echo $st->empCode;?>"><?php echo $st->empName;?></option>
+             <?php } ?>
            </select>
           </div>
 
           <strong><label class="col-sm-4"> Currency</label></strong>
           <div class="col-sm-7">
            <select name="currency" class="form-control">
-             <option value="chosee">Chosse</option>
+           <?php
+           foreach ($currency as $cr) {
+           ?>
+             <option value="<?php echo $cr->curCode;?>"><?php echo $cr->curName;?></option>
+             <?php } ?>
            </select>
           </div>
           <strong><label class="col-sm-4"> Amount</label></strong>
