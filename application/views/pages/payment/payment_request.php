@@ -164,7 +164,7 @@
            <?php
            foreach ($currency as $cr) {
            ?>
-             <option value="<?php echo $cr->curCode;?>"><?php echo $cr->curName;?></option>
+             <option value="<?php echo $cr->currCode;?>"><?php echo $cr->currCode.' - '.$cr->Name;?></option>
              <?php } ?>
            </select>
           </div>
@@ -193,7 +193,6 @@
             
       </div>
    </div>
-
                                         <div style="margin-bottom:50px;"></div>
                                           <div class="col-md-4"></div>
                                           <div class="col-md-2">

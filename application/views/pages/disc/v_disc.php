@@ -100,7 +100,7 @@ $no=1;
             </div>
   
 
-<!-----edit data------->
+<!-- edit data  -->
 <?php
 
     foreach($list as $row){
@@ -199,14 +199,14 @@ $no=1;
 <div class="form-group">
                         <label class="col-sm-3 control-label">Disc %</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" value="<?php echo $row->DiscPersen;?>" />
+                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" value="<?php echo $row->DiscPersen;?>" maxlength="4" onkeypress="return isNumberKey(event)"/>
 </span></div>
                         <div class="clearfix"></div>
                       </div>
  <div class="form-group">
                         <label class="col-sm-3 control-label">Disc Rp</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="rp" type="text" class="form-control" placeholder="" id="rp" value="<?php echo $row->DiscRupiah;?>" />
+                          <input name="rp" type="text" class="form-control" placeholder="" id="rp" value="<?php echo $row->DiscRupiah;?>" maxlength="15" onkeypress="return isNumberKey(event)"/>
     </span></div>
                         <div class="clearfix"></div>
                       </div>
@@ -231,8 +231,8 @@ $no=1;
     </div>
 <?php } ?>
 
+<!__ MODAL ADD  -->
 <div id="modaladd" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -315,14 +315,14 @@ $no=1;
 <div class="form-group">
                         <label class="col-sm-3 control-label">Disc %</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
+                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" maxlength="4" onkeypress="return isNumberKey(event)" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>
  <div class="form-group">
                         <label class="col-sm-3 control-label">Disc Rp</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="rp" type="text" class="form-control" placeholder="" id="rp" />
+                          <input name="rp" type="text" class="form-control" placeholder="" id="rp" onkeypress="return isNumberKey(event)" />
     </span></div>
                         <div class="clearfix"></div>
                       </div>

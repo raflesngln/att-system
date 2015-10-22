@@ -5,13 +5,17 @@
 DROP TABLE IF EXISTS ms_currency;
 
 CREATE TABLE `ms_currency` (
-  `curCode` int(10) NOT NULL AUTO_INCREMENT,
-  `curName` varchar(25) NOT NULL,
-  `curDetail` varchar(100) NOT NULL,
-  PRIMARY KEY (`curCode`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+  `currCode` varchar(3) NOT NULL,
+  `Name` varchar(50) NOT NULL,
+  `CreateBy` varchar(30) NOT NULL,
+  `CreateDate` datetime NOT NULL,
+  `ModifiedBy` varchar(30) NOT NULL,
+  `ModifiedDate` datetime NOT NULL,
+  PRIMARY KEY (`currCode`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO ms_currency (`curCode`, `curName`, `curDetail`) VALUES (1, 'USD', 'American Dollar');
+INSERT INTO ms_currency (`currCode`, `Name`, `CreateBy`, `CreateDate`, `ModifiedBy`, `ModifiedDate`) VALUES ('IDR', 'Indonesian Rupiah', 'Admin', '2015-10-16 00:00:00', '', '0000-00-00 00:00:00');
+INSERT INTO ms_currency (`currCode`, `Name`, `CreateBy`, `CreateDate`, `ModifiedBy`, `ModifiedDate`) VALUES ('USD', 'American Dollar', 'Admin', '2015-10-16 00:00:00', '', '0000-00-00 00:00:00');
 
 
 #
@@ -41,8 +45,8 @@ INSERT INTO ms_state (`stCode`, `stName`, `CreateBy`, `CreateDate`, `ModifiedBy`
 DROP TABLE IF EXISTS ms_charges;
 
 CREATE TABLE `ms_charges` (
-  `idCharges` int(10) NOT NULL,
-  `ChargeCode` varchar(20) NOT NULL,
+  `idCharges` int(10) NOT NULL AUTO_INCREMENT,
+  `ChargeCode` varchar(10) NOT NULL,
   `Description` varchar(250) NOT NULL,
   `isCost` tinyint(1) NOT NULL,
   `isSales` tinyint(1) NOT NULL,
@@ -54,15 +58,11 @@ CREATE TABLE `ms_charges` (
   `CreateDate` datetime NOT NULL,
   `ModifiedBy` varchar(30) NOT NULL,
   `ModifiedDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`ChargeCode`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`idCharges`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
-INSERT INTO ms_charges (`idCharges`, `ChargeCode`, `Description`, `isCost`, `isSales`, `svCode`, `AccDebet`, `AccCredit`, `isActive`, `CreateBy`, `CreateDate`, `ModifiedBy`, `ModifiedDate`) VALUES (1, '02', 'dolor sit amet', 1, 0, '6', '555555', '555555', 1, 'Administrator', '2015-10-17 06:52:10', 'Administrator', '2015-10-20 03:30:10');
-INSERT INTO ms_charges (`idCharges`, `ChargeCode`, `Description`, `isCost`, `isSales`, `svCode`, `AccDebet`, `AccCredit`, `isActive`, `CreateBy`, `CreateDate`, `ModifiedBy`, `ModifiedDate`) VALUES (2, '11', 'lorem ipsum dolor sit amet', 0, 1, '8', 'lorem ipsum', 'lorem ipsum', 1, 'Administrator', '2015-10-17 06:44:10', 'Administrator', '2015-10-19 07:11:10');
-INSERT INTO ms_charges (`idCharges`, `ChargeCode`, `Description`, `isCost`, `isSales`, `svCode`, `AccDebet`, `AccCredit`, `isActive`, `CreateBy`, `CreateDate`, `ModifiedBy`, `ModifiedDate`) VALUES (3, '12', 'lorem kipsum', 0, 1, '8', 'lorem ipsum', 'lorem ipsum', 1, 'Administrator', '2015-10-19 03:35:10', 'Administrator', '2015-10-19 03:36:10');
-INSERT INTO ms_charges (`idCharges`, `ChargeCode`, `Description`, `isCost`, `isSales`, `svCode`, `AccDebet`, `AccCredit`, `isActive`, `CreateBy`, `CreateDate`, `ModifiedBy`, `ModifiedDate`) VALUES (4, '14HF', 'Handling Fee', 0, 1, '6', '123', '123', 1, 'Administrator', '2015-10-20 08:01:10', '', '0000-00-00 00:00:00');
-INSERT INTO ms_charges (`idCharges`, `ChargeCode`, `Description`, `isCost`, `isSales`, `svCode`, `AccDebet`, `AccCredit`, `isActive`, `CreateBy`, `CreateDate`, `ModifiedBy`, `ModifiedDate`) VALUES (5, 'CC', 'lorem kipsum', 1, 1, '', 'lorem kipsum', 'lorem kipsum', 1, 'Administrator', '2015-10-19 03:17:10', '', '0000-00-00 00:00:00');
-INSERT INTO ms_charges (`idCharges`, `ChargeCode`, `Description`, `isCost`, `isSales`, `svCode`, `AccDebet`, `AccCredit`, `isActive`, `CreateBy`, `CreateDate`, `ModifiedBy`, `ModifiedDate`) VALUES (6, 'THHBD', 'dghbdhbdf', 0, 0, '', 'tbhdb', 'bhfgbf', 1, 'Administrator', '2015-10-19 03:33:10', '', '0000-00-00 00:00:00');
+INSERT INTO ms_charges (`idCharges`, `ChargeCode`, `Description`, `isCost`, `isSales`, `svCode`, `AccDebet`, `AccCredit`, `isActive`, `CreateBy`, `CreateDate`, `ModifiedBy`, `ModifiedDate`) VALUES (9, '1212', 'lorem ipsum', 1, 1, '6', '44', '55', 1, 'Administrator', '2015-10-21 12:15:10', 'Administrator', '2015-10-21 12:33:10');
+INSERT INTO ms_charges (`idCharges`, `ChargeCode`, `Description`, `isCost`, `isSales`, `svCode`, `AccDebet`, `AccCredit`, `isActive`, `CreateBy`, `CreateDate`, `ModifiedBy`, `ModifiedDate`) VALUES (10, '1212', 'lorem ipsum', 1, 1, '8', '44', '55', 1, 'Administrator', '2015-10-21 12:15:10', '', '0000-00-00 00:00:00');
 
 
 #
@@ -173,7 +173,7 @@ CREATE TABLE `ms_customer` (
   `ModifiedBy` varchar(30) NOT NULL,
   `ModifiedDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`custCode`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 INSERT INTO ms_customer (`custCode`, `custInitial`, `custName`, `Address`, `cyCode`, `Phone`, `Fax`, `PostalCode`, `isAgent`, `isShipper`, `isCnee`, `Email`, `PIC01`, `PIC02`, `HPPIC01`, `HPPIC02`, `CreditLimit`, `TermsPayment`, `Deposit`, `empCode`, `isActive`, `NPWP`, `NPWPAddress`, `Remarks`, `CreateBy`, `CreateDate`, `ModifiedBy`, `ModifiedDate`) VALUES (10, 'Dini', 'Dini Arini', 'Cengkareng Barat', 'JOG', 891234627, '56575', '5645', 1, 1, 0, 'dini@yahoo.com', '7676', '8667', 67676, '67676', '8000', 'lorem ipsum', '90909090', 3, 0, '7838456', 'jakarta barat', 'lotek ipsum dolor sit amet', 'aldi', '2015-10-15 14:14:30', 'Administrator', '2015-10-15 09:14:30');
 INSERT INTO ms_customer (`custCode`, `custInitial`, `custName`, `Address`, `cyCode`, `Phone`, `Fax`, `PostalCode`, `isAgent`, `isShipper`, `isCnee`, `Email`, `PIC01`, `PIC02`, `HPPIC01`, `HPPIC02`, `CreditLimit`, `TermsPayment`, `Deposit`, `empCode`, `isActive`, `NPWP`, `NPWPAddress`, `Remarks`, `CreateBy`, `CreateDate`, `ModifiedBy`, `ModifiedDate`) VALUES (11, 'Rani', 'Rani Rahma', 'jakarta', 'JKT', 87787, '56575', '5645', 0, 0, 1, 'dini@yahoo.com', '7676', '8667', 67676, '67676', '8000', 'lorem ipsum', '90909090', 3, 0, '7838456', 'jakarta barat', 'lotek ipsum dolor sit amet', 'aldi', '2015-10-15 14:14:41', 'Administrator', '2015-10-15 09:14:41');

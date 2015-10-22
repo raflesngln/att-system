@@ -15,12 +15,6 @@
           <div class="col-sm-7">
            <textarea class="form-control select" name="address1" id="address1" readonly="readonly"><?php echo $row->Address;?></textarea>
           </div>
-          <strong><label class="col-sm-4"> Commodity</label></strong>
-          <div class="col-sm-7">
-           <select name="commodity" id="filter" class="form-control">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
-          </select>
-          </div>
+    
 
           <?php } ?>

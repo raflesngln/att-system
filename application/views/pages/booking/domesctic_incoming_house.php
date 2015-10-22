@@ -62,10 +62,14 @@
 
           <strong><label class="col-sm-4"> Payment Type</label></strong>
           <div class="col-sm-7">
-           <select name="service" id="filter" class="form-control combo">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
+          <select name="currency" class="form-control">
+                   <?php
+                   foreach ($currency as $cr) {
+                   ?>
+                     <option value="<?php echo $cr->currCode;?>"><?php echo $cr->currCode.' - '. $cr->Name;?></option>
+                     <?php } ?>
           </select>
+
           </div>
           <strong><label class="col-sm-4"> Service</label></strong>
           <div class="col-sm-7">
@@ -113,6 +117,17 @@
 <div class="col-sm-1"><a class="btn btn-success btn-addnew btn-mini" href="#modaladdcust" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a></div>
 
 <div class="col-sm-13" id="contenshipper"><!-- CONTENT AJAX VIEW HERE --></div>
+<strong><label class="col-sm-4"> Commodity</label></strong>
+          <div class="col-sm-7">
+      <select data-placeholder="Choose Commodity..." class="chosen-select form-control" tabindex="2" name="commodity">
+           <option value="">Choose Commodity</option>
+          <?php foreach ($commodity as $cm) {
+          ?>
+            <option value="<?php echo $cm->commCode;?>"><?php echo $cm->Name;?></option>
+          <?php } ?>
+      </select>
+   </div>
+
       </div>             
       </div>
                 <!--RIGHT INPUT-->
@@ -126,9 +141,12 @@
           </div>
           <strong><label class="col-sm-4"> Payment Type</label></strong>
           <div class="col-sm-7">
-           <select name="filter" id="filter" class="form-control">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
+          <select name="currency" class="form-control">
+                   <?php
+                   foreach ($currency as $cr) {
+                   ?>
+                     <option value="<?php echo $cr->currCode;?>"><?php echo $cr->currCode.' - '. $cr->Name;?></option>
+                     <?php } ?>
           </select>
           </div>
            <strong><label class="col-sm-4"> ETD</label></strong>
@@ -152,6 +170,19 @@
 <div class="col-sm-1"><a class="btn btn-success btn-addnew btn-mini" href="#modaladdcust" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a></div>
 
 <div class="col-sm-13" id="contencnee"><!-- CONTENT AJAX VIEW HERE --></div>
+
+<strong><label class="col-sm-4"> Commodity</label></strong>
+          <div class="col-sm-7">
+      <select data-placeholder="Choose Commodity..." class="chosen-select form-control" tabindex="2" name="commodity">
+           <option value="">Choose Commodity</option>
+          <?php foreach ($commodity as $cm) {
+          ?>
+            <option value="<?php echo $cm->commCode;?>"><?php echo $cm->Name;?></option>
+          <?php } ?>
+      </select>
+   </div>
+
+
    </div>
 </div>
 <br style="clear:both;margin-bottom:40px;">

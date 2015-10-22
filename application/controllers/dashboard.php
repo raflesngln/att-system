@@ -10,7 +10,7 @@ class Dashboard extends CI_Controller{
     }
 
     function index(){
-       redirect('master/view_customer');
+       redirect('customer/view_customer');
 	}
 
 }

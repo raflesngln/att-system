@@ -1,5 +1,26 @@
 
  <script type="text/javascript" src="<?php echo base_url();?>asset/js/jquery.js"></script>
+  
+    <script src="<?php echo base_url();?>asset/js/jquery.min.js"></script>
+    <script src="<?php echo base_url();?>asset/js/jquery.multiple.select.js"></script>
+    <link rel="stylesheet" href="<?php echo base_url();?>asset/css/multiple-select.css"/>
+
+
+
+    <script>
+      $(document).ready(function(){
+        $('#multi').multipleSelect();
+      });
+    </script>
+<style type="text/css">
+  #multi[type="checkbox"]{
+    margin-left: 150px;
+  }
+.lbl-multi{
+  margin-left: 200px;
+}
+</style>
+
    <div class="row-fluid">
     <div class="span12">
                   <?php
@@ -87,14 +108,14 @@ foreach($list as $data){
                                                     <td><?php echo $data->AccCredit?></td>
                                                    
                                                     <td class="text-center">
-                                                      <a href="#modaledit<?php echo $data->ChargeCode?>" data-toggle="modal" title="Edit">
+                                                      <a href="#modaledit<?php echo $data->idCharges?>" data-toggle="modal" title="Edit">
                                                       <button class="btn btn-primary btn-small tooltip-info" title="Edit data">
                                                       <i class="icon-edit icon-1x icon-only"></i>
                                                       </button>                                          
                                                       </a>                                              
                                                     </td>
                                                            <td>
-                                                  <a href="<?php echo base_url();?>charges/delete_charges/<?php echo $data->ChargeCode?>" onClick="return confirm('Yakin Hapus  Data !!');">
+                                                  <a href="<?php echo base_url();?>charges/delete_charges/<?php echo $data->idCharges?>" onClick="return confirm('Yakin Hapus  Data !!');">
                                                <button class="btn btn-danger btn-small" title="Delete Data">
                                               	<i class="icon-trash icon-1x icon-only"></i>
                                               	</button>
@@ -123,7 +144,6 @@ foreach($list as $data){
 
 
 
-
 <!--   EDIT DATA   -->
 <?php
 
@@ -136,7 +156,7 @@ foreach($list as $data){
       if($isSales=='1'){ $status2="Yes";}else{$status2="No";}	
        if($isActive=='1'){ $status3="Yes";}else{$status3="No";}  	
         ?> 
-<div id="modaledit<?php echo $row->ChargeCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="modaledit<?php echo $row->idCharges;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -148,7 +168,7 @@ foreach($list as $data){
                 <form method="post" action="<?php echo site_url('charges/update_charges')?>">
                         <div class="modal-body">
 <div class="form-group">
-<input type="hidden" name="id" id="id" value="<?php echo $row->ChargeCode;?>" />
+<input type="hidden" name="id" id="id" value="<?php echo $row->idCharges;?>" />
                         <label class="col-sm-3 control-label"> Charge code</label>
                         <div class="col-sm-9"><span class="controls">
                           <input name="code" type="text" class="form-control"  id="code" required="required" value="<?php echo $row->ChargeCode;?>" />
@@ -249,7 +269,7 @@ foreach($list as $data){
                 <h3 id="myModalLabel">Add charges</h3>
             </div>
             <div class="smart-form">
-                <form method="post" action="<?php echo site_url('charges/save_charges')?>">
+                <form method="post" action="<?php echo site_url('charges/save_charges2')?>">
                     <div class="modal-body">
 <div class="form-group">
                         <label class="col-sm-3 control-label"> Charcode</label>
@@ -285,21 +305,23 @@ foreach($list as $data){
 </span></div>
                         <div class="clearfix"></div>
                       </div>
+
  <div class="form-group">
                         <label class="col-sm-3 control-label"> Service</label>
                         <div class="col-sm-9"><span class="controls">
-                        <select name="service" class="form-control" required="required">
-                          <option value="">Select Service</option>
-                      <?php
-                      foreach ($service as $rw) {
-                      ?>
-                        <option value="<?php echo $rw->svCode;?>"><?php echo $rw->Name;?></option>
-                       <?php } ?>
-
-                         </select>
+      <select id="multi" name="service[]" multiple="multiple" style="width:400px;line-height:40px;"  placeholder="Choose Service">
+  <?php
+        foreach ($service as $rw) {
+    ?>
+      <option value="<?php echo $rw->svCode;?>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $rw->Name;?></option>
+      <?php } ?>
+    </select>
 </span></div>
-                        <div class="clearfix"></div>
-                      </div>
+                        
+</div>
+<div class="col-sm-12">&nbsp;</div>
+
+
  <div class="form-group">
                         <label class="col-sm-3 control-label">ACc debit</label>
                         <div class="col-sm-9"><span class="controls">

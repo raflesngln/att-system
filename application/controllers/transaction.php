@@ -20,6 +20,7 @@ class Transaction extends CI_Controller{
 			'scrumb'=>'transaction/booking_shipment',
             'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
             'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
+            'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
 			'view'=>'pages/booking/booking_shipment',
         );	
       //$this->load->view('pages/booking/ship',$data);
@@ -42,7 +43,8 @@ class Transaction extends CI_Controller{
             'title'=>'domesctic-outgoing-house',
             'scrumb_name'=>'Domesctic outgoing house',
             'scrumb'=>'transaction/domesctic_outgoing_house',
-             'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
+            'currency'=>$this->model_app->getdatapaging("currCode,Name","ms_currency","ORDER BY currCode"),
+            'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
             'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
             'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
             'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
@@ -56,11 +58,13 @@ class Transaction extends CI_Controller{
             'title'=>'domesctic-incoming-house',
             'scrumb_name'=>'Domesctic incoming house',
             'scrumb'=>'transaction/domesctic_incoming_house',
-             'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
+            'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
             'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
+            'currency'=>$this->model_app->getdatapaging("currCode,Name","ms_currency","ORDER BY currCode"),
             'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
             'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
             'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
+            'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
             'view'=>'pages/booking/domesctic_incoming_house',
         );  
       $this->load->view('home/home',$data);
@@ -113,6 +117,7 @@ class Transaction extends CI_Controller{
             'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
             'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
             'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
+            'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
             'view'=>'pages/booking/domesctic_incoming_master',
         );  
       $this->load->view('home/home',$data);

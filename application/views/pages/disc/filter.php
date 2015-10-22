@@ -2,7 +2,7 @@
 <table class="table table-striped table-bordered table-hover">
                                               <thead>
                                                 <tr>
-                                                  <th colspan="9"> <div align="left"><a class="btn btn-primary btn-addnew" href="#modaladd" data-toggle="modal" title="Add"><i class="icon-plus icons"></i>Add Disc</a></div></th>
+                                                  <th colspan="9"> <div align="left"><a class="btn btn-blue btn-addnew" href="#modaladd" data-toggle="modal" title="Add"><i class="icon-plus icons"></i>Add Disc</a></div></th>
                                                 </tr>
                                                 <tr>
                                                   <th>No.</th>

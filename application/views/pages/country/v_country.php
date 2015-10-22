@@ -6,14 +6,14 @@
    <div class="row-fluid">
     <div class="span12">
                   <?php
-			if(isset($eror)){?>
-            <label class="alert alert-error col-sm-12">
-			<button type="button" class="close" data-dismiss="alert">
-			<i class="icon-remove"></i>	</button>							
-			<?php echo isset($eror)?$eror:'';?>
-			<br />
-			</label>
-            <?php }?>   
+      if(isset($message)){?>
+            <label class="alert alert-<?php echo $clas;?> col-sm-12">
+      <button type="button" class="close" data-dismiss="alert">
+      <i class="icon-remove"></i> </button>             
+      <?php echo isset($message)?$message:'';?>
+      <br />
+      </label>
+            <?php }?>  
   <div class="row">  
       <div class="col-sm-6">
            <h1><i class="fa fa-flag fa-2x"></i> &nbsp; Country  List</h1> 
@@ -81,7 +81,7 @@ $no=1;
                                                       <button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>
                                                       </a>
                                                         
-                                                        <a href="<?php echo base_url();?>master/delete_country/<?php echo $data->couCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
+                                                        <a href="<?php echo base_url();?>country/delete_country/<?php echo $data->couCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
                                                           <button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>
                                                         </a>                            
                                                         
@@ -103,7 +103,7 @@ $no=1;
 
 
 
-<!-----edit data------->
+<!-- edit data -->
 <?php
 
     foreach($list as $row){
@@ -117,13 +117,13 @@ $no=1;
                 <h3 id="myModalLabel">Edit Data</h3>
             </div>
             <div class="smart-form">
-                <form method="post" action="<?php echo site_url('master/update_country')?>">
+                <form method="post" action="<?php echo site_url('country/update_country')?>">
                     <div class="modal-body">
                       <div class="clearfix"></div>
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Country Code</label>
     <div class="col-sm-9">
-    <input name="coucode2" type="text" class="form-control" id="coucode2" value="<?php echo $row->couCode;?>" required/>
+    <input name="coucode2" type="text" class="form-control" id="coucode2" value="<?php echo $row->couCode;?>" readonly="readonly"/>
               <span class="controls">
               <input type="hidden" name="id2" id="id2" value="<?php echo $row->couCode;?>" />
               </span></div>
@@ -132,7 +132,7 @@ $no=1;
                 <div class="form-group">
                         <label class="col-sm-3 control-label">Country Name</label>
     <div class="col-sm-9">
-    <input name="couname2" type="text" class="form-control" id="couname2" value="<?php echo $row->couName;?>" required/>
+    <input name="couname2" type="text" class="form-control" id="couname2" value="<?php echo $row->couName;?>" />
         </div>
                         <div class="clearfix"></div>
                       </div>
@@ -153,8 +153,7 @@ $no=1;
 <?php } ?>
 
 
-
-<!-----add data------->
+ <!-- add data -->
 <div id="modaladd" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
     <div class="modal-dialog" role="document">
@@ -164,12 +163,12 @@ $no=1;
                 <h3 id="myModalLabel">Add country</h3>
             </div>
             <div class="smart-form">
-                <form method="post" action="<?php echo site_url('master/save_country')?>">
+                <form method="post" action="<?php echo site_url('country/save_country')?>">
                     <div class="modal-body">
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Country Code</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="coucode" type="text" class="form-control"  id="coucode" required="required" />
+                          <input name="coucode" type="text" class="form-control"  id="coucode" required="required" maxlength="2" />
                         </span></div>
                         <div class="clearfix"></div>
                       </div>
@@ -202,7 +201,7 @@ $("#txtsearch").keyup(function(){
             var txtsearch = $("#txtsearch").val();
             $.ajax({
                 type: "POST",
-                url : "<?php echo base_url('search/search_country_ajax'); ?>",
+                url : "<?php echo base_url('country/search_country_ajax'); ?>",
                 data: "txtsearch="+txtsearch,
                 cache:false,
                 success: function(data){
@@ -212,19 +211,5 @@ $("#txtsearch").keyup(function(){
             });
         });
        
-	   
-	   
-	 $("#filter").change(function(){
-            var filter = $("#filter").val();
-          $.ajax({
-                type: "POST",
-                url : "<?php echo base_url('search/filter_country'); ?>",
-                data: "filter="+filter,
-                success: function(data){
-                    $('#table_responsive').html(data);
-                }
-            });
-
-        });
 </script>
  

@@ -135,10 +135,20 @@
           <?php } ?>
           </select>
           </div>
+
 <div class="col-sm-1"><a class="btn btn-success btn-addnew btn-mini" href="#modaladdcust" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a></div>
 
 <div class="col-sm-13" id="contenshipper"><!-- CONTENT AJAX VIEW HERE --></div>
-
+<strong><label class="col-sm-4"> Commodity</label></strong>
+<div class="col-sm-7">
+      <select data-placeholder="Choose Commodity..." class="chosen-select form-control" tabindex="2" name="commodity">
+           <option value="">Choose Commodity</option>
+          <?php foreach ($commodity as $cm) {
+          ?>
+            <option value="<?php echo $cm->commCode;?>"><?php echo $cm->Name;?></option>
+          <?php } ?>
+      </select>
+          </div>
 
   </div>             
 </div>
@@ -158,7 +168,7 @@
 
           <div class="col-sm-12"><hr/></div>
           
-            <strong><label class="col-sm-4"> Consigne</label></strong>
+<strong><label class="col-sm-4"> Consigne</label></strong>
           <div class="col-sm-7">
            <select name="idconsigne" id="idconsigne" class="form-control">
             <option>Select Cnee</option>
@@ -169,10 +179,20 @@
           <?php } ?>
           </select>
           </div> 
+
 <div class="col-sm-1"><a class="btn btn-success btn-addnew btn-mini" href="#modaladdcust" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a></div>
 
 <div class="col-sm-13" id="contencnee"><!-- CONTENT AJAX VIEW HERE --></div>
-
+<strong><label class="col-sm-4"> Commodity</label></strong>
+<div class="col-sm-7">
+      <select data-placeholder="Choose Commodity..." class="chosen-select form-control" tabindex="2" name="commodity">
+           <option value="">Choose Commodity</option>
+          <?php foreach ($commodity as $cm) {
+          ?>
+            <option value="<?php echo $cm->commCode;?>"><?php echo $cm->Name;?></option>
+          <?php } ?>
+      </select>
+          </div>
           </div>              
       </div>
 

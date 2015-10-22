@@ -1,5 +1,5 @@
 <?php
-class Commodity extends CI_Controller{
+class Currency extends CI_Controller{
     function __construct(){
         parent::__construct();
         if($this->session->userdata('login_status') != TRUE ){
@@ -10,8 +10,7 @@ class Commodity extends CI_Controller{
         $this->load->helper('currency_format_helper');
     }	
 	 
-function view_commodity(){  
-	 
+function view_currency(){  	 
 	 	$page=$this->uri->segment(3);
       	$limit=10;
 		if(!$page):
@@ -19,13 +18,13 @@ function view_commodity(){
 		else:
 		$offset = $page;
 		endif;
-        $data['title']='list commodity';
-		$data['scrumb_name']='Data commodity';
-		$data['scrumb']='commodity/view_commodity';
-		$data['list']=$this->model_app->getdata('ms_commodity',"order by commCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_commodity a',"order by commCode ASC");
+        $data['title']='list currency';
+		$data['scrumb_name']='Data currency';
+		$data['scrumb']='currency/view_currency';
+		$data['list']=$this->model_app->getdata('ms_currency',"order by currCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_currency a',"order by currCode ASC");
         	//create for pagination		
-			$config['base_url'] = base_url() . 'commodity/view_commodity/';
+			$config['base_url'] = base_url() . 'currency/view_currency/';
         	$config['total_rows'] = $tot_hal->num_rows();
         	$config['per_page'] = $limit;
 			$config['uri_segment'] = 3;
@@ -36,56 +35,56 @@ function view_commodity(){
        		$this->pagination->initialize($config);
 			$data["paginator"] =$this->pagination->create_links();
 		
-		$data['view']='pages/commodity/v_commodity';
+		$data['view']='pages/currency/v_currency';
         $this->load->view('home/home',$data);
      }
+
 //--SAVE--------
-function save_commodity()
+function save_currency()
 {	
 $this->form_validation->set_rules('code','code','required|trim|xss_clean');
+
 	 if ($this->form_validation->run() == FALSE)
 	{
-		redirect('commodity/view_commodity');
+		redirect('currency/view_currency');
 	}
 		else
 	{
 		$code=$this->input->post('code');
-		$cari=$this->model_app->getdata('ms_commodity',"where commCode='$code'");
+		$cari=$this->model_app->getdata('ms_currency',"WHERE currCode='$code'");
 		if($cari){
+
 			$message="Data with code ( ".$code." ) has Exist, Try another Code!";
 			$clas='error';
 		} else {
 		$message="New Data has been Saved with code ( ".$code." )";
 		$clas='success';
 		$newdata=array(
-		'commCode'=>strtoupper($this->input->post('code')),
+		'currCode'=>strtoupper($this->input->post('code')),
 		'Name'=>$this->input->post('name'),
-		'Section'=>$this->input->post('section'),
-		'Remarks'=>$this->input->post('remarks'),
 		'CreateBy'=>$this->session->userdata('nameusr'),
 		'CreateDate'=>date('Y-m-d:h-s-m'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
-		);		
-		 $this->model_app->insert('ms_commodity',$newdata);	
-		}
-
+		);	
+		$this->model_app->insert('ms_currency',$newdata);
+	}
 		$page=$this->uri->segment(3);
-      	$limit=25;
+      	$limit=10;
 		if(!$page):
 		$offset = 0;
 		else:
 		$offset = $page;
 		endif;
-        $data['title']='list commodity';
-		$data['scrumb_name']='Data commodity';
-		$data['scrumb']='commodity/view_commodity';
+        $data['title']='list currency';
+		$data['scrumb_name']='Data currency';
 		$data['message']=$message;
 		$data['clas']=$clas;
-		$data['list']=$this->model_app->getdata('ms_commodity',"order by commCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_commodity a',"order by commCode ASC");
+		$data['scrumb']='currency/view_currency';
+		$data['list']=$this->model_app->getdata('ms_currency',"order by currCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_currency a',"order by currCode ASC");
         	//create for pagination		
-			$config['base_url'] = base_url() . 'commodity/view_commodity/';
+			$config['base_url'] = base_url() . 'currency/view_currency/';
         	$config['total_rows'] = $tot_hal->num_rows();
         	$config['per_page'] = $limit;
 			$config['uri_segment'] = 3;
@@ -95,44 +94,41 @@ $this->form_validation->set_rules('code','code','required|trim|xss_clean');
 			$config['prev_link'] = 'Prev';
        		$this->pagination->initialize($config);
 			$data["paginator"] =$this->pagination->create_links();
-		$data['view']='pages/commodity/v_commodity';
+		
+		$data['view']='pages/currency/v_currency';
         $this->load->view('home/home',$data);
 
 	 }
  }
-
 //----update------------
-function update_commodity()
+function update_currency()
 {	
 
 $code=$this->input->post('id');
 $this->form_validation->set_rules('name','name','required|trim|xss_clean');
 	 if ($this->form_validation->run() == FALSE)
 	{
-		redirect('commodity/view_commodity');
+		redirect('currency/view_currency');
 	}
 		else
 	{
 	$update=array(
-		'commCode'=>strtoupper($this->input->post('code')),
 		'Name'=>$this->input->post('name'),
-		'Section'=>$this->input->post('section'),
-		'Remarks'=>$this->input->post('remarks'),
 		'ModifiedBy'=>$this->session->userdata('nameusr'),
 		'ModifiedDate'=>date('Y-m-d:h-s-m'),
 		);	
-		$this->model_app->update('ms_commodity','commCode',$code,$update);
-	  redirect('commodity/view_commodity');
+		$this->model_app->update('ms_currency','currCode',$code,$update);
+	  redirect('currency/view_currency');
 		}	
 }
 
 //------------delete data----------------------------------
-function delete_commodity(){
+function delete_currency(){
 	$kode=$this->uri->segment(3);
 	 if($this->session->userdata('login_status') == TRUE )
  	{
-		     $this->model_app->delete_data('ms_commodity','commCode',$kode);
-			redirect('commodity/view_commodity');
+		     $this->model_app->delete_data('ms_currency','currCode',$kode);
+			redirect('currency/view_currency');
 	}
 	else
 	{
@@ -141,7 +137,7 @@ function delete_commodity(){
  }
 
 
-function search_commodity(){  
+function search_currency(){  
 	 
 	 	$page=$this->uri->segment(3);
 	 	$cari=$this->input->post('txtsearch');
@@ -158,13 +154,13 @@ function search_commodity(){
 		$offset = $page;
 		endif;	
 		
-        $data['title']='list commodity';
-		$data['scrumb_name']='Data commodity';
-		$data['scrumb']='commodity/view_commodity';
-		$data['list']=$this->model_app->getdata('ms_commodity',"where Name like '%$cari%' OR commCode like '%$cari%' order by commCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_commodity a',"where Name like '%$cari%' OR commCode like '%$cari%' order by commCode ASC");
+        $data['title']='list currency';
+		$data['scrumb_name']='Data currency';
+		$data['scrumb']='currency/view_currency';
+		$data['list']=$this->model_app->getdata('ms_currency',"where Name like '%$cari%' OR Section like '%$cari%' order by currCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_currency a',"where Name like '%$cari%' OR Section like '%$cari%' order by currCode ASC");
         					//create for pagination		
-			$config['base_url'] = base_url() . 'commodity/view_commodity/';
+			$config['base_url'] = base_url() . 'currency/view_currency/';
         	$config['total_rows'] = $tot_hal->num_rows();
         	$config['per_page'] = $limit;
 			$config['uri_segment'] = 3;
@@ -175,11 +171,11 @@ function search_commodity(){
        		$this->pagination->initialize($config);
 			$data["paginator"] =$this->pagination->create_links();
 		
-		$data['view']='pages/commodity/v_commodity';
+		$data['view']='pages/currency/v_currency';
         $this->load->view('home/home',$data);
      }
 
-function search_commodity_ajax(){
+function search_currency_ajax(){
 
         $cari=$this->input->post('txtsearch');
 		$filter=$this->input->post('filter');
@@ -191,10 +187,10 @@ function search_commodity_ajax(){
 		$offset = $page;
 		endif;
 		
-		$data['list']=$this->model_app->getdata('ms_commodity',"where Name like '$cari%' OR commCode like '$cari%' order by commCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_commodity a',"where Name like '$cari%' OR commCode like '$cari%' order by commCode ASC");
+		$data['list']=$this->model_app->getdata('ms_currency',"where Name like '$cari%' OR currCode like '$cari%' order by currCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_currency a',"where Name like '$cari%' OR currCode like '$cari%' order by currCode ASC");
 	//create for pagination		
-			$config['base_url'] = base_url() . 'commodity/view_commodity/';
+			$config['base_url'] = base_url() . 'currency/view_currency/';
         	$config['total_rows'] = $tot_hal->num_rows();
         	$config['per_page'] = $limit;
 			$config['uri_segment'] = 3;
@@ -205,7 +201,7 @@ function search_commodity_ajax(){
        		$this->pagination->initialize($config);
 			$data["paginator"] =$this->pagination->create_links();
 			
-        $this->load->view('pages/commodity/filter',$data);
+        $this->load->view('pages/currency/filter',$data);
 }
 	
 

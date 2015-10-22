@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+<head>
 		<meta charset="utf-8" />
 		<title>Track & Trace Sistem -<?php echo isset($title)?$title:'';?></title>
 
@@ -32,12 +33,18 @@
 <link rel="stylesheet" href="<?php echo base_url();?>asset/css/ace-responsive.min.css"/>
 <link rel="stylesheet" href="<?php echo base_url();?>asset/css/ace-skins.min.css" />
 
-		<!--[if lte IE 8]>
-		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
-		<![endif]-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <script type="text/javascript">
+function isNumberKey(evt)
+{
+var charCode = (evt.which) ? evt.which : event.keyCode
+if (charCode > 31 && (charCode < 48 || charCode > 57))
+return false;
+return true;
+}
+</script>
 
-		<!--inline styles related to this page-->
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+</head>
 
 	<body>
 		<div class="navbar">
@@ -46,7 +53,7 @@
 					<a href="#" class="brand">
 						<small>
 							
-		<label class="company-name"><i class="icon-leaf"></i><font color="#00FF80"> ATT-GROUP </font>Internal <em>Systems</em></label>
+		<label class="company-name"><i class="icon-leaf"></i><font color="#00FF80"> ATT-GROUP </font> <em>Internal Systems Application</em> </label>
 						</small>
 					</a><!--/.brand-->
 
@@ -213,9 +220,10 @@
                         <li> <a href="<?php echo base_url();?>master/view_user"> <i class="icon-double-angle-right"></i><i class="fa fa-users"></i> &nbsp; User </a> </li>
                         <li> <a href="<?php echo base_url();?>staff/view_staff"> <i class="icon-double-angle-right"></i><i class="fa fa-male"></i> &nbsp;&nbsp; Staff </a> </li>
                         <li> <a href="<?php echo base_url();?>master/view_disc"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-star-half-full"></i> &nbsp; Discount</a></li>
-                        <li> <a href="<?php echo base_url();?>master/view_service"> <i class="icon-double-angle-right"></i><i class="fa fa-coffee"></i> &nbsp; Service</a></li>
+                        <li> <a href="<?php echo base_url();?>service/view_service"> <i class="icon-double-angle-right"></i><i class="fa fa-coffee"></i> &nbsp; Service</a></li>
  						<li> <a href="<?php echo base_url();?>commodity/view_commodity"> <i class="icon-double-angle-right"></i><i class="fa fa-diamond"></i> &nbsp; Commodity</a></li>
 						<li> <a href="<?php echo base_url();?>charges/view_charges"> <i class="fa fa-hourglass-start bigger160"></i>&nbsp; Charges</a></li>
+						<li> <a href="<?php echo base_url();?>currency/view_currency"> <i class="fa fa-dollar bigger160"></i>&nbsp; Curcrency</a></li>
 
                       </ul>
 				  </li>
@@ -231,18 +239,18 @@
 
 
 							<li>
-								<a href="<?php echo base_url();?>master/view_city">
+								<a href="<?php echo base_url();?>city/view_city">
 		<i class="icon-double-angle-right"></i><i class="fa fa-industry"></i> &nbsp;City
 								</a>
 							</li>
 
 							<li>
-								<a href="<?php echo base_url();?>master/view_country">
+								<a href="<?php echo base_url();?>country/view_country">
 									<i class="icon-double-angle-right"></i>
 	<i class="fa fa-flag"></i> &nbsp;Country</a>
 							</li>
                      <li>
-						<a href="<?php echo base_url();?>master/view_state">
+						<a href="<?php echo base_url();?>state/view_state">
 						<i class="icon-double-angle-right"></i>
 		<i class="fa fa-bank"></i> &nbsp;State</a>                     
                         </li>
@@ -251,9 +259,9 @@
 				  </li>
 					<li> <a href="#" class="dropdown-toggle"> <span class="glyphicon glyphicon-link" aria-hidden="true"></span> <span class="menu-text"> Relation Master </span> <b class="arrow icon-angle-down"></b> </a>
                       <ul class="submenu">
-                        <li> <a href="<?php echo base_url();?>master/view_customer"> <i class="icon-double-angle-right"></i> </i>
+                        <li> <a href="<?php echo base_url();?>customer/view_customer"> <i class="icon-double-angle-right"></i> </i>
 		<i class="fa fa-opencart"></i> &nbsp; Customers </a> </li>
-                          <li> <a href="<?php echo base_url();?>master/view_vendor"> <i class="icon-double-angle-right"></i> </i>
+                          <li> <a href="<?php echo base_url();?>vendor/view_vendor"> <i class="icon-double-angle-right"></i> </i>
 		<i class="fa fa-cubes"></i> &nbsp; Vendor</a></li>
                       </ul>
 				  </li>

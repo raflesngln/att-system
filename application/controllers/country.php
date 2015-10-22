@@ -1,5 +1,5 @@
 <?php
-class Commodity extends CI_Controller{
+class Country extends CI_Controller{
     function __construct(){
         parent::__construct();
         if($this->session->userdata('login_status') != TRUE ){
@@ -10,22 +10,23 @@ class Commodity extends CI_Controller{
         $this->load->helper('currency_format_helper');
     }	
 	 
-function view_commodity(){  
+//--VIEW country 
+function view_country(){  
 	 
 	 	$page=$this->uri->segment(3);
-      	$limit=10;
+      	$limit=25;
 		if(!$page):
 		$offset = 0;
 		else:
 		$offset = $page;
 		endif;
-        $data['title']='list commodity';
-		$data['scrumb_name']='Data commodity';
-		$data['scrumb']='commodity/view_commodity';
-		$data['list']=$this->model_app->getdata('ms_commodity',"order by commCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_commodity a',"order by commCode ASC");
-        	//create for pagination		
-			$config['base_url'] = base_url() . 'commodity/view_commodity/';
+        $data['title']='list Country';
+		$data['scrumb_name']='Data Country';
+		$data['scrumb']='country/view_country';
+		$data['list']=$this->model_app->getdata('ms_country',"order by couName ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_country',"order by couName ASC");
+        					//create for pagination		
+			$config['base_url'] = base_url() . 'country/view_country/';
         	$config['total_rows'] = $tot_hal->num_rows();
         	$config['per_page'] = $limit;
 			$config['uri_segment'] = 3;
@@ -36,21 +37,22 @@ function view_commodity(){
        		$this->pagination->initialize($config);
 			$data["paginator"] =$this->pagination->create_links();
 		
-		$data['view']='pages/commodity/v_commodity';
+		$data['view']='pages/country/v_country';
         $this->load->view('home/home',$data);
      }
+ 
 //--SAVE--------
-function save_commodity()
+function save_country()
 {	
-$this->form_validation->set_rules('code','code','required|trim|xss_clean');
+$this->form_validation->set_rules('coucode','coucode','required|trim|xss_clean');
 	 if ($this->form_validation->run() == FALSE)
 	{
-		redirect('commodity/view_commodity');
+		redirect('country/view_country');
 	}
 		else
 	{
-		$code=$this->input->post('code');
-		$cari=$this->model_app->getdata('ms_commodity',"where commCode='$code'");
+		$code=$this->input->post('coucode');
+		$cari=$this->model_app->getdata('ms_country',"where couCode='$code'");
 		if($cari){
 			$message="Data with code ( ".$code." ) has Exist, Try another Code!";
 			$clas='error';
@@ -58,16 +60,14 @@ $this->form_validation->set_rules('code','code','required|trim|xss_clean');
 		$message="New Data has been Saved with code ( ".$code." )";
 		$clas='success';
 		$newdata=array(
-		'commCode'=>strtoupper($this->input->post('code')),
-		'Name'=>$this->input->post('name'),
-		'Section'=>$this->input->post('section'),
-		'Remarks'=>$this->input->post('remarks'),
+		'couCode' =>strtoupper($this->input->post('coucode')),
+		'couName'=>strtoupper($this->input->post('couname')),
 		'CreateBy'=>$this->session->userdata('nameusr'),
 		'CreateDate'=>date('Y-m-d:h-s-m'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
 		);		
-		 $this->model_app->insert('ms_commodity',$newdata);	
+		 $this->model_app->insert('ms_country',$newdata);	
 		}
 
 		$page=$this->uri->segment(3);
@@ -77,15 +77,15 @@ $this->form_validation->set_rules('code','code','required|trim|xss_clean');
 		else:
 		$offset = $page;
 		endif;
-        $data['title']='list commodity';
-		$data['scrumb_name']='Data commodity';
-		$data['scrumb']='commodity/view_commodity';
+        $data['title']='list country';
+		$data['scrumb_name']='Data country';
+		$data['scrumb']='country/view_country';
 		$data['message']=$message;
 		$data['clas']=$clas;
-		$data['list']=$this->model_app->getdata('ms_commodity',"order by commCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_commodity a',"order by commCode ASC");
-        	//create for pagination		
-			$config['base_url'] = base_url() . 'commodity/view_commodity/';
+		$data['list']=$this->model_app->getdata('ms_country',"order by couName ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_country',"order by couName ASC");
+        					//create for pagination		
+			$config['base_url'] = base_url() . 'country/view_country/';
         	$config['total_rows'] = $tot_hal->num_rows();
         	$config['per_page'] = $limit;
 			$config['uri_segment'] = 3;
@@ -95,44 +95,41 @@ $this->form_validation->set_rules('code','code','required|trim|xss_clean');
 			$config['prev_link'] = 'Prev';
        		$this->pagination->initialize($config);
 			$data["paginator"] =$this->pagination->create_links();
-		$data['view']='pages/commodity/v_commodity';
+		$data['view']='pages/country/v_country';
         $this->load->view('home/home',$data);
 
 	 }
  }
 
 //----update------------
-function update_commodity()
+function update_country()
 {	
 
-$code=$this->input->post('id');
-$this->form_validation->set_rules('name','name','required|trim|xss_clean');
+$code=$this->input->post('coucode2');
+$this->form_validation->set_rules('coucode2','coucode2','required|trim|xss_clean');
 	 if ($this->form_validation->run() == FALSE)
 	{
-		redirect('commodity/view_commodity');
+		redirect('country/view_country');
 	}
 		else
 	{
 	$update=array(
-		'commCode'=>strtoupper($this->input->post('code')),
-		'Name'=>$this->input->post('name'),
-		'Section'=>$this->input->post('section'),
-		'Remarks'=>$this->input->post('remarks'),
+		'couName'=>strtoupper($this->input->post('couname2')),
 		'ModifiedBy'=>$this->session->userdata('nameusr'),
-		'ModifiedDate'=>date('Y-m-d:h-s-m'),
+		'ModifiedDate'=>date('Y-m-d : h-m-s')
 		);	
-		$this->model_app->update('ms_commodity','commCode',$code,$update);
-	  redirect('commodity/view_commodity');
+		$this->model_app->update('ms_country','couCode',$code,$update);
+	  redirect('country/view_country');
 		}	
 }
 
 //------------delete data----------------------------------
-function delete_commodity(){
+function delete_country(){
 	$kode=$this->uri->segment(3);
 	 if($this->session->userdata('login_status') == TRUE )
  	{
-		     $this->model_app->delete_data('ms_commodity','commCode',$kode);
-			redirect('commodity/view_commodity');
+		     $this->model_app->delete_data('ms_country','couCode',$kode);
+			redirect('country/view_country');
 	}
 	else
 	{
@@ -141,7 +138,7 @@ function delete_commodity(){
  }
 
 
-function search_commodity(){  
+function search_country(){  
 	 
 	 	$page=$this->uri->segment(3);
 	 	$cari=$this->input->post('txtsearch');
@@ -158,13 +155,13 @@ function search_commodity(){
 		$offset = $page;
 		endif;	
 		
-        $data['title']='list commodity';
-		$data['scrumb_name']='Data commodity';
-		$data['scrumb']='commodity/view_commodity';
-		$data['list']=$this->model_app->getdata('ms_commodity',"where Name like '%$cari%' OR commCode like '%$cari%' order by commCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_commodity a',"where Name like '%$cari%' OR commCode like '%$cari%' order by commCode ASC");
+        $data['title']='list country';
+		$data['scrumb_name']='Data country';
+		$data['scrumb']='country/view_country';
+		$data['list']=$this->model_app->getdata('ms_country',"where couName like '%$cari%' OR couCode like '%$cari%' order by couCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_country a',"where couName like '%$cari%' OR couCode like '%$cari%' order by couCode ASC");
         					//create for pagination		
-			$config['base_url'] = base_url() . 'commodity/view_commodity/';
+			$config['base_url'] = base_url() . 'country/view_country/';
         	$config['total_rows'] = $tot_hal->num_rows();
         	$config['per_page'] = $limit;
 			$config['uri_segment'] = 3;
@@ -175,11 +172,11 @@ function search_commodity(){
        		$this->pagination->initialize($config);
 			$data["paginator"] =$this->pagination->create_links();
 		
-		$data['view']='pages/commodity/v_commodity';
+		$data['view']='pages/country/v_country';
         $this->load->view('home/home',$data);
      }
 
-function search_commodity_ajax(){
+function search_country_ajax(){
 
         $cari=$this->input->post('txtsearch');
 		$filter=$this->input->post('filter');
@@ -191,10 +188,10 @@ function search_commodity_ajax(){
 		$offset = $page;
 		endif;
 		
-		$data['list']=$this->model_app->getdata('ms_commodity',"where Name like '$cari%' OR commCode like '$cari%' order by commCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_commodity a',"where Name like '$cari%' OR commCode like '$cari%' order by commCode ASC");
+		$data['list']=$this->model_app->getdata('ms_country',"where couName like '$cari%' OR couCode like '$cari%' order by couCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_country a',"where couName like '$cari%' OR couCode like '$cari%' order by couCode ASC");
 	//create for pagination		
-			$config['base_url'] = base_url() . 'commodity/view_commodity/';
+			$config['base_url'] = base_url() . 'country/view_country/';
         	$config['total_rows'] = $tot_hal->num_rows();
         	$config['per_page'] = $limit;
 			$config['uri_segment'] = 3;
@@ -205,7 +202,7 @@ function search_commodity_ajax(){
        		$this->pagination->initialize($config);
 			$data["paginator"] =$this->pagination->create_links();
 			
-        $this->load->view('pages/commodity/filter',$data);
+        $this->load->view('pages/country/filter',$data);
 }
 	
 

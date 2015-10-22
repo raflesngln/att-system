@@ -78,7 +78,6 @@
   <strong><label class="col-sm-4"> Origin</label></strong>
   <div class="col-sm-7">
   <select data-placeholder="Choose an Address..." class="chosen-select form-control" tabindex="2" name="origin">
-
            <option>Choose Origin</option>
           <?php foreach ($city as $cy) {
           ?>
@@ -92,10 +91,14 @@
           </div>
            <strong><label class="col-sm-4"> Commodity</label></strong>
           <div class="col-sm-7">
-        <select name="commodity" id="filter" class="form-control">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
-          </select>
+      <select data-placeholder="Choose Commodity..." class="chosen-select form-control" tabindex="2" name="commodity">
+           <option value="">Choose Commodity</option>
+          <?php foreach ($commodity as $cm) {
+          ?>
+            <option value="<?php echo $cm->commCode;?>"><?php echo $cm->Name;?></option>
+          <?php } ?>
+      </select>
+
            </div>
 
       </div>

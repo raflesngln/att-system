@@ -7,14 +7,14 @@
    <div class="row-fluid">
     <div class="span12">
                   <?php
-			if(isset($eror)){?>
-            <label class="alert alert-error col-sm-12">
-			<button type="button" class="close" data-dismiss="alert">
-			<i class="icon-remove"></i>	</button>							
-			<?php echo isset($eror)?$eror:'';?>
-			<br />
-			</label>
-            <?php }?>   
+      if(isset($message)){?>
+            <label class="alert alert-<?php echo $clas;?> col-sm-12">
+      <button type="button" class="close" data-dismiss="alert">
+      <i class="icon-remove"></i> </button>             
+      <?php echo isset($message)?$message:'';?>
+      <br />
+      </label>
+            <?php }?> 
 
       <div class="row">  
       <div class="col-sm-6">
@@ -25,7 +25,7 @@
       <div class="top-hdr col-sm-6">              
       <div class="col-sm-5"> </div>   
 
-      <form action="<?php echo base_url();?>search/search_city" method="post"> 
+      <form action="<?php echo base_url();?>city/search_city" method="post"> 
            <div class="col-sm-7">
            <div class="row">
           <div class="col-sm-9">Search Service<span class="controls">
@@ -103,7 +103,7 @@ if($sea=='1'){ $issea='<font color="#0000FF">Yes</font>';} else{$issea='<font co
                                                       
 
                                                         
-                                                        <a href="<?php echo base_url();?>master/delete_city/<?php echo $data->cyCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
+                                                        <a href="<?php echo base_url();?>city/delete_city/<?php echo $data->cyCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
                                                           <button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>
                                                         </a>                            
                                                         
@@ -128,7 +128,7 @@ if($sea=='1'){ $issea='<font color="#0000FF">Yes</font>';} else{$issea='<font co
 
 
 
-<!-----edit data------->
+<!-- edit data  -->
 <?php
 
     foreach($list as $row){
@@ -148,13 +148,13 @@ if($sea=='1'){ $issea='<font color="#0000FF">Yes</font>';} else{$issea='<font co
                 <h3 id="myModalLabel">Edit Data</h3>
             </div>
             <div class="smart-form">
-                <form method="post" action="<?php echo site_url('master/update_city')?>">
+                <form method="post" action="<?php echo site_url('city/update_city')?>">
                     <div class="modal-body">
                       <div class="clearfix"></div>
                       <div class="form-group">
                         <label class="col-sm-3 control-label">City Code</label>
     <div class="col-sm-9">
-    <input name="cycode2" type="text" class="form-control" id="cycode2" value="<?php echo $row->cyCode;?>" required/>
+    <input name="cycode2" type="text" class="form-control" id="cycode2" value="<?php echo $row->cyCode;?>" readonly="readonly" />
               <span class="controls">
               <input type="hidden" name="id2" id="id2" value="<?php echo $row->cyCode;?>" />
               </span></div>
@@ -163,7 +163,7 @@ if($sea=='1'){ $issea='<font color="#0000FF">Yes</font>';} else{$issea='<font co
                 <div class="form-group">
                         <label class="col-sm-3 control-label">City Name</label>
     <div class="col-sm-9">
-    <input name="cyname2" type="text" class="form-control" id="cyname2" value="<?php echo $row->cyName;?>" required/>
+    <input name="cyname2" type="text" class="form-control" id="cyname2" value="<?php echo $row->cyName;?>" />
 </div>
                         <div class="clearfix"></div>
                       </div>
@@ -238,7 +238,7 @@ if($sea=='1'){ $issea='<font color="#0000FF">Yes</font>';} else{$issea='<font co
 
 
 
-<!-----add data------->
+<!-- add data -->
 <div id="modaladd" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
     <div class="modal-dialog" role="document">
@@ -248,12 +248,12 @@ if($sea=='1'){ $issea='<font color="#0000FF">Yes</font>';} else{$issea='<font co
                 <h3 id="myModalLabel">Add City</h3>
             </div>
             <div class="smart-form">
-                <form method="post" action="<?php echo site_url('master/save_city')?>">
+                <form method="post" action="<?php echo site_url('city/save_city')?>">
                     <div class="modal-body">
                       <div class="form-group">
                         <label class="col-sm-3 control-label">City Code</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="cycode" type="text" class="form-control"  id="cycode" required="required" />
+                          <input name="cycode" type="text" class="form-control"  id="cycode" required="required" maxlength="3" />
                         </span></div>
                         <div class="clearfix"></div>
                       </div>
@@ -335,7 +335,7 @@ $("#txtsearch").keyup(function(){
             var txtsearch = $("#txtsearch").val();
             $.ajax({
                 type: "POST",
-                url : "<?php echo base_url('search/search_city_ajax'); ?>",
+                url : "<?php echo base_url('city/search_city_ajax'); ?>",
                 data: "txtsearch="+txtsearch,
                 cache:false,
                 success: function(data){
@@ -346,19 +346,6 @@ $("#txtsearch").keyup(function(){
         });
        
 	   
-	   
-	 $("#filter").change(function(){
-            var filter = $("#filter").val();
-          $.ajax({
-                type: "POST",
-                url : "<?php echo base_url('search/filter_city'); ?>",
-                data: "filter="+filter,
-                success: function(data){
-                    $('#table_responsive').html(data);
-                }
-            });
-
-        });
 </script>
     
  

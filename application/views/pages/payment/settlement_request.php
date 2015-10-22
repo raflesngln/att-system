@@ -155,7 +155,11 @@
           <strong><label class="col-sm-5"> Currency</label></strong>
           <div class="col-sm-7">
            <select name="currency" class="form-control">
-             <option value="chosee">Chosse</option>
+           <?php
+           foreach ($currency as $cr) {
+           ?>
+             <option value="<?php echo $cr->currCode;?>"><?php echo $cr->currCode.' - '.$cr->Name;?></option>
+             <?php } ?>
            </select>
           </div>
  

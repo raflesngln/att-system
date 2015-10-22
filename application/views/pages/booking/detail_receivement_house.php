@@ -19,12 +19,6 @@
           <div class="col-sm-7">
            <input name="codeship" type="text" class="form-control"  id="codeship" required="required"/>
           </div>
-          <strong><label class="col-sm-4"> Commodity</label></strong>
-          <div class="col-sm-7">
-           <select name="commodity" id="filter" class="form-control">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
-          </select>
-          </div>
+ 
 
           <?php } ?>

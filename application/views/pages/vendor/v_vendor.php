@@ -6,13 +6,13 @@
    <div class="row-fluid">
     <div class="span12">
                   <?php
-			if(isset($eror)){?>
-            <label class="alert alert-error col-sm-12">
-			<button type="button" class="close" data-dismiss="alert">
-			<i class="icon-remove"></i>	</button>							
-			<?php echo isset($eror)?$eror:'';?>
-			<br />
-			</label>
+      if(isset($message)){?>
+            <label class="alert alert-<?php echo $clas;?> col-sm-12">
+      <button type="button" class="close" data-dismiss="alert">
+      <i class="icon-remove"></i> </button>             
+      <?php echo isset($message)?$message:'';?>
+      <br />
+      </label>
             <?php }?>   
      <div class="row">  
       <div class="col-sm-6">
@@ -81,7 +81,7 @@ $no=1;
                                                       <button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>
                                                       </a>
                                                       
-                                                      <a href="<?php echo base_url();?>master/delete_vendor/<?php echo $data->venCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
+                                                      <a href="<?php echo base_url();?>vendor/delete_vendor/<?php echo $data->venCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
                                                         <button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>
                                                       </a>          
                                                     </div></td>
@@ -125,12 +125,12 @@ $no=1;
                 <h3 id="myModalLabel">Edit Data</h3>
             </div>
             <div class="smart-form">
-                <form method="post" action="<?php echo site_url('master/update_vendor')?>">
+                <form method="post" action="<?php echo site_url('vendor/update_vendor')?>">
                     <div class="modal-body">
                       <div class="form-group">
                         <label class="col-sm-3 control-label"> Initial </label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="initial" type="text" class="form-control" required="required" id="initial" value="<?php echo $row->venInitial ;?>" />
+                          <input name="initial" type="text" class="form-control" required="required" id="initial" value="<?php echo $row->venInitial ;?>" maxlength="10" />
                         </span>
                           <input type="hidden" name="id" id="id" value="<?php echo $row->venCode?>" />
                         </div>
@@ -167,21 +167,21 @@ $no=1;
  <div class="form-group">
               <label class="col-sm-3 control-label">Phone</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="phone" type="text" class="form-control" required="required" id="phone" value="<?php echo $row->Phone ;?>"/>
+                          <input name="phone" type="text" class="form-control" required="required" id="phone" value="<?php echo $row->Phone ;?>" maxlength="13" onkeypress="return isNumberKey(event)"/>
               </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Fax</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="fax" type="text" class="form-control" required="required" id="fax" value="<?php echo $row->Fax ;?>"/>
+                          <input name="fax" type="text" class="form-control" required="required" id="fax" value="<?php echo $row->Fax ;?>"  onkeypress="return isNumberKey(event)"/>
               </span></div>
                         <div class="clearfix"></div>
                       </div>
  <div class="form-group">
                         <label class="col-sm-3 control-label">Postal Code</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="postcode" type="text" class="form-control"  id="postcode" value="<?php echo $row->PostalCode ;?>"/>
+                          <input name="postcode" type="text" class="form-control"  id="postcode" value="<?php echo $row->PostalCode ;?>" onkeypress="return isNumberKey(event)"/>
     </span></div>
                         <div class="clearfix"></div>
                       </div>
@@ -195,7 +195,7 @@ $no=1;
  <div class="form-group">
 <label class="col-sm-3 control-label">Terms Payment</label>
                         <div class="col-sm-4"><span class="controls">
-                          <input name="payment" type="text" class="form-control"  id="payment" value="<?php echo $row->TermsPayment ;?>"/>
+                          <input name="payment" type="text" class="form-control"  id="payment" value="<?php echo $row->TermsPayment ;?>" onkeypress="return isNumberKey(event)"/>
               </span></div>
               <h4 class="col-sm-4">day's</h4>
                         <div class="clearfix"></div>
@@ -343,12 +343,12 @@ $no=1;
                 <h3 id="myModalLabel">Add New Vendor</h3>
             </div>
             <div class="smart-form scroll">
-                <form method="post" action="<?php echo site_url('master/save_vendor')?>">
+                <form method="post" action="<?php echo site_url('vendor/save_vendor')?>">
                     <div class="modal-body">
 <div class="form-group">
                       <label class="col-sm-3 control-label"> Initial </label>
                       <div class="col-sm-9"><span class="controls">
-                      <input name="initial" type="text" class="form-control"  id="initial" required="required"/>
+                      <input name="initial" type="text" class="form-control"  id="initial" required="required" maxlength="10" />
                       </span></div>
                       <div class="clearfix"></div>
   </div>
@@ -386,7 +386,7 @@ $no=1;
 <div class="form-group">
               <label class="col-sm-3 control-label">Phone</label>
               <div class="col-sm-9"><span class="controls">
-              <input name="phone" type="text" class="form-control" required="required" id="phone" />
+              <input name="phone" type="text" class="form-control" required="required" id="phone" maxlength="13" onkeypress="return isNumberKey(event)"/>
               </span></div>
               <div class="clearfix"></div>
  </div>
@@ -394,7 +394,7 @@ $no=1;
 <div class="form-group">
                 <label class="col-sm-3 control-label">Fax</label>
                <div class="col-sm-9"><span class="controls">
-               <input name="fax" type="text" class="form-control" required="required" id="fax" />
+               <input name="fax" type="text" class="form-control" required="required" id="fax"  onkeypress="return isNumberKey(event)"/>
               </span></div>
                <div class="clearfix"></div>
  </div>
@@ -402,7 +402,7 @@ $no=1;
  <div class="form-group">
                         <label class="col-sm-3 control-label">Postal Code</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="postcode" type="text" class="form-control" id="postcode" />
+                          <input name="postcode" type="text" class="form-control" id="postcode" onkeypress="return isNumberKey(event)"/>
                         </span></div>
                         <div class="clearfix"></div>
 </div>
@@ -418,7 +418,7 @@ $no=1;
 <div class="form-group">
                         <label class="col-sm-3 control-label">Terms Payment</label>
                         <div class="col-sm-4"><span class="controls">
-                        <input name="payment" type="text" class="form-control" id="payment" value="0" />
+                        <input name="payment" type="text" class="form-control" id="payment" value="0" onkeypress="return isNumberKey(event)"/>
                         </span></div>
               <h4 class="col-sm-4">day's</h4>
                         <div class="clearfix"></div>
@@ -565,7 +565,7 @@ $("#txtsearch").keyup(function(){
             var txtsearch = $("#txtsearch").val();
             $.ajax({
                 type: "POST",
-                url : "<?php echo base_url('search/search_vendor_ajax'); ?>",
+                url : "<?php echo base_url('vendor/search_vendor_ajax'); ?>",
                 data: "txtsearch="+txtsearch,
                 cache:false,
                 success: function(data){
@@ -574,20 +574,6 @@ $("#txtsearch").keyup(function(){
                 }
             });
         });
-       
-	   
-	   
-	 $("#filter").change(function(){
-            var filter = $("#filter").val();
-          $.ajax({
-                type: "POST",
-                url : "<?php echo base_url('search/filter_vendor'); ?>",
-                data: "filter="+filter,
-                success: function(data){
-                    $('#table_responsive').html(data);
-                }
-            });
 
-        });
 </script>
  

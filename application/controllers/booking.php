@@ -18,8 +18,7 @@ function getshipper(){
 
 		if($cari){
 			$data['list']=$this->model_app->getdata('ms_customer',"WHERE custCode='$custCode'");
-
-			 $this->load->view('pages/Booking/detail_customer_sender',$data);
+			$this->load->view('pages/Booking/detail_customer_sender',$data);
 
 		}
 	}

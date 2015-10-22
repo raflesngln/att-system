@@ -1,5 +1,6 @@
 
  <script type="text/javascript" src="<?php echo base_url();?>asset/js/jquery.js"></script>
+ 
    <div class="row-fluid">
     <div class="span12">
                   <?php
@@ -132,7 +133,7 @@ if($status=='1'){ $statusname='<font color="#0033FF">Aktif</font>';} else{$statu
 
 
 
-<!-----edit data------->
+<!-- edit data  -->
 <?php
 
     foreach($list as $row){
@@ -172,7 +173,7 @@ if($status=='1'){ $statusname='<font color="#0033FF">Aktif</font>';} else{$statu
    <div class="form-group">
                         <label class="col-sm-3 control-label">Phone</label>
     <div class="col-sm-9">
-    <input name="phone2" type="text" class="form-control" id="phone2" value="<?php echo $row->Phone;?>" required/>
+    <input name="phone2" type="text" class="form-control" id="phone2" value="<?php echo $row->Phone;?>" maxlength="15" onkeypress="return isNumberKey(event)"/>
     </div>
                         <div class="clearfix"></div>
                       </div>
@@ -253,7 +254,7 @@ if($status=='1'){ $statusname='<font color="#0033FF">Aktif</font>';} else{$statu
    <div class="form-group">
                         <label class="col-sm-3 control-label">Phone</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="phone" type="text" class="form-control"  id="phone" required="required" />
+                          <input name="phone" type="text" class="form-control"  id="phone" required="required" maxlength="15" onkeypress="return isNumberKey(event)" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>

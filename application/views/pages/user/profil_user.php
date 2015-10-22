@@ -1,6 +1,9 @@
-
+<style type="text/css">
+.unstyled li{
+  list-style: none;
+}
+</style>
    <div class="row-fluid">
-
    <?php
    foreach ($userprofil as $row) {
     

@@ -62,9 +62,12 @@
 
           <strong><label class="col-sm-4"> Payment Type</label></strong>
           <div class="col-sm-7">
-           <select name="service" id="filter" class="form-control combo">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
+          <select name="currency" class="form-control">
+                   <?php
+                   foreach ($currency as $cr) {
+                   ?>
+                     <option value="<?php echo $cr->currCode;?>"><?php echo $cr->currCode.' - '. $cr->Name;?></option>
+                     <?php } ?>
           </select>
           </div>
           <strong><label class="col-sm-4"> Service</label></strong>
@@ -126,9 +129,12 @@
           </div>
           <strong><label class="col-sm-4"> Payment Type</label></strong>
           <div class="col-sm-7">
-           <select name="filter" id="filter" class="form-control">
-            <option value="empName">Name</option>
-          <option value="Address">Address</option>
+          <select name="currency" class="form-control">
+                   <?php
+                   foreach ($currency as $cr) {
+                   ?>
+                     <option value="<?php echo $cr->currCode;?>"><?php echo $cr->currCode.' - '. $cr->Name;?></option>
+                     <?php } ?>
           </select>
           </div>
            <strong><label class="col-sm-4"> ETD</label></strong>

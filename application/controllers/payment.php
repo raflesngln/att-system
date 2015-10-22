@@ -19,7 +19,7 @@ class Payment extends CI_Controller{
 			'scrumb_name'=>'payment_request',
 			'scrumb'=>'payment/payment_request',
             'staff'=>$this->model_app->getdatapaging("empCode,empInitial,empName","ms_staff","ORDER BY empName"),
-            'currency'=>$this->model_app->getdatapaging("curCode,curName,curDetail","ms_currency","ORDER BY curName"),
+            'currency'=>$this->model_app->getdatapaging("currCode,Name","ms_currency","ORDER BY currCode"),
 			'view'=>'pages/payment/payment_request',
         );	
       //$this->load->view('pages/booking/ship',$data);
@@ -33,6 +33,7 @@ class Payment extends CI_Controller{
             'scrumb_name'=>' settlement_request',
             'scrumb'=>'payment/settlement_request',
             'view'=>'pages/payment/settlement_request',
+             'currency'=>$this->model_app->getdatapaging("currCode,Name","ms_currency","ORDER BY currCode"),
         );  
        $this->load->view('home/home',$data);
     }
