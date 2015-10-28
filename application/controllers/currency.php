@@ -52,11 +52,13 @@ $this->form_validation->set_rules('code','code','required|trim|xss_clean');
 	{
 		$code=$this->input->post('code');
 		$cari=$this->model_app->getdata('ms_currency',"WHERE currCode='$code'");
-		if($cari){
-
-			$message="Data with code ( ".$code." ) has Exist, Try another Code!";
-			$clas='error';
-		} else {
+		if($cari){ ?>
+		<script type="text/javascript">
+		alert('Data with This Code  has already exist  !. try another service');
+		history.back();
+		</script>
+			
+		<?php } else {
 		$message="New Data has been Saved with code ( ".$code." )";
 		$clas='success';
 		$newdata=array(

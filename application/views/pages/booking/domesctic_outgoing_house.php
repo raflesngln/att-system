@@ -17,24 +17,49 @@
        <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
   <script src="<?php echo base_url();?>asset/jquery_ui/external/jquery/jquery.js"></script>
   <script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
-  <script>
+  <script type="text/javascript">
   $(function() {
     $("#tgl").datepicker();
     $("#tgl2").datepicker();
 
   });
+
+function toRp(angka){
+  //var angka =document.getElementById("rp").value;
+    var rev     = parseInt(angka, 10).toString().split('').reverse().join('');
+    var rev2    = '';
+    for(var i = 0; i < rev.length; i++){
+        rev2  += rev[i];
+        if((i + 1) % 3 === 0 && i !== (rev.length - 1)){
+            rev2 += '.';
+        }
+    }
+   // return 'Rp' + rev2.split('').reverse().join('') + ',00';
+    return rev2.split('').reverse().join('');
+}
+ function rupiah(){
+  var angka =document.getElementById("grossweight").value;
+  var aa=angka;
+  var hasil=toRp(aa);
+  //alert('haii ' + hasil);
+  document.getElementById("grossweight").value =hasil;
+  document.getElementById("grossweight").style.fontSize="large";
+   document.getElementById("grossweight").style.fontWeight="bold";
+   document.getElementById("grossweight").style.color="blue";
+ }
+
   </script>
 
    <div class="row-fluid">
     <div class="span12">
                   <?php
-			if(isset($eror)){?>
+      if(isset($eror)){?>
             <label class="alert alert-error col-sm-12">
-			<button type="button" class="close" data-dismiss="alert">
-			<i class="icon-remove"></i>	</button>							
-			<?php echo isset($eror)?$eror:'';?>
-			<br />
-			</label>
+      <button type="button" class="close" data-dismiss="alert">
+      <i class="icon-remove"></i> </button>             
+      <?php echo isset($eror)?$eror:'';?>
+      <br />
+      </label>
             <?php }?>   
       <div class="header col-md-11">
 
@@ -43,7 +68,7 @@
       
 
 <br style="clear:both">
-<form method="post" action="save.php">
+<form method="post" action="<?php echo base_url();?>transaction/preview_outgoing_house">
 <div class="container">
   <div class="row">
                <!--LEFT INPUT-->
@@ -53,27 +78,28 @@
 <div class="clearfx">&nbsp;</div>         
           <strong><label class="col-sm-4"> JOB No</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly" />
+           <input name="job" type="text" class="form-control"  id="name" required="required"/>
           </div>
           <strong><label class="col-sm-4"> House No</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly"/>
+           <input name="house" type="text" class="form-control"  id="name" required="required" />
           </div>
 
           <strong><label class="col-sm-4"> Payment Type</label></strong>
           <div class="col-sm-7">
-          <select name="currency" class="form-control">
+          <select name="paymentype" class="form-control" required=required>
+          <option value="">Select Payment  Type</option>
                    <?php
-                   foreach ($currency as $cr) {
+                   foreach ($payment_type as $pay) {
                    ?>
-                     <option value="<?php echo $cr->currCode;?>"><?php echo $cr->currCode.' - '. $cr->Name;?></option>
+                     <option value="<?php echo $pay->payCode;?>"><?php echo $pay->payName;?></option>
                      <?php } ?>
           </select>
           </div>
           <strong><label class="col-sm-4"> Service</label></strong>
           <div class="col-sm-7">
            <select name="service" id="filter" class="form-control" required="required">
-          <option>Choose Service</option>
+          <option value="">Choose Service</option>
           <?php foreach ($service as $sv) {
           ?>
           <option value="<?php echo $sv->svCode;?>"><?php echo $sv->Name;?></option>
@@ -83,7 +109,7 @@
           <strong><label class="col-sm-4"> Origin</label></strong>
           <div class="col-sm-7">
            <select name="origin" id="filter" class="form-control" required="required">
-          <option>Choose Origin</option>
+          <option value="">Choose Origin</option>
           <?php foreach ($city as $ct) {
           ?>
           <option value="<?php echo $ct->cyCode;?>"><?php echo $ct->cyName;?></option>
@@ -93,7 +119,7 @@
           <strong><label class="col-sm-4"> Destination</label></strong>
           <div class="col-sm-7">
            <select name="desti" id="filter" class="form-control" required="required">
-          <option>Choose Destination</option>
+          <option value="">Choose Destination</option>
           <?php foreach ($city as $ct) {
           ?>
           <option value="<?php echo $ct->cyCode;?>"><?php echo $ct->cyName;?></option>
@@ -103,8 +129,8 @@
 <div class="col-sm-12"><hr></div>
           <strong><label class="col-sm-4"> Shipper</label></strong>
           <div class="col-sm-7">
-           <select name="idshipper" id="idshipper" class="form-control combo">
-            <option>Select Shipper</option>
+           <select name="idshipper" id="idshipper" class="form-control combo" required="required">
+            <option value="">Select Shipper</option>
          <?php
           foreach($shipper as $sv){
            ?>
@@ -112,10 +138,12 @@
           <?php } ?>
           </select>
           </div>
-
 <div class="col-sm-1"><a class="btn btn-success btn-addnew btn-mini" href="#modaladdcust" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a></div>
 
-<div class="col-sm-13" id="contenshipper"><!-- CONTENT AJAX VIEW HERE --></div>
+<div class="col-sm-13" id="contenshipper">
+<!-- CONTENT AJAX VIEW HERE -->
+
+</div>
       </div>             
       </div>
                 <!--RIGHT INPUT-->
@@ -125,29 +153,22 @@
 <div class="clearfx">&nbsp;</div>
         <strong><label class="col-sm-4">Booking No</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly"/>
-          </div>
-          <strong><label class="col-sm-4"> Payment Type</label></strong>
-          <div class="col-sm-7">
-          <select name="currency" class="form-control">
-                   <?php
-                   foreach ($currency as $cr) {
-                   ?>
-                     <option value="<?php echo $cr->currCode;?>"><?php echo $cr->currCode.' - '. $cr->Name;?></option>
-                     <?php } ?>
-          </select>
-          </div>
-           <strong><label class="col-sm-4"> ETD</label></strong>
-          <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="tgl" required="required" readonly="readonly" required="required" placeholder="<?php echo date("m/d/Y") ;?>"/>
+           <input name="bookno" type="text" class="form-control"  id="bookno" required="required" />
           </div>
 
+           <strong><label class="col-sm-4"> ETD</label></strong>
+          <div class="col-sm-7">
+           <input name="etd" type="text" class="form-control"  id="tgl"  readonly="readonly" required="required" placeholder="<?php echo date("m/d/Y") ;?>"/>
+          </div>
+<div class="col-sm-12"><h1>&nbsp;</h1></div>
+<div class="col-sm-12"><h1>&nbsp;</h1></div>
+<div class="col-sm-12"><h6>&nbsp;</h6></div>
 <div class="col-sm-12"><hr></div>
 
             <strong><label class="col-sm-4"> Consigne</label></strong>
           <div class="col-sm-7">
-           <select name="idconsigne" id="idconsigne" class="form-control">
-            <option>Select Cnee</option>
+           <select name="idconsigne" id="idconsigne" class="form-control" required="required">
+            <option value="">Select Cnee</option>
          <?php
           foreach($cnee as $sv){
            ?>
@@ -174,7 +195,7 @@
                                         <div class="table-responsive" id="table_responsive">
                                         <table class="table table-striped table-bordered table-hover">
                                               <thead>
-                                                
+                                                <tr>
                                                   <th>No.</th>
                                                   <th>No Of Pcs</th>
                                                   <th>Length ( P )</th>
@@ -183,27 +204,147 @@
                                                   <th>Volume</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
+                                                <th colspan="6"></th>
+                                                <th><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add items</a>
+                                           </div></th>
+                                                <tr>
+                                                </tr>
                                               </thead>
                                               <tbody>
-                                                  <tr>
-                                                  <td>1</td>
-                                                  <td>xxx</td>
-                                                  <td>999</td>
-                                                  <td>999</td>
-                                                  <td>999</td>
-                                                  <td>999</td>
+ <?php 
+ $no=1;
+ foreach($this->cart->contents() as $items){
+  $t_item+=$items['qty'];
+  $t_volume+=$items['v'];
+        ?>
+                                                  <tr align="right">
+                                                  <td><div align="center"><?=$no;?></div></td>
+                                                  <td><?php echo $items['qty']; ?></td>
+                                                  <td><?php echo $items['p']; ?></td>
+                                                  <td><?php echo $items['l']; ?></td>
+                                                  <td><?php echo $items['t']; ?></td>
+                                                  <td><?php echo number_format($items['v'],2,'.','.');?></td>
                                                   <td>
                                                   <div align="center">
-                                                  <a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a>
-                                                  <a href="<?php echo base_url();?>master/delete_disc/<?php echo $data->id?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete item">
-                                                  <button class="btn btn-mini btn-danger"><i class="fa fa-times bigger-120"></i></button>
+                                                   <a href="<?php echo base_url(); ?>temp/delete_item/<?php echo $items['rowid']; ?>" onclick="return confirm('Yakin Hapus ?');" title="Delete item">
+                                                  <button class="btn btn-mini btn-danger" type="button"><i class="fa fa-times bigger-120"></i></button>
+                                                  </a> 
+                                         
+                                                  </div>
+                                                  </td>
+                                                </tr>
+  <?php $no++;} ?>
+                                                <thead>
+                                                 <tr align="right">
+                                                  <td><b>Total</b></td>
+                                                  <td><?php echo $t_item;?><input type="hidden" name="t_item" value="<?php echo $t_item;?>"></td>
+                                                  <td>&nbsp;</td>
+                                                  <td>&nbsp;</td>
+                                                  <td>&nbsp;</td>
+                                                  <td><?php echo $t_volume;?></td>  
+                                                  <td>&nbsp;</td>
+                                                </tr>
+                                                </thead>
+                                              </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+  
+  <!-- LEFT INPUT  -->
+                                            <div class="col-md-6">
+                                              <div class="row">
+
+                                              <div class="col-md-12">
+                                              <label class="col-sm-4">Commodity &nbsp;</label>
+                                              <div class="col-sm-7">
+      <select data-placeholder="Choose Commodity..." class="chosen-select form-control" tabindex="2" required="required" name="commodity">
+           <option value="">Choose Commodity</option>
+          <?php foreach ($commodity as $cm) {
+          ?>
+            <option value="<?php echo $cm->commCode;?>"><?php echo $cm->Name;?></option>
+          <?php } ?>
+      </select>
+                                                 </div>
+                                                </div>
+<div class="col-md-12">
+<label class="col-sm-4">Gross Weight</label>
+  <div class="col-sm-7">
+  <input type="text" name="grossweight" id="grossweight" class="form-control" onkeypress="return isNumberKey(event)" onchange="rupiah();" required="required">
+</div>
+</div>
+                                              <div class="col-md-12">
+                                              <label class="col-sm-4">Special Instructions &nbsp;</label>
+                                              <div class="col-sm-7"><input type="text" name="special" id="special" class="form-control"></div>
+                                             </div>
+  
+                                              </div>
+                                            </div>
+  <!-- END LEFT INPUT -->
+  <!-- RIGHT INPUT  -->
+                                            <div class="col-md-6">
+                                              <div class="row">
+                                                <div class="col-md-12">
+                                              <label class="col-sm-3">CWT &nbsp;</label>
+                                              <div class="col-sm-8">
+                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)">
+                                              </div>
+                                                </div>
+                                              <div class="col-md-12">
+                                              <label class="col-sm-3">Declare Value &nbsp;</label>
+                                              <div class="col-sm-8"><input type="text" name="declare" id="declare" class="form-control"></div>
+                                             </div>
+                                              <div class="col-md-12">
+                                              <label class="col-sm-3">Description of Shipment &nbsp;</label>
+                                              <div class="col-sm-8">
+                                              <textarea name="description" id="declare" class="form-control"></textarea>
+                                              </div>
+                                             </div>
+                                              </div>
+                                            </div>
+  <!-- END RIGHT INPUT -->
+  <div class="clearfix"> </div>
+<h2><span class="label label-large label-pink arrowed-in-right"><strong>Charges</strong></span></h2>
+                                    <div class="form-group">
+                                        <div class="table-responsive" id="table_responsive">
+                                        <table class="table table-striped table-bordered table-hover">
+                                              <thead>
+                                                  <th>No.</th>
+                                                  <th>Charges</th>
+                                                  <th>Desc</th>
+                                                  <th>Unit</th>
+                                                  <th>Qty</th>
+                                                  <th>Total</th>
+                                                  <th class="text-center"><div align="center">Action</div></th>
+                                                </tr>
+                                                <tr>
+                                                <td colspan="6"></td>
+                                                <td><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladdCharge" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add Charges</a></div></td>
+                                                </tr>
+                                                </thead>
+                                              </thead>
+                                              <tbody>
+   <?php 
+$i=1;
+foreach($tmpcharge as $chr){
+// $t_item+=$itm['qty'];
+ //$t_volume+=$itm['v'];
+        ?>
+                                                  <tr>
+                                                  <td><?=$i;?></td>
+                                                  <td><?php echo $chr->ChargeName;?></td>
+                                                  <td><?php echo $chr->Description;?></td>
+                                                  <td><?php echo $chr->Unit;?></td>
+                                                  <td><?php echo $chr->Qty;?></td>
+                                                  <td><?php echo number_format($chr->Total,0,'.','.');?></td>
+                                                  <td>
+                                                  <div align="center">
+                                               <a href="<?php echo base_url();?>temp/delete_charge/<?php echo $chr->tempChargeId?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete item">
+                                                  <button class="btn btn-mini btn-danger" type="button"><i class="fa fa-times bigger-120"></i></button>
                                                   </a> 
                                                   </div>
                                                   </td>
                                                 </tr>
-                                                 <tr>
-                                                  <td colspan="7">&nbsp;</td>
-                                                </tr>
+<?php $no++; } ?>
                                                 <thead>
                                                  <tr>
                                                   <td><b>Total</b></td>
@@ -219,25 +360,11 @@
                                             </table>
                                         </div>
                                     </div>
-                                    
-                                            <div class="col-md-12">
-                                              <div class="row">
-                                                <div class="col-md-12">
-                                              <label class="col-sm-2">Gross Weight &nbsp;</label>
-                                              <div class="col-sm-3"><input type="text" name="gross" id="gross" class="form-control"></div>
-                                                </div>
-                                                <div class="col-md-12">
-                                              <label class="col-sm-2">CWT &nbsp;</label>
-                                              <div class="col-sm-3"><input type="text" name="gross" id="gross" class="form-control"></div>
-                                             </div>
-                                                <div class="col-md-12">
-                                              <label class="col-sm-2">Remarks &nbsp;</label>
-                                              <div class="col-sm-4">
-                                                <textarea name="remarks" class="form-control" rows="5"></textarea>
-                                              </div>
-                                             </div>
-                                              </div>
-                                            </div>
+  
+                                    </div>
+  
+
+  
 <h2><span class="label label-large label-pink arrowed-in-right"><strong>Consol to Master/ SMU</strong></span></h2>
                                     <div class="form-group">
                                         <div class="table-responsive" id="table_responsive">
@@ -280,12 +407,11 @@
                                             </table>
                                         </div>
                                     </div>
-
                                   <div class="cpl-sm-12"><h2>&nbsp;</h2>
                                   <div class="row">
                                       <div class="col-md-4"></div>
                                         <div class="col-md-2">
-                                            <a class="btn btn-danger btn-addnew" href="<?php echo base_url();?>transaction/domesctic_outgoing_house" data-toggle="modal" title="Add"><i class="icon-reply bigger-120 icons"></i>Cancel </a>
+                                            <a class="btn btn-danger " href="<?php echo base_url();?>transaction/domesctic_outgoing_house" data-toggle="modal" title="Add"><i class="icon-reply bigger-120 icons"></i>Cancel </a>
                                         </div>
                                          <div class="col-md-2">
                                              <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
@@ -303,14 +429,14 @@
 <?php
 
     foreach($list as $row){
-		$isagen=$row->isAgent;
-		$isaktif=$row->isAktive;
-		$isCnee=$row->isCnee;
-		$isShipper=$row->isShipper;
-		if($isagen==1){ $status1='YES';}else{$status1='NO';}
-		if($isShipper==1){ $status2='YES';}else{$status2='NO';}
-		if($isCnee==1){ $status3='YES';}else{$status3='NO';}
-		if($isaktif==1){ $status4='YES';}else{$status4='NO';}
+    $isagen=$row->isAgent;
+    $isaktif=$row->isAktive;
+    $isCnee=$row->isCnee;
+    $isShipper=$row->isShipper;
+    if($isagen==1){ $status1='YES';}else{$status1='NO';}
+    if($isShipper==1){ $status2='YES';}else{$status2='NO';}
+    if($isCnee==1){ $status3='YES';}else{$status3='NO';}
+    if($isaktif==1){ $status4='YES';}else{$status4='NO';}
         ?>
 <div id="modaledit<?php echo $row->discCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
@@ -329,8 +455,8 @@
 <select name="cust" id="cust" required="required" class="form-control">
                             <option value="<?php echo $row->custCode;?>"><?php echo $row->custName;?></option>
                             <?php
-	foreach($cust as $ct){
-	    ?>
+  foreach($cust as $ct){
+      ?>
                             <option value="<?php echo $ct->custCode;?>"><?php echo $ct->custName;?></option>
                             <?php } ?>
                           </select>
@@ -345,8 +471,8 @@
 <select name="service" id="service" required="required" class="form-control">
                             <option value="<?php echo $row->svCode;?>"><?php echo $row->Name;?></option>
                             <?php
-	foreach($service as $sv){
-	    ?>
+  foreach($service as $sv){
+      ?>
                             <option value="<?php echo $sv->svCode;?>"><?php echo $sv->Name;?></option>
                             <?php } ?>
                           </select>
@@ -359,8 +485,8 @@
 <select name="ori" id="ori" required="required" class="form-control">
                             <option value="<?php echo $row->Ori;?>"><?php echo $row->Ori;?></option>
                             <?php
-	foreach($city as $cty){
-	    ?>
+  foreach($city as $cty){
+      ?>
                             <option value="<?php echo $cty->cyName;?>"><?php echo $cty->cyName;?></option>
                             <?php } ?>
                           </select>
@@ -373,8 +499,8 @@
 <select name="dest" id="dest" required="required" class="form-control">
                             <option value="<?php echo $row->Dest;?>"><?php echo $row->Dest;?></option>
                             <?php
-	foreach($city as $cty){
-	    ?>
+  foreach($city as $cty){
+      ?>
                             <option value="<?php echo $cty->cyName;?>"><?php echo $cty->cyName;?></option>
                             <?php } ?>
                           </select>
@@ -387,8 +513,8 @@
 <select name="vendor" id="vendor" required="required" class="form-control">
                             <option value="<?php echo $row->venCode;?>"><?php echo $row->venName;?></option>
                             <?php
-	foreach($vendor as $vd){
-	    ?>
+  foreach($vendor as $vd){
+      ?>
                             <option value="<?php echo $vd->venCode;?>"><?php echo $vd->venName;?></option>
                             <?php } ?>
                           </select>
@@ -429,6 +555,7 @@
     </div>
     </div>
 <?php } ?>
+
 <!--adding form-->
 <div id="modaladd" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
@@ -439,45 +566,39 @@
                 <h3 id="myModalLabel">Add Item</h3>
             </div>
             <div class="smart-form scroll">
-                <form method="post" action="<?php echo site_url('master/save_disc')?>">
+                <form method="post" action="<?php echo site_url('temp/save_item')?>">
                     <div class="modal-body">
                      
                    
 <div class="form-group">
-                        <label class="col-sm-3 control-label">No of Packs </label>
+                        <label class="col-sm-3 control-label">No of Pcs </label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
+                          <input name="pcs" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="persen" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Length &nbsp; ( P )</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
+                          <input name="panjang" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="persen" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>
   <div class="form-group">
                         <label class="col-sm-3 control-label">Width &nbsp; ( L )</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
+                          <input name="lebar" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="persen" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Height &nbsp; ( T )</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
+                          <input name="tinggi" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="persen" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>                    
- <div class="form-group">
-                        <label class="col-sm-3 control-label">Volume</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="rp" type="text" class="form-control" placeholder="" id="rp" readonly="readonly" />
-    </span></div>
-                        <div class="clearfix"></div>
-                      </div>
+
   <div class="modal-footer">
 <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
                         <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
@@ -489,7 +610,68 @@
         </div>
     </div>
     </div>
+<!--adding form-->
+<div id="modaladdCharge" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Add Charges</h3>
+            </div>
+            <div class="smart-form scroll">
+                <form method="post" action="<?php echo site_url('temp/save_temp_charge')?>">
+                    <div class="modal-body">
+                     
+                   
+<div class="form-group">
+                        <label class="col-sm-3 control-label">Charges </label>
+                        <div class="col-sm-9"><span class="controls">
+              <select name="charge" class="form-control" required=required>
+                <option value="">Select One</option>
+<?php foreach ($charges as $crg) {
+  ?>
+                <option value="<?php echo $crg->Description;?>"><?php echo $crg->Description;?></option>
+<?php } ?>
 
+              </select> 
+                          </span>
+                          </div>
+                        <div class="clearfix"></div>
+  </div>
+<div class="form-group">
+                        <label class="col-sm-3 control-label">Description &nbsp;</label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="desc" type="text" class="form-control" id="persen" />
+</span></div>
+                        <div class="clearfix"></div>
+                      </div>
+  <div class="form-group">
+                        <label class="col-sm-3 control-label">Unit &nbsp; </label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="unit" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="persen" />
+</span></div>
+                        <div class="clearfix"></div>
+                      </div>
+<div class="form-group">
+                        <label class="col-sm-3 control-label">Qty &nbsp; </label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="qty" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="persen" />
+</span></div>
+                        <div class="clearfix"></div>
+                      </div>                    
+
+  <div class="modal-footer">
+<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
+                        <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
+    </div>
+                    </div>
+            
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
 <!--adding form 2-->
 <div id="modaladd2" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     

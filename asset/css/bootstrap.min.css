@@ -739,7 +739,7 @@ hr {
     margin-bottom: 20px;
     border: 0;
     border-top: 1px solid #eee;
-    border-color: rgb(230, 218, 218);
+    border-color: #2283c5;
 
 }
 .sr-only {
@@ -3093,8 +3093,8 @@ a.thumbnail.active,a.thumbnail:focus,a.thumbnail:hover {
     right: -21px;
     color: inherit}
 .alert-success {
-    color: #3c763d;
-    background-color: #dff0d8;
+    color: #0B8E16;
+    background-color: rgba(98, 236, 72, 0.55);
     border-color: #d6e9c6}
 .alert-success hr {
     border-top-color: #c9e2b3}

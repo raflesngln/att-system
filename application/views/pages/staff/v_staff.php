@@ -4,11 +4,11 @@
    <div class="row-fluid">
     <div class="span12">
                   <?php
-			if(isset($eror)){?>
-      <label class="alert alert-error col-sm-12">
+			if(isset($message)){?>
+      <label class="alert alert-<?php echo $clas;?> col-sm-12">
 			<button type="button" class="close" data-dismiss="alert">
 			<i class="icon-remove"></i>	</button>							
-			<?php echo isset($eror)?$eror:'';?>
+			<i class="fa fa-check bigger-150"></i><?php echo isset($message)?$message:'';?>
 			<br />
 			</label>
             <?php }?> 
@@ -154,22 +154,23 @@ if($status=='1'){ $statusname='<font color="#0033FF">Aktif</font>';} else{$statu
                 <form method="post" action="<?php echo site_url('staff/update_staff')?>">
                     <div class="modal-body">
                       <div class="clearfix"></div>
-                      <div class="form-group">
-                        <label class="col-sm-3 control-label">Staff Name</label>
-    <div class="col-sm-9">
-    <input name="name2" type="text" class="form-control" id="name2" value="<?php echo $row->empName;?>" required/>
-    <span class="controls">
-    <input type="hidden" name="id2" id="id2" value="<?php echo $row->empCode;?>" />
-    </span></div>
-                        <div class="clearfix"></div>
+    <div class="form-group">
+                      <label class="col-sm-3 control-label">Initial</label>
+                      <div class="col-sm-9">
+                      <input name="initial2" type="text" class="form-control" id="initial2" value="<?php echo $row->empInitial;?>" maxlength="10"/>
                       </div>
-  <div class="form-group">
-                        <label class="col-sm-3 control-label">Initial</label>
-    <div class="col-sm-9">
-    <input name="initial2" type="text" class="form-control" id="initial2" value="<?php echo $row->empInitial;?>" required/>
+                      <div class="clearfix"></div>
     </div>
+  <div class="form-group">
+                        <label class="col-sm-3 control-label">Staff Name</label>
+                        <div class="col-sm-9">
+                        <input name="name2" type="text" class="form-control" id="name2" value="<?php echo $row->empName;?>"/>
+                        <span class="controls">
+                        <input type="hidden" name="id2" id="id2" value="<?php echo $row->empCode;?>" />
+                        </span></div>
                         <div class="clearfix"></div>
-                      </div>
+    </div>
+
    <div class="form-group">
                         <label class="col-sm-3 control-label">Phone</label>
     <div class="col-sm-9">
@@ -230,20 +231,21 @@ if($status=='1'){ $statusname='<font color="#0033FF">Aktif</font>';} else{$statu
             <div class="smart-form">
                 <form method="post" action="<?php echo site_url('staff/save_staff')?>">
                     <div class="modal-body">
-                      <div class="form-group">
-                        <label class="col-sm-3 control-label">Staff Name</label>
+ <div class="form-group">
+                        <label class="col-sm-3 control-label"> Initial</label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="initial" type="text" class="form-control"  id="initial" required="required" maxlength="10" />
+                        </span></div>
+                        <div class="clearfix"></div>
+</div>
+<div class="form-group">
+                        <label class="col-sm-3 control-label"> Name</label>
                         <div class="col-sm-9"><span class="controls">
                           <input name="name" type="text" class="form-control"  id="name" required="required" />
-</span></div>
+                        </span></div>
                         <div class="clearfix"></div>
-                      </div>
- <div class="form-group">
-                        <label class="col-sm-3 control-label">Staff Initial</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="initial" type="text" class="form-control"  id="initial" required="required" />
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>
+  </div>
+
  <div class="form-group">
                         <label class="col-sm-3 control-label">Address</label>
                         <div class="col-sm-9"><span class="controls">

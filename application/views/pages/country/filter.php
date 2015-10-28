@@ -34,7 +34,7 @@ $no=1;
                                                       <button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>
                                                       </a>
                                                         
-                                                        <a href="<?php echo base_url();?>master/delete_country/<?php echo $data->couCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
+                                                        <a href="<?php echo base_url();?>country/delete_country/<?php echo $data->couCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
                                                           <button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>
                                                         </a>                            
                                                         

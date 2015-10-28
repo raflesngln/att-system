@@ -10,7 +10,7 @@
             <label class="alert alert-<?php echo $clas;?> col-sm-12">
       <button type="button" class="close" data-dismiss="alert">
       <i class="icon-remove"></i> </button>             
-      <?php echo isset($message)?$message:'';?>
+      <i class="fa fa-check bigger-150"></i><?php echo isset($message)?$message:'';?>
       <br />
       </label>
             <?php }?>   
@@ -52,6 +52,7 @@
                                                 </tr>
                                                 <tr>
                                                   <th>No.</th>
+                                                  <th>Initial</th>
                                                   <th>Vendor Name</th>
                                                   <th>Address</th>
                                                   <th>Phone</th>
@@ -70,6 +71,7 @@ $no=1;
 			?>
                                                 <tr class="gradeX">
                                                     <td><?php echo $no?></td>
+                                                    <td><?php echo $data->venInitial;?></td>
                                                     <td><?php echo $data->venName?></td>
                                                     <td><?php echo $data->Address?></td>
                                                     <td><?php echo $data->Phone?></td>

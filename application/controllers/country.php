@@ -53,10 +53,12 @@ $this->form_validation->set_rules('coucode','coucode','required|trim|xss_clean')
 	{
 		$code=$this->input->post('coucode');
 		$cari=$this->model_app->getdata('ms_country',"where couCode='$code'");
-		if($cari){
-			$message="Data with code ( ".$code." ) has Exist, Try another Code!";
-			$clas='error';
-		} else {
+		if($cari){ ?>
+			<script type="text/javascript">
+			alert('Data with This Code  has already exist !. try another code');
+			history.back();
+			</script>	
+		<?php } else {
 		$message="New Data has been Saved with code ( ".$code." )";
 		$clas='success';
 		$newdata=array(

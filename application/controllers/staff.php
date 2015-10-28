@@ -42,7 +42,7 @@ function view_staff(){
      }
 
 //--SAVE--------
-function save_staff()
+function save_staffff()
 {	
 $this->form_validation->set_rules('name','name','required|trim|xss_clean');
 
@@ -68,8 +68,72 @@ $this->form_validation->set_rules('name','name','required|trim|xss_clean');
 		 redirect('staff/view_staff');
 	 }
  }
- 
+ //--SAVE--------
+function save_staff()
+{	
+$this->form_validation->set_rules('name','name','required|trim|xss_clean');
+	 if ($this->form_validation->run() == FALSE)
+	{
+		redirect('staff/view_staff');
+	}
+		else
+	{
+		$code=$this->input->post('initial');
+		$cari=$this->model_app->getdata('ms_staff',"where empInitial='$code'");
+		if($cari){ ?>
+			<script type="text/javascript">
+		alert('Data with This Initial  has already exist !. try another initial');
+		history.back();
+		</script>			
+		<?php } else {
+		$message="New Data has been Saved with Initial ( ".$code." )";
+		$clas='success';
+		$newdata=array(
+		'empCode' =>'',
+		'empInitial'=>strtoupper($this->input->post('initial')),
+		'empName'=>$this->input->post('name'),
+		'Address'=>$this->input->post('address'),
+		'Phone'=>$this->input->post('phone'),
+		'Remarks'=>$this->input->post('remarks'),
+		'CreateBy'=>$this->session->userdata('nameusr'),
+		'CreateDate'=>date('Y-m-d:h-s-m'),
+		'ModifiedBy'=>'',
+		'ModifiedDate'=>'',
+		);		
+		 $this->model_app->insert('ms_staff',$newdata);	
+		}
 
+		$page=$this->uri->segment(3);
+      	$limit=25;
+		if(!$page):
+		$offset = 0;
+		else:
+		$offset = $page;
+		endif;
+		$data['message']=$message;
+		$data['clas']=$clas;
+		//$data['usercode']=$this->model_app->usercode();
+        $data['title']='list Staff';
+		$data['scrumb_name']='Data Staff';
+		$data['scrumb']='staff/view_staff';
+		$data['list']=$this->model_app->getdata('ms_staff',"order by empCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_staff a',"order by empCode ASC");
+        	//create for pagination		
+			$config['base_url'] = base_url() . 'staff/view_staff/';
+        	$config['total_rows'] = $tot_hal->num_rows();
+        	$config['per_page'] = $limit;
+			$config['uri_segment'] = 3;
+	    	$config['first_link'] = 'First';
+			$config['last_link'] = 'last';
+			$config['next_link'] = 'Next';
+			$config['prev_link'] = 'Prev';
+       		$this->pagination->initialize($config);
+			$data["paginator"] =$this->pagination->create_links();
+		$data['view']='pages/staff/v_staff';
+        $this->load->view('home/home',$data);
+
+	 }
+ }
 
 //----update------------
 function update_staff()

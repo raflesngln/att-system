@@ -32,7 +32,7 @@
             <?php }?>   
       <div class="header col-md-11">
 
-                <h2><i class="fa fa-arrow-circle-o-left fa-2x"></i> &nbsp; Settlement Payment Request (Tutup Bon )</h2>
+                <h2><i class="fa fa-info-circle fa-2x"></i> &nbsp; Settlement Payment Request (Tutup Bon )</h2>
 
       </div>
       
@@ -148,8 +148,15 @@
            <input name="pr" type="text" class="form-control"  id="name" required="required" readonly="readonly" />
           </div>
           <strong><label class="col-sm-5"> By</label></strong>
-          <div class="col-sm-6">
-            <input name="amount" type="text" class="form-control"  id="name" required="required" />
+          <div class="col-sm-7">
+          <select name="receiver" class="form-control" required="required">
+           <option value="">Choose Receiver</option>
+           <?php
+           foreach ($staff as $st) {
+           ?>
+             <option value="<?php echo $st->empCode;?>"><?php echo $st->empName;?></option>
+             <?php } ?>
+           </select>
           </div>
 
           <strong><label class="col-sm-5"> Currency</label></strong>

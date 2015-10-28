@@ -255,11 +255,13 @@ $no=1;
                                               <div class="row">
                                                 <div class="col-md-12">
                                               <label class="col-sm-2">Gross Weight &nbsp;</label>
-                                              <div class="col-sm-3"><input type="text" name="gross" id="gross" class="form-control"></div>
+                                              <div class="col-sm-3">
+                                              <input type="text" name="gross" id="gross" class="form-control" onkeypress="return isNumberKey(event)">
+                                              </div>
                                                 </div>
                                                 <div class="col-md-12">
                                               <label class="col-sm-2">CWT &nbsp;</label>
-                                              <div class="col-sm-3"><input type="text" name="gross" id="gross" class="form-control"></div>
+                                              <div class="col-sm-3"><input type="text" name="gross" id="gross" class="form-control" onkeypress="return isNumberKey(event)"></div>
                                              </div>
                                                 <div class="col-md-12">
                                               <label class="col-sm-2">Remarks &nbsp;</label>

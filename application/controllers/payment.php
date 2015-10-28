@@ -32,6 +32,7 @@ class Payment extends CI_Controller{
             'title'=>' settlement_request',
             'scrumb_name'=>' settlement_request',
             'scrumb'=>'payment/settlement_request',
+            'staff'=>$this->model_app->getdatapaging("empCode,empInitial,empName","ms_staff","ORDER BY empName"),
             'view'=>'pages/payment/settlement_request',
              'currency'=>$this->model_app->getdatapaging("currCode,Name","ms_currency","ORDER BY currCode"),
         );  

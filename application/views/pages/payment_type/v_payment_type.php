@@ -14,7 +14,7 @@
 
   <div class="row">  
       <div class="col-sm-6">
-           <h1><i class="fa fa-dollar fa-2x"></i> &nbsp; currency  List</h1> 
+           <h1><i class="fa fa-credit-card fa-2x"></i> &nbsp; Payment Type  List</h1> 
            <p>&nbsp;</p>
             </div>
      
@@ -25,7 +25,7 @@
       <form action="<?php echo base_url();?>currency/search_currency" method="post"> 
            <div class="col-sm-7">
            <div class="row">
-          <div class="col-sm-9">Search currency<span class="controls">
+          <div class="col-sm-9">Search payment_type<span class="controls">
            <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="Name" />
             </span>
           </div>
@@ -49,7 +49,7 @@
                                               <thead>
                                                 <tr>
                                                   <th height="21" colspan="12"><div align="left"><a class="btn-addnew" href="#modaladd" data-toggle="modal" title="Add">
-                                                    <button class="btn btn-blue"><i class="icon-plus icons"></i>Add currency</button></a></div></th>
+                                                    <button class="btn btn-blue"><i class="icon-plus icons"></i>Add payment_type</button></a></div></th>
                                                 </tr>
                                                 <tr height="50">
                                                   <th>No.</th>
@@ -66,15 +66,15 @@ foreach($list as $data){
 			?>
                                                 <tr class="gradeX">
                                                     <td><?php echo $no?></td>
-                                                    <td><?php echo $data->currCode?></td>
-                                                    <td><?php echo $data->Name?></td>
+                                                    <td><?php echo $data->payCode?></td>
+                                                    <td><?php echo $data->payName?></td>
                                                     <td class="text-center">
-                                                      <a href="#modaledit<?php echo $data->currCode?>" data-toggle="modal" title="Edit">
+                                                      <a href="#modaledit<?php echo $data->payCode?>" data-toggle="modal" title="Edit">
                                                       <button class="btn btn-primary btn-small tooltip-info" title="Edit data">
                                                       <i class="icon-edit icon-1x icon-only"></i>
                                                       </button>                                          
                                                       </a>   
-                                                     <a href="<?php echo base_url();?>currency/delete_currency/<?php echo $data->currCode?>" onClick="return confirm('Yakin Hapus  Data !!');">
+                                                     <a href="<?php echo base_url();?>payment_type/delete_payment_type/<?php echo $data->payCode?>" onClick="return confirm('Yakin Hapus  Data !!');">
                                                <button class="btn btn-danger btn-small" title="Delete Data">
                                                 <i class="icon-trash icon-1x icon-only"></i>
                                                 </button>
@@ -110,7 +110,7 @@ foreach($list as $data){
     foreach($list as $row){
        		
         ?>
-<div id="modaledit<?php echo $row->currCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="modaledit<?php echo $row->payCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -119,22 +119,22 @@ foreach($list as $data){
                 <h3 id="myModalLabel">Edit Data</h3>
             </div>
             <div class="smart-form">
-                <form method="post" action="<?php echo site_url('currency/update_currency')?>">
+                <form method="post" action="<?php echo site_url('payment_type/update_payment_type')?>">
                     <div class="modal-body">
                       <div class="clearfix"></div>
                       <div class="form-group">
                         <label class="col-sm-3 control-label"> Code</label>
     <div class="col-sm-9">
-    <input name="code" type="text" class="form-control" id="code" value="<?php echo $row->currCode;?>" maxlength="3" readonly="readonly"/>
+    <input name="code" type="text" class="form-control" id="code" value="<?php echo $row->payCode;?>" maxlength="3" readonly="readonly"/>
     <span class="controls">
-    <input type="hidden" name="id" id="id" value="<?php echo $row->currCode;?>" />
+    <input type="hidden" name="id" id="id" value="<?php echo $row->payCode;?>" />
     </span></div>
                         <div class="clearfix"></div>
                       </div>
   <div class="form-group">
                         <label class="col-sm-3 control-label"> Name</label>
     <div class="col-sm-9">
-    <input name="name" type="text" class="form-control" id="name" value="<?php echo $row->Name;?>" />
+    <input name="name" type="text" class="form-control" id="name" value="<?php echo $row->payName;?>" />
     </div>
                         <div class="clearfix"></div>
                       </div>
@@ -165,13 +165,13 @@ foreach($list as $data){
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add currency</h3>
+                <h3 id="myModalLabel">Add payment_type</h3>
             </div>
             <div class="smart-form">
-                <form method="post" action="<?php echo site_url('currency/save_currency')?>">
+                <form method="post" action="<?php echo site_url('payment_type/save_payment_type')?>">
                     <div class="modal-body">
                       <div class="form-group">
-                        <label class="col-sm-3 control-label"> Currency Code</label>
+                        <label class="col-sm-3 control-label"> Payment Type Code</label>
                         <div class="col-sm-9"><span class="controls">
                           <input name="code" type="text" class="form-control"  id="code" required="required" maxlength="3" />
 </span></div>

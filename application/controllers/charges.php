@@ -41,7 +41,7 @@ function view_charges(){
         $this->load->view('home/home',$data);
      }
 
-//--SAVE--------
+ //--SAVE--------
 function save_charges()
 {	
 $this->form_validation->set_rules('description','description','required|trim|xss_clean');
@@ -52,66 +52,26 @@ $this->form_validation->set_rules('description','description','required|trim|xss
 	}
 		else
 	{
-		$service=$_POST['service'];
-	foreach ($service as $key => $value) {
-		$service=$_POST['service'][$key];
-		
-		$newdata=array(
-		'ChargeCode'=>strtoupper($this->input->post('code')),
-		'Description'=>$this->input->post('description'),
-		'isCost'=>$this->input->post('iscost'),
-		'isSales'=>$this->input->post('issales'),
-		'svCode'=>$service,
-		'AccDebet'=>$this->input->post('debit'),
-		'AccCredit'=>$this->input->post('credit'),
-		'isActive'=>$this->input->post('status'),
-		'CreateBy'=>$this->session->userdata('nameusr'),
-		'CreateDate'=>date('Y-m-d:h-s-m'),
-		'ModifiedBy'=>'',
-		'ModifiedDate'=>'',
-		);		
-		 $this->model_app->insert('ms_charges',$newdata);	
-		 
-			}
-
-			redirect('charges/view_charges');
-	 }
- }
- //--SAVE--------
-function save_charges2()
-{	
-$this->form_validation->set_rules('description','description','required|trim|xss_clean');
-
-	 if ($this->form_validation->run() == FALSE)
-	{
-		redirect('charges/view_charges');
-	}
-		else
-	{
 		$code=$this->input->post('code');
-
-		$service=$_POST['service'];
-	foreach ($service as $key => $value) {
-		$service=$_POST['service'][$key];
-	
-
-		$code=$this->input->post('code');
+		$service=$this->input->post('service');
 		$cari=$this->model_app->getdata('ms_charges',"where ChargeCode='$code' AND svCode='$service'");
-		if($cari){
-			$message="Data with code ( ".$code." ) has Exist, Try another Code!";
-			$clas='error';
 
-			$this->model_app->update('ms_charges','idCharges',$code,$update);
+		if($cari){ ?>
 
-		} else {
-		$message="New Data has been Saved with code ( ".$code." )";
+		<script type="text/javascript">
+		alert('Data with This Code  has already exist with the same Service !. try another service');
+		history.back();
+		</script>	
+
+		<?php } else {
+		$message="New Data has been Saved with code ".$this->input->post('code');
 		$clas='success';
  		$newdata=array(
 		'ChargeCode'=>strtoupper($this->input->post('code')),
 		'Description'=>$this->input->post('description'),
 		'isCost'=>$this->input->post('iscost'),
 		'isSales'=>$this->input->post('issales'),
-		'svCode'=>$service,
+		'svCode'=>$this->input->post('service'),
 		'AccDebet'=>$this->input->post('debit'),
 		'AccCredit'=>$this->input->post('credit'),
 		'isActive'=>$this->input->post('status'),
@@ -121,23 +81,18 @@ $this->form_validation->set_rules('description','description','required|trim|xss
 		'ModifiedDate'=>'',
 		);		
 		 $this->model_app->insert('ms_charges',$newdata);	
-		 }
-		 
-	  }
-		$page=$this->uri->segment(3);
+				$page=$this->uri->segment(3);
       	$limit=10;
 		if(!$page):
 		$offset = 0;
 		else:
 		$offset = $page;
 		endif;
-		
         $data['title']='list charges';
 		$data['scrumb_name']='Data charges';
 		$data['scrumb']='charges/view_charges';
 		$data['message']=$message;
 		$data['clas']=$clas;
-
 		$data['service']=$this->model_app->getdata('ms_service',"order by svCode ASC LIMIT $offset,$limit");
 		$data['list']=$this->model_app->getdata('ms_charges a',"inner join ms_service b on a.svCode=b.svCode order by a.ChargeCode ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_charges a',"inner join ms_service b on a.svCode=b.svCode order by a.ChargeCode ASC");
@@ -155,76 +110,11 @@ $this->form_validation->set_rules('description','description','required|trim|xss
 		
 		$data['view']='pages/charges/v_charges';
         $this->load->view('home/home',$data);	
+
+		}
 	}
 }
  
-
-
-
-
-
-//--SAVE--------
-function save_commodity()
-{	
-$this->form_validation->set_rules('code','code','required|trim|xss_clean');
-	 if ($this->form_validation->run() == FALSE)
-	{
-		redirect('charges/view_charges');
-	}
-		else
-	{
-		$code=$this->input->post('code');
-		$cari=$this->model_app->getdata('ms_commodity',"where commCode='$code'");
-		if($cari){
-			$message="Data with code ( ".$code." ) has Exist, Try another Code!";
-			$clas='error';
-		} else {
-		$message="New Data has been Saved with code ( ".$code." )";
-		$clas='success';
-		$newdata=array(
-		'commCode'=>strtoupper($this->input->post('code')),
-		'Name'=>$this->input->post('name'),
-		'Section'=>$this->input->post('section'),
-		'Remarks'=>$this->input->post('remarks'),
-		'CreateBy'=>$this->session->userdata('nameusr'),
-		'CreateDate'=>date('Y-m-d:h-s-m'),
-		'ModifiedBy'=>'',
-		'ModifiedDate'=>'',
-		);		
-		 $this->model_app->insert('ms_commodity',$newdata);	
-		}
-
-		$page=$this->uri->segment(3);
-      	$limit=25;
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;
-        $data['title']='list commodity';
-		$data['scrumb_name']='Data commodity';
-		$data['scrumb']='commodity/view_commodity';
-		$data['message']=$message;
-		$data['clas']=$clas;
-		$data['list']=$this->model_app->getdata('ms_commodity',"order by commCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_commodity a',"order by commCode ASC");
-        	//create for pagination		
-			$config['base_url'] = base_url() . 'commodity/view_commodity/';
-        	$config['total_rows'] = $tot_hal->num_rows();
-        	$config['per_page'] = $limit;
-			$config['uri_segment'] = 3;
-	    	$config['first_link'] = 'First';
-			$config['last_link'] = 'last';
-			$config['next_link'] = 'Next';
-			$config['prev_link'] = 'Prev';
-       		$this->pagination->initialize($config);
-			$data["paginator"] =$this->pagination->create_links();
-		$data['view']='pages/commodity/v_commodity';
-        $this->load->view('home/home',$data);
-
-	 }
- }
-
 //----update------------
 function update_charges()
 {	
@@ -237,7 +127,18 @@ $this->form_validation->set_rules('description','description','required|trim|xss
 	}
 		else
 	{
-	$update=array(
+		$code=$this->input->post('code');
+		$service=$this->input->post('service');
+		$id=$this->input->post('id');
+		$cari=$this->model_app->getdata('ms_charges',"where ChargeCode='$code' AND svCode='$service' AND idCharges <> '$id'");
+		if($cari){
+		$message="Data  code ( ".$code." ) with the same Service  has Exist, Try another Code!";
+		$clas='error';
+
+		} else {
+		$message=" Data has been Update with code ".$this->input->post('code');
+		$clas='success';
+		$update=array(
 		'ChargeCode'=>strtoupper($this->input->post('code')),
 		'Description'=>$this->input->post('description'),
 		'isCost'=>$this->input->post('iscost'),
@@ -249,8 +150,39 @@ $this->form_validation->set_rules('description','description','required|trim|xss
 		'ModifiedBy'=>$this->session->userdata('nameusr'),
 		'ModifiedDate'=>date('Y-m-d:h-s-m'),
 		);	
-		$this->model_app->update('ms_charges','idCharges',$code,$update);
-	  redirect('charges/view_charges');
+		$this->model_app->update('ms_charges','idCharges',$id,$update);
+		 }
+
+		$page=$this->uri->segment(3);
+      	$limit=10;
+		if(!$page):
+		$offset = 0;
+		else:
+		$offset = $page;
+		endif;
+        $data['title']='list charges';
+		$data['scrumb_name']='Data charges';
+		$data['scrumb']='charges/view_charges';
+		$data['message']=$message;
+		$data['clas']=$clas;
+		$data['service']=$this->model_app->getdata('ms_service',"order by svCode ASC LIMIT $offset,$limit");
+		$data['list']=$this->model_app->getdata('ms_charges a',"inner join ms_service b on a.svCode=b.svCode order by a.ChargeCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_charges a',"inner join ms_service b on a.svCode=b.svCode order by a.ChargeCode ASC");
+        	//create for pagination		
+			$config['base_url'] = base_url() . 'charges/view_charges/';
+        	$config['total_rows'] = $tot_hal->num_rows();
+        	$config['per_page'] = $limit;
+			$config['uri_segment'] = 3;
+	    	$config['first_link'] = 'First';
+			$config['last_link'] = 'last';
+			$config['next_link'] = 'Next';
+			$config['prev_link'] = 'Prev';
+       		$this->pagination->initialize($config);
+			$data["paginator"] =$this->pagination->create_links();
+		
+		$data['view']='pages/charges/v_charges';
+        $this->load->view('home/home',$data);	
+
 		}	
 }
 

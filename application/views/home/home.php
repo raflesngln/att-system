@@ -34,7 +34,8 @@
 <link rel="stylesheet" href="<?php echo base_url();?>asset/css/ace-skins.min.css" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
- <script type="text/javascript">
+
+<script type="text/javascript">
 function isNumberKey(evt)
 {
 var charCode = (evt.which) ? evt.which : event.keyCode
@@ -45,7 +46,6 @@ return true;
 </script>
 
 </head>
-
 	<body>
 		<div class="navbar">
 			<div class="navbar-inner">
@@ -170,7 +170,7 @@ return true;
 			<div class="sidebar" id="sidebar">
 			  <div class="sidebar-shortcuts" id="sidebar-shortcuts">
 					<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-<a href="<?php echo base_url();?>master/gallery">
+<a href="<?php echo base_url();?>temp/cart">
 						<button class="btn btn-small btn-danger">
                         <i class="icon-envelope"></i>
                    
@@ -205,7 +205,7 @@ return true;
 				</div><!--#sidebar-shortcuts-->
 
 				<ul class="nav nav-list">
-					<li>
+					<li class="active">
 						<a href="<?php echo base_url();?>dashboard">
 							<i class="icon-dashboard"></i>
 							<span class="menu-text"> Dashboard </span>
@@ -224,7 +224,7 @@ return true;
  						<li> <a href="<?php echo base_url();?>commodity/view_commodity"> <i class="icon-double-angle-right"></i><i class="fa fa-diamond"></i> &nbsp; Commodity</a></li>
 						<li> <a href="<?php echo base_url();?>charges/view_charges"> <i class="fa fa-hourglass-start bigger160"></i>&nbsp; Charges</a></li>
 						<li> <a href="<?php echo base_url();?>currency/view_currency"> <i class="fa fa-dollar bigger160"></i>&nbsp; Curcrency</a></li>
-
+						<li> <a href="<?php echo base_url();?>payment_type/view_payment_type"> <i class="fa fa-credit-card bigger160"></i>&nbsp; Payment Type</a></li>
                       </ul>
 				  </li>
 					<li>
@@ -295,7 +295,7 @@ return true;
        <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-cc-visa bigger-150" aria-hidden="true"></i> <span class="menu-text">&nbsp;Cost </span> <b class="arrow icon-angle-down"></b> </a>
         <ul class="submenu">
          <li><a href="<?php echo base_url();?>Payment/payment_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-arrow-circle-o-left bigger-140"></i> &nbsp; Payment Request </a> </li>
-         <li> <a href="<?php echo base_url();?>Payment/settlement_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-arrow-circle-o-right  bigger-140"></i> &nbsp; Sentlement Req</a></li>
+         <li> <a href="<?php echo base_url();?>Payment/settlement_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-info-circle  bigger-140"></i> &nbsp; Sentlement Req</a></li>
 		 </ul>
 	  </li>
 	  

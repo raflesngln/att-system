@@ -24,11 +24,11 @@
    <div class="row-fluid">
     <div class="span12">
                   <?php
-			if(isset($eror)){?>
-      <label class="alert alert-error col-sm-12">
+			if(isset($message)){?>
+      <label class="alert alert-<?php echo $clas;?> col-sm-12">
 			<button type="button" class="close" data-dismiss="alert">
 			<i class="icon-remove"></i>	</button>							
-			<?php echo isset($eror)?$eror:'';?>
+			<i class="fa fa-check bigger-150"></i><?php echo isset($message)?$message:'';?>
 			<br />
 			</label>
             <?php }?> 
@@ -269,12 +269,12 @@ foreach($list as $data){
                 <h3 id="myModalLabel">Add charges</h3>
             </div>
             <div class="smart-form">
-                <form method="post" action="<?php echo site_url('charges/save_charges2')?>">
+                <form method="post" action="<?php echo site_url('charges/save_charges')?>">
                     <div class="modal-body">
 <div class="form-group">
                         <label class="col-sm-3 control-label"> Charcode</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="code" type="text" class="form-control"  id="code" required="required" />
+                          <input name="code" type="text" class="form-control"  id="code" required="required" value="<?php $this->input->post('code');?>" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>
@@ -309,11 +309,11 @@ foreach($list as $data){
  <div class="form-group">
                         <label class="col-sm-3 control-label"> Service</label>
                         <div class="col-sm-9"><span class="controls">
-      <select id="multi" name="service[]" multiple="multiple" style="width:400px;line-height:40px;"  placeholder="Choose Service">
+      <select id="service" name="service" placeholder="Choose Service" class="form-control">
   <?php
         foreach ($service as $rw) {
     ?>
-      <option value="<?php echo $rw->svCode;?>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $rw->Name;?></option>
+      <option value="<?php echo $rw->svCode;?>"><?php echo $rw->Name;?></option>
       <?php } ?>
     </select>
 </span></div>

@@ -43,12 +43,15 @@ class Transaction extends CI_Controller{
             'title'=>'domesctic-outgoing-house',
             'scrumb_name'=>'Domesctic outgoing house',
             'scrumb'=>'transaction/domesctic_outgoing_house',
-            'currency'=>$this->model_app->getdatapaging("currCode,Name","ms_currency","ORDER BY currCode"),
+            'payment_type'=>$this->model_app->getdatapaging("payCode,payName","ms_payment_type","ORDER BY payCode ASC"),
             'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
             'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
             'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
             'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
             'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
+            'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
+            'tmpcharge'=>$this->model_app->getdatapaging("*","temp_charges","ORDER BY tempChargeId"),
+           'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
             'view'=>'pages/booking/domesctic_outgoing_house',
         );  
       $this->load->view('home/home',$data);
@@ -107,7 +110,6 @@ class Transaction extends CI_Controller{
       $this->load->view('home/home',$data);
     }
   //     DATA TO SESSION
-    
     function domesctic_incoming_master(){
         $data = array(
             'title'=>'domesctic_incoming_master',
@@ -137,7 +139,22 @@ function hapus_item_temp(){
 }
 
 
-
+//     DATA TO SESSION
+    function preview_outgoing_house(){
+        $data = array(
+            'title'=>'domesctic_incoming_master',
+            'scrumb_name'=>'domesctic_incoming_master',
+            'scrumb'=>'transaction/domesctic_incoming_master',
+            'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
+            'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
+            'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
+            'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
+            'tmpcharge'=>$this->model_app->getdatapaging("*","temp_charges","ORDER BY tempChargeId"),
+            'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
+            'view'=>'pages/booking/printview/printview_outgoing_house',
+        );  
+      $this->load->view('pages/booking/printview/printview_outgoing_house',$data);
+    }  
 
 
 

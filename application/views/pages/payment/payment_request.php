@@ -144,7 +144,7 @@
       <div class="col-sm-11">
           <strong><label class="col-sm-4"> PR Number</label></strong>
           <div class="col-sm-7">
-           <input name="pr" type="text" class="form-control"  id="name" required="required" />
+           <input name="pr" type="text" class="form-control"  id="name" required="required" onkeypress="return isNumberKey(event)"/>
           </div>
           <strong><label class="col-sm-4"> Receiver</label></strong>
           <div class="col-sm-7">
@@ -170,7 +170,7 @@
           </div>
           <strong><label class="col-sm-4"> Amount</label></strong>
           <div class="col-sm-7">
-           <input name="amount" type="text" class="form-control"  id="name" required="required" />
+           <input name="amount" type="text" class="form-control"  id="name" required="required" onkeypress="return isNumberKey(event)"/>
           </div>
           <strong><label class="col-sm-4"> Remarks</label></strong>
           <div class="col-sm-7">
