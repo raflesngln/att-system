@@ -68,7 +68,7 @@ function toRp(angka){
       
 
 <br style="clear:both">
-<form method="post" action="<?php echo base_url();?>transaction/preview_outgoing_house">
+<form method="post" action="<?php echo base_url();?>transaction/preview_outgoing_house" target="_blank">
 <div class="container">
   <div class="row">
                <!--LEFT INPUT-->
@@ -92,7 +92,7 @@ function toRp(angka){
                    <?php
                    foreach ($payment_type as $pay) {
                    ?>
-                     <option value="<?php echo $pay->payCode;?>"><?php echo $pay->payName;?></option>
+                     <option value="<?php echo $pay->payCode.'-'.$pay->payName;?>"><?php echo $pay->payName;?></option>
                      <?php } ?>
           </select>
           </div>
@@ -102,7 +102,7 @@ function toRp(angka){
           <option value="">Choose Service</option>
           <?php foreach ($service as $sv) {
           ?>
-          <option value="<?php echo $sv->svCode;?>"><?php echo $sv->Name;?></option>
+          <option value="<?php echo $sv->svCode.'-'.$sv->Name;?>"><?php echo $sv->Name;?></option>
           <?php } ?>
           </select>
           </div>
@@ -112,7 +112,7 @@ function toRp(angka){
           <option value="">Choose Origin</option>
           <?php foreach ($city as $ct) {
           ?>
-          <option value="<?php echo $ct->cyCode;?>"><?php echo $ct->cyName;?></option>
+          <option value="<?php echo $ct->cyCode.'-'.$ct->cyName;?>"><?php echo $ct->cyName;?></option>
           <?php } ?>
           </select>
           </div>
@@ -122,7 +122,7 @@ function toRp(angka){
           <option value="">Choose Destination</option>
           <?php foreach ($city as $ct) {
           ?>
-          <option value="<?php echo $ct->cyCode;?>"><?php echo $ct->cyName;?></option>
+          <option value="<?php echo $ct->cyCode.'-'.$ct->cyName;?>"><?php echo $ct->cyName;?></option>
           <?php } ?>
           </select>
           </div>
@@ -223,7 +223,7 @@ function toRp(angka){
                                                   <td><?php echo $items['p']; ?></td>
                                                   <td><?php echo $items['l']; ?></td>
                                                   <td><?php echo $items['t']; ?></td>
-                                                  <td><?php echo number_format($items['v'],2,'.','.');?></td>
+                                                  <td><?php echo number_format($items['v'],2,'.',',');?></td>
                                                   <td>
                                                   <div align="center">
                                                    <a href="<?php echo base_url(); ?>temp/delete_item/<?php echo $items['rowid']; ?>" onclick="return confirm('Yakin Hapus ?');" title="Delete item">
@@ -241,7 +241,7 @@ function toRp(angka){
                                                   <td>&nbsp;</td>
                                                   <td>&nbsp;</td>
                                                   <td>&nbsp;</td>
-                                                  <td><?php echo $t_volume;?></td>  
+                                                  <td><?php echo number_format($t_volume,2,'.',',');?></td>  
                                                   <td>&nbsp;</td>
                                                 </tr>
                                                 </thead>
@@ -326,33 +326,30 @@ function toRp(angka){
    <?php 
 $i=1;
 foreach($tmpcharge as $chr){
-// $t_item+=$itm['qty'];
+$grandt+=$chr->Total;
  //$t_volume+=$itm['v'];
         ?>
                                                   <tr>
                                                   <td><?=$i;?></td>
                                                   <td><?php echo $chr->ChargeName;?></td>
                                                   <td><?php echo $chr->Description;?></td>
-                                                  <td><?php echo $chr->Unit;?></td>
-                                                  <td><?php echo $chr->Qty;?></td>
-                                                  <td><?php echo number_format($chr->Total,0,'.','.');?></td>
+                                                  <td><div align="right"><?php echo number_format($chr->Unit,2,',','.');?></div></td>
+                                                  <td><div align="right"><?php echo $chr->Qty;?></div></td>
+                                                  <td><div align="right"><?php echo number_format($chr->Total,2,'.',',');?></div></td>
                                                   <td>
                                                   <div align="center">
                                                <a href="<?php echo base_url();?>temp/delete_charge/<?php echo $chr->tempChargeId?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete item">
                                                   <button class="btn btn-mini btn-danger" type="button"><i class="fa fa-times bigger-120"></i></button>
-                                                  </a> 
-                                                  </div>
-                                                  </td>
+                                                  </a>                                                  </div>                                                  </td>
                                                 </tr>
 <?php $no++; } ?>
                                                 <thead>
                                                  <tr>
-                                                  <td><b>Total</b></td>
-                                                  <td><strong>xxx</strong></td>
-                                                  <td>&nbsp;</td>
-                                                  <td>&nbsp;</td>
-                                                  <td>&nbsp;</td>
-                                                  <td><strong>xxx</strong></td>  
+                                                  <td colspan="3"><b>Total</b></td>
+                                                  <td colspan="3"><div align="right"><strong>
+                                                  <?php echo "Rp ". number_format($grandt,2,'.',',');?>
+												  <input type="hidden" name="total_charge" value="<?php echo $grandt;?>" />
+                                                  </strong></div></td>
                                                   <td>&nbsp;</td>
                                                 </tr>
                                                 </thead>

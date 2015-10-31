@@ -1,200 +1,218 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8" />
-    <title>Track & Trace Sistem -<?php echo isset($title)?$title:'';?></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Documento sin título</title>
+<style>
+*{ font-size:10px;}
+.bx{margin-top:-5px;}
+.bx-sm{margin-top:-2px; position:relative}
 
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-
-<style type="text/css">
-	*{
-		font-size: 9px;
-
-	}
-	.container{
-		width: 80%;
-		margin: 0px auto;
-		border-left:1px black solid;
-		border-bottom:1px black solid;
-	}
-	.col{ float: left; height: 150px; border:1px black solid;}
-.logo{
-	width: 10%;
-}
-.pt{ width: 20%;
+table{border:1px #666 solid;}
+table tr td{border: 1px solid #B1ACAC;
 
 }
-.desc{ width: 40%;
-
+.bx-com{
+	border:1px #FFF solid;
 }
-.rinci{ width: 29%;
-
+.bx-com p{
+	text-align:center;
+	line-height:-5px;
 }
-.col-sm{
-	border: 1px black solid;
-	float: left;
-	height:75px;
-	width: 49%;
+.bx-log{
+	text-align:center;
 }
-.col-md{
-	border:1px black solid;
-	float: left;
+.bx-log .x{
+	font-size:xx-large;	
 }
-.col-left{
-	width: 30%;
-}
-.col-middle{
-	width: 40%;
-}
-.col-right{
-	width: 28%;
-}
-table tr td,table tr th{
-border:1px #D2CDCD solid;
-border-bottom-color:white;
-border-right-color:#0E0D0D;
-border-top-color:#0E0D0D;
-border-left-color:white;
-padding-left:3px;
-padding-top:-5px;
-}
-p{line-height:10px;}
-.caps{
-text-transform:uppercase;
-}
+.bx-log .name{margin-top:-22px; color:#F00;}
 </style>
-
 </head>
-  <body>
+
+<body>
+<table width="200" border="0">
+  <tr>
+    <td bgcolor="#EFEFEF">
+    <div class="bx-log">
+  <p style="font-size:20pt; color:#3C0"> XSYS</p>
+    <p class="name">E x p r s e s  &nbsp;  N e t w o r k</p>
+    </div>
+    </td>
+    <td bgcolor="#EFEFEF">
+    <div class="bx-com">
+    <label style="text-align:center">PT.EXPRESINDO SYSTEM NETWORK</label>
     
- <div class="container">
-
-<table width="100%" height="431" border="0">
-
- <tr>
-              <th width="17%" rowspan="2">
-              <h1>XSYS</h1>
-      <p>EXpresindo Network</p>              </th>
-              <th width="21%" rowspan="2">
-              <h4>PT.EXPRESINDO SYSTEM NETWORK</h4>
-              <p>Perkantoran galaxy Blok N.27</p>
-              <p>Outer Ringroad Barat</p>
-			   <p>Cengkareng -Jakarta Barat 11730</p>
-				<p>Telp :021-55950000</p>
-				<p>fax :021-55955899
-				<p>www.xsysnet.com</p>
-      <p>&nbsp;</p></th>
-              <td width="19%">
-              ORIGINAL/ASAL
-      <P><?php echo $_POST['origin'];?></P>              </td>
-              <td width="13%">
-              DESTINATION/TUJUAN:
-      <P><?php echo $_POST['desti'];?></P>              </td>
-              <th colspan="2" rowspan="2">
-              <P>|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</P>              
-			  <p>121231</p></th>
-    </tr>
- <tr>
-        <td>
-        PIECES/JUMLAH SATUAN
-         <P><?php echo $_POST['t_item'];?></P>        </td>
-        <td>
-        WEIGHT/BERAT
-        <P><?php echo $_POST['grossweight'];?></P>        </td>
-  </tr>
-
- <tr>
-   <td height="29">Type Of Pyament/Jenis Pembayaran</td>
-   <td>Type of Shipment </td>
-   <td colspan="2" rowspan="2">By giving us yoyr shipemnt .ou agree with all items and condition of negoitable connote/ dengan menyerahaka kiriman,anda setuju dengan kondisi dan ketentuan pada nota pprnrgiriman ini dengan tanpa bersyarat </td>
-   <td colspan="2">Declare Value /Nilai Kiriman </td>
-   </tr>
- <tr>
-
- <td height="29"><label>
-   <input type="checkbox" name="checkbox" value="checkbox">
-   CASH
-   <input type="checkbox" name="checkbox2" value="checkbox">
-Credit
-<input type="checkbox" name="checkbox3" value="checkbox"> 
-COD
-</label></td>
-  <td><input type="checkbox" name="checkbox4" value="checkbox">
-DOC
-  <input type="checkbox" name="checkbox5" value="checkbox">
-NDX
-<input type="checkbox" name="checkbox6" value="checkbox"> 
-HVS</td>
-   <td width="13%">SERVICE/LAYANAN</td>
-     <td width="17%">CHARGES/HARGA(IDR)</td>
- </tr>
- <tr>
-   <td height="136" colspan="2"><p><em><u>SHIPPER/PENGIRIM : </u></em></p>
-     <p class="caps"><?php echo $_POST['name1'];?></p>
-     <p><em><u>ADDRESS/ALAMAT :</u></em></p>
-     <p class="caps"><?php echo $_POST['address1'];?></p>
-     <p>&nbsp;</p>
-     <p>&nbsp;</p>
-     <p>PHONE/FAX/TELEPHONE :  <?php echo $_POST['phone1'];?></p>	 </td>
-   <td colspan="2" height="136">
-   <p><em><u>SHIPPER/PENGIRIM : </u></em></p>
+    <p>Perkantoran Galaxy Blok N,27</p>
+    <p>Outer Ring Road Barat</p>
+    <p>Cengkareng Jakrata BArat 11720</p>
+    <p>Telp :021-55950000</p>
+    <p>Fax :021-55955899</p>
+    <p>xsysnet.com</p>
+    </div>
+    </td>
+    <td>
+    <div class="bx-sm">
+    <u><em><label>ORIGINAL/ASAL :</label></em></u>
+   <p><?php echo $_POST['origin'];?></p>
    
-   <p class="caps"><?php echo $_POST['name2'];?></p>
-   <p><em><u>ADDRESS/ALAMAT  :</u></em></p>
-   <p class="caps"><?php echo $_POST['address2'];?></p>
-   <p>&nbsp;</p>
-   <p>&nbsp;</p>
-   <p>PHONE/FAX/TELEPHONE : <?php echo $_POST['phone1'];?></p></td>
-   <td><?php 
-$i=1;
-foreach($tmpcharge as $chr){
-        ?>
-     <p><?php echo $chr->ChargeName; ?></p>
-     <?php $i++; } ?></td>
-   <td>xxxxxxxxx</td>
- </tr>
- <tr>
-   <td height="42" colspan="2"><p>SHIPPER SIGNATURE/TANDA TANGAN PENGIRIM </p>
-     <p>&nbsp;</p></td>
-   <td colspan="2"><p>ATTENTION &amp; DEPT/DITUNJUKKAN &amp; DEPT </p>
-     <p>&nbsp;</p></td>
-   <td>TOTAL/JUMLAH</td>
-   <td>&nbsp;</td>
- </tr>
- <tr>
-   <td colspan="2"><p>DESCRIPTION OF SHIPMENT/KETERANGAN ISI </p>
-     <p>&nbsp; </p></td>
-   <td colspan="2"><p>COLECTED BY AXYS/DIAMBIL OLEH X-SYS</p>
-     <p>&nbsp; </p></td>
-   <td colspan="2"><p>PERNATAAN PENGIRIM:</p>
-     <p>Kami memahami dan menyetujui bahwa kiriman RP 1.000.000,- atau lebih harus di asuransikan.Jika tidak diasuransikan maka X-SYS hanya akan memberikan ganti rugi maksimal 10(sepuluh) kali biaya kirim </p></td>
-   </tr>
- 
- <tr>
-   <td colspan="2"><p>DIMENTION/DIMENSI BARANG </p>
-     <p>&nbsp; </p></td>
-   <td><p>DATE/TANGGA : </p>
-     <p><?php echo date( 'd/m/Y');?></p></td>
-   <td><p>TIME/JAM</p>
-     <p><?php echo time();?></p></td>
-   <td colspan="2" rowspan="2"><p>Receiver already receve this package in good condition/penerima telah menerima titipan ini dalam keadaan abaik dan benar.</p>
-     <p>DATE/TANGGAL :..........................TIME//JAM:......................</p>
-     <p>NAME/NAMA .....................................................................</p>
-     <p>&nbsp;</p>     <p>SIGNATURE &amp; SAMP / TANDA TANGAN &amp; STEMPEL   </p></td>
-   </tr>
- <tr>
-   <td colspan="2"><p>SPECIAL INSTRUCTION/INSTRUKSI KHUSUS </p>
-     <p>&nbsp;</p></td>
-   <td colspan="2"><p align="center"><b>WE CANNOT DELIVER TO P.O.BOX</b></p>
-     <p align="center">Kami tidak dapat mengantar alamt PO Box  </p>
-     <p>&nbsp;</p></td>
-   </tr>
+   <p><HR /></p>
+    <u><em>PIECES/JUMLAH SATUAN</em></u>
+   <p align="center"><?php echo $_POST['t_item'];?></p>
+   </div>
+    </td>
+    <td>
+    <div class="bx-sm">
+   <u><em><label>DESTINATION/TUJUAN :</label></em></u>
+   <p><?php echo $_POST['desti'];?></p>
+   
+   <p><HR /></p>
+    <u><em>WEIGHT/BERAT</em></u>
+   <p align="center"><?php echo $_POST['grossweight'];?></p>
+   </div>
+    </td>
+    
+    <td colspan="2"><p align="center">|||||||||||||||||||||||||||||||||||||||||||||||||</p>
+    <p align="center">123435666787889789</p></td>
+  </tr>
+  <tr>
+    <td colspan="2">Account No.</td>
+   
+    <td colspan="2" rowspan="3" style="border-bottom-color:white">
+    <div class="bx">
+    <label>By giving us your shipment you agree of all items and condition</label>
+   
+    <label>By giving us your shipment you agree of all items and condition</label>
+    <label>By giving us your shipment you agree of all items and condition</label>
+    <label>By giving us your shipment you agree of all items and condition</label>
+    </div>
+    </td>
+    
+    <td colspan="2" rowspan="2">DECLARE VALUE/NILAI KIRIMAN</td>
+    
+  </tr>
+  <tr>
+    <td height="40">TYPE OF PAYMENT/JENIS PEMABAYARAN</td>
+    <td>TYPE OF SHIPMENT/JENIS KIRIMAN</td>
+    
+    
+    
+  </tr>
+  <tr>
+    <td><div align="center">
+        <input type="checkbox" name="checkbox" id="checkbox" />
+      CASH
+        <input type="checkbox" name="checkbox2" id="checkbox2" />
+CREDIT
+<input type="checkbox" name="checkbox3" id="checkbox3" />
+COD
+    </div>      <label for="checkbox"></label></td>
+    <td><div align="center">
+      <input type="checkbox" name="checkbox4" id="checkbox4" />
+      DOC
+      <input type="checkbox" name="checkbox4" id="checkbox5" />
+      NDX
+  <input type="checkbox" name="checkbox4" id="checkbox6" />
+      HVS
+    </div>      <label for="checkbox4"></label></td>
+    
+    
+     <td width="100">SERVICE/LAYANAN</td>
+      <td>CHARGES/HARGA(IDR)</td>
+  </tr>
+  <tr>
+    <td colspan="2">
+     <u><em>SHIPPER/PENGIRIM</em></u>
+    <p><?php echo $_POST['name1'];?></p>
+    
+   <u><em> <p>ADDRESSS/ALAMAT</p></em></u>
+    <?php echo $_POST['address1'];?>
+    <P>&nbsp;</P>
+    <P><u><em>PHONE/TELEPHONE/FAX : </em></u><?php echo $_POST['phone1'];?></P>
+    </td>
+    
+    <td colspan="2">
+        <u><em>RECEIVER/PENERIMA</em></u>
+    <p><?php echo $_POST['name2'];?></p>
+    
+    <u><em><p>ADDRESSS/ALAMAT</p></em></u>
+    <?php echo $_POST['address2'];?>
+    <P>&nbsp;</P>
+   <P> <u><em>PHONE/TELEPHONE/FAX :</em></u> <?php echo $_POST['phone2'];?></P>
+    </td>
+    
+    <td colspan="2">
+    <table  width="100%" border="0" style="border:none; margin-top:-68px; width:300px">
+    <?php foreach($tmpcharge as $row){ ?>
+  <tr>
+    <td width="150"><?php echo $row->ChargeName;?></td>
+    <td width="60"><div align="right" style="border:1px #DAD5D5 solid; text-align:right"><?php echo number_format($row->Total,2,'.',',');?></div></td>
+  </tr>
+  <?php } ?>
 </table>
 
-
+    </td>
+    
+  </tr>
+  <tr>
+    <td colspan="4">&nbsp;</td>
+    <td>TOTAL/JUMLAH</td>
+    <td><label align="center">&nbsp;   &nbsp;Rp.<?php echo number_format($_POST['total_charge'],2,',','.');?></label></td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <div class="detsend">
+        SHIPPER SIGNATURE/TANDA TANGAN PENGIRIM :
+      </div>
+      
+    </td>
+    <td colspan="2">
+    <div class="detsend">
+       ATTENTION & DEPT/DITUJUKAN & DEPT:
+       
+      </div>
+    </td>
+    <td colspan="2">
+      <div class="peringatan">
+        <label style="color:#F00">PERNYATAN PENGIRIMAN :</label>
+        <p style="color:#F00">Kami memahami dan menyetujiui bahwa kiriman senilai Rp 1.000.000,- atau lebih harus di asuransikan. Jika tidak di asuransikan, </p>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td height="46" colspan="2"><div class="detsend">DESCRIPTION OF SHIPMENT/KETERANGAN ISI : <?php echo $_POST['description'];?></div></td>
+    <td colspan="2"><div class="detsend">COLLECTED BY X-SYS/DIAMBIL OLE X-SYS</div></td>
+    <td colspan="2" rowspan="3">
+      <div class="det" style="margin-top:-22px">
+        Receiver Already receive this package in good condition/Penerima telah menerima titipan ini dengan keadaan baik dan benar.
+        
+        <p>DATE/TANGGAL.....................TIME/JAM...........</p>
+        <p>NAME/NAMA :.................</p>
+        <p>SIGNATURE & SAMP/TANDA TANGAN DAN STEMPEL : </p>
+        
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td height="49" colspan="2"><div class="detsend">DIMENTION/DIMENSI BARANG : <?php echo $_POST['grossweight'];?></div></td>
+    <td>DATE/TANGGAL : <?php echo date( 'd/m/Y');?></td>
+    <td>TME/JAM : <?php echo time();?></td>
+  </tr>
+  <tr>
+    <td colspan="2"><div class="detsend">SPECIAL INTRUCTION//INSTRUKSI KHUSUS : <?php echo $_POST['special'];?></div></td>
+    <td colspan="2">
+   <P style="font-size:16pt; text-align:center">WE CANNOT DELIVER TO PO.BOX</P>
+    <p align="center">Kami tidak dapat mengatntar alamat PO Box</p><br />
+    </td>
+  </tr>
+</table>
 <br style="clear:both;">
-  </div>        
-  </body>
+  
+
+<label>&nbsp;1. Original/Aslu : Shipper/Pengirim</label> &nbsp;
+<label>&nbsp;2. Blue/Biru : Operational/Operasional</label> &nbsp;
+<label>&nbsp;. Green/Hijau : Accounting/ Accounting</label> &nbsp;
+<label>&nbsp;4. Yello/Kuning : Return POD/POD Kembali</label> &nbsp;
+<label>&nbsp;5. Red/Merah : Receiver/ Penerima</label> &nbsp;
+
+</body>
 </html>

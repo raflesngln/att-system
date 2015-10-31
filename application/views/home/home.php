@@ -175,13 +175,13 @@ return true;
                         <i class="icon-envelope"></i>
                    
 						</button></a>
-<a href="<?php echo base_url();?>master/gallery">
+<a href="<?php echo base_url('transaksi/add_transaksi')?>">
 						<button class="btn btn-small btn-info">
 							<i class="icon-pencil"></i>
 						</button>
 </a>
 
-<a href="<?php echo base_url();?>master/gallery">
+<a href="<?php echo base_url();?>transaksi/add_invoice">
 						<button class="btn btn-small btn-warning">
 							<i class="icon-group"></i>
 						</button>

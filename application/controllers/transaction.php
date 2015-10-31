@@ -39,6 +39,7 @@ class Transaction extends CI_Controller{
     }
      //     DATA TO SESSION
     function domesctic_outgoing_house(){
+        $idusr=$this->session->userdata('idusr');
         $data = array(
             'title'=>'domesctic-outgoing-house',
             'scrumb_name'=>'Domesctic outgoing house',
@@ -50,7 +51,7 @@ class Transaction extends CI_Controller{
             'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
             'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
             'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
-            'tmpcharge'=>$this->model_app->getdatapaging("*","temp_charges","ORDER BY tempChargeId"),
+            'tmpcharge'=>$this->model_app->getdatapaging("*","temp_charges","WHERE Session='$idusr' ORDER BY tempChargeId"),
            'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
             'view'=>'pages/booking/domesctic_outgoing_house',
         );  
@@ -153,8 +154,26 @@ function hapus_item_temp(){
             'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
             'view'=>'pages/booking/printview/printview_outgoing_house',
         );  
-      $this->load->view('pages/booking/printview/printview_outgoing_house',$data);
+        ob_start();
+        $content = $this->load->view('pages/booking/printview/printview_outgoing_house',$data);
+        $content = ob_get_clean();      
+        $this->load->library('html2pdf');
+        try
+        {
+            $html2pdf = new HTML2PDF('L', 'A4', 'fr');
+            $html2pdf->pdf->SetDisplayMode('fullpage');
+            $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
+            $html2pdf->Output('data Booking.pdf');
+        }
+        catch(HTML2PDF_exception $e) {
+            echo $e;
+            exit;
+        }
+
+
+     // $this->load->view('pages/booking/printview/printview_outgoing_house',$data);
     }  
+
 
 
 

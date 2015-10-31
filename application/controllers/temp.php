@@ -139,7 +139,7 @@ $this->form_validation->set_rules('charge','charge','required|trim|xss_clean');
             'Unit'   		  =>$this->input->post('unit'),
             'Qty'   		  =>$this->input->post('qty'),
             'Total'  		  => $this->input->post('unit') * $this->input->post('qty'),
-            'Session'  		  =>"charges",
+            'Session'  		  =>$this->session->userdata('idusr'),
              );
 		      $this->model_app->insert('temp_charges',$data);
 		      redirect('transaction/domesctic_outgoing_house');
