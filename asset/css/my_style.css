@@ -9,6 +9,7 @@
 */
 *{
 	font-size: 14px;
+	transition: background-color 240ms ease 0s;
 }
 .company-name{
 

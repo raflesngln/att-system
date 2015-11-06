@@ -4,6 +4,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Documento sin título</title>
 <style>
+
+            @font-face {
+                font-family: code39;
+				src:url(<?php echo base_url();?>asset/Bar-Code_39/Code39.ttf);
+            }
+			
+			
 *{ font-size:10px;}
 .bx{margin-top:-5px;}
 .bx-sm{margin-top:-2px; position:relative}
@@ -71,8 +78,9 @@ table tr td{border: 1px solid #B1ACAC;
    </div>
     </td>
     
-    <td colspan="2"><p align="center">|||||||||||||||||||||||||||||||||||||||||||||||||</p>
-    <p align="center">123435666787889789</p></td>
+    <td colspan="2">
+   <p align="center"><font face="code39" size="6em">|||||||||||||||||||||||||||||||||||||||||</font></p>
+    <p align="center">1213452323</p></td>
   </tr>
   <tr>
     <td colspan="2">Account No.</td>

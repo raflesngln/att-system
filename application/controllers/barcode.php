@@ -5,32 +5,23 @@ if (!defined('BASEPATH'))
 
 class Barcode extends CI_Controller
 {
+	//$CI =& get_instance();
     //put your code here
     function __construct()
     {
         parent::__construct();
-        $this->load->library('zend');
+        $this->load->library('mylib');
     }
 
     function index()
     {
+    	echo $this->mylib->hello('Raflesia Nainggolan Jakarta barat')."<br>";
 
-        $this->load->view("barcodeview");
+    	echo  $this->mylib->rupiah(123920000);
+
+    	//$this->load->view("barcodeview",$data);
 
     }
-
-    function generate($kode)
-    {
-        // we load zend barcode
-        $this->zend->load('Zend/Barcode');
-        Zend_Barcode::renderer('code128', 'image', array('text' => $kode), array());
-
-        // we can save it with image
-       // $test = Zend_Barcode::draw('code128', 'image', array('text' => '1234565'), array());
-        //var_dump($test);
-     //   imagejpeg($test, 'barcode.jpg', 100);
-
-        }
 }
 
 /* End of File: zendbar.php */
