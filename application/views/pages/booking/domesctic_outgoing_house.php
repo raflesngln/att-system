@@ -360,50 +360,7 @@ $grandt+=$chr->Total;
   
                                     </div>
   
-
-  
-<h2><span class="label label-large label-pink arrowed-in-right"><strong>Consol to Master/ SMU</strong></span></h2>
-                                    <div class="form-group">
-                                        <div class="table-responsive" id="table_responsive">
-                                        <table class="table table-striped table-bordered table-hover">
-                                              <thead>
-                                                
-                                                  <th>No.</th>
-                                                  <th>SMU No</th>
-                                                  <th>Origin</th>
-                                                  <th>Dest</th>
-                                                  <th>Qty</th>
-                                                  <th>CWT</th>
-                                                  <th class="text-center"><div align="center">Action</div></th>
-                                                </tr>
-                                              </thead>
-                                              <tbody>
-                                                  <tr>
-                                                  <td>1</td>
-                                                  <td>xxx</td>
-                                                  <td>999</td>
-                                                  <td>999</td>
-                                                  <td>999</td>
-                                                  <td>999</td>
-                                                  <td>
-                                                  <div align="center">
-                                                  <a class="btn btn-success btn-addnew btn-mini" href="#modaladd2" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a>
-                                                  <a href="<?php echo base_url();?>master/delete_disc/<?php echo $data->id?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete item">
-                                                  <button class="btn btn-mini btn-danger"><i class="fa fa-times bigger-120"></i></button>
-                                                  </a> 
-                                                  </div>
-                                                  </td>
-                                                </tr>
-                                                 <tr>
-                                                  <td colspan="7">&nbsp;</td>
-                                                </tr>
-                                                <thead>
-                                            
-                                                </thead>
-                                              </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                                    
                                   <div class="cpl-sm-12"><h2>&nbsp;</h2>
                                   <div class="row">
                                       <div class="col-md-4"></div>
@@ -669,66 +626,7 @@ $grandt+=$chr->Total;
         </div>
     </div>
     </div>
-<!--adding form 2-->
-<div id="modaladd2" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add consol master/SMU</h3>
-            </div>
-            <div class="smart-form scroll">
-                <form method="post" action="<?php echo site_url('master/save_disc')?>">
-                    <div class="modal-body">
-                     
-                   
-<div class="form-group">
-                        <label class="col-sm-3 control-label">SMU No </label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Origin</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>
-  <div class="form-group">
-                        <label class="col-sm-3 control-label">Destination</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">QTY</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>                    
- <div class="form-group">
-                        <label class="col-sm-3 control-label">CWT</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="rp" type="text" class="form-control" placeholder="" id="rp" />
-    </span></div>
-                        <div class="clearfix"></div>
-                      </div>
-  <div class="modal-footer">
-<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
-    </div>
-                    </div>
-            
-                </form>
-            </div>
-        </div>
-    </div>
-    </div>
+
     
 
 <!--ADDING NEW CUSTOMERS MODAL-->
