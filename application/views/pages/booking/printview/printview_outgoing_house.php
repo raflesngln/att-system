@@ -107,7 +107,7 @@ table tr td{border: 1px solid #B1ACAC;
   </tr>
   <tr>
     <td><div align="center">
-        <input type="checkbox" name="checkbox" id="checkbox" />
+        <input type="checkbox" name="checkbox1" id="checkbox" />
       CASH
         <input type="checkbox" name="checkbox2" id="checkbox2" />
 CREDIT
@@ -117,9 +117,9 @@ COD
     <td><div align="center">
       <input type="checkbox" name="checkbox4" id="checkbox4" />
       DOC
-      <input type="checkbox" name="checkbox4" id="checkbox5" />
+      <input type="checkbox" name="checkbox5" id="checkbox5" />
       NDX
-  <input type="checkbox" name="checkbox4" id="checkbox6" />
+  <input type="checkbox" name="checkbox6" id="checkbox6" />
       HVS
     </div>      <label for="checkbox4"></label></td>
     

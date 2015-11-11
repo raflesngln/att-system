@@ -92,7 +92,7 @@ function toRp(angka){
                    <?php
                    foreach ($payment_type as $pay) {
                    ?>
-                     <option value="<?php echo $pay->payCode.'-'.$pay->payName;?>"><?php echo $pay->payName;?></option>
+                     <option value="<?php echo $pay->payName.'-'.$pay->payName;?>"><?php echo $pay->payName;?></option>
                      <?php } ?>
           </select>
           </div>
@@ -102,7 +102,7 @@ function toRp(angka){
           <option value="">Choose Service</option>
           <?php foreach ($service as $sv) {
           ?>
-          <option value="<?php echo $sv->svCode.'-'.$sv->Name;?>"><?php echo $sv->Name;?></option>
+          <option value="<?php echo $sv->Name.'-'.$sv->Name;?>"><?php echo $sv->Name;?></option>
           <?php } ?>
           </select>
           </div>
@@ -112,7 +112,7 @@ function toRp(angka){
           <option value="">Choose Origin</option>
           <?php foreach ($city as $ct) {
           ?>
-          <option value="<?php echo $ct->cyCode.'-'.$ct->cyName;?>"><?php echo $ct->cyName;?></option>
+          <option value="<?php echo $ct->cyName.'-'.$ct->cyName;?>"><?php echo $ct->cyName;?></option>
           <?php } ?>
           </select>
           </div>
@@ -153,7 +153,7 @@ function toRp(angka){
 <div class="clearfx">&nbsp;</div>
         <strong><label class="col-sm-4">Booking No</label></strong>
           <div class="col-sm-7">
-           <input name="bookno" type="text" class="form-control"  id="bookno" required="required" />
+           <input name="booking" type="text" class="form-control"  id="booking"  />
           </div>
 
            <strong><label class="col-sm-4"> ETD</label></strong>
@@ -219,11 +219,11 @@ function toRp(angka){
         ?>
                                                   <tr align="right">
                                                   <td><div align="center"><?=$no;?></div></td>
-                                                  <td><?php echo $items['qty']; ?></td>
-                                                  <td><?php echo $items['p']; ?></td>
-                                                  <td><?php echo $items['l']; ?></td>
-                                                  <td><?php echo $items['t']; ?></td>
-                                                  <td><?php echo number_format($items['v'],2,'.',',');?></td>
+                                                  <td><input name="pcs[]" type="hidden" id="pcs[]" value="<?php echo $items['qty']; ?>" />                                                    <?php echo $items['qty']; ?></td>
+                                                  <td><input name="p[]" type="hidden" id="p[]" value="<?php echo $items['p']; ?>" />                                                    <?php echo $items['p']; ?></td>
+                                                  <td><input name="l[]" type="hidden" id="l[]" value="<?php echo $items['l']; ?>" />                                                    <?php echo $items['l']; ?></td>
+                                                  <td><input name="t[]" type="hidden" id="t[]" value="<?php echo $items['t']; ?>" />                                                    <?php echo $items['t']; ?></td>
+                                                  <td><input name="v[]" type="hidden" id="v[]" value="<?php echo $items['v']; ?>" />                                                    <?php echo number_format($items['v'],2,'.',',');?></td>
                                                   <td>
                                                   <div align="center">
                                                    <a href="<?php echo base_url(); ?>temp/delete_item/<?php echo $items['rowid']; ?>" onclick="return confirm('Yakin Hapus ?');" title="Delete item">
@@ -241,7 +241,7 @@ function toRp(angka){
                                                   <td>&nbsp;</td>
                                                   <td>&nbsp;</td>
                                                   <td>&nbsp;</td>
-                                                  <td><?php echo number_format($t_volume,2,'.',',');?></td>  
+                                                  <td><input name="t_volume" type="hidden" id="t_volume" value="<?php echo $t_volume;?>" />                                                    <?php echo number_format($t_volume,2,'.',',');?></td>  
                                                   <td>&nbsp;</td>
                                                 </tr>
                                                 </thead>
@@ -308,12 +308,12 @@ function toRp(angka){
                                         <div class="table-responsive" id="table_responsive">
                                         <table class="table table-striped table-bordered table-hover">
                                               <thead>
-                                                  <th>No.</th>
-                                                  <th>Charges</th>
-                                                  <th>Desc</th>
-                                                  <th>Unit</th>
-                                                  <th>Qty</th>
-                                                  <th>Total</th>
+                                                  <th width="24">No.</th>
+                                                  <th width="56">Charges</th>
+                                                  <th width="61">Desc</th>
+                                                  <th width="49">Unit</th>
+                                                  <th width="44">Qty</th>
+                                                  <th width="62">Total</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                                 <tr>
@@ -331,11 +331,19 @@ $grandt+=$chr->Total;
         ?>
                                                   <tr>
                                                   <td><?=$i;?></td>
-                                                  <td><?php echo $chr->ChargeName;?></td>
-                                                  <td><?php echo $chr->Description;?></td>
-                                                  <td><div align="right"><?php echo number_format($chr->Unit,2,',','.');?></div></td>
-                                                  <td><div align="right"><?php echo $chr->Qty;?></div></td>
-                                                  <td><div align="right"><?php echo number_format($chr->Total,2,'.',',');?></div></td>
+                                                  <td><?php echo $chr->ChargeName;?>
+                                                    <input name="charge[]" type="hidden" id="charge[]" value="<?php echo $chr->ChargeName;?>" /></td>
+                                                  <td><?php echo $chr->Description;?>
+                                                    <input name="desc[]" type="hidden" id="desc[]" value="<?php echo $chr->Description;?>" /></td>
+                                                  <td><div align="right">
+                                                    <input name="unit[]" type="hidden" id="unit[]" value="<?php echo $chr->Unit;?>" />
+                                                    <?php echo number_format($chr->Unit,2,',','.');?>                                                  </div></td>
+                                                  <td><div align="right">
+                                                    <input name="qty[]" type="hidden" id="qty[]" value="<?php echo $chr->Qty;?>" />
+                                                    <?php echo $chr->Qty;?></div></td>
+                                                  <td><div align="right">
+                                                    <input name="total[]" type="hidden" id="total[]" value="<?php echo $chr->Total;?>" />
+<?php echo number_format($chr->Total,2,'.',',');?></div></td>
                                                   <td>
                                                   <div align="center">
                                                <a href="<?php echo base_url();?>temp/delete_charge/<?php echo $chr->tempChargeId?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete item">
@@ -350,7 +358,7 @@ $grandt+=$chr->Total;
                                                   <?php echo "Rp ". number_format($grandt,2,'.',',');?>
 												  <input type="hidden" name="total_charge" value="<?php echo $grandt;?>" />
                                                   </strong></div></td>
-                                                  <td>&nbsp;</td>
+                                                  <td width="143">&nbsp;</td>
                                                 </tr>
                                                 </thead>
                                               </tbody>

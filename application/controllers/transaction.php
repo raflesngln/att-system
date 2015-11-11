@@ -142,6 +142,67 @@ function hapus_item_temp(){
 
 //     DATA TO SESSION
     function preview_outgoing_house(){
+//==============  Save charges and items inevery table refer to SMU number =======================//
+	$pcs=$_POST['pcs'];	
+	foreach($pcs as $key => $val)
+	{
+   		$pcs =$_POST['pcs'][$key];
+        $p  =$_POST['p'][$key];
+		$l  =$_POST['l'][$key];	
+		$t  =$_POST['t'][$key];	
+		$v  =$_POST['v'][$key];	
+	$newitem=array(
+		'HouseNo' =>$this->input->post('house'),
+		'NoPack'=>$pcs,
+		'Length'=>$p,
+		'Width'=>$l,
+		'Height'=>$t,
+		'Volume'=>$v,
+		'Date'=>date('Y-m-d:h-s-m')
+		);		
+		 $this->model_app->insert('booking_items',$newitem);
+	}
+	$charge=$_POST['charge'];	
+	foreach($charge as $key => $val)
+	{
+   		$charge =$_POST['charge'][$key];
+        $unit =$_POST['unit'][$key];
+		$qty  =$_POST['qty'][$key];
+		$desc =$_POST['desc'][$key];
+	$newcharge=array(
+		'HouseNo' =>$this->input->post('house'),
+		'ChargeName'=>$charge,
+		'Unit'=>$unit,
+		'Qty'=>$qty,
+		'Desc'=>$desc,
+		'Date'=>date('Y-m-d:h-s-m')
+		);		
+		 $this->model_app->insert('booking_charges',$newcharge);
+	}
+	//----- SAVE OF OUT GOING HOUSE --------------////
+$OutHouse=array(
+		'HouseNo' =>$this->input->post('house'),
+		'JobNo' =>$this->input->post('job'),
+		'BookingNo' =>$this->input->post('booking'),
+		'PayCode' =>$this->input->post('paymentype'),
+		'Service' =>$this->input->post('service'),
+		'Origin' =>$this->input->post('origin'),
+		'Destination' =>$this->input->post('desti'),
+		'ETD' =>date('Y-m-d:h-s-m',$this->input->post('etd')),
+		'Shipper' =>$this->input->post('idshipper'),
+		'CodeShipper' =>$this->input->post('codeship'),
+		'Consigne' =>$this->input->post('idconsigne'),
+		'CodeConsigne' =>$this->input->post('codesigne'),
+		'Commodity' =>$this->input->post('commodity'),
+		'GrossWeight' =>$this->input->post('grossweight'),
+		'SpecialIntraction' =>$this->input->post('special'),
+		'CWT' =>$this->input->post('cwt'),
+		'DeclareValue' =>$this->input->post('declare'),
+		'DescofShipment' =>$this->input->post('description'),
+		'Date'=>date('Y-m-d:h-s-m')
+		);		
+		 $this->model_app->insert('out_going_house',$OutHouse);	
+//==============  print view in PDF   =======================//
         $data = array(
             'title'=>'domesctic_incoming_master',
             'scrumb_name'=>'domesctic_incoming_master',

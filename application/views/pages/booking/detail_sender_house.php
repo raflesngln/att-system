@@ -7,7 +7,7 @@
           </div>
           <strong><label class="col-sm-4"> Phone</label></strong>
           <div class="col-sm-7">
-           <input name="phone1" type="text" class="form-control"  id="phone1" required="required" value="<?php echo $row->Phone;?>" readonly="readonly"/>
+           <input name="phone1" type="text" class="form-control"  id="phone1" value="<?php echo $row->Phone;?>" readonly="readonly"/>
           </div>
           <strong><label class="col-sm-4"> Address</label></strong>
           <div class="col-sm-7">
@@ -15,6 +15,6 @@
           </div>
           <strong><label class="col-sm-4"> Code Shipper</label></strong>
           <div class="col-sm-7">
-           <input name="codeship" type="text" class="form-control"  id="codeship" required="required"/>
+           <input name="codeship" type="text" class="form-control"  id="codeship"/>
           </div>
           <?php } ?>
