@@ -151,7 +151,7 @@ gr
           </div>
            <strong><label class="col-sm-4"> ETD</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="tgl" required="required" readonly="readonly" required="required" placeholder="<?php echo date("m/d/Y") ;?>"/>
+           <input name="name" type="text" class="form-control"  id="tgl" required="required" readonly="readonly"  placeholder="<?php echo date("m/d/Y") ;?>"/>
           </div>
 
     <div class="col-sm-12"><hr></div>

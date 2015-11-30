@@ -245,7 +245,7 @@ function toRp(angka){
                                                   <td>&nbsp;</td>
                                                   <td>&nbsp;</td>
                                                   <td>&nbsp;</td>
-                                                  <td><input name="t_volume" type="text" id="t_volume" value="" />                                                    <?php echo number_format($t_volume,2,'.',',');?></td>  
+                                                  <td><input name="t_volume" type="text" id="t_volume" value="0" />                                                    <?php echo number_format($t_volume,2,'.',',');?></td>  
                                                   <td>&nbsp;</td>
                                                 </tr>
                                                 </thead>
@@ -909,17 +909,16 @@ $("#txtsearch").keyup(function(){
 
 
    $("#iditems").click(function(){
-     var t_volume=0;
 	//var t_volume=$('#idtotal').val();   
 	var pcs=$('#pack').val();
 	var panjang=$('#panjang').val();
 	var lebar=$('#lebar').val();
 	var tinggi=$('#tinggi').val();
-	
  	var kali = parseInt(panjang) * parseInt(lebar) * parseInt(tinggi);
- 	
-	var total_volume=t_volume+kali;
-			
+ 	var t_volume=$('#t_volume').val();
+	
+	var total_volume=parseInt(kali)+ parseInt(t_volume);
+					
 		
 	text='<tr class="gradeX" align="right">'
 	+ '<td></td>'
@@ -929,43 +928,29 @@ $("#txtsearch").keyup(function(){
     + '<td>' +  '<input type="text" name="t[]" id="t[]" size="5" value="'+ tinggi +'">' +'</td>'
     + '<td>' + '<input type="text" name="v[]" id="v[]" size="5" value="'+ kali +'">' +'</td>'
 
-	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" onclick="hapus(this)" type="button"  >' + 'hapus' + '</button></td>'
+	+'<td align="center">' + '<input type="text" id="tt" name="tt" value="' + kali +'">'+ '<button class="btndel btn-danger btn-mini" onclick="hapus(this)" type="button"  >' + 'hapus' + '</button></td>'
     + '</tr>';
-		
-		$("#t_volume").val(total_volume);
-    	$('#tblitems tbody').append(text);
 	
+		$('#tblitems tbody').append(text);
+		$("#t_volume").val(total_volume);
 		
 		$("#modaladd").modal('hide');
 
         });
 
-    $(".btndel").on("click", function(){
-        alert("The paragraph was clicked");
+    $("#btndel").on("click", function(){
+        alert('The paragraph was clicked');
     });
 		
-		
-		
-		
 	function hapus(th) {
-     //alert('terer');   
+      var tt=$("#tt").val();;
+	  var t_volume=$('#t_volume').val();
+	  var kurangi=parseInt(t_volume)- parseInt(tt);
+	  $("#t_volume").val(kurangi);
+	  
      t = $(th);
-     console.log(t);
      tr = t.parent().parent();
      tr.hide();
  }
- 
- 
- function findById(source, id) {
-	 var pcs=$_POST['pack'];
-  for (var i = 0; i < source.length; i++) {
-    if (source[i].id === id) {
-      return source[i];
-    }
-  }
-  throw "Couldn't find object with id: " + id;
-  
-  
-}
- 										//////////
+
 </script>
