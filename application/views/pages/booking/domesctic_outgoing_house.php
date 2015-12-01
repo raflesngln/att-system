@@ -68,7 +68,7 @@ function toRp(angka){
       
 
 <br style="clear:both">
-<form method="post" action="<?php echo base_url();?>transaction/preview_outgoing_house" target="_blank">
+<form method="post" action="<?php echo base_url();?>transaction/confirm_outgoing_house" target="_blank">
 <div class="container">
   <div class="row">
                <!--LEFT INPUT-->
@@ -78,11 +78,11 @@ function toRp(angka){
 <div class="clearfx">&nbsp;</div>         
           <strong><label class="col-sm-4"> JOB No</label></strong>
           <div class="col-sm-7">
-           <input name="job" type="text" class="form-control"  id="name" required="required"/>
+           <input name="job" type="text" class="form-control"  id="name" required="required" value="<?php echo $getjob;?>"/>
           </div>
           <strong><label class="col-sm-4"> House No</label></strong>
           <div class="col-sm-7">
-           <input name="house" type="text" class="form-control"  id="name" required="required" />
+           <input name="house" type="text" class="form-control"  id="name" required="required" value="<?php echo $getHouse;?>" />
           </div>
 
           <strong><label class="col-sm-4"> Payment Type</label></strong>
