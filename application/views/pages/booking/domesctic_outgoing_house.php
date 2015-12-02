@@ -87,7 +87,7 @@ function toRp(angka){
 
           <strong><label class="col-sm-4"> Payment Type</label></strong>
           <div class="col-sm-7">
-          <select name="paymentype" class="form-control" required=required>
+          <select name="paymentype" class="form-control" required="required" id="paymentype">
           <option value="">Select Payment  Type</option>
                    <?php
                    foreach ($payment_type as $pay) {
@@ -98,7 +98,7 @@ function toRp(angka){
           </div>
           <strong><label class="col-sm-4"> Service</label></strong>
           <div class="col-sm-7">
-           <select name="service" id="filter" class="form-control" required="required">
+           <select name="service" id="service" class="form-control" required="required">
           <option value="">Choose Service</option>
           <?php foreach ($service as $sv) {
           ?>
@@ -108,7 +108,7 @@ function toRp(angka){
           </div>
           <strong><label class="col-sm-4"> Origin</label></strong>
           <div class="col-sm-7">
-           <select name="origin" id="filter" class="form-control" required="required">
+           <select name="origin" id="origin" class="form-control" required="required">
           <option value="">Choose Origin</option>
           <?php foreach ($city as $ct) {
           ?>
@@ -118,7 +118,7 @@ function toRp(angka){
           </div>
           <strong><label class="col-sm-4"> Destination</label></strong>
           <div class="col-sm-7">
-           <select name="desti" id="filter" class="form-control" required="required">
+           <select name="desti" id="desti" class="form-control" required="required">
           <option value="">Choose Destination</option>
           <?php foreach ($city as $ct) {
           ?>
@@ -906,11 +906,20 @@ $("#txtsearch").keyup(function(){
             });
 
         });
+     $("#iditems").click(function(){
+	var pcs=$('#origin').val();
+	var panjang=$('#desti').val();
+	var lebar=$('#paymentype').val();
+	var tinggi=$('#booking').val();
+	var idshipper=$('#idshipper').val();
+	
+     alert(pcs + '/' + panjang +'/' + lebar + '/'+ tinggi + '/'+ idshipper);
 
+        });
 
-   $("#iditems").click(function(){
+   $("#iditemsss").click(function(){
 	//var t_volume=$('#idtotal').val();   
-	var pcs=$('#pack').val();
+	var pcs=$('#pcs').val();
 	var panjang=$('#panjang').val();
 	var lebar=$('#lebar').val();
 	var tinggi=$('#tinggi').val();
@@ -922,13 +931,13 @@ $("#txtsearch").keyup(function(){
 		
 	text='<tr class="gradeX" align="right">'
 	+ '<td></td>'
-    + '<td>' + '<input type="text" name="pcs[]" id="pcs[]" size="5" value="'+ pcs +'">' +'</td>'
+    + '<td>' + '<?php echo "rafff";?>' + '<input type="text" name="pcs[]" id="pcs[]" size="5" value="'+ pcs +'">' +'</td>'
     + '<td>' + '<input type="text" name="p[]" id="p[]" size="5" value="'+ panjang +'">' +'</td>'
     + '<td>' +  '<input type="text" name="l[]" id="l[]" size="5" value="'+ lebar +'">' +'</td>'
     + '<td>' +  '<input type="text" name="t[]" id="t[]" size="5" value="'+ tinggi +'">' +'</td>'
     + '<td>' + '<input type="text" name="v[]" id="v[]" size="5" value="'+ kali +'">' +'</td>'
 
-	+'<td align="center">' + '<input type="text" id="tt" name="tt" value="' + kali +'">'+ '<button class="btndel btn-danger btn-mini" onclick="hapus(this)" type="button"  >' + 'hapus' + '</button></td>'
+	+'<td align="center">' + '<input type="text" id="tt" name="tt[]" value="' + kali +'">'+ '<button class="btndel btn-danger btn-mini" onclick="hapus(this)" type="button"  >hapus</button></td>'
     + '</tr>';
 	
 		$('#tblitems tbody').append(text);
@@ -946,11 +955,35 @@ $("#txtsearch").keyup(function(){
       var tt=$("#tt").val();;
 	  var t_volume=$('#t_volume').val();
 	  var kurangi=parseInt(t_volume)- parseInt(tt);
-	  $("#t_volume").val(kurangi);
-	  
+		
+					 
+	 $("#t_volume").val(kurangi);
+					 
      t = $(th);
      tr = t.parent().parent();
      tr.hide();
  }
 
+
+
+
+function hapus2(){
+	var input_tipe = document.getElementsByTagName("tt");
+	var select_tipe = document.getElementsByTagName("t_volume");
+	var arr_harga = new Array();
+	for(var j = 0; j<input_tipe.length; j++)
+	{
+		if (input_tipe[j].name=="tt[]")
+		{
+			arr_harga[j] = input_tipe[j].value;
+		}
+	}
+		document.getElementById('t_volume').value =sum;
+		//document.frm.total.value = jum_total;
+	
+	//var sum = 0;
+	//var jum_total =arr_harga[j];
+	//document.getElementById('t_volume').value =jum_total;
+
+}
 </script>
