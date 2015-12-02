@@ -327,10 +327,40 @@ $OutHouse=array(
 
      // $this->load->view('pages/booking/printview/printview_outgoing_house',$data);
     }  
+   function barang(){
+	   $data=$this->model_app->getdata('barang',"");
+	   $this->load->view('pages/booking/data_barang',$data);
+   }
 
+function ambil_detail(){	
+	//if(isset($_GET['action']) && $_GET['action'] == "getDetail") {
+	//$kode_brg = $_GET['kode_brg'];
+	$kode_brg = $_GET['kode'];
+	//$kode_brg =$this->uri->segment(3);
+	$cari=$this->model_app->getdata('barang',"");
+	
+if($cari){
+	 $arr=array();
+	 foreach($cari as $rw){
+		 
+		 $dt=array(
+		 'nama'=>$rw->nm_barang,
+		 'harga'=>$rw->harga,
+		 'jenis'=>$rw->jenis
+		 
+		 );
+		//$data[]=$dt; 
+		array_push($arr, $dt);
+	 }
+} 
+ $data=json_encode($arr);
+echo "{\"list_event\":" . $data . "}";
 
+exit;
 
-
+}
+	
+	
 
 
 }
