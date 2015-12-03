@@ -44,8 +44,6 @@ class Transaction extends CI_Controller{
             'title'=>'domesctic-outgoing-house',
             'scrumb_name'=>'Domesctic outgoing house',
             'scrumb'=>'transaction/domesctic_outgoing_house',
-			'getHouse'=>$this->model_app->getHouseNo("08"),
-			'getjob'=>$this->model_app->getJob("08"),
             'payment_type'=>$this->model_app->getdatapaging("payCode,payName","ms_payment_type","ORDER BY payCode ASC"),
             'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
             'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
@@ -144,7 +142,10 @@ function hapus_item_temp(){
 
 //     DATA TO PDF
     function confirm_outgoing_house(){
-//==============  Save charges and items inevery table refer to SMU number =======================//
+		$getHouse=$this->model_app->getHouseNo("08");
+		$getjob=$this->model_app->getJob("JOB-");
+			
+//====Save charges and items inevery table refer to SMU number ==============//
 	$pcs=$_POST['pcs'];	
 	foreach($pcs as $key => $val)
 	{
@@ -153,8 +154,8 @@ function hapus_item_temp(){
 		$l  =$_POST['l'][$key];	
 		$t  =$_POST['t'][$key];	
 		$v  =$_POST['v'][$key];	
-	$newitem=array(
-		'HouseNo' =>$this->input->post('house'),
+		$newitem=array(
+		'HouseNo' =>$getHouse,
 		'NoPack'=>$pcs,
 		'Length'=>$p,
 		'Width'=>$l,
@@ -164,27 +165,27 @@ function hapus_item_temp(){
 		);		
 		 $this->model_app->insert('booking_items',$newitem);
 	}
-	$charge=$_POST['charge'];	
-	foreach($charge as $key => $val)
+	$qty=$_POST['qty'];	
+	foreach($qty as $key => $val)
 	{
-   		$charge =$_POST['charge'][$key];
+   		$charge =$_POST['idcharge'][$key];
         $unit =$_POST['unit'][$key];
 		$qty  =$_POST['qty'][$key];
 		$desc =$_POST['desc'][$key];
-	$newcharge=array(
-		'HouseNo' =>$this->input->post('house'),
+		$newcharge=array(
+		'HouseNo' =>$getHouse,
 		'ChargeName'=>$charge,
 		'Unit'=>$unit,
 		'Qty'=>$qty,
-		'Desc'=>$desc,
+		'Description'=>$desc,
 		'Date'=>date('Y-m-d:h-s-m')
 		);		
 		 $this->model_app->insert('booking_charges',$newcharge);
 	}
 	//----- SAVE OF OUT GOING HOUSE --------------////
 $OutHouse=array(
-		'HouseNo' =>$this->input->post('house'),
-		'JobNo' =>$this->input->post('job'),
+		'HouseNo' =>$getHouse,
+		'JobNo' =>$getjob,
 		'BookingNo' =>$this->input->post('booking'),
 		'PayCode' =>$this->input->post('paymentype'),
 		'Service' =>$this->input->post('service'),
@@ -203,18 +204,19 @@ $OutHouse=array(
 		'DescofShipment' =>$this->input->post('description'),
 		'Date'=>date('Y-m-d:h-s-m')
 		);		
-		 $this->model_app->insert('out_going_house',$OutHouse);	
+		 $this->model_app->insert('outgoing_connote',$OutHouse);	
 //==============  print view in HTML   =======================//
         $data = array(
-            'title'=>'domesctic_incoming_master',
-            'scrumb_name'=>'domesctic_incoming_master',
-            'scrumb'=>'transaction/domesctic_incoming_master',
+            'title'=>'domesctic_outgoing_house',
+            'scrumb_name'=>'domesctic_outgoing_house',
+            'scrumb'=>'transaction/domesctic_outgoing_house',
             'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
             'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
             'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
             'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
             'tmpcharge'=>$this->model_app->getdatapaging("*","temp_charges","ORDER BY tempChargeId"),
             'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
+			'outgoing_connote'=>$this->model_app->getdatapaging("*","outgoing_connote","ORDER BY HouseNo ASC"),
             'view'=>'pages/booking/printview/confirm_outgoing_house',
         );  
         ob_start();
@@ -228,6 +230,8 @@ $OutHouse=array(
     function preview_outgoing_house(){
 //==============  Save charges and items inevery table refer to SMU number =======================//
 	$pcs=$_POST['pcs'];	
+	/*
+	// DONT EXECUTE THIS CODE 
 	foreach($pcs as $key => $val)
 	{
    		$pcs =$_POST['pcs'][$key];
@@ -286,6 +290,8 @@ $OutHouse=array(
 		'Date'=>date('Y-m-d:h-s-m')
 		);		
 		 $this->model_app->insert('out_going_house',$OutHouse);	
+		 */
+		/* DONT EXEDCUTE */
 //==============  print view in PDF   =======================//
         $data = array(
             'title'=>'domesctic_incoming_master',

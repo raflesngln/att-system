@@ -7,7 +7,7 @@ class Model_app extends CI_Model{
     public function getJob($status)
     {
 		$bulan=date('m');
-        $query = $this->db->query("select MAX(RIGHT(JobNo,5)) as kd_max from out_going_house WHERE MID(JobNo,7,2)='$bulan'");
+        $query = $this->db->query("select MAX(RIGHT(JobNo,5)) as kd_max from outgoing_connote WHERE MID(JobNo,7,2)='$bulan'");
         $kd = "";
         if($query->num_rows()>0)
         {
@@ -28,7 +28,7 @@ class Model_app extends CI_Model{
     public function getHouseNo()
     {
 		$bulan=date('m');
-        $query = $this->db->query("select MAX(RIGHT(HouseNo,4)) as kd_max from out_going_house WHERE MID(HouseNo,7,2)='$bulan'");
+        $query = $this->db->query("select MAX(RIGHT(HouseNo,4)) as kd_max from outgoing_connote WHERE MID(HouseNo,7,2)='$bulan'");
         $kd = "";
         if($query->num_rows()>0)
         {
