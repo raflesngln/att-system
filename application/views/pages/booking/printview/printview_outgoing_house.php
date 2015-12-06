@@ -79,7 +79,7 @@ table tr td{border: 1px solid #B1ACAC;
     </td>
     
     <td colspan="2">
-   <p align="center"><font face="code39" size="6em">|||||||||||||||||||||||||||||||||||||||||</font></p>
+   <p align="center"><font face="code39" size="6em">||||||||||||||||||||||||||||||</font></p>
     <p align="center">1213452323</p></td>
   </tr>
   <tr>
