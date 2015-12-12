@@ -164,8 +164,6 @@ $this->form_validation->set_rules('name2','name2','required|trim|xss_clean');
 
 //------------delete data----------------------------------
 function delete_staff(){
-	 if($this->session->userdata('login_status') == TRUE )
- {
 	$kode=$this->uri->segment(3);
 	if($this->session->userdata('login_status') != TRUE )
 	   {
@@ -175,12 +173,49 @@ function delete_staff(){
 	{
     $this->model_app->delete_data('ms_staff','empCode',$kode);
 	redirect('staff/view_staff');
+    }
+
+}
+//------------delete data----------------------------------
+function delete_staff_ajax(){
+	
+	$kode=$this->input->post('idhapus');
+	if($this->session->userdata('login_status') != TRUE )
+	   {
+		  redirect('login');
+	}
+	else
+	{
+    $this->model_app->delete_data('ms_staff','empCode',$kode);
+	$page=$this->uri->segment(3);
+      	$limit=10;
+		if(!$page):
+		$offset = 0;
+		else:
+		$offset = $page;
+		endif;
+		
+        $data['title']='list Staff';
+		$data['scrumb_name']='Data Staff';
+		$data['scrumb']='staff/view_staff';
+		$data['list']=$this->model_app->getdata('ms_staff',"order by empCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_staff a',"order by empCode ASC");
+        	//create for pagination		
+			$config['base_url'] = base_url() . 'staff/view_staff/';
+        	$config['total_rows'] = $tot_hal->num_rows();
+        	$config['per_page'] = $limit;
+			$config['uri_segment'] = 3;
+	    	$config['first_link'] = 'First';
+			$config['last_link'] = 'last';
+			$config['next_link'] = 'Next';
+			$config['prev_link'] = 'Prev';
+       		$this->pagination->initialize($config);
+			$data["paginator"] =$this->pagination->create_links();
+
+		
+        $this->load->view('pages/staff/filter',$data);
     }	
- }
- else
- {
-	redirect('login'); 
- }
+	
 }
 function search_staff(){  
 	 

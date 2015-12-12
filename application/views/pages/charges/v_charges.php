@@ -125,8 +125,10 @@ foreach($list as $data){
                                                 </tr>
         <?php $no++; } ;?>
                                                 <tr class="gradeX pagin">
-                                                  <th colspan="12" scope="row">
-												  <?php echo $paginator;?></th>
+                          <th colspan="12" scope="row">
+												  <?php echo $paginator;?>
+                          </th>
+                          
                                                 </tr>                                
                                                 
                                               </tbody>

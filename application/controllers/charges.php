@@ -12,7 +12,7 @@ class Charges extends CI_Controller{
 	 
 function view_charges(){  
 	 	$page=$this->uri->segment(3);
-      	$limit=10;
+      	$limit=2;
 		if(!$page):
 		$offset = 0;
 		else:
