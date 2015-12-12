@@ -148,6 +148,8 @@ function toRp(angka){
           <option value="<?php echo $sv->custCode;?>"><?php echo $sv->custInitial;?></option>
           <?php } ?>
           </select>
+           <label for="textfield"></label>
+           <input type="text" name="textfield" id="textfield" />
           </div>
 <div class="col-sm-1"><a class="btn btn-success btn-addnew btn-mini" href="#modaladdcust" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a></div>
 

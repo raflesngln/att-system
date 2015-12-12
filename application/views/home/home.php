@@ -268,7 +268,7 @@ return true;
          <li>
 
 
-   <li> <label class="label label-large label-purple">&nbsp; BOOKING    &nbsp;</label></li>
+   <li> <label class="label label-large label-purple">&nbsp; OPERATIONAL    &nbsp;</label></li>
 
       <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-bookmark bigger-140" aria-hidden="true"></i> <span class="menu-text">&nbsp;Booking </span> <b class="arrow icon-angle-down"></b> </a>
         <ul class="submenu">
@@ -276,14 +276,14 @@ return true;
          <li> <a href="<?php echo base_url();?>transaction/booking_list"> <i class="icon-double-angle-right"></i> </i><i class="icon icon-file-text bigger-120"></i> &nbsp; Booking List</a></li>
 		 </ul>
 	  </li>
-	  <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-mail-reply bigger-140" aria-hidden="true"></i> <span class="menu-text">&nbsp;Incoming Book </span> <b class="arrow icon-angle-down"></b> </a>
+	  <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-mail-reply bigger-140" aria-hidden="true"></i> <span class="menu-text">&nbsp;Incoming </span> <b class="arrow icon-angle-down"></b> </a>
         <ul class="submenu">
           <li> <a href="<?php echo base_url();?>transaction/domesctic_incoming_master"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-file-archive-o bigger-120"></i> &nbsp;Incoming-Master</a></li>
  		<li> <a href="<?php echo base_url();?>transaction/domesctic_incoming_house"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Incoming-House</a></li>
  		<li> <a href="<?php echo base_url();?>transaction/incoming_consolidation"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-clone bigger-120"></i> &nbsp;Consolidation</a></li>
         </ul>
 	  </li>
-	  <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-mail-forward bigger-140" aria-hidden="true"></i> <span class="menu-text">&nbsp;Outgoing Book </span> <b class="arrow icon-angle-down"></b> </a>
+	  <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-mail-forward bigger-140" aria-hidden="true"></i> <span class="menu-text">&nbsp;Outgoing </span> <b class="arrow icon-angle-down"></b> </a>
         <ul class="submenu">
          <li> <a href="<?php echo base_url();?>transaction/domesctic_outgoing_master"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-file-archive-o bigger-120"></i> &nbsp;Outgoing-Master</a></li>
  		<li> <a href="<?php echo base_url();?>transaction/domesctic_outgoing_house"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Outgoing-House</a></li>
@@ -292,7 +292,7 @@ return true;
         </ul>
 	  </li>
  <li> <label class="label label-large label-purple">&nbsp; SALES / COST   &nbsp;</label></li>
-       <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-cc-visa bigger-150" aria-hidden="true"></i> <span class="menu-text">&nbsp;Cost </span> <b class="arrow icon-angle-down"></b> </a>
+       <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-dollar bigger-150" aria-hidden="true"></i> <span class="menu-text">&nbsp;Cost </span> <b class="arrow icon-angle-down"></b> </a>
         <ul class="submenu">
          <li><a href="<?php echo base_url();?>Payment/payment_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-arrow-circle-o-left bigger-140"></i> &nbsp; Payment Request </a> </li>
          <li> <a href="<?php echo base_url();?>Payment/settlement_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-info-circle  bigger-140"></i> &nbsp; Sentlement Req</a></li>
