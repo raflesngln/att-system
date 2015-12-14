@@ -48,6 +48,52 @@ function detail_sender(){
 
 		}
 	}
+public function getdetailshipper()
+	{
+		// tangkap variabel keyword dari URL
+$keyword = $this->uri->segment(3);
+
+//$data = $this->db->from('autocomplete')->like('nama',$keyword)->get();		
+$data=$this->model_app->getdata('ms_customer',"WHERE custName LIKE '%$keyword%'");
+
+		// format keluaran di dalam array
+		foreach($data as $row)
+		{
+			$arr['query'] = $keyword;
+			$arr['suggestions'][] = array(
+				'value'	=>$row->custName,
+				'phone'	=>$row->Phone,
+				'email'	=>$row->Email
+			);
+		}
+		echo json_encode($arr);
+	}
+	public function book2()
+	{
+		$this->load->view('pages/booking/domesctic_outgoing_house');
+	}
+	public function search()
+	{
+		// tangkap variabel keyword dari URL
+		$keyword = $this->uri->segment(3);
+
+		// cari di database
+		$data = $this->db->from('ms_customer')->like('custName',$keyword)->get();	
+
+		// format keluaran di dalam array
+		foreach($data->result() as $row)
+		{
+			$arr['query'] = $keyword;
+			$arr['suggestions'][] = array(
+				'value'	=>$row->custName,
+				'nim'	=>$row->Email,
+				'jurusan'	=>$row->Phone
+
+			);
+		}
+		// minimal PHP 5.2
+		echo json_encode($arr);
+	}
 function detail_receivement(){
 
         $custCode=$this->input->post('custCode');

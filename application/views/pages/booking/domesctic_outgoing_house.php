@@ -1,23 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+	<head>
+	    <title>Codeigniter Autocomplete</title>
+        
+<link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
 
- <style>
- .btn-search{ height:32px; margin-left:-10px;}
+  <script src="<?php echo base_url();?>asset/jquery_ui/external/jquery/jquery.js"></script>    
+ <script type='text/javascript' src='<?php echo base_url();?>asset/jquery_ui/jquery-1.8.2.min.js'></script>
+  <script type='text/javascript' src='<?php echo base_url();?>asset/js/jquery.min.js'></script>
 
-  input{
-  border:1px #B5B5B5 solid;
-  margin-bottom:5px;
-  margin-top: 3px;
- }
-   .select,.combo{
-  border:1px #B5B5B5 solid;
-  margin-bottom:5px;
-  margin-top: 3px;
- }
- 
- </style>
-       <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
-  <script src="<?php echo base_url();?>asset/jquery_ui/external/jquery/jquery.js"></script>
-  <script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
-  <script type="text/javascript">
+    
+  <link href='<?php echo base_url();?>asset/jquery_ui/jquery.autocomplete.css' rel='stylesheet' />
+<script type='text/javascript' src='<?php echo base_url();?>asset/jquery_ui/jquery.autocomplete.js'></script>
+<script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
+
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/base/jquery-ui.css" type="text/css" media="all" />
+		<link rel="stylesheet" href="http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css" type="text/	css" media="all" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js" type="text/javascript"></script>
+
+
+	    
+	    <style>
+	    	/* Autocomplete
+			----------------------------------*/
+			.ui-autocomplete { position: absolute; cursor: default; }	
+			.ui-autocomplete-loading { background: white url('http://jquery-ui.googlecode.com/svn/tags/1.8.2/themes/flick/images/ui-anim_basic_16x16.gif') right center no-repeat; }*/
+
+			/* workarounds */
+			* html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
+
+			/* Menu
+			----------------------------------*/
+			.ui-menu {
+				list-style:none;
+				padding: 2px;
+				margin: 0;
+				display:block;
+			}
+			.ui-menu .ui-menu {
+				margin-top: -3px;
+			}
+			.ui-menu .ui-menu-item {
+				margin:0;
+				padding: 0;
+				zoom: 1;
+				float: left;
+				clear: left;
+				width: 100%;
+				font-size:80%;
+			}
+			.ui-menu .ui-menu-item a {
+				text-decoration:none;
+				display:block;
+				padding:.2em .4em;
+				line-height:1.5;
+				zoom:1;
+			}
+			.ui-menu .ui-menu-item a.ui-state-hover,
+			.ui-menu .ui-menu-item a.ui-state-active {
+				font-weight: normal;
+				margin: -1px;
+			}
+	    </style>
+  <script>
   $(function() {
     $("#tgl").datepicker();
     $("#tgl2").datepicker();
@@ -58,10 +103,77 @@ function toRp(angka){
 } 
 
  }
+</script>	    
+	    <script type="text/javascript">
+	    $(this).ready( function() {
+    		$("#idshipper").autocomplete({
+      			minLength: 1,
+      			source: 
+        		function(req, add){
+          			$.ajax({
+		        		url: "<?php echo base_url(); ?>index.php/autocomplete/lookup_sender",
+		          		dataType: 'json',
+		          		type: 'POST',
+		          		data: req,
+		          		success:    
+		            	function(data){
+		              		if(data.response =="true"){
+		                 		add(data.message);
+							
+		              		}
+		            	},
+              		});
+         		},
+         	select: 
+         		function(event, ui) {
+            	/*	$("#result").append(
+            			"<li>"+ ui.item.kota + "</li>"
+            		);    */
+					$("#name1").val(ui.item.name); 
+					$("#phone1").val(ui.item.phone);
+					$("#address1").val(ui.item.address); 		
+         		},		
+    		});
+			
+//for shipper
+    		$("#idconsigne").autocomplete({
+      			minLength: 1,
+      			source: 
+        		function(req, add){
+          			$.ajax({
+		        		url: "<?php echo base_url(); ?>index.php/autocomplete/lookup_receivement",
+		          		dataType: 'json',
+		          		type: 'POST',
+		          		data: req,
+		          		success:    
+		            	function(data){
+		              		if(data.response =="true"){
+		                 		add(data.message);
+							
+		              		}
+		            	},
+              		});
+         		},
+         	select: 
+         		function(event, ui) {
+            	/*	$("#result").append(
+            			"<li>"+ ui.item.kota + "</li>"
+            		);    */
+					$("#name2").val(ui.item.name); 
+					$("#phone2").val(ui.item.phone);
+					$("#address2").val(ui.item.address); 		
+         		},		
+    		});
 
-  </script>
+	    });
+	    </script>
+	    
+	</head>
+	<body>
+		
 
-   <div class="row-fluid">
+ <!-- =================================================================================  -->   
+  <div class="row-fluid">
     <div class="span12">
                   <?php
       if(isset($eror)){?>
@@ -74,7 +186,7 @@ function toRp(angka){
             <?php }?>   
       <div class="header col-md-11">
 
-                <h3><i class="fa fa-calendar-check-o bigger-230"></i> &nbsp;Air Domestic Outgoing - Houseeee</h3>
+                <h3><i class="fa fa-calendar-check-o bigger-230"></i> &nbsp;Air Domestic Outgoing - House</h3>
             </div>
       
 
@@ -89,11 +201,13 @@ function toRp(angka){
 <div class="clearfx">&nbsp;</div>         
           <strong><label class="col-sm-4"> JOB No</label></strong>
           <div class="col-sm-7">
-           <input name="job" type="text" class="form-control"  id="name" placeholder="generated by system" readonly="readonly"/>
+           <input name="job" type="text" class="form-control"  id="name" placeholder="generated by system" readonly/>
           </div>
+
+
           <strong><label class="col-sm-4"> House No</label></strong>
           <div class="col-sm-7">
-           <input name="house" type="text" class="form-control"  id="name" placeholder="generated by system" readonly="readonly" />
+           <input name="house" type="text" class="form-control"  id="name" placeholder="generated by system" readonly />
           </div>
 
           <strong><label class="col-sm-4"> Payment Type</label></strong>
@@ -140,18 +254,31 @@ function toRp(angka){
 <div class="col-sm-12"><hr></div>
           <strong><label class="col-sm-4"> Shipper</label></strong>
           <div class="col-sm-7">
-           <select name="idshipper" id="idshipper" class="form-control combo" required="required">
-            <option value="">Select Shipper</option>
-         <?php
-          foreach($shipper as $sv){
-           ?>
-          <option value="<?php echo $sv->custCode;?>"><?php echo $sv->custInitial;?></option>
-          <?php } ?>
-          </select>
-           <label for="textfield"></label>
-           <input type="text" name="textfield" id="textfield" />
-          </div>
+            <input type="text" name="idshipper" id="idshipper" class="autocomplete form-control" placeholder="types customer name"/>
+          <input name="name1" type="hidden" class="form-control"  id="name1" required value="<?php echo $row->custName;?>"/></div>
 <div class="col-sm-1"><a class="btn btn-success btn-addnew btn-mini" href="#modaladdcust" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a></div>
+
+<div class="form-group">      
+    <div class="col-sm-4">
+      <label for="codeship">Phone</label></div>
+    <div class="col-sm-7"> <input type="text" name="phone1" id="phone1" class="autocomplete form-control" readonly/>
+    </div>
+</div>
+
+<div class="form-group">      
+    <div class="col-sm-4">
+      <label for="codeship">Address</label></div>
+    <div class="col-sm-7">
+      <textarea name="address1" class="autocomplete form-control" id="address1" readonly></textarea>
+    </div>
+</div>
+
+<div class="form-group">      
+    <div class="col-sm-4">
+      <label for="codeship">Codeship</label></div>
+    <div class="col-sm-7"> <input type="text" name="codeship" id="codeship" class="autocomplete form-control" />
+    </div>
+</div>
 
 <div class="col-sm-13" id="contenshipper"><!-- CONTENT AJAX VIEW HERE --></div>
 
@@ -179,25 +306,45 @@ function toRp(angka){
 
            <strong><label class="col-sm-4"> ETD</label></strong>
           <div class="col-sm-7">
-           <input name="etd" type="text" class="form-control"  id="tgl" required="required" value="<?php echo date("m/d/Y") ;?>" readonly="readonly"/>
+           <input name="etd" type="text" class="form-control"  id="tgl" required value="<?php echo date("m/d/Y") ;?>" readonly/>
           </div>
 <div class="col-sm-12"><h1>&nbsp;</h1></div>
 <div class="col-sm-12"><h1>&nbsp;</h1></div>
 <div class="col-sm-12"><h6>&nbsp;</h6></div>
 <div class="col-sm-12"><hr></div>
 
-            <strong><label class="col-sm-4"> Consigne</label></strong>
-          <div class="col-sm-7">
-           <select name="idconsigne" id="idconsigne" class="form-control" required="required">
-            <option value="">Select Cnee</option>
-         <?php
-          foreach($cnee as $sv){
-           ?>
-          <option value="<?php echo $sv->custCode;?>"><?php echo $sv->custName;?></option>
-          <?php } ?>
-          </select>
+          <strong><label class="col-sm-4"> Consignee</label>
+          </strong>
+            <div class="col-sm-7">
+            <input name="idconsigne" type="text" class="form-control"  id="idconsigne"/>
+            <input name="name2" type="hidden" class="form-control"  id="name2" required="required" />
           </div> 
 <div class="col-sm-1"><a class="btn btn-success btn-addnew btn-mini" href="#modaladdcust" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a></div>
+<div class="form-group">      
+  <div class="col-sm-4">
+      <label for="codeship">Phone</label></div>
+    <div class="col-sm-7">
+      <input name="phone2" type="text" class="form-control" readonly  id="phone2"/>
+    </div>
+</div>
+
+<div class="form-group">      
+    <div class="col-sm-4">
+      <label for="codeship">Address</label></div>
+    <div class="col-sm-7">
+      <textarea name="address2" class="autocomplete form-control" id="address2" readonly></textarea>
+    </div>
+</div>
+
+
+<div class="form-group">      
+    <div class="col-sm-4">
+      <label for="codeship">CodeSigne</label></div>
+    <div class="col-sm-7">
+      <input name="codesigne" type="text" class="form-control"  id="codesigne"/>
+    </div>
+</div>
+
 
 <div class="col-sm-13" id="contencnee"><!-- CONTENT AJAX VIEW HERE --></div>
    </div>
@@ -286,7 +433,7 @@ function toRp(angka){
 <div class="col-md-12">
 <label class="col-sm-4">Gross Weight</label>
   <div class="col-sm-7">
-  <input type="text" name="grossweight" id="grossweight" class="form-control" onkeypress="return isNumberKey(event)" onchange="rupiah();" required="required">
+  <input type="text" name="grossweight" id="grossweight" class="form-control" onkeypress="return isNumberKey(event)" onchange="rupiah();" required>
   <input type="text" name="grossweight2" value="" id="grossweight2" />
   </div>
 </div>
@@ -363,6 +510,7 @@ $grandt+=$chr->Total;
 <?php $no++; } ?>
                                                 <thead>
                                                  <tr>
+
                                                   <td colspan="3"><b>Total</b></td>
                                                   <td colspan="3"><div align="right"><strong>
                                                   <input name="total_charge" type="hidden" id="total_charge" value="0" />
@@ -391,14 +539,13 @@ $grandt+=$chr->Total;
                                         </div>  </div>     
               </div>
           </div>
-      </div>
+         </div>
 
       </form>
   </div>
             </div>
-  
-
-<!--edit form-->
+              
+ <!--edit form-->
 <?php
 
     foreach($list as $row){
@@ -411,7 +558,8 @@ $grandt+=$chr->Total;
     if($isCnee==1){ $status3='YES';}else{$status3='NO';}
     if($isaktif==1){ $status4='YES';}else{$status4='NO';}
         ?>
-<div id="modaledit<?php echo $row->discCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        
+  <div id="modaledit<?php echo $row->discCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -512,7 +660,7 @@ $grandt+=$chr->Total;
   <div class="form-group">
 <label class="col-sm-3 control-label">Remarks</label>
                         <div class="col-sm-9">
-                          <textarea name="remarks" cols="30" rows="2" class="form-control" id="remarks" required="required"><?php echo $row->Remarks;?></textarea>
+                          <textarea name="remarks" cols="30" rows="2" class="form-control" id="remarks" required><?php echo $row->Remarks;?></textarea>
 </div>
                         <div class="clearfix"></div>
                     </div>
@@ -526,7 +674,7 @@ $grandt+=$chr->Total;
             </div>
         </div>
     </div>
-    </div>
+        </div>
 <?php } ?>
 
 <!--adding form-->
@@ -669,14 +817,14 @@ $grandt+=$chr->Total;
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Name</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="name" type="text" class="form-control" required="required" id="name" />
+                          <input name="name" type="text" class="form-control" required id="name" />
                         </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Address</label>
                         <div class="col-sm-9">
-                          <textarea name="address" cols="30" rows="2" class="form-control" id="address" required="required"></textarea>
+                          <textarea name="address" cols="30" rows="2" class="form-control" id="address" required></textarea>
                         </div>
                         <div class="clearfix"></div>
                       </div>
@@ -697,14 +845,14 @@ $grandt+=$chr->Total;
  <div class="form-group">
               <label class="col-sm-3 control-label">Phone</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="phone" type="text" class="form-control" required="required" id="phone" />
+                          <input name="phone" type="text" class="form-control" required id="phone" />
               </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Fax</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="fax" type="text" class="form-control" required="required" id="fax" />
+                          <input name="fax" type="text" class="form-control" required id="fax" />
               </span></div>
                         <div class="clearfix"></div>
                       </div>
@@ -732,7 +880,7 @@ $grandt+=$chr->Total;
 <div class="form-group">
                         <label class="col-sm-3 control-label">Terms Payment</label>
                         <div class="col-sm-4"><span class="controls">
-                          <input name="payment" type="text" class="form-control" required="required" value="0" id="payment" />
+                          <input name="payment" type="text" class="form-control" required value="0" id="payment" />
               </span></div>
             <h4 class="cols-sm-4">day's</h4>
                         <div class="clearfix"></div>
@@ -740,7 +888,7 @@ $grandt+=$chr->Total;
  <div class="form-group">
                         <label class="col-sm-3 control-label">Deposit</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="deposit" type="text" class="form-control" required="required" value="0" id="deposit" />
+                          <input name="deposit" type="text" class="form-control" required value="0" id="deposit" />
               </span></div>
                         <div class="clearfix"></div>
                       </div>
@@ -761,22 +909,23 @@ $grandt+=$chr->Total;
 <div class="form-group">
     <label class="col-sm-3 control-label">NPWP</label>
                         <div class="col-sm-9">
-                          <textarea name="npwp" cols="30" rows="2" class="form-control" id="npwp" required="required"></textarea>
+                          <textarea name="npwp" cols="30" rows="2" class="form-control" id="npwp" required></textarea>
 </div>
                         <div class="clearfix"></div>
                       </div> 
 <div class="form-group">
                         <label class="col-sm-3 control-label">NPWP Address</label>
                         <div class="col-sm-9">
-                          <textarea name="npwpaddress" cols="30" rows="2" class="form-control" id="npwpaddress" required="required"></textarea>
+                          <textarea name="npwpaddress" cols="30" rows="2" class="form-control" id="npwpaddress" required></textarea>
               </div>
                         <div class="clearfix"></div>
                       </div> 
  <div class="form-group">
                         <label class="col-sm-3 control-label">Remarks</label>
-                        <div class="col-sm-9">
-                          <textarea name="remarks" cols="30" rows="2" class="form-control" id="remarks" required="required"></textarea>
-              </div>
+                        <span class="col-sm-9">
+                        <textarea name="remarks2" cols="30" rows="2" class="form-control" id="remarks2" required></textarea>
+                        </span>
+                        <div class="col-sm-9"></div>
                         <div class="clearfix"></div>
                       </div>
  <hr /> 
@@ -865,10 +1014,6 @@ $grandt+=$chr->Total;
         </div>
     </div>
     </div>
-
-    
-
-
 
 <script type="text/javascript">     
   $(window).load(function(){
@@ -1031,3 +1176,9 @@ $("#label_charges").html(hasil);
 }
 
 </script>
+
+ 
+  <!-- =================================================================================  -->   
+
+	</body>
+</html>

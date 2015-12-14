@@ -347,9 +347,7 @@ $no=1;
     </div>
     
 <script type="text/javascript">     
-  $(window).load(function(){
-    $("#loading").fadeOut("slow");
-  })
+
   
 $("#txtsearch").keyup(function(){
 
