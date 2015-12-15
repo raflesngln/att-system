@@ -166,6 +166,41 @@ $this->form_validation->set_rules('name','name','required|trim|xss_clean');
 		 
 	 }
 }
+	 //===========add customer====================
+function save_customer2()
+{	
+
+$initial =$this->input->post('initial');
+$name =$this->input->post('namecust');
+$address =$this->input->post('address');
+$isagent =$this->input->post('isagent');
+$isshipper =$this->input->post('isshipper');
+$iscnee =$this->input->post('iscnee');
+$city=$this->input->post('city');
+$phone =$this->input->post('phone');
+$postcode=$this->input->post('postcode');
+$fax =$this->input->post('fax');
+$email =$this->input->post('email');
+
+		$data=array(
+		'custName' =>$name,
+		'custInitial' =>$initial,
+		'Address'=>$address,
+		'cyCode' =>$city,
+		'Phone' =>$phone,
+		'Fax' =>$fax,
+		'PostalCode' =>$postcode,
+		'isAgent' =>$isagent,
+		'isShipper' =>$isshipper,
+		'isCnee' =>$iscnee,
+		'Email' =>$email,
+		'CreateBy' =>$this->session->userdata('nameusr'),
+		'CreateDate' =>date('Y-m-d: h:i:s'),
+		'ModifiedBy' =>'',
+		'ModifiedDate' =>'',	
+		);		
+		 $this->model_app->insert('ms_customer',$data);
+}
 
 
 

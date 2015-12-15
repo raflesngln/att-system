@@ -84,22 +84,22 @@ function toRp(angka){
 }
  function rupiah(){
   var angka =document.getElementById("grossweight").value;
-  var aa=angka;
-  var hasil=toRp(aa); 
+  var nilai=angka;
+  var hasil=toRp(nilai); 
   //alert('haii ' + hasil);
-  document.getElementById("grossweight").value =hasil;
+  document.getElementById("grossweight").value =angka;
   
   document.getElementById("grossweight").style.fontSize="large";
   document.getElementById("grossweight").style.fontWeight="bold";
   document.getElementById("grossweight").style.color="blue";
   
-  var gross2=document.getElementById("grossweight2").value =angka;
+  var gross2=document.getElementById("grossweight2").value =hasil;
   var volum=document.getElementById("t_volume").value;
   
- if (gross2 > volum) {
-    document.getElementById("cwt").value =angka;
-} else {
+ if (angka <= volum) {
     document.getElementById("cwt").value =volum;
+} else {
+    document.getElementById("cwt").value =angka;
 } 
 
  }
@@ -185,7 +185,7 @@ function toRp(angka){
       </label>
             <?php }?>   
       <div class="header col-md-11">
-
+<p class="text-center konfirm" id="konfirm">&nbsp;</p>
                 <h3><i class="fa fa-calendar-check-o bigger-230"></i> &nbsp;Air Domestic Outgoing - House</h3>
             </div>
       
@@ -316,8 +316,8 @@ function toRp(angka){
           <strong><label class="col-sm-4"> Consignee</label>
           </strong>
             <div class="col-sm-7">
-            <input name="idconsigne" type="text" class="form-control"  id="idconsigne"/>
-            <input name="name2" type="hidden" class="form-control"  id="name2" required="required" />
+            <input name="idconsigne" type="text" class="form-control"  id="idconsigne" placeholder="types customer name"/>
+            <input name="name2" type="hidden" class="form-control"  id="name2" required />
           </div> 
 <div class="col-sm-1"><a class="btn btn-success btn-addnew btn-mini" href="#modaladdcust" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a></div>
 <div class="form-group">      
@@ -805,26 +805,28 @@ $grandt+=$chr->Total;
                 <h3 id="myModalLabel">Add New Customer </h3>
             </div>
             <div class="smart-form scroll">
-                <form method="post" action="<?php echo site_url('booking/save_customer')?>">
+                <!-- <form method="post" action="<?php //echo site_url('booking/save_customer')?>">  -->
                     <div class="modal-body">
                       <div class="form-group">
                         <label class="col-sm-3 control-label"> Initial <input type="hidden" name="page" id="page" value="incomaster"></label>
-                        <div class="col-sm-9"><span class="controls">
+                        <div class="col-sm-8"><span class="controls">
                           <input name="initial" type="text" class="form-control" placeholder="initial" id="initial" />
-                        </span></div>
+                          
+                        </span></div><label class="col-sm-1 label-confir" id="label-confir"></label>
                         <div class="clearfix"></div>
                       </div>
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Name</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="name" type="text" class="form-control" required id="name" />
+                        <div class="col-sm-8"><span class="controls">
+                          <input name="namecust" type="text" class="form-control" required id="namecust" />
                         </span></div>
-                        <div class="clearfix"></div>
+                        <label class="col-sm-1 label-confir" id="label-confir2"></label
+                        ><div class="clearfix"></div>
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Address</label>
                         <div class="col-sm-9">
-                          <textarea name="address" cols="30" rows="2" class="form-control" id="address" required></textarea>
+                          <textarea name="address" cols="30" rows="2" class="form-control" id="address"></textarea>
                         </div>
                         <div class="clearfix"></div>
                       </div>
@@ -845,21 +847,21 @@ $grandt+=$chr->Total;
  <div class="form-group">
               <label class="col-sm-3 control-label">Phone</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="phone" type="text" class="form-control" required id="phone" />
+                          <input name="phone" type="text" class="form-control" required id="phone" onkeypress="return isNumberKey(event)" />
               </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Fax</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="fax" type="text" class="form-control" required id="fax" />
+                          <input name="fax" type="text" class="form-control" required id="fax" onkeypress="return isNumberKey(event)" />
               </span></div>
                         <div class="clearfix"></div>
                       </div>
  <div class="form-group">
                         <label class="col-sm-3 control-label">Postal Code</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="postcode" type="text" class="form-control" id="postcode" />
+                          <input name="postcode" type="text" class="form-control" id="postcode" onkeypress="return isNumberKey(event)" />
     </span></div>
                         <div class="clearfix"></div>
                       </div>
@@ -871,97 +873,13 @@ $grandt+=$chr->Total;
                         <div class="clearfix"></div>
                     </div>
  <div class="form-group">
-    <label class="col-sm-3 control-label">Credit Limit</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="credit" type="text" class="form-control" id="credit" />
-              </span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Terms Payment</label>
-                        <div class="col-sm-4"><span class="controls">
-                          <input name="payment" type="text" class="form-control" required value="0" id="payment" />
-              </span></div>
-            <h4 class="cols-sm-4">day's</h4>
-                        <div class="clearfix"></div>
-                      </div>
- <div class="form-group">
-                        <label class="col-sm-3 control-label">Deposit</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="deposit" type="text" class="form-control" required value="0" id="deposit" />
-              </span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Sales</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <select name="empcode" id="empcode" required="required" class="form-control">
-                            <option value="">Chosse Sales</option>
-                            <?php
-  foreach($sales as $ct){
-      ?>
-                            <option value="<?php echo $ct->empCode;?>"><?php echo $ct->empName;?></option>
-                            <?php } ?>
-                          </select>
-                        </span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-    <label class="col-sm-3 control-label">NPWP</label>
-                        <div class="col-sm-9">
-                          <textarea name="npwp" cols="30" rows="2" class="form-control" id="npwp" required></textarea>
-</div>
-                        <div class="clearfix"></div>
-                      </div> 
-<div class="form-group">
-                        <label class="col-sm-3 control-label">NPWP Address</label>
-                        <div class="col-sm-9">
-                          <textarea name="npwpaddress" cols="30" rows="2" class="form-control" id="npwpaddress" required></textarea>
-              </div>
-                        <div class="clearfix"></div>
-                      </div> 
- <div class="form-group">
-                        <label class="col-sm-3 control-label">Remarks</label>
+            <label class="col-sm-3 control-label">Remarks</label>
                         <span class="col-sm-9">
                         <textarea name="remarks2" cols="30" rows="2" class="form-control" id="remarks2" required></textarea>
                         </span>
                         <div class="col-sm-9"></div>
                         <div class="clearfix"></div>
                       </div>
- <hr /> 
-<div class="form-group">
-                       <em>
-                        <label class="col-sm-4 control-label">&nbsp;</label> 
-                        <label class="col-sm-6 control-label">PIC & HPPIC</label>
-              </em>
-                        <div class="col-sm-2"></div>
-                        
-<div class="col-sm-3"><span class="controls">
-                          <label><span> PIC 01</span>
-                            <input name="pic01" type="text" class="form-control" placeholder="" id="pic01"  />
-                            
-</label>
-    </span></div>
-<div class="col-sm-3"><span class="controls">
-                          <label><span> PIC 02</span>
-                            <input name="pic02" type="text" class="form-control" placeholder="" id="pic02" />
-                            
-</label>
-    </span></div>
-   <div class="col-sm-3"><span class="controls">
-                          <label><span>  Mobile 01</span>
-                            <input name="hppic01" type="text" class="form-control" placeholder="" id="hppic01"  />
-                            
-</label>
-    </span></div>
- <div class="col-sm-3"><span class="controls">
-                          <label><span>  Mobile 02</span>
-                          <input name="hppic02" type="text" class="form-control" placeholder="" id="hppic02"  />
-                            
-</label>
-    </span></div>
-
-</div>
 <hr /> 
 
 <div class="form-group">
@@ -972,7 +890,7 @@ $grandt+=$chr->Total;
 
  <div class="col-sm-4"><span class="controls">
    <label><span> &nbsp; Agent</span>
-      <select name="agen" id="agen" class="form-control">
+      <select name="isagent" id="isagent" class="form-control">
         <option value="1">&nbsp;Yes&nbsp;</option>
         <option value="0">&nbsp;No&nbsp;</option>
       </select>                      
@@ -982,7 +900,7 @@ $grandt+=$chr->Total;
 
 <div class="col-sm-4"><span class="controls">
    <label><span> &nbsp; SHipper</span>
-      <select name="shipper" id="agen" class="form-control">
+      <select name="isshipper" id="isshipper" class="form-control">
         <option value="1">&nbsp;Yes&nbsp;</option>
         <option value="0">&nbsp;No&nbsp;</option>
       </select>                      
@@ -992,7 +910,7 @@ $grandt+=$chr->Total;
 
 <div class="col-sm-4"><span class="controls">
    <label><span> &nbsp; CNEE</span>
-      <select name="cnee" id="cnee" class="form-control">
+      <select name="iscnee" id="iscnee" class="form-control">
         <option value="1">&nbsp;Yes&nbsp;</option>
         <option value="0">&nbsp;No&nbsp;</option>
       </select>                      
@@ -1004,22 +922,18 @@ $grandt+=$chr->Total;
                       </div>
 <div class="modal-footer">
 <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-<button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
+<button class="btn btn-primary addcust" id="addcust"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
 </div>
 <div class="clearfx">&nbsp;</div>
                     </div>
             
-                </form>
+              <!--  </form>  -->
             </div>
         </div>
     </div>
     </div>
 
 <script type="text/javascript">     
-  $(window).load(function(){
-    $("#loading").fadeOut("slow");
-  })
-  
 $("#txtsearch").keyup(function(){
 
             var txtsearch = $("#txtsearch").val();
@@ -1058,6 +972,50 @@ $("#txtsearch").keyup(function(){
             });
 
         });
+  $("#addcust").click(function(){
+		var initial=$("#initial").val();
+		var namecust=$("#namecust").val();
+		var address=$("#address").val();
+		var city=$("#city").val();
+		var phone=$("#phone").val();
+		var fax=$("#fax").val();
+		var postcode=$("#postcode").val();
+		var email=$("#email").val();
+		var remarks2=$("#remarks2").val();
+		var isagent=$("#isagent").val();
+		var isshipper=$("#isshipper").val();
+		var iscnee=$("#iscnee").val();
+	if (initial == '')
+        { 
+		alert('Mohon isi data dengan lengkap');
+		$("#initial").css("border-color","red");
+		$("#label-confir").css({"background-color": "white", "color": "red"});
+		$("#label-confir").html('<i class="fa fa-times"></i>');
+        }
+	else if (namecust == '')
+        { 
+		alert('Mohon isi data dengan lengkap');
+		$("#namecust").css("border-color","red");
+		$("#label-confir2").css({"background-color": "white", "color": "red"});
+		$("#label-confir2").html('<i class="fa fa-times"></i>');
+        } 
+    else
+        {	
+	          $.ajax({
+                type: "POST",
+                url : "<?php echo base_url('booking/save_customer2'); ?>",
+ data: "namecust="+namecust+"&initial="+initial+"&address="+address+"&city="+city+"&phone="+phone+"&fax="+fax+"&postcode="+postcode+"&email="+email+"&remarks2="+remarks2+"&isagent="+isagent+"&isshipper="+isshipper+"&iscnee="+iscnee,
+                success: function(data){
+                 	alert('Customer with name ' +namecust +' Success Saved');
+                }
+            });	
+			$("#initial").css("border-color","#D9DFE2");
+			$("#label-confir").html('');
+			$("#modaladdcust").modal('hide');
+		}
+			
+   });
+	
      $("#iditemsssssssss").click(function(){
 	var pcs=$('#origin').val();
 	var panjang=$('#desti').val();
@@ -1078,7 +1036,11 @@ $("#iditems").click(function(){
  	var kali = parseInt(panjang) * parseInt(lebar) * parseInt(tinggi);
  	var t_volume=$('#t_volume').val();
 	var total_volume=parseInt(kali)+ parseInt(t_volume);
-					
+if (panjang == '' || lebar == '' || pcs == ''){
+	alert('Mohon isi data dengan lengkap');	
+	}
+	else
+	{				
 	text='<tr class="gradeX" align="right">'
 	+ '<td></td>'
     + '<td>' + '<input type="hidden" name="pcs[]" id="pcs[]" size="5" value="'+ pcs +'">'+ '<label id="l_pcs">'+ pcs +'</label>' +'</td>'
@@ -1093,28 +1055,25 @@ $("#iditems").click(function(){
 		$('#tblitems tbody').append(text);
 		$("#t_volume").val(total_volume);
 		$("#label_volume").html(total_volume);
-		
 		$("#modaladd").modal('hide');
+	}
+ });
 
-        });
-
-    $("#btndel").on("click", function(){
+ $("#btndel").on("click", function(){
         alert('The paragraph was clicked');
-    });
+ });
 		
-	function hapus(th) {
+function hapus(th) {
       var tt=$("#tt").val();;
 	  var t_volume=$('#t_volume').val();
 	  var kurangi=parseInt(t_volume)- parseInt(tt);
-		
-					 
+	  			 
 	 $("#t_volume").val(kurangi);
 					 
      t = $(th);
      tr = t.parent().parent();
      tr.hide();
  }
-
 
 function hapus2(myid){
 var input = $(myid).val();
@@ -1138,9 +1097,12 @@ $("#savecharges").click(function(){
 	var txtqty=$('#txtqty').val();
  	var kali = parseInt(txtunit) * parseInt(txtqty);
  	var total_charge=$('#total_charge').val();
-	
 	var jumlah=parseInt(total_charge) + parseInt(kali);			
-		
+if (txtunit == '' || txtqty == '' || charge == ''){
+	alert('Mohon isi data dengan lengkap');	
+	}
+	else
+	{
 	text='<tr class="gradeX" align="left">'
 	+ '<td></td>'
     + '<td>' + '<input type="hidden" name="idcharge[]" id="pcs[]" size="5" value="'+ charge +'">'+ '<label id="l_pcs">'+ charge +'</label>' +'</td>'
@@ -1155,10 +1117,9 @@ $("#savecharges").click(function(){
 		$('#tblcharges tbody').append(text);
 		$("#total_charge").val(jumlah);
 		$("#label_charges").html(jumlah);
-		
 		$("#modaladdCharge").modal('hide');
-
-        });
+	}
+ });
 
 
 function hapus3(myid){

@@ -1603,7 +1603,7 @@ output {
     color: #999}
 .form-control[disabled],.form-control[readonly],fieldset[disabled] .form-control {
     cursor:s-resize;
-    background-color:#F3EBEA;
+    background-color:rgba(216, 211, 171, 0.31);
     color: #153EEF;
     opacity: 1}
 textarea.form-control {
