@@ -1,0 +1,73 @@
+<?php
+function cek_validation()
+{
+$hasil = array('validate' => false);
+$name = $this->input->post("id", true);
+$text = $this->input->post("text", true);
+$this->load->library('form_validation');
+$this->form_validation->set_rules('id', 'id', 'trim|required');
+$this->form_validation->set_rules('text', 'text', 'trim|required');
+
+if($this->form_validation->run() == FALSE)
+{
+$hasil = array('validate' => false , 'pesan' => validation_errors());
+}
+else
+{
+$hasil = array('validate' => true , 'pesan' => 'sukses');
+}
+
+echo json_encode($hasil);
+}
+?>
+// ajax
+$.ajax({
+    url:"http://localhost/website/index.php/home/cek_validation/",
+    type:"POST",
+    data:data_cek,
+    dataType: "json",
+    cache:false,
+    success:function(json, data){
+        if(data.validate){
+            // contoh pesan di div pesan
+            $('#pesan').html(data.pesan);
+        } else {
+            $('#pesan').html(data.pesan);
+        }
+    }
+});
+
+
+
+
+
+
+lagi dan lagi
+
+
+<?php
+function cek_validation($nama_input)
+{
+$hasil = array('validate' => false);
+        $this->form_validation->set_rules($nama_input, $nama_input, 'trim|required');
+if($this->form_validation->run() == FALSE)
+{
+$hasil = array('validate' => false , 'pesan' => validation_errors());
+}
+else
+{
+$hasil = array('validate' => true , 'pesan' => 'sukses');
+}
+echo json_encode($hasil);
+}
+?>
+// jquery nya
+        $("#nama_form input").on('blur', function() {
+            var data = $(this).serialize();
+            console.log(data);
+            $.post('<?php echo site_url('cek_validation'); ?>/'+$(this).attr('name'), data, function(data) {
+                if(!data.hasil){
+                    alert(data.pesan);
+                } 
+            }, 'json');
+        });

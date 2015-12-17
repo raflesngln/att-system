@@ -37,8 +37,10 @@ class Transaction extends CI_Controller{
         );	
       $this->load->view('home/home',$data);
     }
-     //     DATA TO SESSION
-    function domesctic_outgoing_house(){
+ /* Input for ougoing house 
+ 	to save list item and charges
+	 */
+function domesctic_outgoing_house(){
         $idusr=$this->session->userdata('idusr');
         $data = array(
             'title'=>'domesctic-outgoing-house',
@@ -56,8 +58,9 @@ class Transaction extends CI_Controller{
             'view'=>'pages/booking/domesctic_outgoing_house',
         );  
       $this->load->view('home/home',$data);
-    }  //     DATA TO SESSION
-    function domesctic_incoming_house(){
+    } 
+//
+ function domesctic_incoming_house(){
         $data = array(
             'title'=>'domesctic-incoming-house',
             'scrumb_name'=>'Domesctic incoming house',

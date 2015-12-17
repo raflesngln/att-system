@@ -204,7 +204,8 @@ function toRp(angka){
                                         <table class="table table-striped table-bordered table-hover" id="tblitems">
                                               <thead>
                                                 <tr>
-                                                  <th colspan="2">No Of Pcs</th>
+                                                  <th>No.</th>
+                                                  <th>No Of Pcs</th>
                                                   <th>Length ( P )</th>
                                                   <th>Width ( L )</th>
                                                   <th>Height ( T )</th>
@@ -214,7 +215,8 @@ function toRp(angka){
                                                 <th colspan="6"></th>
                                                 <th><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add items</a>
                                            </div></th>
-                                                
+                                                <tr>
+                                                </tr>
                                               </thead>
                                               <tbody>
  <?php 
@@ -223,12 +225,14 @@ function toRp(angka){
   $t_item+=$items['qty'];
   $t_volume+=$items['v'];
         ?>
-                                                  <tr align="right" class="gradeX">
-                                                  <td colspan="2"><?php echo $items['qty']; ?></td>
-                                                  <td><?php echo $items['p']; ?></td>
-                                                  <td><?php echo $items['l']; ?></td>
-                                                  <td><?php echo $items['t']; ?></td>
-                                                  <td><?php echo number_format($items['v'],2,'.',',');?></td>
+                                                  <tr align="right">
+                                                  <td><div align="center"><?=$no;?></div></td>
+                                                  <td><?php echo $items['qty']; ?>
+                                                    <input name="pcs[]" type="hidden" id="pcs[]" value="<?php echo $items['qty']; ?>" /></td>
+                                                  <td><input name="p[]" type="hidden" id="p[]" value="<?php echo $items['p']; ?>" />                                                    <?php echo $items['p']; ?></td>
+                                                  <td><input name="l[]" type="hidden" id="l[]" value="<?php echo $items['l']; ?>" />                                                    <?php echo $items['l']; ?></td>
+                                                  <td><input name="t[]" type="hidden" id="t[]" value="<?php echo $items['t']; ?>" />                                                    <?php echo $items['t']; ?></td>
+                                                  <td><input name="v[]" type="hidden" id="v[]" value="<?php echo $items['v']; ?>" />                                                    <?php echo number_format($items['v'],2,'.',',');?></td>
                                                   <td>
                                                   <div align="center">
                                                    <a href="<?php echo base_url(); ?>temp/delete_item/<?php echo $items['rowid']; ?>" onclick="return confirm('Yakin Hapus ?');" title="Delete item">
@@ -241,11 +245,12 @@ function toRp(angka){
   <?php $no++;} ?>
                                                 <thead>
                                                  <tr align="right">
-                                                  <td colspan="2"><b>Total</b><?php echo $t_item;?><input type="hidden" name="t_item" value="<?php echo $t_item;?>"></td>
+                                                  <td><b>Total</b></td>
+                                                  <td><?php echo $t_item;?><input type="hidden" name="t_item" value="<?php echo $t_item;?>"></td>
                                                   <td>&nbsp;</td>
                                                   <td>&nbsp;</td>
                                                   <td>&nbsp;</td>
-                                                  <td><input name="t_volume" type="text" id="t_volume" value="" />                                                    <?php echo number_format($t_volume,2,'.',',');?></td>  
+                                                  <td><input name="t_volume" type="hidden" id="t_volume" value="<?php echo $t_volume;?>" />                                                    <?php echo number_format($t_volume,2,'.',',');?></td>  
                                                   <td>&nbsp;</td>
                                                 </tr>
                                                 </thead>
@@ -532,46 +537,46 @@ $grandt+=$chr->Total;
                 <h3 id="myModalLabel">Add Item</h3>
             </div>
             <div class="smart-form scroll">
-        <!-- <form method="post" action="<?php //echo site_url('temp/save_item')?>">   -->
+                <form method="post" action="<?php echo site_url('temp/save_item')?>">
                     <div class="modal-body">
                      
                    
 <div class="form-group">
                         <label class="col-sm-3 control-label">No of Pcs </label>
                         <div class="col-sm-9"><span class="controls">
-                        <input name="pcs" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="pack" />
+                          <input name="pcs" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="persen" />
 </span></div>
-            <div class="clearfix"></div>
-            </div>
+                        <div class="clearfix"></div>
+                      </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Length &nbsp; ( P )</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="panjang" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="panjang" />
+                          <input name="panjang" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="persen" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>
   <div class="form-group">
                         <label class="col-sm-3 control-label">Width &nbsp; ( L )</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="lebar" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="lebar" />
+                          <input name="lebar" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="persen" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Height &nbsp; ( T )</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="tinggi" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="tinggi" />
+                          <input name="tinggi" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="persen" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>                    
 
   <div class="modal-footer">
 <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary" id="iditems"> Save</button>
+                        <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
     </div>
                     </div>
             
-               <!-- </form>  -->
+                </form>
             </div>
         </div>
     </div>
@@ -907,65 +912,4 @@ $("#txtsearch").keyup(function(){
 
         });
 
-
-   $("#iditems").click(function(){
-     var t_volume=0;
-	//var t_volume=$('#idtotal').val();   
-	var pcs=$('#pack').val();
-	var panjang=$('#panjang').val();
-	var lebar=$('#lebar').val();
-	var tinggi=$('#tinggi').val();
-	
- 	var kali = parseInt(panjang) * parseInt(lebar) * parseInt(tinggi);
- 	
-	var total_volume=t_volume+kali;
-			
-		
-	text='<tr class="gradeX" align="right">'
-	+ '<td></td>'
-    + '<td>' + '<input type="text" name="pcs[]" id="pcs[]" size="5" value="'+ pcs +'">' +'</td>'
-    + '<td>' + '<input type="text" name="p[]" id="p[]" size="5" value="'+ panjang +'">' +'</td>'
-    + '<td>' +  '<input type="text" name="l[]" id="l[]" size="5" value="'+ lebar +'">' +'</td>'
-    + '<td>' +  '<input type="text" name="t[]" id="t[]" size="5" value="'+ tinggi +'">' +'</td>'
-    + '<td>' + '<input type="text" name="v[]" id="v[]" size="5" value="'+ kali +'">' +'</td>'
-
-	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" onclick="hapus(this)" type="button"  >' + 'hapus' + '</button></td>'
-    + '</tr>';
-		
-		$("#t_volume").val(total_volume);
-    	$('#tblitems tbody').append(text);
-	
-		
-		$("#modaladd").modal('hide');
-
-        });
-
-    $(".btndel").on("click", function(){
-        alert("The paragraph was clicked");
-    });
-		
-		
-		
-		
-	function hapus(th) {
-     //alert('terer');   
-     t = $(th);
-     console.log(t);
-     tr = t.parent().parent();
-     tr.hide();
- }
- 
- 
- function findById(source, id) {
-	 var pcs=$_POST['pack'];
-  for (var i = 0; i < source.length; i++) {
-    if (source[i].id === id) {
-      return source[i];
-    }
-  }
-  throw "Couldn't find object with id: " + id;
-  
-  
-}
- 										//////////
 </script>
