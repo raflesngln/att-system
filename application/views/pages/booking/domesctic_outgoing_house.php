@@ -943,7 +943,7 @@ $("#txtsearch").keyup(function(){
     });
 		
 	function hapus(th) {
-      var tt=$("#tt").val();;
+      var tt=$("#tt"),this().val();;
 	  var t_volume=$('#t_volume').val();
 	  var kurangi=parseInt(t_volume)- parseInt(tt);
 	  $("#t_volume").val(kurangi);
@@ -952,5 +952,8 @@ $("#txtsearch").keyup(function(){
      tr = t.parent().parent();
      tr.hide();
  }
-
+function oto(){
+	var t_volume=$("#t_volume");
+	
+}
 </script>
