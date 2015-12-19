@@ -103,7 +103,6 @@ $this->form_validation->set_rules('pcs','pcs','required|trim|xss_clean');
             'v'    => $v,
              );
         	 $this->cart->insert($data);
-
 	/*	$newdata=array(
 		'pcs'=>$this->input->post('pcs'),
 		'p'=>$this->input->post('p'),
@@ -115,7 +114,6 @@ $this->form_validation->set_rules('pcs','pcs','required|trim|xss_clean');
 		 $this->model_app->insert('temporary',$newdata);
 	*/	
 		 }
-			redirect('transaction/domesctic_outgoing_house');
  }
  //--SAVE--------
 function save_temp_charge()

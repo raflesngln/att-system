@@ -533,7 +533,7 @@ $grandt+=$chr->Total;
                 <h3 id="myModalLabel">Add Item</h3>
             </div>
             <div class="smart-form scroll">
-        <form method="post" action="<?php echo site_url('temp/save_item')?>">
+     <!--   <form method="post" action="<?php //echo site_url('temp/save_item')?>"> -->
                     <div class="modal-body">
                      
                    
@@ -568,11 +568,11 @@ $grandt+=$chr->Total;
 
   <div class="modal-footer">
 <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary" id="iditems"> Save</button>
+                        <button type="button" class="btn btn-primary" id="saveitem"> Save</button>
     </div>
                     </div>
             
-               </form> 
+          <!--     </form>   -->
             </div>
         </div>
     </div>
@@ -909,7 +909,7 @@ $("#txtsearch").keyup(function(){
         });
 
 
-   $("#iditems").click(function(){
+   $("#saveitem").click(function(){
 	//var t_volume=$('#idtotal').val();   
 	var pcs=$('#pack').val();
 	var panjang=$('#panjang').val();
@@ -929,7 +929,7 @@ $("#txtsearch").keyup(function(){
     + '<td>' +  '<input type="text" name="t[]" id="t[]" size="5" value="'+ tinggi +'">' +'</td>'
     + '<td>' + '<input type="text" name="v[]" id="v[]" size="5" value="'+ kali +'">' +'</td>'
 
-	+'<td align="center">' + '<input type="text" id="tt" name="tt" value="' + kali +'">'+ '<button class="btndel btn-danger btn-mini"  type="button">' + 'hapus' + '</button></td>'
+	+'<td align="center">' + '<input type="text" id="tt" name="tt" value="' + kali +'">'+ '<button class="btndel btn-danger btn-mini" onclick="hapus();"  type="button">' + 'hapus' + '</button></td>'
     + '</tr>';
 	
 		$('#tblitems tbody').append(text);
