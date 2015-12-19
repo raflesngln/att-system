@@ -14,7 +14,6 @@
  }
  
  </style>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
        <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
   <script src="<?php echo base_url();?>asset/jquery_ui/external/jquery/jquery.js"></script>
   <script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
@@ -64,7 +63,7 @@ function toRp(angka){
             <?php }?>   
       <div class="header col-md-11">
 
-                <h3><i class="fa fa-calendar-check-o bigger-230"></i> &nbsp;Air Domestic Outgoing - House</h3>
+                <h3><i class="fa fa-calendar-check-o bigger-230"></i> &nbsp;Air Domestic Outgoing - Houseeee</h3>
             </div>
       
 
@@ -533,7 +532,7 @@ $grandt+=$chr->Total;
                 <h3 id="myModalLabel">Add Item</h3>
             </div>
             <div class="smart-form scroll">
-     <!--   <form method="post" action="<?php //echo site_url('temp/save_item')?>"> -->
+        <!-- <form method="post" action="<?php //echo site_url('temp/save_item')?>">   -->
                     <div class="modal-body">
                      
                    
@@ -568,11 +567,11 @@ $grandt+=$chr->Total;
 
   <div class="modal-footer">
 <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button type="button" class="btn btn-primary" id="saveitem"> Save</button>
+                        <button class="btn btn-primary" id="iditems"> Save</button>
     </div>
                     </div>
             
-          <!--     </form>   -->
+               <!-- </form>  -->
             </div>
         </div>
     </div>
@@ -909,7 +908,7 @@ $("#txtsearch").keyup(function(){
         });
 
 
-   $("#saveitem").click(function(){
+   $("#iditems").click(function(){
 	//var t_volume=$('#idtotal').val();   
 	var pcs=$('#pack').val();
 	var panjang=$('#panjang').val();
@@ -929,7 +928,7 @@ $("#txtsearch").keyup(function(){
     + '<td>' +  '<input type="text" name="t[]" id="t[]" size="5" value="'+ tinggi +'">' +'</td>'
     + '<td>' + '<input type="text" name="v[]" id="v[]" size="5" value="'+ kali +'">' +'</td>'
 
-	+'<td align="center">' + '<input type="text" id="tt" name="tt" value="' + kali +'">'+ '<button class="btndel btn-danger btn-mini" onclick="hapus();"  type="button">' + 'hapus' + '</button></td>'
+	+'<td align="center">' + '<input type="text" id="tt" name="tt" value="' + kali +'">'+ '<button class="btndel btn-danger btn-mini" onclick="hapus(this)" type="button"  >' + 'hapus' + '</button></td>'
     + '</tr>';
 	
 		$('#tblitems tbody').append(text);
@@ -944,7 +943,7 @@ $("#txtsearch").keyup(function(){
     });
 		
 	function hapus(th) {
-      var tt=$("#tt"),this().val();;
+      var tt=$("#tt").val();;
 	  var t_volume=$('#t_volume').val();
 	  var kurangi=parseInt(t_volume)- parseInt(tt);
 	  $("#t_volume").val(kurangi);
@@ -953,8 +952,5 @@ $("#txtsearch").keyup(function(){
      tr = t.parent().parent();
      tr.hide();
  }
-function oto(){
-	var t_volume=$("#t_volume");
-	
-}
+
 </script>
