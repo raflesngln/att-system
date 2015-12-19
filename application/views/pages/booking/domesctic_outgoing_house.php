@@ -14,6 +14,7 @@
  }
  
  </style>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
        <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
   <script src="<?php echo base_url();?>asset/jquery_ui/external/jquery/jquery.js"></script>
   <script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
@@ -532,7 +533,7 @@ $grandt+=$chr->Total;
                 <h3 id="myModalLabel">Add Item</h3>
             </div>
             <div class="smart-form scroll">
-        <!-- <form method="post" action="<?php //echo site_url('temp/save_item')?>">   -->
+        <form method="post" action="<?php echo site_url('temp/save_item')?>">
                     <div class="modal-body">
                      
                    
@@ -571,7 +572,7 @@ $grandt+=$chr->Total;
     </div>
                     </div>
             
-               <!-- </form>  -->
+               </form> 
             </div>
         </div>
     </div>
@@ -928,7 +929,7 @@ $("#txtsearch").keyup(function(){
     + '<td>' +  '<input type="text" name="t[]" id="t[]" size="5" value="'+ tinggi +'">' +'</td>'
     + '<td>' + '<input type="text" name="v[]" id="v[]" size="5" value="'+ kali +'">' +'</td>'
 
-	+'<td align="center">' + '<input type="text" id="tt" name="tt" value="' + kali +'">'+ '<button class="btndel btn-danger btn-mini" onclick="hapus(this)" type="button"  >' + 'hapus' + '</button></td>'
+	+'<td align="center">' + '<input type="text" id="tt" name="tt" value="' + kali +'">'+ '<button class="btndel btn-danger btn-mini"  type="button">' + 'hapus' + '</button></td>'
     + '</tr>';
 	
 		$('#tblitems tbody').append(text);
