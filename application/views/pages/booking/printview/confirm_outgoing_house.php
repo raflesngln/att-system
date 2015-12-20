@@ -50,13 +50,13 @@
 <div class="form-group">       
           <strong><label class="col-sm-4"> JOB No</label></strong>
           <div class="col-sm-7">
-           : <?php echo $_POST['job'];?>
+           : <?php echo $jobno;?>
          <input type="hidden" name="job" value="<?php echo $_POST['job'];?>" /> </div>
  </div><div class="clearfix"></div>
 <div class="form-group">       
           <strong><label class="col-sm-4"> House No</label></strong>
           <div class="col-sm-7">
-           : <?php echo $_POST['house'];?>
+           : <?php echo $houseno;?>
            <input name="house" type="hidden" id="house" value="<?php echo $_POST['house'];?>" />
           </div>
  </div><div class="clearfix"></div>
@@ -150,17 +150,22 @@
                                               <tbody>
  <?php 
  $no=1;
- foreach($this->cart->contents() as $items){
-  $t_item+=$items['qty'];
-  $t_volume+=$items['v'];
+ foreach($items as $items){
+  $t_item+=$items->NoPack;
+  $t_volume+=$items->Volume;
         ?>
                                                   <tr align="right">
-                                                  <td><div align="center"><?=$no;?></div></td>
-                                                  <td><input name="pcs[]" type="hidden" id="pcs[]" value="<?php echo $items['qty']; ?>" />                                                    <?php echo $items['qty']; ?></td>
-                                                  <td><input name="p[]" type="hidden" id="p[]" value="<?php echo $items['p']; ?>" />                                                    <?php echo $items['p']; ?></td>
-                                                  <td><input name="l[]" type="hidden" id="l[]" value="<?php echo $items['l']; ?>" />                                                    <?php echo $items['l']; ?></td>
-                                                  <td><input name="t[]" type="hidden" id="t[]" value="<?php echo $items['t']; ?>" />                                                    <?php echo $items['t']; ?></td>
-                                                  <td><input name="v[]" type="hidden" id="v[]" value="<?php echo $items['v']; ?>" />                                                    <?php echo number_format($items['v'],2,'.',',');?></td>
+                                                  <td><div align="center">
+                                                    <?=$no;?>
+                                                  </div></td>
+                                                  <td><input name="pcs[]" type="hidden" id="pcs[]" value="<?php echo $items->NoPack; ?>" />                                                    <?php echo $items->NoPack; ?></td>
+                                                  <td><input name="p[]" type="hidden" id="p[]" value="<?php echo $items->Length; ?>" />                                                    <?php echo $items->Length; ?></td>
+                                                  <td><input name="l[]" type="hidden" id="l[]" value="<?php echo $items->Width; ?>" />                                                    <?php echo $items->Width; ?></td>
+                                                  <td><input name="t[]" type="hidden" id="t[]" value="<?php echo $items->Height ?>" />                                                    <?php echo $items->Height; ?></td>
+                                                  <td><input name="v[]" type="hidden" id="v[]" value="<?php echo $items->Volume; ?>" />                                                    <?php echo number_format($items->Volume,2,'.',',');?></td>
+                                                  
+                                                  
+                          
                                                 </tr>
   <?php $no++;} ?>
                                           <thead>
@@ -182,30 +187,32 @@
 </div>
 </div>
  <div class="col-md-6">
+ 
+ <?php
+ foreach($connote as $con)
+ {
+	?> 
    <div class="form-group">       
      <strong><label class="col-sm-5">Commodity</label></strong>
           <div class="col-sm-7">
-          : <?php echo $_POST['commodity'];?>
-          <input name="commodity" type="hidden" id="name3" value="<?php echo $_POST['commodity'];?>" />
+          : <?php echo $con->Commodity;?>
+          <input name="commodity" type="hidden" id="name3" value="<?php echo $con->Commodity;?>" />
           </div>
  </div><div class="clearfix"></div>
 <div class="form-group">       
           <strong><label class="col-sm-5">Gross Weight</label></strong>
           <div class="col-sm-7">
-          : <?php echo $_POST['grossweight'];?>
-          <input name="grossweight" type="hidden" id="name4" value="<?php echo $_POST['grossweight'];?>" />
+          : <?php echo $con->GrossWeight;?>
+          <input name="grossweight" type="hidden" id="name4" value="<?php echo $con->GrossWeight;?>" />
           </div>
  </div><div class="clearfix"></div>
 <div class="form-group"> <strong>
   <label class="col-sm-5">pecial Instructions </label>
 </strong>
-<div class="col-sm-7">: <?php echo $_POST['special'];?>
-  <input name="special" type="hidden" id="name5" value="<?php echo $_POST['special'];?>" />
+<div class="col-sm-7">: <?php echo $con->SpecialIntraction;?>
+  <input name="special" type="hidden" id="name5" value="<?php echo $con->SpecialIntraction;?>" />
 </div>
  </div><div class="clearfix"></div>
-
-
-
 
     </div>
     <!-- end of RIGHT FORM -->
@@ -214,22 +221,22 @@
      <div class="form-group">       
        <strong><label class="col-sm-5">CWT</label></strong>
           <div class="col-sm-7">
-           : <?php echo $_POST['cwt'];?>
-           <input name="cwt" type="hidden" id="name6" value="<?php echo $_POST['cwt'];?>" />
+           : <?php echo $con->CWT;?>
+           <input name="cwt" type="hidden" id="name6" value="<?php echo $con->CWT;?>" />
           </div>
  </div><div class="clearfix"></div>
 <div class="form-group">       
           <strong><label class="col-sm-5"> Declare Value</label></strong>
           <div class="col-sm-7">
-           : <?php echo $_POST['declare'];?>
-           <input name="declare" type="hidden" id="name7" value="<?php echo $_POST['declare'];?>" />
+           : <?php echo $con->DeclareValue;?>
+           <input name="declare" type="hidden" id="name7" value="<?php echo $con->DeclareValue;?>" />
           </div>
  </div><div class="clearfix"></div>
 <div class="form-group"> <strong>
   <label class="col-sm-5"> Description of Shipment</label>
 </strong>
-<div class="col-sm-7">: <?php echo $_POST['description'];?>
-  <input name="description" type="hidden" id="name8" value="<?php echo $_POST['description'];?>" />
+<div class="col-sm-7">: <?php echo $con->DescofShipment;?>
+  <input name="description" type="hidden" id="name8" value="<?php echo $con->DescofShipment;?>" />
 </div>
  </div><div class="clearfix"></div>
 
@@ -237,7 +244,9 @@
    <!-- END OF RIGHT FORM -->
        
     </div>
+	<?php } ?>
     </div>
+   
 <br style="clear:both">
 <div class="col-sm-11">         
   <div class="row">
@@ -259,8 +268,12 @@
                                               <tbody>
    <?php 
 $i=1;
-foreach($tmpcharge as $chr){
-$grandt+=$chr->Total;
+foreach($charges as $chr){
+$unit=$chr->Unit;
+$qty=$chr->Qty;
+$kali=$unit*$qty;
+
+$total_charges+=$kali;
  //$t_volume+=$itm['v'];
         ?>
                                                   <tr>
@@ -276,16 +289,16 @@ $grandt+=$chr->Total;
                                                     <input name="qty[]" type="hidden" id="qty[]" value="<?php echo $chr->Qty;?>" />
                                                     <?php echo $chr->Qty;?></div></td>
                                                   <td><div align="right">
-                                                    <input name="total[]" type="hidden" id="total[]" value="<?php echo $chr->Total;?>" />
-<?php echo number_format($chr->Total,2,'.',',');?></div></td>
+                                                    <input name="total[]" type="hidden" id="total[]" value="<?php echo $kali;?>" />
+<?php echo number_format($kali,2,'.',',');?></div></td>
                                                 </tr>
 <?php $no++; } ?>
                                                 <thead>
                                                  <tr>
                                                   <td colspan="3"><b>Total</b></td>
                                                   <td colspan="3"><div align="right"><strong>
-                                                  <?php echo "Rp ". number_format($grandt,2,'.',',');?>
-												  <input type="hidden" name="total_charge" value="<?php echo $grandt;?>" />
+                                                  <?php echo "Rp ". number_format($total_charges,2,'.',',');?>
+												  <input type="hidden" name="total_charge" value="<?php echo $total_charges;?>" />
                                                   </strong></div></td>
                                                   </tr>
                                                 </thead>

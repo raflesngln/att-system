@@ -40,12 +40,23 @@ function toRp(angka){
  function rupiah(){
   var angka =document.getElementById("grossweight").value;
   var aa=angka;
-  var hasil=toRp(aa);
+  var hasil=toRp(aa); 
   //alert('haii ' + hasil);
   document.getElementById("grossweight").value =hasil;
+  
   document.getElementById("grossweight").style.fontSize="large";
-   document.getElementById("grossweight").style.fontWeight="bold";
-   document.getElementById("grossweight").style.color="blue";
+  document.getElementById("grossweight").style.fontWeight="bold";
+  document.getElementById("grossweight").style.color="blue";
+  
+  var gross2=document.getElementById("grossweight2").value =angka;
+  var volum=document.getElementById("t_volume").value;
+  
+ if (gross2 > volum) {
+    document.getElementById("cwt").value =angka;
+} else {
+    document.getElementById("cwt").value =volum;
+} 
+
  }
 
   </script>
@@ -203,12 +214,12 @@ function toRp(angka){
                                         <div class="table-responsive" id="table_responsive">
                                         <table class="table table-striped table-bordered table-hover" id="tblitems">
                                               <thead>
-                                                <tr>
-                                                  <th colspan="2">No Of Pcs</th>
-                                                  <th>Length ( P )</th>
-                                                  <th>Width ( L )</th>
-                                                  <th>Height ( T )</th>
-                                                  <th>Volume</th>
+                                                <tr align="">
+                                                  <th colspan="2"><div align="center">No Of Pcs</div></th>
+                                                  <th><div align="center">Length ( P )</div></th>
+                                                  <th><div align="center">Width ( L )</div></th>
+                                                  <th><div align="center">Height ( T )</div></th>
+                                                  <th><div align="center">Volume</div></th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                                 <th colspan="6"></th>
@@ -241,11 +252,11 @@ function toRp(angka){
   <?php $no++;} ?>
                                                 <thead>
                                                  <tr align="right">
-                                                  <td colspan="2"><b>Total</b><?php echo $t_item;?><input type="hidden" name="t_item" value="<?php echo $t_item;?>"></td>
-                                                  <td>&nbsp;</td>
-                                                  <td>&nbsp;</td>
-                                                  <td>&nbsp;</td>
-                                                  <td><input name="t_volume" type="text" id="t_volume" value="0" />                                                    <?php echo number_format($t_volume,2,'.',',');?></td>  
+                                                  <td colspan="2"><?php echo $t_item;?><input type="hidden" name="t_item" value="<?php echo $t_item;?>"></td>
+                                                  <td colspan="3">Total</td>
+                                                  <td><input name="t_volume" type="hidden" id="t_volume" value="0" />      
+                                                    <label id="label_volume">0</label>                                           
+                                                  </td>  
                                                   <td>&nbsp;</td>
                                                 </tr>
                                                 </thead>
@@ -274,7 +285,8 @@ function toRp(angka){
 <label class="col-sm-4">Gross Weight</label>
   <div class="col-sm-7">
   <input type="text" name="grossweight" id="grossweight" class="form-control" onkeypress="return isNumberKey(event)" onchange="rupiah();" required="required">
-</div>
+  <input type="text" name="grossweight2" value="" id="grossweight2" />
+  </div>
 </div>
                                               <div class="col-md-12">
                                               <label class="col-sm-4">Special Instructions &nbsp;</label>
@@ -312,7 +324,7 @@ function toRp(angka){
                                         <div class="table-responsive" id="table_responsive">
                                         <table class="table table-striped table-bordered table-hover" id="tblcharges">
                                               <thead>
-                                                  <th width="24">No.</th>
+                                                  <th width="24">&nbsp;</th>
                                                   <th width="56">Charges</th>
                                                   <th width="61">Desc</th>
                                                   <th width="49">Unit</th>
@@ -335,19 +347,11 @@ $grandt+=$chr->Total;
         ?>
                                                   <tr>
                                                   <td><?=$i;?></td>
-                                                  <td><?php echo $chr->ChargeName;?>
-                                                    <input name="idcharge[]" type="hidden" id="idcharge[]" value="<?php echo $chr->ChargeName;?>" /></td>
-                                                  <td><?php echo $chr->Description;?>
-                                                    <input name="desc[]" type="hidden" id="desc[]" value="<?php echo $chr->Description;?>" /></td>
-                                                  <td><div align="right">
-                                                    <input name="unit[]" type="hidden" id="unit[]" value="<?php echo $chr->Unit;?>" />
-                                                    <?php echo number_format($chr->Unit,2,',','.');?>                                                  </div></td>
-                                                  <td><div align="right">
-                                                    <input name="qty[]" type="hidden" id="qty[]" value="<?php echo $chr->Qty;?>" />
-                                                    <?php echo $chr->Qty;?></div></td>
-                                                  <td><div align="right">
-                                                    <input name="total[]" type="hidden" id="total[]" value="<?php echo $chr->Total;?>" />
-<?php echo number_format($chr->Total,2,'.',',');?></div></td>
+                                                  <td><?php echo $chr->ChargeName;?></td>
+                                                  <td><?php echo $chr->Description;?></td>
+                                                  <td><div align="right"><?php echo number_format($chr->Unit,2,',','.');?>                                                  </div></td>
+                                                  <td><div align="right"><?php echo $chr->Qty;?></div></td>
+                                                  <td><div align="right"><?php echo number_format($chr->Total,2,'.',',');?></div></td>
                                                   <td>
                                                   <div align="center">
                                                <a href="<?php echo base_url();?>temp/delete_charge/<?php echo $chr->tempChargeId?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete item">
@@ -359,8 +363,9 @@ $grandt+=$chr->Total;
                                                  <tr>
                                                   <td colspan="3"><b>Total</b></td>
                                                   <td colspan="3"><div align="right"><strong>
-                                                  <?php echo "Rp ". number_format($grandt,2,'.',',');?>
-												  <input type="hidden" name="total_charge" value="<?php echo $grandt;?>" />
+                                                  <input name="total_charge" type="hidden" id="total_charge" value="0" />
+  <label id="label_charges">0</label>                                                                                           
+                                                  
                                                   </strong></div></td>
                                                   <td width="143">&nbsp;</td>
                                                 </tr>
@@ -539,7 +544,7 @@ $grandt+=$chr->Total;
 <div class="form-group">
                         <label class="col-sm-3 control-label">No of Pcs </label>
                         <div class="col-sm-9"><span class="controls">
-                        <input name="pcs" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="pack" />
+                        <input name="pack" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="pack" />
 </span></div>
             <div class="clearfix"></div>
             </div>
@@ -586,14 +591,14 @@ $grandt+=$chr->Total;
                 <h3 id="myModalLabel">Add Charges</h3>
             </div>
             <div class="smart-form scroll">
-                <form method="post" action="<?php echo site_url('temp/save_temp_charge')?>">
+<!-- <form method="post" action="<?php //echo site_url('temp/save_temp_charge')?>">  -->
                     <div class="modal-body">
                      
                    
 <div class="form-group">
                         <label class="col-sm-3 control-label">Charges </label>
                         <div class="col-sm-9"><span class="controls">
-              <select name="charge" class="form-control" required=required>
+              <select name="charge" class="form-control" required="required" id="charge">
                 <option value="">Select One</option>
 <?php foreach ($charges as $crg) {
   ?>
@@ -608,32 +613,32 @@ $grandt+=$chr->Total;
 <div class="form-group">
                         <label class="col-sm-3 control-label">Description &nbsp;</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="desc" type="text" class="form-control" id="persen" />
+                          <input name="desc" type="text" class="form-control" id="desc" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>
   <div class="form-group">
                         <label class="col-sm-3 control-label">Unit &nbsp; </label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="unit" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="persen" />
+                          <input name="txtunit" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="txtunit" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Qty &nbsp; </label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="qty" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="persen" />
+                          <input name="qty" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="txtqty" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>                    
 
   <div class="modal-footer">
 <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
+                        <button class="btn btn-primary" id="savecharges"> Save</button>
     </div>
                     </div>
             
-                </form>
+            <!--    </form>  -->
             </div>
         </div>
     </div>
@@ -906,7 +911,7 @@ $("#txtsearch").keyup(function(){
             });
 
         });
-     $("#iditems").click(function(){
+     $("#iditemsssssssss").click(function(){
 	var pcs=$('#origin').val();
 	var panjang=$('#desti').val();
 	var lebar=$('#paymentype').val();
@@ -916,32 +921,31 @@ $("#txtsearch").keyup(function(){
      alert(pcs + '/' + panjang +'/' + lebar + '/'+ tinggi + '/'+ idshipper);
 
         });
-
-   $("#iditemsss").click(function(){
+		
+$("#iditems").click(function(){
 	//var t_volume=$('#idtotal').val();   
-	var pcs=$('#pcs').val();
+	var pcs=$('#pack').val();
 	var panjang=$('#panjang').val();
 	var lebar=$('#lebar').val();
 	var tinggi=$('#tinggi').val();
  	var kali = parseInt(panjang) * parseInt(lebar) * parseInt(tinggi);
  	var t_volume=$('#t_volume').val();
-	
 	var total_volume=parseInt(kali)+ parseInt(t_volume);
 					
-		
 	text='<tr class="gradeX" align="right">'
 	+ '<td></td>'
-    + '<td>' + '<?php echo "rafff";?>' + '<input type="text" name="pcs[]" id="pcs[]" size="5" value="'+ pcs +'">' +'</td>'
-    + '<td>' + '<input type="text" name="p[]" id="p[]" size="5" value="'+ panjang +'">' +'</td>'
-    + '<td>' +  '<input type="text" name="l[]" id="l[]" size="5" value="'+ lebar +'">' +'</td>'
-    + '<td>' +  '<input type="text" name="t[]" id="t[]" size="5" value="'+ tinggi +'">' +'</td>'
-    + '<td>' + '<input type="text" name="v[]" id="v[]" size="5" value="'+ kali +'">' +'</td>'
+    + '<td>' + '<input type="hidden" name="pcs[]" id="pcs[]" size="5" value="'+ pcs +'">'+ '<label id="l_pcs">'+ pcs +'</label>' +'</td>'
+    + '<td>' + '<input type="hidden" name="p[]" id="p[]" size="5" value="'+ panjang +'">'+ '<label id="l_pcs">'+ panjang +'</label>' +'</td>'
+    + '<td>' +  '<input type="hidden" name="l[]" id="l[]" size="5" value="'+ lebar +'">'+ '<label id="l_pcs">'+ lebar +'</label>' +'</td>'
+    + '<td>' +  '<input type="hidden" name="t[]" id="t[]" size="5" value="'+ tinggi +'">'+ '<label id="l_pcs">'+ tinggi +'</label>' +'</td>'
+    + '<td>' + '<input type="hidden" name="v[]" id="v[]" size="5" value="'+ kali +'">'+ '<label id="l_pcs">'+ kali +'</label>' +'</td>'
 
-	+'<td align="center">' + '<input type="text" id="tt" name="tt[]" value="' + kali +'">'+ '<button class="btndel btn-danger btn-mini" onclick="hapus(this)" type="button"  >hapus</button></td>'
+	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali +'" onclick="hapus2(this)" type="button"  >hapus</button></td>'
     + '</tr>';
 	
 		$('#tblitems tbody').append(text);
 		$("#t_volume").val(total_volume);
+		$("#label_volume").html(total_volume);
 		
 		$("#modaladd").modal('hide');
 
@@ -965,25 +969,63 @@ $("#txtsearch").keyup(function(){
  }
 
 
+function hapus2(myid){
+var input = $(myid).val();
 
+var t_volume=$('#t_volume').val();
+var hasil=parseInt(t_volume)-parseInt(input);
 
-function hapus2(){
-	var input_tipe = document.getElementsByTagName("tt");
-	var select_tipe = document.getElementsByTagName("t_volume");
-	var arr_harga = new Array();
-	for(var j = 0; j<input_tipe.length; j++)
-	{
-		if (input_tipe[j].name=="tt[]")
-		{
-			arr_harga[j] = input_tipe[j].value;
-		}
-	}
-		document.getElementById('t_volume').value =sum;
-		//document.frm.total.value = jum_total;
-	
-	//var sum = 0;
-	//var jum_total =arr_harga[j];
-	//document.getElementById('t_volume').value =jum_total;
+$('#t_volume').val(hasil);
+$('#label_volume').html(hasil);
 
+     t = $(myid);
+     tr = t.parent().parent();
+     tr.remove();
 }
+
+$("#savecharges").click(function(){
+	//var t_volume=$('#idtotal').val();   
+	var charge=$('#charge').val();
+	var desc=$('#desc').val();
+	var txtunit=$('#txtunit').val();
+	var txtqty=$('#txtqty').val();
+ 	var kali = parseInt(txtunit) * parseInt(txtqty);
+ 	var total_charge=$('#total_charge').val();
+	
+	var jumlah=parseInt(total_charge) + parseInt(kali);			
+		
+	text='<tr class="gradeX" align="left">'
+	+ '<td></td>'
+    + '<td>' + '<input type="hidden" name="idcharge[]" id="pcs[]" size="5" value="'+ charge +'">'+ '<label id="l_pcs">'+ charge +'</label>' +'</td>'
+    + '<td>' + '<input type="hidden" name="desc[]" id="p[]" size="5" value="'+ desc +'">'+ '<label id="l_pcs">'+ desc +'</label>' +'</td>'
+    + '<td>' +  '<input type="hidden" name="unit[]" id="l[]" size="5" value="'+ txtunit +'">'+ '<label id="l_pcs">'+ txtunit +'</label>' +'</td>'
+    + '<td>' +  '<input type="hidden" name="qty[]" id="t[]" size="5" value="'+ txtqty +'">'+ '<label id="l_pcs">'+ txtqty +'</label>' +'</td>'
+    + '<td>' + '<input type="hidden" name="total[]" id="v[]" size="5" value="'+ kali +'">'+ '<label id="l_pcs">'+ kali +'</label>' +'</td>'
+
+	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali +'" onclick="hapus3(this)" type="button">hapus</button></td>'
+    + '</tr>';
+	
+		$('#tblcharges tbody').append(text);
+		$("#total_charge").val(jumlah);
+		$("#label_charges").html(jumlah);
+		
+		$("#modaladdCharge").modal('hide');
+
+        });
+
+
+function hapus3(myid){
+var input = $(myid).val();
+
+var total_charge=$('#total_charge').val();
+var hasil=parseInt(total_charge)-parseInt(input);
+
+$('#total_charge').val(hasil);
+$("#label_charges").html(hasil);
+
+     t = $(myid);
+     tr = t.parent().parent();
+     tr.remove();
+}
+
 </script>

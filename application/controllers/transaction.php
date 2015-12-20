@@ -212,14 +212,22 @@ $OutHouse=array(
         $data = array(
             'title'=>'domesctic_outgoing_house',
             'scrumb_name'=>'domesctic_outgoing_house',
+			'houseno'=>$getHouse,
+			'jobno'=>$getjob,
             'scrumb'=>'transaction/domesctic_outgoing_house',
             'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
             'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
             'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
             'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
-            'tmpcharge'=>$this->model_app->getdatapaging("*","temp_charges","ORDER BY tempChargeId"),
+           // 'tmpcharge'=>$this->model_app->getdatapaging("*","temp_charges","ORDER BY tempChargeId"),
             'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
 			'outgoing_connote'=>$this->model_app->getdatapaging("*","outgoing_connote","ORDER BY HouseNo ASC"),
+			
+			'connote'=>$this->model_app->getdatapaging("*","outgoing_connote","where HouseNo='$getHouse' ORDER BY HouseNo ASC"),
+			'items'=>$this->model_app->getdatapaging("*","booking_items","where HouseNo='$getHouse' ORDER BY IdItems ASC"),
+			'charges'=>$this->model_app->getdatapaging("*","booking_charges","where HouseNo='$getHouse' ORDER BY IdBooking ASC"),
+			
+			
             'view'=>'pages/booking/printview/confirm_outgoing_house',
         );  
         ob_start();
