@@ -53,8 +53,7 @@ function domesctic_outgoing_house(){
             'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
             'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
             'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
-            'tmpcharge'=>$this->model_app->getdatapaging("*","temp_charges","WHERE Session='$idusr' ORDER BY tempChargeId"),
-           'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
+            'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
             'view'=>'pages/booking/domesctic_outgoing_house',
         );  
       $this->load->view('home/home',$data);

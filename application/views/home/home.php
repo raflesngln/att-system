@@ -168,41 +168,7 @@ return true;
 			</a>
 
 			<div class="sidebar" id="sidebar">
-			  <div class="sidebar-shortcuts" id="sidebar-shortcuts">
-					<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-<a href="<?php echo base_url();?>temp/cart">
-						<button class="btn btn-small btn-danger">
-                        <i class="icon-envelope"></i>
-                   
-						</button></a>
-<a href="<?php echo base_url('transaksi/add_transaksi')?>">
-						<button class="btn btn-small btn-info">
-							<i class="icon-pencil"></i>
-						</button>
-</a>
-
-<a href="<?php echo base_url();?>transaksi/add_invoice">
-						<button class="btn btn-small btn-warning">
-							<i class="icon-group"></i>
-						</button>
-</a>
-<a href="<?php echo base_url();?>master/gallery">
-						<button class="btn btn-small btn-danger">
-							<i class="icon-cogs"></i>
-						</button>
-					</div>
-</a>
-
-					<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-						<span class="btn btn-success"></span>
-
-						<span class="btn btn-info"></span>
-
-						<span class="btn btn-warning"></span>
-
-						<span class="btn btn-danger"></span>
-					</div>
-				</div><!--#sidebar-shortcuts-->
+			  <!--#sidebar-shortcuts-->
 
 				<ul class="nav nav-list">
 					<li class="active">
@@ -287,6 +253,7 @@ return true;
         <ul class="submenu">
          <li> <a href="<?php echo base_url();?>transaction/domesctic_outgoing_master"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-file-archive-o bigger-120"></i> &nbsp;Outgoing-Master</a></li>
  		<li> <a href="<?php echo base_url();?>transaction/domesctic_outgoing_house"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Outgoing-House</a></li>
+<li> <a href="<?php echo base_url();?>transaction/proses_outgoing_house"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Proses-Outgoing</a></li>
 		<li> <a href="<?php echo base_url();?>transaction/outgoing_consolidation"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-clone bigger-120"></i> &nbsp;Consolidation</a></li>
         
         </ul>

@@ -84,6 +84,7 @@ function toRp(angka){
 }
  function rupiah(){
   var angka =document.getElementById("grossweight").value;
+  var angka2 =document.getElementById("grossweight").value;
   var nilai=angka;
   var hasil=toRp(nilai); 
   //alert('haii ' + hasil);
@@ -96,10 +97,10 @@ function toRp(angka){
   var gross2=document.getElementById("grossweight2").value =hasil;
   var volum=document.getElementById("t_volume").value;
   
- if (angka <= volum) {
-    document.getElementById("cwt").value =volum;
+ if (angka >= volum) {
+    document.getElementById("cwt").value ='angka2 gross lebihh besar';
 } else {
-    document.getElementById("cwt").value =angka;
+    document.getElementById("cwt").value ='volume lebih besar';
 } 
 
  }
@@ -191,7 +192,7 @@ function toRp(angka){
       
 
 <br style="clear:both">
-<form method="post" action="<?php echo base_url();?>transaction/confirm_outgoing_house">
+<form method="post" action="<?php echo base_url();?>transaction/confirm_outgoing_house" autocomplete="off">
 <div class="container">
   <div class="row">
                <!--LEFT INPUT-->
@@ -254,7 +255,7 @@ function toRp(angka){
 <div class="col-sm-12"><hr></div>
           <strong><label class="col-sm-4"> Shipper</label></strong>
           <div class="col-sm-7">
-            <input type="text" name="idshipper" id="idshipper" class="autocomplete form-control" placeholder="types customer name"/>
+            <input type="text" name="idshipper" id="idshipper" class="form-control" placeholder="types customer name" autocomplete="off"/>
           <input name="name1" type="hidden" class="form-control"  id="name1" required value="<?php echo $row->custName;?>"/></div>
 <div class="col-sm-1"><a class="btn btn-success btn-addnew btn-mini" href="#modaladdcust" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a></div>
 
@@ -282,9 +283,7 @@ function toRp(angka){
 
 <div class="col-sm-13" id="contenshipper"><!-- CONTENT AJAX VIEW HERE --></div>
 
-<!-- detail for sender -->
-
-         
+<!-- detail for sender -->    
 
 <!-- end of sender -->
 
@@ -316,7 +315,7 @@ function toRp(angka){
           <strong><label class="col-sm-4"> Consignee</label>
           </strong>
             <div class="col-sm-7">
-            <input name="idconsigne" type="text" class="form-control"  id="idconsigne" placeholder="types customer name"/>
+            <input name="idconsigne" type="text" class="form-control"  id="idconsigne" placeholder="types customer name" autocomplete="off"/>
             <input name="name2" type="hidden" class="form-control"  id="name2" required />
           </div> 
 <div class="col-sm-1"><a class="btn btn-success btn-addnew btn-mini" href="#modaladdcust" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a></div>
@@ -431,10 +430,10 @@ function toRp(angka){
                                                  </div>
                                                 </div>
 <div class="col-md-12">
-<label class="col-sm-4">Gross Weight</label>
+<label class="col-sm-4">Gross Weight</label> 
   <div class="col-sm-7">
   <input type="text" name="grossweight" id="grossweight" class="form-control" onkeypress="return isNumberKey(event)" onchange="rupiah();" required>
-  <input type="text" name="grossweight2" value="" id="grossweight2" />
+  <input type="text" name="grossweight2" value="" id="grossweight2" onchange="rupiah();"/>
   </div>
 </div>
                                               <div class="col-md-12">
