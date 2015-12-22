@@ -13,6 +13,15 @@ class Mautocomplete extends CI_Model{
         
         return $query->result();
     }
+	function lookup_cnote($keyword){
+       $this->db->select('*')->from('outgoing_connote');
+       $this->db->like('Origin',$keyword,'after');
+		//$this->db->where('HouseNo',$keyword);
+		//$this->db->where('isShipper','1');
+        $query = $this->db->get();    
+        
+        return $query->result();
+    }
 	function lookup_receive($keyword){
        $this->db->select('*')->from('ms_customer');
         $this->db->like('custName',$keyword,'after');

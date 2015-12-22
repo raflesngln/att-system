@@ -137,7 +137,7 @@ gr
 <div class="clearfx">&nbsp;</div>
         <strong><label class="col-sm-4">Booking No</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly"/>
+           <input name="booking" type="text" class="form-control"  id="booking" required="required" readonly="readonly"/>
           </div>
           <strong><label class="col-sm-4"> Payment Type</label></strong>
           <div class="col-sm-7">

@@ -7,7 +7,7 @@ class Model_app extends CI_Model{
     public function getJob($status)
     {
 		$bulan=date('m');
-        $query = $this->db->query("select MAX(RIGHT(JobNo,5)) as kd_max from outgoing_connote WHERE MID(JobNo,7,2)='$bulan'");
+        $query = $this->db->query("select MAX(RIGHT(JobNo,5)) as kd_max from outgoing_connote WHERE MID(JobNo,8,2)='$bulan'");
         $kd = "";
         if($query->num_rows()>0)
         {
@@ -21,7 +21,7 @@ class Model_app extends CI_Model{
         {
             $kd = "00001";
         }
-        return "08".date('Ym').$kd;
+        return "JOB".date('Ym').$kd;
     }
 	
 //    kode job
@@ -43,6 +43,26 @@ class Model_app extends CI_Model{
             $kd = "00001";
         }
         return "08".date('Ym').$kd;
+    }
+//    kode job
+    public function getConnote()
+    {
+        $bulan=date('m');
+        $query = $this->db->query("select MAX(RIGHT(HouseNo,4)) as kd_max from booking_items WHERE MID(NoConnote,8,2)='$bulan'");
+        $kd = "";
+        if($query->num_rows()>0)
+        {
+            foreach($query->result() as $k)
+            {
+                $tmp = ((int)$k->kd_max)+1;
+                $kd = sprintf("%05s", $tmp);
+            }
+        }
+        else
+        {
+            $kd = "00001";
+        }
+        return "CON".date('Ym').$kd;
     }
 //=====================login member cek============================
     function login($table,$username,$password) {

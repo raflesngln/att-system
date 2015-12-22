@@ -57,8 +57,28 @@ function domesctic_outgoing_house(){
             'view'=>'pages/booking/domesctic_outgoing_house',
         );  
       $this->load->view('home/home',$data);
+    }
+function cargo_manifest(){
+        $idusr=$this->session->userdata('idusr');
+        $data = array(
+            'title'=>'cargo_manifest Entry',
+            'scrumb_name'=>'cargo_manifest Entry',
+            'scrumb'=>'transaction/cargo_manifest',
+            'payment_type'=>$this->model_app->getdatapaging("payCode,payName","ms_payment_type","ORDER BY payCode ASC"),
+            'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
+            'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
+			'outgoing_connote'=>$this->model_app->getdata('outgoing_connote',""),
+            'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
+            'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
+            'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
+            'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
+            'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
+            'view'=>'pages/booking/proses_outgoing_house',
+        );  
+      $this->load->view('home/home',$data);
     } 
-//
+	
+//// incoming house
  function domesctic_incoming_house(){
         $data = array(
             'title'=>'domesctic-incoming-house',
@@ -143,11 +163,11 @@ function hapus_item_temp(){
 
 
 //     DATA TO PDF
-    function confirm_outgoing_house(){
-		$getHouse=$this->model_app->getHouseNo("08");
-		$getjob=$this->model_app->getJob("JOB-");
+ function confirm_outgoing_house(){
+		$getHouse=$this->model_app->getHouseNo();
+		$getjob=$this->model_app->getJob();
 			
-//====Save charges and items inevery table refer to SMU number ==============//
+	//====Save charges and items inevery table refer to SMU number ==============//
 	$pcs=$_POST['pcs'];	
 	foreach($pcs as $key => $val)
 	{
@@ -158,7 +178,7 @@ function hapus_item_temp(){
 		$v  =$_POST['v'][$key];	
 		$newitem=array(
 		'HouseNo' =>$getHouse,
-		'NoPack'=>$pcs,
+		'NoPack'=>$pcs, 
 		'Length'=>$p,
 		'Width'=>$l,
 		'Height'=>$t,
@@ -185,7 +205,7 @@ function hapus_item_temp(){
 		 $this->model_app->insert('booking_charges',$newcharge);
 	}
 	//----- SAVE OF OUT GOING HOUSE --------------////
-$OutHouse=array(
+	$OutHouse=array(
 		'HouseNo' =>$getHouse,
 		'JobNo' =>$getjob,
 		'BookingNo' =>$this->input->post('booking'),

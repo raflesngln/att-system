@@ -48,6 +48,16 @@ function detail_sender(){
 
 		}
 	}
+	function detail_cnote(){
+
+        $kode=$this->input->post('idcnote');
+
+		$data['connote']=$this->model_app->getdata('outgoing_connote',"WHERE HouseNo='$kode'");
+
+			 $this->load->view('pages/Booking/detail_connote',$data);
+
+		
+	}
 public function getdetailshipper()
 	{
 		// tangkap variabel keyword dari URL
