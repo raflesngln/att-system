@@ -464,6 +464,7 @@ function toRp(angka){
   <div class="modal-footer">
 <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
                         <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
+                       
     </div>
                     </div>
             
@@ -509,7 +510,9 @@ function toRp(angka){
                       
 <div class="modal-footer">
   <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary" id="iditems"> Save</button>
+                        <button class="btn btn-primary" id="iditems"> Insert</button>
+                        
+                       
   </div>
                     </div>
             
@@ -520,37 +523,10 @@ function toRp(angka){
     </div>
     </div>
 
-<script type="text/javascript">     
-$("#txtsearch").keyup(function(){
-
-            var txtsearch = $("#txtsearch").val();
-            $.ajax({
-                type: "POST",
-                url : "<?php echo base_url('search/search_discount_ajax'); ?>",
-                data: "txtsearch="+txtsearch,
-                cache:false,
-                success: function(data){
-                    $('#table_responsive').html(data);
-                    //document.frm.add.disabled=false;
-                }
-            });
-        });
-		
-		
-   $("#idcnote").keyup(function(){
-            var idcnote = $('#idcnote').val();
-             // alert('hai' + idcnote);
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('booking/detail_cnote'); ?>",
-                data: "idcnote="+idcnote,
-                success: function(data){
-                   $('#detailconnote').html(data);
-					//alert(data);
-                }
-            });
-        });
-   $("#btnsearch").click(function(){
+<script>
+$(document).ready(function() {
+   
+	   $("#idcnote").keyup(function(){
             var idcnote = $('#idcnote').val();
              // alert('hai' + idcnote);
 				$.ajax({
@@ -564,53 +540,22 @@ $("#txtsearch").keyup(function(){
             });
         });
 		
-
-  $("#addcust").click(function(){
-		var initial=$("#initial").val();
-		var namecust=$("#namecust").val();
-		var address=$("#address").val();
-		var city=$("#city").val();
-		var phone=$("#phone").val();
-		var fax=$("#fax").val();
-		var postcode=$("#postcode").val();
-		var email=$("#email").val();
-		var remarks2=$("#remarks2").val();
-		var isagent=$("#isagent").val();
-		var isshipper=$("#isshipper").val();
-		var iscnee=$("#iscnee").val();
-	if (initial == '')
-        { 
-		alert('Mohon isi data dengan lengkap');
-		$("#initial").css("border-color","red");
-		$("#label-confir").css({"background-color": "white", "color": "red"});
-		$("#label-confir").html('<i class="fa fa-times"></i>');
-        }
-	else if (namecust == '')
-        { 
-		alert('Mohon isi data dengan lengkap');
-		$("#namecust").css("border-color","red");
-		$("#label-confir2").css({"background-color": "white", "color": "red"});
-		$("#label-confir2").html('<i class="fa fa-times"></i>');
-        } 
-    else
-        {	
-	          $.ajax({
+	 $("#btnsearch").click(function(){
+            var idcnote = $('#idcnote').val();
+             // alert('hai' + idcnote);
+				$.ajax({
                 type: "POST",
-                url : "<?php echo base_url('booking/save_customer2'); ?>",
- data: "namecust="+namecust+"&initial="+initial+"&address="+address+"&city="+city+"&phone="+phone+"&fax="+fax+"&postcode="+postcode+"&email="+email+"&remarks2="+remarks2+"&isagent="+isagent+"&isshipper="+isshipper+"&iscnee="+iscnee,
+                url : "<?php echo base_url('booking/detail_cnote'); ?>",
+                data: "idcnote="+idcnote,
                 success: function(data){
-                 	alert('Customer with name ' +namecust +' Success Saved');
+                   $('#detailconnote').html(data);
+					//alert(data);
                 }
-            });	
-			$("#initial").css("border-color","#D9DFE2");
-			$("#label-confir").html('');
-			$("#modaladdcust").modal('hide');
-		}
-			
-   });
-	
-     
-		
+            });
+        });
+$("#iditemssssssssssss").click(function(){
+	alert('tidak ada data');
+})
 $("#iditems").click(function(){
 	//var t_volume=$('#idtotal').val();   
 	var idcnote=$('#idcnote').val();
@@ -624,7 +569,7 @@ $("#iditems").click(function(){
 	var t_volume=$('#t_volume').val();
 	var ttl = parseInt(t_volume) + parseInt(berat);
  
-if (idcnote == '' || tujuan == '' || jml == ''){
+if (idcnote == ''){
 	alert('Mohon isi data dengan lengkap');	
 	}
 	else
@@ -641,7 +586,7 @@ if (idcnote == '' || tujuan == '' || jml == ''){
 
 
 	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + berat +'" onclick="hapus2(this)" type="button"  ><i class="fa fa-times"></i></button></td>'
-    + '</tr>'; fa -time sbdajdb
+    + '</tr>';
 	
 		$('#tblitems tbody').append(text);
 		$("#t_volume").val(ttl);
@@ -650,7 +595,7 @@ if (idcnote == '' || tujuan == '' || jml == ''){
 	}
  });
 
- $("#btndel").on("click", function(){
+$("#btndel").on("click", function(){
         alert('The paragraph was clicked');
  });
 		
@@ -727,9 +672,10 @@ $("#label_charges").html(hasil);
      tr.remove();
 }
 
-</script>
 
- 
+});
+
+</script>
   <!-- =================================================================================  -->   
 
 	</body>
