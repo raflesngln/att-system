@@ -903,7 +903,8 @@ $("#iditems").click(function(){
  	var t_volume=$('#t_volume').val();
 	var total_volume=parseInt(kali)+ parseInt(t_volume);
 	
-	var t_pacs=parseInt($('#t_pacs').val()) + parseInt(pcs);
+	var t_pacs=$('#t_pacs').val();
+	var total_pacs=parseInt(t_pacs) + parseInt(pcs);
 	//var total_pacs=parseInt(t_pacs)+ parseInt(pcs);
 	
 if (panjang == '' || lebar == '' || pcs == ''){
@@ -919,14 +920,14 @@ if (panjang == '' || lebar == '' || pcs == ''){
     + '<td>' +  '<input type="hidden" name="t[]" id="t[]" size="5" value="'+ tinggi +'">'+ '<label id="l_pcs">'+ tinggi +'</label>' +'</td>'
     + '<td>' + '<input type="hidden" name="v[]" id="v[]" size="5" value="'+ kali +'">'+ '<label id="l_pcs">'+ kali +'</label>' +'</td>'
 
-	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali + '/'+ lebar +'" onclick="hapus2(this)" type="button" ><i class="fa fa-times"></i></button></td>'
+	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali + '/'+ pcs +'" onclick="hapus2(this)" type="button" ><i class="fa fa-times"></i></button></td>'
     + '</tr>';
 	
 		$('#tblitems tbody').append(text);
 		$("#t_volume").val(total_volume);
 		$("#label_volume").html(total_volume);
-		$("#t_pacs").val(t_pacs);
-		$("#label_pacs").html(t_pacs);
+		$("#t_pacs").val(total_pacs);
+		$("#label_pacs").html(total_pacs);
 		//RESET INPUTAN
 		$("#panjang").val("");
 		$("#lebar").val("");
@@ -956,11 +957,14 @@ function hapus(th) {
 function hapus2(myid){
 var input = $(myid).val();
 var input2 = $(myid).val();
+var pecah2=input2.split('/');
+var hasil_pecah=pecah2[1];
+//document.write('kata yang pertama adalah ' +hasil[0]);
 
 	var t_volume=$('#t_volume').val();
 	var hasil=parseInt(t_volume)-parseInt(input);
 		var t_pacs=$('#t_pacs').val();
-		var hasil2=parseInt(t_pacs)-parseInt(input2);
+		var hasil2=parseInt(t_pacs)-parseInt(hasil_pecah);
 
 	
 	$('#t_volume').val(hasil);
@@ -968,6 +972,7 @@ var input2 = $(myid).val();
 		$('#t_pacs').val(hasil2);
 		$('#label_pacs').html(hasil2);
 
+//alert(hasil_pecah);
      t = $(myid);
      tr = t.parent().parent();
      tr.remove();
