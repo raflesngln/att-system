@@ -250,7 +250,7 @@ function toRp(angka){
 <div class="col-sm-12"><hr></div>
           <strong><label class="col-sm-4"> Shipper</label></strong>
           <div class="col-sm-7">
-            <input type="text" name="idshipper" id="idshipper" class="form-control" placeholder="types customer name" autocomplete="off" required="required"/>
+            <input type="text" name="idshipper" id="idshipper" class="form-control" placeholder="types customer name" autocomplete="off" required/>
           <input name="name1" type="hidden" class="form-control"  id="name1" required value="<?php echo $row->custName;?>"/></div>
 <div class="col-sm-1"><a class="btn btn-success btn-addnew btn-mini" href="#modaladdcust" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a></div>
 
@@ -310,7 +310,7 @@ function toRp(angka){
           <strong><label class="col-sm-4"> Consignee</label>
           </strong>
             <div class="col-sm-7">
-            <input name="idconsigne" type="text" class="form-control"  id="idconsigne" placeholder="types customer name" autocomplete="off" required="required"/>
+            <input name="idconsigne" type="text" class="form-control"  id="idconsigne" placeholder="types customer name" autocomplete="off" required/>
             <input name="name2" type="hidden" class="form-control"  id="name2" required />
           </div> 
 <div class="col-sm-1"><a class="btn btn-success btn-addnew btn-mini" href="#modaladdcust" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a></div>
@@ -919,7 +919,7 @@ if (panjang == '' || lebar == '' || pcs == ''){
     + '<td>' +  '<input type="hidden" name="t[]" id="t[]" size="5" value="'+ tinggi +'">'+ '<label id="l_pcs">'+ tinggi +'</label>' +'</td>'
     + '<td>' + '<input type="hidden" name="v[]" id="v[]" size="5" value="'+ kali +'">'+ '<label id="l_pcs">'+ kali +'</label>' +'</td>'
 
-	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali +'" onclick="hapus2(this)" type="button" ><i class="fa fa-times"></i></button></td>'
+	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali + '/'+ lebar +'" onclick="hapus2(this)" type="button" ><i class="fa fa-times"></i></button></td>'
     + '</tr>';
 	
 		$('#tblitems tbody').append(text);
@@ -952,19 +952,27 @@ function hapus(th) {
      tr.hide();
  }
 
+<!-- hapus item dan kurangi total items pack
 function hapus2(myid){
 var input = $(myid).val();
+var input2 = $(myid).val();
 
-var t_volume=$('#t_volume').val();
-var hasil=parseInt(t_volume)-parseInt(input);
+	var t_volume=$('#t_volume').val();
+	var hasil=parseInt(t_volume)-parseInt(input);
+		var t_pacs=$('#t_pacs').val();
+		var hasil2=parseInt(t_pacs)-parseInt(input2);
 
-$('#t_volume').val(hasil);
-$('#label_volume').html(hasil);
+	
+	$('#t_volume').val(hasil);
+	$('#label_volume').html(hasil);
+		$('#t_pacs').val(hasil2);
+		$('#label_pacs').html(hasil2);
 
      t = $(myid);
      tr = t.parent().parent();
      tr.remove();
 }
+
 
 $("#savecharges").click(function(){
 	//var t_volume=$('#idtotal').val();   
