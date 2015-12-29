@@ -5,7 +5,6 @@
         
 <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
 
- 
   <script type='text/javascript' src='<?php echo base_url();?>asset/js/jquery.min.js'></script>
 
     
@@ -13,21 +12,20 @@
 <script type='text/javascript' src='<?php echo base_url();?>asset/jquery_ui/jquery.autocomplete.js'></script>
 <script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
 
-
-
-
-	    
+<!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/base/jquery-ui.css" type="text/css" media="all" />
+-->
+		
 	    <style>
 	    	/* Autocomplete
 			----------------------------------*/
 			.ui-autocomplete { position: absolute; cursor: default; }	
 			.ui-autocomplete-loading { background: white url('http://jquery-ui.googlecode.com/svn/tags/1.8.2/themes/flick/images/ui-anim_basic_16x16.gif') right center no-repeat; }*/
 
-/* workarounds */
-* html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
+			/* workarounds */
+			* html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
 
-/* Menu
-----------------------------------*/
+			/* Menu
+			----------------------------------*/
 			.ui-menu {
 				list-style:none;
 				padding: 2px;
@@ -85,32 +83,31 @@ function toRp(angka){
   var nilai=angka;
   var hasil=toRp(nilai); 
   //alert('haii ' + hasil);
-  document.getElementById("grossweight").value =angka;
-  
+  document.getElementById("grossweight").value =hasil;
+  var gross2=document.getElementById("grossweight2").value =angka;
+
   document.getElementById("grossweight").style.fontSize="large";
   document.getElementById("grossweight").style.fontWeight="bold";
   document.getElementById("grossweight").style.color="blue";
   
-  var gross2=document.getElementById("grossweight2").value =hasil;
   var volum=document.getElementById("t_volume").value;
   
- if (angka >= volum) {
-    document.getElementById("cwt").value ='angka2 gross lebihh besar';
+ if (gross2 >= volum) {
+    document.getElementById("cwt").value ='gross 2 lebihh besar';
 } else {
     document.getElementById("cwt").value ='volume lebih besar';
 } 
 
  }
 </script>	    
-<!-- for autocomplete -->
 	    <script type="text/javascript">
 	    $(this).ready( function() {
-    		$("#idcnoteeeee").autocomplete({
+    		$("#idshipper").autocomplete({
       			minLength: 1,
       			source: 
         		function(req, add){
           			$.ajax({
-		        		url: "<?php echo base_url(); ?>index.php/autocomplete/lookup_cnote",
+		        		url: "<?php echo base_url(); ?>index.php/autocomplete/lookup_sender",
 		          		dataType: 'json',
 		          		type: 'POST',
 		          		data: req,
@@ -128,16 +125,41 @@ function toRp(angka){
             	/*	$("#result").append(
             			"<li>"+ ui.item.kota + "</li>"
             		);    */
-					$("#cnote").val(ui.item.name); 
-					$("#tgl2").val(ui.item.tanggal);
-					$("#tujuan").val(ui.item.tujuan);
-					$("#layanan").val(ui.item.layanan);
-					$("#jml").val(ui.item.jml);
-					$("#berat").val(ui.item.berat);
-					//$("#jenis").val(ui.item.jenis); 		
+					$("#name1").val(ui.item.name); 
+					$("#phone1").val(ui.item.phone);
+					$("#address1").val(ui.item.address); 		
          		},		
     		});
 			
+//for shipper
+    		$("#idconsigne").autocomplete({
+      			minLength: 1,
+      			source: 
+        		function(req, add){
+          			$.ajax({
+		        		url: "<?php echo base_url(); ?>index.php/autocomplete/lookup_receivement",
+		          		dataType: 'json',
+		          		type: 'POST',
+		          		data: req,
+		          		success:    
+		            	function(data){
+		              		if(data.response =="true"){
+		                 		add(data.message);
+							
+		              		}
+		            	},
+              		});
+         		},
+         	select: 
+         		function(event, ui) {
+            	/*	$("#result").append(
+            			"<li>"+ ui.item.kota + "</li>"
+            		);    */
+					$("#name2").val(ui.item.name); 
+					$("#phone2").val(ui.item.phone);
+					$("#address2").val(ui.item.address); 		
+         		},		
+    		});
 
 	    });
 	    </script>
@@ -146,7 +168,7 @@ function toRp(angka){
 	<body>
 		
 
- <!-- =================================================================================  -->   
+ <!-- ==========================================================  -->   
   <div class="row-fluid">
     <div class="span12">
                   <?php
@@ -165,7 +187,7 @@ function toRp(angka){
       
 
 <br style="clear:both">
-<form method="post" action="<?php echo base_url();?>transaction/confirm_outgoing_house" autocomplete="off">
+<form method="post" action="<?php echo base_url();?>transaction/save_chargo_manifest" autocomplete="off">
 <div class="container">
   <div class="row">
                <!--LEFT INPUT-->
@@ -222,8 +244,12 @@ function toRp(angka){
           </div>
           <strong>
           <label class="col-sm-4"> Cnote untuk di Proses</label></strong>
-          <div class="col-sm-7">
-            <input name="name5" type="text" class="form-control"  id="name6" />
+          <div class="col-sm-6">
+            <input name="inputcnote" type="text" class="form-control"  id="inputcnote"/>
+            </div>
+          <div class="col-sm-2 text-left">
+             <a class="btn-action" href="#modaledit<?php echo '123';?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i><button type="button" class="btn btn-primary btn-small" id="btncnote">Cari</button>
+</a>
           </div>
 
 <div class="col-sm-12"><hr style="border:1px #CCC dashed"></div>
@@ -237,12 +263,7 @@ function toRp(angka){
 </div>
       </div>             
       </div>
-                <!--RIGHT INPUT-->
-      
-
-
-
-<br style="clear:both;margin-bottom:40px;">
+                <!--RIGHT INPUT--><br style="clear:both;margin-bottom:40px;">
             <div class="container">
                 <div class="col-lg-12 portlets ui-sortable">
                     <div class="panel">
@@ -263,12 +284,12 @@ function toRp(angka){
                                                   <th><div align="center">Jenis</div></th>
                                                   <th class="text-center"><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add items</a></div></th>
                                                 </tr>
-                                                <th colspan="8"></th>
+                                          <th colspan="8"></th>
                                                 <th><div align="center">
                                            </div></th>
                                                 
                                               </thead>
-                                              <tbody>
+                                          <tbody>
  <?php 
  $no=1;
  foreach($this->cart->contents() as $items){
@@ -326,6 +347,7 @@ function toRp(angka){
   
                                     
                                   <div class="cpl-sm-12"><h2>&nbsp;</h2>
+
                                   <div class="row">
                                       <div class="col-md-4"></div>
                                         <div class="col-md-2">
@@ -342,142 +364,57 @@ function toRp(angka){
   </div>
             </div>
               
- <!--edit form-->
+
+
+<!--adding form-->
 <?php
 
-    foreach($list as $row){
-    $isagen=$row->isAgent;
-    $isaktif=$row->isAktive;
-    $isCnee=$row->isCnee;
-    $isShipper=$row->isShipper;
-    if($isagen==1){ $status1='YES';}else{$status1='NO';}
-    if($isShipper==1){ $status2='YES';}else{$status2='NO';}
-    if($isCnee==1){ $status3='YES';}else{$status3='NO';}
-    if($isaktif==1){ $status4='YES';}else{$status4='NO';}
+  //  foreach($list as $row){
         ?>
-        
-  <div id="modaledit<?php echo $row->discCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="modaledit<?php echo '123';?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Edit Data</h3>
+                <h3 id="myModalLabel">Cari Data</h3>
             </div>
             <div class="smart-form">
-                <form method="post" action="<?php echo site_url('master/update_disc')?>">
                     <div class="modal-body">
+                      <div class="clearfix"></div>
                       <div class="form-group">
-                        <label class="col-sm-3 control-label"> Customer </label>
-                        <div class="col-sm-9"><span class="controls">
-<select name="cust" id="cust" required="required" class="form-control">
-                            <option value="<?php echo $row->custCode;?>"><?php echo $row->custName;?></option>
-                            <?php
-  foreach($cust as $ct){
-      ?>
-                            <option value="<?php echo $ct->custCode;?>"><?php echo $ct->custName;?></option>
-                            <?php } ?>
-                          </select>
-                        </span>
-                          <input type="hidden" name="id" id="id" value="<?php echo $row->discCode;?>" />
-                        </div>
-                        <div class="clearfix"></div>
-                      </div>
-                      <div class="form-group">
-                        <label class="col-sm-3 control-label">Service</label>
-                        <div class="col-sm-9"><span class="controls">
-<select name="service" id="service" required="required" class="form-control">
-                            <option value="<?php echo $row->svCode;?>"><?php echo $row->Name;?></option>
-                            <?php
-  foreach($service as $sv){
-      ?>
-                            <option value="<?php echo $sv->svCode;?>"><?php echo $sv->Name;?></option>
-                            <?php } ?>
-                          </select>
-                        </span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Origin</label>
-                        <div class="col-sm-9"><span class="controls">
-<select name="ori" id="ori" required="required" class="form-control">
-                            <option value="<?php echo $row->Ori;?>"><?php echo $row->Ori;?></option>
-                            <?php
-  foreach($city as $cty){
-      ?>
-                            <option value="<?php echo $cty->cyName;?>"><?php echo $cty->cyName;?></option>
-                            <?php } ?>
-                          </select>
+                        <label class="col-sm-3 control-label">No Cnote</label>
+                        <div class="col-sm-6"><span class="controls">
+                        <input name="idcnote2" type="text" class="form-control"  id="idcnote2" />
 </span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Destination</label>
-                        <div class="col-sm-9"><span class="controls">
-<select name="dest" id="dest" required="required" class="form-control">
-                            <option value="<?php echo $row->Dest;?>"><?php echo $row->Dest;?></option>
-                            <?php
-  foreach($city as $cty){
-      ?>
-                            <option value="<?php echo $cty->cyName;?>"><?php echo $cty->cyName;?></option>
-                            <?php } ?>
-                          </select>
+
+<div class="col-sm-3"><span class="controls">
+  <button class="btn btn-search btn-small btn-primary btnsearch" id="btnsearch2" type="button">Search</button>
 </span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-              <label class="col-sm-3 control-label">Vendor</label>
-                        <div class="col-sm-9"><span class="controls">
-<select name="vendor" id="vendor" required="required" class="form-control">
-                            <option value="<?php echo $row->venCode;?>"><?php echo $row->venName;?></option>
-                            <?php
-  foreach($vendor as $vd){
-      ?>
-                            <option value="<?php echo $vd->venCode;?>"><?php echo $vd->venName;?></option>
-                            <?php } ?>
-                          </select>
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Disc %</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" value="<?php echo $row->DiscPersen;?>" />
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>
- <div class="form-group">
-                        <label class="col-sm-3 control-label">Disc Rp</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="rp" type="text" class="form-control" placeholder="" id="rp" value="<?php echo $row->DiscRupiah;?>" />
-    </span></div>
-                        <div class="clearfix"></div>
-                      </div>
-  
-  <div class="form-group">
-<label class="col-sm-3 control-label">Remarks</label>
-                        <div class="col-sm-9">
-                          <textarea name="remarks" cols="30" rows="2" class="form-control" id="remarks" required><?php echo $row->Remarks;?></textarea>
-</div>
-                        <div class="clearfix"></div>
-                    </div>
-  <div class="modal-footer">
-<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
-                       
-    </div>
+            <div class="clearfix"></div>
+            </div>
+                <br>
+            
+<div id="detailconnote2">        
+
+    </div>                
+                      <div class="modal-footer">
+                      <button class="btn btn-primary" type="button" id="btniditems"><i class="icon-save bigger-160 icons">&nbsp;</i> Insert</button>
+
+<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> </button>
+                            </div>
                     </div>
             
-                </form>
+               
             </div>
         </div>
     </div>
-        </div>
-<?php } ?>
+    </div>
+    <?php // } ?>
 
 <!--adding form-->
 
-<!--adding form--><!--ADDING NEW CUSTOMERS MODAL-->
+
 <div id="modaladd" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
     <div class="modal-dialog" role="document">
@@ -521,12 +458,13 @@ function toRp(angka){
   
         </div>
     </div>
-    </div>
+    </div>    
 
-<script>
-$(document).ready(function() {
-   
-	   $("#idcnote").keyup(function(){
+<!--ADDING NEW CUSTOMERS MODAL-->
+
+
+<script type="text/javascript">     
+ $("#idcnote").keyup(function(){
             var idcnote = $('#idcnote').val();
              // alert('hai' + idcnote);
 				$.ajax({
@@ -553,10 +491,48 @@ $(document).ready(function() {
                 }
             });
         });
-$("#iditemssssssssssss").click(function(){
-	alert('tidak ada data');
-})
-$("#iditems").click(function(){
+ $("#idcnote2").keyup(function(){
+            var idcnote = $('#idcnote2').val();
+             // alert('hai' + idcnote);
+				$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('booking/detail_cnote'); ?>",
+                data: "idcnote="+idcnote,
+                success: function(data){
+                   $('#detailconnote2').html(data);
+					//alert(data);
+                }
+            });
+        });
+		
+	 $("#btnsearch2").click(function(){
+            var idcnote = $('#idcnote2').val();
+             // alert('hai' + idcnote);
+				$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('booking/detail_cnote'); ?>",
+                data: "idcnote="+idcnote,
+                success: function(data){
+                   $('#detailconnote2').html(data);
+					//alert(data);
+                }
+            });
+        });
+
+  $("#btncnote").click(function(){
+	  var inputcnote=$("#inputcnote").val();
+	if(inputcnote=='')
+	{
+		alert('inpuh has empty');
+		return false;
+	}
+	else
+	{
+	$("#idcnote2").val(inputcnote);
+	}
+    });
+		
+$("#iditems,#btniditems").click(function(){
 	//var t_volume=$('#idtotal').val();   
 	var idcnote=$('#idcnote').val();
 	var tgl2=$('#tgl2').val();
@@ -569,7 +545,7 @@ $("#iditems").click(function(){
 	var t_volume=$('#t_volume').val();
 	var ttl = parseInt(t_volume) + parseInt(berat);
  
-if (idcnote == ''){
+if (tujuan == ''){
 	alert('Mohon isi data dengan lengkap');	
 	}
 	else
@@ -592,12 +568,12 @@ if (idcnote == ''){
 		$("#t_volume").val(ttl);
 		$("#label_volume").html(ttl);
 		$("#modaladd").modal('hide');
+		$("#modaledit123").modal('hide');
+		
 	}
  });
 
-$("#btndel").on("click", function(){
-        alert('The paragraph was clicked');
- });
+
 		
 function hapus(th) {
       var tt=$("#tt").val();;
@@ -611,19 +587,23 @@ function hapus(th) {
      tr.hide();
  }
 
+<!-- hapus item dan kurangi total items pack
 function hapus2(myid){
 var input = $(myid).val();
+//document.write('kata yang pertama adalah ' +hasil[0]);
 
-var t_volume=$('#t_volume').val();
-var hasil=parseInt(t_volume)-parseInt(input);
+	var t_volume=$('#t_volume').val();
+	var hasil=parseInt(t_volume)-parseInt(input);
 
-$('#t_volume').val(hasil);
-$('#label_volume').html(hasil);
-
+	
+	$('#t_volume').val(hasil);
+	$('#label_volume').html(hasil);
+//alert(hasil_pecah);
      t = $(myid);
      tr = t.parent().parent();
      tr.remove();
 }
+
 
 $("#savecharges").click(function(){
 	//var t_volume=$('#idtotal').val();   
@@ -647,36 +627,27 @@ if (txtunit == '' || txtqty == '' || charge == ''){
     + '<td>' +  '<input type="hidden" name="qty[]" id="t[]" size="5" value="'+ txtqty +'">'+ '<label id="l_pcs">'+ txtqty +'</label>' +'</td>'
     + '<td>' + '<input type="hidden" name="total[]" id="v[]" size="5" value="'+ kali +'">'+ '<label id="l_pcs">'+ kali +'</label>' +'</td>'
 
-	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali +'" onclick="hapus3(this)" type="button">hapus</button></td>'
+	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali +'" onclick="hapus3(this)" type="button"><i class="fa fa-times"></i></button></td>'
     + '</tr>';
 	
 		$('#tblcharges tbody').append(text);
 		$("#total_charge").val(jumlah);
 		$("#label_charges").html(jumlah);
+//RESET INPUT
+$('#txtunit').val("");
+$('#txtqty').val("");
+$('#desc').val("");
 		$("#modaladdCharge").modal('hide');
 	}
  });
 
 
-function hapus3(myid){
-var input = $(myid).val();
 
-var total_charge=$('#total_charge').val();
-var hasil=parseInt(total_charge)-parseInt(input);
-
-$('#total_charge').val(hasil);
-$("#label_charges").html(hasil);
-
-     t = $(myid);
-     tr = t.parent().parent();
-     tr.remove();
-}
-
-
-});
 
 </script>
-  <!-- =================================================================================  -->   
+
+ 
+  <!-- ============================================================== -->   
 
 	</body>
 </html>

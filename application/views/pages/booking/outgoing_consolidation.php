@@ -79,12 +79,12 @@
           </div>
           <strong><label class="col-sm-4"> Tot. Qty</label></strong>
           <div class="col-sm-7">
-        <input name="name" type="text" class="form-control" required="required" readonly="readonly" required="required"/>
+        <input name="name" type="text" class="form-control"  readonly="readonly" required="required"/>
           </div>
 
            <strong><label class="col-sm-4"> Tot CWT</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control" required="required" readonly="readonly" required="required"/>
+           <input name="name" type="text" class="form-control" r readonly="readonly" required="required"/>
           </div>
 
 

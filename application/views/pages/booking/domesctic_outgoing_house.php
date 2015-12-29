@@ -589,10 +589,10 @@ $grandt+=$chr->Total;
   <div class="modal-footer">
 <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
                         <button class="btn btn-primary" id="iditems"> Save</button>
+               <!-- </form>  -->
     </div>
                     </div>
             
-               <!-- </form>  -->
             </div>
         </div>
     </div>

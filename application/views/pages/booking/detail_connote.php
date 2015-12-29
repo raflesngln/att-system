@@ -29,14 +29,14 @@ foreach($connote as $row){
  <div class="form-group">
                         <label class="col-sm-3 control-label">Jumlah</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="jml" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="jml" value="<?php echo $row->GrossWeight;?>" />
+                          <input name="jml" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="jml" value="<?php echo $row->grandPCS;?>" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
             <label class="col-sm-3 control-label">Berat</label>
             <div class="col-sm-9"><span class="controls">
-                <input name="berat" type="text" class="form-control" onkeypress="return isNumberKey(event)" value="<?php echo $row->GrossWeight;?>" id="berat" />
+                <input name="berat" type="text" class="form-control" onkeypress="return isNumberKey(event)" value="<?php echo $row->grandVolume;?>" id="berat" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>
