@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en-US">
 	<head>
-	    <title>Codeigniter Autocomplete</title>
+	    <title>Proses Out going</title>
         
 <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
 
@@ -12,8 +12,6 @@
 <script type='text/javascript' src='<?php echo base_url();?>asset/jquery_ui/jquery.autocomplete.js'></script>
 <script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
 
-<!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/base/jquery-ui.css" type="text/css" media="all" />
--->
 		
 	    <style>
 	    	/* Autocomplete
@@ -282,7 +280,7 @@ function toRp(angka){
                                                   <th>Jumlah</th>
                                                   <th>Berat</th>
                                                   <th><div align="center">Jenis</div></th>
-                                                  <th class="text-center"><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add items</a></div></th>
+                                                  <th class="text-center"><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item" style="visibility:hidden"><i class="icon-plus icons"></i> Add items</a></div></th>
                                                 </tr>
                                           <th colspan="8"></th>
                                                 <th><div align="center">
@@ -421,7 +419,7 @@ function toRp(angka){
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add Cnote</h3>
+                <h3 id="myModalLabel">Add Cnote / House</h3>
             </div>
             <div class="smart-form scroll">
         <!-- <form method="post" action="<?php //echo site_url('temp/save_item')?>">   -->
@@ -429,7 +427,7 @@ function toRp(angka){
                      
                    
 <div class="form-group">
-                        <label class="col-sm-3 control-label">No Cnote</label>
+                        <label class="col-sm-3 control-label">No Cnote ? House No</label>
                         <div class="col-sm-6"><span class="controls">
                         <input name="idcnote" type="text" class="form-control"  id="idcnote" />
 </span></div>
@@ -534,7 +532,7 @@ function toRp(angka){
 		
 $("#iditems,#btniditems").click(function(){
 	//var t_volume=$('#idtotal').val();   
-	var idcnote=$('#idcnote').val();
+	var idcnote=$('#idcnote2').val();
 	var tgl2=$('#tgl2').val();
 	var tujuan=$('#tujuan').val();
 	var layanan=$('#layanan').val();
@@ -604,42 +602,6 @@ var input = $(myid).val();
      tr.remove();
 }
 
-
-$("#savecharges").click(function(){
-	//var t_volume=$('#idtotal').val();   
-	var charge=$('#charge').val();
-	var desc=$('#desc').val();
-	var txtunit=$('#txtunit').val();
-	var txtqty=$('#txtqty').val();
- 	var kali = parseInt(txtunit) * parseInt(txtqty);
- 	var total_charge=$('#total_charge').val();
-	var jumlah=parseInt(total_charge) + parseInt(kali);			
-if (txtunit == '' || txtqty == '' || charge == ''){
-	alert('Mohon isi data dengan lengkap');	
-	}
-	else
-	{
-	text='<tr class="gradeX" align="left">'
-	+ '<td></td>'
-    + '<td>' + '<input type="hidden" name="idcharge[]" id="pcs[]" size="5" value="'+ charge +'">'+ '<label id="l_pcs">'+ charge +'</label>' +'</td>'
-    + '<td>' + '<input type="hidden" name="desc[]" id="p[]" size="5" value="'+ desc +'">'+ '<label id="l_pcs">'+ desc +'</label>' +'</td>'
-    + '<td>' +  '<input type="hidden" name="unit[]" id="l[]" size="5" value="'+ txtunit +'">'+ '<label id="l_pcs">'+ txtunit +'</label>' +'</td>'
-    + '<td>' +  '<input type="hidden" name="qty[]" id="t[]" size="5" value="'+ txtqty +'">'+ '<label id="l_pcs">'+ txtqty +'</label>' +'</td>'
-    + '<td>' + '<input type="hidden" name="total[]" id="v[]" size="5" value="'+ kali +'">'+ '<label id="l_pcs">'+ kali +'</label>' +'</td>'
-
-	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali +'" onclick="hapus3(this)" type="button"><i class="fa fa-times"></i></button></td>'
-    + '</tr>';
-	
-		$('#tblcharges tbody').append(text);
-		$("#total_charge").val(jumlah);
-		$("#label_charges").html(jumlah);
-//RESET INPUT
-$('#txtunit').val("");
-$('#txtqty').val("");
-$('#desc').val("");
-		$("#modaladdCharge").modal('hide');
-	}
- });
 
 
 

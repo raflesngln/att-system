@@ -77,7 +77,60 @@ function cargo_manifest(){
         );  
       $this->load->view('home/home',$data);
     } 
+//=====================save cargo manifest ==========
+ function save_chargo_manifest(){	
+ 	
+		$tgl=$this->input->post('tgl');
+		$ref=$this->input->post('ref');
+		$tuju=$this->input->post('tuju');
+		$transit=$this->input->post('transit');
+		$ket=$this->input->post('ket');
+		$realisasi=$this->input->post('realisasi');
+		$t_volume=$this->input->post('t_volume');
+		$prefixcargo='CMO'.substr($tuju,0,3);
+		
+		//----- SAVE OF CARGO MANIFEST --------------////
+		$insert_cargo=array(
+		'CargoNo' =>$this->model_app->getCargoNo($prefixcargo),
+		'tgl_cargo' =>$tgl,
+		'referensi' =>$ref,
+		'tujuan' =>$tuju,
+		'transit' =>$transit,
+		'keterangan' =>$ket,
+		'realisasi_berat' =>$realisasi,
+		'total_berat' =>$t_volume,
+		'insert_date'=>date('Y-m-d:h-s-m'),
+		'update_time'=>date('Y-m-d:h-s-m'),
+		);		
+		 $save=$this->model_app->insert('cargo_manifest',$insert_cargo);	
+		
+	//====Save items cargo ==============//
+	$cnote=$_POST['cnote'];	
+	foreach($cnote as $key => $val)
+	{
+   		$nohouse =$_POST['cnote'][$key];
+		$HouseDate=$_POST['tgl2'][$key];
+        $tujuan  =$_POST['tujuan'][$key];
+		$jumlah  =$_POST['jml'][$key];	
+		$berat  =$_POST['berat'][$key];	
+		$jenis  =$_POST['jenis'][$key];	
+		$layanan  =$_POST['layanan'][$key];	
+		
+		$items=array(
+		'CargoNo' =>$this->model_app->getCargoNo($prefixcargo),
+		'HouseNo'=>$nohouse,
+		'HouseDate'=>$HouseDate,
+		'Tujuan'=>$tuju,
+		'Layanan'=>$layanan,
+		'Jumlah'=>$jumlah,
+		'Berat'=>$berat,
+		'Jenis'=>$jenis,
+		'date_insert'=>date('Y-m-d:h-s-m')
+		);		
+		 $this->model_app->insert('cargo_items',$items);
+		}
 	
+    }  	
 //// incoming house
  function domesctic_incoming_house(){
         $data = array(

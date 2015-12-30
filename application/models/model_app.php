@@ -64,6 +64,26 @@ class Model_app extends CI_Model{
         }
         return "CON".date('Ym').$kd;
     }
+//    kode job
+    public function getCargoNo($kode)
+    {
+        $bulan=date('m');
+        $query = $this->db->query("select MAX(RIGHT(CargoNo,8)) as kd_max from cargo_manifest");
+        $kd = "";
+        if($query->num_rows()>0)
+        {
+            foreach($query->result() as $k)
+            {
+                $tmp = ((int)$k->kd_max)+1;
+                $kd = sprintf("%08s", $tmp);
+            }
+        }
+        else
+        {
+            $kd = "00000001";
+        }
+        return $kode.$kd;
+    }
 //=====================login member cek============================
     function login($table,$username,$password) {
 		
