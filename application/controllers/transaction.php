@@ -90,8 +90,9 @@ function cargo_manifest(){
 		$prefixcargo='CMO'.substr($tuju,0,3);
 		
 		//----- SAVE OF CARGO MANIFEST --------------////
+		$kodecargo=$this->model_app->getCargoNo($prefixcargo);
 		$insert_cargo=array(
-		'CargoNo' =>$this->model_app->getCargoNo($prefixcargo),
+		'CargoNo' =>$kodecargo,
 		'tgl_cargo' =>$tgl,
 		'referensi' =>$ref,
 		'tujuan' =>$tuju,
@@ -117,7 +118,7 @@ function cargo_manifest(){
 		$layanan  =$_POST['layanan'][$key];	
 		
 		$items=array(
-		'CargoNo' =>$this->model_app->getCargoNo($prefixcargo),
+		'CargoNo' =>$kodecargo,
 		'HouseNo'=>$nohouse,
 		'HouseDate'=>$HouseDate,
 		'Tujuan'=>$tuju,
@@ -128,9 +129,52 @@ function cargo_manifest(){
 		'date_insert'=>date('Y-m-d:h-s-m')
 		);		
 		 $this->model_app->insert('cargo_items',$items);
+		 
+		 //update status outgoing connote
+		 $update=array(
+		'status_proses'=>'1'
+		);	
+		$this->model_app->update('outgoing_connote','HouseNo',$nohouse,$update);
 		}
+		 $data=array(
+		 'view'=>'pages/booking/confirm_create_manifest',
+		 'no_cargo'=>$kodecargo
+		 );
+		 $this->load->view('home/home',$data);
+		
+    }
+function edit_cargo_manifest(){
+	$kode=$this->uri->segment(3);
+	$data=array(
+	'header'=>$this->model_app->getdatapaging("*","cargo_manifest a",
+	"ORDER BY a.insert_date DESC LIMIT 1"),
 	
-    }  	
+	'list'=>$this->model_app->getdatapaging("*","cargo_items a",
+	"RIGHT JOIN cargo_manifest b on a.CargoNo=b.CargoNo
+	RIGHT JOIN outgoing_connote c on a.HouseNo=c.HouseNo
+	WHERE b.CargoNo='$kode'
+	ORDER BY b.insert_date DESC"),
+	'view'=>'pages/booking/edit_cargo_manifest',
+	);
+	
+	$this->load->view('home/home',$data);
+	
+}
+ function delete_cargo_connote(){
+	$cargono=$this->uri->segment(3);
+	$kode=$this->uri->segment(4);
+	$houseno=$this->uri->segment(5);
+	
+	$delete=$this->model_app->delete_data('cargo_items','id',$kode);
+			 //update status outgoing connote ke 0
+	$update=array(
+	'status_proses'=>'0'
+	);	
+	$this->model_app->update('outgoing_connote','HouseNo',$houseno,$update);
+			  
+	redirect('transaction/edit_cargo_manifest/'.$cargono.'/'.$kode);
+	
+} 	
 //// incoming house
  function domesctic_incoming_house(){
         $data = array(
