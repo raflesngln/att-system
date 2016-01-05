@@ -185,7 +185,7 @@ function toRp(angka){
       
 
 <br style="clear:both">
-<form method="post" action="<?php echo base_url();?>transaction/save_chargo_manifest" autocomplete="off">
+<form method="post" action="<?php echo base_url();?>transaction/update_chargo_manifest" autocomplete="off">
 <div class="container">
   <div class="row">
                <!--LEFT INPUT-->
@@ -266,60 +266,59 @@ function toRp(angka){
                                     <div class="form-group">
 <h2><span class="label label-large label-pink arrowed-in-right"><strong>List Connote's</strong></span></h2>
                                         <div class="table-responsive" id="table_responsive">
-                                        <table class="table table-striped table-bordered table-hover" id="tblitems">
+                                        <table width="500" class="table table-striped table-bordered table-hover" id="tblitems">
                                               <thead>
                                                 <tr align="left">
                                                   <th colspan="2"><div align="left">No Connote</div></th>
-                                                  <th><div align="center">Tanggal</div></th>
-                                                  <th><div align="center">Tujuan</div></th>
-                                                  <th><div align="center">Layanan</div></th>
-                                                  <th>Jumlah</th>
-                                                  <th>Berat</th>
-                                                  <th><div align="center">Jenis</div></th>
-                                                  <th class="text-center"><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item" style="visibility:hidden"><i class="icon-plus icons"></i> Add items</a></div></th>
+                                                  <th width="54"><div align="center">Tanggal</div></th>
+                                                  <th width="46"><div align="center">Tujuan</div></th>
+                                                  <th width="58"><div align="center">Layanan</div></th>
+                                                  <th width="48">Jenis</th>
+                                                  <th width="48">Jumlah</th>
+                                                  <th width="50">Berat</th>
+                                                  <th width="53" class="text-center"><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item" style="visibility:hidden"><i class="icon-plus icons"></i> Add items</a></div></th>
                                                 </tr>
-                                          <th colspan="8"></th>
-                                                <th><div align="center">
-                                           </div></th>
-                                                
-                                              </thead>
                                           <tbody>
  <?php 
  $no=1;
  foreach($list as $items){
+	 $berat=$items->Berat;
+	 $t_berat+=$berat;
+	 $jumlah=$items->Jumlah;
+	 $t_jumlah+=$jumlah;
 
         ?>
                                                   <tr align="right" class="gradeX">
-                                                  <td colspan="2"><?php echo $items->HouseNo;?>
+                                                    <td colspan="2"><?php echo $items->HouseNo;?>
                                                     <input name="connote_2" type="hidden" id="connote_2" value="<?php echo $items->HouseNo;?>"></td>
-                                                  <td><?php echo $items->date_insert;?></td>
-                                                  <td><?php echo $items->Tujuan;?></td>
-                                                  <td><?php echo $items->Layanan;?></td>
-                                                  <td><?php echo $items->Jumlah;?></td>
-                                                  <td><?php echo $items->Berat;?></td>
-                                                  <td><?php echo $items->Jenis;?></td>
-                                                  <td>
-                                                  <div align="center">
+                                                    <td><?php echo $items->date_insert;?></td>
+                                                    <td><?php echo $items->Tujuan;?></td>
+                                                    <td><?php echo $items->Layanan;?></td>
+                                                    <td><?php echo $items->Jenis;?></td>
+                                                    <td><?php echo $items->Jumlah;?></td>
+                                                    <td><?php echo $items->Berat;?></td>
+                                                    <td>
                                                    <a href="<?php echo base_url(); ?>transaction/delete_cargo_connote/<?php echo $items->CargoNo; ?>/<?php echo $items->id; ?>/<?php echo $items->HouseNo; ?>" title="Delete item">
                                                   <button class="btn btn-mini btn-danger" type="button" onClick="hapus3(this);"><i class="fa fa-times bigger-120"></i></button>
                                                   </a> 
                                          
-                                                  </div>
                                                   </td>
-                                                </tr>
+                                                  </tr>
   <?php $no++;} ?>
                                                 <thead>
                                                  <tr align="right">
-                                                  <td colspan="2"><?php echo $t_item;?><input type="hidden" name="t_item" value="<?php echo $t_item;?>"></td>
-                                                  <td colspan="3">Total</td>
+                                                  <td colspan="2"><strong><?php echo $t_item;?>
+                                                  <input type="hidden" name="t_item" value="<?php echo $t_item;?>">
+                                                  </strong></td>
+                                                  <td colspan="3"><strong>Total</strong></td>
                                                   <td>&nbsp;</td>
-                                                  <td align="left"><input name="t_volume" type="hidden" id="t_volume" value="0" /><label id="label_volume">0</label></td>
-                                                  <td>                                           
-                                                  </td>  
+                                                  <td><strong><?php echo $t_jumlah;?></strong></td>
+                                                  <td align="left">
+                                                   <div align="right"><input type="hidden" name="tot_berat" value="<?php echo $t_berat;?>"><strong><?php echo $t_berat;?></strong></div></td>
                                                   <td>&nbsp;</td>
                                                 </tr>
                                                 </thead>
-                                              </tbody>
+                                              <td width="74"></tbody>
                                             </table>
                                         </div>
                                     </div>
@@ -348,7 +347,7 @@ function toRp(angka){
                                             <a class="btn btn-danger " href="<?php echo base_url();?>transaction/domesctic_outgoing_house" data-toggle="modal" title="Add"><i class="icon-reply bigger-120 icons"></i>Cancel </a>
                                         </div>
                                          <div class="col-md-2">
-                                             <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
+                                             <button class="btn btn-primary"><i class="icon-refresh bigger-160 icons">&nbsp;</i> Update</button>
                                         </div>  </div>     
               </div>
           </div>
@@ -369,6 +368,7 @@ function toRp(angka){
     
     <div class="modal-dialog" role="document">
         <div class="modal-content">
+<form method="post" action="<?php echo base_url();?>transaction/save_edit_cargo_manifest" name="frm">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h3 id="myModalLabel">Cari Data</h3>
@@ -380,7 +380,8 @@ function toRp(angka){
                         <label class="col-sm-3 control-label">No Cnote</label>
                         <div class="col-sm-6"><span class="controls">
                         <input name="idcnote2" type="text" class="form-control"  id="idcnote2" />
-</span></div>
+</span><input type="hidden" name="cargono" id="cargono" value="<?php echo $cargono;?>">
+                        </div>
 
 <div class="col-sm-3"><span class="controls">
   <button class="btn btn-search btn-small btn-primary btnsearch" id="btnsearch2" type="button">Search</button>
@@ -393,14 +394,13 @@ function toRp(angka){
 
     </div>                
                       <div class="modal-footer">
-                      <button class="btn btn-primary" type="button" id="btniditems"><i class="icon-save bigger-160 icons">&nbsp;</i> Insert</button>
+                      <button class="btn btn-primary" type="submit" id="btniditems" name="btniditems"><i class="icon-save bigger-160 icons">&nbsp;</i> Insert</button>
 
-<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true" id="btnadddata"><i class="fa fa-close">&nbsp;</i> </button>
                             </div>
                     </div>
             
-               
-            </div>
+              
+            </div> </form>
         </div>
     </div>
     </div>
@@ -467,7 +467,7 @@ function toRp(angka){
                 data: "idcnote="+idcnote,
                 success: function(data){
                    $('#detailconnote').html(data);
-					//alert(data);
+					document.getElementById("btniditems").disabled = false;
                 }
             });
         });
@@ -494,7 +494,7 @@ function toRp(angka){
                 data: "idcnote="+idcnote,
                 success: function(data){
                    $('#detailconnote2').html(data);
-					//alert(data);
+					document.getElementById("btniditems").disabled = false;
                 }
             });
         });
@@ -508,7 +508,8 @@ function toRp(angka){
                 data: "idcnote="+idcnote,
                 success: function(data){
                    $('#detailconnote2').html(data);
-					//alert(data);
+				document.getElementById("btniditems").disabled = false;
+
                 }
             });
         });
@@ -524,10 +525,12 @@ function toRp(angka){
 	{
 	$("#idcnote2").val(inputcnote);
 	}
-    });
+	document.getElementById("btniditems").disabled = true;
+	
+ });
 
 	
-$("#iditems,#btniditems").click(function(){
+$("#iditemsssss,#btniditemsssss").click(function(){
 	//var t_volume=$('#idtotal').val();   
 	var idcnote=$('#idcnote2').val();
 	var tgl2=$('#tgl2').val();

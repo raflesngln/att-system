@@ -73,10 +73,28 @@ function cargo_manifest(){
             'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
             'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
             'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
-            'view'=>'pages/booking/proses_outgoing_house',
+            'view'=>'pages/booking/cargo_manifest_input',
         );  
       $this->load->view('home/home',$data);
     } 
+
+function list_cargo_manifest(){
+	$kode=$this->uri->segment(3);
+	$data=array(
+	'title'=>'cargo_manifest',
+    'scrumb_name'=>'List cargo_manifest',
+    'scrumb'=>'transaction/list_cargo_manifest',
+	 'list_cargo'=>$this->model_app->getdatapaging("*","cargo_manifest a",
+	" left outer JOIN cargo_items b on a.CargoNo=b.CargoNo
+	 GROUP BY a.CargoNo ASC"),
+	
+	'view'=>'pages/booking/list_cargo_manifest',
+	'cargono'=>$kode
+	);
+	
+	$this->load->view('home/home',$data);
+	
+}
 //=====================save cargo manifest ==========
  function save_chargo_manifest(){	
  	
@@ -143,11 +161,51 @@ function cargo_manifest(){
 		 $this->load->view('home/home',$data);
 		
     }
+   //=====================save cargo manifest ==========
+ function save_edit_cargo_manifest(){	
+ 	
+ 		$cargono=$this->input->post('cargono');
+ 		$idcnote=$this->input->post('idcnote2');
+		$tgl=$this->input->post('tgl2');
+		$layanan=$this->input->post('layanan');
+		$tuju=$this->input->post('tujuan');
+		$jml=$this->input->post('jml');
+		$berat=$this->input->post('berat');
+		$jenis=$this->input->post('jenis');
+		
+	//====Save items cargo ==============//
+		
+		$items=array(
+		'CargoNo' =>$cargono,
+		'HouseNo'=>$idcnote,
+		'HouseDate'=>date('Y-m-d:h-s-m'),
+		'Tujuan'=>$tuju,
+		'Layanan'=>$layanan,
+		'Jumlah'=>$jml,
+		'Berat'=>$berat,
+		'Jenis'=>$jenis,
+		'date_insert'=>date('Y-m-d:h-s-m')
+		);		
+		 $this->model_app->insert('cargo_items',$items);
+		 
+		 //update status outgoing connote
+		 $update=array(
+		'status_proses'=>'1'
+		);	
+		$this->model_app->update('outgoing_connote','HouseNo',$idcnote,$update);
+		
+	
+	redirect('transaction/edit_cargo_manifest/'.$cargono);
+    }
+
 function edit_cargo_manifest(){
 	$kode=$this->uri->segment(3);
 	$data=array(
+	'title'=>'cargo_manifest',
+    'scrumb_name'=>'List cargo_manifest',
+    'scrumb'=>'transaction/cargo_manifest',
 	'header'=>$this->model_app->getdatapaging("*","cargo_manifest a",
-	"ORDER BY a.insert_date DESC LIMIT 1"),
+	"WHERE CargoNo='$kode' ORDER BY a.insert_date DESC LIMIT 1"),
 	
 	'list'=>$this->model_app->getdatapaging("*","cargo_items a",
 	"RIGHT JOIN cargo_manifest b on a.CargoNo=b.CargoNo
@@ -155,11 +213,82 @@ function edit_cargo_manifest(){
 	WHERE b.CargoNo='$kode'
 	ORDER BY b.insert_date DESC"),
 	'view'=>'pages/booking/edit_cargo_manifest',
+	'cargono'=>$kode
 	);
 	
 	$this->load->view('home/home',$data);
 	
 }
+//=====================save cargo manifest ==========
+ function update_chargo_manifest(){	
+ 		
+ 		$noconote=$this->input->post('noconote');
+		$tgl=$this->input->post('tgl');
+		$ref=$this->input->post('ref');
+		$tuju=$this->input->post('tuju');
+		$transit=$this->input->post('transit');
+		$ket=$this->input->post('ket');
+		$realisasi=$this->input->post('realisasi');
+		$tot_berat=$this->input->post('tot_berat');
+		
+		//----- SAVE OF CARGO MANIFEST --------------////
+		$update=array(
+		'CargoNo' =>$noconote,
+		'tgl_cargo' =>$tgl,
+		'referensi' =>$ref,
+		'tujuan' =>$tuju,
+		'transit' =>$transit,
+		'keterangan' =>$ket,
+		'realisasi_berat' =>$realisasi,
+		'total_berat' =>$tot_berat,
+		'update_time'=>date('Y-m-d:h-s-m')
+		);		
+		$this->model_app->update('cargo_manifest','CargoNo',$noconote,$update);	
+
+		 $data=array(
+		 'view'=>'pages/booking/confirm_create_manifest',
+		 'no_cargo'=>$noconote
+		 );
+		 $this->load->view('home/home',$data);
+		
+    }
+////////////////////////////////////////
+    //-----TAMPIL MENURUT PERIODE -------------------
+function cetak_manifest(){
+
+	$kode=$this->uri->segment(3);
+
+		$data=array(
+     'title'=>'laporan jurnal',
+     'header'=>$this->model_app->getdatapaging("*","cargo_manifest a",
+	"WHERE CargoNo='$kode' ORDER BY a.insert_date DESC LIMIT 1"),
+	
+	'list'=>$this->model_app->getdatapaging("*","cargo_items a",
+	"RIGHT JOIN cargo_manifest b on a.CargoNo=b.CargoNo
+	RIGHT JOIN outgoing_connote c on a.HouseNo=c.HouseNo
+	WHERE b.CargoNo='$kode'
+	ORDER BY b.insert_date DESC"),
+			 );
+
+		ob_start();
+		$content = $this->load->view('pages/booking/print_cargo_manifest',$data);
+		$content = ob_get_clean();		
+		$this->load->library('html2pdf');
+		try
+		{
+			$html2pdf = new HTML2PDF('P', 'A4', 'fr');
+			$html2pdf->pdf->SetDisplayMode('fullpage');
+			$html2pdf->writeHTML($content, isset($_GET['vuehtml']));
+			$html2pdf->Output('print_cargo_manifest.pdf');
+		}
+		catch(HTML2PDF_exception $e) {
+			echo $e;
+			exit;
+		}
+	
+}
+	//===========Pencarian kwitansi====================
+
  function delete_cargo_connote(){
 	$cargono=$this->uri->segment(3);
 	$kode=$this->uri->segment(4);
@@ -174,7 +303,22 @@ function edit_cargo_manifest(){
 			  
 	redirect('transaction/edit_cargo_manifest/'.$cargono.'/'.$kode);
 	
+}
+
+ function delete_cargo_manifest(){
+	$cargono=$this->uri->segment(3);
+	
+	$delete=$this->model_app->delete_data('cargo_items','id',$kode);
+			 //update status outgoing connote ke 0
+	$update=array(
+	'status_proses'=>'0'
+	);	
+	$this->model_app->update('outgoing_connote','HouseNo',$houseno,$update);
+			  
+	redirect('transaction/edit_cargo_manifest/'.$cargono.'/'.$kode);
+	
 } 	
+
 //// incoming house
  function domesctic_incoming_house(){
         $data = array(

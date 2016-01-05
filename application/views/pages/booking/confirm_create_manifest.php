@@ -12,7 +12,7 @@
 <div class="col-sm-12">
 <div class="col-sm-4"><a href="<?php echo base_url();?>transaction/edit_cargo_manifest/<?php echo $no_cargo;?>"><button class="btn btn-primary btn-small"><i class="fa fa-edit"></i> Ubah manifest</button></a></div>
 <div class="col-sm-4"><a href="<?php echo base_url();?>transaction/cargo_manifest"><button class="btn btn-success btn-small"><i class="fa fa-plus"></i>&nbsp; Buat Baru   &nbsp; </button></a></div>
-<div class="col-sm-4"><a href="<?php echo base_url();?>transaction/print_cargo_manifest/<?php echo $no_cargo;?>"><button class="btn btn-danger btn-small"><i class="fa fa-print"></i> Cetak Manifest</button></a></div>
+<div class="col-sm-4"><a href="<?php echo base_url();?>transaction/cetak_manifest/<?php echo $no_cargo;?>"><button class="btn btn-danger btn-small"><i class="fa fa-print"></i> Cetak Manifest</button></a></div>
 
 </div>
 

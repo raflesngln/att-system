@@ -177,14 +177,15 @@ function toRp(angka){
       <?php echo isset($eror)?$eror:'';?>
       <br />
       </label>
-            <?php }?>   
+            <?php }?>
+            
+   <div class="text-center"><a href="<?php echo base_url();?>transaction/list_cargo_manifest">List Cargo Manifest</a></div>   
       <div class="header col-md-11">
 <p class="text-center konfirm" id="konfirm">&nbsp;</p>
-                <h3><i class="fa fa-plus-square bigger-130"></i> &nbsp;Cargo Manifest :: Entry</h3>
+                <h3><i class="fa fa-plus-square bigger-130"></i> &nbsp;Cargo Manifest :: Entry Manifest</h3>
             </div>
-      
-
-<br style="clear:both">
+<!-- start of tabs -->  
+  <div id="home" class="tab-pane in active">
 <form method="post" action="<?php echo base_url();?>transaction/save_chargo_manifest" autocomplete="off">
 <div class="container">
   <div class="row">
@@ -359,6 +360,15 @@ function toRp(angka){
          </div>
 
       </form>
+      </
+										  </div><!--/span-->
+
+	  <div class="vspace-6"></div>
+  </div>
+  <!-- enf of tabs -->   
+
+<br style="clear:both">
+
   </div>
             </div>
               
@@ -399,7 +409,6 @@ function toRp(angka){
                       <div class="modal-footer">
                       <button class="btn btn-primary" type="button" id="btniditems"><i class="icon-save bigger-160 icons">&nbsp;</i> Insert</button>
 
-<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true" id="btnadddata"><i class="fa fa-close">&nbsp;</i> </button>
                             </div>
                     </div>
             
@@ -444,7 +453,7 @@ function toRp(angka){
     </div>                  
                       
 <div class="modal-footer">
-  <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
+  
                         <button class="btn btn-primary" id="iditems"> Insert</button>
                         
                        
@@ -471,7 +480,7 @@ function toRp(angka){
                 data: "idcnote="+idcnote,
                 success: function(data){
                    $('#detailconnote').html(data);
-					//alert(data);
+					document.getElementById("btniditems").disabled = false;
                 }
             });
         });
@@ -485,7 +494,7 @@ function toRp(angka){
                 data: "idcnote="+idcnote,
                 success: function(data){
                    $('#detailconnote').html(data);
-					//alert(data);
+					document.getElementById("btniditems").disabled = false;
                 }
             });
         });
@@ -498,7 +507,7 @@ function toRp(angka){
                 data: "idcnote="+idcnote,
                 success: function(data){
                    $('#detailconnote2').html(data);
-					//alert(data);
+					document.getElementById("btniditems").disabled = false;
                 }
             });
         });
@@ -512,7 +521,7 @@ function toRp(angka){
                 data: "idcnote="+idcnote,
                 success: function(data){
                    $('#detailconnote2').html(data);
-					//alert(data);
+					document.getElementById("btniditems").disabled = false;
                 }
             });
         });
@@ -528,7 +537,8 @@ function toRp(angka){
 	{
 	$("#idcnote2").val(inputcnote);
 	}
-    });
+	document.getElementById("btniditems").disabled = true;
+  });
 
 	
 $("#iditems,#btniditems").click(function(){
