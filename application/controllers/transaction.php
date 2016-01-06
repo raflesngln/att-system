@@ -61,8 +61,8 @@ function domesctic_outgoing_house(){
 function cargo_manifest(){
         $idusr=$this->session->userdata('idusr');
         $data = array(
-            'title'=>'cargo_manifest Entry',
-            'scrumb_name'=>'cargo_manifest Entry',
+            'title'=>'cargo_manifest',
+            'scrumb_name'=>'cargo_manifest',
             'scrumb'=>'transaction/cargo_manifest',
             'payment_type'=>$this->model_app->getdatapaging("payCode,payName","ms_payment_type","ORDER BY payCode ASC"),
             'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
@@ -70,14 +70,107 @@ function cargo_manifest(){
 			'outgoing_connote'=>$this->model_app->getdata('outgoing_connote',""),
             'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
             'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
+           'list_cargo'=>$this->model_app->getdatapaging("*","cargo_manifest a",
+	" left outer JOIN cargo_items b on a.CargoNo=b.CargoNo
+	 GROUP BY a.CargoNo ASC"),
             'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
             'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
             'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
-            'view'=>'pages/booking/cargo_manifest_input',
+            'view'=>'pages/booking/cargo/cargo_manifest',
         );  
       $this->load->view('home/home',$data);
     } 
+function search_cargo_manifest(){
 
+        $cari=$this->input->post('cargono');
+		$page=$this->uri->segment(3);
+      	$limit=10;
+		if(!$page):
+		$offset = 0;
+		else:
+		$offset = $page;
+		endif;
+
+		$data['list_cargo']=$this->model_app->getdata('cargo_manifest a',
+	"left outer JOIN cargo_items b on a.CargoNo=b.CargoNo
+	 WHERE a.CargoNo='$cari' GROUP BY a.CargoNo ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','cargo_manifest a',"left outer JOIN cargo_items b on a.CargoNo=b.CargoNo
+	 WHERE a.CargoNo='$cari' GROUP BY a.CargoNo ASC");
+
+	//create for pagination		
+			$config['base_url'] = base_url() . 'transaction/search_cargo_manifest/';
+        	$config['total_rows'] = $tot_hal->num_rows();
+        	$config['per_page'] = $limit;
+			$config['uri_segment'] = 3;
+	    	$config['first_link'] = 'First';
+			$config['last_link'] = 'last';
+			$config['next_link'] = 'Next';
+			$config['prev_link'] = 'Prev';
+       		$this->pagination->initialize($config);
+			$data["paginator"] =$this->pagination->create_links();
+        $this->load->view('pages/booking/cargo/search_manifest',$data);
+}
+function periode_cargo_manifest(){
+
+        $tgl1=$this->input->post('tgl1');
+		
+		$tgl2=$this->input->post('tgl2');
+
+		$page=$this->uri->segment(3);
+      	$limit=10;
+		if(!$page):
+		$offset = 0;
+		else:
+		$offset = $page;
+		endif;
+
+	$data['list_cargo']=$this->model_app->getdata('cargo_manifest a',
+	"left outer JOIN cargo_items b on a.CargoNo=b.CargoNo
+	 WHERE LEFT(a.tgl_cargo,10) BETWEEN '$tgl1' AND '$tgl2' GROUP BY a.CargoNo ASC LIMIT $offset,$limit");
+	$tot_hal = $this->model_app->hitung_isi_tabel('*','cargo_manifest a',"left outer JOIN cargo_items b on a.CargoNo=b.CargoNo
+	 WHERE LEFT(a.tgl_cargo,10) BETWEEN '$tgl1' AND '$tgl2' GROUP BY a.CargoNo ASC");
+
+	//create for pagination		
+			$config['base_url'] = base_url() . 'transaction/periode_cargo_manifest/';
+        	$config['total_rows'] = $tot_hal->num_rows();
+        	$config['per_page'] = $limit;
+			$config['uri_segment'] = 3;
+	    	$config['first_link'] = 'First';
+			$config['last_link'] = 'last';
+			$config['next_link'] = 'Next';
+			$config['prev_link'] = 'Prev';
+       		$this->pagination->initialize($config);
+			$data["paginator"] =$this->pagination->create_links();
+        $this->load->view('pages/booking/cargo/search_manifest',$data);
+}
+function laporan_cargo_manifest(){
+
+        $tgl1=$this->input->post('tg1');
+		$tgl2=$this->input->post('tg2');
+		$format1=date("d M Y",strtotime($tgl1));
+		$format2=date("d M Y",strtotime($tgl2));
+
+	$data['list_cargo']=$this->model_app->getdata('cargo_manifest a',
+	"left outer JOIN cargo_items b on a.CargoNo=b.CargoNo
+	 WHERE LEFT(a.tgl_cargo,10) BETWEEN '$tgl1' AND '$tgl2' GROUP BY a.CargoNo ASC");
+	$data['periode']=$format1.' s/d '.$format2;
+
+	ob_start();
+		$content = $this->load->view('pages/booking/cargo/report_manifest',$data);
+		$content = ob_get_clean();		
+		$this->load->library('html2pdf');
+		try
+		{
+			$html2pdf = new HTML2PDF('P', 'A4', 'fr');
+			$html2pdf->pdf->SetDisplayMode('fullpage');
+			$html2pdf->writeHTML($content, isset($_GET['vuehtml']));
+			$html2pdf->Output('Report_cargo_manifest.pdf');
+		}
+		catch(HTML2PDF_exception $e) {
+			echo $e;
+			exit;
+		}
+}
 function list_cargo_manifest(){
 	$kode=$this->uri->segment(3);
 	$data=array(
@@ -88,13 +181,33 @@ function list_cargo_manifest(){
 	" left outer JOIN cargo_items b on a.CargoNo=b.CargoNo
 	 GROUP BY a.CargoNo ASC"),
 	
-	'view'=>'pages/booking/list_cargo_manifest',
+	'view'=>'pages/booking/cargo/list_cargo_manifest',
 	'cargono'=>$kode
 	);
 	
 	$this->load->view('home/home',$data);
 	
 }
+function cek_cnote(){
+	/*
+	$input=$this->input->post('input');
+	var cnote=$this->input->post('cnote');
+		
+	$cnote=$_POST['cnote']; 
+		foreach($cnote as $key => $val)
+		{
+		  $note =$_POST['cnote'][$key];
+
+	$data=array(
+	'input'=>$input,
+    'cnote'=>$note,
+	);
+}
+	
+	$this->load->view('pages/booking/cargo/data',$data);
+*/	
+}
+
 //=====================save cargo manifest ==========
  function save_chargo_manifest(){	
  	
@@ -111,7 +224,7 @@ function list_cargo_manifest(){
 		$kodecargo=$this->model_app->getCargoNo($prefixcargo);
 		$insert_cargo=array(
 		'CargoNo' =>$kodecargo,
-		'tgl_cargo' =>$tgl,
+		'tgl_cargo' =>date($tgl),
 		'referensi' =>$ref,
 		'tujuan' =>$tuju,
 		'transit' =>$transit,
@@ -155,7 +268,7 @@ function list_cargo_manifest(){
 		$this->model_app->update('outgoing_connote','HouseNo',$nohouse,$update);
 		}
 		 $data=array(
-		 'view'=>'pages/booking/confirm_create_manifest',
+		 'view'=>'pages/booking/cargo/confirm_create_manifest',
 		 'no_cargo'=>$kodecargo
 		 );
 		 $this->load->view('home/home',$data);
@@ -202,7 +315,7 @@ function edit_cargo_manifest(){
 	$kode=$this->uri->segment(3);
 	$data=array(
 	'title'=>'cargo_manifest',
-    'scrumb_name'=>'List cargo_manifest',
+    'scrumb_name'=>' cargo_manifest',
     'scrumb'=>'transaction/cargo_manifest',
 	'header'=>$this->model_app->getdatapaging("*","cargo_manifest a",
 	"WHERE CargoNo='$kode' ORDER BY a.insert_date DESC LIMIT 1"),
@@ -212,7 +325,7 @@ function edit_cargo_manifest(){
 	RIGHT JOIN outgoing_connote c on a.HouseNo=c.HouseNo
 	WHERE b.CargoNo='$kode'
 	ORDER BY b.insert_date DESC"),
-	'view'=>'pages/booking/edit_cargo_manifest',
+	'view'=>'pages/booking/cargo/edit_cargo_manifest',
 	'cargono'=>$kode
 	);
 	
@@ -234,7 +347,7 @@ function edit_cargo_manifest(){
 		//----- SAVE OF CARGO MANIFEST --------------////
 		$update=array(
 		'CargoNo' =>$noconote,
-		'tgl_cargo' =>$tgl,
+		'tgl_cargo' =>date($tgl),
 		'referensi' =>$ref,
 		'tujuan' =>$tuju,
 		'transit' =>$transit,
@@ -246,7 +359,10 @@ function edit_cargo_manifest(){
 		$this->model_app->update('cargo_manifest','CargoNo',$noconote,$update);	
 
 		 $data=array(
-		 'view'=>'pages/booking/confirm_create_manifest',
+		'title'=>'cargo_manifest',
+	    'scrumb_name'=>' cargo_manifest',
+	    'scrumb'=>'transaction/cargo_manifest',
+		 'view'=>'pages/booking/cargo/confirm_create_manifest',
 		 'no_cargo'=>$noconote
 		 );
 		 $this->load->view('home/home',$data);
@@ -271,7 +387,7 @@ function cetak_manifest(){
 			 );
 
 		ob_start();
-		$content = $this->load->view('pages/booking/print_cargo_manifest',$data);
+		$content = $this->load->view('pages/booking/cargo/print_cargo_manifest',$data);
 		$content = ob_get_clean();		
 		$this->load->library('html2pdf');
 		try
@@ -306,16 +422,18 @@ function cetak_manifest(){
 }
 
  function delete_cargo_manifest(){
-	$cargono=$this->uri->segment(3);
+	$kode=$this->uri->segment(3);
 	
-	$delete=$this->model_app->delete_data('cargo_items','id',$kode);
-			 //update status outgoing connote ke 0
-	$update=array(
-	'status_proses'=>'0'
-	);	
-	$this->model_app->update('outgoing_connote','HouseNo',$houseno,$update);
+	$delete=$this->model_app->delete_data('cargo_items','CargoNo',$kode);
+	$delete=$this->model_app->delete_data('cargo_manifest','CargoNo',$kode);
+	
+	//update status outgoing connote ke 0
+	//$update=array(
+	//'status_proses'=>'0'
+	//);	
+	//$this->model_app->update('outgoing_connote','HouseNo',$houseno,$update);
 			  
-	redirect('transaction/edit_cargo_manifest/'.$cargono.'/'.$kode);
+	redirect('transaction/cargo_manifest');
 	
 } 	
 

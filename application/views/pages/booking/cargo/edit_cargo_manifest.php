@@ -57,9 +57,9 @@
 	    </style>
   <script>
   $(function() {
-    $("#tgl").datepicker();
-    $("#tgl2").datepicker();
-
+	$("#tgl").datepicker({
+		dateFormat:'yy-mm-dd',
+		});
   });
 
 function toRp(angka){
@@ -180,7 +180,7 @@ function toRp(angka){
             <?php }?>   
       <div class="header col-md-11">
 <p class="text-center konfirm" id="konfirm">&nbsp;</p>
-                <h3><i class="fa fa-plus-square bigger-130"></i> &nbsp;Cargo Manifest :: Edit data</h3>
+                <h3><i class="fa fa-plus-square bigger-130"></i> &nbsp;Cargo Manifest :: Edit Cargo Manifest</h3>
             </div>
       
 
@@ -207,7 +207,7 @@ function toRp(angka){
 
           <strong><label class="col-sm-4"> Tanggal</label></strong>
           <div class="col-sm-7">
-            <input name="tgl" type="text" class="form-control"  id="tgl" required value="<?php echo date("m/d/Y") ;?>" readonly style="width:180px;"/>
+            <input name="tgl" type="text" class="form-control"  id="tgl" required value="<?php echo date("Y-m-d") ;?>" readonly style="width:180px;"/>
           </div>
           <strong><label class="col-sm-4"> Referensi</label></strong>
           <div class="col-sm-7">
@@ -276,7 +276,7 @@ function toRp(angka){
                                                   <th width="48">Jenis</th>
                                                   <th width="48">Jumlah</th>
                                                   <th width="50">Berat</th>
-                                                  <th width="53" class="text-center"><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item" style="visibility:hidden"><i class="icon-plus icons"></i> Add items</a></div></th>
+                                                  <th width="53" class="text-center"><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item" style="visibility:hidden"><i class="icon-plus icons"></i> Add items</a>Action</div></th>
                                                 </tr>
                                           <tbody>
  <?php 
@@ -289,23 +289,24 @@ function toRp(angka){
 
         ?>
                                                   <tr align="right" class="gradeX">
-                                                    <td colspan="2"><?php echo $items->HouseNo;?>
-                                                    <input name="connote_2" type="hidden" id="connote_2" value="<?php echo $items->HouseNo;?>"></td>
-                                                    <td><?php echo $items->date_insert;?></td>
-                                                    <td><?php echo $items->Tujuan;?></td>
-                                                    <td><?php echo $items->Layanan;?></td>
-                                                    <td><?php echo $items->Jenis;?></td>
-                                                    <td><?php echo $items->Jumlah;?></td>
-                                                    <td><?php echo $items->Berat;?></td>
+                                                    <td colspan="2"><div align="left"><?php echo $items->HouseNo;?>
+                                                      <input name="connote_2" type="hidden" id="connote_2" value="<?php echo $items->HouseNo;?>">
+                                                    </div></td>
+                                                    <td><div align="left"><?php echo $items->date_insert;?></div></td>
+                                                    <td><div align="left"><?php echo $items->Tujuan;?></div></td>
+                                                    <td><div align="left"><?php echo $items->Layanan;?></div></td>
+                                                    <td><div align="left"><?php echo $items->Jenis;?></div></td>
+                                                    <td><div align="right"><?php echo $items->Jumlah;?></div></td>
+                                                    <td><div align="right"><?php echo $items->Berat;?></div></td>
                                                     <td>
-                                                   <a href="<?php echo base_url(); ?>transaction/delete_cargo_connote/<?php echo $items->CargoNo; ?>/<?php echo $items->id; ?>/<?php echo $items->HouseNo; ?>" title="Delete item">
-                                                  <button class="btn btn-mini btn-danger" type="button" onClick="hapus3(this);"><i class="fa fa-times bigger-120"></i></button>
-                                                  </a> 
-                                         
-                                                  </td>
+                                                      <div align="center"><a href="<?php echo base_url(); ?>transaction/delete_cargo_connote/<?php echo $items->CargoNo; ?>/<?php echo $items->id; ?>/<?php echo $items->HouseNo; ?>" title="Delete item">
+                                                      <button class="btn btn-mini btn-danger" type="button" onClick="hapus3(this);"><i class="fa fa-times bigger-120"></i></button>
+                                                      </a> 
+                                                        
+                                                    </div></td>
                                                   </tr>
   <?php $no++;} ?>
-                                                <thead>
+                                               
                                                  <tr align="right">
                                                   <td colspan="2"><strong><?php echo $t_item;?>
                                                   <input type="hidden" name="t_item" value="<?php echo $t_item;?>">
@@ -317,7 +318,7 @@ function toRp(angka){
                                                    <div align="right"><input type="hidden" name="tot_berat" value="<?php echo $t_berat;?>"><strong><?php echo $t_berat;?></strong></div></td>
                                                   <td>&nbsp;</td>
                                                 </tr>
-                                                </thead>
+                                               
                                               <td width="74"></tbody>
                                             </table>
                                         </div>

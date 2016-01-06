@@ -1,5 +1,5 @@
 <div class="container" style="width:60%; border:1px #999 solid; padding-bottom:50px">
-<h2 class="alert alert-success">Cargo manifest berhasil di buat</h2>
+<h2 class="alert alert-warning">Cargo manifest berhasil di buat</h2>
 <div class="col-sm-10 text-center">
 
 <div class="col-sm-12">

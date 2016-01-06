@@ -52,7 +52,7 @@ function detail_sender(){
 		
         $kode=$this->input->post('idcnote');
 		$data['connote']=$this->model_app->getdata('outgoing_connote',"WHERE HouseNo='$kode' AND status_proses='0'");
-		$this->load->view('pages/Booking/detail_connote',$data);
+		$this->load->view('pages/Booking/cargo/detail_connote',$data);
 		
 	}
 public function getdetailshipper()
