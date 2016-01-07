@@ -188,56 +188,6 @@ function list_cargo_manifest(){
 	$this->load->view('home/home',$data);
 	
 }
-//==================ADD ITEM TO CART============================
-	function save_view_cargo()
-	{
-		$idcnote=$this->input->post('idcnote');
-		$tgl=$this->input->post('tgl');
-		$tujuan=$this->input->post('tujuan');
-		$layanan=$this->input->post('layanan');
-		$jml=$this->input->post('jml');
-		$berat=$this->input->post('berat');
-		$jenis=$this->input->post('jenis');
-		
-		//add to cart
-		$insert = array(
-			'id'      => $idcnote,
-			'name'     =>$tujuan,
-		    'price'   =>$berat,
-			'qty'    =>$jml,
-			'tgl'    =>$tgl,
-			'tujuan'    =>$tujuan,
-			'layanan'    =>$layanan,
-			'jenis'    =>$jenis
-			);
-		$this->cart->insert($insert);
-		$data=array(
-			'message'=>'data berhasil ditambahkan',
-			'title'=>'Input cargo manifest'
-			);
-		$this->load->view('pages/booking/cargo/input_manifest_temp',$data);
-	
-}
-//========================DELETE CART==============================================
-	function hapus_item_cargo($rowid)
-	{
-		$id='';		
-		if ($this->uri->segment(3) === FALSE)
-		{
-    			$id='';
-		}
-		else
-		{
-    			$id = $this->uri->segment(3);
-		}
-		$data = array(
-			'rowid' => $rowid,
-			'qty'   => 0
-			);
-			$this->cart->update($data);
-		$this->load->view('pages/booking/cargo/input_manifest_temp');
-	}
-
 function cek_cnote(){
 	/*
 	$input=$this->input->post('input');
@@ -285,54 +235,45 @@ function cek_cnote(){
 		'update_time'=>date('Y-m-d:h-s-m'),
 		);		
 		 $save=$this->model_app->insert('cargo_manifest',$insert_cargo);	
-	
-
-			$insert = array(
-			'id'      => $idcnote,
-			'name'     =>$tujuan,
-		    'price'   =>$berat,
-			'qty'    =>$jml,
-			'tgl'    =>$tgl,
-			'tujuan'    =>$tujuan,
-			'layanan'    =>$layanan,
-			'jenis'    =>$jenis
-			);
-		$this->cart->insert($insert);
-
+		
 	//====Save items cargo ==============//
-     foreach($this->cart->contents() as $items){
-     	$nohouse=$items['id'];
+	$cnote=$_POST['cnote'];	
+	foreach($cnote as $key => $val)
+	{
+   		$nohouse =$_POST['cnote'][$key];
+		$HouseDate=$_POST['tgl2'][$key];
+        $tujuan  =$_POST['tujuan'][$key];
+		$jumlah  =$_POST['jml'][$key];	
+		$berat  =$_POST['berat'][$key];	
+		$jenis  =$_POST['jenis'][$key];	
+		$layanan  =$_POST['layanan'][$key];	
+		
 		$items=array(
 		'CargoNo' =>$kodecargo,
-		'HouseNo'=>$items['id'],
-		'HouseDate'=>$items['tgl'],
-		'Tujuan'=>$items['tujuan'],
-		'Layanan'=>$items['layanan'],
-		'Jumlah'=>$items['qty'],
-		'Berat'=>$items['price'],
-		'Jenis'=>$items['jenis'],
+		'HouseNo'=>$nohouse,
+		'HouseDate'=>$HouseDate,
+		'Tujuan'=>$tuju,
+		'Layanan'=>$layanan,
+		'Jumlah'=>$jumlah,
+		'Berat'=>$berat,
+		'Jenis'=>$jenis,
 		'date_insert'=>date('Y-m-d:h-s-m')
 		);		
 		 $this->model_app->insert('cargo_items',$items);
-
+		 
 		 //update status outgoing connote
 		 $update=array(
 		'status_proses'=>'1'
 		);	
 		$this->model_app->update('outgoing_connote','HouseNo',$nohouse,$update);
 		}
-		$this->cart->destroy();
-
 		 $data=array(
-           'title'=>'cargo_manifest',
-          'scrumb_name'=>'cargo_manifest',
-          'scrumb'=>'transaction/cargo_manifest',
 		 'view'=>'pages/booking/cargo/confirm_create_manifest',
 		 'no_cargo'=>$kodecargo
 		 );
 		 $this->load->view('home/home',$data);
 		
-  }
+    }
    //=====================save cargo manifest ==========
  function save_edit_cargo_manifest(){	
  	
@@ -479,53 +420,22 @@ function cetak_manifest(){
 	redirect('transaction/edit_cargo_manifest/'.$cargono.'/'.$kode);
 	
 }
-//========================DELETE CART==============================================
-	function delete_session_cargo()
-	{
-		
-    $id = $this->input->post('nohouse');
-
-		$del = array(
-			'rowid' => $id,
-			'qty'   => 0
-			);
-	$this->cart->update($del);
-
-	$data=array(
-	'message'=>'data berhasil ditambahkan',
-	'title'=>'Input cargo manifest'
-	);
-		$this->load->view('pages/booking/cargo/input_manifest_temp',$data);
-	}
-
 
  function delete_cargo_manifest(){
 	$kode=$this->uri->segment(3);
 	
+	$delete=$this->model_app->delete_data('cargo_items','CargoNo',$kode);
+	$delete=$this->model_app->delete_data('cargo_manifest','CargoNo',$kode);
 	
-	$search=$this->model_app->getdata('cargo_items a',
-			"Left Join cargo_manifest b on a.CargoNo=b.CargoNo
-			 LEFT Join outgoing_connote c on a.HouseNo=c.HouseNo
-			 WHERE b.CargoNo='$kode'");
-	if($search){
-
-		foreach($search as $row){
-
-			$delete=$this->model_app->delete_data('cargo_items','CargoNo',$kode);
-			$delete=$this->model_app->delete_data('cargo_manifest','CargoNo',$kode);
-
-				//update status outgoing connote ke status 0
-				$house=$row->HouseNo;
-				$update=array(
-				'status_proses'=>'0'
-				);
-
-			$this->model_app->update('outgoing_connote','HouseNo',$house,$update);
-		}
-		redirect('transaction/cargo_manifest');
-
-		}
-	}	
+	//update status outgoing connote ke 0
+	//$update=array(
+	//'status_proses'=>'0'
+	//);	
+	//$this->model_app->update('outgoing_connote','HouseNo',$houseno,$update);
+			  
+	redirect('transaction/cargo_manifest');
+	
+} 	
 
 //// incoming house
  function domesctic_incoming_house(){

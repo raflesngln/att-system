@@ -176,7 +176,7 @@ function toRp(angka){
 	    
 	</head>
 	<body>
-<div class="container-fluid" style="margin-left:-40px">
+<div class="container-fluid" style="margin-left:-50px">
 		<div class="span12 widget-container-span">
 		  <div class="widget-box">
 										<div class="widget-header">

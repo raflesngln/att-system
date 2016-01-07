@@ -4,7 +4,7 @@
 <div class="row">
 <div class="col-sm-11 col-xs-12"><label class="label label-default">Periode Cargo Manifest</label></div>
 <div class="col-sm-5 col-xs-12">First date</div>
-<div class="col-sm-5 col-xs-12">End date</div>
+<div class="col-sm-5 col-xs-12">up to</div>
 
 <form method="post" class="in-line inline" action="<?php echo base_url();?>transaction/laporan_cargo_manifest">
 <div class="col-sm-4 col-xs-12"><input type="text" class="form-control" name="tg1" id="tg1" readonly="readonly" value="<?php echo date('Y-m-d');?>"></div>
@@ -64,7 +64,7 @@
             
                                             <tr align="right" class="gradeX">
                                                     <td colspan="2"><div align="left"><?php echo $items->CargoNo;?></div></td>
-                                                    <td><div align="left"><?php echo date("d-m-Y",strtotime($items->tgl_cargo)); ?><input type="hidden" value="<?php echo $items->CargoNo;?>" name="idcargo" /></div></td>
+                                                    <td><div align="left"><?php echo date("d-m-Y",strtotime($items->tgl_cargo)); ?></div></td>
                                                     <td><div align="left"><?php echo $items->tujuan;?></div></td>
                                                     <td><div align="left"><?php echo $items->referensi;?></div></td>
                                                     <td><div align="left"><?php echo $items->transit;?></div></td>
@@ -72,7 +72,7 @@
                                                     <td><?php echo $items->realisasi_berat;?></td>
                                                     <td><?php echo $items->total_berat;?></td>
                                                     <td>
-                                                   <a href="<?php echo base_url();?>transaction/cetak_manifest/<?php echo $items->CargoNo;?>/<?php echo $items->HouseNo;?>" title="Delete item">
+                                                   <a href="<?php echo base_url();?>transaction/cetak_manifest/<?php echo $items->CargoNo;?>" title="Delete item">
                                                   <button class="btn btn-mini btn-warning" type="button"><i class="fa fa-print bigger-120"></i></button>
                                                   </a> 
                                                      <a href="<?php echo base_url();?>transaction/edit_cargo_manifest/<?php echo $items->CargoNo;?>" title="Delete item">
@@ -112,6 +112,9 @@
           </div>
          </div>
          
+         
+         
+ 
 <script type="text/javascript">     
 		
 	 $("#txtsearch").keyup(function(){

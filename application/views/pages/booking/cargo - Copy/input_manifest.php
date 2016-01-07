@@ -82,7 +82,7 @@
                         
                                     <div class="form-group">
 <h2><span class="label label-large label-pink arrowed-in-right"><strong>List Connote's</strong></span></h2>
-                                        <div class="table-responsive" id="table_input">
+                                        <div class="table-responsive" id="table_responsive">
                                         <table class="table table-striped table-bordered table-hover" id="tblitems">
                                               <thead>
                                                 <tr align="left">
@@ -93,49 +93,50 @@
                                                   <th>Jenis</th>
                                                   <th>Jumlah</th>
                                                   <th><div align="center">Berat</div></th>
-                                                  <th class="text-center"><div align="center">actions</div></th>
+                                                  <th class="text-center"><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item" style="visibility:hidden"><i class="icon-plus icons"></i> Add items</a></div></th>
                                                 </tr>
+                                          <th colspan="8"></th>
+                                                <th><div align="center">
+                                           </div></th>
+                                                
+                                              </thead>
                                           <tbody>
  <?php 
  $no=1;
  foreach($this->cart->contents() as $items){
   $t_item+=$items['qty'];
-  $t_volume+=$items['price'];
+  $t_volume+=$items['v'];
         ?>
-
                                                   <tr align="right" class="gradeX">
-                                                    <td colspan="2"><strong>
-                                                      <input name="nohouse" type="hidden" id="nohouse" value="<?php echo $items['id']; ?>" class="nohouse" />
-                                                    </strong><?php echo $items['id']; ?></td>
-                                                    <td><?php echo $items['tgl']; ?></td>
-                                                    <td><?php echo $items['tujuan']; ?></td>
-                                                    <td><?php echo $items['layanan']; ?></td>
-                                                    <td><?php echo $items['jenis']; ?></td>
-                                                    <td><?php echo $items['qty']; ?></td>
-                                                    <td><?php echo $items['price']; ?></td>
-                                                    <td>
-                                                  <button class="delbutton btn btn-mini btn-danger" type="button" id="delbutton" value="<?php echo $items['rowid']; ?>"><i class="fa fa-times bigger-120"></i></button>
-                                                 
+                                                  <td colspan="2"><?php echo $items['qty']; ?></td>
+                                                  <td><?php echo $items['p']; ?></td>
+                                                  <td><?php echo $items['l']; ?></td>
+                                                  <td><?php echo $items['t']; ?></td>
+                                                  <td><?php echo number_format($items['v'],2,'.',',');?></td>
+                                                  <td><?php echo number_format($items['v'],2,'.',',');?></td>
+                                                  <td><?php echo number_format($items['v'],2,'.',',');?></td>
+                                                  <td>
+                                                  <div align="center">
+                                                   <a href="<?php echo base_url(); ?>temp/delete_item/<?php echo $items['rowid']; ?>" onclick="return confirm('Yakin Hapus ?');" title="Delete item">
+                                                  <button class="btn btn-mini btn-danger" type="button" id="delbutton"><i class="fa fa-times bigger-120"></i></button>
+                                                  </a> 
                                          
+                                                  </div>
                                                   </td>
-                                                  </tr>
-                                            <?php $no++;} ?>
-                                               
+                                                </tr>
+  <?php $no++;} ?>
+                                                <thead>
                                                  <tr align="right">
-                                                  <td colspan="2">&nbsp;</td>
-                                                  <td colspan="3"><strong>
-                                                    <input type="hidden" name="t_item" value="<?php echo $t_item;?>" />
-                                                  Total</strong></td>
+                                                  <td colspan="2"><?php echo $t_item;?><input type="hidden" name="t_item" value="<?php echo $t_item;?>"></td>
+                                                  <td colspan="3">Total</td>
                                                   <td>&nbsp;</td>
-                                                  <td align="right"><strong><?php echo $t_item;?>
-                                                  </strong>
-                                                   <div align="right"></div></td>
-                                                  <td><strong><?php echo $t_volume;?>
-                                                  <input name="t_volume" type="hidden" id="t_volume" value="<?php echo $t_volume;?>" />
-                                                  </strong></td>  
+                                                  <td align="left">&nbsp;</td>
+                                                  <td><input name="t_volume" type="hidden" id="t_volume" value="0" />
+                                                    <label id="label_volume">0</label>                                           
+                                                  </td>  
                                                   <td>&nbsp;</td>
                                                 </tr>
-                                                
+                                                </thead>
                                               </tbody>
                                             </table>
                                         </div>
@@ -209,6 +210,7 @@
                       <div class="modal-footer">
                       <button class="btn btn-primary" type="button" id="btniditems"><i class="icon-save bigger-160 icons">&nbsp;</i> Insert</button>
 
+                      <button class="btn btn-primary" type="button" id="btt"><i class="icon-save bigger-160 icons">&nbsp;</i> cek</button>
 
                       
                       </div>
@@ -296,42 +298,43 @@
 $("#iditems,#btniditems").click(function(){
 	//var t_volume=$('#idtotal').val();   
 	var idcnote=$('#idcnote2').val();
-	var tgl=$('#tgl2').val();
+	var tgl2=$('#tgl2').val();
 	var tujuan=$('#tujuan').val();
 	var layanan=$('#layanan').val();
  	var jml=$('#jml').val();
 	var berat=$('#berat').val();
 	var jenis=$('#jenis').val();
  	
+	var t_volume=$('#t_volume').val();
+	var ttl = parseInt(t_volume) + parseInt(berat);
  
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/save_view_cargo'); ?>",
-                data: "idcnote=" + idcnote + "&tgl=" + tgl + "&tujuan=" + tujuan + "&layanan=" + layanan + "&jml=" + jml + "&berat=" + berat + "&jenis=" + jenis,
-                success: function(data){
-                   //$('#table_responsive').html(data);
-				  
-				   $('#table_input').html(data);
-						$("#modaladd").modal('hide');
-						$("#modaledit123").modal('hide')
-                }
-            });
-			
-});
+if (tujuan == ''){
+	alert('Mohon isi data dengan lengkap');	
+	}
+	else
+	{				
+	text='<tr class="gradeX" align="left">'
+	+ '<td width="1"></td>'
+    + '<td>' + '<input type="hidden" name="cnote[]" id="cnote[]" size="5" value="'+ idcnote +'">'+ '<label id="l_pcs">'+ idcnote +'</label>' +'</td>'
+    + '<td>' + '<input type="hidden" name="tgl2[]" id="tgl2[]" size="5" value="'+ tgl2 +'">'+ '<label id="l_pcs">'+ tgl2 +'</label>' +'</td>'
+    + '<td>' +  '<input type="hidden" name="tujuan[]" id="tujuan[]" size="5" value="'+ tujuan +'">'+ '<label id="l_pcs">'+ tujuan +'</label>' +'</td>'
+    + '<td>' +  '<input type="hidden" name="layanan[]" id="layanan[]" size="5" value="'+ layanan +'">'+ '<label id="l_pcs">'+ layanan +'</label>' +'</td>'
+    + '<td>' + '<input type="hidden" name="jenis[]" id="jenis[]" size="5" value="'+ jenis +'">'+ '<label id="l_pcs">'+ jenis +'</label>' +'</td>'	
+    + '<td>' + '<input type="hidden" name="jml[]" id="jml[]" size="5" value="'+ jml +'">'+ '<label id="l_pcs">'+ jml +'</label>' +'</td>'
+    + '<td>' + '<input type="hidden" name="berat[]" id="berat[]" size="5" value="'+ berat +'">'+ '<label id="l_pcs">'+ berat +'</label>' +'</td>'
 
+	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + berat +'" onclick="hapus2(this)" type="button"  ><i class="fa fa-times"></i></button></td>'
+    + '</tr>';
+	
+		$('#tblitems tbody').append(text);
+		$("#t_volume").val(ttl);
+		$("#label_volume").html(ttl);
+		$("#modaladd").modal('hide');
+		$("#modaledit123").modal('hide');
+		
+	}
+ });
 
- $(".delbutton").click(function(){
-	  var nohouse=$(this).val();
-
-		$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/delete_session_cargo'); ?>",
-                data: "nohouse=" + nohouse,
-                success: function(data){
-				  $('#table_input').html(data);
-                }
-            });
-});
 
 		
 function hapus(th) {
