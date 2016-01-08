@@ -185,7 +185,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Cari Data</h3>
+                <h3 id="myModalLabel">Insert Data</h3>
             </div>
             <div class="smart-form">
                     <div class="modal-body">
@@ -199,7 +199,7 @@
 <div class="col-sm-3"><span class="controls">
   <button class="btn btn-search btn-small btn-primary btnsearch" id="btnsearch2" type="button">Search</button>
 </span></div>
-            <div class="clearfix"></div>
+            
             </div>
                 <br>
             
@@ -209,8 +209,6 @@
                       <div class="modal-footer">
                       <button class="btn btn-primary" type="button" id="btniditems"><i class="icon-save bigger-160 icons">&nbsp;</i> Insert</button>
 
-
-                      
                       </div>
                     </div>
             
@@ -312,8 +310,17 @@ $("#iditems,#btniditems").click(function(){
                    //$('#table_responsive').html(data);
 				  
 				   $('#table_input').html(data);
-						$("#modaladd").modal('hide');
-						$("#modaledit123").modal('hide')
+						//$("#modaladd").modal('hide');
+						//$("#modaledit123").modal('hide');
+						$("#inputcnote").val('');
+						$("#tgl2").val('');
+						$("#tujuan").val('');
+						$("#layanan").val('');
+						$("#jml").val('');
+						$("#berat").val('');
+						$("#jenis").val('');
+						$("#idcnote2").val('');
+						document.getElementById("btniditems").disabled = true;
                 }
             });
 			
