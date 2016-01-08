@@ -253,6 +253,7 @@ return true;
         <ul class="submenu">
          <li> <a href="<?php echo base_url();?>transaction/domesctic_outgoing_master"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-file-archive-o bigger-120"></i> &nbsp;Outgoing-Master</a></li>
  		<li> <a href="<?php echo base_url();?>transaction/domesctic_outgoing_house"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Outgoing-House</a></li>
+
 <li> <a href="<?php echo base_url();?>transaction/cargo_manifest"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Cargo Manifest</a></li>
 		<li> <a href="<?php echo base_url();?>transaction/outgoing_consolidation"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-clone bigger-120"></i> &nbsp;Consolidation</a></li>
         

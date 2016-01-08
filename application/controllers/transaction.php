@@ -40,7 +40,7 @@ class Transaction extends CI_Controller{
  /* Input for ougoing house 
  	to save list item and charges
 	 */
-function domesctic_outgoing_house(){
+function domesctic_outgoing_houseeeeeeeeeeeeeeeeeeee(){
         $idusr=$this->session->userdata('idusr');
         $data = array(
             'title'=>'domesctic-outgoing-house',
@@ -58,6 +58,34 @@ function domesctic_outgoing_house(){
         );  
       $this->load->view('home/home',$data);
     }
+ function domesctic_outgoing_house(){
+        $idusr=$this->session->userdata('idusr');
+        $data = array(
+            'title'=>'domesctic-outgoing-house',
+            'scrumb_name'=>'Domesctic outgoing house',
+            'scrumb'=>'transaction/domesctic_outgoing_house',
+            'payment_type'=>$this->model_app->getdatapaging("payCode,payName","ms_payment_type","ORDER BY payCode ASC"),
+            'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
+            'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
+            'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
+            'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
+            'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
+            'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
+            'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
+            'connote'=>$this->model_app->getdatapaging("*","outgoing_connote","ORDER BY HouseNo DESC"),
+            'view'=>'pages/booking/outgoing/outgoing_house',
+        );  
+      $this->load->view('home/home',$data);
+    }
+  function detail_outgoing_house(){
+     $nomor=$this->input->post('nomor');
+
+		$data['house']=$this->model_app->getdata('booking_items',
+	"WHERE HouseNo='$nomor'");
+		$data['pesan']='data berhasil di load';
+
+        $this->load->view('pages/booking/outgoing/detail_outgoing',$data);
+}
 function cargo_manifest(){
         $idusr=$this->session->userdata('idusr');
         $data = array(
@@ -615,6 +643,7 @@ function hapus_item_temp(){
  function confirm_outgoing_house(){
 		$getHouse=$this->model_app->getHouseNo();
 		$getjob=$this->model_app->getJob();
+		$etd=$this->input->post('etd');
 			
 	//====Save charges and items inevery table refer to SMU number ==============//
 	$pcs=$_POST['pcs'];	
@@ -662,7 +691,7 @@ function hapus_item_temp(){
 		'Service' =>$this->input->post('service'),
 		'Origin' =>$this->input->post('origin'),
 		'Destination' =>$this->input->post('desti'),
-		'ETD' =>date('Y-m-d h:s:m',$this->input->post('etd')),
+		'ETD' =>date($etd),
 		'Shipper' =>$this->input->post('idshipper'),
 		'CodeShipper' =>$this->input->post('codeship'),
 		'Consigne' =>$this->input->post('idconsigne'),

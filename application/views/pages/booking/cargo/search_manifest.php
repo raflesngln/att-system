@@ -36,10 +36,10 @@
                                                     <td><?php echo $items->realisasi_berat;?></td>
                                                     <td><?php echo $items->total_berat;?></td>
                                                     <td>
-                                                   <a href="<?php echo base_url();?>transaction/cetak_manifest/<?php echo $items->CargoNo;?>" title="Delete item">
+                                                   <a href="<?php echo base_url();?>transaction/cetak_manifest/<?php echo $items->CargoNo;?>" title="Print item">
                                                   <button class="btn btn-mini btn-warning" type="button"><i class="fa fa-print bigger-120"></i></button>
                                                   </a> 
-                                                     <a href="<?php echo base_url();?>transaction/edit_cargo_manifest/<?php echo $items->CargoNo;?>" title="Delete item">
+                                                     <a href="<?php echo base_url();?>transaction/edit_cargo_manifest/<?php echo $items->CargoNo;?>" title="Edit item">
                                                   <button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>
                                                   </a>                                                   
                                                   <a href="<?php echo base_url(); ?>transaction/delete_cargo_manifest/<?php echo $items->CargoNo; ?>" onClick="return confirm('Yakin hapus Cargo ini? ini akan menghapus sekaligus items nya');" title="Delete item">

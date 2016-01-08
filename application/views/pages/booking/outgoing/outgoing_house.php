@@ -180,16 +180,16 @@ function toRp(angka){
 		<div class="span12 widget-container-span">
 		  <div class="widget-box">
 										<div class="widget-header">
-											<h5 class="bigger">&nbsp; :: CARGO MANIFEST ::</h5>
+											<h5 class="bigger">&nbsp; :: DOMESTIC OUTGOING HOUSE ::</h5>
 
 											<div class="widget-toolbar no-border">
 												<ul class="nav nav-tabs" id="myTab">
 													<li class="active">
-														<a data-toggle="tab" href="#home"><i class="fa fa-list"></i> List  Manifest</a>
+														<a data-toggle="tab" href="#home"><i class="fa fa-list"></i> List Outgoing House</a>
 													</li>
 
 													<li>
-													<a data-toggle="tab" href="#profile"><i class="fa fa-plus"></i> Entry  Manifest</a></li>
+													<a data-toggle="tab" href="#profile"><i class="fa fa-plus"></i> Entry Outgoing HOuse</a></li>
 												</ul>
 											</div>
 										</div>
@@ -198,11 +198,11 @@ function toRp(angka){
 											<div class="widget-main padding-0">
 												<div class="tab-content">
 													<div id="home" class="tab-pane in active">
-	<?php $this->load->view('pages/booking/cargo/list_cargo_manifest');?>
+	<?php $this->load->view('pages/booking/outgoing/list_outgoing_house');?>
 													</div>
 
 													<div id="profile" class="tab-pane">
-	<?php $this->load->view('pages/booking/cargo/input_manifest');?>
+	<?php $this->load->view('pages/booking/outgoing/domesctic_outgoing_house');?>
 													</div>
 
 													<div id="info" class="tab-pane">

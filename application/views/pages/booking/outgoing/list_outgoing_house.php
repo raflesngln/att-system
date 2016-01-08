@@ -32,25 +32,25 @@
 
                 
                                     <div class="form-group">
-<h2><span class="label label-large label-pink arrowed-in-right"><strong>List Cargo Manifest</strong></span></h2>
+<h2><span class="label label-large label-pink arrowed-in-right"><strong>List Outgoing House / Connote</strong></span></h2>
                                         <div class="table-responsive" id="table_responsive">
-                                        <table width="500" class="table table-striped table-bordered table-hover" id="tblitemss">
+                                        <table width="500" class="table table-striped table-bordered table-hover" id="tblhouse">
                                               <thead>
                                                 <tr align="left" style="background:#EBEBEB">
-                                                  <th colspan="2"><div align="left">No Cargo</div></th>
-                                                  <th width="54"><div align="center">Tanggal</div></th>
-                                                  <th width="46"><div align="center">Tujuan</div></th>
-                                                  <th width="58"><div align="center">referensi</div></th>
-                                                  <th width="48">Transit</th>
-                                                  <th width="48">Keterangan</th>
-                                                  <th width="48">Realisasi Berat</th>
-                                                  <th width="50">Total Berat</th>
+                                                  <th colspan="2"><div align="left">House No</div></th>
+                                                  <th width="54"><div align="center">ETD</div></th>
+                                                  <th width="46"><div align="center">Paycode</div></th>
+                                                  <th width="58"><div align="center">Service</div></th>
+                                                  <th width="48">Origin</th>
+                                                  <th width="48">Destination</th>
+                                                  <th width="48">Shipper</th>
+                                                  <th width="50">Consigene</th>
                                                   <th width="53" class="text-center"><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item" style="visibility:hidden"><i class="icon-plus icons"></i> Add items</a>Actions</div></th>
                                                 </tr>
                                                 </thead>
                                           <tbody>
  <?php 
- if(count($list_cargo) <=0){
+ if(count($connote) <=0){
 	 echo '
 	 <tr align="center" class="gradeX">
 	 <td colspan="10"><font color="red">Record Not found !</font></td>
@@ -59,26 +59,26 @@
  else
  {
  $no=1;
- foreach($list_cargo as $items){
+ foreach($connote as $items){
         ?>
             
                                             <tr align="right" class="gradeX">
-                                                    <td colspan="2"><div align="left"><?php echo $items->CargoNo;?></div></td>
-                                                    <td><div align="left"><?php echo date("d-m-Y",strtotime($items->tgl_cargo)); ?><input type="hidden" value="<?php echo $items->CargoNo;?>" name="idcargo" /></div></td>
-                                                    <td><div align="left"><?php echo $items->tujuan;?></div></td>
-                                                    <td><div align="left"><?php echo $items->referensi;?></div></td>
-                                                    <td><div align="left"><?php echo $items->transit;?></div></td>
-                                                    <td><div align="left"><?php echo $items->transit;?></div></td>
-                                                    <td><?php echo $items->realisasi_berat;?></td>
-                                                    <td><?php echo $items->total_berat;?></td>
+                                                    <td colspan="2"><div align="left"><a class="dethouse" href="#modaladding" data-toggle="modal" id="dethouse" title="click for detail"><?php echo $items->HouseNo;?></a></div></td>
+                                                    <td><div align="left"><?php echo date("d-m-Y",strtotime($items->ETD)); ?></div></td>
+                                                    <td><div align="left"><?php echo $items->PayCode;?></div></td>
+                                                    <td><div align="left"><?php echo $items->Sservice;?></div></td>
+                                                    <td><div align="left"><?php echo $items->Origin;?></div></td>
+                                                    <td><div align="left"><?php echo $items->Destination;?></div></td>
+                                                    <td><div align="left"><?php echo $items->Shipper;?></div></td>
+                                                    <td><div align="left"><?php echo $items->Consigne;?></div></td>
                                                     <td>
-                                                   <a href="<?php echo base_url();?>transaction/cetak_manifest/<?php echo $items->CargoNo;?>/<?php echo $items->HouseNo;?>" title="Print item">
+                                                   <a href="<?php echo base_url();?>transaction/cetak_outgoing_house/<?php echo $items->HouseNo;?>/<?php echo $items->HouseNo;?>" title="Print item">
                                                   <button class="btn btn-mini btn-warning" type="button"><i class="fa fa-print bigger-120"></i></button>
                                                   </a> 
-                                                     <a href="<?php echo base_url();?>transaction/edit_cargo_manifest/<?php echo $items->CargoNo;?>" title="Edit item">
+                                                     <a href="<?php echo base_url();?>transaction/edit_outgoing_house/<?php echo $items->HouseNo;?>" title="Edit item">
                                                   <button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>
                                                   </a>                                                   
-                                                  <a href="<?php echo base_url(); ?>transaction/delete_cargo_manifest/<?php echo $items->CargoNo; ?>" onClick="return confirm('Yakin Hapus No. Cargo ( <?php echo $items->CargoNo;?> ) ?? . Ini akan menghapus sekaligus items nya !');" title="Delete item">
+                                                  <a href="<?php echo base_url(); ?>transaction/delete_outgoing_house/<?php echo $items->HouseNo; ?>" onClick="return confirm('Yakin Hapus No. House ( <?php echo $items->HouseNo;?> ) ?? . Ini akan menghapus sekaligus items nya !');" title="Delete item">
                                                   <button class="btn btn-mini btn-danger" type="button" ><i class="fa fa-times bigger-120"></i></button>
                                                   </a> 
                                          
@@ -112,8 +112,53 @@
           </div>
          </div>
          
-<script type="text/javascript">     
-		
+         
+ <!-- ading form -->
+ <div id="modaladding" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:1000; position:absolute">
+    
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Detail Outgoing House</h3>
+            </div>
+            <div class="smart-form scroll">
+        <!-- <form method="post" action="<?php //echo site_url('temp/save_item')?>">   -->
+                    <div class="modal-body">
+                     
+                   
+
+
+
+<div id="detail_outgoing" class="detail_outgoing">detail</div>
+<div class="modal-footer">
+  <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
+                        <button class="btn btn-primary" id="iddetail"> Save</button>
+               <!-- </form>  -->
+</div>
+                    </div>
+            
+            </div>
+        </div>
+    </div>
+    </div>
+         
+<script type="text/javascript">
+	
+	 $(".dethouse").click(function(){
+          var nomor=$(this).html();
+             // alert('hai' + idcnote);
+				$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('transaction/detail_outgoing_house'); ?>",
+                data: "nomor="+nomor,
+                success: function(data){
+                   $('#detail_outgoing').html(data);
+				   $('.txtdetail').html(' No. House : ' + nomor);
+                }
+            });
+        });
+	
 	 $("#txtsearch").keyup(function(){
             var cargono = $('#txtsearch').val();
              // alert('hai' + idcnote);
