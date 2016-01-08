@@ -96,15 +96,15 @@ function toRp(angka){
   
   var volum=document.getElementById("t_volume").value;
   
- if (gross2 >= volum) {
+ //if (gross2 >= volum) {
     document.getElementById("cwt").value ='gross 2 lebihh besar';
-} else {
+//} else {
     document.getElementById("cwt").value ='volume lebih besar';
-} 
+//} 
 
  }
 </script>	    
-	    <script type="text/javascript">
+<script type="text/javascript">
 	    $(this).ready( function() {
     		$("#idshipper").autocomplete({
       			minLength: 1,
@@ -434,7 +434,7 @@ function toRp(angka){
 <label class="col-sm-4">Gross Weight</label> 
   <div class="col-sm-7">
   <input type="text" name="grossweight" id="grossweight" class="form-control" onkeypress="return isNumberKey(event)" onchange="rupiah();" required>
-  <input type="text" name="grossweight2" value="" id="grossweight2" />
+  <input type="hidden" name="grossweight2" value="" id="grossweight2" />
   </div>
 </div>
                                               <div class="col-md-12">
@@ -803,7 +803,23 @@ $grandt+=$chr->Total;
     </div>
     </div>
 
-<script type="text/javascript">     
+<script type="text/javascript">
+$("#grossweight").change(function(){
+
+             var volum=document.getElementById("t_volume").value;
+			 var grs=document.getElementById("grossweight2").value;
+			 
+			 var a=parseInt(volum);
+			 var b=parseInt(grs);
+			 if(a > b){
+				 document.getElementById("cwt").value =volum;
+			 }
+			 else
+			 {
+				document.getElementById("cwt").value =grs;
+			 }
+	 
+        });     
 $("#txtsearch").keyup(function(){
 
             var txtsearch = $("#txtsearch").val();
