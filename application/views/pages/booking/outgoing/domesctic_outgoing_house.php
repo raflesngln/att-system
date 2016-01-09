@@ -186,7 +186,7 @@ function toRp(angka){
             <?php }?>   
       <div class="header col-md-11">
 <p class="text-center konfirm" id="konfirm">&nbsp;</p>
-                <h4><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp; Domestic Outgoing - House:: Entry Data</h4>
+                <h4><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp; Domestic Outgoing House:: Entry Data</h4>
             </div>
       
 

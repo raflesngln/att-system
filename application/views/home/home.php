@@ -34,6 +34,10 @@
 <link rel="stylesheet" href="<?php echo base_url();?>asset/css/ace-skins.min.css" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+	.bigger{color:#040AF7;
+	}
+</style>
 
 <script type="text/javascript">
 function isNumberKey(evt)

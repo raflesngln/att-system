@@ -54,7 +54,7 @@
 				font-weight: normal;
 				margin: -1px;
 			}
-		
+
 	    </style>
   <script>
   $(function() {

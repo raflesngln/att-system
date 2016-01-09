@@ -1,40 +1,4 @@
-<div class="pull-right col-xs-12">
-
-<div class="col-sm-6 col-xs-12 pull-right">
-<div class="row">
-<div class="col-sm-11 col-xs-12"><label class="label label-default">Periode Cargo Manifest</label></div>
-<div class="col-sm-5 col-xs-12">First date</div>
-<div class="col-sm-5 col-xs-12">End date</div>
-
-<form method="post" class="in-line inline" action="<?php echo base_url();?>transaction/laporan_cargo_manifest">
-<div class="col-sm-4 col-xs-12"><input type="text" class="form-control" name="tg1" id="tg1" readonly="readonly" value="<?php echo date('Y-m-d');?>"></div>
-<div class="col-sm-4 col-xs-12"><input type="text" class="form-control" name="tg2" id="tg2" readonly="readonly" value="<?php echo date('Y-m-d');?>"></div>
-<div class="col-sm-2 col-xs-12"><button class="btn btn-small btn-success" id="btnsort" type="button"><i class="fa fa-search"></i> Sorrt</button></div>
-<div class="col-sm-2 col-xs-12"><button class="btn btn-small btn-warning" id="btnprint" type="submit"><i class="fa fa-print"></i> Print</button></div>
-</form>
-
-<div class="col-sm-11 col-xs-12"><label class="label label-">Search by Cargo No</label></div>
-<div class="col-sm-9 col-xs-12 text-right"><input type="text" class="form-control" name="txtsearch" id="txtsearch" placeholder="type No Cargo"></div>
-<div class="col-sm-3 col-xs-12"><button class="btn btn-small btn-primary" id="btnsearch"><i class="fa fa-search"></i> Search</button></div>
-
-</div>
-
-</div>
-
-
-
-</div>
-
-<div class="container">
-                <div class="col-lg-12 col-xs-12 portlets ui-sortable">
-                    <div class="panel">
-                        <!--<div class="panel-header"></div>-->
-
-                
-                                    <div class="form-group">
-<h2><span class="label label-large label-pink arrowed-in-right"><strong>List Outgoing House / Connote</strong></span></h2>
-                                        <div class="table-responsive" id="table_responsive">
-                                        <table width="500" class="table table-striped table-bordered table-hover" id="tblitemss">
+<table width="500" class="table table-striped table-bordered table-hover" id="tblhouse">
                                               <thead>
                                                 <tr align="left" style="background:#EBEBEB">
                                                   <th colspan="2"><div align="left">House No</div></th>
@@ -63,7 +27,7 @@
         ?>
             
                                             <tr align="right" class="gradeX">
-                                                    <td colspan="2"><div align="left"><a class="dethouse" href="#modaladding" data-toggle="modal" id="dethouse" title="click for detail"><?php echo $items->HouseNo;?></a></div></td>
+                                                    <td colspan="2"><div align="left"><a class="dethouse2" href="#modaladding" data-toggle="modal" id="dethouse2" title="click for detail"><?php echo $items->HouseNo;?></a></div></td>
                                                     <td><div align="left"><?php echo date("d-m-Y",strtotime($items->ETD)); ?></div></td>
                                                     <td><div align="left"><?php echo $items->PayCode;?></div></td>
                                                     <td><div align="left"><?php echo $items->Sservice;?></div></td>
@@ -86,132 +50,21 @@
                                                   </tr>
   <?php $no++;} } ?>
                                                 
-                                              <td width="74"></tbody>
+                                              <td width="74"></td></tbody>
                                             </table>
-                                        </div>
-                                    </div>
-  
-  <!-- LEFT INPUT  -->
-  <!-- END LEFT INPUT -->
-  <!-- RIGHT INPUT  -->
-                                            <div class="col-md-6">
-                                              <div class="row">
-                                                <div class="col-md-12"></div>
-                                              </div>
-                                            </div>
-  <!-- END RIGHT INPUT -->
-  <div class="clearfix"> </div>
-
-                                    
-  
-                  </div>
-  
-                                    
-                                  <div class="cpl-sm-12"><h2>&nbsp;</h2>
-                  </div>
-          </div>
-         </div>
-         
-         
- <!-- ading form -->
- <div id="modaladding" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Detail Outgoing House</h3>
-            </div>
-            <div class="smart-form scroll">
-        <!-- <form method="post" action="<?php //echo site_url('temp/save_item')?>">   -->
-                    <div class="modal-body">
-                     
-                   
-<div class="form-group">
-                        <label class="col-sm-3 control-label">No of Pcs </label>
-                        <div class="col-sm-9"><span class="controls">
-                        <input name="pack" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="pack" />
-</span></div>
-            <div class="clearfix"></div>
-            </div>
-
-
-<div id="detail_outgoing" class="detail_outgoing">detail</div>
-<div class="modal-footer">
-  <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary" id="iditems"> Save</button>
-               <!-- </form>  -->
-</div>
-                    </div>
-            
-            </div>
-        </div>
-    </div>
-    </div>
-         
 <script type="text/javascript">
 	
-	 $(".dethouse").click(function(){
+	 $(".dethouse2").click(function(){
           var nomor=$(this).html();
-             // alert('hai' + idcnote);
 				$.ajax({
                 type: "POST",
                 url : "<?php echo base_url('transaction/detail_outgoing_house'); ?>",
                 data: "nomor="+nomor,
                 success: function(data){
-                   $('#detail_outgoing').html(data);
+                   $('.detail_outgoing').html(data);
+				   $('.txtdetail').html(' No. House : ' + nomor);
                 }
             });
         });
-	
-	 $("#txtsearch").keyup(function(){
-            var cargono = $('#txtsearch').val();
-             // alert('hai' + idcnote);
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/search_cargo_manifest'); ?>",
-                data: "cargono="+cargono,
-                success: function(data){
-                   $('#table_responsive').html(data);
-                }
-            });
-        });
-		
-	 $("#btnsearch").click(function(){
-            var cargono = $('#txtsearch').val();
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/search_cargo_manifest'); ?>",
-                data: "cargono="+cargono,
-                success: function(data){
-                   $('#table_responsive').html(data);
-                }
-            });
-        });
-	 $("#btnsort").click(function(){
-            var tgl1 = $('#tg1').val();
-			var tgl2 = $('#tg2').val();
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/periode_cargo_manifest');?>",
-       data: "tgl1="+tgl1+"&tgl2="+tgl2,
-                success: function(data){
-                   $('#table_responsive').html(data);
-                }
-            });
-        });
-	 $("#btnprint").click(function(){
-            var tgl1 = $('#tg1').val();
-			var tgl2 = $('#tg2').val();
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/periode_cargo_manifest');?>",
-       data: "tgl1="+tgl1+"&tgl2="+tgl2,
-                success: function(data){
-                   $('#table_responsive').html(data);
-                }
-            });
-        });
-		
 		
 </script>

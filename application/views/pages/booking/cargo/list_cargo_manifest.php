@@ -2,7 +2,7 @@
 
 <div class="col-sm-6 col-xs-12 pull-right">
 <div class="row">
-<div class="col-sm-11 col-xs-12"><label class="label label-default">Periode Cargo Manifest</label></div>
+<div class="col-sm-11 col-xs-12"><label class="label label-pink">Periode Cargo Manifest</label></div>
 <div class="col-sm-5 col-xs-12">First date</div>
 <div class="col-sm-5 col-xs-12">End date</div>
 
@@ -13,7 +13,7 @@
 <div class="col-sm-2 col-xs-12"><button class="btn btn-small btn-warning" id="btnprint" type="submit"><i class="fa fa-print"></i> Print</button></div>
 </form>
 
-<div class="col-sm-11 col-xs-12"><label class="label label-">Search by Cargo No</label></div>
+<div class="col-sm-11 col-xs-12"><label class="label label-pink">Search by Cargo No</label></div>
 <div class="col-sm-9 col-xs-12 text-right"><input type="text" class="form-control" name="txtsearch" id="txtsearch" placeholder="type No Cargo"></div>
 <div class="col-sm-3 col-xs-12"><button class="btn btn-small btn-primary" id="btnsearch"><i class="fa fa-search"></i> Search</button></div>
 
@@ -150,18 +150,7 @@
                 }
             });
         });
-	 $("#btnprint").click(function(){
-            var tgl1 = $('#tg1').val();
-			var tgl2 = $('#tg2').val();
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/periode_cargo_manifest');?>",
-       data: "tgl1="+tgl1+"&tgl2="+tgl2,
-                success: function(data){
-                   $('#table_responsive').html(data);
-                }
-            });
-        });
+
 		
 		
 </script>

@@ -80,8 +80,9 @@ function domesctic_outgoing_houseeeeeeeeeeeeeeeeeeee(){
   function detail_outgoing_house(){
      $nomor=$this->input->post('nomor');
 
-		$data['house']=$this->model_app->getdata('booking_items',
-	"WHERE HouseNo='$nomor'");
+		$data['house']=$this->model_app->getdata('booking_items a',
+	"inner join outgoing_connote b( inner join ms_user c on b.CreatedBy=c.id_user) on a.HouseNo=b.HouseNo
+	WHERE a.HouseNo='$nomor'");
 		$data['pesan']='data berhasil di load';
 
         $this->load->view('pages/booking/outgoing/detail_outgoing',$data);
@@ -108,11 +109,42 @@ function cargo_manifest(){
         );  
       $this->load->view('home/home',$data);
     } 
+function search_outgoing_house(){
+		$idusr=$this->session->userdata('idusr'); 
+
+        $txtsearch=$this->input->post('txtsearch');
+
+		$page=$this->uri->segment(3);
+      	$limit=30;
+		if(!$page):
+		$offset = 0;
+		else:
+		$offset = $page;
+		endif;
+
+	$data['connote']=$this->model_app->getdatapaging("*","outgoing_connote",
+		"WHERE HouseNo='$txtsearch' 
+		ORDER BY HouseNo DESC LIMIT $offset,$limit");
+	$tot_hal = $this->model_app->hitung_isi_tabel("*","outgoing_connote",
+		 "WHERE HouseNo='$txtsearch' ORDER BY HouseNo DESC");
+	//create for pagination		
+			$config['base_url'] = base_url() . 'transaction/search_outgoing_house/';
+        	$config['total_rows'] = $tot_hal->num_rows();
+        	$config['per_page'] = $limit;
+			$config['uri_segment'] = 3;
+	    	$config['first_link'] = 'First';
+			$config['last_link'] = 'last';
+			$config['next_link'] = 'Next';
+			$config['prev_link'] = 'Prev';
+       		$this->pagination->initialize($config);
+			$data["paginator"] =$this->pagination->create_links();
+        $this->load->view('pages/booking/outgoing/search_outgoing',$data);
+}
 function search_cargo_manifest(){
 
         $cari=$this->input->post('cargono');
 		$page=$this->uri->segment(3);
-      	$limit=10;
+      	$limit=30;
 		if(!$page):
 		$offset = 0;
 		else:
@@ -138,6 +170,39 @@ function search_cargo_manifest(){
 			$data["paginator"] =$this->pagination->create_links();
         $this->load->view('pages/booking/cargo/search_manifest',$data);
 }
+function periode_outgoing_house(){
+
+        $tgl1=$this->input->post('tgl1');
+		$tgl2=$this->input->post('tgl2');
+
+		$page=$this->uri->segment(3);
+      	$limit=30;
+		if(!$page):
+		$offset = 0;
+		else:
+		$offset = $page;
+		endif;
+	$idusr=$this->session->userdata('idusr');      
+
+	$data['connote']=$this->model_app->getdatapaging("*","outgoing_connote",
+		"WHERE LEFT(ETD,10) BETWEEN '$tgl1' AND '$tgl2' 
+		ORDER BY HouseNo DESC LIMIT $offset,$limit");
+	$tot_hal = $this->model_app->hitung_isi_tabel("*","outgoing_connote",
+		"WHERE LEFT(ETD,10) BETWEEN '$tgl1' AND '$tgl2' ORDER BY HouseNo DESC");
+
+	//create for pagination		
+			$config['base_url'] = base_url() . 'transaction/periode_outgoing_house/';
+        	$config['total_rows'] = $tot_hal->num_rows();
+        	$config['per_page'] = $limit;
+			$config['uri_segment'] = 3;
+	    	$config['first_link'] = 'First';
+			$config['last_link'] = 'last';
+			$config['next_link'] = 'Next';
+			$config['prev_link'] = 'Prev';
+       		$this->pagination->initialize($config);
+			$data["paginator"] =$this->pagination->create_links();
+        $this->load->view('pages/booking/outgoing/search_outgoing',$data);
+}
 function periode_cargo_manifest(){
 
         $tgl1=$this->input->post('tgl1');
@@ -145,7 +210,7 @@ function periode_cargo_manifest(){
 		$tgl2=$this->input->post('tgl2');
 
 		$page=$this->uri->segment(3);
-      	$limit=10;
+      	$limit=30;
 		if(!$page):
 		$offset = 0;
 		else:
@@ -170,6 +235,35 @@ function periode_cargo_manifest(){
        		$this->pagination->initialize($config);
 			$data["paginator"] =$this->pagination->create_links();
         $this->load->view('pages/booking/cargo/search_manifest',$data);
+}
+function laporan_outgoing_house(){
+
+        $tgl1=$this->input->post('tg1');
+		$tgl2=$this->input->post('tg2');
+		$format1=date("d M Y",strtotime($tgl1));
+		$format2=date("d M Y",strtotime($tgl2));
+
+		$data['connote']=$this->model_app->getdata("outgoing_connote",
+		"WHERE LEFT(ETD,10) BETWEEN '$tgl1' AND '$tgl2' 
+		ORDER BY HouseNo DESC");
+		$data['periode']=$format1.' s/d '.$format2;
+
+
+	ob_start();
+		$content = $this->load->view('pages/booking/outgoing/report_outgoing',$data);
+		$content = ob_get_clean();		
+		$this->load->library('html2pdf');
+		try
+		{
+			$html2pdf = new HTML2PDF('P', 'A4', 'fr');
+			$html2pdf->pdf->SetDisplayMode('fullpage');
+			$html2pdf->writeHTML($content, isset($_GET['vuehtml']));
+			$html2pdf->Output('Report Outgoing House.pdf');
+		}
+		catch(HTML2PDF_exception $e) {
+			echo $e;
+			exit;
+		}
 }
 function laporan_cargo_manifest(){
 
@@ -199,6 +293,7 @@ function laporan_cargo_manifest(){
 			exit;
 		}
 }
+
 function list_cargo_manifest(){
 	$kode=$this->uri->segment(3);
 	$data=array(
@@ -526,7 +621,18 @@ function cetak_manifest(){
 		$this->load->view('pages/booking/cargo/input_manifest_temp',$data);
 	}
 
+ function delete_outgoing_house(){
+	$kode=$this->uri->segment(3);
+	$search=$this->model_app->getdata('outgoing_connote',"WHERE HouseNo='$kode'");
+	if($search){
 
+			$delete=$this->model_app->delete_data('booking_charges','HouseNo',$kode);
+			$delete=$this->model_app->delete_data('booking_items','HouseNo',$kode);
+			$delete=$this->model_app->delete_data('outgoing_connote','HouseNo',$kode);
+		}
+
+		redirect('transaction/domesctic_outgoing_house');
+	}	
  function delete_cargo_manifest(){
 	$kode=$this->uri->segment(3);
 	
@@ -704,7 +810,10 @@ function hapus_item_temp(){
 		'CWT' =>$this->input->post('cwt'),
 		'DeclareValue' =>$this->input->post('declare'),
 		'DescofShipment' =>$this->input->post('description'),
-		'Date'=>date('Y-m-d:h-s-m')
+		'CreatedBy' =>$this->session->userdata('idusr'),
+		'CreateDate'=>date('Y-m-d:h-s-m'),
+		'ModifiedBy' =>'',
+		'ModifiedDate' =>''
 		);		
 		 $this->model_app->insert('outgoing_connote',$OutHouse);	
 //==============  print view in HTML   =======================//

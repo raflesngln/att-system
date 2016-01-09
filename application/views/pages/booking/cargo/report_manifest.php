@@ -17,7 +17,7 @@
 </head>
 
 <body>
-<p style="text-align:center; font-size:16px">Report Cargo Manifest</p>
+<p style="text-align:center; font-size:16px">Laporan Cargo Manifest</p>
 <p style="text-align:center">Periode :  <?php echo $periode;?></p>
 
        <?php 

@@ -2,19 +2,21 @@
 
 <div class="col-sm-6 col-xs-12 pull-right">
 <div class="row">
-<div class="col-sm-11 col-xs-12"><label class="label label-default">Periode Cargo Manifest</label></div>
+<div class="col-sm-11 col-xs-12">
+  <label class="label label-pink">Periode House No</label></div>
 <div class="col-sm-5 col-xs-12">First date</div>
 <div class="col-sm-5 col-xs-12">End date</div>
 
-<form method="post" class="in-line inline" action="<?php echo base_url();?>transaction/laporan_cargo_manifest">
+<form method="post" class="in-line inline" action="<?php echo base_url();?>transaction/laporan_outgoing_house">
 <div class="col-sm-4 col-xs-12"><input type="text" class="form-control" name="tg1" id="tg1" readonly="readonly" value="<?php echo date('Y-m-d');?>"></div>
 <div class="col-sm-4 col-xs-12"><input type="text" class="form-control" name="tg2" id="tg2" readonly="readonly" value="<?php echo date('Y-m-d');?>"></div>
 <div class="col-sm-2 col-xs-12"><button class="btn btn-small btn-success" id="btnsort" type="button"><i class="fa fa-search"></i> Sorrt</button></div>
 <div class="col-sm-2 col-xs-12"><button class="btn btn-small btn-warning" id="btnprint" type="submit"><i class="fa fa-print"></i> Print</button></div>
 </form>
 
-<div class="col-sm-11 col-xs-12"><label class="label label-">Search by Cargo No</label></div>
-<div class="col-sm-9 col-xs-12 text-right"><input type="text" class="form-control" name="txtsearch" id="txtsearch" placeholder="type No Cargo"></div>
+<div class="col-sm-11 col-xs-12">
+  <label class="label label-pink">Search by House No</label></div>
+<div class="col-sm-9 col-xs-12 text-right"><input type="text" class="form-control" name="txtsearch" id="txtsearch" placeholder="type house Number"></div>
 <div class="col-sm-3 col-xs-12"><button class="btn btn-small btn-primary" id="btnsearch"><i class="fa fa-search"></i> Search</button></div>
 
 </div>
@@ -33,7 +35,7 @@
                 
                                     <div class="form-group">
 <h2><span class="label label-large label-pink arrowed-in-right"><strong>List Outgoing House / Connote</strong></span></h2>
-                                        <div class="table-responsive" id="table_responsive">
+                                        <div class="table-responsive" id="table_connote">
                                         <table width="500" class="table table-striped table-bordered table-hover" id="tblhouse">
                                               <thead>
                                                 <tr align="left" style="background:#EBEBEB">
@@ -153,33 +155,33 @@
                 url : "<?php echo base_url('transaction/detail_outgoing_house'); ?>",
                 data: "nomor="+nomor,
                 success: function(data){
-                   $('#detail_outgoing').html(data);
+                   $('.detail_outgoing').html(data);
 				   $('.txtdetail').html(' No. House : ' + nomor);
                 }
             });
         });
 	
 	 $("#txtsearch").keyup(function(){
-            var cargono = $('#txtsearch').val();
+            var txtsearch = $('#txtsearch').val();
              // alert('hai' + idcnote);
 				$.ajax({
                 type: "POST",
-                url : "<?php echo base_url('transaction/search_cargo_manifest'); ?>",
-                data: "cargono="+cargono,
+                url : "<?php echo base_url('transaction/search_outgoing_house'); ?>",
+                data: "txtsearch="+txtsearch,
                 success: function(data){
-                   $('#table_responsive').html(data);
+                   $('#table_connote').html(data);
                 }
             });
         });
 		
 	 $("#btnsearch").click(function(){
-            var cargono = $('#txtsearch').val();
+            var txtsearch = $('#txtsearch').val();
 				$.ajax({
                 type: "POST",
-                url : "<?php echo base_url('transaction/search_cargo_manifest'); ?>",
-                data: "cargono="+cargono,
+                url : "<?php echo base_url('transaction/search_outgoing_house'); ?>",
+                data: "txtsearch="+txtsearch,
                 success: function(data){
-                   $('#table_responsive').html(data);
+                   $('#table_connote').html(data);
                 }
             });
         });
@@ -188,25 +190,14 @@
 			var tgl2 = $('#tg2').val();
 				$.ajax({
                 type: "POST",
-                url : "<?php echo base_url('transaction/periode_cargo_manifest');?>",
+                url : "<?php echo base_url('transaction/periode_outgoing_house');?>",
        data: "tgl1="+tgl1+"&tgl2="+tgl2,
                 success: function(data){
-                   $('#table_responsive').html(data);
+                   $('#table_connote').html(data);
                 }
             });
         });
-	 $("#btnprint").click(function(){
-            var tgl1 = $('#tg1').val();
-			var tgl2 = $('#tg2').val();
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/periode_cargo_manifest');?>",
-       data: "tgl1="+tgl1+"&tgl2="+tgl2,
-                success: function(data){
-                   $('#table_responsive').html(data);
-                }
-            });
-        });
+
 		
 		
 </script>
