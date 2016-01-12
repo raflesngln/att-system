@@ -5,7 +5,7 @@
 <title>Documento sin título</title>
 <style>
 *{
-	font-size:small;
+	font-size:12px;
 }
 .tabelll{
 	width:900px;
@@ -13,11 +13,13 @@
 .mytable tr td{ border-bottom:1px #999 solid;
 }
 .header tr td{border-top:1px #9F3 solid;}
+h3{text-align:center; font-size:14px; margin-top:-10px}
 </style>
 </head>
 
 <body>
 <h2 style="text-align:center">Cargo Manifest</h2>
+<h3>PT. Expresindo System Network</h3>
        <?php 
  $no=1;
  foreach($header as $row){
@@ -26,7 +28,7 @@
 <table width="800" border="0" id="tabel">
   <tr>
     <td width="29%">No Cargo</td>
-    <td width="26%">: <?php echo $row->CargoNo;?></td>
+    <td width="26%">: <strong><?php echo $row->CargoNo;?></strong></td>
     <td width="33%"><p style="color:#FFF">.....................................................................</p></td>
     <td width="33%">Dibuat Oleh</td>
     <td width="12%">: <?php echo $this->session->userdata('usnm');?></td>
@@ -34,9 +36,9 @@
   <tr>
     <td>Tanggal</td>
     <td>: <?php echo $row->total_berat;?></td>
-    <td>&nbsp;</td>
+    <td></td>
     <td>Tanggal Dibuat</td>
-    <td> : <?php echo date('Y-M-d');?></td>
+    <td> : <?php echo date("d-M-Y",strtotime($row->insert_date)); ?></td>
   </tr>
   <tr>
     <td>Referensi</td>
@@ -50,7 +52,7 @@
     <td>: <?php echo $row->tujuan;?></td>
     <td>&nbsp;</td>
     <td>Tggl Cetak</td>
-    <td>: <?php echo date('Y-M-d');?></td>
+    <td>: <?php echo date("d-M-Y",strtotime(now)); ?></td>
   </tr>
   <tr>
     <td>Trasnit</td>
@@ -116,9 +118,12 @@
   </tr>
   <?php $no++; } ?>
   <tr>
-    <td colspan="6"><div align="center">Total</div></td>
-    <td>&nbsp; &nbsp; &nbsp;<?php echo $t_jumlah;?></td>
-    <td>&nbsp; &nbsp; &nbsp;<?php echo $t_berat;?></td>
+    <td colspan="8">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="6"><div align="right"><strong>Total &nbsp; </strong></div></td>
+    <td><strong>&nbsp; &nbsp; &nbsp;<?php echo $t_jumlah;?></strong></td>
+    <td><strong>&nbsp; &nbsp; &nbsp;<?php echo $t_berat;?></strong></td>
   </tr>
 </table>
 

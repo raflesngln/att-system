@@ -13,12 +13,21 @@
 .mytable tr td{ border-bottom:1px #999 solid;
 }
 .header tr td{border-top:1px #9F3 solid;}
+h2{font-size:18px;}
+h3{text-align:center; font-size:12px; margin-top:-10px; font-weight:normal}
+p{ margin-top:-8px}
 </style>
 </head>
 
 <body>
-<p style="text-align:center; font-size:16px">Laporan Cargo Manifest</p>
-<p style="text-align:center">Periode :  <?php echo $periode;?></p>
+<h2 style="text-align:center">Laporan Periode Cargo Manifest</h2>
+<h3>PT. Expresindo System Network</h3>
+<h3>Periode :  <?php echo $periode;?></h3>
+
+<p>Cabang	&nbsp;  :</p>
+<p>Kantor	&nbsp;  :</p>
+<p>Tujuan	&nbsp;  :</p>
+<p>Pengguna	&nbsp;  :</p>
 
        <?php 
  $no=1;
@@ -58,9 +67,13 @@
   </tr>
   <?php $no++; } ?>
   <tr>
-    <td colspan="6"><div align="right">Total &nbsp; </div></td>
-    <td>&nbsp; &nbsp; &nbsp;<?php echo number_format($total_realisasi,0,'.','.');?></td>
-    <td>&nbsp; &nbsp; &nbsp;<?php echo number_format($total_berat,0,'.','.');?></td>
+    <td colspan="7">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="6"><div align="right"><strong>Total :&nbsp; </strong></div></td>
+    <td><strong>&nbsp; &nbsp; &nbsp;<?php echo number_format($total_realisasi,0,'.','.');?></strong></td>
+    <td><strong>&nbsp; &nbsp; &nbsp;<?php echo number_format($total_berat,0,'.','.');?></strong></td>
   </tr>
 </table>
 

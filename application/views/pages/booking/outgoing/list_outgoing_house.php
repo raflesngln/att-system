@@ -10,8 +10,10 @@
 <form method="post" class="in-line inline" action="<?php echo base_url();?>transaction/laporan_outgoing_house">
 <div class="col-sm-4 col-xs-12"><input type="text" class="form-control" name="tg1" id="tg1" readonly="readonly" value="<?php echo date('Y-m-d');?>"></div>
 <div class="col-sm-4 col-xs-12"><input type="text" class="form-control" name="tg2" id="tg2" readonly="readonly" value="<?php echo date('Y-m-d');?>"></div>
-<div class="col-sm-2 col-xs-12"><button class="btn btn-small btn-success" id="btnsort" type="button"><i class="fa fa-search"></i> Sorrt</button></div>
-<div class="col-sm-2 col-xs-12"><button class="btn btn-small btn-warning" id="btnprint" type="submit"><i class="fa fa-print"></i> Print</button></div>
+<div class="col-sm-2 col-xs-12">
+  <button class="btn btn-small btn-success" id="btnsort" type="button"><i class="fa fa-search"></i> Sort</button></div>
+<div class="col-sm-2 col-xs-12">
+  <button class="btn btn-small btn-warning" id="btnprint" type="submit"><i class="fa fa-print"></i> Preview</button></div>
 </form>
 
 <div class="col-sm-11 col-xs-12">

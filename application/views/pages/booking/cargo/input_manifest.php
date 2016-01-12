@@ -56,6 +56,7 @@
           <strong>
           <label class="col-sm-4"> Cnote untuk di Proses</label></strong>
           <div class="col-sm-6">
+          
             <input name="inputcnote" type="text" class="form-control"  id="inputcnote"/>
             </div>
           <div class="col-sm-2 text-left">
@@ -277,17 +278,28 @@
         });
 
   $("#btncnote").click(function(){
-	  var inputcnote=$("#inputcnote").val();
-	if(inputcnote=='')
+	  //var inputcnote=$("#inputcnote").val();
+	  var idcnote = $('#inputcnote').val();
+	  $("#idcnote2").val(idcnote);
+	if(idcnote=='')
 	{
-		alert('inpuh has empty');
+		alert('Input Textbox Cant be Empty !');
 		return false;
 	}
 	else
 	{
-	$("#idcnote2").val(inputcnote);
+	 var idcnote = $('#idcnote2').val();
+             // alert('hai' + idcnote);
+				$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('booking/detail_cnote'); ?>",
+                data: "idcnote="+idcnote,
+                success: function(data){
+                   $('#detailconnote2').html(data);
+				   //$("#modaledit123").modal('hide');
+                }
+            });
 	}
-	document.getElementById("btniditems").disabled = true;
   });
 
 	

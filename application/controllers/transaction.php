@@ -81,7 +81,7 @@ function domesctic_outgoing_houseeeeeeeeeeeeeeeeeeee(){
      $nomor=$this->input->post('nomor');
 
 		$data['house']=$this->model_app->getdata('booking_items a',
-	"inner join outgoing_connote b( inner join ms_user c on b.CreatedBy=c.id_user) on a.HouseNo=b.HouseNo
+	"inner join outgoing_connote b on a.HouseNo=b.HouseNo
 	WHERE a.HouseNo='$nomor'");
 		$data['pesan']='data berhasil di load';
 
