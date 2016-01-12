@@ -13,12 +13,17 @@
 .mytable tr td{ border-bottom:1px #999 solid;
 }
 .header tr td{border-top:1px #9F3 solid;}
+h2{font-size:18px;}
+h3{text-align:center; font-size:12px; margin-top:-10px; font-weight:normal}
+p{ margin-top:-8px}
 </style>
 </head>
 
 <body>
-<p style="text-align:center; font-size:16px">Laporan Ougoing House</p>
-<p style="text-align:center">Periode :  <?php echo $periode;?></p>
+
+<h2 style="text-align:center">Laporan Outgoing House</h2>
+<h3>PT. Expresindo System Network</h3>
+<h3>Periode :  <?php echo $periode;?></h3>
 
        <?php 
  $no=1;

@@ -189,7 +189,7 @@ function toRp(angka){
 													</li>
 
 													<li>
-													<a data-toggle="tab" href="#profile"><i class="fa fa-plus"></i> Entry Outgoing HOuse</a></li>
+													<a data-toggle="tab" href="#profile"><i class="fa fa-plus"></i> Entry Outgoing House</a></li>
 												</ul>
 											</div>
 										</div>

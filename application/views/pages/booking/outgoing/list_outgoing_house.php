@@ -3,7 +3,7 @@
 <div class="col-sm-6 col-xs-12 pull-right">
 <div class="row">
 <div class="col-sm-11 col-xs-12">
-  <label class="label label-pink">Periode House No</label></div>
+  <label class="label label-grey">Periode House No</label></div>
 <div class="col-sm-5 col-xs-12">First date</div>
 <div class="col-sm-5 col-xs-12">End date</div>
 
@@ -11,15 +11,15 @@
 <div class="col-sm-4 col-xs-12"><input type="text" class="form-control" name="tg1" id="tg1" readonly="readonly" value="<?php echo date('Y-m-d');?>"></div>
 <div class="col-sm-4 col-xs-12"><input type="text" class="form-control" name="tg2" id="tg2" readonly="readonly" value="<?php echo date('Y-m-d');?>"></div>
 <div class="col-sm-2 col-xs-12">
-  <button class="btn btn-small btn-success" id="btnsort" type="button"><i class="fa fa-search"></i> Sort</button></div>
+  <button class="btn btn-small btn-blue" id="btnsort" type="button"><i class="fa fa-search"></i> Sort</button></div>
 <div class="col-sm-2 col-xs-12">
-  <button class="btn btn-small btn-warning" id="btnprint" type="submit"><i class="fa fa-print"></i> Preview</button></div>
+  <button class="btn btn-small btn-blue" id="btnprint" type="submit"><i class="fa fa-print"></i> Preview</button></div>
 </form>
 
 <div class="col-sm-11 col-xs-12">
-  <label class="label label-pink">Search by House No</label></div>
+  <label class="label label-grey">Search by House No</label></div>
 <div class="col-sm-9 col-xs-12 text-right"><input type="text" class="form-control" name="txtsearch" id="txtsearch" placeholder="type house Number"></div>
-<div class="col-sm-3 col-xs-12"><button class="btn btn-small btn-primary" id="btnsearch"><i class="fa fa-search"></i> Search</button></div>
+<div class="col-sm-3 col-xs-12"><button class="btn btn-small btn-blue" id="btnsearch"><i class="fa fa-search"></i> Search</button></div>
 
 </div>
 
@@ -48,7 +48,7 @@
                                                   <th width="48">Origin</th>
                                                   <th width="48">Destination</th>
                                                   <th width="48">Shipper</th>
-                                                  <th width="50">Consigene</th>
+                                                  <th width="50">Consigne</th>
                                                   <th width="53" class="text-center"><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item" style="visibility:hidden"><i class="icon-plus icons"></i> Add items</a>Actions</div></th>
                                                 </tr>
                                                 </thead>
@@ -70,7 +70,7 @@
                                                     <td colspan="2"><div align="left"><a class="dethouse" href="#modaladding" data-toggle="modal" id="dethouse" title="click for detail"><?php echo $items->HouseNo;?></a></div></td>
                                                     <td><div align="left"><?php echo date("d-m-Y",strtotime($items->ETD)); ?></div></td>
                                                     <td><div align="left"><?php echo $items->PayCode;?></div></td>
-                                                    <td><div align="left"><?php echo $items->Sservice;?></div></td>
+                                                    <td><div align="left"><?php echo $items->Service;?></div></td>
                                                     <td><div align="left"><?php echo $items->Origin;?></div></td>
                                                     <td><div align="left"><?php echo $items->Destination;?></div></td>
                                                     <td><div align="left"><?php echo $items->Shipper;?></div></td>
@@ -124,7 +124,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Detail Outgoing House</h3>
+                <h3 id="myModalLabel">Detail House Number</h3>
             </div>
             <div class="smart-form scroll">
         <!-- <form method="post" action="<?php //echo site_url('temp/save_item')?>">   -->
@@ -137,7 +137,6 @@
 <div id="detail_outgoing" class="detail_outgoing">detail</div>
 <div class="modal-footer">
   <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary" id="iddetail"> Save</button>
                <!-- </form>  -->
 </div>
                     </div>
@@ -158,7 +157,7 @@
                 data: "nomor="+nomor,
                 success: function(data){
                    $('.detail_outgoing').html(data);
-				   $('.txtdetail').html(' No. House : ' + nomor);
+				   $('.txtdetail').html('<strong> No. House : ' + nomor + '</strong>');
                 }
             });
         });
