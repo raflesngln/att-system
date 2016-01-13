@@ -80,7 +80,7 @@ table tr td{border: 1px solid #B1ACAC;
     
     <td colspan="2">
    <p align="center"><font face="code39" size="6em">||||||||||||||||||||||||||||||</font></p>
-    <p align="center"><?php echo $_POST['house'];?></p></td>
+    <p align="center">1213452323</p></td>
   </tr>
   <tr>
     <td colspan="2">Account No.</td>
@@ -150,14 +150,10 @@ COD
     
     <td colspan="2">
     <table  width="100%" border="0" style="border:none; margin-top:-68px; width:300px">
-    <?php foreach($charges as $row){
-		$unit=$row->Unit;
-		$qty=$row->Qty;
-		$total=$unit*$qty;
-		 ?>
+    <?php foreach($tmpcharge as $row){ ?>
   <tr>
     <td width="150"><?php echo $row->ChargeName;?></td>
-    <td width="60"><div align="right" style="border:1px #DAD5D5 solid; text-align:right"><?php echo number_format($total,2,'.',',');?></div></td>
+    <td width="60"><div align="right" style="border:1px #DAD5D5 solid; text-align:right"><?php echo number_format($row->Total,2,'.',',');?></div></td>
   </tr>
   <?php } ?>
 </table>

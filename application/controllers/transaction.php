@@ -836,7 +836,7 @@ function hapus_item_temp(){
 			'charges'=>$this->model_app->getdatapaging("*","booking_charges","where HouseNo='$getHouse' ORDER BY IdBooking ASC"),
 			
 			
-            'view'=>'pages/booking/printview/confirm_outgoing_house',
+            'view'=>'pages/booking/outgoing/confirm_outgoing_house',
         );  
         ob_start();
    
@@ -848,6 +848,7 @@ function hapus_item_temp(){
 //     DATA TO PDF
     function preview_outgoing_house(){
 //==============  Save charges and items inevery table refer to SMU number =======================//
+$nohouse=$this->input->post('house');
 	$pcs=$_POST['pcs'];	
 	/*
 	// DONT EXECUTE THIS CODE 
@@ -921,6 +922,7 @@ $OutHouse=array(
             'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
             'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
             'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
+			'charges'=>$this->model_app->getdatapaging("*","booking_charges","WHERE HouseNo ='$nohouse' ORDER BY HouseNo ASC"),
             'view'=>'pages/booking/printview/printview_outgoing_house',
         );  
         ob_start();
