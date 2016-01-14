@@ -8,7 +8,7 @@
                                                   <th width="48">Origin</th>
                                                   <th width="48">Destination</th>
                                                   <th width="48">Shipper</th>
-                                                  <th width="50">Consigene</th>
+                                                  <th width="50">Consigne</th>
                                                   <th width="53" class="text-center"><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item" style="visibility:hidden"><i class="icon-plus icons"></i> Add items</a>Actions</div></th>
                                                 </tr>
                                                 </thead>
@@ -27,16 +27,16 @@
         ?>
             
                                             <tr align="right" class="gradeX">
-                                                    <td colspan="2"><div align="left"><a class="dethouse2" href="#modaladding" data-toggle="modal" id="dethouse2" title="click for detail"><?php echo $items->HouseNo;?></a></div></td>
+                                                    <td colspan="2"><div align="left"><a class="dethouse" href="#modaladding" data-toggle="modal" id="dethouse" title="click for detail"><?php echo $items->HouseNo;?></a></div></td>
                                                     <td><div align="left"><?php echo date("d-m-Y",strtotime($items->ETD)); ?></div></td>
                                                     <td><div align="left"><?php echo $items->PayCode;?></div></td>
-                                                    <td><div align="left"><?php echo $items->Sservice;?></div></td>
+                                                    <td><div align="left"><?php echo $items->Service;?></div></td>
                                                     <td><div align="left"><?php echo $items->Origin;?></div></td>
                                                     <td><div align="left"><?php echo $items->Destination;?></div></td>
                                                     <td><div align="left"><?php echo $items->Shipper;?></div></td>
                                                     <td><div align="left"><?php echo $items->Consigne;?></div></td>
                                                     <td>
-                                                   <a href="<?php echo base_url();?>transaction/cetak_outgoing_house/<?php echo $items->HouseNo;?>/<?php echo $items->HouseNo;?>" title="Print item">
+                                                   <a href="<?php echo base_url();?>transaction/print_outgoing_house2/<?php echo $items->HouseNo;?>" title="Print item">
                                                   <button class="btn btn-mini btn-warning" type="button"><i class="fa fa-print bigger-120"></i></button>
                                                   </a> 
                                                      <a href="<?php echo base_url();?>transaction/edit_outgoing_house/<?php echo $items->HouseNo;?>" title="Edit item">
@@ -50,21 +50,5 @@
                                                   </tr>
   <?php $no++;} } ?>
                                                 
-                                              <td width="74"></td></tbody>
+                                              <td width="74"></tbody>
                                             </table>
-<script type="text/javascript">
-	
-	 $(".dethouse2").click(function(){
-          var nomor=$(this).html();
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/detail_outgoing_house'); ?>",
-                data: "nomor="+nomor,
-                success: function(data){
-                   $('.detail_outgoing').html(data);
-				   $('.txtdetail').html(' No. House : ' + nomor);
-                }
-            });
-        });
-		
-</script>

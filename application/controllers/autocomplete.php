@@ -28,7 +28,7 @@ function lookup_sender(){
             {
               $data['message'][] = array( 
                     'id'=>$row->custCode,
-                     'value' => $row->custCode.'-'.$row->custName,
+                     'value' =>$row->custName,
                      'name' => $row->custName,
                      'phone' => $row->Phone,
 					 'address' => $row->Address,

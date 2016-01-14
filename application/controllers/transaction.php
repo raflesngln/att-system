@@ -87,6 +87,31 @@ function domesctic_outgoing_houseeeeeeeeeeeeeeeeeeee(){
 
         $this->load->view('pages/booking/outgoing/detail_outgoing',$data);
 }
+ function edit_outgoing_house(){
+        $idusr=$this->session->userdata('idusr');
+		$houseno=$this->uri->segment(3);
+        $data = array(
+            'title'=>'domesctic-outgoing-house',
+            'scrumb_name'=>'Domesctic outgoing house / Edit House',
+            'scrumb'=>'transaction/domesctic_outgoing_house',
+            'payment_type'=>$this->model_app->getdatapaging("payCode,payName","ms_payment_type","ORDER BY payCode ASC"),
+            'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
+            'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
+            'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
+            'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
+            'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
+            'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
+            'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
+			'shipper'=>$this->model_app->getdatapaging("*","outgoing_connote a","INNER JOIN ms_customer b on b.custCode=a.Shipper WHERE a.HouseNo ='$houseno' LIMIT 1"),
+			'consigne'=>$this->model_app->getdatapaging("*","outgoing_connote a","INNER JOIN ms_customer b on b.custCode=a.Consigne WHERE a.HouseNo ='$houseno' LIMIT 1"),
+            'connote'=>$this->model_app->getdatapaging("*","outgoing_connote","WHERE HouseNo='$houseno' ORDER BY HouseNo DESC"),
+			'list_charges'=>$this->model_app->getdatapaging("*","booking_charges","WHERE HouseNo ='$houseno'"),
+			'items'=>$this->model_app->getdatapaging("*","booking_items","WHERE HouseNo ='$houseno'"),
+            'view'=>'pages/booking/outgoing/edit_outgoing_house',
+        );  
+      $this->load->view('home/home',$data);
+    }
+
 function cargo_manifest(){
         $idusr=$this->session->userdata('idusr');
         $data = array(
@@ -139,6 +164,20 @@ function search_outgoing_house(){
        		$this->pagination->initialize($config);
 			$data["paginator"] =$this->pagination->create_links();
         $this->load->view('pages/booking/outgoing/search_outgoing',$data);
+}
+ function delete_booking_items(){
+	$item=$this->uri->segment(3);
+	$houseno=$this->uri->segment(4);
+	
+	$delete=$this->model_app->delete_data('booking_items','IdItems',$item);
+	redirect('transaction/edit_outgoing_house/'.$houseno);
+}
+ function delete_charges_items(){
+	$item=$this->uri->segment(3);
+	$houseno=$this->uri->segment(4);
+	
+	$delete=$this->model_app->delete_data('booking_charges','idCharges',$item);
+	redirect('transaction/edit_outgoing_house/'.$houseno);
 }
 function search_cargo_manifest(){
 
@@ -456,6 +495,44 @@ function cek_cnote(){
 		 $this->load->view('home/home',$data);
 		
   }
+     //=====================save cargo manifest ==========
+ function add_update_booking_items(){	
+ 		$house=$this->input->post('house2');
+		$panjang=$this->input->post('panjang');
+		$lebar=$this->input->post('lebar');
+		$tinggi=$this->input->post('tinggi');
+		$volume=$panjang*$lebar*$tinggi;
+		
+		$items=array(
+		'HouseNo' =>$house,
+		'NoPack'=>$this->input->post('pack'),
+		'Length'=>$this->input->post('panjang'),
+		'Width'=>$this->input->post('lebar'),
+		'Height'=>$this->input->post('tinggi'),
+		'Volume'=>$volume,
+		'Date'=>date('Y-m-d:h-s-m')
+		);		
+		 $this->model_app->insert('booking_items',$items);
+		 
+	redirect('transaction/edit_outgoing_house/'.$house);
+    }
+     //=====================save cargo manifest ==========
+ function add_update_booking_charges(){	
+ 		$house=$this->input->post('house3');
+		
+		$items=array(
+		'HouseNo' =>$house,
+		'ChargeName'=>$this->input->post('charge'),
+		'Unit'=>$this->input->post('txtunit'),
+		'Qty'=>$this->input->post('qty'),
+		'Description'=>$this->input->post('desc'),
+		'Date'=>date('Y-m-d:h-s-m')
+		);		
+		 $this->model_app->insert('booking_charges',$items);
+		 
+	redirect('transaction/edit_outgoing_house/'.$house);
+    }
+
    //=====================save cargo manifest ==========
  function save_edit_cargo_manifest(){	
  	
@@ -514,6 +591,7 @@ function edit_cargo_manifest(){
 	$this->load->view('home/home',$data);
 	
 }
+
 //=====================save cargo manifest ==========
  function update_chargo_manifest(){	
  		
@@ -798,12 +876,12 @@ function hapus_item_temp(){
 		'Origin' =>$this->input->post('origin'),
 		'Destination' =>$this->input->post('desti'),
 		'ETD' =>date($etd),
-		'Shipper' =>$this->input->post('idshipper'),
+		'Shipper' =>$this->input->post('idsender'),
 		'CodeShipper' =>$this->input->post('codeship'),
-		'Consigne' =>$this->input->post('idconsigne'),
+		'Consigne' =>$this->input->post('idreceivement'),
 		'CodeConsigne' =>$this->input->post('codesigne'),
 		'Commodity' =>$this->input->post('commodity'),
-		'GrossWeight' =>$this->input->post('grossweight'),
+		'GrossWeight' =>$this->input->post('grossweight2'),
 		'grandVolume' =>$this->input->post('t_volume'),
 		'grandPCS' =>$this->input->post('t_pacs'),
 		'SpecialIntraction' =>$this->input->post('special'),
@@ -833,7 +911,7 @@ function hapus_item_temp(){
 			
 			'connote'=>$this->model_app->getdatapaging("*","outgoing_connote","where HouseNo='$getHouse' ORDER BY HouseNo ASC"),
 			'items'=>$this->model_app->getdatapaging("*","booking_items","where HouseNo='$getHouse' ORDER BY IdItems ASC"),
-			'charges'=>$this->model_app->getdatapaging("*","booking_charges","where HouseNo='$getHouse' ORDER BY IdBooking ASC"),
+			'charges'=>$this->model_app->getdatapaging("*","booking_charges","where HouseNo='$getHouse' ORDER BY idCharges ASC"),
 			
 			
             'view'=>'pages/booking/outgoing/confirm_outgoing_house',
@@ -844,12 +922,92 @@ function hapus_item_temp(){
     
 
     }  
-	
 //     DATA TO PDF
-    function preview_outgoing_house(){
+ function update_outgoing_house(){
+		$houseno=$this->input->post('house');
+	
+		$etd=$this->input->post('etd');
+		
+	//----- SAVE OF OUTGOING HOUSE --------------////
+	$update=array(
+		'BookingNo' =>$this->input->post('booking'),
+		'PayCode' =>$this->input->post('paymentype'),
+		'Service' =>$this->input->post('service'),
+		'Origin' =>$this->input->post('origin'),
+		'Destination' =>$this->input->post('desti'),
+		'ETD' =>date($etd),
+		'Shipper' =>$this->input->post('idsender'),
+		'CodeShipper' =>$this->input->post('codeship'),
+		'Consigne' =>$this->input->post('idreceivement'),
+		'CodeConsigne' =>$this->input->post('codesigne'),
+		'Commodity' =>$this->input->post('commodity'),
+		'GrossWeight' =>$this->input->post('grossweight2'),
+		'grandVolume' =>$this->input->post('t_volume'),
+		'grandPCS' =>$this->input->post('t_pacs'),
+		'SpecialIntraction' =>$this->input->post('special'),
+		'CWT' =>$this->input->post('cwt'),
+		'DeclareValue' =>$this->input->post('declare'),
+		'DescofShipment' =>$this->input->post('description'),
+		'ModifiedBy' =>$this->session->userdata('idusr'),
+		'ModifiedDate'=>date('Y-m-d:h-s-m')
+		);		
+		 $this->model_app->update('outgoing_connote','HouseNo',$houseno,$update);	
+//==============  print view in HTML   =======================//
+        $data = array(
+            'title'=>'domesctic_outgoing_house',
+            'scrumb_name'=>'domesctic_outgoing_house',
+			'houseno'=>$getHouse,
+			'jobno'=>$getjob,
+            'scrumb'=>'transaction/domesctic_outgoing_house',
+			'outgoing_connote'=>$this->model_app->getdatapaging("*","outgoing_connote","ORDER BY HouseNo ASC"),
+			'connote'=>$this->model_app->getdatapaging("*","outgoing_connote","where HouseNo='$houseno' ORDER BY HouseNo ASC"),
+			'items'=>$this->model_app->getdatapaging("*","booking_items","where HouseNo='$houseno' ORDER BY IdItems ASC"),
+			'charges'=>$this->model_app->getdatapaging("*","booking_charges","where HouseNo='$houseno' ORDER BY idCharges ASC"),
+			
+			
+            'view'=>'pages/booking/outgoing/confirm_print_house',
+        );  
+        ob_start();
+   
+ 			$this->load->view('home/home',$data);
+    
+
+    }  
+
+//     DATA TO PDF 
+  function print_outgoing_house(){
 //==============  Save charges and items inevery table refer to SMU number =======================//
-$nohouse=$this->input->post('house');
-	$pcs=$_POST['pcs'];	
+	$nohouse=$this->input->post('house');
+
+        $data = array(
+            'title'=>'domesctic_incoming_master',
+			'connote'=>$this->model_app->getdatapaging("*","outgoing_connote","WHERE HouseNo ='$nohouse' LIMIT 1"),
+			'shipper'=>$this->model_app->getdatapaging("*","outgoing_connote a","INNER JOIN ms_customer b on b.custCode=a.Shipper WHERE a.HouseNo ='$nohouse' LIMIT 1"),
+			'consigne'=>$this->model_app->getdatapaging("*","outgoing_connote a","INNER JOIN ms_customer b on b.custCode=a.Consigne WHERE a.HouseNo ='$nohouse' LIMIT 1"),
+			'charges'=>$this->model_app->getdatapaging("*","booking_charges","WHERE HouseNo ='$nohouse'"),
+        );  
+        ob_start();
+        $content = $this->load->view('pages/booking/outgoing/printview_outgoing_house',$data);
+        $content = ob_get_clean();      
+        $this->load->library('html2pdf');
+        try
+        {
+            $html2pdf = new HTML2PDF('L', 'A4', 'fr');
+            $html2pdf->pdf->SetDisplayMode('fullpage');
+            $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
+            $html2pdf->Output('data Booking.pdf');
+        }
+        catch(HTML2PDF_exception $e) {
+            echo $e;
+            exit;
+        }
+     // $this->load->view('pages/booking/printview/printview_outgoing_house',$data);
+    }  
+//     DATA TO PDF 
+  function print_outgoing_house2(){
+//==============  Save charges and items inevery table refer to SMU number =======================//
+	$nohouse=$this->uri->segment(3);
+	
 	/*
 	// DONT EXECUTE THIS CODE 
 	foreach($pcs as $key => $val)
@@ -915,18 +1073,13 @@ $OutHouse=array(
 //==============  print view in PDF   =======================//
         $data = array(
             'title'=>'domesctic_incoming_master',
-            'scrumb_name'=>'domesctic_incoming_master',
-            'scrumb'=>'transaction/domesctic_incoming_master',
-            'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
-            'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
-            'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
-            'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
-            'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
-			'charges'=>$this->model_app->getdatapaging("*","booking_charges","WHERE HouseNo ='$nohouse' ORDER BY HouseNo ASC"),
-            'view'=>'pages/booking/printview/printview_outgoing_house',
+			'connote'=>$this->model_app->getdatapaging("*","outgoing_connote","WHERE HouseNo ='$nohouse' LIMIT 1"),
+			'shipper'=>$this->model_app->getdatapaging("*","outgoing_connote a","INNER JOIN ms_customer b on b.custCode=a.Shipper WHERE a.HouseNo ='$nohouse' LIMIT 1"),
+			'consigne'=>$this->model_app->getdatapaging("*","outgoing_connote a","INNER JOIN ms_customer b on b.custCode=a.Consigne WHERE a.HouseNo ='$nohouse' LIMIT 1"),
+			'charges'=>$this->model_app->getdatapaging("*","booking_charges","WHERE HouseNo ='$nohouse'"),
         );  
         ob_start();
-        $content = $this->load->view('pages/booking/printview/printview_outgoing_house',$data);
+        $content = $this->load->view('pages/booking/outgoing/printview_outgoing_house',$data);
         $content = ob_get_clean();      
         $this->load->library('html2pdf');
         try
@@ -940,10 +1093,9 @@ $OutHouse=array(
             echo $e;
             exit;
         }
-
-
      // $this->load->view('pages/booking/printview/printview_outgoing_house',$data);
     }  
+
    function barang(){
 	   $data=$this->model_app->getdata('barang',"");
 	   $this->load->view('pages/booking/data_barang',$data);

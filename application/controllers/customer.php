@@ -26,21 +26,14 @@ class Customer extends CI_Controller{
         $data['title']='list_customer';
 		$data['scrumb_name']='Data Customers';
 		$data['scrumb']='customer/view_customer';
-		$data['list']=$this->model_app->getdatapaging('a.Fax,a.email,a.isAgent,a.isActive,a.isShipper,a.isCnee,a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,
-		a.TermsPayment,a.PostalCode,a.custCode,a.custName,a.Remarks,a.NPWPAddress,
-		a.Address,a.custInitial,a.Phone,a.Email,a.CreditLimit,a.Deposit,a.NPWP,
-		a.ModifiedBy,a.ModifiedDate,b.empCode,b.empName,b.devisi,c.cyCode,c.cyName',
-		'ms_customer a',"inner join ms_staff b on a.empCode=b.empCode
-		inner join ms_city c on a.cyCode=c.cyCode
-		where b.devisi='sales'
+		$data['list']=$this->model_app->getdatapaging('*',
+		'ms_customer a',"LEFT join ms_staff b on a.empCode=b.empCode
+		LEFT join ms_city c on a.cyCode=c.cyCode
 		 order by a.custCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('a.Fax,a.custInitial,a.email,a.isAgent,a.isActive,a.isShipper,a.isCnee,a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,
-		a.TermsPayment,a.PostalCode,a.custCode,a.custName,a.Remarks,a.NPWPAddress,
-		a.Address,a.Phone,a.Email,a.CreditLimit,a.Deposit,a.NPWP,
-		a.ModifiedBy,a.ModifiedDate,b.empCode,b.empName,b.devisi,c.cyCode,c.cyName',
-		'ms_customer a',"inner join ms_staff b on a.empCode=b.empCode
-		inner join ms_city c on a.cyCode=c.cyCode
-		where b.devisi='sales'
+		 
+		$tot_hal = $this->model_app->hitung_isi_tabel('*',
+		'ms_customer a',"LEFT join ms_staff b on a.empCode=b.empCode
+		LEFT join ms_city c on a.cyCode=c.cyCode
 		 order by a.custCode");
         					//create for pagination		
 			$config['base_url'] = base_url() . 'customer/view_customer/';

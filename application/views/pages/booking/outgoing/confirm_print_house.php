@@ -50,14 +50,14 @@
 <div class="form-group">       
           <strong><label class="col-sm-4"> JOB No</label></strong>
           <div class="col-sm-7">
-           : <?php echo $jobno;?>
+           : <?php echo $_POST['job'];?>
          <input type="hidden" name="job" value="<?php echo $_POST['job'];?>" /> </div>
  </div><div class="clearfix"></div>
 <div class="form-group">       
           <strong><label class="col-sm-4"> House No</label></strong>
           <div class="col-sm-7">
-           : <?php echo $houseno;?>
-           <input name="house" type="hidden" id="house" value="<?php echo $houseno;?>" />
+           : <?php echo $_POST['house'];?>
+           <input name="house" type="hidden" id="house" value="<?php echo $_POST['house'];?>" />
           </div>
  </div><div class="clearfix"></div>
 <div class="form-group"> <strong>
@@ -85,7 +85,7 @@
  <div class="col-sm-12"><p>&nbsp;</p></div>
  
  <div class="form-group"><strong><span class="col-sm-4">Shipper</span></strong>
-   <div class="col-sm-7">: <?php echo $_POST['name1'];?>
+   <div class="col-sm-7">: <?php echo $_POST['idshipper'];?>
      <input name="name1" type="hidden" id="name1" value="<?php echo $_POST['name1'];?>" />
    </div>
  </div><div class="clearfix"></div>
@@ -125,7 +125,7 @@
 
     <div class="form-group"> 
         <strong><label class="col-sm-4">Consigne</label></strong>
-        <div class="col-sm-7">: <?php echo $_POST['name2'];?>
+        <div class="col-sm-7">: <?php echo $_POST['idconsigne'];?>
           <input name="name2" type="hidden" id="name2" value="<?php echo $_POST['name2'];?>" />
         </div>
 </div><div class="clearfix"></div>
@@ -340,8 +340,9 @@ $total_charges+=$kali;
 <div class="form-group">
 <div class="col-sm-4"><h3>&nbsp;</h3></div>
 <div class="col-sm-5">
-<button class="btn btn-primary" type="submit"><i class="icon icon-print bigger130"></i>Print view & print !</button>
-<a href="<?php echo base_url();?>transaction/domesctic_outgoing_house"><button class="btn btn-danger" type="button"><i class="icon icon-ok bigger130"></i>Finish !</button></a>
+<a href="<?php echo base_url();?>transaction/print_outgoing_house2/<?php echo $_POST['house'];?>" title="Print item">
+ <button class="btn btn-large btn-primary" type="button"><i class="fa fa-print bigger-120"> Printview</i></button>
+</a> <a href="<?php echo base_url();?>transaction/domesctic_outgoing_house"><button class="btn btn-danger btn-large" type="button"><i class="icon icon-ok bigger130"></i>Finish !</button></a>
 </div>
 
  </div><div class="clearfix"></div>

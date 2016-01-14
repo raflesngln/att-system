@@ -129,6 +129,7 @@ function toRp(angka){
             	/*	$("#result").append(
             			"<li>"+ ui.item.kota + "</li>"
             		);    */
+					$("#idsender").val(ui.item.id);
 					$("#name1").val(ui.item.name); 
 					$("#phone1").val(ui.item.phone);
 					$("#address1").val(ui.item.address); 		
@@ -159,9 +160,10 @@ function toRp(angka){
             	/*	$("#result").append(
             			"<li>"+ ui.item.kota + "</li>"
             		);    */
+					$("#idreceivement").val(ui.item.id);
 					$("#name2").val(ui.item.name); 
 					$("#phone2").val(ui.item.phone);
-					$("#address2").val(ui.item.address); 		
+					$("#address2").val(ui.item.address);		
          		},		
     		});
 
@@ -251,11 +253,13 @@ function toRp(angka){
           <?php } ?>
           </select>
           </div>
-<div class="col-sm-12"><hr></div>
+<div class="col-sm-12"><hr style="border:1px #CCC dashed"></div>
           <strong><label class="col-sm-4"> Shipper</label></strong>
           <div class="col-sm-7">
             <input type="text" name="idshipper" id="idshipper" class="form-control" placeholder="types customer name" autocomplete="off" required/>
-          <input name="name1" type="hidden" class="form-control"  id="name1" required value="<?php echo $row->custName;?>"/></div>
+          <input name="name1" type="hidden" class="form-control"  id="name1" required value="<?php echo $row->custName;?>"/>
+          <input name="idsender" type="hidden" class="form-control"  id="idsender" required value="<?php echo $row->custName;?>"/>
+          </div>
 <div class="col-sm-1"><a class="btn btn-success btn-addnew btn-mini" href="#modaladdcust" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a></div>
 
 <div class="form-group">      
@@ -309,13 +313,14 @@ function toRp(angka){
 <div class="col-sm-12"><h1>&nbsp;</h1></div>
 <div class="col-sm-12"><h1>&nbsp;</h1></div>
 <div class="col-sm-12"><h6>&nbsp;</h6></div>
-<div class="col-sm-12"><hr></div>
+<div class="col-sm-12"><hr style="border:1px #CCC dashed"></div>
 
           <strong><label class="col-sm-4"> Consignee</label>
           </strong>
             <div class="col-sm-7">
             <input name="idconsigne" type="text" class="form-control"  id="idconsigne" placeholder="types customer name" autocomplete="off" required/>
             <input name="name2" type="hidden" class="form-control"  id="name2" required />
+            <input name="idreceivement" type="hidden" class="form-control"  id="idreceivement" required value="<?php echo $row->custName;?>"/>
           </div> 
 <div class="col-sm-1"><a class="btn btn-success btn-addnew btn-mini" href="#modaladdcust" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a></div>
 <div class="form-group">      

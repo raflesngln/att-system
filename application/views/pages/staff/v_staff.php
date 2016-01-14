@@ -145,10 +145,7 @@ if($status=='1'){ $statusname='<font color="#0033FF">Aktif</font>';} else{$statu
     </a>
     
 
-                                                      <a href="#modalhapus<?php echo $data->empCode?>" data-toggle="modal" title="Edit">
-                                                      <button class="btn btn-primary btn-small tooltip-info" title="Edit data">
-                                                      <i class="icon-edit icon-1x icon-only"></i>hapus</button>                                          
-                                                      </a>                                              
+                                                                                                
                                                     
                                        
                                                     </td>
@@ -260,62 +257,6 @@ if($status=='1'){ $statusname='<font color="#0033FF">Aktif</font>';} else{$statu
     </div>
 <?php } ?>
 <!-- edit data  -->
-<?php
-
-    foreach($list as $row){
-       		
-		$isaktif=$row->isActive;
-
-		if($isaktif==1){ $status='Aktif';}else{$status='Nonaktif';}
-        ?>
-<div id="modalhapus<?php echo $row->empCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Edit hapus</h3>
-            </div>
-            <div class="smart-form">
-                <form method="post" action="<?php echo site_url('staff/update_staff')?>">
-                    <div class="modal-body">
-                      <div class="clearfix"></div>
-                      <div class="form-group">
-                        <label class="col-sm-3 control-label">Staff Name</label>
-                        <div class="col-sm-9">
-                        <input name="name2" type="text" class="form-control" id="name2" value="<?php echo $row->empName;?>"/>
-                        <span class="controls">
-                        <input type="hidden" name="id2" id="id2" value="<?php echo $row->empCode;?>" />
-                        </span></div>
-                        <div class="clearfix"></div>
-    </div>
- 
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Staff Name</label>
-                        <div class="col-sm-9">
-                        Apa yakin hapus data ini
-                        <span class="controls">
-                        <input type="hidden" name="id2" id="id2" value="<?php echo $row->empCode;?>" />
-                        </span></div>
-                        <div class="clearfix"></div>
-    </div>
-    
-    
-  <div class="clearfix"></div>
-                      <div class="clearfix"></div>
-                      <div class="clearfix"></div>              
-                      <div class="modal-footer">
-<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-danger"><i class="fa fa-trash bigger-160 icons">&nbsp;</i> Hapus data</button>
-    </div>
-                    </div>
-            
-                </form>
-            </div>
-        </div>
-    </div>
-    </div>
-<?php } ?>
 
 
 <!-- ADD DATA -->

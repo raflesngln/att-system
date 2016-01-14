@@ -24,7 +24,8 @@ table tr td{border: 1px solid #B1ACAC;
 }
 .bx-com p{
 	text-align:center;
-	line-height:-5px;
+	line-height:-8px;
+	font-weight:normal;
 }
 .bx-log{
 	text-align:center;
@@ -37,6 +38,9 @@ table tr td{border: 1px solid #B1ACAC;
 </head>
 
 <body>
+    <?php foreach($connote as $data){
+
+		 ?>
 <table width="200" border="0">
   <tr>
     <td bgcolor="#EFEFEF">
@@ -60,27 +64,27 @@ table tr td{border: 1px solid #B1ACAC;
     <td>
     <div class="bx-sm">
     <u><em><label>ORIGINAL/ASAL :</label></em></u>
-   <p><?php echo $_POST['origin'];?></p>
+   <p><?php echo $data->Origin;?></p>
    
    <p><HR /></p>
     <u><em>PIECES/JUMLAH SATUAN</em></u>
-   <p align="center"><?php echo $_POST['t_item'];?></p>
+   <p align="center"><?php echo $data->GrossWeight;?></p>
    </div>
     </td>
     <td>
     <div class="bx-sm">
    <u><em><label>DESTINATION/TUJUAN :</label></em></u>
-   <p><?php echo $_POST['desti'];?></p>
+   <p><?php echo $data->Destination;?></p>
    
    <p><HR /></p>
     <u><em>WEIGHT/BERAT</em></u>
-   <p align="center"><?php echo $_POST['grossweight'];?></p>
+   <p align="center"><?php echo $data->grandPCS;?></p>
    </div>
     </td>
     
     <td colspan="2">
    <p align="center"><font face="code39" size="6em">||||||||||||||||||||||||||||||</font></p>
-    <p align="center">1213452323</p></td>
+    <p align="center"><?php echo $data->HouseNo;?></p></td>
   </tr>
   <tr>
     <td colspan="2">Account No.</td>
@@ -129,31 +133,42 @@ COD
   </tr>
   <tr>
     <td colspan="2">
+    <?php
+	foreach($shipper as $ship){
+	?>
      <u><em>SHIPPER/PENGIRIM</em></u>
-    <p><?php echo $_POST['name1'];?></p>
+    <p><?php echo $ship->custName;?></p>
     
-   <u><em> <p>ADDRESSS/ALAMAT</p></em></u>
-    <?php echo $_POST['address1'];?>
-    <P>&nbsp;</P>
-    <P><u><em>PHONE/TELEPHONE/FAX : </em></u><?php echo $_POST['phone1'];?></P>
+   <u><em> <p>ADDRESSS/ALAMAT</p></em></u><?php echo $ship->Address;?>
+   <P>&nbsp;</P>
+    <P><u><em>PHONE/TELEPHONE/FAX : </em></u><?php echo $ship->Phone;?></P>
+    
+    <?php } ?>
     </td>
     
     <td colspan="2">
+        <?php
+	foreach($consigne as $con){
+	?>
         <u><em>RECEIVER/PENERIMA</em></u>
-    <p><?php echo $_POST['name2'];?></p>
+    <p><?php echo $con->custName;?></p>
     
-    <u><em><p>ADDRESSS/ALAMAT</p></em></u>
-    <?php echo $_POST['address2'];?>
+    <u><em><p>ADDRESSS/ALAMAT</p></em></u><?php echo $con->Address;?>
     <P>&nbsp;</P>
-   <P> <u><em>PHONE/TELEPHONE/FAX :</em></u> <?php echo $_POST['phone2'];?></P>
-    </td>
+   <p> <u><em>PHONE/TELEPHONE/FAX :</em></u><?php echo $con->Phone;?></p>
+   <?php } ?></td>
     
     <td colspan="2">
     <table  width="100%" border="0" style="border:none; margin-top:-68px; width:300px">
-    <?php foreach($tmpcharge as $row){ ?>
+    <?php foreach($charges as $row){
+		$unit=$row->Unit;
+		$qty=$row->Qty;
+		$total=$unit*$qty;
+		$grantotal+=$total;
+		 ?>
   <tr>
     <td width="150"><?php echo $row->ChargeName;?></td>
-    <td width="60"><div align="right" style="border:1px #DAD5D5 solid; text-align:right"><?php echo number_format($row->Total,2,'.',',');?></div></td>
+    <td width="60"><div align="right" style="border:1px #DAD5D5 solid; text-align:right; float:right"><label style="color:#FFF">........</label><?php echo number_format($total,0,'.',',');?></div></td>
   </tr>
   <?php } ?>
 </table>
@@ -164,7 +179,7 @@ COD
   <tr>
     <td colspan="4">&nbsp;</td>
     <td>TOTAL/JUMLAH</td>
-    <td><label align="center">&nbsp;   &nbsp;Rp.<?php echo number_format($_POST['total_charge'],2,',','.');?></label></td>
+    <td><label align="center">&nbsp;<label style="color:#FFF">......................</label>&nbsp;Rp.<?php echo number_format($grantotal,0,',','.');?></label></td>
   </tr>
   <tr>
     <td colspan="2">
@@ -187,7 +202,7 @@ COD
     </td>
   </tr>
   <tr>
-    <td height="46" colspan="2"><div class="detsend">DESCRIPTION OF SHIPMENT/KETERANGAN ISI : <?php echo $_POST['description'];?></div></td>
+    <td height="46" colspan="2"><div class="detsend">DESCRIPTION OF SHIPMENT/KETERANGAN ISI : <?php echo $data->DescofShipment;?></div></td>
     <td colspan="2"><div class="detsend">COLLECTED BY X-SYS/DIAMBIL OLE X-SYS</div></td>
     <td colspan="2" rowspan="3">
       <div class="det" style="margin-top:-22px">
@@ -195,24 +210,25 @@ COD
         
         <p>DATE/TANGGAL.....................TIME/JAM...........</p>
         <p>NAME/NAMA :.................</p>
-        <p>SIGNATURE & SAMP/TANDA TANGAN DAN STEMPEL : </p>
+        <p>SIGNATURE & STAMP/TANDA TANGAN DAN STEMPEL : </p>
         
       </div>
     </td>
   </tr>
   <tr>
-    <td height="49" colspan="2"><div class="detsend">DIMENTION/DIMENSI BARANG : <?php echo $_POST['grossweight'];?></div></td>
-    <td>DATE/TANGGAL : <?php echo date( 'd/m/Y');?></td>
-    <td>TME/JAM : <?php echo time();?></td>
+    <td height="49" colspan="2"><div class="detsend">DIMENTION/DIMENSI BARANG : <?php echo $data->GrossWeight;?></div></td>
+    <td>DATE/TANGGAL :<?php echo date("d-m-Y",strtotime($data->ETD)); ?></td>
+    <td>TIME/JAM :<?php echo date("h:i:s",strtotime($data->ETD)); ?></td>
   </tr>
   <tr>
-    <td colspan="2"><div class="detsend">SPECIAL INTRUCTION//INSTRUKSI KHUSUS : <?php echo $_POST['special'];?></div></td>
+    <td colspan="2"><div class="detsend">SPECIAL INTRUCTION//INSTRUKSI KHUSUS : <?php echo $data->SpecialIntraction;?></div></td>
     <td colspan="2">
    <P style="font-size:16pt; text-align:center">WE CANNOT DELIVER TO PO.BOX</P>
-    <p align="center">Kami tidak dapat mengatntar alamat PO Box</p><br />
+    <p align="center">Kami tidak dapat mengantar alamat PO Box</p><br />
     </td>
   </tr>
 </table>
+<?php } ?>
 <br style="clear:both;">
   
 
