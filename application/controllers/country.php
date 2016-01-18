@@ -8,6 +8,7 @@ class Country extends CI_Controller{
         };
         $this->load->model('model_app');
         $this->load->helper('currency_format_helper');
+		date_default_timezone_set("Asia/Jakarta"); 
     }	
 	 
 //--VIEW country 
@@ -65,7 +66,7 @@ $this->form_validation->set_rules('coucode','coucode','required|trim|xss_clean')
 		'couCode' =>strtoupper($this->input->post('coucode')),
 		'couName'=>strtoupper($this->input->post('couname')),
 		'CreateBy'=>$this->session->userdata('nameusr'),
-		'CreateDate'=>date('Y-m-d:h-s-m'),
+		'CreateDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
 		);		
@@ -118,7 +119,7 @@ $this->form_validation->set_rules('coucode2','coucode2','required|trim|xss_clean
 	$update=array(
 		'couName'=>strtoupper($this->input->post('couname2')),
 		'ModifiedBy'=>$this->session->userdata('nameusr'),
-		'ModifiedDate'=>date('Y-m-d : h-m-s')
+		'ModifiedDate'=>date('Y-m-d H:i:s')
 		);	
 		$this->model_app->update('ms_country','couCode',$code,$update);
 	  redirect('country/view_country');

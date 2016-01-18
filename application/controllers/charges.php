@@ -8,6 +8,7 @@ class Charges extends CI_Controller{
         };
         $this->load->model('model_app');
         $this->load->helper('currency_format_helper');
+		date_default_timezone_set("Asia/Jakarta"); 
     }	
 	 
 function view_charges(){  
@@ -76,7 +77,7 @@ $this->form_validation->set_rules('description','description','required|trim|xss
 		'AccCredit'=>$this->input->post('credit'),
 		'isActive'=>$this->input->post('status'),
 		'CreateBy'=>$this->session->userdata('nameusr'),
-		'CreateDate'=>date('Y-m-d:h-s-m'),
+		'CreateDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
 		);		
@@ -148,7 +149,7 @@ $this->form_validation->set_rules('description','description','required|trim|xss
 		'AccCredit'=>$this->input->post('credit'),
 		'isActive'=>$this->input->post('status'),
 		'ModifiedBy'=>$this->session->userdata('nameusr'),
-		'ModifiedDate'=>date('Y-m-d:h-s-m'),
+		'ModifiedDate'=>date('Y-m-d H:i:s'),
 		);	
 		$this->model_app->update('ms_charges','idCharges',$id,$update);
 		 }

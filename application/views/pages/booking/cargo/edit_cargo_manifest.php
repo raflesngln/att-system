@@ -239,10 +239,10 @@ function toRp(angka){
      <?php } ?>
           <label class="col-sm-4"> Cnote untuk di Proses</label></strong>
           <div class="col-sm-6">
-            <input name="inputcnote" type="text" class="form-control"  id="inputcnote"/>
+            <input name="inputcnote" type="text" class="form-control"  id="inputcnote" placeholder="input connote here"/>
             </div>
           <div class="col-sm-2 text-left">
-             <a class="btn-action" href="#modaledit<?php echo '123';?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i><button type="button" class="btn btn-primary btn-small" id="btncnote">Cari</button>
+             <a class="btn-action" href="#modaledit<?php echo '123';?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i><button type="button" class="btn btn-primary btn-small" id="btncnote"><i class="fa fa-plus"></i> Add</button>
 </a>
           </div>
 
@@ -299,7 +299,7 @@ function toRp(angka){
                                                     <td><div align="right"><?php echo $items->Jumlah;?></div></td>
                                                     <td><div align="right"><?php echo $items->Berat;?></div></td>
                                                     <td>
-                                                      <div align="center"><a href="<?php echo base_url(); ?>transaction/delete_cargo_connote/<?php echo $items->CargoNo; ?>/<?php echo $items->id; ?>/<?php echo $items->HouseNo; ?>" title="Delete item">
+                                                      <div align="center"><a href="<?php echo base_url(); ?>transaction/delete_cargo_connote/<?php echo $items->CargoNo; ?>/<?php echo $items->id; ?>/<?php echo $items->HouseNo; ?>" onClick="return confirm('Are You Sure delete item !?');" title="Delete item">
                                                       <button class="btn btn-mini btn-danger" type="button" onClick="hapus3(this);"><i class="fa fa-times bigger-120"></i></button>
                                                       </a> 
                                                         
@@ -372,7 +372,7 @@ function toRp(angka){
 <form method="post" action="<?php echo base_url();?>transaction/save_edit_cargo_manifest" name="frm">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Cari Data</h3>
+                <h3 id="myModalLabel">Add Connote to Cargo</h3>
             </div>
             <div class="smart-form">
                     <div class="modal-body">
@@ -385,17 +385,18 @@ function toRp(angka){
                         </div>
 
 <div class="col-sm-3"><span class="controls">
-  <button class="btn btn-search btn-small btn-primary btnsearch" id="btnsearch2" type="button">Search</button>
+  <button class="btn btn-search btn-small btn-primary btnsearch" id="btnsearch2" style="visibility:hidden" type="button">Search</button>
 </span></div>
             <div class="clearfix"></div>
             </div>
-                <br>
+                
             
 <div id="detailconnote2">        
 
     </div>                
                       <div class="modal-footer">
-                      <button class="btn btn-primary" type="submit" id="btniditems" name="btniditems"><i class="icon-save bigger-160 icons">&nbsp;</i> Insert</button>
+                      <button class="btn btn-primary" type="submit" id="btniditems" name="btniditems"><i class="fa fa-hourglass bigger-110 icons">&nbsp;</i> Insert</button>
+  <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
 
                             </div>
                     </div>
@@ -410,50 +411,7 @@ function toRp(angka){
 <!--adding form-->
 
 
-<div id="modaladd" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add Cnote / House</h3>
-            </div>
-            <div class="smart-form scroll">
-        <!-- <form method="post" action="<?php //echo site_url('temp/save_item')?>">   -->
-                    <div class="modal-body">
-                     
-                   
-<div class="form-group">
-                        <label class="col-sm-3 control-label">No Cnote ? House No</label>
-                        <div class="col-sm-6"><span class="controls">
-                        <input name="idcnote" type="text" class="form-control"  id="idcnote" />
-</span></div>
-
-<div class="col-sm-3"><span class="controls">
-  <button class="btn btn-search btn-small btn-primary btnsearch" id="btnsearch" type="button">Search</button>
-</span></div>
-            <div class="clearfix"></div>
-            </div>
-            <br>
-            
-<div id="detailconnote">        
-
-    </div>                  
-                      
-<div class="modal-footer">
-  <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary" id="iditems"> Insert</button>
-                        
-                       
-  </div>
-                    </div>
-            
-               <!-- </form>  -->
-            </div>
-  
-        </div>
-    </div>
-    </div>    
 
 <!--ADDING NEW CUSTOMERS MODAL-->
 
@@ -516,19 +474,33 @@ function toRp(angka){
         });
 
   $("#btncnote").click(function(){
-	  var inputcnote=$("#inputcnote").val();
-	if(inputcnote=='')
+	  //var inputcnote=$("#inputcnote").val();
+	  var idcnote = $('#inputcnote').val();
+	  $("#idcnote2").val(idcnote);
+	if(idcnote=='')
 	{
-		alert('inpuh has empty');
+		alert('Empty !! Please input connote inside textbox to add data !');
 		return false;
 	}
 	else
 	{
-	$("#idcnote2").val(inputcnote);
+var idcnote = $('#idcnote2').val();
+             // alert('hai' + idcnote);
+				$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('booking/detail_cnote'); ?>",
+                data: "idcnote="+idcnote,
+                success: function(data){
+                   $('#detailconnote2').html(data);
+				   //$("#modaledit123").modal('hide');
+                },
+			error: function(data){
+                   document.getElementById("btniditems").disabled = true;
+                }
+            });
 	}
-	document.getElementById("btniditems").disabled = true;
-	
- });
+  });
+
 
 	
 $("#iditemsssss,#btniditemsssss").click(function(){

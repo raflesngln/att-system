@@ -57,10 +57,10 @@
           <label class="col-sm-4"> Cnote untuk di Proses</label></strong>
           <div class="col-sm-6">
           
-            <input name="inputcnote" type="text" class="form-control"  id="inputcnote"/>
+            <input name="inputcnote" type="text" class="form-control"  id="inputcnote" placeholder="input connote here"/>
             </div>
           <div class="col-sm-2 text-left">
-             <a class="btn-action" href="#modaledit<?php echo '123';?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i><button type="button" class="btn btn-primary btn-small" id="btncnote">Cari</button>
+             <a class="btn-action" href="#modaledit<?php echo '123';?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i><button type="button" class="btn btn-primary btn-small" id="btncnote"><i class="fa fa-search"></i> Cari</button>
 </a>
           </div>
 
@@ -198,7 +198,7 @@
 </span></div>
 
 <div class="col-sm-3"><span class="controls">
-  <button class="btn btn-search btn-small btn-primary btnsearch" id="btnsearch2" type="button">Search</button>
+  <button class="btn btn-search btn-small btn-primary btnsearch" style=" visibility:hidden" id="btnsearch2" type="button">Search</button>
 </span></div>
             
             </div>
@@ -208,7 +208,8 @@
 
     </div>                
                       <div class="modal-footer">
-                      <button class="btn btn-primary" type="button" id="btniditems"><i class="icon-save bigger-160 icons">&nbsp;</i> Insert</button>
+  <button class="btn btn-primary" type="button" id="btniditems"><i class="fa fa-hourglass bigger-120 icons">&nbsp;</i> Insert</button>
+  <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-check">&nbsp;</i> Done</button>
 
                       </div>
                     </div>
@@ -283,7 +284,7 @@
 	  $("#idcnote2").val(idcnote);
 	if(idcnote=='')
 	{
-		alert('Input Textbox Cant be Empty !');
+		alert('Empty !! Please input connote inside textbox to add data !');
 		return false;
 	}
 	else
@@ -297,6 +298,9 @@
                 success: function(data){
                    $('#detailconnote2').html(data);
 				   //$("#modaledit123").modal('hide');
+                },
+			error: function(data){
+                   document.getElementById("btniditems").disabled = true;
                 }
             });
 	}
@@ -316,13 +320,12 @@ $("#iditems,#btniditems").click(function(){
  
 				$.ajax({
                 type: "POST",
-                url : "<?php echo base_url('transaction/save_view_cargo'); ?>",
+                url : "<?php echo base_url('transaction/save_session'); ?>",
                 data: "idcnote=" + idcnote + "&tgl=" + tgl + "&tujuan=" + tujuan + "&layanan=" + layanan + "&jml=" + jml + "&berat=" + berat + "&jenis=" + jenis,
                 success: function(data){
                    //$('#table_responsive').html(data);
 				  
 				   $('#table_input').html(data);
-						//$("#modaladd").modal('hide');
 						//$("#modaledit123").modal('hide');
 						$("#inputcnote").val('');
 						$("#tgl2").val('');

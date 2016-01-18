@@ -8,6 +8,7 @@ class User extends CI_Controller{
         };
         $this->load->model('model_app');
         $this->load->helper('currency_format_helper');
+		date_default_timezone_set("Asia/Jakarta"); 
     }	
 	 
 
@@ -37,7 +38,7 @@ function profil_user(){
  		$update=array(
 		'FullName'=>$this->input->post('fullname'),
 		'Email'=>$this->input->post('email'),
-		'ModifiedDate'=>date('Y-m-d : h-m-s')
+		'ModifiedDate'=>date('Y-m-d H:i:s')
 		);
 		$this->model_app->update('ms_user','id_user',$iduser,$update);
 		redirect('user/profil_user');
@@ -53,7 +54,7 @@ function profil_user(){
 		'FullName'=>$this->input->post('fullname'),
 		'Email'=>$this->input->post('email'),
 		'Password'=>md5($new),
-		'ModifiedDate'=>date('Y-m-d : h-m-s')
+		'ModifiedDate'=>date('Y-m-d H:i:s')
 		);
 		$this->model_app->update('ms_user','id_user',$iduser,$update);
 		redirect('user/profil_user');

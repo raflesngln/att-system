@@ -8,6 +8,7 @@ class City extends CI_Controller{
         };
         $this->load->model('model_app');
         $this->load->helper('currency_format_helper');
+		date_default_timezone_set("Asia/Jakarta"); 
     }	
 	 
 function view_city(){  
@@ -79,7 +80,7 @@ $this->form_validation->set_rules('cycode','cycode','required|trim|xss_clean');
 		'isAirport'=>$this->input->post('airport'),
 		'isSeaport'=>$this->input->post('seaport'),
 		'CreateBy'=>$this->session->userdata('nameusr'),
-		'CreateDate'=>date('Y-m-d:h-s-m'),
+		'CreateDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
 		);		
@@ -154,7 +155,7 @@ $this->form_validation->set_rules('cycode','cycode','required|trim|xss_clean');
 		'isAirport'=>$this->input->post('airport'),
 		'isSeaport'=>$this->input->post('seaport'),
 		'CreateBy'=>$this->session->userdata('nameusr'),
-		'CreateDate'=>date('Y-m-d:h-s-m'),
+		'CreateDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
 		);		
@@ -221,7 +222,7 @@ $this->form_validation->set_rules('cyname2','cyname2','required|trim|xss_clean')
 		'isAirport'=>$this->input->post('airport'),
 		'isSeaport'=>$this->input->post('seaport'),
 		'ModifiedBy'=>$this->session->userdata('nameusr'),
-		'ModifiedDate'=>date('Y-m-d : h-m-s')
+		'ModifiedDate'=>date('Y-m-d H:i:s')
 		);	
 		$this->model_app->update('ms_city','cyCode',$code,$update);
 	  redirect('city/view_city');

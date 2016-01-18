@@ -8,6 +8,7 @@ class Booking extends CI_Controller{
         };
         $this->load->model('model_app');
         $this->load->helper('currency_format_helper');
+		date_default_timezone_set("Asia/Jakarta"); 
     }	
 
 function getshipper(){

@@ -8,6 +8,7 @@ class Currency extends CI_Controller{
         };
         $this->load->model('model_app');
         $this->load->helper('currency_format_helper');
+		date_default_timezone_set("Asia/Jakarta"); 
     }	
 	 
 function view_currency(){  	 
@@ -65,7 +66,7 @@ $this->form_validation->set_rules('code','code','required|trim|xss_clean');
 		'currCode'=>strtoupper($this->input->post('code')),
 		'Name'=>$this->input->post('name'),
 		'CreateBy'=>$this->session->userdata('nameusr'),
-		'CreateDate'=>date('Y-m-d:h-s-m'),
+		'CreateDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
 		);	
@@ -117,7 +118,7 @@ $this->form_validation->set_rules('name','name','required|trim|xss_clean');
 	$update=array(
 		'Name'=>$this->input->post('name'),
 		'ModifiedBy'=>$this->session->userdata('nameusr'),
-		'ModifiedDate'=>date('Y-m-d:h-s-m'),
+		'ModifiedDate'=>date('Y-m-d H:i:s'),
 		);	
 		$this->model_app->update('ms_currency','currCode',$code,$update);
 	  redirect('currency/view_currency');

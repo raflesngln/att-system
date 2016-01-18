@@ -8,6 +8,7 @@ class Transaction extends CI_Controller{
         };
         $this->load->model('model_app');
         $this->load->helper('currency_format_helper');
+		date_default_timezone_set("Asia/Jakarta"); 
     }
 	
 	
@@ -351,7 +352,7 @@ function list_cargo_manifest(){
 	
 }
 //==================ADD ITEM TO CART============================
-	function save_view_cargo()
+	function save_session()
 	{
 		$idcnote=$this->input->post('idcnote');
 		$tgl=$this->input->post('tgl');
@@ -443,8 +444,8 @@ function cek_cnote(){
 		'keterangan' =>$ket,
 		'realisasi_berat' =>$realisasi,
 		'total_berat' =>$t_volume,
-		'insert_date'=>date('Y-m-d:h-s-m'),
-		'update_time'=>date('Y-m-d:h-s-m'),
+		'insert_date'=>date('Y-m-d H:i:s'),
+		'update_time'=>''
 		);		
 		 $save=$this->model_app->insert('cargo_manifest',$insert_cargo);	
 	
@@ -473,7 +474,7 @@ function cek_cnote(){
 		'Jumlah'=>$items['qty'],
 		'Berat'=>$items['price'],
 		'Jenis'=>$items['jenis'],
-		'date_insert'=>date('Y-m-d:h-s-m')
+		'date_insert'=>date('Y-m-d H:i:s')
 		);		
 		 $this->model_app->insert('cargo_items',$items);
 
@@ -510,7 +511,7 @@ function cek_cnote(){
 		'Width'=>$this->input->post('lebar'),
 		'Height'=>$this->input->post('tinggi'),
 		'Volume'=>$volume,
-		'Date'=>date('Y-m-d:h-s-m')
+		'Date'=>date('Y-m-d H:i:s')
 		);		
 		 $this->model_app->insert('booking_items',$items);
 		 
@@ -526,7 +527,7 @@ function cek_cnote(){
 		'Unit'=>$this->input->post('txtunit'),
 		'Qty'=>$this->input->post('qty'),
 		'Description'=>$this->input->post('desc'),
-		'Date'=>date('Y-m-d:h-s-m')
+		'Date'=>date('Y-m-d H:i:s')
 		);		
 		 $this->model_app->insert('booking_charges',$items);
 		 
@@ -550,13 +551,13 @@ function cek_cnote(){
 		$items=array(
 		'CargoNo' =>$cargono,
 		'HouseNo'=>$idcnote,
-		'HouseDate'=>date('Y-m-d:h-s-m'),
+		'HouseDate'=>date('Y-m-d H:i:s'),
 		'Tujuan'=>$tuju,
 		'Layanan'=>$layanan,
 		'Jumlah'=>$jml,
 		'Berat'=>$berat,
 		'Jenis'=>$jenis,
-		'date_insert'=>date('Y-m-d:h-s-m')
+		'date_insert'=>date('Y-m-d H:i:s')
 		);		
 		 $this->model_app->insert('cargo_items',$items);
 		 
@@ -614,7 +615,7 @@ function edit_cargo_manifest(){
 		'keterangan' =>$ket,
 		'realisasi_berat' =>$realisasi,
 		'total_berat' =>$tot_berat,
-		'update_time'=>date('Y-m-d:h-s-m')
+		'update_time'=>date('Y-m-d H:i:s')
 		);		
 		$this->model_app->update('cargo_manifest','CargoNo',$noconote,$update);	
 
@@ -845,7 +846,7 @@ function hapus_item_temp(){
 		'Width'=>$l,
 		'Height'=>$t,
 		'Volume'=>$v,
-		'Date'=>date('Y-m-d:h-s-m')
+		'Date'=>date('Y-m-d H:i:s')
 		);		
 		 $this->model_app->insert('booking_items',$newitem);
 	}
@@ -862,7 +863,7 @@ function hapus_item_temp(){
 		'Unit'=>$unit,
 		'Qty'=>$qty,
 		'Description'=>$desc,
-		'Date'=>date('Y-m-d:h-s-m')
+		'Date'=>date('Y-m-d H:i:s')
 		);		
 		 $this->model_app->insert('booking_charges',$newcharge);
 	}
@@ -889,7 +890,7 @@ function hapus_item_temp(){
 		'DeclareValue' =>$this->input->post('declare'),
 		'DescofShipment' =>$this->input->post('description'),
 		'CreatedBy' =>$this->session->userdata('idusr'),
-		'CreateDate'=>date('Y-m-d:h-s-m'),
+		'CreateDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy' =>'',
 		'ModifiedDate' =>''
 		);		
@@ -949,7 +950,7 @@ function hapus_item_temp(){
 		'DeclareValue' =>$this->input->post('declare'),
 		'DescofShipment' =>$this->input->post('description'),
 		'ModifiedBy' =>$this->session->userdata('idusr'),
-		'ModifiedDate'=>date('Y-m-d:h-s-m')
+		'ModifiedDate'=>date('Y-m-d H:i:s')
 		);		
 		 $this->model_app->update('outgoing_connote','HouseNo',$houseno,$update);	
 //==============  print view in HTML   =======================//
@@ -1024,7 +1025,7 @@ function hapus_item_temp(){
 		'Width'=>$l,
 		'Height'=>$t,
 		'Volume'=>$v,
-		'Date'=>date('Y-m-d:h-s-m')
+		'Date'=>date('Y-m-d H:i:s')
 		);		
 		 $this->model_app->insert('booking_items',$newitem);
 	}
@@ -1041,7 +1042,7 @@ function hapus_item_temp(){
 		'Unit'=>$unit,
 		'Qty'=>$qty,
 		'Desc'=>$desc,
-		'Date'=>date('Y-m-d:h-s-m')
+		'Date'=>date('Y-m-d H:i:s')
 		);		
 		 $this->model_app->insert('booking_charges',$newcharge);
 	}
@@ -1065,7 +1066,7 @@ $OutHouse=array(
 		'CWT' =>$this->input->post('cwt'),
 		'DeclareValue' =>$this->input->post('declare'),
 		'DescofShipment' =>$this->input->post('description'),
-		'Date'=>date('Y-m-d:h-s-m')
+		'Date'=>date('Y-m-d H:i:s')
 		);		
 		 $this->model_app->insert('out_going_house',$OutHouse);	
 		 */

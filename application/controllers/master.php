@@ -8,7 +8,7 @@ class Master extends CI_Controller{
         };
         $this->load->model('model_app');
         $this->load->helper('currency_format_helper');
-        $nm="rafles nainggolan";
+       date_default_timezone_set("Asia/Jakarta"); 
     }	
 
 function gallery(){  
@@ -213,7 +213,7 @@ $this->form_validation->set_rules('cust','cust','required|trim|xss_clean');
 		'DiscRupiah'=>$this->input->post('rp'),
 		'Remarks'=>$this->input->post('remarks'),
 		'CreateBy'=>$this->session->userdata('nameusr'),
-		'CreateDate'=>date('Y-m-d:h-s-m'),
+		'CreateDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
 		);		
@@ -246,7 +246,7 @@ $this->form_validation->set_rules('service','service','required|trim|xss_clean')
 		'DiscRupiah'=>$this->input->post('rp'),
 		'Remarks'=>$this->input->post('remarks'),
 		'ModifiedBy'=>$this->session->userdata('nameusr'),
-		'ModifiedDate'=>date('Y-m-d:h-s-m'),
+		'ModifiedDate'=>date('Y-m-d H:i:s'),
 		);
 		$this->model_app->update('ms_disc','discCode',$code,$update);
 	  redirect('master/view_disc');

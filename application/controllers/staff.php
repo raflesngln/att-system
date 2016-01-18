@@ -8,6 +8,7 @@ class Staff extends CI_Controller{
         };
         $this->load->model('model_app');
         $this->load->helper('currency_format_helper');
+		date_default_timezone_set("Asia/Jakarta"); 
     }	
 	 
 function view_staff(){  
@@ -60,7 +61,7 @@ $this->form_validation->set_rules('name','name','required|trim|xss_clean');
 		'Phone'=>$this->input->post('phone'),
 		'Remarks'=>$this->input->post('remarks'),
 		'CreateBy'=>$this->session->userdata('nameusr'),
-		'CreateDate'=>date('Y-m-d:h-s-m'),
+		'CreateDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
 		);		
@@ -96,7 +97,7 @@ $this->form_validation->set_rules('name','name','required|trim|xss_clean');
 		'Phone'=>$this->input->post('phone'),
 		'Remarks'=>$this->input->post('remarks'),
 		'CreateBy'=>$this->session->userdata('nameusr'),
-		'CreateDate'=>date('Y-m-d:h-s-m'),
+		'CreateDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
 		);		
@@ -155,7 +156,7 @@ $this->form_validation->set_rules('name2','name2','required|trim|xss_clean');
 		'isActive'=>$this->input->post('status2'),
 		'Remarks'=>$this->input->post('remarks2'),
 		'ModifiedBy'=>$this->session->userdata('nameusr'),
-		'ModifiedDate'=>date('Y-m-d:h-s-m'),
+		'ModifiedDate'=>date('Y-m-d H:i:s'),
 		);	
 		$this->model_app->update('ms_staff','empCode',$code,$update);
 	  redirect('staff/view_staff');

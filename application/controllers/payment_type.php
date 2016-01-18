@@ -8,6 +8,7 @@ class Payment_type extends CI_Controller{
         };
         $this->load->model('model_app');
         $this->load->helper('currency_format_helper');
+		date_default_timezone_set("Asia/Jakarta"); 
     }	
 	 
 function view_payment_type(){  	 
@@ -65,7 +66,7 @@ $this->form_validation->set_rules('code','code','required|trim|xss_clean');
 		'payCode'=>strtoupper($this->input->post('code')),
 		'payName'=>$this->input->post('name'),
 		'CreateBy'=>$this->session->userdata('nameusr'),
-		'CreateDate'=>date('Y-m-d:h-s-m'),
+		'CreateDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
 		);	
@@ -117,7 +118,7 @@ $this->form_validation->set_rules('name','name','required|trim|xss_clean');
 	$update=array(
 		'payName'=>$this->input->post('name'),
 		'ModifiedBy'=>$this->session->userdata('nameusr'),
-		'ModifiedDate'=>date('Y-m-d:h-s-m'),
+		'ModifiedDate'=>date('Y-m-d H:i:s'),
 		);	
 		$this->model_app->update('ms_payment_type','payCode',$code,$update);
 	  redirect('payment_type/view_payment_type');

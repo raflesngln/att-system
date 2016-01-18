@@ -8,6 +8,7 @@ class Customer extends CI_Controller{
         };
         $this->load->model('model_app');
         $this->load->helper('currency_format_helper');
+		date_default_timezone_set("Asia/Jakarta"); 
     }	
 	 //--VIEW customer CUSTOMERS
  function view_customer(){
@@ -93,7 +94,7 @@ $this->form_validation->set_rules('initial','initial','required|trim|xss_clean')
 		'NPWPAddress' =>$this->input->post('npwpaddress'),
 		'Remarks' =>$this->input->post('remarks'),
 		'CreateBy' =>$this->session->userdata('nameusr'),
-		'CreateDate' =>date('Y-m-d: h:i:s'),
+		'CreateDate' =>date('Y-m-d h:i:s'),
 		'ModifiedBy' =>'',
 		'ModifiedDate' =>'',	
 		);		
@@ -181,7 +182,7 @@ $this->form_validation->set_rules('initial','initial','required|trim|xss_clean')
 		'NPWPAddress' =>$this->input->post('npwpaddress'),
 		'Remarks' =>$this->input->post('remarks'),
 		'ModifiedBy' =>$this->session->userdata('nameusr'),
-		'ModifiedDate' =>date('Y-m-d: h:i:s')	
+		'ModifiedDate' =>date('Y-m-d h:i:s')	
 		);
 		$this->model_app->update('ms_customer','custCode',$code,$update);
 	  redirect('customer/view_customer');

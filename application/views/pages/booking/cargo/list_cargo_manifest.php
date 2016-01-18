@@ -12,7 +12,7 @@
 <div class="col-sm-2 col-xs-12">
   <button class="btn btn-small btn-blue" id="btnsort" type="button"><i class="fa fa-search"></i> Sort</button></div>
 <div class="col-sm-2 col-xs-12">
-  <button class="btn btn-small btn-blue" id="btnprint" type="submit"><i class="fa fa-print"></i> Preview</button></div>
+  <button class="btn btn-small btn-blue" id="btnprint" type="submit"><i class="fa fa-print"></i> Print View</button></div>
 </form>
 
 <div class="col-sm-11 col-xs-12"><label class="label label-grey">Search by Cargo No</label></div>

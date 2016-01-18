@@ -8,6 +8,7 @@ class Vendor extends CI_Controller{
         };
         $this->load->model('model_app');
         $this->load->helper('currency_format_helper');
+		date_default_timezone_set("Asia/Jakarta"); 
     }	
 	//--VIEW vendor 
 function view_vendor(){  
@@ -91,7 +92,7 @@ $this->form_validation->set_rules('initial','initial','required|trim|xss_clean')
 		'NPWPAddress'=>$this->input->post('npwpaddress'),
 		'Remarks'=>$this->input->post('remarks'),
 		'CreateBy'=>$this->session->userdata('nameusr'),
-		'CreateDate'=>date('Y-m-d:h-s-m'),
+		'CreateDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
 		);		
@@ -173,7 +174,7 @@ $this->form_validation->set_rules('initial','initial','required|trim|xss_clean')
 		'NPWPAddress'=>$this->input->post('npwpaddress'),
 		'Remarks'=>$this->input->post('remarks'),
 		'ModifiedBy'=>$this->session->userdata('nameusr'),
-		'ModifiedDate'=>date('Y-m-d:h-s-m'),
+		'ModifiedDate'=>date('Y-m-d H:i:s'),
 		);
 		$this->model_app->update('ms_vendor','venCode',$code,$update);
 	  redirect('vendor/view_vendor');

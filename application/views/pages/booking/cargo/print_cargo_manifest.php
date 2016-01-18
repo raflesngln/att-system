@@ -38,7 +38,7 @@ h3{text-align:center; font-size:14px; margin-top:-10px}
     <td>: <?php echo $row->total_berat;?></td>
     <td></td>
     <td>Tanggal Dibuat</td>
-    <td> : <?php echo date("d-M-Y",strtotime($row->insert_date)); ?></td>
+    <td> : <?php echo date("d-m-Y / h:i:s",strtotime($row->insert_date)); ?></td>
   </tr>
   <tr>
     <td>Referensi</td>
@@ -52,7 +52,7 @@ h3{text-align:center; font-size:14px; margin-top:-10px}
     <td>: <?php echo $row->tujuan;?></td>
     <td>&nbsp;</td>
     <td>Tggl Cetak</td>
-    <td>: <?php echo date("d-M-Y",strtotime(now)); ?></td>
+    <td>: <?php echo date("d-m-Y / h:i:s",strtotime(now)); ?></td>
   </tr>
   <tr>
     <td>Trasnit</td>

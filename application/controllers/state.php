@@ -8,6 +8,7 @@ class State extends CI_Controller{
         };
         $this->load->model('model_app');
         $this->load->helper('currency_format_helper');
+		date_default_timezone_set("Asia/Jakarta"); 
     }	
 	 
 //--VIEW state 
@@ -65,7 +66,7 @@ $this->form_validation->set_rules('stcode','stcode','required|trim|xss_clean');
 		'stCode' =>strtoupper($this->input->post('stcode')),
 		'stName'=>strtoupper($this->input->post('stname')),
 		'CreateBy'=>$this->session->userdata('nameusr'),
-		'CreateDate'=>date('Y-m-d:h-s-m'),
+		'CreateDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
 		);		
@@ -119,7 +120,7 @@ $this->form_validation->set_rules('stcode2','stcode2','required|trim|xss_clean')
 		'stCode'=>strtoupper($this->input->post('stcode2')),
 		'stName'=>strtoupper($this->input->post('stname2')),
 		'ModifiedBy'=>$this->session->userdata('nameusr'),
-		'ModifiedDate'=>date('Y-m-d'),
+		'ModifiedDate'=>date('Y-m-d H:i:s'),
 		);	
 		$this->model_app->update('ms_state','stCode',$code,$update);
 	  redirect('state/view_state');
