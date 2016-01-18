@@ -444,7 +444,7 @@ function cek_cnote(){
 		'keterangan' =>$ket,
 		'realisasi_berat' =>$realisasi,
 		'total_berat' =>$t_volume,
-		'insert_date'=>date('Y-m-d H:i:s'),
+		'CreateDate'=>date('Y-m-d H:i:s'),
 		'update_time'=>''
 		);		
 		 $save=$this->model_app->insert('cargo_manifest',$insert_cargo);	
@@ -578,13 +578,13 @@ function edit_cargo_manifest(){
     'scrumb_name'=>' cargo_manifest',
     'scrumb'=>'transaction/cargo_manifest',
 	'header'=>$this->model_app->getdatapaging("*","cargo_manifest a",
-	"WHERE CargoNo='$kode' ORDER BY a.insert_date DESC LIMIT 1"),
+	"WHERE CargoNo='$kode' ORDER BY a.CreateDate DESC LIMIT 1"),
 	
 	'list'=>$this->model_app->getdatapaging("*","cargo_items a",
 	"RIGHT JOIN cargo_manifest b on a.CargoNo=b.CargoNo
 	RIGHT JOIN outgoing_connote c on a.HouseNo=c.HouseNo
 	WHERE b.CargoNo='$kode'
-	ORDER BY b.insert_date DESC"),
+	ORDER BY b.CreateDate DESC"),
 	'view'=>'pages/booking/cargo/edit_cargo_manifest',
 	'cargono'=>$kode
 	);
@@ -638,13 +638,13 @@ function cetak_manifest(){
 		$data=array(
      'title'=>'laporan jurnal',
      'header'=>$this->model_app->getdatapaging("*","cargo_manifest a",
-	"WHERE CargoNo='$kode' ORDER BY a.insert_date DESC LIMIT 1"),
+	"WHERE CargoNo='$kode' ORDER BY a.CreateDate DESC LIMIT 1"),
 	
 	'list'=>$this->model_app->getdatapaging("*","cargo_items a",
 	"RIGHT JOIN cargo_manifest b on a.CargoNo=b.CargoNo
 	RIGHT JOIN outgoing_connote c on a.HouseNo=c.HouseNo
 	WHERE b.CargoNo='$kode'
-	ORDER BY b.insert_date DESC"),
+	ORDER BY b.CreateDate DESC"),
 			 );
 
 		ob_start();
@@ -889,7 +889,7 @@ function hapus_item_temp(){
 		'CWT' =>$this->input->post('cwt'),
 		'DeclareValue' =>$this->input->post('declare'),
 		'DescofShipment' =>$this->input->post('description'),
-		'CreatedBy' =>$this->session->userdata('idusr'),
+		'CreateBy' =>$this->session->userdata('idusr'),
 		'CreateDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy' =>'',
 		'ModifiedDate' =>''

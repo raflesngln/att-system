@@ -70,7 +70,7 @@
 
 function toRp(angka){
   //var angka =document.getElementById("rp").value;
-    var rev     = parseInt(angka, 10).toString().split('').reverse().join('');
+    var rev     = parseFloat(angka, 10).toString().split('').reverse().join('');
     var rev2    = '';
     for(var i = 0; i < rev.length; i++){
         rev2  += rev[i];
@@ -279,7 +279,7 @@ function toRp(angka){
 
 <div class="form-group">      
     <div class="col-sm-4">
-      <label for="codeship">Codeship</label></div>
+      <label for="codeship">Code shipper</label></div>
     <div class="col-sm-7"> <input type="text" name="codeship" id="codeship" class="autocomplete form-control" />
     </div>
 </div>
@@ -342,7 +342,7 @@ function toRp(angka){
 
 <div class="form-group">      
     <div class="col-sm-4">
-      <label for="codeship">CodeSigne</label></div>
+      <label for="codeship">Code Consignee</label></div>
     <div class="col-sm-7">
       <input name="codesigne" type="text" class="form-control"  id="codesigne"/>
     </div>
@@ -366,17 +366,17 @@ function toRp(angka){
                                         <div class="table-responsive" id="table_responsive">
                                         <table class="table table-striped table-bordered table-hover" id="tblitems" style="width:95%">
                                               <thead>
-                     <th colspan="6"></th>
-                                              <th><div align="center"><a class="btn btn-primary btn-addnew btn-rounded" href="#modaladd" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add New</a>
-                                           </div></th>
-                                                <tr align="">
-                                                  <th colspan="2"><div align="center">No Of Pcs</div></th>
-                                                  <th><div align="center">Length ( P )</div></th>
-                                                  <th><div align="center">Width ( L )</div></th>
-                                                  <th><div align="center">Height ( T )</div></th>
-                                                  <th><div align="center">Volume</div></th>
-                                                  <th class="text-center"><div align="center">Action</div></th>
-                                                </tr>
+                     <thead>
+                          <tr align="">
+                            <th colspan="2"><div align="center">No Of Pcs</div></th>
+                            <th><div align="center">Length ( P )</div></th>
+                            <th><div align="center">Width ( L )</div></th>
+                            <th><div align="center">Height ( T )</div></th>
+                            <th><div align="center">Volume</div></th>
+                            <th class="text-center"><div align="center"><a class="btn btn-primary btn-addnew btn-rounded" href="#modaladd" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add New</a>
+                            </div></th>
+                          </tr>
+                          </thead>
                                                 
                                                
                                                 
@@ -477,18 +477,18 @@ function toRp(angka){
                                     <div class="form-group">
                                         <div class="table-responsive" id="table_responsive">
                                         <table class="table table-striped table-bordered table-hover" id="tblcharges" style="width:95%">
-                                              <thead><tr>
-                                                <td colspan="6"></td>
-                                                <td><div align="center"><a class="btn  btn-primary btn-round" href="#modaladdCharge" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add New</a></div></td>
+                                              <thead>
+                                                <thead>
+                                                <tr>
+                                                  <th width="71"><div align="center"></div></th>
+                                                  <th width="158"><div align="center">Charges</div></th>
+                                                  <th width="382"><div align="center">Desc</div></th>
+                                                  <th width="158"><div align="center">Unit</div></th>
+                                                  <th width="114"><div align="center">Qty</div></th>
+                                                  <th width="222"><div align="center">Total</div></th>
+                                                  <th class="text-center"><div align="center"><a class="btn  btn-primary btn-round" href="#modaladdCharge" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add New</a></div></th>
                                                 </tr>
-                                                  <th width="71">&nbsp;</th>
-                                                  <th width="158">Charges</th>
-                                                  <th width="382">Desc</th>
-                                                  <th width="158">Unit</th>
-                                                  <th width="114">Qty</th>
-                                                  <th width="222">Total</th>
-                                                  <th class="text-center"><div align="center">Action</div></th>
-                                                </tr>
+                                                </thead>
                                                 
                                                
                                               
@@ -643,7 +643,7 @@ $grandt+=$chr->Total;
                         <div class="clearfix"></div>
                       </div>
   <div class="form-group">
-                        <label class="col-sm-3 control-label">Unit &nbsp; </label>
+                        <label class="col-sm-3 control-label">Unit &nbsp; Price</label>
                         <div class="col-sm-9"><span class="controls">
                           <input name="txtunit" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="txtunit" />
 </span></div>
@@ -814,8 +814,8 @@ $("#grossweight").change(function(){
              var volum=document.getElementById("t_volume").value;
 			 var grs=document.getElementById("grossweight2").value;
 			 
-			 var a=parseInt(volum);
-			 var b=parseInt(grs);
+			 var a=parseFloat(volum);
+			 var b=parseFloat(grs);
 			 if(a > b){
 				 document.getElementById("cwt").value =volum;
 			 }
@@ -924,13 +924,15 @@ $("#iditems").click(function(){
 	var panjang=$('#panjang').val();
 	var lebar=$('#lebar').val();
 	var tinggi=$('#tinggi').val();
- 	var kali = parseInt(panjang) * parseInt(lebar) * parseInt(tinggi);
+ 	var hitung = parseFloat(panjang) * parseFloat(lebar) * parseFloat(tinggi)/6000;
+	var kali=hitung.toFixed(2); //membuat desimal 2 angka belakang koma
  	var t_volume=$('#t_volume').val();
-	var total_volume=parseInt(kali)+ parseInt(t_volume);
+	var volume=parseFloat(kali)+ parseFloat(t_volume);
+	var total_volume=volume.toFixed(2); //membuat desimal 2 angka belakang koma
 	
 	var t_pacs=$('#t_pacs').val();
-	var total_pacs=parseInt(t_pacs) + parseInt(pcs);
-	//var total_pacs=parseInt(t_pacs)+ parseInt(pcs);
+	var total_pacs=parseFloat(t_pacs) + parseFloat(pcs);
+	//var total_pacs=parseFloat(t_pacs)+ parseFloat(pcs);
 	
 if (panjang == '' || lebar == '' || pcs == ''){
 	alert('Mohon isi data dengan lengkap');	
@@ -969,7 +971,7 @@ if (panjang == '' || lebar == '' || pcs == ''){
 function hapus(th) {
       var tt=$("#tt").val();;
 	  var t_volume=$('#t_volume').val();
-	  var kurangi=parseInt(t_volume)- parseInt(tt);
+	  var kurangi=parseFloat(t_volume)- parseFloat(tt);
 	  			 
 	 $("#t_volume").val(kurangi);
 					 
@@ -987,9 +989,11 @@ var hasil_pecah=pecah2[1];
 //document.write('kata yang pertama adalah ' +hasil[0]);
 
 	var t_volume=$('#t_volume').val();
-	var hasil=parseInt(t_volume)-parseInt(input);
+	var kurang=parseFloat(t_volume)-parseFloat(input);
+	var hasil=kurang.toFixed(2);
 		var t_pacs=$('#t_pacs').val();
-		var hasil2=parseInt(t_pacs)-parseInt(hasil_pecah);
+		var kurang2=parseFloat(t_pacs)-parseFloat(hasil_pecah);
+		var hasil2=kurang2.toFixed(2);
 
 	
 	$('#t_volume').val(hasil);
@@ -1010,15 +1014,15 @@ $("#savecharges").click(function(){
 	var desc=$('#desc').val();
 	var txtunit=$('#txtunit').val();
 	var txtqty=$('#txtqty').val();
- 	var kali = parseInt(txtunit) * parseInt(txtqty);
+ 	var kali = parseFloat(txtunit) * parseFloat(txtqty);
  	var total_charge=$('#total_charge').val();
-	var jumlah=parseInt(total_charge) + parseInt(kali);			
+	var jumlah=parseFloat(total_charge) + parseFloat(kali);			
 if (txtunit == '' || txtqty == '' || charge == ''){
 	alert('Mohon isi data dengan lengkap');	
 	}
 	else
 	{
-	text='<tr class="gradeX" align="left">'
+	text='<tr class="gradeX" align="right">'
 	+ '<td></td>'
     + '<td>' + '<input type="hidden" name="idcharge[]" id="pcs[]" size="5" value="'+ charge +'">'+ '<label id="l_pcs">'+ charge +'</label>' +'</td>'
     + '<td>' + '<input type="hidden" name="desc[]" id="p[]" size="5" value="'+ desc +'">'+ '<label id="l_pcs">'+ desc +'</label>' +'</td>'
@@ -1045,7 +1049,7 @@ function hapus3(myid){
 var input = $(myid).val();
 
 var total_charge=$('#total_charge').val();
-var hasil=parseInt(total_charge)-parseInt(input);
+var hasil=parseFloat(total_charge)-parseFloat(input);
 
 $('#total_charge').val(hasil);
 $("#label_charges").html(hasil);

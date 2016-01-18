@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Documento sin título</title>
+<title>Cargo Manifest</title>
 <style>
 
             @font-face {
@@ -68,7 +68,7 @@ table tr td{border: 1px solid #B1ACAC;
    
    <p><HR /></p>
     <u><em>PIECES/JUMLAH SATUAN</em></u>
-   <p align="center"><?php echo $data->GrossWeight;?></p>
+   <p align="center"><?php echo $data->grandPCS;?></p>
    </div>
     </td>
     <td>
@@ -78,7 +78,7 @@ table tr td{border: 1px solid #B1ACAC;
    
    <p><HR /></p>
     <u><em>WEIGHT/BERAT</em></u>
-   <p align="center"><?php echo $data->grandPCS;?></p>
+   <p align="center"><?php echo $data->GrossWeight;?></p>
    </div>
     </td>
     
@@ -99,7 +99,7 @@ table tr td{border: 1px solid #B1ACAC;
     </div>
     </td>
     
-    <td colspan="2" rowspan="2">DECLARE VALUE/NILAI KIRIMAN</td>
+    <td colspan="2" rowspan="2">DECLARE VALUE/NILAI KIRIMAN : <?php echo $data->DeclareValue;?></td>
     
   </tr>
   <tr>
@@ -110,14 +110,19 @@ table tr td{border: 1px solid #B1ACAC;
     
   </tr>
   <tr>
-    <td><div align="center">
-        <input type="checkbox" name="checkbox1" id="checkbox" />
-      CASH
-        <input type="checkbox" name="checkbox2" id="checkbox2" />
-CREDIT
-<input type="checkbox" name="checkbox3" id="checkbox3" />
-COD
-    </div>      <label for="checkbox"></label></td>
+    <td>
+    <div align="center">
+    <?php
+	$paycode=$data->PayCode;
+	if($paycode=='CSH-CASH'?$cek1='checked':$cek1='');
+	if($paycode=='CRD-CREDIT'?$cek2='checked':$cek2='');
+	?>
+ <input type="checkbox" class="form-control" name="checkbox1" id="checkbox" value="CASH" checked="<?php echo $cek1;?>" /> CASH
+ <input type="checkbox" class="form-control" name="checkbox1" id="checkbox2" value="CREDIT" checked="<?php echo $cek2;?>"/> CREDIT
+<input type="checkbox" class="form-control" name="checkbox1" id="checkbox3" value="COD" /> COD
+
+    </div> 
+         <label for="checkbox"></label></td>
     <td><div align="center">
       <input type="checkbox" name="checkbox4" id="checkbox4" />
       DOC
@@ -216,7 +221,7 @@ COD
     </td>
   </tr>
   <tr>
-    <td height="49" colspan="2"><div class="detsend">DIMENTION/DIMENSI BARANG : <?php echo $data->GrossWeight;?></div></td>
+    <td height="34" colspan="2"><div class="detsend">DIMENTION/DIMENSI BARANG : <?php echo $data->grandVolume;?></div></td>
     <td>DATE/TANGGAL :<?php echo date("d-m-Y",strtotime($data->ETD)); ?></td>
     <td>TIME/JAM :<?php echo date("h:i:s",strtotime($data->ETD)); ?></td>
   </tr>
