@@ -88,12 +88,12 @@
                                               <thead>
                                                 <tr align="left">
                                                   <th colspan="2"><div align="left">No Connote</div></th>
-                                                  <th><div align="center">Tanggal</div></th>
-                                                  <th><div align="center">Tujuan</div></th>
-                                                  <th><div align="center">Layanan</div></th>
-                                                  <th>Jenis</th>
-                                                  <th>Jumlah</th>
-                                                  <th><div align="center">Berat</div></th>
+                                                  <th><div align="center">Date</div></th>
+                                                  <th><div align="center">Origin</div></th>
+                                                  <th><div align="center">Destination</div></th>
+                                                  <th>Service</th>
+                                                  <th>Volume</th>
+                                                  <th><div align="center">CWT</div></th>
                                                   <th class="text-center"><div align="center">actions</div></th>
                                                 </tr>
                                           <tbody>
@@ -101,21 +101,21 @@
  $no=1;
  foreach($this->cart->contents() as $items){
   $t_item+=$items['qty'];
-  $t_volume+=$items['price'];
+  $t_cwt+=$items['cwt'];
         ?>
 
-                                                  <tr align="right" class="gradeX">
+                                                  <tr align="left" class="gradeX">
                                                     <td colspan="2"><strong>
                                                       <input name="nohouse" type="hidden" id="nohouse" value="<?php echo $items['id']; ?>" class="nohouse" />
                                                     </strong><?php echo $items['id']; ?></td>
-                                                    <td><?php echo $items['tgl']; ?></td>
-                                                    <td><?php echo $items['tujuan']; ?></td>
-                                                    <td><?php echo $items['layanan']; ?></td>
-                                                    <td><?php echo $items['jenis']; ?></td>
-                                                    <td><?php echo $items['qty']; ?></td>
-                                                    <td><?php echo $items['price']; ?></td>
+                                                    <td><?php echo $items['date']; ?></td>
+                                                    <td><?php echo $items['origin']; ?></td>
+                                                    <td><?php echo $items['destination']; ?></td>
+                                                    <td><?php echo $items['service']; ?></td>
+                                                    <td><div align="right"><?php echo $items['qty']; ?></div></td>
+                                                    <td><div align="right"><?php echo $items['cwt']; ?></div></td>
                                                     <td>
-                                                  <button class="delbutton btn btn-mini btn-danger" type="button" id="delbutton" value="<?php echo $items['rowid']; ?>"><i class="fa fa-times bigger-120"></i></button>
+                                                  <button class="delbtn btn btn-mini btn-danger" type="button" id="delbtn" value="<?php echo $items['rowid']; ?>"><i class="fa fa-times bigger-120"></i></button>
                                                  
                                          
                                                   </td>
@@ -131,8 +131,8 @@
                                                   <td align="right"><strong><?php echo $t_item;?>
                                                   </strong>
                                                    <div align="right"></div></td>
-                                                  <td><strong><?php echo $t_volume;?>
-                                                  <input name="t_volume" type="hidden" id="t_volume" value="<?php echo $t_volume;?>" />
+                                                  <td><strong><?php echo $t_cwt;?>
+                                                  <input name="t_cwt" type="hidden" id="t_cwt" value="<?php echo $t_cwt;?>" />
                                                   </strong></td>  
                                                   <td>&nbsp;</td>
                                                 </tr>
@@ -198,19 +198,19 @@
 </span></div>
 
 <div class="col-sm-3"><span class="controls">
-  <button class="btn btn-search btn-small btn-primary btnsearch" style=" visibility:hidden" id="btnsearch2" type="button">Search</button>
+  <button class="btn btn-search btn-small btn-primary btnsearch" style=" display:none" id="btnsearch2" type="button">Search</button>
+  <button class="btn btn-primary" type="button" id="btniditems"><i class="fa fa-hourglass bigger-120 icons">&nbsp;</i> Insert</button>
+
 </span></div>
             
             </div>
                 <br>
             
-<div id="detailconnote2">        
+<div id="detailconnote2" style=" display:none">        
 
     </div>                
                       <div class="modal-footer">
-  <button class="btn btn-primary" type="button" id="btniditems"><i class="fa fa-hourglass bigger-120 icons">&nbsp;</i> Insert</button>
-  <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-check">&nbsp;</i> Done</button>
-
+<h1>.</h1>
                       </div>
                     </div>
             
@@ -222,7 +222,10 @@
     <?php // } ?>
 
 <!--adding form-->
-<script type="text/javascript">     
+<script type="text/javascript">  
+
+ 
+		   
  $("#idcnote").keyup(function(){
             var idcnote = $('#idcnote').val();
              // alert('hai' + idcnote);
@@ -250,6 +253,19 @@
                 }
             });
         });
+	 $("#btnsearch2").click(function(){
+            var idcnote = $('#idcnote2').val();
+             // alert('hai' + idcnote);
+				$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('booking/detail_cnote'); ?>",
+                data: "idcnote="+idcnote,
+                success: function(data){
+                   $('#detailconnote2').html(data);
+					document.getElementById("btniditems").disabled = false;
+                }
+            });
+        });
  $("#idcnote2").keyup(function(){
             var idcnote = $('#idcnote2').val();
              // alert('hai' + idcnote);
@@ -264,20 +280,6 @@
             });
         });
 		
-	 $("#btnsearch2").click(function(){
-            var idcnote = $('#idcnote2').val();
-             // alert('hai' + idcnote);
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('booking/detail_cnote'); ?>",
-                data: "idcnote="+idcnote,
-                success: function(data){
-                   $('#detailconnote2').html(data);
-					document.getElementById("btniditems").disabled = false;
-                }
-            });
-        });
-
   $("#btncnote").click(function(){
 	  //var inputcnote=$("#inputcnote").val();
 	  var idcnote = $('#inputcnote').val();
@@ -297,6 +299,7 @@
                 data: "idcnote="+idcnote,
                 success: function(data){
                    $('#detailconnote2').html(data);
+				   document.getElementById("btniditems").disabled = false;
 				   //$("#modaledit123").modal('hide');
                 },
 			error: function(data){
@@ -304,41 +307,36 @@
                 }
             });
 	}
-  });
-
-	
+ });
 $("#iditems,#btniditems").click(function(){
 	//var t_volume=$('#idtotal').val();   
 	var idcnote=$('#idcnote2').val();
-	var tgl=$('#tgl2').val();
-	var tujuan=$('#tujuan').val();
-	var layanan=$('#layanan').val();
+	var date=$('#date').val();  
+	var origin=$('#origin').val();
+	var destination=$('#destination').val();
+	var service=$('#service').val();
  	var jml=$('#jml').val();
-	var berat=$('#berat').val();
-	var jenis=$('#jenis').val();
- 	
- 
+	var cwt=$('#cwt').val();
 				$.ajax({
                 type: "POST",
                 url : "<?php echo base_url('transaction/save_session'); ?>",
-                data: "idcnote=" + idcnote + "&tgl=" + tgl + "&tujuan=" + tujuan + "&layanan=" + layanan + "&jml=" + jml + "&berat=" + berat + "&jenis=" + jenis,
+                data: "idcnote=" + idcnote + "&date=" + date + "&origin=" + origin + "&destination=" + destination + "&service=" + service + "&jml=" + jml + "&cwt=" + cwt,
                 success: function(data){
                    //$('#table_responsive').html(data);
 				  
 				   $('#table_input').html(data);
 						//$("#modaledit123").modal('hide');
 						$("#inputcnote").val('');
-						$("#tgl2").val('');
-						$("#tujuan").val('');
-						$("#layanan").val('');
+						$("#date").val('');
+						$("#origin").val('');
+						$("#destination").val('');
+						$("#service").val('');
 						$("#jml").val('');
-						$("#berat").val('');
-						$("#jenis").val('');
+						$("#cwt").val('');
 						$("#idcnote2").val('');
 						document.getElementById("btniditems").disabled = true;
                 }
-            });
-			
+            });	
 });
 
 

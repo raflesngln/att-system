@@ -355,23 +355,25 @@ function list_cargo_manifest(){
 	function save_session()
 	{
 		$idcnote=$this->input->post('idcnote');
-		$tgl=$this->input->post('tgl');
-		$tujuan=$this->input->post('tujuan');
-		$layanan=$this->input->post('layanan');
+		$date=$this->input->post('date');
+		$origin=$this->input->post('origin');
+		$destination=$this->input->post('destination');
+		$service=$this->input->post('service');
 		$jml=$this->input->post('jml');
-		$berat=$this->input->post('berat');
-		$jenis=$this->input->post('jenis');
+		$cwt=$this->input->post('cwt');
 		
 		//add to cart
 		$insert = array(
 			'id'      => $idcnote,
-			'name'     =>$tujuan,
-		    'price'   =>$berat,
+			'name'     =>$idcnote,
+		    'price'   =>$jml,
 			'qty'    =>$jml,
-			'tgl'    =>$tgl,
-			'tujuan'    =>$tujuan,
-			'layanan'    =>$layanan,
-			'jenis'    =>$jenis
+			'date'    =>$date,
+			'origin'    =>$origin,
+			'destination'    =>$destination,
+			'service'    =>$service,
+			'jml'    =>$jml,
+			'cwt'    =>$cwt
 			);
 		$this->cart->insert($insert);
 		$data=array(
@@ -430,11 +432,12 @@ function cek_cnote(){
 		$transit=$this->input->post('transit');
 		$ket=$this->input->post('ket');
 		$realisasi=$this->input->post('realisasi');
-		$t_volume=$this->input->post('t_volume');
-		$prefixcargo='CMO'.substr($tuju,0,3);
+		$t_cwt=$this->input->post('t_cwt');
+		$t_item=$this->input->post('t_item');
 		
-		//----- SAVE OF CARGO MANIFEST --------------////
+		$prefixcargo='CMO'.substr($tuju,0,3);
 		$kodecargo=$this->model_app->getCargoNo($prefixcargo);
+		//----- SAVE OF CARGO MANIFEST --------------////
 		$insert_cargo=array(
 		'CargoNo' =>$kodecargo,
 		'tgl_cargo' =>date($tgl),
@@ -443,24 +446,12 @@ function cek_cnote(){
 		'transit' =>$transit,
 		'keterangan' =>$ket,
 		'realisasi_berat' =>$realisasi,
-		'total_berat' =>$t_volume,
+		'total_berat' =>$t_item,
+		'CreateBy' =>$this->session->userdata('idusr'),
 		'CreateDate'=>date('Y-m-d H:i:s'),
-		'update_time'=>''
 		);		
-		 $save=$this->model_app->insert('cargo_manifest',$insert_cargo);	
-	
+		$save=$this->model_app->insert('cargo_manifest',$insert_cargo);	
 
-			$insert = array(
-			'id'      => $idcnote,
-			'name'     =>$tujuan,
-		    'price'   =>$berat,
-			'qty'    =>$jml,
-			'tgl'    =>$tgl,
-			'tujuan'    =>$tujuan,
-			'layanan'    =>$layanan,
-			'jenis'    =>$jenis
-			);
-		$this->cart->insert($insert);
 
 	//====Save items cargo ==============//
      foreach($this->cart->contents() as $items){
@@ -468,12 +459,12 @@ function cek_cnote(){
 		$items=array(
 		'CargoNo' =>$kodecargo,
 		'HouseNo'=>$items['id'],
-		'HouseDate'=>$items['tgl'],
-		'Tujuan'=>$items['tujuan'],
-		'Layanan'=>$items['layanan'],
-		'Jumlah'=>$items['qty'],
+		'HouseDate'=>$items['date'],
+		'Origin'=>$items['origin'],
+		'Destination'=>$items['destination'],
+		'Service'=>$items['service'],
 		'Berat'=>$items['price'],
-		'Jenis'=>$items['jenis'],
+		'CWT'=>$items['cwt'],
 		'date_insert'=>date('Y-m-d H:i:s')
 		);		
 		 $this->model_app->insert('cargo_items',$items);
@@ -539,24 +530,16 @@ function cek_cnote(){
  	
  		$cargono=$this->input->post('cargono');
  		$idcnote=$this->input->post('idcnote2');
-		$tgl=$this->input->post('tgl2');
-		$layanan=$this->input->post('layanan');
-		$tuju=$this->input->post('tujuan');
-		$jml=$this->input->post('jml');
-		$berat=$this->input->post('berat');
-		$jenis=$this->input->post('jenis');
-		
 	//====Save items cargo ==============//
-		
 		$items=array(
 		'CargoNo' =>$cargono,
 		'HouseNo'=>$idcnote,
 		'HouseDate'=>date('Y-m-d H:i:s'),
-		'Tujuan'=>$tuju,
-		'Layanan'=>$layanan,
-		'Jumlah'=>$jml,
-		'Berat'=>$berat,
-		'Jenis'=>$jenis,
+		'Origin'=>$this->input->post('origin'),
+		'Destination'=>$this->input->post('destination'),
+		'Service'=>$this->input->post('service'),
+		'Berat'=>$this->input->post('jml'),
+		'CWT'=>$this->input->post('cwt'),
 		'date_insert'=>date('Y-m-d H:i:s')
 		);		
 		 $this->model_app->insert('cargo_items',$items);
@@ -567,9 +550,8 @@ function cek_cnote(){
 		);	
 		$this->model_app->update('outgoing_connote','HouseNo',$idcnote,$update);
 		
-	
 	redirect('transaction/edit_cargo_manifest/'.$cargono);
-    }
+ }
 
 function edit_cargo_manifest(){
 	$kode=$this->uri->segment(3);
@@ -615,7 +597,8 @@ function edit_cargo_manifest(){
 		'keterangan' =>$ket,
 		'realisasi_berat' =>$realisasi,
 		'total_berat' =>$tot_berat,
-		'update_time'=>date('Y-m-d H:i:s')
+		'ModifiedBy' =>$this->session->userdata('idusr'),
+		'ModifiedDate'=>date('Y-m-d H:i:s')
 		);		
 		$this->model_app->update('cargo_manifest','CargoNo',$noconote,$update);	
 

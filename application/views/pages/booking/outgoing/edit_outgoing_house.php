@@ -260,7 +260,7 @@ foreach($connote as $row){
 
 <div class="form-group">      
     <div class="col-sm-4">
-      <label for="codeship">Codeship</label></div>
+      <label for="codeship">Code Shipper</label></div>
     <div class="col-sm-7">
       <input type="text" name="codeship" id="codeship" class="autocomplete form-control" value="<?php echo $row->CodeShipper;?>" readonly  />
     </div>
@@ -328,7 +328,7 @@ foreach($connote as $row){
 
 <div class="form-group">      
     <div class="col-sm-4">
-      <label for="codeship">CodeSigne</label></div>
+      <label for="codeship">Code Consignee</label></div>
     <div class="col-sm-7">
       <input name="codesigne" type="text" class="form-control" value="<?php echo $con->CodeConsigne;?>"  id="codesigne" readonly/>
     </div>
@@ -358,7 +358,7 @@ foreach($connote as $row){
                                               <th><div align="center"><a class="btn btn-primary btn-addnew btn-rounded" href="#modaladd" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add New</a>
                                            </div></th>
                                                 <tr align="">
-                                                  <th>sdfds</th>
+                                                  <th>&nbsp;</th>
                                                   <th colspan="3"><div align="center">No Of Pcs</div></th>
                                                   <th><div align="center">Length ( P )</div></th>
                                                   <th><div align="center">Width ( L )</div></th>
@@ -473,7 +473,7 @@ foreach($connote as $row){
                      <th colspan="8"></th>
                                               <th><a class="btn btn-primary btn-addnew btn-rounded" href="#modaladdCharge" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add New</a>                                           </th>
                                                 <tr align="">
-                                                  <th>sdfds</th>
+                                                  <th>&nbsp;</th>
                                                   <th colspan="3"><div align="center">Charges</div></th>
                                                   <th><div align="center">Desc</div></th>
                                                   <th><div align="center">Unit</div></th>

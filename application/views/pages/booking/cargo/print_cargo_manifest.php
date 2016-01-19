@@ -38,7 +38,7 @@ h3{text-align:center; font-size:14px; margin-top:-10px}
     <td>: <?php echo $row->total_berat;?></td>
     <td></td>
     <td>Tanggal Dibuat</td>
-    <td> : <?php echo date("d-m-Y / h:i:s",strtotime($row->insert_date)); ?></td>
+    <td> : <?php echo date("d-m-Y / h:i:s",strtotime($row->CreateDate)); ?></td>
   </tr>
   <tr>
     <td>Referensi</td>
@@ -90,31 +90,31 @@ h3{text-align:center; font-size:14px; margin-top:-10px}
   <tr style="background:#EBEBEB">
     <td style="border-top:2px #999 solid; padding:10px 15px">No</td>
     <td style="border-top:2px #999 solid; padding:10px 15px"">No Cnote</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px"">Tanggal</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px"">Tujuan</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px"">Layanan</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px"">Jenis</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px"">Jumlah</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px"">Berat</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px"">Date</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px"">Origin</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px"">Destination</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px"">Service</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px"">Volume</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px"">CWT</td>
   </tr>
    <?php 
  $no=1;
  foreach($list as $items){
 	 $berat=$items->Berat;
 	 $t_berat+=$berat;
-	 $jumlah=$items->Jumlah;
-	 $t_jumlah+=$jumlah;
+	 $cwt=$items->CWT;
+	 $t_cwt+=$cwt;
 
         ?>
   <tr>
-    <td ><?php echo $no;?></td>
+    <td height="26" ><?php echo $no;?></td>
     <td ><?php echo $items->HouseNo;?></td>
     <td ><?php echo date("d-m-Y",strtotime($items->date_insert)); ?></td>
-    <td ><?php echo $items->Tujuan;?></td>
-    <td ><?php echo $items->Layanan;?></td>
-    <td><?php echo $items->Jenis;?></td>
-    <td>&nbsp; &nbsp; &nbsp;<?php echo $items->Jumlah;?></td>
-    <td>&nbsp; &nbsp; &nbsp;<?php echo $items->Berat;?></td>
+    <td ><?php echo $items->Origin;?></td>
+    <td ><?php echo $items->Destination;?></td>
+    <td><?php echo $items->Service;?></td>
+    <td style="text-align:right">&nbsp; &nbsp; &nbsp;<?php echo $items->Berat;?></td>
+    <td style="text-align:right">&nbsp; &nbsp; &nbsp;<?php echo $items->CWT;?></td>
   </tr>
   <?php $no++; } ?>
   <tr>
@@ -122,8 +122,8 @@ h3{text-align:center; font-size:14px; margin-top:-10px}
   </tr>
   <tr>
     <td colspan="6"><div align="right"><strong>Total &nbsp; </strong></div></td>
-    <td><strong>&nbsp; &nbsp; &nbsp;<?php echo $t_jumlah;?></strong></td>
-    <td><strong>&nbsp; &nbsp; &nbsp;<?php echo $t_berat;?></strong></td>
+    <td style="text-align:right"><strong><?php echo $t_berat;?></strong></td>
+    <td style="text-align:right"><strong><?php echo $t_cwt;?></strong></td>
   </tr>
 </table>
 

@@ -36,7 +36,7 @@
       </label>
             <?php }?>   
       <div class="header col-md-11">
-	<h3><i class="fa fa-ok"></i> <i class="fa fa-bell bigger180"></i>&nbsp;Confirm Outgoing - House</h3>
+	<h3><i class="fa fa-ok"></i> <i class="fa fa-check bigger180"></i>&nbsp;Detail House</h3>
             </div>
    
    
@@ -44,11 +44,8 @@
     <div class="row">
     <!-- LEFT FORM-->
     <div class="col-md-5">
-  <div class="col-sm-12">
-<label class="col-sm-5 label label-inverse text-left" style="padding-top:4px 4px; text-align:left">Sender</label> 
-</div>
-<div class="form-group">       
-          <strong><label class="col-sm-4"> JOB No</label></strong>
+      <div class="form-group">       
+        <strong><label class="col-sm-4"> JOB No</label></strong>
           <div class="col-sm-7">
            : <?php echo $jobno;?>
          <input type="hidden" name="job" value="<?php echo $_POST['job'];?>" /> </div>
@@ -103,11 +100,7 @@
     
     <!-- RIGHT FORM-->
     <div class="col-md-6">
-<div class="col-sm-12">
-<label class="col-sm-5 label label-inverse" style="padding-top:4px 4px; text-align:left"> Receivement</label> 
-
-    </div>
-    <div class="form-group"> 
+      <div class="form-group"> 
         <strong><label class="col-sm-4">Booking No</label></strong>
         <div class="col-sm-7">: <?php echo $_POST['booking'];?>
           <input name="booking" type="hidden" id="booking" value="<?php echo $_POST['booking'];?>" />
@@ -124,7 +117,8 @@
  <div class="col-sm-12"><h3>&nbsp;</h3></div>
 
     <div class="form-group"> 
-        <strong><label class="col-sm-4">Consigne</label></strong>
+        <strong>
+        <label class="col-sm-4">Consignee</label></strong>
         <div class="col-sm-7">: <?php echo $_POST['name2'];?>
           <input name="name2" type="hidden" id="name2" value="<?php echo $_POST['name2'];?>" />
         </div>
@@ -140,7 +134,7 @@
 
     <div class="form-group"> 
         <strong>
-        <label class="col-sm-4">Adddress</label></strong>
+        <label class="col-sm-4">Address</label></strong>
         <div class="col-sm-7">: <?php echo $_POST['address2'];?>
           <input name="address2" type="hidden" id="name12" value="<?php echo $_POST['address2'];?>" />
         </div>

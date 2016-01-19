@@ -4,23 +4,30 @@ foreach($connote as $row){
 ?>
                     <div class="modal-bodyyyy">
                       <div class="form-group">
-                        <label class="col-sm-3 control-label">Tanggal</label>
+                        <label class="col-sm-3 control-label">Date</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="tgl2" type="text" class="form-control"  id="tgl2" value="<?php echo $row->ETD;?>" readonly="readonly"/>
+                          <input name="date" type="text" class="form-control"  id="date" value="<?php echo $row->ETD;?>" readonly="readonly"/>
 </span></div>
                         
                       </div>
   <div class="form-group">
-                        <label class="col-sm-3 control-label">Tujuan</label>
+                        <label class="col-sm-3 control-label">Origin</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="tujuan" type="text" class="form-control"  id="tujuan" value="<?php echo $row->Origin;?>" readonly="readonly" />
+                          <input name="origin" type="text" class="form-control"  id="origin" value="<?php echo $row->Origin;?>" readonly="readonly" />
+</span></div>
+                        
+                      </div>
+  <div class="form-group">
+                        <label class="col-sm-3 control-label">Destination</label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="destination" type="text" class="form-control"  id="destination" value="<?php echo $row->Destination;?>" readonly="readonly" />
 </span></div>
                         
                       </div>
 <div class="form-group">
-                        <label class="col-sm-3 control-label">Layanan</label>
+                        <label class="col-sm-3 control-label">Service</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="layanan" type="text" class="form-control"  id="layanan" value="<?php echo $row->Service;?>" readonly="readonly" />
+                          <input name="service" type="text" class="form-control"  id="service" value="<?php echo $row->Service;?>" readonly="readonly" />
 </span></div>
                         
                       </div>
@@ -32,21 +39,13 @@ foreach($connote as $row){
                        
                       </div>
 <div class="form-group">
-            <label class="col-sm-3 control-label">Berat</label>
+            <label class="col-sm-3 control-label">CWT</label>
             <div class="col-sm-9"><span class="controls">
-                <input name="berat" type="text" class="form-control" onkeypress="return isNumberKey(event)" value="<?php echo $row->grandVolume;?>" id="berat" readonly="readonly" />
+                <input name="cwt" type="text" class="form-control" onkeypress="return isNumberKey(event)" value="<?php echo $row->CWT;?>" id="cwt" readonly="readonly" />
 </span></div>
                         
                       </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Jenis</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="jenis" type="text" class="form-control" id="jenis" value="<?php echo $row->Service;?>" readonly="readonly"/>
-</span></div>
-                        
-                      </div>                    
-
-  <div class="modal-footer"></div>
+<div class="modal-footer"></div>
                     </div>
             <?php } ?>
             

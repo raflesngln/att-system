@@ -270,22 +270,22 @@ function toRp(angka){
                                               <thead>
                                                 <tr align="left">
                                                   <th colspan="2"><div align="left">No Connote</div></th>
-                                                  <th width="54"><div align="center">Tanggal</div></th>
-                                                  <th width="46"><div align="center">Tujuan</div></th>
-                                                  <th width="58"><div align="center">Layanan</div></th>
-                                                  <th width="48">Jenis</th>
-                                                  <th width="48">Jumlah</th>
-                                                  <th width="50">Berat</th>
+                                                  <th width="54"><div align="center">Date</div></th>
+                                                  <th width="46"><div align="center">Origin</div></th>
+                                                  <th width="58"><div align="center">Destination</div></th>
+                                                  <th width="48">Service</th>
+                                                  <th width="48">Volume</th>
+                                                  <th width="50">CWT</th>
                                                   <th width="53" class="text-center"><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item" style="visibility:hidden"><i class="icon-plus icons"></i> Add items</a>Action</div></th>
                                                 </tr>
                                           <tbody>
  <?php 
  $no=1;
  foreach($list as $items){
+	 $cwt=$items->CWT;
+	 $t_cwt+=$cwt;
 	 $berat=$items->Berat;
 	 $t_berat+=$berat;
-	 $jumlah=$items->Jumlah;
-	 $t_jumlah+=$jumlah;
 
         ?>
                                                   <tr align="right" class="gradeX">
@@ -293,11 +293,11 @@ function toRp(angka){
                                                       <input name="connote_2" type="hidden" id="connote_2" value="<?php echo $items->HouseNo;?>">
                                                     </div></td>
                                                     <td><div align="left"><?php echo $items->date_insert;?></div></td>
-                                                    <td><div align="left"><?php echo $items->Tujuan;?></div></td>
-                                                    <td><div align="left"><?php echo $items->Layanan;?></div></td>
-                                                    <td><div align="left"><?php echo $items->Jenis;?></div></td>
-                                                    <td><div align="right"><?php echo $items->Jumlah;?></div></td>
+                                                    <td><div align="left"><?php echo $items->Origin;?></div></td>
+                                                    <td><div align="left"><?php echo $items->Destination;?></div></td>
+                                                    <td><div align="left"><?php echo $items->Service;?></div></td>
                                                     <td><div align="right"><?php echo $items->Berat;?></div></td>
+                                                    <td><div align="right"><?php echo $items->CWT;?></div></td>
                                                     <td>
                                                       <div align="center"><a href="<?php echo base_url(); ?>transaction/delete_cargo_connote/<?php echo $items->CargoNo; ?>/<?php echo $items->id; ?>/<?php echo $items->HouseNo; ?>" onClick="return confirm('Are You Sure delete item !?');" title="Delete item">
                                                       <button class="btn btn-mini btn-danger" type="button" onClick="hapus3(this);"><i class="fa fa-times bigger-120"></i></button>
@@ -308,14 +308,14 @@ function toRp(angka){
   <?php $no++;} ?>
                                                
                                                  <tr align="right">
-                                                  <td colspan="2"><strong><?php echo $t_item;?>
-                                                  <input type="hidden" name="t_item" value="<?php echo $t_item;?>">
+                                                  <td colspan="2"><strong>
+                                                  <input type="hidden" name="t_item" value="<?php echo $t_berat;?>">
                                                   </strong></td>
                                                   <td colspan="3"><strong>Total</strong></td>
                                                   <td>&nbsp;</td>
-                                                  <td><strong><?php echo $t_jumlah;?></strong></td>
+                                                  <td><strong><?php echo $t_berat;?></strong></td>
                                                   <td align="left">
-                                                   <div align="right"><input type="hidden" name="tot_berat" value="<?php echo $t_berat;?>"><strong><?php echo $t_berat;?></strong></div></td>
+                                                   <div align="right"><input type="hidden" name="tot_cwt" value="<?php echo $t_cwt;?>"><strong><?php echo $t_cwt;?></strong></div></td>
                                                   <td>&nbsp;</td>
                                                 </tr>
                                                

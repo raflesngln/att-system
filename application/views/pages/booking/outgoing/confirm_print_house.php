@@ -44,9 +44,7 @@
     <div class="row">
     <!-- LEFT FORM-->
     <div class="col-md-5">
-  <div class="col-sm-12">
-<label class="col-sm-5 label label-inverse text-left" style="padding-top:4px 4px; text-align:left">Sender</label> 
-</div>
+  
 <div class="form-group">       
           <strong><label class="col-sm-4"> JOB No</label></strong>
           <div class="col-sm-7">
@@ -103,10 +101,7 @@
     
     <!-- RIGHT FORM-->
     <div class="col-md-6">
-<div class="col-sm-12">
-<label class="col-sm-5 label label-inverse" style="padding-top:4px 4px; text-align:left"> Receivement</label> 
 
-    </div>
     <div class="form-group"> 
         <strong><label class="col-sm-4">Booking No</label></strong>
         <div class="col-sm-7">: <?php echo $_POST['booking'];?>
@@ -124,7 +119,8 @@
  <div class="col-sm-12"><h3>&nbsp;</h3></div>
 
     <div class="form-group"> 
-        <strong><label class="col-sm-4">Consigne</label></strong>
+        <strong>
+        <label class="col-sm-4">Consignee</label></strong>
         <div class="col-sm-7">: <?php echo $_POST['idconsigne'];?>
           <input name="name2" type="hidden" id="name2" value="<?php echo $_POST['name2'];?>" />
         </div>

@@ -559,7 +559,7 @@ $grandt+=$chr->Total;
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add Itemss</h3>
+                <h3 id="myModalLabel">Add Items</h3>
             </div>
             <div class="smart-form scroll">
         <!-- <form method="post" action="<?php //echo site_url('temp/save_item')?>">   -->
