@@ -351,38 +351,6 @@ function list_cargo_manifest(){
 	$this->load->view('home/home',$data);
 	
 }
-//==================ADD ITEM TO CART============================
-	function save_session()
-	{
-		$idcnote=$this->input->post('idcnote');
-		$date=$this->input->post('date');
-		$origin=$this->input->post('origin');
-		$destination=$this->input->post('destination');
-		$service=$this->input->post('service');
-		$jml=$this->input->post('jml');
-		$cwt=$this->input->post('cwt');
-		
-		//add to cart
-		$insert = array(
-			'id'      => $idcnote,
-			'name'     =>$idcnote,
-		    'price'   =>$jml,
-			'qty'    =>$jml,
-			'date'    =>$date,
-			'origin'    =>$origin,
-			'destination'    =>$destination,
-			'service'    =>$service,
-			'jml'    =>$jml,
-			'cwt'    =>$cwt
-			);
-		$this->cart->insert($insert);
-		$data=array(
-			'message'=>'data berhasil ditambahkan',
-			'title'=>'Input cargo manifest'
-			);
-		$this->load->view('pages/booking/cargo/input_manifest_temp',$data);
-	
-}
 //========================DELETE CART==============================================
 	function hapus_item_cargo($rowid)
 	{

@@ -1,3 +1,4 @@
+<body onload="focus_barcode()">
 <form method="post" action="<?php echo base_url();?>transaction/save_chargo_manifest" autocomplete="off">
 <div class="container">
   <div class="row">
@@ -186,31 +187,31 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Insert Data</h3>
+                <h3 id="myModalLabel">Scan Barcode / Insert data</h3>
             </div>
             <div class="smart-form">
                     <div class="modal-body">
                       <div class="clearfix"></div>
                       <div class="form-group">
-                        <label class="col-sm-3 control-label">No Cnote</label>
-                        <div class="col-sm-6"><span class="controls">
-                        <input name="idcnote2" type="text" class="form-control"  id="idcnote2" />
+                        <label class="col-sm-12 control-label">Connote/House Number</label>
+                        <div class="col-sm-12"><span class="controls">
+                        <textarea name="idcnote2" id="idcnote2" class="form-control" placeholder="scann barcode here"></textarea>
 </span></div>
 
-<div class="col-sm-3"><span class="controls">
+<div class="col-sm-12"><span class="controls">
   <button class="btn btn-search btn-small btn-primary btnsearch" style=" display:none" id="btnsearch2" type="button">Search</button>
-  <button class="btn btn-primary" type="button" id="btniditems"><i class="fa fa-hourglass bigger-120 icons">&nbsp;</i> Insert</button>
+  <button class="btn btn-primary btn-block" type="button" id="btniditems"><i class="fa fa-hourglass bigger-120 icons">&nbsp;</i> Insert</button>
 
 </span></div>
             
             </div>
                 <br>
             
-<div id="detailconnote2" style=" display:none">        
+<div id="detailconnote2">        
 
     </div>                
                       <div class="modal-footer">
-<h1>.</h1>
+<h1>&nbsp;</h1>
                       </div>
                     </div>
             
@@ -273,17 +274,53 @@
                 type: "POST",
                 url : "<?php echo base_url('booking/detail_cnote'); ?>",
                 data: "idcnote="+idcnote,
-                success: function(data){
-                   $('#detailconnote2').html(data);
+			    success: function(data){
+                    $('#table_input').html(data);
+				   //$('#detailconnote2').html(data);
+				   $('#idcnote2').val('');
 					document.getElementById("btniditems").disabled = false;
                 }
+				
             });
         });
-		
+$("#iditems,#btniditems").click(function(){
+	//var t_volume=$('#idtotal').val();   
+	var idcnote=$('#idcnote2').val();
+	var date=$('#date').val();  
+	var origin=$('#origin').val();
+	var destination=$('#destination').val();
+	var service=$('#service').val();
+ 	var jml=$('#jml').val();
+	var cwt=$('#cwt').val();
+				$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('booking/save_session'); ?>",
+                data: "idcnote=" + idcnote + "&date=" + date + "&origin=" + origin + "&destination=" + destination + "&service=" + service + "&jml=" + jml + "&cwt=" + cwt,
+                success: function(data){
+                   //$('#table_responsive').html(data);
+				  
+				   $('#table_input').html(data);
+						//$("#modaledit123").modal('hide');
+						$("#inputcnote").val('');
+						$("#date").val('');
+						$("#origin").val('');
+						$("#destination").val('');
+						$("#service").val('');
+						$("#jml").val('');
+						$("#cwt").val('');
+						$("#idcnote2").val('');
+						document.getElementById("btniditems").disabled = true;
+                }
+            });	
+});
+
   $("#btncnote").click(function(){
+	  
+	  $("#idcnote2").focus();
 	  //var inputcnote=$("#inputcnote").val();
+	/* 
 	  var idcnote = $('#inputcnote').val();
-	  $("#idcnote2").val(idcnote);
+	 $("#idcnote2").val(idcnote);
 	if(idcnote=='')
 	{
 		alert('Empty !! Please input connote inside textbox to add data !');
@@ -307,37 +344,8 @@
                 }
             });
 	}
+	*/
  });
-$("#iditems,#btniditems").click(function(){
-	//var t_volume=$('#idtotal').val();   
-	var idcnote=$('#idcnote2').val();
-	var date=$('#date').val();  
-	var origin=$('#origin').val();
-	var destination=$('#destination').val();
-	var service=$('#service').val();
- 	var jml=$('#jml').val();
-	var cwt=$('#cwt').val();
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/save_session'); ?>",
-                data: "idcnote=" + idcnote + "&date=" + date + "&origin=" + origin + "&destination=" + destination + "&service=" + service + "&jml=" + jml + "&cwt=" + cwt,
-                success: function(data){
-                   //$('#table_responsive').html(data);
-				  
-				   $('#table_input').html(data);
-						//$("#modaledit123").modal('hide');
-						$("#inputcnote").val('');
-						$("#date").val('');
-						$("#origin").val('');
-						$("#destination").val('');
-						$("#service").val('');
-						$("#jml").val('');
-						$("#cwt").val('');
-						$("#idcnote2").val('');
-						document.getElementById("btniditems").disabled = true;
-                }
-            });	
-});
 
 
  $(".delbutton").click(function(){
@@ -438,6 +446,19 @@ $("#btt").click(function(){
             });
 
         });
+		
+function focus_barcode(){
+	document.getElementById('idcnote2').focus();
+}
 
+function onEnter(e){// => Digunakan untuk membaca karakter enter
+    var key=e.keyCode || e.which;
+    if(key==13){// => Karakter enter dikenali sebagai angka 13
+		$('#idcnote2').val('');
+		$('#idcnote2').focus();
+    }
+}
 </script>
+
+</thead>
 

@@ -51,11 +51,78 @@ function detail_sender(){
 	}
 	function detail_cnote(){
 		
-        $kode=$this->input->post('idcnote');
-		$data['connote']=$this->model_app->getdata('outgoing_connote',"WHERE HouseNo='$kode' AND status_proses='0'");
-		$this->load->view('pages/Booking/cargo/detail_connote',$data);
+		$cnote=$this->input->post('idcnote');
+        $kode=trim($cnote);
 		
-	}
+		$search=$this->model_app->getdata('outgoing_connote',"WHERE HouseNo='$kode' AND status_proses='0'");
+		if($search){
+			//$data['connote']=$this->model_app->getdata('outgoing_connote',"WHERE HouseNo='$kode' AND status_proses='0'");
+					//add to cart
+		foreach($search as $row){
+			
+		$insert = array(
+			'id'      => $kode,
+			'name'     =>$kode,
+		    'price'   =>$row->grandPCS,
+			'qty'    =>$row->grandPCS,
+			'date'    =>$row->ETD,
+			'origin'    =>$row->Origin,
+			'destination'    =>$row->Destination,
+			'service'    =>$row->Service,
+			'jml'    =>$row->grandPCS,
+			'cwt'    =>$row->CWT,
+			);
+				$this->cart->insert($insert);
+		}
+		$data=array(
+			'message'=>'data berhasil ditambahkan',
+			'title'=>'Input cargo manifest'
+			);
+			$this->load->view('pages/booking/cargo/input_manifest_temp',$data);
+		
+		} else {
+			//$data['conote']='data tidak ditemukan';
+			$this->load->view('pages/booking/cargo/input_manifest_temp');
+		}
+		
+		
+		//$data['connote']=$this->model_app->getdata('outgoing_connote',"WHERE HouseNo='$kode' AND status_proses='0'");
+		//$this->load->view('pages/Booking/cargo/detail_connote',$data);
+		
+}
+//==================ADD ITEM TO CART============================
+	function save_session()
+	{
+		$idcnote=$this->input->post('idcnote');
+		$date=$this->input->post('date');
+		$origin=$this->input->post('origin');
+		$destination=$this->input->post('destination');
+		$service=$this->input->post('service');
+		$jml=$this->input->post('jml');
+		$cwt=$this->input->post('cwt');
+		
+		//add to cart
+		$insert = array(
+			'id'      => $idcnote,
+			'name'     =>$idcnote,
+		    'price'   =>$jml,
+			'qty'    =>$jml,
+			'date'    =>$date,
+			'origin'    =>$origin,
+			'destination'    =>$destination,
+			'service'    =>$service,
+			'jml'    =>$jml,
+			'cwt'    =>$cwt
+			);
+		$this->cart->insert($insert);
+		$data=array(
+			'message'=>'data berhasil ditambahkan',
+			'title'=>'Input cargo manifest'
+			);
+		$this->load->view('pages/booking/cargo/input_manifest_temp',$data);
+	
+}
+
 public function getdetailshipper()
 	{
 		// tangkap variabel keyword dari URL

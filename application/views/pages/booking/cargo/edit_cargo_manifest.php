@@ -203,8 +203,6 @@ function toRp(angka){
            <input name="noconote" type="text" class="form-control"  id="name" readonly style="width:180px" value="<?php echo $row->CargoNo;?>"/>
           </div>
 
-
-
           <strong><label class="col-sm-4"> Tanggal</label></strong>
           <div class="col-sm-7">
             <input name="tgl" type="text" class="form-control"  id="tgl" required value="<?php echo date("Y-m-d") ;?>" readonly style="width:180px;"/>

@@ -65,7 +65,7 @@
                         <!--<div class="panel-header"></div>-->
                         
                                     <div class="form-group">
-                                        <div class="table-responsive" id="table_responsive">
+                                      <div class="table-responsive" id="table_responsive">
                                         <table class="table table-striped table-bordered table-hover">
                                               <thead>
                                                 <tr>
@@ -126,13 +126,16 @@ foreach($list as $data){
         <?php $no++; } ;?>
                                                 <tr class="gradeX pagin">
                           <th colspan="12" scope="row">
-												  <?php echo $paginator;?>
-                          </th>
+<div align="right"> <?php echo $paginator;?></div>
+						    </th>
                           
                                                 </tr>                                
                                                 
                                               </tbody>
                                             </table>
+<!-- PAGINATION --></div>
+							</div><!--PAGE CONTENT ENDS-->
+<!-- END OF PAGINATION -->
                                         </div>
                                     </div>
                                 </form>
