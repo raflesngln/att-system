@@ -1,4 +1,4 @@
-<body onload="focus_barcode()">
+<body onLoad="focus_barcode()">
 <form method="post" action="<?php echo base_url();?>transaction/save_chargo_manifest" autocomplete="off">
 <div class="container">
   <div class="row">
@@ -56,12 +56,9 @@
           </div>
           <strong>
           <label class="col-sm-4"> Cnote untuk di Proses</label></strong>
-          <div class="col-sm-6">
-          
-            <input name="inputcnote" type="text" class="form-control"  id="inputcnote" placeholder="input connote here"/>
-            </div>
-          <div class="col-sm-2 text-left">
-             <a class="btn-action" href="#modaledit<?php echo '123';?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i><button type="button" class="btn btn-primary btn-small" id="btncnote"><i class="fa fa-search"></i> Cari</button>
+        
+          <div class="col-sm-7 text-left">
+             <a class="btn-action" href="#modaledit<?php echo '123';?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i><button type="button" class="btn btn-primary btn-large" id="btncnote"><i class="fa fa-search"></i> Cari</button>
 </a>
           </div>
 
@@ -301,7 +298,7 @@ $("#iditems,#btniditems").click(function(){
 				  
 				   $('#table_input').html(data);
 						//$("#modaledit123").modal('hide');
-						$("#inputcnote").val('');
+						//$("#inputcnote").val('');
 						$("#date").val('');
 						$("#origin").val('');
 						$("#destination").val('');

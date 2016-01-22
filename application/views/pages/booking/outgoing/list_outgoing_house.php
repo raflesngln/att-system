@@ -76,7 +76,7 @@
                                                     <td><div align="left"><?php echo $items->Shipper;?></div></td>
                                                     <td><div align="left"><?php echo $items->Consigne;?></div></td>
                                                     <td>
-                                                   <a href="<?php echo base_url();?>transaction/print_outgoing_house2/<?php echo $items->HouseNo;?>" title="Print item">
+                                                   <a href="<?php echo base_url();?>pdfbarcode/printhouse/<?php echo $items->HouseNo;?>" title="Print item">
                                                   <button class="btn btn-mini btn-warning" type="button"><i class="fa fa-print bigger-120"></i></button>
                                                   </a> 
                                                      <a href="<?php echo base_url();?>transaction/edit_outgoing_house/<?php echo $items->HouseNo;?>" title="Edit item">
