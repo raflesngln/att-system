@@ -1,27 +1,25 @@
 <?php
-
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
-
 class Barcode extends CI_Controller
 {
-	//$CI =& get_instance();
-    //put your code here
-    function __construct()
-    {
-        parent::__construct();
-        $this->load->library('mylib');
-    }
-
-    function index()
-    {
-    	echo $this->mylib->hello('Raflesia Nainggolan Jakarta barat')."<br>";
-
-    	echo  $this->mylib->rupiah(123920000);
-
-    	//$this->load->view("barcodeview",$data);
-
-    }
+function gambar($kode)
+	{
+		$height =60;//tinggi barcode	
+		$width = 2; //ketebalan barcode
+		$this->load->library('zend');
+        $this->zend->load('Zend/Barcode');
+ 		$barcodeOPT = array(
+		    'text' => $kode, 
+		    'barHeight'=> $height, 
+		    'factor'=>$width,
+		);
+				
+	$renderOPT = array();
+	$render = Zend_Barcode::factory(
+'code128', 'image', $barcodeOPT, $renderOPT
+)->render();
+	}
+function index()
+{
+	$this->load->view('barcodeview');
 }
-
-/* End of File: zendbar.php */
+}

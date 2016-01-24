@@ -1,6 +1,22 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
+<?php /* version 1.1
+Code By Andrew Jackson
+Adapted From Dan Billeci
+dabilleci@hotmail.com
+	
+USAGE:
+echo bar128( "MyBarCode123" [,Height In Pixels] );	/// PRINTS HTML IMG TABLE OF THE CODE
+Info From: http://www.barcode-1.net/pub/russadam/128code.html
 
-class Bar128 {
+*///Define Constants: height is a constant in div.b128 as height of bars
+?>
+<style>
+div.b128{
+    border-left: 1px black solid;
+	height: 60px;
+}	
+</style>
+
+<?php
 global $char128asc,$char128charWidth;
 $char128asc=' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~';					
 $char128wid = array(
@@ -16,6 +32,7 @@ $char128wid = array(
 	'214121','412121','111143','111341','131141','114113','114311','411113','411311','113141', // 90-99
 	'114131','311141','411131','211412','211214','211232','23311120'   );					   // 100-106
 
+////Define Function
 function bar128($text) {						// Part 1, make list of widths
   global $char128asc,$char128wid;				
   $w = $char128wid[$sum = 104];							// START symbol
@@ -31,7 +48,5 @@ function bar128($text) {						// Part 1, make list of widths
   for($x=0;$x<strlen($w);$x+=2)   						// code 128 widths: black border, then white space
 	$html .= "<td><div class=\"b128\" style=\"border-left-width:{$w[$x]};width:{$w[$x+1]}\"></div>";	
   return "$html<tr><td  colspan=".strlen($w)." align=center><font family=arial size=2><b>$text</table>";		
-	}
 }
-
-/* End of file Someclass.php */
+?>

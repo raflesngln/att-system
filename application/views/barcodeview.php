@@ -1,4 +1,7 @@
 <?php
-$kode = 'topidesta.wordpress.com';
+$kode='JOB-2005201600001';
 ?>
-<img src="<?php echo site_url();?>/barcode/generate/<?php echo $kode;?>">
+<img src="index.php/barcode/gambar/<?php echo $kode;?>">
+
+
+<?php echo $br;?>

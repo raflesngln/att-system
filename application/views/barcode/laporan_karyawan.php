@@ -34,6 +34,8 @@ P{ margin-top:-4PX;}
 #mytable tr td{
 	border-left:1px #666 solid;
 	border-bottom:1px #666 solid;
+	padding-left:4px;
+	padding-top:3px;
 }
 footer{display:none;}
 
@@ -46,12 +48,13 @@ footer{display:none;}
 
 <div id="nama">
     <?php foreach($connote as $data){
+		$kode=$data->HouseNo;
 
 		 ?>
 <table width="86%" border="0" id="mytable">
   <tr>
-    <td width="134" rowspan="2"><p>XSYS</p>
-      <p>EXpress Network</p></td>
+    <td width="134" rowspan="2"><p style="font-size:20pt; color:#3C0; text-align:center">XSYS</p>
+      <p align="center">EXpress Network</p></td>
     <td width="135" rowspan="2"><p>PT.Expresindo System Network</p>
       <p>perkantoran Galaxy Blok N-27</p>
       <p>Outer Ring Road Barat</p>
@@ -60,7 +63,8 @@ footer{display:none;}
       <p><?php echo $data->Origin;?></p></td>
     <td width="200"><p>DESTINATION/TUJUAN</p>
       <p><?php echo $data->Destination;?></p></td>
-    <td colspan="2" rowspan="2"><p>|||||||||||||||||||||</p>
+    <td colspan="2" rowspan="2"><img src="Pdfbarcode/barcode_generate/<?php echo $kode;?>">
+
       <p>&nbsp;</p>      <?php echo $data->HouseNo;?></td>
     </tr>
   <tr>
@@ -75,16 +79,21 @@ footer{display:none;}
     <td colspan="2">DECLARE VALUE/NILAI KIRIMAN</td>
     </tr>
   <tr>
+   <?php
+	$paycode=$data->PayCode;
+	if($paycode=='CSH-CASH'?$cek1='checked':$cek1='');
+	if($paycode=='CRD-CREDIT'?$cek2='checked':$cek2='');
+	?>
     <td>TYPE OF PAYMENT/JENIS PEMABAYARAN</td>
     <td>TYPE OF SHIPMENT/JENIS KIRIMAN</td>
     <td width="102" rowspan="2">SERVICE/LAYANAN</td>
     <td width="17" rowspan="2">CHARGES/HARGA (IDR)</td>
   </tr>
   <tr>
-    <td><input type="checkbox" />
+    <td><input type="checkbox" checked="<?php echo $cek1;?>" />
 CASH
   <label for="select12"></label>
-  <input type="checkbox" />
+  <input type="checkbox" checked="<?php echo $cek2;?>"  />
 CREDIT
 <label for="select13"></label>
 <input type="checkbox" />
