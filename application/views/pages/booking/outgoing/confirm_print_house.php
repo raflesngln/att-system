@@ -24,7 +24,7 @@
   
 
    <div class="row-fluid" style="border:2px #999 solid">
-  <form method="post" action="<?php echo base_url();?>transaction/print_outgoing_house">
+  <form method="post" action="<?php echo base_url();?>Connote_print" target="new">
     <div class="container">
       <?php
       if(isset($eror)){?>
@@ -56,6 +56,7 @@
           <div class="col-sm-7">
            : <?php echo $_POST['house'];?>
            <input name="house" type="hidden" id="house" value="<?php echo $_POST['house'];?>" />
+           <input name="houseno" type="hidden" id="houseno" value="<?php echo $_POST['house'];?>" />
           </div>
  </div><div class="clearfix"></div>
 <div class="form-group"> <strong>
@@ -336,9 +337,9 @@ $total_charges+=$kali;
 <div class="form-group">
 <div class="col-sm-4"><h3>&nbsp;</h3></div>
 <div class="col-sm-5">
-<a href="<?php echo base_url();?>transaction/print_outgoing_house2/<?php echo $_POST['house'];?>" title="Print item">
- <button class="btn btn-large btn-primary" type="button"><i class="fa fa-print bigger-120"> Printview</i></button>
-</a> <a href="<?php echo base_url();?>transaction/domesctic_outgoing_house"><button class="btn btn-danger btn-large" type="button"><i class="icon icon-ok bigger130"></i>Finish !</button></a>
+
+ <button class="btn btn-large btn-primary" type="submit"><i class="fa fa-print bigger-120"> Printview</i></button>
+<a href="<?php echo base_url();?>transaction/domesctic_outgoing_house"><button class="btn btn-danger btn-large" type="button"><i class="icon icon-ok bigger130"></i>Finish !</button></a>
 </div>
 
  </div><div class="clearfix"></div>

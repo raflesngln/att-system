@@ -61,6 +61,14 @@ function domesctic_outgoing_houseeeeeeeeeeeeeeeeeeee(){
     }
  function domesctic_outgoing_house(){
         $idusr=$this->session->userdata('idusr');
+		$page=$this->uri->segment(3);
+      	$limit=20;
+		if(!$page):
+		$offset = 0;
+		else:
+		$offset = $page;
+		endif;
+		
         $data = array(
             'title'=>'domesctic-outgoing-house',
             'scrumb_name'=>'Domesctic outgoing house',
@@ -73,10 +81,37 @@ function domesctic_outgoing_houseeeeeeeeeeeeeeeeeeee(){
             'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
             'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
             'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
-            'connote'=>$this->model_app->getdatapaging("*","outgoing_connote","ORDER BY HouseNo DESC"),
+            'connote'=>$this->model_app->getdatapaging("*","outgoing_connote","ORDER BY HouseNo DESC LIMIT $offset,$limit"),
             'view'=>'pages/booking/outgoing/outgoing_house',
         );  
-      $this->load->view('home/home',$data);
+			$tot_hal = $this->model_app->hitung_isi_tabel("*","outgoing_connote","ORDER BY HouseNo DESC");
+        	//create for pagination		
+			$config['base_url'] = base_url() . 'transaction/domesctic_outgoing_house/';
+        	$config['total_rows'] = $tot_hal->num_rows();
+        	$config['per_page'] = $limit;
+			$config['uri_segment'] = 3;
+	    	$config['first_link'] = '&laquo;';
+			$config['last_link'] = '&raquo;';
+			$config['next_link'] = 'Next';
+			$config['prev_link'] = 'Prev';
+	//STYLE PAGIN FOR BOOTSTRAP
+		$config['full_tag_open'] = "<ul class='pagination'>";
+		$config['full_tag_close'] ="</ul>";
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
+		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
+		$config['next_tag_open'] = "<li>";
+		$config['next_tagl_close'] = "</li>";
+		$config['prev_tag_open'] = "<li>";
+		$config['prev_tagl_close'] = "</li>";
+       		$this->pagination->initialize($config);
+			$data["paginator"] =$this->pagination->create_links();
+		
+		//$data['view']='pages/charges/v_charges';
+        $this->load->view('home/home',$data);
+
+      //$this->load->view('home/home',$data);
     }
   function detail_outgoing_house(){
      $nomor=$this->input->post('nomor');
@@ -115,6 +150,13 @@ function domesctic_outgoing_houseeeeeeeeeeeeeeeeeeee(){
 
 function cargo_manifest(){
         $idusr=$this->session->userdata('idusr');
+			$page=$this->uri->segment(3);
+      	$limit=20;
+		if(!$page):
+		$offset = 0;
+		else:
+		$offset = $page;
+		endif;
         $data = array(
             'title'=>'cargo_manifest',
             'scrumb_name'=>'cargo_manifest',
@@ -126,13 +168,39 @@ function cargo_manifest(){
             'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
             'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
            'list_cargo'=>$this->model_app->getdatapaging("*","cargo_manifest a",
-	" left outer JOIN cargo_items b on a.CargoNo=b.CargoNo
-	 GROUP BY a.CargoNo ASC"),
+	"left outer JOIN cargo_items b on a.CargoNo=b.CargoNo
+	 GROUP BY a.CargoNo DESC LIMIT $offset,$limit"),
             'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
             'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
             'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
             'view'=>'pages/booking/cargo/cargo_manifest',
         );  
+	$tot_hal = $this->model_app->hitung_isi_tabel("*","cargo_manifest a",
+	"left outer JOIN cargo_items b on a.CargoNo=b.CargoNo
+	 GROUP BY a.CargoNo DESC");
+        	//create for pagination		
+			$config['base_url'] = base_url() . 'transaction/cargo_manifest/';
+        	$config['total_rows'] = $tot_hal->num_rows();
+        	$config['per_page'] = $limit;
+			$config['uri_segment'] = 3;
+	    	$config['first_link'] = '&laquo;';
+			$config['last_link'] = '&raquo;';
+			$config['next_link'] = 'Next';
+			$config['prev_link'] = 'Prev';
+	//STYLE PAGIN FOR BOOTSTRAP
+		$config['full_tag_open'] = "<ul class='pagination'>";
+		$config['full_tag_close'] ="</ul>";
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
+		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
+		$config['next_tag_open'] = "<li>";
+		$config['next_tagl_close'] = "</li>";
+		$config['prev_tag_open'] = "<li>";
+		$config['prev_tagl_close'] = "</li>";
+       		$this->pagination->initialize($config);
+			$data["paginator"] =$this->pagination->create_links();
+
       $this->load->view('home/home',$data);
     } 
 function search_outgoing_house(){

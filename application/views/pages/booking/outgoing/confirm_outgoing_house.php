@@ -24,7 +24,7 @@
   
 
    <div class="row-fluid" style="border:2px #999 solid">
-  <form method="post" action="<?php echo base_url();?>transaction/print_outgoing_house">
+  <form method="post" action="<?php echo base_url();?>Connote_print" target="new">
     <div class="container">
       <?php
       if(isset($eror)){?>
@@ -55,6 +55,7 @@
           <div class="col-sm-7">
            : <?php echo $houseno;?>
            <input name="house" type="hidden" id="house" value="<?php echo $houseno;?>" />
+           <input name="houseno" type="hidden" id="houseno" value="<?php echo $houseno;?>" />
           </div>
  </div><div class="clearfix"></div>
 <div class="form-group"> <strong>

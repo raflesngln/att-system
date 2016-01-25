@@ -36,9 +36,11 @@
                                                     <td><div align="left"><?php echo $items->Shipper;?></div></td>
                                                     <td><div align="left"><?php echo $items->Consigne;?></div></td>
                                                     <td>
-                                                   <a href="<?php echo base_url();?>transaction/print_outgoing_house2/<?php echo $items->HouseNo;?>" title="Print item">
-                                                  <button class="btn btn-mini btn-warning" type="button"><i class="fa fa-print bigger-120"></i></button>
-                                                  </a> 
+                                                   <form action="<?php echo base_url();?>Connote_print" method="post" target="new">
+                                                   <input type="hidden" value="<?php echo $items->HouseNo;?>" name=" houseno" />
+                                                  <button class="btn btn-mini btn-warning"><i class="fa fa-print bigger-120"></i></button>
+                                                  
+                                                  </form>
                                                      <a href="<?php echo base_url();?>transaction/edit_outgoing_house/<?php echo $items->HouseNo;?>" title="Edit item">
                                                   <button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>
                                                   </a>                                                   

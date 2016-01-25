@@ -1,9 +1,6 @@
 <?php
 
-/*
-
- */
-class Pdfbarcode extends CI_Controller {
+class Connote_print extends CI_Controller {
     //put your code here
     public function __construct()
     {
@@ -16,7 +13,8 @@ class Pdfbarcode extends CI_Controller {
   
 function barcode_generate($kode)
 	{
-		$height =60;//tinggi barcode	
+		$houseno=$this->post('houseno');
+		$height =30;//tinggi barcode	
 		$width = 2; //ketebalan barcode
 		$this->load->library('zend');
         $this->zend->load('Zend/Barcode');
@@ -32,22 +30,20 @@ function barcode_generate($kode)
 
     public function index() {
 		
-	$data['kodess']="JOB-200520016000006";
-	$this->load->view('barcodeview',$data);
-    }
-	 function pritnttt() {
-		
-		$nohouse=$this->uri->segment(3);
-        $data = array(
+	$data['kode']=$this->input->post('houseno');
+	$nohouse=$this->input->post('houseno');
+	        $data = array(
             'title'=>'domesctic_incoming_master',
 			'connote'=>$this->model_app->getdatapaging("*","outgoing_connote","WHERE HouseNo ='$nohouse' LIMIT 1"),
 			'shipper'=>$this->model_app->getdatapaging("*","outgoing_connote a","INNER JOIN ms_customer b on b.custCode=a.Shipper WHERE a.HouseNo ='$nohouse' LIMIT 1"),
 			'consigne'=>$this->model_app->getdatapaging("*","outgoing_connote a","INNER JOIN ms_customer b on b.custCode=a.Consigne WHERE a.HouseNo ='$nohouse' LIMIT 1"),
 			'charges'=>$this->model_app->getdatapaging("*","booking_charges","WHERE HouseNo ='$nohouse'"),
+			'kode'=>$this->input->post('houseno'),
+			'kode2'=>$nohouse
         ); 
-		
-        $this->load->view('barcode/laporan_karyawan',$data);
+	 $this->load->view('pages/booking/outgoing/connote_print',$data);
     }
+
 	
 	
 	

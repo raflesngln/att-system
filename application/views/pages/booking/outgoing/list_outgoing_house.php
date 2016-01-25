@@ -76,15 +76,17 @@
                                                     <td><div align="left"><?php echo $items->Shipper;?></div></td>
                                                     <td><div align="left"><?php echo $items->Consigne;?></div></td>
                                                     <td>
-                                                   <a href="<?php echo base_url();?>pdfbarcode/" title="Print item">
-                                                  <button class="btn btn-mini btn-warning" type="button"><i class="fa fa-print bigger-120"></i></button>
-                                                  </a> 
-                                                     <a href="<?php echo base_url();?>transaction/edit_outgoing_house/<?php echo $items->HouseNo;?>" title="Edit item">
+                                                   <form action="<?php echo base_url();?>Connote_print" method="post" target="new" class="text-left">
+                                                   <input type="hidden" value="<?php echo $items->HouseNo;?>" name=" houseno" />
+                                                  <button class="btn btn-mini btn-warning"><i class="fa fa-print bigger-120"></i></button>
+                                                                                                      <a href="<?php echo base_url();?>transaction/edit_outgoing_house/<?php echo $items->HouseNo;?>" title="Edit item">
                                                   <button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>
                                                   </a>                                                   
                                                   <a href="<?php echo base_url(); ?>transaction/delete_outgoing_house/<?php echo $items->HouseNo; ?>" onClick="return confirm('Yakin Hapus No. House ( <?php echo $items->HouseNo;?> ) ?? . Ini akan menghapus sekaligus items nya !');" title="Delete item">
                                                   <button class="btn btn-mini btn-danger" type="button" ><i class="fa fa-times bigger-120"></i></button>
-                                                  </a> 
+                                                  </a>  
+                                                  </form>
+
                                          
                                                   </td>
                                                   </tr>
@@ -92,6 +94,7 @@
                                                 
                                               <td width="74"></tbody>
                                             </table>
+ <div align="right"> <?php echo $paginator;?></div>
                                         </div>
                                     </div>
   

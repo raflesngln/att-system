@@ -190,7 +190,7 @@ table tr td{border: 1px solid #B1ACAC;
   <tr>
     <td colspan="2">
       <div class="detsend">
-        SHIPPER SIGNATURE/TANDA TANGAN PENGIRIM :
+        SHIPPER SIGNATURE/TANDA TANGAN PENGIRImmmmM :
       </div>
       
     </td>

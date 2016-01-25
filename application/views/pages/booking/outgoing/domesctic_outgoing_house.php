@@ -383,26 +383,7 @@ function toRp(angka){
                                                 
                                               </thead>
                                               <tbody>
- <?php 
- $no=1;
- foreach($this->cart->contents() as $items){
- // $t_item+=$items['qty'];
- // $t_volume+=$items['v'];
-        ?>
-                                                  <tr align="right" class="gradeX">
-                                                  <td colspan="2"><?php echo $items['qty']; ?></td>
-                                                  <td><?php echo $items['p']; ?></td>
-                                                  <td><?php echo $items['l']; ?></td>
-                                                  <td><?php echo $items['t']; ?></td>
-                                                  <td><?php echo number_format($items['v'],2,'.',',');?></td>
-                                                  <td>
-                                                  <div align="center">
-                                                   
-                                         
-                                                  </div>
-                                                  </td>
-                                                </tr>
-  <?php $no++;} ?>
+
                                                 <thead>
                                                  <tr align="right">
                                                   <td colspan="2"><label id="label_pacs">0</label>

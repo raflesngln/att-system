@@ -90,6 +90,7 @@
                                                 
                                               <td width="74"></tbody>
                                             </table>
+<div align="right"> <?php echo $paginator;?></div>
                                         </div>
                                     </div>
   
