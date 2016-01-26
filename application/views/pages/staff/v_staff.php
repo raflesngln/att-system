@@ -153,7 +153,7 @@ if($status=='1'){ $statusname='<font color="#0033FF">Aktif</font>';} else{$statu
         <?php $no++; } ;?>
                                                 <tr class="gradeX pagin">
                                                   <th colspan="12" scope="row">
-												  <?php echo $paginator;?></th>
+												  <div align="right"> <?php echo $paginator;?></div></th>
                                                 </tr>                                
                                                 
                                               </tbody>

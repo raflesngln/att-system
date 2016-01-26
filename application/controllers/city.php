@@ -14,7 +14,7 @@ class City extends CI_Controller{
 function view_city(){  
 	 
 	 	$page=$this->uri->segment(3);
-      	$limit=10;
+      	$limit=1;
 		if(!$page):
 		$offset = 0;
 		else:
@@ -40,13 +40,24 @@ function view_city(){
 
         	//create for pagination		
 			$config['base_url'] = base_url() . 'city/view_city/';
-        	$config['total_rows'] = $tot_hal->num_rows();
+			$config['total_rows'] = $tot_hal->num_rows();
         	$config['per_page'] = $limit;
 			$config['uri_segment'] = 3;
 	    	$config['first_link'] = 'First';
 			$config['last_link'] = 'last';
 			$config['next_link'] = 'Next';
 			$config['prev_link'] = 'Prev';
+	//STYLE PAGIN FOR BOOTSTRAP
+		$config['full_tag_open'] = "<ul class='pagination'>";
+		$config['full_tag_close'] ="</ul>";
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
+		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
+		$config['next_tag_open'] = "<li>";
+		$config['next_tagl_close'] = "</li>";
+		$config['prev_tag_open'] = "<li>";
+		$config['prev_tagl_close'] = "</li>";
        		$this->pagination->initialize($config);
 			$data["paginator"] =$this->pagination->create_links();
 		

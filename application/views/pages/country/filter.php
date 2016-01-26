@@ -1,45 +1,56 @@
-<table class="table table-striped table-bordered table-hover">
+<table width="500" class="table table-striped table-bordered table-hover" id="tblhouse">
                                               <thead>
-                                                <tr>
-                                                  <th height="21" colspan="8"> <div align="left"><a class="btn-addnew" href="#modaladd" data-toggle="modal" title="Add"><button class="btn btn-blue"><i class="icon-plus icons"></i>Add Country</button></a></div></th>
+                                                <tr align="left" style="background:#EBEBEB">
+                                                  <th colspan="2"><div align="left">House No</div></th>
+                                                  <th width="54"><div align="center">ETD</div></th>
+                                                  <th width="46"><div align="center">Paycode</div></th>
+                                                  <th width="58"><div align="center">Service</div></th>
+                                                  <th width="48">Origin</th>
+                                                  <th width="48">Destination</th>
+                                                  <th width="48">Shipper</th>
+                                                  <th width="50">Consigne</th>
+                                                  <th width="53" class="text-center"><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item" style="visibility:hidden"><i class="icon-plus icons"></i> Add items</a>Actions</div></th>
                                                 </tr>
-                                                <tr>
-                                                  <th>No.</th>
-                                                  <th>couCode</th>
-                                                  <th>couName</th>
-                                                  <th>CreateBy</th>
-                                                  <th>Create Date</th>
-                                                  <th>Modified By</th>
-                                                  <th>Modified Date</th>
-                                                  <th class="text-center"><div align="center">Action</div></th>
-                                                </tr>
-                                              </thead>
-                                              <tbody>
-                                        <?php 
-$no=1;
-			foreach($list as $data){
-				
-			?>
-                                                <tr class="gradeX">
-                                                    <th scope="row"><?php echo $no?></th>
-                                                    <td><?php echo $data->couCode?></td>
-                                                    <td><?php echo $data->couName?></td>
-                                                    <td><?php echo $data->CreateBy?></td>
-                                                    <td><?php echo date("d-m-Y / h:m:s",strtotime($data->CreateDate)); ?></td>
-                                                    <td><?php echo $data->ModifiedBy?></td>
-                                                    <td><?php echo date("d-m-Y / h:m:s",strtotime($data->ModifiedDate)); ?></td>
-                                                    <td class="text-center">
-                                                      <div align="center">
-<a class="btn-action" href="#modaledit<?php echo $data->couCode?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i>
-                                                      <button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>
-                                                      </a>
-                                                        
-                                                        <a href="<?php echo base_url();?>country/delete_country/<?php echo $data->couCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
-                                                          <button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>
-                                                        </a>                            
-                                                        
-                                                    </div></td>
-                                                </tr>                                
-                                                <?php $no++; } ;?>
-                                              </tbody>
+                                                </thead>
+                                          <tbody>
+ <?php 
+ if(count($connote) <=0){
+	 echo '
+	 <tr align="center" class="gradeX">
+	 <td colspan="10"><font color="red">Record Not found !</font></td>
+	 </tr>';
+ }
+ else
+ {
+ $no=1;
+ foreach($connote as $items){
+        ?>
+            
+                                            <tr align="right" class="gradeX">
+                                                    <td colspan="2"><div align="left"><a class="dethouse" href="#modaladding" data-toggle="modal" id="dethouse" title="click for detail"><?php echo $items->HouseNo;?></a></div></td>
+                                                    <td><div align="left"><?php echo date("d-m-Y",strtotime($items->ETD)); ?></div></td>
+                                                    <td><div align="left"><?php echo $items->PayCode;?></div></td>
+                                                    <td><div align="left"><?php echo $items->Service;?></div></td>
+                                                    <td><div align="left"><?php echo $items->Origin;?></div></td>
+                                                    <td><div align="left"><?php echo $items->Destination;?></div></td>
+                                                    <td><div align="left"><?php echo $items->Shipper;?></div></td>
+                                                    <td><div align="left"><?php echo $items->Consigne;?></div></td>
+                                                    <td>
+                                                   <form action="<?php echo base_url();?>Connote_print" method="post" target="new" class="text-left">
+                                                   <input type="hidden" value="<?php echo $items->HouseNo;?>" name=" houseno" />
+                                                  <button class="btn btn-mini btn-warning"><i class="fa fa-print bigger-120"></i></button>
+                                                                                                      <a href="<?php echo base_url();?>transaction/edit_outgoing_house/<?php echo $items->HouseNo;?>" title="Edit item">
+                                                  <button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>
+                                                  </a>                                                   
+                                                  <a href="<?php echo base_url(); ?>transaction/delete_outgoing_house/<?php echo $items->HouseNo; ?>" onClick="return confirm('Yakin Hapus No. House ( <?php echo $items->HouseNo;?> ) ?? . Ini akan menghapus sekaligus items nya !');" title="Delete item">
+                                                  <button class="btn btn-mini btn-danger" type="button" ><i class="fa fa-times bigger-120"></i></button>
+                                                  </a>  
+                                                  </form>
+
+                                         
+                                                  </td>
+                                                  </tr>
+  <?php $no++;} } ?>
+                                                
+                                              <td width="74"></tbody>
                                             </table>
