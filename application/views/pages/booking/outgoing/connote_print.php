@@ -26,25 +26,25 @@
 a[href]:after {
    content: initial;
 }
-*{font-size:8px;}
+*{font-size:7px;}
 P{ margin-top:-6px;}
 
 #mytable{
-	width:100%;
+	width:80%;
 	margin-top:0px;
 	border:0.5px #666 solid;
 }
 #mytable tr td{
 	border-left:1px #666 solid;
 	border-bottom:1px #666 solid;
-	padding-left:3px;
-	padding-top:2px;
+	padding-left:2px;
+	padding-top:1px;
 }
 footer{display:none;}
-.note{ margin-top:-18px;}
-.special{margin-top:-33px;}
-.lbl{font-size:8px;}
-.lbl-footer{font-size:7px;}
+.note{ margin-top:-8px;}
+.special{margin-top:-25px;}
+.lbl{font-size:5px; float:left}
+.lbl-footer{font-size:6px; font-style:italic}
 </style>
 </head>
 
@@ -57,37 +57,37 @@ footer{display:none;}
 		$kode=$data->HouseNo;
 
 		 ?>
-<table width="97%" border="0" id="mytable">
+<table width="" border="1" id="mytable">
   <tr>
     <td width="135" rowspan="2" style="background-color:#E6FFE6"><p style="font-size:20pt; color:#800040; text-align:center">XSYS</p>
       <p align="center" style="font-family:'Comic Sans MS', cursive">Express Network</p></td>
     <td width="187" rowspan="2" style="text-align:center; background-color:#E6FFE6">
     <p style="margin-top:2px"><strong>PT.Expresindo System Network</strong></p>
       <p>perkantoran Galaxy Blok N-27</p>
-      <p>Outer Ring Road Barat</p>
-      <p>Cengkareng-Jakarta Barat 11730</p>
-          <p>Telp :021-55950000</p>
-    <p>Fax :021-55955899</p>
-    <p>xsysnet.com</p>
+      <p style="margin-top:-11px">Outer Ring Road Barat</p>
+      <p style="margin-top:-11px">Cengkareng-Jakarta Barat 11730</p>
+      <p style="margin-top:-11px">Telp :021-55950000</p>
+    <p style="margin-top:-11px">Fax :021-55955899</p>
+    <p style="margin-top:-11px">xsysnet.com</p>
       </td>
     <td width="217">
-    <div style="margin-top:-26px;">
+    <div style="margin-top:-16px;">
     <p>ORIGINAL/ASAL</p>
     <p><?php echo $data->Origin;?></p>
     </div>
       </td>
     <td width="440">
-     <div style="margin-top:-26px;">
+     <div style="margin-top:-16px;">
     <p>DESTINATION/TUJUAN</p>
       <p><?php echo $data->Destination;?></p>
       </div>
       </td>
-    <td colspan="2" rowspan="2" style="text-align:center"><img src="index.php/barcode/gambar/<?php echo $kode;?>" height="70" width="200">
+    <td colspan="2" rowspan="2" style="text-align:center"><img src="index.php/barcode/gambar/<?php echo $kode;?>" height="80" width="200">
 
       <p>&nbsp;</p></td>
     </tr>
   <tr>
-    <td height="62"><p>PIECES/JUMLAH SATUAN</p>
+    <td height="76"><p>PIECES/JUMLAH SATUAN</p>
       <p align="center"><?php echo $data->grandPCS;?></p></td>
     <td><p>WEIGHT/BERAT</p>
       <p align="center"><?php echo $data->GrossWeight;?></p></td>
@@ -106,9 +106,9 @@ footer{display:none;}
     <td><span class="lbl" style="font-size:7px">TYPE OF PAYMENT/JENIS PEMABAYARAN</span></td>
     <td><span class="lbl" style="font-size:7px">TYPE OF SHIPMENT/JENIS KIRIMAN</span></td>
     <td colspan="2" rowspan="3">
-    <table  width="100%" border="0" style="border:none; margin-top:-44px; width:100%; margin-left:-4PX">
+    <table  width="90%" border="0" style="border:none; margin-top:-54px; width:100%; margin-left:-4PX">
       <tr>
-        <td width="150" height="75">SERVICE/LAYANAN</td>
+        <td width="150" height="34">SERVICE/LAYANAN</td>
         <td width="60">CHARGES/HARGA(IDR)</td>
         </tr>
       <?php foreach($charges as $row){
@@ -126,19 +126,19 @@ footer{display:none;}
     </tr>
   <tr>
     <td>
-   <span class="lbl"> <input type="checkbox" <?php echo $cek1;?>/>Cash</span>
+   <span class="lbl"> <input style="height:7px" type="checkbox" <?php echo $cek1;?>/>Cash</span>
   <label for="select12"></label>
- <span class="lbl"> <input type="checkbox" <?php echo $cek2;?>/>Credit</span>
+ <span class="lbl"> <input style="height:7px" type="checkbox" <?php echo $cek2;?>/>Credit</span>
 <label for="select13"></label>
 <span class="lbl">
-<input type="checkbox" />COD </span>
+<input style="height:7px" type="checkbox"/>COD </span>
 </td>
     <td>
-    <span class="lbl"><input type="checkbox" />DOC</span>
+    <span class="lbl"><input style="height:7px" type="checkbox" />DOC</span>
       <label for="select14"></label>
-      <span class="lbl"><input type="checkbox" />NDX</span>
+      <span class="lbl"><input style="height:7px" type="checkbox" />NDX</span>
       <label for="select15"></label>
-     <span class="lbl"> <input type="checkbox" />HVS</span>
+     <span class="lbl"> <input style="height:7px" type="checkbox" />HVS</span>
      
      </td>
     </tr>
@@ -169,7 +169,7 @@ footer{display:none;}
     </td>
     </tr>
   <tr>
-    <td colspan="2"><p class="detsend" style="margin-top:-2px;"> SHIPPER SIGNATURE/TANDA TANGAN PENGIRIM :</p>
+    <td colspan="2" style="height:7px"><p class="detsend" style="margin-top:0px;"> SHIPPER SIGNATURE/TANDA TANGAN PENGIRIM :</p>
       <p class="detsend">&nbsp; </p></td>
     <td colspan="2"><div style="margin-top:-12px;"> ATTENTION & DEPT/DITUJUKAN & DEPT:</div></td>
     <td width="170">TOTAL/JUMLAH</td>
@@ -205,7 +205,7 @@ footer{display:none;}
     <td>TIME/JAM :<?php echo date("h:i:s",strtotime($data->CreateDate)); ?></td>
     </tr>
   <tr>
-    <td height="48" colspan="2"><p style="font-size:12pt; text-align:center">WE CANNOT DELIVER TO PO.BOX</p>
+    <td height="48" colspan="2"><p style="font-size:10pt; text-align:center">WE CANNOT DELIVER TO PO.BOX</p>
       <p style="font-size:16pt; text-align:center"><span class="detsend">Kami tidak dapat mengantar PO BOX</span></p></td>
   </tr>
   </table>
@@ -228,7 +228,7 @@ footer{display:none;}
 <div class="row text-center">
 <div class="col-sm-12"><p>&nbsp;</p></div>
 
-<button class="btn btn-primary btn-large btn-lg" onclick="printContent('nama')"><i class="fa fa-print fa-1x"></i> Print Connote</button>
+<button class="btn btn-primary btn-small btn-mini" onclick="printContent('nama')"><i class="fa fa-print fa-1x"></i> Print Connote</button>
 </div>
 
 </div>

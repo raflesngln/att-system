@@ -15,7 +15,7 @@ function barcode_generate($kode)
 	{
 		$houseno=$this->post('houseno');
 		$height =30;//tinggi barcode	
-		$width = 2; //ketebalan barcode
+		$width = 3; //ketebalan barcode
 		$this->load->library('zend');
         $this->zend->load('Zend/Barcode');
  		$barcodeOPT = array(

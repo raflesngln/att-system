@@ -42,7 +42,7 @@ table tr td{border: 1px solid #B1ACAC;
     <?php foreach($connote as $data){
 
 		 ?>
-<table width="200" border="0">
+<table width="" border="1">
   <tr>
     <td bgcolor="#EFEFEF">
     <div class="bx-log">
