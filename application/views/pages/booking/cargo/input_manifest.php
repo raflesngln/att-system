@@ -192,17 +192,29 @@
                       <div class="form-group">
                         <label class="col-sm-12 control-label">Connote/House Number</label>
                         <div class="col-sm-12"><span class="controls">
-                        <textarea name="idcnote2" id="idcnote2" class="form-control" placeholder="scann barcode here"></textarea>
+                        <textarea name="idcnote2" id="idcnote2" class="form-control" placeholder="scann barcode here" style="height:40px"></textarea>
 </span></div>
 
-<div class="col-sm-12"><span class="controls">
-  <button class="btn btn-search btn-small btn-primary btnsearch" style=" display:none" id="btnsearch2" type="button">Search</button>
-  <button class="btn btn-primary btn-block" type="button" id="btniditems"><i class="fa fa-hourglass bigger-120 icons">&nbsp;</i> Insert</button>
-
-</span></div>
+<div class="col-sm-12">
+<span class="controls">
+  <button class="btn btn-search btn-small btn-inverse" id="btn-manual" type="button" style="margin-bottom:5px">Manual</button>
+</span> 
+</div>
             
             </div>
-                <br>
+<div class="form-group" id="form-manual" style=" display:none; float:left">
+                        <div class="col-sm-12">
+                        <div class="col-sm-9">
+  <input name="idcnote3" type="text" class="form-control"   style=" width:300px" id="idcnote3" placeholder="input connote here !"/>
+                        </div>
+  <div class="col-sm-3">
+  <button class="btn btn-primary btn-small" type="button" id="btniditems"><i class="fa fa-download bigger-120 icons">&nbsp;</i> Insert</button>
+                       </div>
+                        </div>
+
+
+            
+            </div>
             
 <div id="detailconnote2">        
 
@@ -222,7 +234,10 @@
 <!--adding form-->
 <script type="text/javascript">  
 
- 
+ $("#btn-manual").click(function(){
+	 $("#form-manual").slideToggle("slow");
+	 
+ });
 		   
  $("#idcnote").keyup(function(){
             var idcnote = $('#idcnote').val();
@@ -264,9 +279,12 @@
                 }
             });
         });
+$("#btncnote").click(function(){
+	  $("#idcnote2").focus();
+	   $("#form-manual").hide();
+ });
  $("#idcnote2").keyup(function(){
             var idcnote = $('#idcnote2').val();
-             // alert('hai' + idcnote);
 				$.ajax({
                 type: "POST",
                 url : "<?php echo base_url('booking/detail_cnote'); ?>",
@@ -275,75 +293,30 @@
                     $('#table_input').html(data);
 				   //$('#detailconnote2').html(data);
 				   $('#idcnote2').val('');
-					document.getElementById("btniditems").disabled = false;
+				   $('#idcnote2').focus();
                 }
 				
             });
         });
-$("#iditems,#btniditems").click(function(){
-	//var t_volume=$('#idtotal').val();   
-	var idcnote=$('#idcnote2').val();
-	var date=$('#date').val();  
-	var origin=$('#origin').val();
-	var destination=$('#destination').val();
-	var service=$('#service').val();
- 	var jml=$('#jml').val();
-	var cwt=$('#cwt').val();
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('booking/save_session'); ?>",
-                data: "idcnote=" + idcnote + "&date=" + date + "&origin=" + origin + "&destination=" + destination + "&service=" + service + "&jml=" + jml + "&cwt=" + cwt,
-                success: function(data){
-                   //$('#table_responsive').html(data);
-				  
-				   $('#table_input').html(data);
-						//$("#modaledit123").modal('hide');
-						//$("#inputcnote").val('');
-						$("#date").val('');
-						$("#origin").val('');
-						$("#destination").val('');
-						$("#service").val('');
-						$("#jml").val('');
-						$("#cwt").val('');
-						$("#idcnote2").val('');
-						document.getElementById("btniditems").disabled = true;
-                }
-            });	
+$("#idcnote3").keyup(function(){
+	document.getElementById("btniditems").disabled = false;
 });
-
-  $("#btncnote").click(function(){
-	  
-	  $("#idcnote2").focus();
-	  //var inputcnote=$("#inputcnote").val();
-	/* 
-	  var idcnote = $('#inputcnote').val();
-	 $("#idcnote2").val(idcnote);
-	if(idcnote=='')
-	{
-		alert('Empty !! Please input connote inside textbox to add data !');
-		return false;
-	}
-	else
-	{
-	 var idcnote = $('#idcnote2').val();
-             // alert('hai' + idcnote);
+$("#btniditems").click(function(){
+            var idcnote = $('#idcnote3').val();
 				$.ajax({
                 type: "POST",
                 url : "<?php echo base_url('booking/detail_cnote'); ?>",
                 data: "idcnote="+idcnote,
-                success: function(data){
-                   $('#detailconnote2').html(data);
-				   document.getElementById("btniditems").disabled = false;
-				   //$("#modaledit123").modal('hide');
-                },
-			error: function(data){
-                   document.getElementById("btniditems").disabled = true;
+			    success: function(data){
+                    $('#table_input').html(data);
+				   //$('#detailconnote2').html(data);
+				   $('#idcnote3').val('');
+				   $('#idcnote3').focus();
+					document.getElementById("btniditems").disabled = true;
                 }
+				
             });
-	}
-	*/
- });
-
+        });
 
  $(".delbutton").click(function(){
 	  var nohouse=$(this).val();

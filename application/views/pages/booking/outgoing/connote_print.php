@@ -35,8 +35,6 @@ P{ margin-top:-6px;}
 	border:0.5px #666 solid;
 }
 #mytable tr td{
-	border-left:1px #666 solid;
-	border-bottom:1px #666 solid;
 	padding-left:2px;
 	padding-top:1px;
 }
@@ -52,7 +50,7 @@ footer{display:none;}
 
 <div class="container">
 
-<div id="nama">
+<div id="konten">
     <?php foreach($connote as $data){
 		$kode=$data->HouseNo;
 
@@ -82,7 +80,7 @@ footer{display:none;}
       <p><?php echo $data->Destination;?></p>
       </div>
       </td>
-    <td colspan="2" rowspan="2" style="text-align:center"><img src="index.php/barcode/gambar/<?php echo $kode;?>" height="80" width="200">
+    <td colspan="2" rowspan="2" style="text-align:center"><img src="index.php/barcode/gambar/<?php echo $kode;?>" height="60" width="200">
 
       <p>&nbsp;</p></td>
     </tr>
@@ -170,7 +168,7 @@ footer{display:none;}
     </tr>
   <tr>
     <td colspan="2" style="height:7px"><p class="detsend" style="margin-top:0px;"> SHIPPER SIGNATURE/TANDA TANGAN PENGIRIM :</p>
-      <p class="detsend">&nbsp; </p></td>
+      </td>
     <td colspan="2"><div style="margin-top:-12px;"> ATTENTION & DEPT/DITUJUKAN & DEPT:</div></td>
     <td width="170">TOTAL/JUMLAH</td>
     <td width="143" style="text-align:right"><strong><?php echo 'Rp   '. number_format($grantotal,0,',','.').',-';?></strong>&nbsp;
@@ -228,8 +226,9 @@ footer{display:none;}
 <div class="row text-center">
 <div class="col-sm-12"><p>&nbsp;</p></div>
 
-<button class="btn btn-primary btn-small btn-mini" onclick="printContent('nama')"><i class="fa fa-print fa-1x"></i> Print Connote</button>
-</div>
+<button class="btn btn-primary btn-small btn-mini" onclick="printContent('konten')"><i class="fa fa-print fa-1x"></i> Print Connote</button>
+
+<a href="javascript:printDiv('id-elemen-yang-ingin-di-print');">Print2</a></div>
 
 </div>
 

@@ -14,7 +14,7 @@ class City extends CI_Controller{
 function view_city(){  
 	 
 	 	$page=$this->uri->segment(3);
-      	$limit=1;
+      	$limit=25;
 		if(!$page):
 		$offset = 0;
 		else:

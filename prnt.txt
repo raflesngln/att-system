@@ -1,0 +1,22 @@
+Caranya adalah dengan menambahkan kode javascript berikut ini sebelum tag html </body> :
+
+<textarea id="printing-css" style="display:none;">.no-print{display:none}</textarea>
+<iframe id="printing-frame" name="print_frame" src="about:blank" style="display:none;"></iframe>
+<script type="text/javascript">
+function printDiv(elementId) {
+ var a = document.getElementById('printing-css').value;
+ var b = document.getElementById(elementId).innerHTML;
+ window.frames["print_frame"].document.title = document.title;
+ window.frames["print_frame"].document.body.innerHTML = '<style>' + a + '</style>' + b;
+ window.frames["print_frame"].window.focus();
+ window.frames["print_frame"].window.print();
+}
+</script>
+
+Lalu, buat tombol/link printnya dengan kode di bawah ini :
+
+<a href="javascript:printDiv('id-elemen-yang-ingin-di-print');">Print</a>
+
+Dan, elemen web yang akan di printnya mempunyai atribut id=”id-elemen-yang-ingin-di-print” . misalnya :
+
+<div id="id-elemen-yang-ingin-di-print"> ..... </div>

@@ -14,14 +14,14 @@ class Connote_print extends CI_Controller {
 function barcode_generate($kode)
 	{
 		$houseno=$this->post('houseno');
-		$height =30;//tinggi barcode	
-		$width = 3; //ketebalan barcode
+		//$height =25;//tinggi barcode	
+		//$width = 3; //ketebalan barcode
 		$this->load->library('zend');
         $this->zend->load('Zend/Barcode');
  		$barcodeOPT = array(
 		    'text' => $kode, 
 		    'barHeight'=> $height, 
-		    'factor'=>$width,
+		    'factor'=>$width
 		);
 				
 	$renderOPT = array();
