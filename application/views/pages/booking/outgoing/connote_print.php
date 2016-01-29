@@ -37,12 +37,13 @@ P{ margin-top:-6px;}
 #mytable tr td{
 	padding-left:2px;
 	padding-top:1px;
+	border:1px #000 solid;
 }
 footer{display:none;}
-.note{ margin-top:-8px;}
+.note{ margin-top:-4px;}
 .special{margin-top:-25px;}
 .lbl{font-size:5px; float:left}
-.lbl-footer{font-size:6px; font-style:italic}
+.lbl-footer{font-size:6px; font-style:italic; font-weight:normal}
 </style>
 </head>
 
@@ -69,13 +70,13 @@ footer{display:none;}
     <p style="margin-top:-11px">xsysnet.com</p>
       </td>
     <td width="217">
-    <div style="margin-top:-16px;">
+    <div style="margin-top:5px;">
     <p>ORIGINAL/ASAL</p>
     <p><?php echo $data->Origin;?></p>
     </div>
       </td>
     <td width="440">
-     <div style="margin-top:-16px;">
+     <div style="margin-top:5px;">
     <p>DESTINATION/TUJUAN</p>
       <p><?php echo $data->Destination;?></p>
       </div>
@@ -228,7 +229,7 @@ footer{display:none;}
 
 <button class="btn btn-primary btn-small btn-mini" onclick="printContent('konten')"><i class="fa fa-print fa-1x"></i> Print Connote</button>
 
-<a href="javascript:printDiv('id-elemen-yang-ingin-di-print');">Print2</a></div>
+<a href="<?php echo base_url();?>Connote_print/cetak"><button class="btn btn-primary btn-small">Cetak 2</button></a></div>
 
 </div>
 

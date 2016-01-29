@@ -44,7 +44,10 @@ function barcode_generate($kode)
 	 $this->load->view('pages/booking/outgoing/connote_print',$data);
     }
 
-	
+ public function cetak() {
+	 
+	$this->load->view('cetak'); 
+ }
 	
 	
 }
