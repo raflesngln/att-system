@@ -118,10 +118,7 @@ h3{text-align:center; font-size:14px; margin-top:-10px}
   </tr>
   <?php $no++; } ?>
   <tr>
-    <td colspan="8">&nbsp;</td>
-  </tr>
-  <tr>
-    <td colspan="6"><div align="right"><strong>Total &nbsp; </strong></div></td>
+    <td colspan="6"><div align="left"><strong>Total &nbsp; </strong></div></td>
     <td style="text-align:right"><strong><?php echo $t_berat;?></strong></td>
     <td style="text-align:right"><strong><?php echo $t_cwt;?></strong></td>
   </tr>
