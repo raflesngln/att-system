@@ -561,34 +561,6 @@ function cek_cnote(){
 	redirect('transaction/edit_outgoing_house/'.$house);
     }
 
-   //=====================save cargo manifest ==========
- function save_edit_cargo_manifest(){	
- 	
- 		$cargono=$this->input->post('cargono');
- 		$idcnote=$this->input->post('idcnote2');
-	//====Save items cargo ==============//
-		$items=array(
-		'CargoNo' =>$cargono,
-		'HouseNo'=>$idcnote,
-		'HouseDate'=>date('Y-m-d H:i:s'),
-		'Origin'=>$this->input->post('origin'),
-		'Destination'=>$this->input->post('destination'),
-		'Service'=>$this->input->post('service'),
-		'Berat'=>$this->input->post('jml'),
-		'CWT'=>$this->input->post('cwt'),
-		'date_insert'=>date('Y-m-d H:i:s')
-		);		
-		 $this->model_app->insert('cargo_items',$items);
-		 
-		 //update status outgoing connote
-		 $update=array(
-		'status_proses'=>'1'
-		);	
-		$this->model_app->update('outgoing_connote','HouseNo',$idcnote,$update);
-		
-	redirect('transaction/edit_cargo_manifest/'.$cargono);
- }
-
 function edit_cargo_manifest(){
 	$kode=$this->uri->segment(3);
 	$data=array(

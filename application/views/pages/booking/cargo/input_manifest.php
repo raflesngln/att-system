@@ -5,7 +5,7 @@
                <!--LEFT INPUT-->
   <div class="col-sm-8">      
       <div class="col-sm-11">
-<label class="col-sm-12"><h2><i class="icon icon-beaker bigger-110"></i> Entry Data</h2></label> 
+<label class="col-sm-12"><h2><i class="fa fa-plus-square bigger-110"></i> Entry Data</h2></label> 
 <div class="clearfx">&nbsp;</div>         
           <strong><label class="col-sm-4"> No Chargo Manifest</label></strong>
           <div class="col-sm-7">
@@ -58,7 +58,7 @@
           <label class="col-sm-4"> Cnote untuk di Proses</label></strong>
         
           <div class="col-sm-7 text-left">
-             <a class="btn-action" href="#modaledit<?php echo '123';?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i><button type="button" class="btn btn-primary btn-large" id="btncnote"><i class="fa fa-search"></i> Entry</button>
+             <a class="btn-action" href="#modaledit<?php echo '123';?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i><button type="button" class="btn btn-primary btn-large" id="btncnote"><i class="fa fa-plus-square"></i> Entry data</button>
 </a>
           </div>
 

@@ -85,10 +85,71 @@ function detail_sender(){
 			$this->load->view('pages/booking/cargo/input_manifest_temp');
 		}
 		
+}
+function insert_edit_cargo(){
+		$cnote=$this->input->post('idcnote');
+		$cargono=trim($this->input->post('cargono'));
+        $kode=trim($cnote);
+		$search=$this->model_app->getdata('outgoing_connote',"WHERE HouseNo='$kode' AND status_proses='0'");
+		if($search){
+			
+		foreach($search as $row){
+		$items=array(
+		'CargoNo' =>$cargono,
+		'HouseNo'=>$kode,
+		'HouseDate'=>date('Y-m-d H:i:s'),
+		'origin'=>$row->Origin,
+		'Destination'=>$row->Destination,
+		'Service'=>$row->Service,
+		'Berat'=>$row->grandPCS,
+		'CWT'=>$row->CWT,
+		'date_insert'=>date('Y-m-d H:i:s')
+		);		
+		 $this->model_app->insert('cargo_items',$items);
+		}
+		$data=array(
+			'message'=>'data berhasil ditambahkan',
+			'title'=>'Input cargo manifest'
+			);			
+			$data=array(
+			'list'=>$this->model_app->getdatapaging("*","cargo_items a",
+			"RIGHT JOIN cargo_manifest b on a.CargoNo=b.CargoNo
+			RIGHT JOIN outgoing_connote c on a.HouseNo=c.HouseNo
+			WHERE b.CargoNo='$cargono'
+			ORDER BY b.CreateDate DESC")
+			);
+			//update status outgoing connote ke 0
+			$update=array('status_proses'=>'1');	
+			$this->model_app->update('outgoing_connote','HouseNo',$kode,$update);
+			$this->load->view('pages/booking/cargo/tabel_edit',$data);
+		}     else    {
+			redirect('edit_cargo_manifest');
 		
-		//$data['connote']=$this->model_app->getdata('outgoing_connote',"WHERE HouseNo='$kode' AND status_proses='0'");
-		//$this->load->view('pages/Booking/cargo/detail_connote',$data);
-		
+		}		
+}
+//==================delete house when edit cargo ============================
+function delete_item_edit() {
+	$house=$this->input->post('idcnote');
+	$cargono=trim($this->input->post('cargono'));
+	$delete=$this->model_app->delete_data('cargo_items','HouseNo',$house);
+			 //update status outgoing connote ke 0
+	$update=array(
+	'status_proses'=>'0'
+	);	
+	$this->model_app->update('outgoing_connote','HouseNo',$house,$update);
+	$data=array(
+			'list'=>$this->model_app->getdatapaging("*","cargo_items a",
+			"RIGHT JOIN cargo_manifest b on a.CargoNo=b.CargoNo
+			RIGHT JOIN outgoing_connote c on a.HouseNo=c.HouseNo
+			WHERE b.CargoNo='$cargono'
+			ORDER BY b.CreateDate DESC"),
+			'cargono'=>$cargono
+			);
+	$this->load->view('pages/booking/cargo/tabel_edit',$data);
+				//update status outgoing connote ke 0
+	$update=array('status_proses'=>'0');	
+	$this->model_app->update('outgoing_connote','HouseNo',$house,$update);
+	
 }
 //==================ADD ITEM TO CART============================
 	function save_session()

@@ -8,7 +8,7 @@
   <script type='text/javascript' src='<?php echo base_url();?>asset/js/jquery.min.js'></script>
 
     
-  <link href='<?php echo base_url();?>asset/jquery_ui/jquery.autocomplete.css' rel='stylesheet' />
+ <link href='<?php echo base_url();?>asset/jquery_ui/jquery.autocomplete.css' rel='stylesheet' />
 <script type='text/javascript' src='<?php echo base_url();?>asset/jquery_ui/jquery.autocomplete.js'></script>
 <script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
 
@@ -180,7 +180,7 @@ function toRp(angka){
             <?php }?>   
       <div class="header col-md-11">
 <p class="text-center konfirm" id="konfirm">&nbsp;</p>
-                <h3><i class="fa fa-plus-square bigger-130"></i> &nbsp;Cargo Manifest :: Edit Cargo Manifest</h3>
+                <h3><i class="fa fa-edit bigger-130"></i> &nbsp;Cargo Manifest :: Edit Cargo Manifest</h3>
             </div>
       
 
@@ -200,7 +200,7 @@ function toRp(angka){
 <div class="clearfx">&nbsp;</div>         
           <strong><label class="col-sm-4"> No Chargo Manifest</label></strong>
           <div class="col-sm-7">
-           <input name="noconote" type="text" class="form-control"  id="name" readonly style="width:180px" value="<?php echo $row->CargoNo;?>"/>
+           <input name="noconote" type="text" class="form-control"  id="cargono" readonly style="width:180px" value="<?php echo $row->CargoNo;?>"/>
           </div>
 
           <strong><label class="col-sm-4"> Tanggal</label></strong>
@@ -236,11 +236,8 @@ function toRp(angka){
           
      <?php } ?>
           <label class="col-sm-4"> Cnote untuk di Proses</label></strong>
-          <div class="col-sm-6">
-            <input name="inputcnote" type="text" class="form-control"  id="inputcnote" placeholder="input connote here"/>
-            </div>
-          <div class="col-sm-2 text-left">
-             <a class="btn-action" href="#modaledit<?php echo '123';?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i><button type="button" class="btn btn-primary btn-small" id="btncnote"><i class="fa fa-plus"></i> Add</button>
+          <div class="col-sm-7 text-left">
+     <a class="btn-action" href="#modaledit<?php echo '123';?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i><button type="button" class="btn btn-primary btn-medium" id="btncnote"><i class="fa fa-plus-square"></i> Insert data</button>
 </a>
           </div>
 
@@ -297,10 +294,8 @@ function toRp(angka){
                                                     <td><div align="right"><?php echo $items->Berat;?></div></td>
                                                     <td><div align="right"><?php echo $items->CWT;?></div></td>
                                                     <td>
-                                                      <div align="center"><a href="<?php echo base_url(); ?>transaction/delete_cargo_connote/<?php echo $items->CargoNo; ?>/<?php echo $items->id; ?>/<?php echo $items->HouseNo; ?>" onClick="return confirm('Are You Sure delete item !?');" title="Delete item">
-                                                      <button class="btn btn-mini btn-danger" type="button" onClick="hapus3(this);"><i class="fa fa-times bigger-120"></i></button>
-                                                      </a> 
-                                                        
+                                                      <div align="center"> 
+                                                      <button id="delbutton" class="btn btn-danger btn-small delbutton" type="button" value="<?php echo $items->HouseNo;?>"><i class="fa fa-times"></i></button>  
                                                     </div></td>
                                                   </tr>
   <?php $no++;} ?>
@@ -359,63 +354,60 @@ function toRp(angka){
 
 
 <!--adding form-->
-<?php
-
-  //  foreach($list as $row){
-        ?>
 <div id="modaledit<?php echo '123';?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-<form method="post" action="<?php echo base_url();?>transaction/save_edit_cargo_manifest" name="frm">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add Connote to Cargo</h3>
+                <h3 id="myModalLabel">Scan Barcode / Insert data</h3>
             </div>
             <div class="smart-form">
                     <div class="modal-body">
                       <div class="clearfix"></div>
                       <div class="form-group">
-                        <label class="col-sm-3 control-label">No Cnote</label>
-                        <div class="col-sm-6"><span class="controls">
-                        <input name="idcnote2" type="text" class="form-control"  id="idcnote2" />
-</span><input type="hidden" name="cargono" id="cargono" value="<?php echo $cargono;?>">
+                        <label class="col-sm-12 control-label">Connote/House Number</label>
+                        <div class="col-sm-12"><span class="controls">
+                        <textarea name="idcnote2" id="idcnote2" class="form-control" placeholder="scann barcode here" style="height:40px"></textarea>
+</span></div>
+
+<div class="col-sm-12">
+<span class="controls">
+  <button class="btn btn-search btn-small btn-inverse" id="btn-manual" type="button" style="margin-bottom:5px">Manual</button>
+</span> 
+</div>
+            
+            </div>
+<div class="form-group" id="form-manual" style=" display:none; float:left">
+                        <div class="col-sm-12">
+                        <div class="col-sm-9">
+  <input name="idcnote3" type="text" class="form-control"   style=" width:300px" id="idcnote3" placeholder="input connote here !"/>
+                        </div>
+  <div class="col-sm-3">
+  <button class="btn btn-primary btn-small" type="button" id="btniditems"><i class="fa fa-download bigger-120 icons">&nbsp;</i> Insert</button>
+                       </div>
                         </div>
 
-<div class="col-sm-3"><span class="controls">
-  <button class="btn btn-search btn-small btn-primary btnsearch" id="btnsearch2" style="visibility:hidden" type="button">Search</button>
-</span></div>
-            <div class="clearfix"></div>
+
+            
             </div>
-                
             
 <div id="detailconnote2">        
 
     </div>                
                       <div class="modal-footer">
-                      <button class="btn btn-primary" type="submit" id="btniditems" name="btniditems"><i class="fa fa-hourglass bigger-110 icons">&nbsp;</i> Insert</button>
-  <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-
-                            </div>
+<h1>&nbsp;</h1>
+                      </div>
                     </div>
             
-              
-            </div> </form>
+               
+            </div>
         </div>
     </div>
     </div>
-    <?php // } ?>
-
 <!--adding form-->
-
-
-    
-
-<!--ADDING NEW CUSTOMERS MODAL-->
-
-
 <script type="text/javascript">     
- $("#idcnote").keyup(function(){
+$("#idcnote").keyup(function(){
             var idcnote = $('#idcnote').val();
              // alert('hai' + idcnote);
 				$.ajax({
@@ -427,9 +419,9 @@ function toRp(angka){
 					document.getElementById("btniditems").disabled = false;
                 }
             });
-        });
+   });
 		
-	 $("#btnsearch").click(function(){
+$("#btnsearch").click(function(){
             var idcnote = $('#idcnote').val();
              // alert('hai' + idcnote);
 				$.ajax({
@@ -441,121 +433,61 @@ function toRp(angka){
 					//alert(data);
                 }
             });
-        });
- $("#idcnote2").keyup(function(){
-            var idcnote = $('#idcnote2').val();
-             // alert('hai' + idcnote);
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('booking/detail_cnote'); ?>",
-                data: "idcnote="+idcnote,
-                success: function(data){
-                   $('#detailconnote2').html(data);
-					document.getElementById("btniditems").disabled = false;
-                }
-            });
-        });
-		
-	 $("#btnsearch2").click(function(){
-            var idcnote = $('#idcnote2').val();
-             // alert('hai' + idcnote);
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('booking/detail_cnote'); ?>",
-                data: "idcnote="+idcnote,
-                success: function(data){
-                   $('#detailconnote2').html(data);
-				document.getElementById("btniditems").disabled = false;
-
-                }
-            });
-        });
-
-  $("#btncnote").click(function(){
-	  //var inputcnote=$("#inputcnote").val();
-	  var idcnote = $('#inputcnote').val();
-	  $("#idcnote2").val(idcnote);
-	if(idcnote=='')
-	{
-		alert('Empty !! Please input connote inside textbox to add data !');
-		return false;
-	}
-	else
-	{
-var idcnote = $('#idcnote2').val();
-             // alert('hai' + idcnote);
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('booking/detail_cnote'); ?>",
-                data: "idcnote="+idcnote,
-                success: function(data){
-                   $('#detailconnote2').html(data);
-				   //$("#modaledit123").modal('hide');
-                },
-			error: function(data){
-                   document.getElementById("btniditems").disabled = true;
-                }
-            });
-	}
-  });
-
-
-	
-$("#iditemsssss,#btniditemsssss").click(function(){
-	//var t_volume=$('#idtotal').val();   
-	var idcnote=$('#idcnote2').val();
-	var tgl2=$('#tgl2').val();
-	var tujuan=$('#tujuan').val();
-	var layanan=$('#layanan').val();
- 	var jml=$('#jml').val();
-	var berat=$('#berat').val();
-	var jenis=$('#jenis').val();
- 	
-	var t_volume=$('#t_volume').val();
-	var ttl = parseInt(t_volume) + parseInt(berat);
- 
-if (tujuan == ''){
-	alert('Mohon isi data dengan lengkap');	
-	}
-	else
-	{				
-	text='<tr class="gradeX" align="left">'
-	+ '<td width="1"></td>'
-    + '<td>' + '<input type="hidden" name="cnote[]" id="cnote[]" size="5" value="'+ idcnote +'">'+ '<label id="l_pcs">'+ idcnote +'</label>' +'</td>'
-    + '<td>' + '<input type="hidden" name="tgl2[]" id="tgl2[]" size="5" value="'+ tgl2 +'">'+ '<label id="l_pcs">'+ tgl2 +'</label>' +'</td>'
-    + '<td>' +  '<input type="hidden" name="tujuan[]" id="tujuan[]" size="5" value="'+ tujuan +'">'+ '<label id="l_pcs">'+ tujuan +'</label>' +'</td>'
-    + '<td>' +  '<input type="hidden" name="layanan[]" id="layanan[]" size="5" value="'+ layanan +'">'+ '<label id="l_pcs">'+ layanan +'</label>' +'</td>'
-    + '<td>' + '<input type="hidden" name="jml[]" id="jml[]" size="5" value="'+ jml +'">'+ '<label id="l_pcs">'+ jml +'</label>' +'</td>'
-    + '<td>' + '<input type="hidden" name="berat[]" id="berat[]" size="5" value="'+ berat +'">'+ '<label id="l_pcs">'+ berat +'</label>' +'</td>'
-    + '<td>' + '<input type="hidden" name="jenis[]" id="jenis[]" size="5" value="'+ jenis +'">'+ '<label id="l_pcs">'+ jenis +'</label>' +'</td>'	
-
-
-	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + berat +'" onclick="hapus2(this)" type="button"  ><i class="fa fa-times"></i></button></td>'
-    + '</tr>';
-	
-		$('#tblitems tbody').append(text);
-		$("#t_volume").val(ttl);
-		$("#label_volume").html(ttl);
-		$("#modaladd").modal('hide');
-		$("#modaledit123").modal('hide');
-		
-	}
+   });
+$("#btncnote").click(function(){
+	  $("#idcnote2").focus();
+	   $("#form-manual").hide();
+});	
+  $("#btn-manual").click(function(){
+	 $("#form-manual").slideToggle("slow");	 
  });
-
-
+ 
+$("#idcnote2").keyup(function(){
+            var idcnote = $('#idcnote2').val();
+			var cargono= $('#cargono').val();
+				$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('booking/insert_edit_cargo'); ?>",
+                data: "idcnote="+idcnote+"&cargono="+cargono,
+			    success: function(data){
+					 $('#idcnote2').val('');
+                    $('#table_responsive').html(data);
+				   $('#idcnote2').focus();
+                }
+				
+            });
+    });
+$("#idcnote3").keyup(function(){
+	document.getElementById("btniditems").disabled = false;
+});
+$("#btniditems").click(function(){
+      var idcnote = $('#idcnote3').val();
+	  var cargono= $('#cargono').val();
+	  $.ajax({
+                type: "POST",
+                url : "<?php echo base_url('booking/insert_edit_cargo'); ?>",
+                data: "idcnote="+idcnote+"&cargono="+cargono,
+			    success: function(data){
+					 $('#idcnote3').val('');
+                    $('#table_responsive').html(data);
+				   $('#idcnote3').focus();
+                }
+				
+            });
+}); 		
+ $(".delbutton").click(function(){
+	 var idcnote=$(this).val();
+	 var cargono= $('#cargono').val();
+		  $.ajax({
+                type: "POST",
+                url : "<?php echo base_url('booking/delete_item_edit'); ?>",
+                data: "idcnote="+idcnote+"&cargono="+cargono,
+			    success: function(data){
+                    $('#table_responsive').html(data);
+                }
+            });	 
+ });
 		
-function hapus(th) {
-      var tt=$("#tt").val();;
-	  var t_volume=$('#t_volume').val();
-	  var kurangi=parseInt(t_volume)- parseInt(tt);
-	  			 
-	 $("#t_volume").val(kurangi);
-					 
-     t = $(th);
-     tr = t.parent().parent();
-     tr.hide();
- }
-
 <!-- hapus item dan kurangi total items pack
 function hapus2(myid){
 var input = $(myid).val();
@@ -572,49 +504,6 @@ var input = $(myid).val();
      tr = t.parent().parent();
      tr.remove();
 }
-
-
-$("#btnadddata").click(function(){
-	
-	var inps = document.getElementsByName('cnote[]');
-for (var i = 0; i <inps.length; i++) {
-var inp=inps[i];
-var kode = document.getElementById('idcnote2').value;
-  // alert("inputan["+i+"].value="+inp.value + kode);
-
-	if(inp.value==kode){
-		alert('itu sama');
-	}
-	else{
-		
-	alert('ga sama');	
-	}
-}
-	
-});
-
-$("#btnadddata").click(function(){
-	
-	var inps = document.getElementsByName('cnote[]');
-	var kode = document.getElementById('idcnote2').value;
-
-for (var i = 0; i <inps.length; i++) {
-var inp=inps[i];
-  // alert("inputan["+i+"].value="+inp.value + kode);
-
-
-
-
-	if(inp.value==kode){
-		alert('itu sama');
-	}
-	else{
-		
-	alert('ga sama');	
-	}
-}
-	
-});
 
 
 </script>
