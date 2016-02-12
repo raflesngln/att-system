@@ -1,6 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en-US">
-	<head>
+<html lang="en-US"><head>
 	    <title>Codeigniter Autocomplete</title>
         
 <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
@@ -115,11 +114,16 @@ function toRp(angka){
 		          		dataType: 'json',
 		          		type: 'POST',
 		          		data: req,
+					beforeSend: function(){
+            		 //$('#contenshipper').html(' data loading loading loanding');
+					 $(".fa-pulse").show();
+         			 },
 		          		success:    
 		            	function(data){
 		              		if(data.response =="true"){
 		                 		add(data.message);
-							
+								//$('#contenshipper').html('');
+								 $(".fa-pulse").hide();
 		              		}
 		            	},
               		});
@@ -285,7 +289,10 @@ function toRp(angka){
     </div>
 </div>
 
-<div class="col-sm-13" id="contenshipper"><!-- CONTENT AJAX VIEW HERE --></div>
+<div class="col-sm-13" id="contenshipper">
+<!-- CONTENT AJAX VIEW HERE -->
+sdkjhsjf shfjdshfj  <i class="fa fa-spinner fa-pulse fa-2x" style="display:none"></i>
+</div>
 
 <!-- detail for sender -->    
 
@@ -815,8 +822,12 @@ $("#txtsearch").keyup(function(){
                 url : "<?php echo base_url('search/search_discount_ajax'); ?>",
                 data: "txtsearch="+txtsearch,
                 cache:false,
+				beforeSend: function(){
+            		 $('#loading').show();
+         			 },
                 success: function(data){
                     $('#table_responsive').html(data);
+					 $('#loading').show();
                     //document.frm.add.disabled=false;
                 }
             });
