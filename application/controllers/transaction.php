@@ -594,6 +594,7 @@ function edit_cargo_manifest(){
 		$ket=$this->input->post('ket');
 		$realisasi=$this->input->post('realisasi');
 		$tot_berat=$this->input->post('tot_berat');
+		$t_volume=$this->input->post('t_volume');
 		
 		//----- SAVE OF CARGO MANIFEST --------------////
 		$update=array(
@@ -604,7 +605,7 @@ function edit_cargo_manifest(){
 		'transit' =>$transit,
 		'keterangan' =>$ket,
 		'realisasi_berat' =>$realisasi,
-		'total_berat' =>$tot_berat,
+		'total_berat' =>$t_volume,
 		'ModifiedBy' =>$this->session->userdata('idusr'),
 		'ModifiedDate'=>date('Y-m-d H:i:s')
 		);		

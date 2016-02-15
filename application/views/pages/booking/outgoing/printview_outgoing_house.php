@@ -209,7 +209,7 @@ table tr td{border: 1px solid #B1ACAC;
   </tr>
   <tr>
     <td height="46" colspan="2"><div class="detsend">DESCRIPTION OF SHIPMENT/KETERANGAN ISI : <?php echo $data->DescofShipment;?></div></td>
-    <td colspan="2"><div class="detsend">COLLECTED BY X-SYS/DIAMBIL OLE X-SYS</div></td>
+    <td colspan="2"><div class="detsend">COLLECTED BY X-SYS/DIAMBIL OLEH X-SYS</div></td>
     <td colspan="2" rowspan="3">
       <div class="det" style="margin-top:-22px">
         Receiver Already receive this package in good condition/Penerima telah menerima titipan ini dengan keadaan baik dan benar.
@@ -229,7 +229,7 @@ table tr td{border: 1px solid #B1ACAC;
   <tr>
     <td colspan="2"><div class="detsend">SPECIAL INTRUCTION//INSTRUKSI KHUSUS : <?php echo $data->SpecialIntraction;?></div></td>
     <td colspan="2">
-   <P style="font-size:16pt; text-align:center">WE CANNOT DELIVER TO PO.BOX</P>
+   <P style="font-size:16pt; margin-top:3px; text-align:center">WE CANNOT DELIVER TO PO.BOX</P>
     <p align="center">Kami tidak dapat mengantar alamat PO Box</p><br />
     </td>
   </tr>

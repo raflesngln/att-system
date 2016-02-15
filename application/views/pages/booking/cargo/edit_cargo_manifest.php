@@ -306,7 +306,9 @@ function toRp(angka){
                                                   </strong></td>
                                                   <td colspan="3"><strong>Total</strong></td>
                                                   <td>&nbsp;</td>
-                                                  <td><strong><?php echo $t_berat;?></strong></td>
+                                                  <td><strong>
+                                                    <input name="t_volume" type="hidden" id="t_volume" value="<?php echo $t_berat;?>">
+                                                  <?php echo $t_berat;?></strong></td>
                                                   <td align="left">
                                                    <div align="right"><input type="hidden" name="tot_cwt" value="<?php echo $t_cwt;?>"><strong><?php echo $t_cwt;?></strong></div></td>
                                                   <td>&nbsp;</td>

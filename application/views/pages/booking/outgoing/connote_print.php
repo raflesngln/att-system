@@ -30,7 +30,7 @@ a[href]:after {
 P{ margin-top:-6px;}
 
 #mytable{
-	width:80%;
+	width:98%;
 	margin-top:0px;
 	border:0.5px #666 solid;
 }
@@ -40,10 +40,11 @@ P{ margin-top:-6px;}
 	border:1px #000 solid;
 }
 footer{display:none;}
-.note{ margin-top:-4px;}
-.special{margin-top:-25px;}
+.note{ margin-top:-6px;}
+.special{margin-top:-18px;}
+.special p{margin-top:-4px;}
 .lbl{font-size:5px; float:left}
-.lbl-footer{font-size:6px; font-style:italic; font-weight:normal}
+.lbl-footer{font-size:5px; font-style:italic; font-weight:normal}
 </style>
 </head>
 
@@ -58,9 +59,10 @@ footer{display:none;}
 		 ?>
 <table width="" border="1" id="mytable">
   <tr>
-    <td width="135" rowspan="2" style="background-color:#E6FFE6"><p style="font-size:20pt; color:#800040; text-align:center">XSYS</p>
-      <p align="center" style="font-family:'Comic Sans MS', cursive">Express Network</p></td>
-    <td width="187" rowspan="2" style="text-align:center; background-color:#E6FFE6">
+    <td width="75" rowspan="2" style="background-color:#E6FFE6"><p style="font-size:20pt; color:#800040; text-align:center">XSYS</p>
+      <p align="center" style="font-family:'Comic Sans MS', cursive">Express Network</p>
+      </td>
+    <td width="142" rowspan="2" style="text-align:center; background-color:#E6FFE6">
     <p style="margin-top:2px"><strong>PT.Expresindo System Network</strong></p>
       <p>perkantoran Galaxy Blok N-27</p>
       <p style="margin-top:-11px">Outer Ring Road Barat</p>
@@ -69,19 +71,19 @@ footer{display:none;}
     <p style="margin-top:-11px">Fax :021-55955899</p>
     <p style="margin-top:-11px">xsysnet.com</p>
       </td>
-    <td width="217">
+    <td width="288">
     <div style="margin-top:5px;">
     <p>ORIGINAL/ASAL</p>
     <p><?php echo $data->Origin;?></p>
     </div>
       </td>
-    <td width="440">
+    <td width="411">
      <div style="margin-top:5px;">
     <p>DESTINATION/TUJUAN</p>
       <p><?php echo $data->Destination;?></p>
       </div>
       </td>
-    <td colspan="2" rowspan="2" style="text-align:center"><img src="index.php/barcode/gambar/<?php echo $kode;?>" height="60" width="200">
+    <td colspan="2" rowspan="2" style="text-align:center"><img src="index.php/barcode/gambar/<?php echo $kode;?>" height="40" width="150">
 
       <p>&nbsp;</p></td>
     </tr>
@@ -102,13 +104,13 @@ footer{display:none;}
 	if($paycode=='CSH-CASH'?$cek1='checked="checked"':$cek1='');
 	if($paycode=='CRD-CREDIT'?$cek2='checked="checked"':$cek2='');
 	?>
-    <td><span class="lbl" style="font-size:7px">TYPE OF PAYMENT/JENIS PEMABAYARAN</span></td>
-    <td><span class="lbl" style="font-size:7px">TYPE OF SHIPMENT/JENIS KIRIMAN</span></td>
+    <td><span class="lbl" style="font-size:5px">TYPE OF PAYMENT/JENIS PEMABAYARAN</span></td>
+    <td><span class="lbl" style="font-size:5px">TYPE OF SHIPMENT/JENIS KIRIMAN</span></td>
     <td colspan="2" rowspan="3">
-    <table  width="90%" border="0" style="border:none; margin-top:-54px; width:100%; margin-left:-4PX">
+    <table  width="95%" border="0" style="border:none; margin-top:-56px; width:100%; margin-left:-1PX">
       <tr>
-        <td width="150" height="34">SERVICE/LAYANAN</td>
-        <td width="60">CHARGES/HARGA(IDR)</td>
+        <td width="150" height="34" style="border-left:none; border-top:none; border-right:none">SERVICE/LAYANAN</td>
+        <td width="60" style="border-right:none; border-top:none; border-left:none">CHARGES/HARGA(IDR)</td>
         </tr>
       <?php foreach($charges as $row){
 		$unit=$row->Unit;
@@ -117,27 +119,27 @@ footer{display:none;}
 		$grantotal+=$total;
 		 ?>
       <tr>
-        <td width="150"><?php echo $row->ChargeName;?></td>
-        <td width="60" style="text-align:right"><?php echo number_format($total,0,'.',',');?></td>
+        <td width="150" style="border-left:none"><?php echo $row->ChargeName;?></td>
+        <td width="60" style="text-align:right; border-right:none"><?php echo number_format($total,0,'.',',');?> &nbsp;</td>
         </tr>
       <?php } ?>
 </table></td>
     </tr>
   <tr>
     <td>
-   <span class="lbl"> <input style="height:7px" type="checkbox" <?php echo $cek1;?>/>Cash</span>
+   <span class="lbl"> <input style="height:6px" type="checkbox" <?php echo $cek1;?>/>Cash</span>
   <label for="select12"></label>
- <span class="lbl"> <input style="height:7px" type="checkbox" <?php echo $cek2;?>/>Credit</span>
+ <span class="lbl"> <input style="height:6px" type="checkbox" <?php echo $cek2;?>/>Credit</span>
 <label for="select13"></label>
 <span class="lbl">
-<input style="height:7px" type="checkbox"/>COD </span>
+<input style="height:6px" type="checkbox"/>COD </span>
 </td>
     <td>
-    <span class="lbl"><input style="height:7px" type="checkbox" />DOC</span>
+    <span class="lbl"><input style="height:6px" type="checkbox" />DOC</span>
       <label for="select14"></label>
-      <span class="lbl"><input style="height:7px" type="checkbox" />NDX</span>
+      <span class="lbl"><input style="height:6px" type="checkbox" />NDX</span>
       <label for="select15"></label>
-     <span class="lbl"> <input style="height:7px" type="checkbox" />HVS</span>
+     <span class="lbl"> <input style="height:6px" type="checkbox" />HVS</span>
      
      </td>
     </tr>
@@ -161,7 +163,7 @@ footer{display:none;}
       <p style="margin-top:3px">RECEIVE/PENERIMA</p>
       <p><?php echo $con->custName;?></p>
       <p>ADDRESS/ALAMAT</p>
-      <p><?php echo $con->Address;?></p>
+      <p><?php echo $con->Address;?> </p>
       <p> PHONE/TELEPHONE/FAX : <?php echo $con->Phone;?></p>
       
       <?PHP } ?> 
@@ -171,16 +173,16 @@ footer{display:none;}
     <td colspan="2" style="height:7px"><p class="detsend" style="margin-top:0px;"> SHIPPER SIGNATURE/TANDA TANGAN PENGIRIM :</p>
       </td>
     <td colspan="2"><div style="margin-top:-12px;"> ATTENTION & DEPT/DITUJUKAN & DEPT:</div></td>
-    <td width="170">TOTAL/JUMLAH</td>
-    <td width="143" style="text-align:right"><strong><?php echo 'Rp   '. number_format($grantotal,0,',','.').',-';?></strong>&nbsp;
+    <td width="140">TOTAL/JUMLAH</td>
+    <td width="170" style="text-align:right"><strong><?php echo 'Rp   '. number_format($grantotal,0,',','.').',-';?></strong> &nbsp;
       </td>
   </tr>
   <tr>
     <td colspan="2"><p class="detsend">DESCRIPTION OF SHIPMENT/KETERANGAN ISI : </p>
       <p class="detsend"><?php echo $data->DescofShipment;?></p></td>
-    <td colspan="2" rowspan="2"><div style="margin-top:-38px;">COLLECTED BY X-SYS/DIAMBIL OLE X-SYS</div></td>
+    <td colspan="2" rowspan="2"><div style="margin-top:-38px;">COLLECTED BY X-SYS/DIAMBIL OLEH X-SYS</div></td>
     <td colspan="2">   <label style="color:#F00">PERNYATAN PENGIRIMAN :</label>
-        <p style="color:#F00">Kami memahami dan menyetujiui bahwa kiriman senilai Rp 1.000.000,- atau lebih harus di asuransikan. Jika tidak di asuransikan, </p>
+        <p style="color:#F00; font-style:italic">Kami memahami dan menyetujiui bahwa kiriman senilai Rp 1.000.000,- atau lebih harus di asuransikan. Jika tidak di asuransikan, </p>
       </td>
     </tr>
   <tr>
@@ -199,12 +201,13 @@ footer{display:none;}
   <tr>
     <td colspan="2" rowspan="2"><div class="special">
       <p>SPECIAL INTRUCTION//INSTRUKSI KHUSUS : </p>
-      <?php echo $data->SpecialIntraction;?></div></td>
+      <p style="margin-top:-9px"><?php echo $data->SpecialIntraction;?></p>
+      </div></td>
     <td>DATE/TANGGAL :<?php echo date("d-m-Y",strtotime($data->CreateDate)); ?></td>
     <td>TIME/JAM :<?php echo date("h:i:s",strtotime($data->CreateDate)); ?></td>
     </tr>
   <tr>
-    <td height="48" colspan="2"><p style="font-size:10pt; text-align:center">WE CANNOT DELIVER TO PO.BOX</p>
+    <td height="48" colspan="2"><p style="font-size:9pt; margin-top:1px; text-align:center">WE CANNOT DELIVER TO PO.BOX</p>
       <p style="font-size:16pt; text-align:center"><span class="detsend">Kami tidak dapat mengantar PO BOX</span></p></td>
   </tr>
   </table>
@@ -214,10 +217,10 @@ footer{display:none;}
 <div class="lbl-footer">
 <label><em>1. Original/Aslu : Shipper/Pengirim</em></label> 
 <em>
-<label>2. Blue/Biru : Operational/Operasional</label> 
-<label>3. Green/Hijau : Accounting/ Accounting</label> 
-<label>4. Yello/Kuning : Return POD/POD Kembali</label> 
-<label>5. Red/Merah : Receiver/ Penerima</label> 
+<label>2. Blue/Biru:Operational/Operasional</label> 
+<label>3. Green/Hijau:Accounting/ Accounting</label> 
+<label>4. Yello/Kuning:Return POD/POD Kembali</label> 
+<label>5. Red/Merah:Receiver/ Penerima</label> 
 </em>
 </div>
 </div>
@@ -229,7 +232,6 @@ footer{display:none;}
 
 <button class="btn btn-primary btn-small btn-mini" onclick="printContent('konten')"><i class="fa fa-print fa-1x"></i> Print Connote</button>
 
-<a href="<?php echo base_url();?>Connote_print/cetak"><button class="btn btn-primary btn-small">Cetak 2</button></a></div>
 
 </div>
 
