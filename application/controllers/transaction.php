@@ -41,24 +41,7 @@ class Transaction extends CI_Controller{
  /* Input for ougoing house 
  	to save list item and charges
 	 */
-function domesctic_outgoing_houseeeeeeeeeeeeeeeeeeee(){
-        $idusr=$this->session->userdata('idusr');
-        $data = array(
-            'title'=>'domesctic-outgoing-house',
-            'scrumb_name'=>'Domesctic outgoing house',
-            'scrumb'=>'transaction/domesctic_outgoing_house',
-            'payment_type'=>$this->model_app->getdatapaging("payCode,payName","ms_payment_type","ORDER BY payCode ASC"),
-            'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
-            'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
-            'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
-            'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
-            'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
-            'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
-            'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
-            'view'=>'pages/booking/domesctic_outgoing_house',
-        );  
-      $this->load->view('home/home',$data);
-    }
+
  function domesctic_outgoing_house(){
         $idusr=$this->session->userdata('idusr');
 		$page=$this->uri->segment(3);
@@ -778,11 +761,18 @@ function cetak_manifest(){
             'title'=>'domesctic-outgoing-master',
             'scrumb_name'=>'Domesctic outgoing master',
             'scrumb'=>'transaction/domesctic_outgoing_master',
-             'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
+			'payment_type'=>$this->model_app->getdatapaging("payCode,payName","ms_payment_type","ORDER BY payCode ASC"),
             'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
             'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
             'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
-            'view'=>'pages/booking/domesctic_outgoing_master',
+            'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
+            'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
+            'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
+            'connote'=>$this->model_app->getdatapaging("*","outgoing_connote","ORDER BY HouseNo"),
+             'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
+            'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
+            'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
+            'view'=>'pages/booking/outgoing_master/domesctic_outgoing_master',
         );  
       $this->load->view('home/home',$data);
     }
@@ -815,7 +805,133 @@ function hapus_item_temp(){
     }	
 }
 
+//=====================save cargo manifest ==========
+ function confirm_outgoing_master(){	
+		$getHouse=$this->model_app->getHouseNo();
+		$getjob=$this->model_app->getJob();
+		$etd=$this->input->post('etd');
+			
+	//====Save charges and items in every table refer to SMU number =====//
+	$pcs=$_POST['pcs'];	
+	foreach($pcs as $key => $val)
+	{
+   		$pcs =$_POST['pcs'][$key];
+        $p  =$_POST['p'][$key];
+		$l  =$_POST['l'][$key];	
+		$t  =$_POST['t'][$key];	
+		$v  =$_POST['v'][$key];	
+		$newitem=array(
+		'HouseNo' =>$getHouse,
+		'NoPack'=>$pcs, 
+		'Length'=>$p,
+		'Width'=>$l,
+		'Height'=>$t,
+		'Volume'=>$v,
+		'Date'=>date('Y-m-d H:i:s')
+		);		
+		 $this->model_app->insert('booking_items',$newitem);
+	}
+	$qty=$_POST['qty'];	
+	foreach($qty as $key => $val)
+	{
+   		$charge =$_POST['idcharge'][$key];
+        $unit =$_POST['unit'][$key];
+		$qty  =$_POST['qty'][$key];
+		$desc =$_POST['desc'][$key];
+		$newcharge=array(
+		'HouseNo' =>$getHouse,
+		'ChargeName'=>$charge,
+		'Unit'=>$unit,
+		'Qty'=>$qty,
+		'Description'=>$desc,
+		'Date'=>date('Y-m-d H:i:s')
+		);		
+		 $this->model_app->insert('booking_charges',$newcharge);
+	}
+	//----- SAVE OF OUT GOING HOUSE --------------////
+	$OutHouse=array(
+		'HouseNo' =>$getHouse,
+		'JobNo' =>$getjob,
+		'BookingNo' =>$this->input->post('booking'),
+		'PayCode' =>$this->input->post('paymentype'),
+		'Service' =>$this->input->post('service'),
+		'Origin' =>$this->input->post('origin'),
+		'Destination' =>$this->input->post('desti'),
+		'ETD' =>date($etd),
+		'Shipper' =>$this->input->post('idsender'),
+		'CodeShipper' =>$this->input->post('codeship'),
+		'Consigne' =>$this->input->post('idreceivement'),
+		'CodeConsigne' =>$this->input->post('codesigne'),
+		'Commodity' =>$this->input->post('commodity'),
+		'GrossWeight' =>$this->input->post('grossweight2'),
+		'grandVolume' =>$this->input->post('t_volume'),
+		'grandPCS' =>$this->input->post('t_pacs'),
+		'SpecialIntraction' =>$this->input->post('special'),
+		'CWT' =>$this->input->post('cwt'),
+		'DeclareValue' =>$this->input->post('declare'),
+		'DescofShipment' =>$this->input->post('description'),
+		'CreateBy' =>$this->session->userdata('idusr'),
+		'CreateDate'=>date('Y-m-d H:i:s'),
+		'ModifiedBy' =>'',
+		'ModifiedDate' =>''
+		);		
+		 $this->model_app->insert('outgoing_connote',$OutHouse);	
+		//=======  print view in HTML   ============//
+        $data = array(
+            'title'=>'domesctic_outgoing_house',
+            'scrumb_name'=>'domesctic_outgoing_house',
+			'houseno'=>$getHouse,
+			'jobno'=>$getjob,
+            'scrumb'=>'transaction/domesctic_outgoing_house',
+            'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
+            'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
+            'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
+            'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
+           // 'tmpcharge'=>$this->model_app->getdatapaging("*","temp_charges","ORDER BY tempChargeId"),
+            'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
+			'outgoing_connote'=>$this->model_app->getdatapaging("*","outgoing_connote","ORDER BY HouseNo ASC"),
+			
+			'connote'=>$this->model_app->getdatapaging("*","outgoing_connote","where HouseNo='$getHouse' ORDER BY HouseNo ASC"),
+			'items'=>$this->model_app->getdatapaging("*","booking_items","where HouseNo='$getHouse' ORDER BY IdItems ASC"),
+			'charges'=>$this->model_app->getdatapaging("*","booking_charges","where HouseNo='$getHouse' ORDER BY idCharges ASC"),
+			
+			
+            'view'=>'pages/booking/outgoing/confirm_outgoing_house',
+        );  
+        
+   
+ 			$this->load->view('home/home',$data);		
+    }
+function print_outgoing_master(){
+	$kode=$this->uri->segment(3);
+	$nohouse=$this->uri->segment(3);
+	
+	        $data = array(
+            'title'=>'domesctic_incoming_master',
+			'connote'=>$this->model_app->getdatapaging("*","outgoing_connote","WHERE HouseNo ='$nohouse' LIMIT 1"),
+			'shipper'=>$this->model_app->getdatapaging("*","outgoing_connote a","INNER JOIN ms_customer b on b.custCode=a.Shipper WHERE a.HouseNo ='$nohouse' LIMIT 1"),
+			'consigne'=>$this->model_app->getdatapaging("*","outgoing_connote a","INNER JOIN ms_customer b on b.custCode=a.Consigne WHERE a.HouseNo ='$nohouse' LIMIT 1"),
+			'charges'=>$this->model_app->getdatapaging("*","booking_charges","WHERE HouseNo ='$nohouse'"),
+			'kode'=>$this->input->post('houseno'),
+			'kode2'=>$nohouse
+        ); 
 
+		ob_start();
+		$content = $this->load->view('pages/booking/outgoing_master/print_master',$data);
+		$content = ob_get_clean();		
+		$this->load->library('html2pdf');
+		try
+		{
+			$html2pdf = new HTML2PDF('P', 'A4', 'fr');
+			$html2pdf->pdf->SetDisplayMode('fullpage');
+			$html2pdf->writeHTML($content, isset($_GET['vuehtml']));
+			$html2pdf->Output('print_cargo_manifest.pdf');
+		}
+		catch(HTML2PDF_exception $e) {
+			echo $e;
+			exit;
+		}	
+}
 //     DATA TO PDF
  function confirm_outgoing_house(){
 		$getHouse=$this->model_app->getHouseNo();
