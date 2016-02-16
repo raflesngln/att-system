@@ -180,16 +180,16 @@ function toRp(angka){
 		<div class="span12 widget-container-span">
 		  <div class="widget-box">
 										<div class="widget-header">
-											<h5 class="bigger">&nbsp; :: DOMESTIC OUTGOING HOUSE ::</h5>
+											<h5 class="bigger">&nbsp; :: DOMESTIC OUTGOING MASTER ::</h5>
 
 											<div class="widget-toolbar no-border">
 												<ul class="nav nav-tabs" id="myTab">
 													<li class="active">
-														<a data-toggle="tab" href="#home"><i class="fa fa-list"></i> List Outgoing House</a>
+														<a data-toggle="tab" href="#home"><i class="fa fa-list"></i> List Outgoing Master</a>
 													</li>
 
 													<li>
-													<a data-toggle="tab" href="#profile"><i class="fa fa-plus"></i> Entry Outgoing House</a></li>
+													<a data-toggle="tab" href="#profile"><i class="fa fa-plus"></i> Entry Outgoing Master</a></li>
 												</ul>
 											</div>
 										</div>
@@ -198,11 +198,11 @@ function toRp(angka){
 											<div class="widget-main padding-0">
 												<div class="tab-content">
 													<div id="home" class="tab-pane in active">
-	<?php $this->load->view('pages/booking/outgoing/list_outgoing_house');?>
+	<?php $this->load->view('pages/booking/outgoing_master/list_outgoing_master');?>
 													</div>
 
 													<div id="profile" class="tab-pane">
-	<?php $this->load->view('pages/booking/outgoing/domestic_outgoing_house');?>
+	<?php $this->load->view('pages/booking/outgoing_master/input_outgoing_master');?>
 													</div>
 
 													<div id="info" class="tab-pane">
@@ -223,14 +223,6 @@ function toRp(angka){
   <!-- enf of tabs -->   
 
 <br style="clear:both">
-
-  
-              
-
-
-
-
-    
 
 <!--ADDING NEW CUSTOMERS MODAL-->
  

@@ -339,7 +339,7 @@ $total_charges+=$kali;
 <div class="col-sm-5">
 
  <button class="btn btn-large btn-primary" type="submit"><i class="fa fa-print bigger-120"> Printview</i></button>
-<a href="<?php echo base_url();?>transaction/domesctic_outgoing_house"><button class="btn btn-danger btn-large" type="button"><i class="icon icon-ok bigger130"></i>Finish !</button></a>
+<a href="<?php echo base_url();?>transaction/domestic_outgoing_house"><button class="btn btn-danger btn-large" type="button"><i class="icon icon-ok bigger130"></i>Finish !</button></a>
 </div>
 
  </div><div class="clearfix"></div>

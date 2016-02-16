@@ -44,6 +44,48 @@ class Model_app extends CI_Model{
         }
         return "08".date('Ym').$kd;
     }
+	//    kode house
+    public function getJobMaster($status)
+    {
+		$bulan=date('m');
+        $query = $this->db->query("select MAX(RIGHT(JobNo,5)) as kd_max from outgoing_master WHERE MID(JobNo,8,2)='$bulan'");
+        $kd = "";
+        if($query->num_rows()>0)
+        {
+            foreach($query->result() as $k)
+            {
+                $tmp = ((int)$k->kd_max)+1;
+                $kd = sprintf("%05s", $tmp);
+            }
+        }
+        else
+        {
+            $kd = "00001";
+        }
+        return "JOT".date('Ym').$kd;
+    }
+	
+//    kode job
+    public function getHouseMasterNo()
+    {
+		$bulan=date('m');
+        $query = $this->db->query("select MAX(RIGHT(HouseNo,5)) as kd_max from outgoing_master WHERE MID(HouseNo,9,2)='$bulan'");
+        $kd = "";
+        if($query->num_rows()>0)
+        {
+            foreach($query->result() as $k)
+            {
+                $tmp = ((int)$k->kd_max)+1;
+                $kd = sprintf("%05s", $tmp);
+            }
+        }
+        else
+        {
+            $kd = "00001";
+        }
+        return "OM08".date('Ym').$kd;
+    }
+
 //    kode job
     public function getConnote()
     {
