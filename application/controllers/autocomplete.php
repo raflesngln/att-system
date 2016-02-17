@@ -14,7 +14,38 @@ function index(){
 
 $this->load->view('pages/booking/domesctic_outgoing_house');
 }
-	
+function lookup_om(){ 
+     // process posted form data (the requested items)
+        $keyword = $this->input->post('term');
+        $data['response'] = 'false'; //Set default response
+        $query = $this->Mautocomplete->lookup_om($keyword); //Search DB
+        if( ! empty($query) )
+        {
+            $data['response'] = 'true'; //Set response
+            $data['message'] = array(); //Create an array
+            foreach( $query as $row )
+            {
+			//Add a row to array
+              $data['message'][] = array( 
+                    'id'=>$row->HouseNo,
+                     'value' =>$row->HouseNo,
+                     'name' => $row->JobNO,
+                     'origin' => $row->Origin,
+					 'destination' => $row->Destination,
+					 'cwt' => $row->CWT,
+                  );  
+            }
+        }
+        if('IS_AJAX')
+        {
+            echo json_encode($data); //echo json string if ajax request
+            
+        }
+        else
+        {
+            $this->load->view('autocomplete/index',$data); //Load html view of search results
+        }
+    }
 function lookup_sender(){ 
      // process posted form data (the requested items)
         $keyword = $this->input->post('term');

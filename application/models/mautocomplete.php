@@ -4,7 +4,14 @@ class Mautocomplete extends CI_Model{
 	function __construct(){
 		 parent::__construct();
 	}
-	
+	function lookup_om($keyword){
+       $this->db->select('*')->from('outgoing_master');
+        $this->db->like('HouseNo',$keyword,'after');
+		$this->db->where('status_proses','0');
+        $query = $this->db->get();    
+        
+        return $query->result();
+    }
 	function lookup_sender($keyword){
        $this->db->select('*')->from('ms_customer');
         $this->db->like('custName',$keyword,'after');

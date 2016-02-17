@@ -1,13 +1,11 @@
 <!DOCTYPE HTML>
 <html lang="en-US"><head>
-	    <title>Codeigniter Autocomplete</title>
+	    <title>Att group</title>
         
 <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
 
-  <script type='text/javascript' src='<?php echo base_url();?>asset/js/jquery.min.js'></script>
-
-    
-  <link href='<?php echo base_url();?>asset/jquery_ui/jquery.autocomplete.css' rel='stylesheet' />
+<script type='text/javascript' src='<?php echo base_url();?>asset/js/jquery.min.js'></script>
+<link href='<?php echo base_url();?>asset/jquery_ui/jquery.autocomplete.css' rel='stylesheet' />
 <script type='text/javascript' src='<?php echo base_url();?>asset/jquery_ui/jquery.autocomplete.js'></script>
 <script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
 
@@ -185,8 +183,6 @@ function toRp(angka){
 	    
 	</head>
 	<body>
-		
-
  <!-- ==========================================================  -->   
   <div class="row-fluid">
     <div class="span12">
@@ -267,6 +263,10 @@ function toRp(angka){
           <?php } ?>
           </select>
           </div>
+          <strong><label class="col-sm-4"> AirLines</label></strong>
+          <div class="col-sm-7">
+            <input name="airlines" class="form-control" type="text" id="airlines">
+         </div>
 <strong><label class="col-sm-4">  Flight no/Date (1)</label></strong>
 <div class="col-sm-8">
 		<div class="row">
@@ -281,7 +281,7 @@ function toRp(angka){
 <label class="col-sm-4">  Flight no/Date (2)</label></strong>
 <div class="col-sm-8">
 		<div class="row">
-        <div class="col-sm-5" style="margin-left:12px;"><input name="txtflightno2" class="form-control" type="text" id="txtflightno2"></div>
+        <div class="col-sm-5" style="margin-left:12px;"><input name="flightno2" class="form-control" type="text" id="flightno2"></div>
         <div class="col-sm-1">/</div>
         <div class="col-sm-5">
           <input id="flightdate2" type="text" class="form-control" readonly name="flightdate2" value="<?php echo date("Y-m-d") ;?>">
@@ -673,7 +673,7 @@ $grandt+=$chr->Total;
                         <div class="clearfix"></div>
                       </div>
   <div class="form-group">
-                        <label class="col-sm-3 control-label">Unit &nbsp; Price</label>
+                        <label class="col-sm-3 control-label">Unit Price / Rate</label>
                         <div class="col-sm-9"><span class="controls">
                           <input name="txtunit" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="txtunit" />
 </span></div>

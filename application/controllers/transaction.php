@@ -289,14 +289,14 @@ function search_outgoing_house(){
 	$houseno=$this->uri->segment(4);
 	
 	$delete=$this->model_app->delete_data('booking_items','IdItems',$item);
-	redirect('transaction/edit_outgoing_house/'.$houseno);
+	redirect('transaction/edit_outgoing_master/'.$houseno);
 }
  function delete_om_charges(){
 	$item=$this->uri->segment(3);
 	$houseno=$this->uri->segment(4);
 	
 	$delete=$this->model_app->delete_data('booking_charges','idCharges',$item);
-	redirect('transaction/edit_outgoing_house/'.$houseno);
+	redirect('transaction/edit_outgoing_master/'.$houseno);
 }
  function delete_booking_items(){
 	$item=$this->uri->segment(3);
@@ -1085,6 +1085,10 @@ function hapus_item_temp(){
 		'Destination' =>$this->input->post('desti'),
 		'ETD' =>date($etd),
 		'Shipper' =>$this->input->post('idsender'),
+		'Airlines' =>$this->input->post('airlines'),
+		'FlightNumbDate1' =>$this->input->post('flightno1').'/'.$this->input->post('flightdate1'),
+		'FlightNumbDate2' =>$this->input->post('flightno2').'/'.$this->input->post('flightdate2'),
+		'FlightNumbDate3' =>$this->input->post('flightno3').'/'.$this->input->post('flightdate3'),
 		'CodeShipper' =>$this->input->post('codeship'),
 		'Consigne' =>$this->input->post('idreceivement'),
 		'CodeConsigne' =>$this->input->post('codesigne'),
@@ -1275,17 +1279,15 @@ function print_outgoing_master(){
 		 $this->model_app->update('outgoing_master','HouseNo',$houseno,$update);	
 //==============  print view in HTML   =======================//
         $data = array(
-            'title'=>'domestic_outgoing_house',
-            'scrumb_name'=>'domestic_outgoing_house',
-			'houseno'=>$getHouse,
+            'title'=>'domestic_outgoing_master',
+            'scrumb_name'=>'domestic_outgoing_master',
+			'houseno'=>$houseno,
 			'jobno'=>$getjob,
-            'scrumb'=>'transaction/domestic_outgoing_house',
+            'scrumb'=>'transaction/domestic_outgoing_master',
 			'outgoing_connote'=>$this->model_app->getdatapaging("*","outgoing_connote","ORDER BY HouseNo ASC"),
 			'connote'=>$this->model_app->getdatapaging("*","outgoing_connote","where HouseNo='$houseno' ORDER BY HouseNo ASC"),
 			'items'=>$this->model_app->getdatapaging("*","booking_items","where HouseNo='$houseno' ORDER BY IdItems ASC"),
 			'charges'=>$this->model_app->getdatapaging("*","booking_charges","where HouseNo='$houseno' ORDER BY idCharges ASC"),
-			
-			
             'view'=>'pages/booking/outgoing_master/confirm',
         );  
    		$this->load->view('home/home',$data);
@@ -1347,6 +1349,9 @@ function print_invoice_OM(){
      'header'=>$this->model_app->getdatapaging("*","outgoing_master a",
 	"INNER JOIN ms_customer b on a.Shipper=b.custCode
 	WHERE a.HouseNo='$kode' ORDER BY a.CreateDate DESC LIMIT 1"),
+	'consigne'=>$this->model_app->getdatapaging("*","outgoing_master a",
+	"INNER JOIN ms_customer b on a.Consigne=b.custCode
+	WHERE a.HouseNo='$kode' ORDER BY a.CreateDate DESC LIMIT 1"),
 	
 	'list'=>$this->model_app->getdatapaging("*","outgoing_master a",
 	"INNER JOIN booking_charges b on a.HouseNo=b.HouseNo
@@ -1355,7 +1360,7 @@ function print_invoice_OM(){
 	);
 
 		ob_start();
-		$content = $this->load->view('pages/booking/outgoing_master/print_outgoing_master',$data);
+		$content = $this->load->view('pages/booking/outgoing_master/print_outgoing_cash',$data);
 		$content = ob_get_clean();		
 		$this->load->library('html2pdf');
 		try
@@ -1363,7 +1368,7 @@ function print_invoice_OM(){
 			$html2pdf = new HTML2PDF('P', 'A4', 'fr');
 			$html2pdf->pdf->SetDisplayMode('fullpage');
 			$html2pdf->writeHTML($content, isset($_GET['vuehtml']));
-			$html2pdf->Output('print_outgoing_master.pdf');
+			$html2pdf->Output('print_outgoing_cash.pdf');
 		}
 		catch(HTML2PDF_exception $e) {
 			echo $e;

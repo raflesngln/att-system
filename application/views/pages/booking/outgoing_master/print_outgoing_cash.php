@@ -44,15 +44,23 @@ p{ margin-top:-8px;}
     <td width="26%" rowspan="9"><p style="color:#FFF">.....................................</p></td>
     <td width="31%" rowspan="9">
     <div id="right-header">
-    <p>Consisgne........... : &nbsp;<?php echo $row->custName;?></p>
-     <p>Phone................. :  &nbsp;<?php echo $row->Phone;?></p>
-    <p>City..................... : &nbsp;<?php echo $row->cyCode;?></p>
+    <?php
+	foreach($consigne as $con){
+	$flight1=explode("/",$con->FlightNumbDate1);
+	$flight2=explode("/",$con->FlightNumbDate2);
+	$flight3=explode("/",$con->FlightNumbDate3);
+	
+	?>
+    <p>Consisgne........... : &nbsp;<?php echo $con->custName;?></p>
+    <p>Phone................. :  &nbsp;<?php echo $con->Phone;?></p>
+    <p>City..................... : &nbsp;<?php echo $con->cyCode;?></p>
     <p>&nbsp;</p>
-    <p>Airline.................. : &nbsp;<?php echo $row->Airlines;?></p>
-    <p>Flight Numner...... : &nbsp;<?php echo $row->FlightNumber;?></p>
-    <p>CWT.................... : &nbsp;<?php echo $row->CWT;?></p>
-    <p>GWT.................... : &nbsp;<?php echo $row->CWT;?></p>
-    <p>AWB (SMU)......... : &nbsp;<?php echo $row->CWT;?></p>
+    <p>Airline.................. : &nbsp;<?php echo $con->Airlines;?></p>
+    <p>Flight Numner...... : &nbsp;<?php echo $flight1[0].' / '.$flight2[0].' / '.$flight3[0];?></p>
+    <p>CWT.................... : &nbsp;<?php echo $con->CWT;?></p>
+    <p>GWT.................... : &nbsp;<?php echo $con->CWT;?></p>
+    <p>AWB (SMU)......... : &nbsp;<?php echo $con->CWT;?></p>
+    <?php } ?>
     </div>
 </td>
   </tr>
@@ -115,25 +123,25 @@ p{ margin-top:-8px;}
    <?php 
  $no=1;
  foreach($list as $items){
-	 $berat=$items->Berat;
-	 $t_berat+=$berat;
-	 $cwt=$items->CWT;
-	 $t_cwt+=$cwt;
+	 $qty=$items->Qty;
+	 $unit=$items->Unit;
+	 $amount=$unit*$qty;
+	 $total+=$amount;
 
         ?>
   <tr>
     <td height="26" ><?php echo $no;?></td>
     <td style="width:350px"><?php echo $items->ChargeName;?></td>
-    <td style="text-align:right"><?php echo $items->Qty; ?></td>
-    <td style="text-align:right"><?php echo $items->Unit; ?></td>
-    <td style="text-align:right">&nbsp; &nbsp; &nbsp;<?php echo $items->Unit; ?></td>
-    <td style="text-align:right">&nbsp; &nbsp; &nbsp;<?php echo $items->Unit; ?></td>
+    <td style="text-align:right"><?php echo number_format($items->Qty,0,'.','.'); ?></td>
+    <td style="text-align:right">KG</td>
+    <td style="text-align:right">&nbsp; &nbsp; &nbsp;<?php echo number_format($items->Unit,0,'.','.'); ?></td>
+    <td style="text-align:right">&nbsp; &nbsp; &nbsp;<?php echo number_format($amount,0,'.','.'); ?></td>
   </tr>
   <?php $no++; } ?>
   <tr>
     <td height="18" colspan="4"><div align="left"><strong>Total &nbsp; </strong></div></td>
     <td style="text-align:right">&nbsp;</td>
-    <td style="text-align:right">&nbsp;</td>
+    <td style="text-align:right"><strong><?php echo number_format($total,0,'.','.'); ?></strong></td>
   </tr>
 </table>
 
@@ -151,7 +159,7 @@ p{ margin-top:-8px;}
   </tr>
   <tr>
     <td height="95">(.....................................................)</td>
-    <td>(................................................)</td>
+    <td>(.....................Admin......................)</td>
     <td>(..................................................)</td>
   </tr>
 </table>

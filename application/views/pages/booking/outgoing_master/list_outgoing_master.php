@@ -1,3 +1,95 @@
+<link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
+
+<script type='text/javascript' src='<?php echo base_url();?>asset/js/jquery.min.js'></script>
+<link href='<?php echo base_url();?>asset/jquery_ui/jquery.autocomplete.css' rel='stylesheet' />
+<script type='text/javascript' src='<?php echo base_url();?>asset/jquery_ui/jquery.autocomplete.js'></script>
+<script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
+
+        <style>
+	    	/* Autocomplete
+			----------------------------------*/
+			.ui-autocomplete { position: absolute; cursor: default; }	
+			.ui-autocomplete-loading { background: white url('http://jquery-ui.googlecode.com/svn/tags/1.8.2/themes/flick/images/ui-anim_basic_16x16.gif') right center no-repeat; }*/
+
+			/* workarounds */
+			* html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
+
+			/* Menu
+			----------------------------------*/
+			.ui-menu {
+				list-style:none;
+				padding: 2px;
+				margin: 0;
+				display:block;
+			}
+			.ui-menu .ui-menu {
+				margin-top: -3px;
+			}
+			.ui-menu .ui-menu-item {
+				margin:0;
+				padding: 0;
+				zoom: 1;
+				float: left;
+				clear: left;
+				width: 100%;
+				font-size:80%;
+			}
+			.ui-menu .ui-menu-item a {
+				text-decoration:none;
+				display:block;
+				padding:.2em .4em;
+				line-height:1.5;
+				zoom:1;
+			}
+			.ui-menu .ui-menu-item a.ui-state-hover,
+			.ui-menu .ui-menu-item a.ui-state-active {
+				font-weight: normal;
+				margin: -1px;
+			}
+	    </style>    
+<script type="text/javascript">
+	    $(this).ready( function() {
+
+	
+$("#addinvoice").click(function(){
+	//document.getElementById("idhouse").value ='trtrtrtrt';
+	$("#idhouse").val('');
+	$("#idorigin").val('');
+	$("#iddestination").val('');
+	$("#idcwt").val('');
+ });     
+
+$("#idhouse").autocomplete({
+      			minLength: 1,
+      			source: 
+        		function(req, add){
+          			$.ajax({
+		        		url: "<?php echo base_url(); ?>index.php/autocomplete/lookup_om",
+		          		dataType: 'json',
+		          		type: 'POST',
+		          		data: req,
+				beforeSend: function(){
+					 $(".fa-pulse").show();
+         			 },
+		        success:    
+		            	function(data){
+		              		if(data.response =="true"){
+		                 		add(data.message);
+								//$('#contenshipper').html('');
+								 $(".fa-pulse").hide();
+		              		}
+		            	},
+              		});
+         		},
+         	select: 
+         		function(event, ui) {
+					$("#idorigin").val(ui.item.origin);
+					$("#iddestination").val(ui.item.destination); 
+					$("#idcwt").val(ui.item.cwt);		
+         		},		
+    		});
+		});
+</script>
 <div class="pull-right col-xs-12">
 
 <div class="col-sm-6 col-xs-12 pull-right">
@@ -29,14 +121,18 @@
 
 </div>
 
-<div class="container">
+<div class="row">
                 <div class="col-lg-12 col-xs-12 portlets ui-sortable">
                     <div class="panel">
                         <!--<div class="panel-header"></div>-->
 
                 
                                     <div class="form-group">
-<h2><span class="label label-large label-pink arrowed-in-right"><strong>List Outgoing Master / SMU</strong></span></h2>
+<div class="row">
+<div class="col-sm-12 text-left" style="margin-left:30px"><a class="btn btn-primary btn-addnew btn-rounded" id="addinvoice" href="#modaladdCharge" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> ADD INVOICE</a></div>
+<div class="col-sm-4" style="margin-left:30px"><h2><span class="label label-large label-pink arrowed-in-right"><strong>List Outgoing Master / SMU</strong></span></h2></div>
+
+</div>
                                         <div class="table-responsive" id="table_connote">
                                         <table width="500" class="table table-striped table-bordered table-hover" id="tblhouse">
                                               <thead>
@@ -119,7 +215,61 @@
           </div>
          </div>
          
-         
+ <div id="modaladdCharge" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:1000; position:;">
+    
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Add Invoice</h3>
+            </div>
+            <div class="smart-form scroll">
+<form method="post" action="<?php echo site_url('transaction/add_update_om_charges')?>" target="new"> 
+                    <div class="modal-body">
+                     
+                   
+<div class="form-group">
+                        <label class="col-sm-3 control-label">HouseNo/SMU </label>
+                        <div class="col-sm-9"><span class="controls">
+                        <input name="idhouse" type="text" class="form-control" id="idhouse" required="required" />
+                        </span></div>
+                        <div class="clearfix"></div>
+  </div>
+<div class="form-group">
+                        <label class="col-sm-3 control-label">Origin &nbsp;</label>
+                        <div class="col-sm-9"><span class="controls">
+                        <input name="idorigin" type="text" class="form-control" id="idorigin" required />
+</span></div>
+                        <div class="clearfix"></div>
+                      </div>
+  <div class="form-group">
+                        <label class="col-sm-3 control-label">Destination &nbsp; </label>
+                        <div class="col-sm-9"><span class="controls">
+                        <input name="iddestination" type="text" class="form-control" id="iddestination" required />
+</span></div>
+                        <div class="clearfix"></div>
+                      </div>
+<div class="form-group">
+                        <label class="col-sm-3 control-label">CWT &nbsp; </label>
+                        <div class="col-sm-9"><span class="controls">
+                        <input name="idcwt" type="text" class="form-control" id="idcwt" required />
+</span></div>
+                        <div class="clearfix"></div>
+                      </div>                    
+<div class="col-sm-12"><i class="fa fa-spinner fa-pulse fa-2x" style="display:none"></i></div>
+  <div class="modal-footer">
+<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
+                        <button class="btn btn-primary" id="savecharges"> Save</button>
+    </div>
+                    </div>
+            
+             </form>  
+            </div>
+        </div>
+    </div>
+    </div>
+    
+            
  <!-- ading form -->
  <div id="modaladding" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:1000; position:absolute">
     
@@ -144,6 +294,8 @@
         </div>
     </div>
     </div>
+
+
          
 <script type="text/javascript">
 	

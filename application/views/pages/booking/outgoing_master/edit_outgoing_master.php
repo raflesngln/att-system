@@ -188,7 +188,7 @@ function toRp(angka){
             <?php }?>   
       <div class="header col-md-11">
 <p class="text-center konfirm" id="konfirm">&nbsp;</p>
-                <h4><i class="fa fa-edit bigger-120"></i> &nbsp;  Outgoing House:: EDIT MASTER</h4>
+                <h4><i class="fa fa-edit bigger-120"></i> &nbsp;  Outgoing Master:: EDIT MASTER</h4>
             </div>
       
 
