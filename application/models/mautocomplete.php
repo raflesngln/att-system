@@ -8,6 +8,7 @@ class Mautocomplete extends CI_Model{
        $this->db->select('*')->from('outgoing_master');
         $this->db->like('HouseNo',$keyword,'after');
 		$this->db->where('status_proses','0');
+		$this->db->where('status_proses','0');
         $query = $this->db->get();    
         
         return $query->result();

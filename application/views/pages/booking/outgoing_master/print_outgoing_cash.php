@@ -28,15 +28,15 @@ p{ margin-top:-8px;}
 <p> &nbsp; &nbsp; Pergudangan Domestic IF-6/G-1</p>
 <p style="margin-left:60px"> Juanda Airport</p>
 <p style="margin-left:60px"> Phone : (031) 8688511 , 72597371</p>
-
-<h1 style="text-align:center; margin-top:-44px; text-decoration:underline">OUTGOING MASTER CASH</h1>
-
-<hr style="border:1px #999 dashed" />
        <?php 
  $no=1;
  foreach($header as $row){
 
         ?>
+<h1 style="text-align:center; margin-top:-44px; text-decoration:underline">OUTGOING MASTER CASH</h1>
+<h1 style="text-align:center; margin-top:-12px; font-size:18px"><?php echo $row->InvoiceNo;?></h1>
+<hr style="border:1px #999 dashed" />
+
 <table width="800" border="0" id="tabel">
   <tr>
     <td width="22%">Invoice.........................</td>

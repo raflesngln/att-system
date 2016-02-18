@@ -189,8 +189,9 @@ function toRp(angka){
 													</li>
 
 													<li>
-													<a data-toggle="tab" href="#profile"><i class="fa fa-plus"></i> Entry Outgoing Master</a></li>
-												</ul>
+													<a data-toggle="tab" href="#profile"><i class="fa fa-plus"></i> Entry Outgoing Master</a>
+                                                    </li>
+										</ul>
 											</div>
 										</div>
 

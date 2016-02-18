@@ -97,15 +97,29 @@ class Transaction extends CI_Controller{
       //$this->load->view('home/home',$data);
     }
 	
+  function cek_house_invoice(){
+     $nomor=$this->input->post('idhouse');
+
+	$result=$this->model_app->getdata('invoice',"WHERE HouseNo='$nomor'");
+	if($result){
+	$data['pesan']='Nomor House Sudah ada didalam Invoice';
+	$this->load->view('pages/booking/outgoing_master/info',$data);
+	}
+	else
+	{
+		$data['pesan']='';
+		 $this->load->view('pages/booking/outgoing_master/info',$data); 
+	}   
+}	
   function detail_outgoing_master(){
      $nomor=$this->input->post('nomor');
 
 	$data['master']=$this->model_app->getdata('booking_items a',
 	"inner join outgoing_master b on a.HouseNo=b.HouseNo
 	WHERE a.HouseNo='$nomor'");
-		$data['pesan']='data berhasil di load';
+	$data['pesan']='data berhasil di load';
 
-        $this->load->view('pages/booking/outgoing_master/detail_master',$data);
+      $this->load->view('pages/booking/outgoing_master/detail_master',$data);
 }
  function detail_outgoing_house(){
      $nomor=$this->input->post('nomor');
@@ -971,7 +985,9 @@ function domestic_outgoing_master(){
             'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
             'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
             'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
-            'master'=>$this->model_app->getdatapaging("*","outgoing_master","ORDER BY HouseNo DESC LIMIT $offset,$limit"),
+            'master'=>$this->model_app->getdatapaging("a.HouseNo,a.ETD,a.Service,a.Origin,a.Destination,a.Shipper,a.Consigne","outgoing_master a",
+			"LEFT join invoice b on a.HouseNo=b.HouseNo
+			ORDER BY a.HouseNo DESC LIMIT $offset,$limit"),
             'view'=>'pages/booking/outgoing_master/outgoing_master',
         );  
 			$tot_hal = $this->model_app->hitung_isi_tabel("*","outgoing_master","ORDER BY HouseNo DESC");
@@ -997,7 +1013,6 @@ function domestic_outgoing_master(){
 		$config['prev_tagl_close'] = "</li>";
       	$this->pagination->initialize($config);
 		$data["paginator"] =$this->pagination->create_links();
-		
        $this->load->view('home/home',$data);
     }
 	
@@ -1341,7 +1356,7 @@ function print_outgoing_master(){
    
  			$this->load->view('home/home',$data);
     }  
-function print_invoice_OM(){
+function add_invoice(){
 
 	$kode=$this->input->post('houseno');
 	$data=array(
@@ -1375,6 +1390,120 @@ function print_invoice_OM(){
 			exit;
 		}
 }
+function print_invoice_OM(){
+	
+	$kode=$this->input->post('houseno');
+	$search=$this->model_app->getdatapaging("*","outgoing_master a",
+	"INNER JOIN invoice c on a.HouseNO=c.HouseNo
+	WHERE a.HouseNo='$kode' ORDER BY a.CreateDate DESC LIMIT 1");
+	foreach($search as $row){
+	$paycode=$row->PayCode;
+	
+	if($paycode=="CRD-CREDIT"){
+	$view='print_outgoing_credit';
+	 } 
+	 else 
+	 {
+	$view='print_outgoing_cash';
+	 }
+	$data=array(
+     'title'=>'Invoice Cash',
+     'header'=>$this->model_app->getdatapaging("*","outgoing_master a",
+	"INNER JOIN ms_customer b on a.Shipper=b.custCode
+	 INNER JOIN invoice c on a.HouseNO=c.HouseNo
+	WHERE a.HouseNo='$kode' ORDER BY a.CreateDate DESC LIMIT 1"),
+	
+	'consigne'=>$this->model_app->getdatapaging("*","outgoing_master a",
+	"INNER JOIN ms_customer b on a.Consigne=b.custCode
+	WHERE a.HouseNo='$kode' ORDER BY a.CreateDate DESC LIMIT 1"),
+	
+	'list'=>$this->model_app->getdatapaging("*","outgoing_master a",
+	"INNER JOIN booking_charges b on a.HouseNo=b.HouseNo
+	WHERE a.HouseNo='$kode'
+	ORDER BY a.CreateDate DESC"),
+	);
+
+		ob_start();
+		$content = $this->load->view('pages/booking/outgoing_master/'.$view,$data);
+		$content = ob_get_clean();		
+		$this->load->library('html2pdf');
+		try
+		{
+			$html2pdf = new HTML2PDF('P', 'A4', 'fr');
+			$html2pdf->pdf->SetDisplayMode('fullpage');
+			$html2pdf->writeHTML($content, isset($_GET['vuehtml']));
+			$html2pdf->Output('print_outgoing_cash.pdf');
+		}
+		catch(HTML2PDF_exception $e) {
+			echo $e;
+			exit;
+		}
+	 }
+
+}
+
+function print_save_invoice_OM(){
+	$getInvoice=$this->model_app->getInvoice();
+		$kode=$this->input->post('houseno');
+	$search=$this->model_app->getdatapaging("*","outgoing_master",
+	"WHERE HouseNo='$kode' ORDER BY CreateDate DESC LIMIT 1");
+	foreach($search as $row){
+	$paycode=$row->PayCode;
+	
+	if($paycode=="CRD-CREDIT"){
+	$view='print_outgoing_credit';
+	 } 
+	 else 
+	 {
+	$view='print_outgoing_cash';
+	 }
+
+	$data=array(
+     'title'=>'laporan jurnal',
+     'header'=>$this->model_app->getdatapaging("*","outgoing_master a",
+	"INNER JOIN ms_customer b on a.Shipper=b.custCode
+	WHERE a.HouseNo='$kode' ORDER BY a.CreateDate DESC LIMIT 1"),
+	'consigne'=>$this->model_app->getdatapaging("*","outgoing_master a",
+	"INNER JOIN ms_customer b on a.Consigne=b.custCode
+	WHERE a.HouseNo='$kode' ORDER BY a.CreateDate DESC LIMIT 1"),
+	
+	'list'=>$this->model_app->getdatapaging("*","outgoing_master a",
+	"INNER JOIN booking_charges b on a.HouseNo=b.HouseNo
+	WHERE a.HouseNo='$kode'
+	ORDER BY a.CreateDate DESC"),
+	'invoice'=>$getInvoice
+	);
+	$insert_invoice=array(
+		'InvoiceNo' =>$getInvoice,
+		'HouseNo' =>$kode,
+		'CreateBy' =>$this->session->userdata('idusr'),
+		'CreateDate' =>date('Y-m-d H:i:s'),
+		'InvoiceStatus' =>'1'
+		);
+		$updatemaster=array(
+		'status_proses'=>'1'
+		);	
+		$this->model_app->update('outgoing_master','HouseNo',$kode,$updatemaster);	
+		$save=$this->model_app->insert('invoice',$insert_invoice);
+
+		ob_start();
+		$content = $this->load->view('pages/booking/outgoing_master/'.$view,$data);
+		$content = ob_get_clean();		
+		$this->load->library('html2pdf');
+		try
+		{
+			$html2pdf = new HTML2PDF('P', 'A4', 'fr');
+			$html2pdf->pdf->SetDisplayMode('fullpage');
+			$html2pdf->writeHTML($content, isset($_GET['vuehtml']));
+			$html2pdf->Output('print_outgoing_cash.pdf');
+		}
+		catch(HTML2PDF_exception $e) {
+			echo $e;
+			exit;
+		}
+	}
+}
+
 //     DATA TO PDF 
   function print_outgoing_house(){
 //==============  Save charges and items inevery table refer to SMU number =======================//
@@ -1496,7 +1625,7 @@ $OutHouse=array(
         }
      // $this->load->view('pages/booking/printview/printview_outgoing_house',$data);
     }  
-
+	
    function barang(){
 	   $data=$this->model_app->getdata('barang',"");
 	   $this->load->view('pages/booking/data_barang',$data);

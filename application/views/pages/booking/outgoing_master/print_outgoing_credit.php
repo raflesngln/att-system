@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Documento sin título</title>
+<title></title>
 <style>
 *{
 	font-size:12px;
@@ -28,15 +28,15 @@ p{ margin-top:-8px;}
 <p> &nbsp; &nbsp; Pergudangan Domestic IF-6/G-1</p>
 <p style="margin-left:60px"> Juanda Airport</p>
 <p style="margin-left:60px"> Phone : (031) 8688511 , 72597371</p>
-
-<h1 style="text-align:center; margin-top:-44px; text-decoration:underline">OUTGOING MASTER CREDIT</h1>
-
-<hr style="border:1px #999 dashed" />
        <?php 
  $no=1;
  foreach($header as $row){
 
         ?>
+<h1 style="text-align:center; margin-top:-44px; text-decoration:underline">OUTGOING MASTER CREDIT</h1>
+<h1 style="text-align:center; margin-top:-12px; font-size:18px"><?php echo $row->InvoiceNo;?></h1>
+<hr style="border:1px #999 dashed" />
+
 <table width="800" border="0" id="tabel">
   <tr>
     <td width="22%">Invoice.........................</td>
@@ -46,13 +46,17 @@ p{ margin-top:-8px;}
     <div id="right-header">
     <?php
 	foreach($consigne as $con){
+	$flight1=explode("/",$con->FlightNumbDate1);
+	$flight2=explode("/",$con->FlightNumbDate2);
+	$flight3=explode("/",$con->FlightNumbDate3);
+	
 	?>
     <p>Consisgne........... : &nbsp;<?php echo $con->custName;?></p>
     <p>Phone................. :  &nbsp;<?php echo $con->Phone;?></p>
     <p>City..................... : &nbsp;<?php echo $con->cyCode;?></p>
     <p>&nbsp;</p>
     <p>Airline.................. : &nbsp;<?php echo $con->Airlines;?></p>
-    <p>Flight Numner...... : &nbsp;<?php echo $con->FlightNumber;?></p>
+    <p>Flight Numner...... : &nbsp;<?php echo $flight1[0].' / '.$flight2[0].' / '.$flight3[0];?></p>
     <p>CWT.................... : &nbsp;<?php echo $con->CWT;?></p>
     <p>GWT.................... : &nbsp;<?php echo $con->CWT;?></p>
     <p>AWB (SMU)......... : &nbsp;<?php echo $con->CWT;?></p>
@@ -93,7 +97,7 @@ p{ margin-top:-8px;}
   </tr>
   <tr>
     <td>Pisecs...........................</td>
-    <td>: <?php echo $row->CWT;?></td>
+    <td>: <?php echo $row->grandPCS;?></td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
@@ -113,37 +117,35 @@ p{ margin-top:-8px;}
     <td style="border-top:2px #999 solid; padding:10px 15px">Commodity</td>
     <td style="border-top:2px #999 solid; padding:10px 15px">Ref</td>
     <td style="border-top:2px #999 solid; padding:10px 15px">Flight</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px;">AWB/SMU</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px;">PCS</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px;">GWT (KG)</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px;">CWT (KG)</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px; width:30px">AWB/SMU</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px; width:30px">PCS</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px; width:30px">GWT</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px; width:30px">CWT</td>
   </tr>
    <?php 
  $no=1;
  foreach($list as $items){
-	 $berat=$items->Berat;
-	 $t_berat+=$berat;
 	 $cwt=$items->CWT;
-	 $t_cwt+=$cwt;
+	 $total+=$cwt;
 
         ?>
   <tr>
     <td height="26" ><?php echo $no;?></td>
-    <td style="width:200px"><?php echo $items->Commodity;?></td>
-    <td style="text-align:right"><?php echo $items->SpecialIntraction; ?></td>
-    <td style="text-align:right"><?php echo $items->Unit; ?></td>
-    <td style="text-align:right">&nbsp; &nbsp; &nbsp;<?php echo $items->JobNo; ?></td>
-    <td style="text-align:right"><?php echo $items->grandPCS; ?></td>
-    <td style="text-align:right"><?php echo $items->CWT; ?></td>
-    <td style="text-align:right">&nbsp; &nbsp; &nbsp;<?php echo $items->CWT; ?></td>
+    <td style="width:160px"><?php echo $items->Commodity;?></td>
+    <td style="text-align:right"><span style="width:190px"><?php echo $flight1[0].'/'.$flight2[0];?></span></td>
+    <td style="text-align:right"><span style="width:190px"><?php echo $items->Airlines;?></span></td>
+    <td style="text-align:right">&nbsp; &nbsp; &nbsp;<span style="width:160px"><?php echo $items->HouseNo;?></span></td>
+    <td style="text-align:center"><?php echo number_format($items->grandPCS,0,'.','.'); ?></td>
+    <td style="text-align:center"><?php echo number_format($items->CWT,0,'.','.'); ?></td>
+    <td style="text-align:center"><?php echo number_format($items->CWT,0,'.','.'); ?></td>
   </tr>
   <?php $no++; } ?>
   <tr>
     <td height="18" colspan="4"><div align="left"><strong>Total &nbsp; </strong></div></td>
     <td style="text-align:right">&nbsp;</td>
     <td style="text-align:right">&nbsp;</td>
-    <td style="text-align:right">&nbsp;</td>
-    <td style="text-align:right">&nbsp;</td>
+    <td style="text-align:center"><strong><?php echo number_format($total,0,'.','.'); ?></strong></td>
+    <td style="text-align:center"><strong><?php echo number_format($total,0,'.','.'); ?></strong></td>
   </tr>
 </table>
 
@@ -161,7 +163,7 @@ p{ margin-top:-8px;}
   </tr>
   <tr>
     <td height="95">(.....................................................)</td>
-    <td>(........................Admin.......................)</td>
+    <td>(.....................Admin......................)</td>
     <td>(..................................................)</td>
   </tr>
 </table>

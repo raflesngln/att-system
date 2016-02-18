@@ -129,7 +129,7 @@ $("#idhouse").autocomplete({
                 
                                     <div class="form-group">
 <div class="row">
-<div class="col-sm-12 text-left" style="margin-left:30px"><a class="btn btn-primary btn-addnew btn-rounded" id="addinvoice" href="#modaladdCharge" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> ADD INVOICE</a></div>
+<div class="col-sm-12 text-left" style="margin-left:30px"><a class="btn btn-primary btn-addnew btn-rounded" id="addinvoice" href="#modalInvoice" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> ADD INVOICE</a></div>
 <div class="col-sm-4" style="margin-left:30px"><h2><span class="label label-large label-pink arrowed-in-right"><strong>List Outgoing Master / SMU</strong></span></h2></div>
 
 </div>
@@ -215,7 +215,7 @@ $("#idhouse").autocomplete({
           </div>
          </div>
          
- <div id="modaladdCharge" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:1000; position:;">
+ <div id="modalInvoice" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:1000; position:;">
     
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -224,46 +224,47 @@ $("#idhouse").autocomplete({
                 <h3 id="myModalLabel">Add Invoice</h3>
             </div>
             <div class="smart-form scroll">
-<form method="post" action="<?php echo site_url('transaction/add_update_om_charges')?>" target="new"> 
+<form method="post" action="<?php echo site_url('transaction/print_save_invoice_OM')?>" target="new"> 
+                  
                     <div class="modal-body">
                      
                    
 <div class="form-group">
                         <label class="col-sm-3 control-label">HouseNo/SMU </label>
                         <div class="col-sm-9"><span class="controls">
-                        <input name="idhouse" type="text" class="form-control" id="idhouse" required="required" />
+                        <input name="houseno" type="text" class="form-control" id="idhouse" required="required" />
                         </span></div>
                         <div class="clearfix"></div>
   </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Origin &nbsp;</label>
                         <div class="col-sm-9"><span class="controls">
-                        <input name="idorigin" type="text" class="form-control" id="idorigin" required />
+                        <input name="idorigin" type="text" class="form-control" id="idorigin" required readonly="readonly"/>
 </span></div>
                         <div class="clearfix"></div>
                       </div>
   <div class="form-group">
                         <label class="col-sm-3 control-label">Destination &nbsp; </label>
                         <div class="col-sm-9"><span class="controls">
-                        <input name="iddestination" type="text" class="form-control" id="iddestination" required />
+                        <input name="iddestination" type="text" class="form-control" id="iddestination" required readonly="readonly"/>
 </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">CWT &nbsp; </label>
                         <div class="col-sm-9"><span class="controls">
-                        <input name="idcwt" type="text" class="form-control" id="idcwt" required />
+                        <input name="idcwt" type="text" class="form-control" id="idcwt" required readonly="readonly"/>
 </span></div>
                         <div class="clearfix"></div>
-                      </div>                    
-<div class="col-sm-12"><i class="fa fa-spinner fa-pulse fa-2x" style="display:none"></i></div>
+                      </div>  
+<div id="detail_outgoing" class="detail_outgoing"></div>                  
   <div class="modal-footer">
 <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary" id="savecharges"> Save</button>
+                        <button class="btn btn-primary" id="btn-invoice"> Generate INV</button>
     </div>
                     </div>
             
-             </form>  
+             </form> 
             </div>
         </div>
     </div>
@@ -298,7 +299,35 @@ $("#idhouse").autocomplete({
 
          
 <script type="text/javascript">
+$("#idhouse").click(function(){
+	$("#idorigin").val('');
+	$("#iddestination").val('');
+	$("#idcwt").val('');
 	
+});
+
+ $("#btn-invoice").click(function(){
+	var idhouse=$("#idhouse").val();
+	var idorigin=$("#idorigin").val();
+			$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('transaction/cek_house_invoice'); ?>",
+                data: "idhouse="+idhouse,
+                success: function(data){
+				   $('.detail_outgoing').html(data);
+				   	$("#idorigin").val('');
+	$("#iddestination").val('');
+	$("#idcwt").val('');
+                }
+            });
+			
+if(idorigin==""){
+	alert('Data Tidak boleh kosong');
+	return false;
+}
+
+	
+ });
 	 $(".dethouse").click(function(){
           var nomor=$(this).html();
              // alert('hai' + idcnote);
