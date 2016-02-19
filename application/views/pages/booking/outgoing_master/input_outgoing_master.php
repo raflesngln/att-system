@@ -494,7 +494,7 @@ function toRp(angka){
                                               <div class="col-sm-8"><input type="text" name="declare" id="declare" class="form-control"></div>
                                              </div>
                                               <div class="col-md-12">
-                                              <label class="col-sm-3">Description of Shipment &nbsp;</label>
+                                              <label class="col-sm-3">Desc  of Shipment &nbsp;</label>
                                               <div class="col-sm-8">
                                               <textarea name="description" id="declare" class="form-control"></textarea>
                                               </div>
@@ -578,9 +578,7 @@ $grandt+=$chr->Total;
 
       </form>
   </div>
-            </div>
-              
-
+    </div>
 
 <!--adding form-->
 <div id="modaladd" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
