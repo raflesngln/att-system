@@ -141,7 +141,7 @@ p{ margin-top:-8px;}
   <tr>
     <td height="18" colspan="4"><div align="left"><strong>Total &nbsp; </strong></div></td>
     <td style="text-align:right">&nbsp;</td>
-    <td style="text-align:right"><strong><?php echo number_format($total,0,'.','.'); ?></strong></td>
+    <td style="text-align:right"><strong>Rp. <?php echo number_format($total,0,'.','.').' ,-'; ?></strong></td>
   </tr>
 </table>
 

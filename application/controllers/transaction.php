@@ -462,9 +462,12 @@ function laporan_outgoing_master(){
 		$format1=date("d M Y",strtotime($tgl1));
 		$format2=date("d M Y",strtotime($tgl2));
 
-		$data['master']=$this->model_app->getdata("outgoing_master",
-		"WHERE LEFT(ETD,10) BETWEEN '$tgl1' AND '$tgl2' 
-		ORDER BY HouseNo DESC");
+		$data['master']=$this->model_app->getdata("outgoing_master a",
+		"INNER JOIN invoice b on a.HouseNo=b.HouseNo
+		INNER JOIN ms_customer c on c.custCode=a.Shipper 
+		WHERE LEFT(a.ETD,10) BETWEEN '$tgl1' AND '$tgl2'
+		 AND a.PayCode='CSH-CASH' 
+		ORDER BY a.HouseNo DESC");
 		$data['periode']=$format1.' s/d '.$format2;
 
 
@@ -962,7 +965,7 @@ function delete_outgoing_master(){
       $this->load->view('home/home',$data);
     }
 
-     //     DATA TO SESSION
+     //===DATA TO SESSION
 function domestic_outgoing_master(){
 	 $idusr=$this->session->userdata('idusr');
 		$page=$this->uri->segment(3);
@@ -972,7 +975,6 @@ function domestic_outgoing_master(){
 		else:
 		$offset = $page;
 		endif;
-		
         $data = array(
             'title'=>'domesctic-outgoing-master',
             'scrumb_name'=>'Domesctic outgoing master',
@@ -985,7 +987,7 @@ function domestic_outgoing_master(){
             'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
             'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
             'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
-            'master'=>$this->model_app->getdatapaging("a.HouseNo,a.ETD,a.Service,a.Origin,a.Destination,a.Shipper,a.Consigne","outgoing_master a",
+            'master'=>$this->model_app->getdatapaging("a.HouseNo,a.ETD,a.Service,a.Origin,a.Destination,a.Shipper,a.Consigne,a.PayCode","outgoing_master a",
 			"LEFT join invoice b on a.HouseNo=b.HouseNo
 			ORDER BY a.HouseNo DESC LIMIT $offset,$limit"),
             'view'=>'pages/booking/outgoing_master/outgoing_master',
@@ -1000,7 +1002,7 @@ function domestic_outgoing_master(){
 			$config['last_link'] = '&raquo;';
 			$config['next_link'] = 'Next';
 			$config['prev_link'] = 'Prev';
-	//STYLE PAGIN FOR BOOTSTRAP
+	        //STYLE PAGIN FOR BOOTSTRAP
 		$config['full_tag_open'] = "<ul class='pagination'>";
 		$config['full_tag_close'] ="</ul>";
 		$config['num_tag_open'] = '<li>';
@@ -1015,7 +1017,6 @@ function domestic_outgoing_master(){
 		$data["paginator"] =$this->pagination->create_links();
        $this->load->view('home/home',$data);
     }
-	
 	
   //     DATA TO SESSION
     function domestic_incoming_master(){
@@ -1130,7 +1131,7 @@ function hapus_item_temp(){
             'scrumb'=>'transaction/domestic_outgoing_master',
             'view'=>'pages/booking/outgoing_master/confirm',
         );  
- 			$this->load->view('home/home',$data);		
+ 		$this->load->view('home/home',$data);		
     }
 	
 function print_outgoing_master(){

@@ -5,7 +5,7 @@
 <title>Documento sin título</title>
 <style>
 *{
-	font-size:10px;
+	font-size:9px;
 }
 .tabelll{
 	width:900px;
@@ -13,16 +13,16 @@
 .mytable tr td{ border-bottom:1px #999 solid;
 }
 .header tr td{border-top:1px #9F3 solid;}
-h2{font-size:18px;}
-h3{text-align:center; font-size:12px; margin-top:-10px; font-weight:normal}
+h1{font-size:18px; text-align:center; font-weight:normal}
+h2{font-size:14px; text-align:center; margin-top:-10px}
+h3{text-align:center; margin-top:-10px; font-size:14px; font-weight:normal}
 p{ margin-top:-8px}
 </style>
 </head>
 
 <body>
-
-<h2 style="text-align:center">Laporan Outgoing Master</h2>
-<h3>PT. Expresindo System Network</h3>
+<h1>PT. Expresindo System Network</h1>
+<h2>Domestic Daily Report Outgoing Master</h2>
 <h3>Periode :  <?php echo $periode;?></h3>
 
        <?php 
@@ -36,28 +36,31 @@ p{ margin-top:-8px}
 
 <table width="200" border="0" class="mytable">
   <tr style="background:#EBEBEB">
-    <td style="border-top:2px #999 solid; padding:10px 15px">No House</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px"">Tanggal</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px"">Paycode</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px"">Service</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px"">Origin</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px"">Destination</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px"">Shipper</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px"">Consignee</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px">Invoice</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px"">Customer</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px"">ORI-DEST</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px"">AWB/SMU</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px"">PCS</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px"">CWT</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px"">Rate</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px"">Amount</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px"">Created</td>
   </tr>
  <?php 
  $no=1;
  foreach($master as $items){
         ?>
   <tr>
-    <td ><?php echo $items->HouseNo;?></td>
-    <td ><?php echo date("d-m-Y",strtotime($items->ETD)); ?></td>
-    <td ><?php echo $items->PayCode;?></td>
-    <td ><?php echo $items->Service;?></td>
-    <td ><?php echo $items->Origin;?></td>
-    <td><?php echo $items->Destination;?></td>
-    <td>&nbsp; &nbsp; &nbsp;<?php echo $items->Shipper;?></td>
-    <td>&nbsp; &nbsp; &nbsp;<?php echo $items->Consigne;?></td>
+    <td ><?php echo $items->InvoiceNo;?></td>
+    <td style="width:130px"><?php echo $items->custName;?></td>
+    <td style="width:120px"><?php echo substr($items->Origin,4,30);?>-<?php echo substr($items->Destination,4,30);?></td>
+    <td style="width:90px"><?php echo $items->HouseNo;?></td>
+    <td style="width:10px"><?php echo $items->grandPCS;?>
+    <div align="center"></div></td>
+    <td style="width:10px"><?php echo $items->grandPCS;?></td>
+    <td style="width:10px"><?php echo $items->grandPCS;?></td>
+    <td style="width:10px">&nbsp;<?php echo $items->Shipper;?></td>
+    <td style="width:10px">&nbsp;<?php echo $items->CreateBy;?></td>
   </tr>
   <?php $no++; } ?>
 </table>
