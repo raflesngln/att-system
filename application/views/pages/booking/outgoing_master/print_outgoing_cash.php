@@ -5,7 +5,7 @@
 <title>Documento sin título</title>
 <style>
 *{
-	font-size:12px;
+	font-size:11px;
 }
 .tabelll{
 	width:900px;
@@ -17,8 +17,6 @@ h3{font-size:14px; margin-top:-10px}
 p{ margin-top:-8px;}
 #logo{height:90xp; width:50px; float:left}
 #right-header{margin-top:-8px}
-
-
 </style>
 </head>
 
@@ -39,7 +37,7 @@ p{ margin-top:-8px;}
 
 <table width="800" border="0" id="tabel">
   <tr>
-    <td width="22%">Invoice.........................</td>
+    <td width="22%">AWB/SMU.........................</td>
     <td width="21%">: <strong><?php echo $row->HouseNo;?></strong></td>
     <td width="26%" rowspan="9"><p style="color:#FFF">.....................................</p></td>
     <td width="31%" rowspan="9">
@@ -59,7 +57,7 @@ p{ margin-top:-8px;}
     <p>Flight Numner...... : &nbsp;<?php echo $flight1[0].' / '.$flight2[0].' / '.$flight3[0];?></p>
     <p>CWT.................... : &nbsp;<?php echo $con->CWT;?></p>
     <p>GWT.................... : &nbsp;<?php echo $con->CWT;?></p>
-    <p>AWB (SMU)......... : &nbsp;<?php echo $con->CWT;?></p>
+    
     <?php } ?>
     </div>
 </td>
@@ -74,7 +72,7 @@ p{ margin-top:-8px;}
   </tr>
   <tr>
     <td>Dest / Origin..................</td>
-    <td> ; <?php echo $row->Destination;?> / <?php echo $row->Origin;?></td>
+    <td> ; <?php echo substr($row->Destination,4,30);?> / <?php echo substr($row->Origin,4,30);?></td>
   </tr>
   <tr>
     <td>Shipper.........................</td>
@@ -96,14 +94,14 @@ p{ margin-top:-8px;}
     <td>: <?php echo $row->Commodity;?></td>
   </tr>
   <tr>
-    <td>Pisecs...........................</td>
-    <td>: <?php echo $row->CWT;?></td>
+    <td>Pieces...........................</td>
+    <td>: <?php echo $row->grandPCS;?></td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
     <td>Reference...................</td>
-    <td>: <?php echo $row->CWT;?></td>
+    <td>: <?php echo $row->SpecialIntraction;?></td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
@@ -139,28 +137,26 @@ p{ margin-top:-8px;}
   </tr>
   <?php $no++; } ?>
   <tr>
-    <td height="18" colspan="4"><div align="left"><strong>Total &nbsp; </strong></div></td>
-    <td style="text-align:right">&nbsp;</td>
-    <td style="text-align:right"><strong>Rp. <?php echo number_format($total,0,'.','.').' ,-'; ?></strong></td>
+    <td height="18" colspan="5"><div align="right"><label style="margin-right:20px; margin-top:9px; font-weight:bold">TOTAL &nbsp;</label></div></td>
+    <td style="text-align:right"><label style="font-size:13px; font-weight:bold">Rp. <?php echo number_format($total,0,'.','.'); ?></label></td>
   </tr>
 </table>
 
-
-<table width="673" border="0">
+<table width="786" border="0">
   <tr>
-    <td height="35">&nbsp;</td>
+    <td height="35"><h5>REMARK :</h5></td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td width="227"><div align="left"><span class="item">&nbsp;  Received from</span></div></td>
-    <td width="231"><div align="left"><span class="item">&nbsp; Received By</span></div></td>
-    <td width="193"><div align="center"><span class="item">Approived By</span></div></td>
+    <td width="227"><div align="left"><span class="item"><label style="margin-left:30px; margin-top:-19px">Received from</label></span></div></td>
+    <td width="231"><div align="left"><span class="item"><label style="margin-left:50px">Received By</label></span></div></td>
+    <td width="193"><div align="left"><span class="item"><label style="margin-left:70px">Approived By</label></span></div></td>
   </tr>
   <tr>
-    <td height="95">(.....................................................)</td>
-    <td>(.....................Admin......................)</td>
-    <td>(..................................................)</td>
+    <td><label style="margin-left:20px; margin-top:40px">................................</label></td>
+    <td><label style="margin-left:30px;margin-top:40px; text-align:justify; text-decoration:underline; font-weight:normal"><em><?php echo $this->session->userdata('nameusr');?></em></label></td>
+    <td><label style="margin-left:50px;margin-top:40px">.................................</label></td>
   </tr>
 </table>
 

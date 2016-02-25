@@ -129,7 +129,13 @@ $("#idhouse").autocomplete({
                 
                                     <div class="form-group">
 <div class="row">
-<div class="col-sm-12 text-left" style="margin-left:30px"><a class="btn btn-primary btn-addnew btn-rounded" id="addinvoice" href="#modalInvoice" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> ADD INVOICE</a></div>
+
+<div class="col-sm-8">
+<div class="col-sm-5" style="margin-left:30px"><a class="btn btn-primary btn-addnew btn-rounded" id="addinvoice" href="#modalInvoice" data-toggle="modal" title="Add item"><i class="fa fa-envelope-o"></i>&nbsp; Add Invoice</a></div>
+<div class="col-sm-5 text-left" style="margin-left:-150px"><a class="btn btn-primary btn-addnew btn-rounded" id="addinvoice" href="<?php echo base_url();?>transaction/add_soa"><i class="fa fa-share-square-o"></i>&nbsp; Add SOA</a></div>
+</div>
+
+
 <div class="col-sm-4" style="margin-left:30px"><h2><span class="label label-large label-pink arrowed-in-right"><strong>List Outgoing Master / SMU</strong></span></h2></div>
 
 </div>
@@ -353,7 +359,7 @@ if(idorigin==""){
                    $('#table_connote').html(data);
                 }
             });
-        });
+  });
 		
 	 $("#btnsearch").click(function(){
             var txtsearch = $('#txtsearch').val();

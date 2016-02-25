@@ -237,7 +237,6 @@ function cargo_manifest(){
     } 
 function search_outgoing_master(){
 		$idusr=$this->session->userdata('idusr'); 
-
         $txtsearch=$this->input->post('txtsearch');
 
 		$page=$this->uri->segment(3);
@@ -249,10 +248,10 @@ function search_outgoing_master(){
 		endif;
 
 	$data['master']=$this->model_app->getdatapaging("*","outgoing_master",
-		"WHERE HouseNo='$txtsearch' 
+		"WHERE HouseNo LIKE '$txtsearch%' 
 		ORDER BY HouseNo DESC LIMIT $offset,$limit");
 	$tot_hal = $this->model_app->hitung_isi_tabel("*","outgoing_master",
-		 "WHERE HouseNo='$txtsearch' ORDER BY HouseNo DESC");
+		 "WHERE HouseNo LIKE '$txtsearch%' ORDER BY HouseNo DESC");
 	//create for pagination		
 			$config['base_url'] = base_url() . 'transaction/search_outgoing_master/';
         	$config['total_rows'] = $tot_hal->num_rows();
@@ -280,10 +279,10 @@ function search_outgoing_house(){
 		endif;
 
 	$data['connote']=$this->model_app->getdatapaging("*","outgoing_connote",
-		"WHERE HouseNo='$txtsearch' 
+		"WHERE HouseNo LIKE '$txtsearch%' 
 		ORDER BY HouseNo DESC LIMIT $offset,$limit");
 	$tot_hal = $this->model_app->hitung_isi_tabel("*","outgoing_connote",
-		 "WHERE HouseNo='$txtsearch' ORDER BY HouseNo DESC");
+		 "WHERE HouseNo LIKE '$txtsearch%' ORDER BY HouseNo DESC");
 	//create for pagination		
 			$config['base_url'] = base_url() . 'transaction/search_outgoing_house/';
         	$config['total_rows'] = $tot_hal->num_rows();
@@ -688,6 +687,7 @@ function cek_cnote(){
 		 
 	redirect('transaction/edit_outgoing_master/'.$house);
     }
+	
      //=====================save cargo manifest ==========
  function add_update_om_charges(){	
  		$house=$this->input->post('house3');
@@ -1050,8 +1050,11 @@ function hapus_item_temp(){
 //=====================save cargo manifest ==========
  function confirm_outgoing_master(){	
 		$getjob=$this->model_app->getJobMaster();
-		$getHouse=$this->model_app->getHouseMasterNo();
-		$etd=$this->input->post('etd');
+		//$getHouse=$this->model_app->getHouseMasterNo();
+		
+		$getHouse=$this->input ->post('house');
+		$etd=$this->input->post(
+		'etd');
 			
 	//====Save charges and items in every table refer to SMU number =====//
 	$pcs=$_POST['pcs'];	
@@ -1090,7 +1093,7 @@ function hapus_item_temp(){
 		);		
 		 $this->model_app->insert('booking_charges',$newcharge);
 	}
-	//----- SAVE OF OUT GOING HOUSE --------------////
+	//----- SAVE OF OUT GOING Master --------------////
 	$insert=array(
 		'HouseNo' =>$getHouse,
 		'JobNo' =>$getjob,
@@ -1112,6 +1115,7 @@ function hapus_item_temp(){
 		'GrossWeight' =>$this->input->post('grossweight2'),
 		'grandVolume' =>$this->input->post('t_volume'),
 		'grandPCS' =>$this->input->post('t_pacs'),
+		'Amount' =>$this->input->post('total_charge'),
 		'SpecialIntraction' =>$this->input->post('special'),
 		'CWT' =>$this->input->post('cwt'),
 		'DeclareValue' =>$this->input->post('declare'),
@@ -1626,6 +1630,18 @@ $OutHouse=array(
         }
      // $this->load->view('pages/booking/printview/printview_outgoing_house',$data);
     }  
+ function add_soa(){	
+ 		$data=array(
+		'title'=>'Adding SOA',
+		'scrumb_name'=>'Adding SOA',
+		'scrumb'=>'transaction/add_soa',
+		'customer'=>$this->model_app->getdata('ms_customer a',
+		"INNER JOIN outgoing_master b on a.custCode=b.Shipper WHERE b.payCode='CRD-CREDIT' GROUP BY a.custCode"),
+		
+		'view'=>'pages/booking/outgoing_master/add_SOA',
+		);
+	$this->load->view('home/home',$data);
+ }
 	
    function barang(){
 	   $data=$this->model_app->getdata('barang',"");

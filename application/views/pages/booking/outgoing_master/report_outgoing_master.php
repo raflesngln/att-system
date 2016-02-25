@@ -11,6 +11,7 @@
 	width:900px;
 }
 .mytable tr td{ border-bottom:1px #999 solid;
+border-left:1px solid #999;
 }
 .header tr td{border-top:1px #9F3 solid;}
 h1{font-size:18px; text-align:center; font-weight:normal}
@@ -22,7 +23,7 @@ p{ margin-top:-8px}
 
 <body>
 <h1>PT. Expresindo System Network</h1>
-<h2>Domestic Daily Report Outgoing Master</h2>
+<h2>Domestic Daily Report Outgoing Master(Cash)</h2>
 <h3>Periode :  <?php echo $periode;?></h3>
 
        <?php 
@@ -34,35 +35,40 @@ p{ margin-top:-8px}
 <?php } ?>
 
 
-<table width="200" border="0" class="mytable">
+<table width="100%" border="0" class="mytable">
   <tr style="background:#EBEBEB">
-    <td style="border-top:2px #999 solid; padding:10px 15px">Invoice</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px"">Customer</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px"">ORI-DEST</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px"">AWB/SMU</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px"">PCS</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px"">CWT</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px"">Rate</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px"">Amount</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px"">Created</td>
+    <td style="border-top:2px #999 solid; padding:5px 8px">Invoice</td>
+    <td style="border-top:2px #999 solid; padding:5px 8px"">Customer/Pengirim</td>
+    <td style="border-top:2px #999 solid; padding:5px 8px"">AWB/SMU</td>
+    <td style="border-top:2px #999 solid; padding:5px 8px"">ORI - DEST</td>
+    <td style="border-top:2px #999 solid; padding:5px 8px"">PCS</td>
+    <td style="border-top:2px #999 solid; padding:5px 8px"">CWT</td>
+    <td style="border-top:2px #999 solid; padding:5px 8px"">Amount</td>
+    <td style="border-top:2px #999 solid; padding:5px 8px"">Created</td>
   </tr>
  <?php 
  $no=1;
  foreach($master as $items){
+	 $amount=$items->Amount;
+	 $t_amount+=$amount;
         ?>
   <tr>
-    <td ><?php echo $items->InvoiceNo;?></td>
+    <td style="width:70px"><?php echo $items->InvoiceNo;?></td>
     <td style="width:130px"><?php echo $items->custName;?></td>
-    <td style="width:120px"><?php echo substr($items->Origin,4,30);?>-<?php echo substr($items->Destination,4,30);?></td>
     <td style="width:90px"><?php echo $items->HouseNo;?></td>
-    <td style="width:10px"><?php echo $items->grandPCS;?>
-    <div align="center"></div></td>
-    <td style="width:10px"><?php echo $items->grandPCS;?></td>
-    <td style="width:10px"><?php echo $items->grandPCS;?></td>
-    <td style="width:10px">&nbsp;<?php echo $items->Shipper;?></td>
-    <td style="width:10px">&nbsp;<?php echo $items->CreateBy;?></td>
+    <td style="width:120px"><?php echo substr($items->Origin,4,30);?>-<?php echo substr($items->Destination,4,30);?></td>
+    <td style="width:10px">&nbsp; <?php echo $items->grandPCS;?></td>
+    <td style="width:8px"> &nbsp; <?php echo number_format($items->CWT,0,'.','.');?></td>
+    <td style="width:70px"><div align="right"><span style="width:8px"><?php echo number_format($items->Amount,0,'.','.');?></span></div></td>
+    <td style="width:70px">&nbsp;<?php echo substr($items->CreateBy,0,13);?></td>
   </tr>
   <?php $no++; } ?>
+  <tr>
+    <td colspan="6" style="width:70px"><div align="right"><strong>TOTAL</strong></div></td>
+    <td style="width:70px"><div align="right"><span style="width:8px; font-weight:bold"><?php echo number_format($t_amount,0,'.','.');?></span></div></td>
+    <td style="width:70px">&nbsp;</td>
+  </tr>
+  
 </table>
 
 </body>
