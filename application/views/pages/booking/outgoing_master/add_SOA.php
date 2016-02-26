@@ -51,7 +51,7 @@ $("#etd2").datepicker({
       
 
 <br style="clear:both">
-<form method="post" action="save.php">
+<form method="post" action="<?php echo base_url();?>transaction/print_SOA" target="new">
 <div class="container">
   <div class="row">
                <!--LEFT INPUT-->
@@ -91,7 +91,7 @@ $("#etd2").datepicker({
           
  <strong><label class="col-sm-4"> Currency</label></strong>
           <div class="col-sm-7">
-            <select name="filter2" id="filter2" class="form-control">
+            <select name="currency" id="currency" class="form-control">
               <option value="IDR">IDR</option>
               <option value="USD">USD</option>
             </select>
@@ -112,7 +112,7 @@ $("#etd2").datepicker({
                         <!--<div class="panel-header"></div>-->
                         
                                     <div class="form-group">
-                                        <div class="table-responsive" id="table_responsive">
+                                        <div class="table-responsive" id="table_soa">
    <table width="200" border="1" class="table table-striped table-bordered table-hover">
   <tr>
     <td>No</td>
@@ -127,21 +127,21 @@ $("#etd2").datepicker({
     <td>Action</td>
     </tr>
   <tr>
-    <td>1</td>
-    <td>rtre</td>
-    <td>rtr</td>
-    <td>rtretre</td>
-    <td>tret</td>
-    <td>rtret</td>
-    <td>rtretre</td>
-    <td>rett</td>
-    <td><div align="right">132132</div></td>
-    <td>ret</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><div align="right"></div></td>
+    <td>&nbsp;</td>
     </tr>
   <tr>
     <td colspan="7"><div align="right">TOTAL</div></td>
     <td>&nbsp;</td>
-    <td><div align="right">13213213</div></td>
+    <td><div align="right"></div></td>
     <td>&nbsp;</td>
     </tr>
 </table>
@@ -297,95 +297,52 @@ $("#etd2").datepicker({
     </div>
 <?php } ?>
 <!--adding form-->
-<div id="modaladd" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add Item</h3>
-            </div>
-            <div class="smart-form scroll">
-                <form method="post" action="<?php echo site_url('master/save_disc')?>">
-                    <div class="modal-body">
-                     
-                   
-<div class="form-group">
-                        <label class="col-sm-3 control-label">No of Packs </label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Length &nbsp; ( P )</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>
-  <div class="form-group">
-                        <label class="col-sm-3 control-label">Width &nbsp; ( L )</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Height &nbsp; ( T )</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>                    
- <div class="form-group">
-                        <label class="col-sm-3 control-label">Volume</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="rp" type="text" class="form-control" placeholder="" id="rp" readonly="readonly" />
-    </span></div>
-                        <div class="clearfix"></div>
-                      </div>
-  <div class="modal-footer">
-<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
-    </div>
-                    </div>
-            
-                </form>
-            </div>
-        </div>
-    </div>
-    </div>
-    
+
 <script type="text/javascript">			
 	$(window).load(function(){
 		$("#loading").fadeOut("slow");
 	})
 	
-$("#txtsearch").keyup(function(){
-
-            var txtsearch = $("#txtsearch").val();
-            $.ajax({
+	 $("#customers").change(function(){
+            var idcust = $("#customers").val();
+			var etd1 = $("#etd1").val();
+			var etd2 = $("#etd2").val();
+          $.ajax({
                 type: "POST",
-                url : "<?php echo base_url('search/search_discount_ajax'); ?>",
-                data: "txtsearch="+txtsearch,
-                cache:false,
+                url : "<?php echo base_url('transaction/filter_soa'); ?>",
+ 				data: "idcust="+idcust+"&etd1="+etd1+"&etd2="+etd2,
+
                 success: function(data){
-                    $('#table_responsive').html(data);
-                    //document.frm.add.disabled=false;
+                    $('#table_soa').html(data);
                 }
             });
         });
-	 $("#filter").change(function(){
-            var filter = $("#filter").val();
+	 $("#etd1").change(function(){
+            var idcust = $("#customers").val();
+			var etd1 = $("#etd1").val();
+			var etd2 = $("#etd2").val();
           $.ajax({
                 type: "POST",
-                url : "<?php echo base_url('search/filter_discount'); ?>",
-                data: "filter="+filter,
+                url : "<?php echo base_url('transaction/filter_soa'); ?>",
+ 				data: "idcust="+idcust+"&etd1="+etd1+"&etd2="+etd2,
+
                 success: function(data){
-                    $('#table_responsive').html(data);
+                    $('#table_soa').html(data);
                 }
             });
+        });
+	 $("#etd2").change(function(){
+            var idcust = $("#customers").val();
+			var etd1 = $("#etd1").val();
+			var etd2 = $("#etd2").val();
+          $.ajax({
+                type: "POST",
+                url : "<?php echo base_url('transaction/filter_soa'); ?>",
+ 				data: "idcust="+idcust+"&etd1="+etd1+"&etd2="+etd2,
 
+                success: function(data){
+                    $('#table_soa').html(data);
+                }
+            });
         });
 </script>

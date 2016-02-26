@@ -1536,7 +1536,6 @@ function print_save_invoice_OM(){
             echo $e;
             exit;
         }
-     // $this->load->view('pages/booking/printview/printview_outgoing_house',$data);
     }  
 //     DATA TO PDF 
   function print_outgoing_house2(){
@@ -1628,7 +1627,6 @@ $OutHouse=array(
             echo $e;
             exit;
         }
-     // $this->load->view('pages/booking/printview/printview_outgoing_house',$data);
     }  
  function add_soa(){	
  		$data=array(
@@ -1642,8 +1640,55 @@ $OutHouse=array(
 		);
 	$this->load->view('home/home',$data);
  }
+ function filter_soa(){
+        $idcust=$this->input->post('idcust');
+		$etd1=$this->input->post('etd1');
+		$etd2=$this->input->post('etd2');
+		
+		$data['list']=$this->model_app->getdata('outgoing_master a',
+		"INNER JOIN ms_customer b on b.custCode=a.Shipper
+		WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust'
+		");
+        $this->load->view('pages/booking/outgoing_master/tabel_SOA',$data);
+}
 	
-   function barang(){
+//   DATA TO PDF 
+function print_SOA(){
+	    $idcust=$this->input->post('customers');
+		$etd1=$this->input->post('etd1');
+		$etd2=$this->input->post('etd2');
+		$currency=$this->input->post('currency');
+	
+		$data=array(
+		'list'=>$this->model_app->getdata("outgoing_master a",
+				"INNER JOIN ms_customer b on b.custCode=a.Shipper
+				WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust'"),
+		'cust'=>$this->model_app->getdata("outgoing_master a",
+				"INNER JOIN ms_customer b on b.custCode=a.Shipper
+				WHERE a.Shipper='$idcust' LIMIT 1"),
+		'idcust'=>$idcust,
+		'etd1'=>$etd1,
+		'etd2'=>$etd2,
+		'currency'=>$currency
+		);
+		
+        ob_start();
+        $content = $this->load->view('pages/booking/outgoing_master/report_SOA',$data);
+        $content = ob_get_clean();      
+        $this->load->library('html2pdf');
+        try
+        {
+            $html2pdf = new HTML2PDF('P', 'A4', 'fr');
+            $html2pdf->pdf->SetDisplayMode('fullpage');
+            $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
+            $html2pdf->Output('Report SOA.pdf');
+        }
+        catch(HTML2PDF_exception $e) {
+            echo $e;
+            exit;
+        }
+}  
+function barang(){
 	   $data=$this->model_app->getdata('barang',"");
 	   $this->load->view('pages/booking/data_barang',$data);
    }
