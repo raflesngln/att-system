@@ -239,6 +239,21 @@ foreach($list as $data){
             </span></div>
                         <div class="clearfix"></div>
                       </div>
+                        <div class="form-group">
+                        <label class="col-sm-3 control-label"> Unit</label>
+                        <div class="col-sm-9"><span class="controls">
+                <input name="unit" type="text" class="form-control"  id="credoit" required="required" value="<?php echo $row->Unit;?>" />
+            </span></div>
+                        <div class="clearfix"></div>
+                      </div>
+<div class="form-group">
+                        <label class="col-sm-3 control-label">Price</label>
+                        <div class="col-sm-9"><span class="controls">
+                <input name="price" type="text" class="form-control"  id="credoit" required="required" value="<?php echo $row->Unit_Price;?>"/>
+            </span></div>
+                        <div class="clearfix"></div>
+                      </div>
+                      
   <div class="form-group">
                         <label class="col-sm-3 control-label">Active Status</label>
                         <div class="col-sm-9"><span class="controls">
@@ -338,6 +353,19 @@ foreach($list as $data){
                         <label class="col-sm-3 control-label">Acc Kredit</label>
                         <div class="col-sm-9"><span class="controls">
                 <input name="credit" type="text" class="form-control"  id="credoit" required="required" />
+            </span></div>
+                        <div class="clearfix"></div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label"> Unit</label>
+                        <div class="col-sm-9"><span class="controls">
+                <input name="unit" type="text" class="form-control"  id="credoit" required="required" />
+            </span></div>
+                        <div class="clearfix"></div>
+                      </div>
+<div class="form-group">
+                        <label class="col-sm-3 control-label">Price</label>
+                        <div class="col-sm-9"><span class="controls">
+                <input name="price" type="text" class="form-control"  id="credoit" required="required" />
             </span></div>
                         <div class="clearfix"></div>
                       </div>

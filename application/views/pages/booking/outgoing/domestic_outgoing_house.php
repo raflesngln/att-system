@@ -381,6 +381,7 @@ sdkjhsjf shfjdshfj  <i class="fa fa-spinner fa-pulse fa-2x" style="display:none"
                             <th><div align="center">Width ( L )</div></th>
                             <th><div align="center">Height ( T )</div></th>
                             <th><div align="center">Volume</div></th>
+                            <th class="text-center">Weight</th>
                             <th class="text-center"><div align="center"><a class="btn btn-primary btn-addnew btn-rounded" href="#modaladd" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add New</a>
                             </div></th>
                           </tr>
@@ -399,7 +400,8 @@ sdkjhsjf shfjdshfj  <i class="fa fa-spinner fa-pulse fa-2x" style="display:none"
                                                   <td colspan="3">Total</td>
                                                   <td><input name="t_volume" type="hidden" id="t_volume" value="0" />      
                                                     <label id="label_volume">0</label>                                           
-                                                  </td>  
+                                                  </td>
+                                                  <td><input name="t_weight" type="hidden" id="t_weight" value="0" /></td>  
                                                   <td>&nbsp;</td>
                                                 </tr>
                                                 </thead>
@@ -583,7 +585,14 @@ $grandt+=$chr->Total;
 </span></div>
                         <div class="clearfix"></div>
                       </div>                    
-
+<div class="form-group">
+                        <label class="col-sm-3 control-label">Height &nbsp; ( T )</label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="tinggi" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="tinggi" />
+</span></div>
+                        <div class="clearfix"></div>
+               </div>
+                      
   <div class="modal-footer">
 <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
                         <button class="btn btn-primary" id="iditems"> Save</button>
