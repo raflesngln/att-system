@@ -949,7 +949,7 @@ function delete_outgoing_master(){
             'title'=>'outgoing_consolidation',
             'scrumb_name'=>'outgoing_consolidation',
             'scrumb'=>'transaction/outgoing_consolidation',
-            'view'=>'pages/booking/outgoing_consolidation',
+            'view'=>'pages/booking/consol/outgoing_consolidation',
         );  
       $this->load->view('home/home',$data);
     }
@@ -1652,7 +1652,15 @@ $OutHouse=array(
 		");
         $this->load->view('pages/booking/outgoing_master/tabel_SOA',$data);
 }
-	
+function filter_consol(){
+        $idcust=$this->input->post('filter');
+		
+		
+		$data['list']=$this->model_app->getdata('outgoing_master',
+		"WHERE Shipper < '$idcust'
+		");
+        $this->load->view('pages/booking/consol/consol_filter',$data);
+}	
 //   DATA TO PDF 
 function print_SOA(){
 	    $idcust=$this->input->post('customers');
