@@ -58,6 +58,7 @@ class Transaction extends CI_Controller{
             'scrumb'=>'transaction/domestic_outgoing_house',
             'payment_type'=>$this->model_app->getdatapaging("payCode,payName","ms_payment_type","ORDER BY payCode ASC"),
             'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
+			'airline'=>$this->model_app->getdata('ms_airline',""),
             'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
             'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
             'city'=>$this->model_app->getdatapaging("cyCode,cyName","ms_city","ORDER BY cyName"),
@@ -1688,6 +1689,12 @@ function print_SOA(){
             exit;
         }
 }  
+function getcost(){
+	$code = $_GET['plane'];
+	
+	   $data=$this->model_app->getdata('ms_airline',"WHERE AirLineCode='$code'");
+	   $this->load->view('pages/booking/data_barang',$data);
+   }
 function barang(){
 	   $data=$this->model_app->getdata('barang',"");
 	   $this->load->view('pages/booking/data_barang',$data);

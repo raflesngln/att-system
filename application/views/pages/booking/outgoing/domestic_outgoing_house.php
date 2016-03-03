@@ -95,12 +95,45 @@ function toRp(angka){
   
   var volum=document.getElementById("t_volume").value;
   
- //if (gross2 >= volum) {
+ if (gross2 >= volum) {
     document.getElementById("cwt").value ='gross 2 lebihh besar';
-//} else {
+} else {
     document.getElementById("cwt").value ='volume lebih besar';
-//} 
+} 
 
+ }
+ function count_freight(){
+  var cwt =document.getElementById("cwt").value;
+  var freight =document.getElementById("freight").value;
+  var result=parseFloat(cwt) * parseFloat(freight);  
+   var t_freight=toRp(result);
+   
+  document.getElementById("t_freight").value=t_freight;
+  document.getElementById("txtfreight").value=result;
+ }
+function count_quarantine(){
+  var pcs =document.getElementById("t_pacs").value;
+  var quarantine =document.getElementById("quarantine").value;
+  var result=parseFloat(pcs) * parseFloat(quarantine);  
+   var t_quarantine=toRp(result);
+   
+  document.getElementById("t_quarantine").value=t_quarantine;
+  document.getElementById("txtquarantine").value=result;
+ }
+ function otherRp(input){
+  var angka =$(input).val();
+  var format=toRp(angka);
+ document.getElementById("other2").value=format;  
+ }
+  function admRp(input){
+  var angka =$(input).val();
+  var format=toRp(angka);
+ document.getElementById("adm2").value=format;  
+ }
+  function deliveryRp(input){
+  var angka =$(input).val();
+  var format=toRp(angka);
+ document.getElementById("delivery2").value=format;  
  }
 </script>	    
 <script type="text/javascript">
@@ -258,6 +291,16 @@ function toRp(angka){
           <?php } ?>
           </select>
           </div>
+          <strong><label class="col-sm-4"> Air Plane</label></strong>
+          <div class="col-sm-7">
+           <select name="plane" id="plane" class="form-control" required="required">
+          <option value="">Choose Airplane</option>
+          <?php foreach ($airline as $air) {
+          ?>
+          <option value="<?php echo $air->AirLineCode;?>"><?php echo $air->AirLineName;?></option>
+          <?php } ?>
+          </select>
+          </div>
 <div class="col-sm-12"><hr style="border:1px #CCC dashed"></div>
           <strong><label class="col-sm-4"> Shipper</label></strong>
           <div class="col-sm-7">
@@ -291,7 +334,7 @@ function toRp(angka){
 
 <div class="col-sm-13" id="contenshipper">
 <!-- CONTENT AJAX VIEW HERE -->
-sdkjhsjf shfjdshfj  <i class="fa fa-spinner fa-pulse fa-2x" style="display:none"></i>
+   <i class="fa fa-spinner fa-pulse fa-2x" style="display:none"></i>
 </div>
 
 <!-- detail for sender -->    
@@ -401,7 +444,8 @@ sdkjhsjf shfjdshfj  <i class="fa fa-spinner fa-pulse fa-2x" style="display:none"
                                                   <td><input name="t_volume" type="hidden" id="t_volume" value="0" />      
                                                     <label id="label_volume">0</label>                                           
                                                   </td>
-                                                  <td><input name="t_weight" type="hidden" id="t_weight" value="0" /></td>  
+                                                  <td><input name="t_weight" type="hidden" id="t_weight" value="0" />      
+                                                   <label id="label_weight">0</label> </td>  
                                                   <td>&nbsp;</td>
                                                 </tr>
                                                 </thead>
@@ -447,7 +491,7 @@ sdkjhsjf shfjdshfj  <i class="fa fa-spinner fa-pulse fa-2x" style="display:none"
                                                 <div class="col-md-12">
                                               <label class="col-sm-3">CWT &nbsp;</label>
                                               <div class="col-sm-8">
-                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)">
+                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)" value="0">
                                               </div>
                                                 </div>
                                               <div class="col-md-12">
@@ -463,65 +507,98 @@ sdkjhsjf shfjdshfj  <i class="fa fa-spinner fa-pulse fa-2x" style="display:none"
                                               </div>
                                             </div>
   <!-- END RIGHT INPUT -->
-  <div class="clearfix"> </div>
-<h2><span class="label label-large label-pink arrowed-in-right"><strong>Charges</strong></span></h2>
-                                    <div class="form-group">
-                                        <div class="table-responsive" id="table_responsive">
-                                        <table class="table table-striped table-bordered table-hover" id="tblcharges" style="width:95%">
-                                              <thead>
-                                                <thead>
-                                                <tr>
-                                                  <th width="71"><div align="center"></div></th>
-                                                  <th width="158"><div align="center">Charges</div></th>
-                                                  <th width="382"><div align="center">Desc</div></th>
-                                                  <th width="158"><div align="center">Unit</div></th>
-                                                  <th width="114"><div align="center">Qty</div></th>
-                                                  <th width="222"><div align="center">Total</div></th>
-                                                  <th class="text-center"><div align="center"><a class="btn  btn-primary btn-round" href="#modaladdCharge" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add New</a></div></th>
-                                                </tr>
-                                                </thead>
-                                                
-                                               
-                                              
-                                              <tbody>
-   <?php 
-$i=1;
-foreach($tmpcharge as $chr){
-$grandt+=$chr->Total;
- //$t_volume+=$itm['v'];
-        ?>
-                                                  <tr>
-                                                  <td><?=$i;?></td>
-                                                  <td><?php echo $chr->ChargeName;?></td>
-                                                  <td><?php echo $chr->Description;?></td>
-                                                  <td><div align="right"><?php echo number_format($chr->Unit,2,',','.');?>                                                  </div></td>
-                                                  <td><div align="right"><?php echo $chr->Qty;?></div></td>
-                                                  <td><div align="right"><?php echo number_format($chr->Total,2,'.',',');?></div></td>
-                                                  <td>
-                                                  <div align="center">
-                                               <a href="<?php echo base_url();?>temp/delete_charge/<?php echo $chr->tempChargeId?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete item">
-                                                  <button class="btn btn-mini btn-danger" type="button"><i class="fa fa-times bigger-120"></i></button>
-                                                  </a>                                                  </div>                                                  </td>
-                                                </tr>
-<?php $no++; } ?>
-                                                <thead>
-                                                 <tr>
-
-                                                  <td colspan="3"><b>Total</b></td>
-                                                  <td colspan="3"><div align="right"><strong>
-                                                  <input name="total_charge" type="hidden" id="total_charge" value="0" />
-  <label id="label_charges">0</label>                                                                                           
-                                                  
-                                                  </strong></div></td>
-                                                  <td width="129">&nbsp;</td>
-                                                </tr>
-                                                </thead>
-                                              </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
   
-                                    </div>
+   <!-- COST INPUT -->
+<h2><span class="label label-large label-pink arrowed-in-right"><strong>COST / CHARGES</strong></span></h2>
+ <div class="col-md-5">
+                                              <div class="row">
+                                                <div class="col-md-12">
+  <label class="col-sm-4">Air Freight</label> 
+  <div class="col-sm-7">
+  <input type="text" name="freight" id="freight" class="form-control" onkeypress="return isNumberKey(event)" onchange="count_freight();"  required>
+  </div>
+</div>
+<div class="col-md-12">
+<label class="col-sm-4">Quarantine</label>
+<div class="col-sm-7">
+  <input type="text" name="quarantine" id="quarantine" class="form-control" onkeypress="return isNumberKey(event)" onChange="count_quarantine()"  required>
+  </div>
+
+</div>
+<div class="col-md-12">
+<label class="col-sm-4">Adm SMU</label> 
+  <div class="col-sm-7">
+  <input type="text" name="adm" id="adm" class="form-control" onkeypress="return isNumberKey(event)" onChange="return admRp(this)" required>
+  </div>
+</div>
+
+<div class="col-md-12">
+<label class="col-sm-4">Delivery</label> 
+  <div class="col-sm-7">
+  <input type="text" name="delivery" id="delivery" class="form-control" onkeypress="return isNumberKey(event)" onChange="return deliveryRp(this)" required>
+  </div>
+</div>
+                                              <div class="col-md-12">
+                                              <label class="col-sm-4">Other Cost &nbsp;</label>
+                                              <div class="col-sm-7"><input type="text" name="other" id="other" class="form-control" onkeypress="return isNumberKey(event)" onChange="return otherRp(this)"></div>
+                                             </div>
+  
+                                              </div>
+                                            </div>
+<!-- right input -->
+<div class="col-md-6">
+      <div class="row">
+          <div class="col-md-12">
+  <label class="col-sm-7 text-right">Rp</label> 
+    <div class="col-sm-4">
+      <input type="text" name="t_freight" id="t_freight" class="form-control" onkeypress="return isNumberKey(event)" required readonly>
+    <input type="hidden" name="txtfreight" id="txtfreight">
+    </div>
+</div>
+
+<div class="col-md-12">
+<label class="col-sm-7 text-right">Rp</label> 
+  <div class="col-sm-4">
+    <input type="text" name="t_quarantine" id="t_quarantine" class="form-control" onkeypress="return isNumberKey(event)" required readonly>
+    <input type="hidden" name="txtquarantine" id="txtquarantine">
+  </div>
+</div>
+<div class="col-md-12">
+ <label class="col-sm-7 text-right">Rp</label>
+<div class="col-sm-4">
+  <input type="text" name="adm2" id="adm2" class="form-control" onkeypress="return isNumberKey(event)" required>
+</div>
+
+</div>
+<div class="col-md-12">
+ <label class="col-sm-7 text-right">Rp</label> 
+  <div class="col-sm-4">
+  <input type="text" name="delivery2" id="delivery2" class="form-control" onkeypress="return isNumberKey(event)"  required>
+  </div>
+</div>
+<div class="col-md-12">
+<label class="col-sm-7 text-right">Rp</label>
+<div class="col-sm-4"><input type="text" name="other2" id="other2" class="form-control" onkeypress="return isNumberKey(event)"></div>
+</div>
+ 
+  
+</div>
+</div>
+
+<!-- COST INPUIT -->      
+<div class="col-sm-12 line" id="line">
+<hr>
+
+<div class="col-sm-8"><p class="text-left">TOTAL </p></div>
+<div class="col-sm-3"><p class="text-left"><input type="text" name="txttotal" id="txttotal" class="form-control"></p></div>
+
+<div class="col-sm-8"><p class="text-left">TOTAL </p></div>
+<div class="col-sm-3"><p class="text-left"><input type="text" name="txttotal" id="txttotal" class="form-control"></p></div>
+
+<hr style="clearfx col-sm-12">
+</div>
+
+      <div class="clearfix clearfix"></div>
   
                                     
                                   <div class="cpl-sm-12"><h2>&nbsp;</h2>
@@ -586,16 +663,16 @@ $grandt+=$chr->Total;
                         <div class="clearfix"></div>
                       </div>                    
 <div class="form-group">
-                        <label class="col-sm-3 control-label">Height &nbsp; ( T )</label>
+                        <label class="col-sm-3 control-label">Weight &nbsp; ( T )</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="tinggi" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="tinggi" />
+                          <input name="weight" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="weight" />
 </span></div>
                         <div class="clearfix"></div>
                </div>
                       
   <div class="modal-footer">
 <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary" id="iditems"> Save</button>
+                        <button class="btn btn-primary" type="button" id="iditems"> Save</button>
                <!-- </form>  -->
     </div>
                     </div>
@@ -807,22 +884,7 @@ $grandt+=$chr->Total;
     </div>
 
 <script type="text/javascript">
-$("#grossweight").change(function(){
-
-             var volum=document.getElementById("t_volume").value;
-			 var grs=document.getElementById("grossweight2").value;
-			 
-			 var a=parseFloat(volum);
-			 var b=parseFloat(grs);
-			 if(a > b){
-				 document.getElementById("cwt").value =volum;
-			 }
-			 else
-			 {
-				document.getElementById("cwt").value =grs;
-			 }
-	 
-        });     
+   
 $("#txtsearch").keyup(function(){
 
             var txtsearch = $("#txtsearch").val();
@@ -841,18 +903,7 @@ $("#txtsearch").keyup(function(){
                 }
             });
         });
-   $("#idshipperrrrrrrrr").change(function(){
-            var custCode = $("#idshipper").val();
-          $.ajax({
-                type: "POST",
-                url : "<?php echo base_url('booking/detail_sender'); ?>",
-                data: "custCode="+custCode,
-                success: function(data){
-                    $('#contenshipper').html(data);
-                }
-            });
 
-        });
      $("#idconsigneeeee").change(function(){
             var custCode = $("#idconsigne").val();
           $.ajax({
@@ -878,30 +929,32 @@ $("#txtsearch").keyup(function(){
 		var isagent=$("#isagent").val();
 		var isshipper=$("#isshipper").val();
 		var iscnee=$("#iscnee").val();
-	if (initial == '')
+	if (initial == '' || namecust =='')
         { 
 		alert('Mohon isi data dengan lengkap');
 		$("#initial").css("border-color","red");
 		$("#label-confir").css({"background-color": "white", "color": "red"});
 		$("#label-confir").html('<i class="fa fa-times"></i>');
         }
-	else if (namecust == '')
-        { 
-		alert('Mohon isi data dengan lengkap');
-		$("#namecust").css("border-color","red");
-		$("#label-confir2").css({"background-color": "white", "color": "red"});
-		$("#label-confir2").html('<i class="fa fa-times"></i>');
-        } 
     else
         {	
-	          $.ajax({
-                type: "POST",
-                url : "<?php echo base_url('booking/save_customer2'); ?>",
+	  $.ajax({
+        type: "POST",
+        url : "<?php echo base_url('booking/save_customer2'); ?>",
  data: "namecust="+namecust+"&initial="+initial+"&address="+address+"&city="+city+"&phone="+phone+"&fax="+fax+"&postcode="+postcode+"&email="+email+"&remarks2="+remarks2+"&isagent="+isagent+"&isshipper="+isshipper+"&iscnee="+iscnee,
-                success: function(data){
-                 	alert('Customer with name ' +namecust +' Success Saved');
-                }
-            });	
+         success: function(data){
+            alert('Customer with name ' +namecust +' Success Saved');
+			// clear input if success
+			$("#initial").val('');
+			$("#namecust").val('');
+			$("#address").val('');
+			$("#phone").val('');
+			$("#fax").val('');
+			$("#postcode").val('');
+			$("#email").val('');
+			$("#remarks2").val('');
+			}
+        });	
 			$("#initial").css("border-color","#D9DFE2");
 			$("#label-confir").html('');
 			$("#modaladdcust").modal('hide');
@@ -909,16 +962,6 @@ $("#txtsearch").keyup(function(){
 			
    });
 	
-     $("#iditemsssssssss").click(function(){
-	var pcs=$('#origin').val();
-	var panjang=$('#desti').val();
-	var lebar=$('#paymentype').val();
-	var tinggi=$('#booking').val();
-	var idshipper=$('#idshipper').val();
-	
-     alert(pcs + '/' + panjang +'/' + lebar + '/'+ tinggi + '/'+ idshipper);
-
-        });
 		
 $("#iditems").click(function(){
 	//var t_volume=$('#idtotal').val();   
@@ -926,6 +969,7 @@ $("#iditems").click(function(){
 	var panjang=$('#panjang').val();
 	var lebar=$('#lebar').val();
 	var tinggi=$('#tinggi').val();
+	var weight=$('#weight').val();
  	var hitung = parseFloat(panjang) * parseFloat(lebar) * parseFloat(tinggi)/6000;
 	var kali=hitung.toFixed(2); //membuat desimal 2 angka belakang koma
  	var t_volume=$('#t_volume').val();
@@ -934,6 +978,8 @@ $("#iditems").click(function(){
 	
 	var t_pacs=$('#t_pacs').val();
 	var total_pacs=parseFloat(t_pacs) + parseFloat(pcs);
+	var t_weight=$('#t_weight').val();
+	var total_weight=parseFloat(t_weight) + parseFloat(weight);
 	//var total_pacs=parseFloat(t_pacs)+ parseFloat(pcs);
 	
 if (panjang == '' || lebar == '' || pcs == ''){
@@ -948,28 +994,41 @@ if (panjang == '' || lebar == '' || pcs == ''){
     + '<td>' +  '<input type="hidden" name="l[]" id="l[]" size="5" value="'+ lebar +'">'+ '<label id="l_pcs">'+ lebar +'</label>' +'</td>'
     + '<td>' +  '<input type="hidden" name="t[]" id="t[]" size="5" value="'+ tinggi +'">'+ '<label id="l_pcs">'+ tinggi +'</label>' +'</td>'
     + '<td>' + '<input type="hidden" name="v[]" id="v[]" size="5" value="'+ kali +'">'+ '<label id="l_pcs">'+ kali +'</label>' +'</td>'
+    + '<td>' + '<input type="hidden" name="v[]" id="v[]" size="5" value="'+ weight +'">'+ '<label id="l_pcs">'+ weight +'</label>' +'</td>'
 
-	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali + '/'+ pcs +'" onclick="hapus2(this)" type="button" ><i class="fa fa-times"></i></button></td>'
+	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali + '/'+ pcs + '/' + weight + '" onclick="hapus2(this)" type="button" ><i class="fa fa-times"></i></button></td>'
     + '</tr>';
 	
 		$('#tblitems tbody').append(text);
 		$("#t_volume").val(total_volume);
 		$("#label_volume").html(total_volume);
+		$("#t_weight").val(total_weight);
+		$("#label_weight").html(total_weight);
 		$("#t_pacs").val(total_pacs);
 		$("#label_pacs").html(total_pacs);
+		
 		//RESET INPUTAN
 		$("#panjang").val("");
 		$("#lebar").val("");
 		$("#tinggi").val("");
 		$("#pack").val("");
+		$("#weight").val("");
 		$("#modaladd").modal('hide');
+		
+		if(total_volume > total_weight)
+		{
+			$("#cwt").val(total_volume);
+			
+		} else {
+			
+			$("#cwt").val(total_weight);
+		}
+		
 	}
  });
 
- $("#btndel").on("click", function(){
-        alert('The paragraph was clicked');
- });
-		
+ 
+	
 function hapus(th) {
       var tt=$("#tt").val();;
 	  var t_volume=$('#t_volume').val();
@@ -985,25 +1044,36 @@ function hapus(th) {
 <!-- hapus item dan kurangi total items pack
 function hapus2(myid){
 var input = $(myid).val();
-var input2 = $(myid).val();
-var pecah2=input2.split('/');
-var hasil_pecah=pecah2[1];
-//document.write('kata yang pertama adalah ' +hasil[0]);
+//var input2 = $(myid).val();
+var pecah=input.split('/');
+var pcs=pecah[1];
+var weight=pecah[2];
 
 	var t_volume=$('#t_volume').val();
 	var kurang=parseFloat(t_volume)-parseFloat(input);
 	var hasil=kurang.toFixed(2);
-		var t_pacs=$('#t_pacs').val();
-		var kurang2=parseFloat(t_pacs)-parseFloat(hasil_pecah);
-		var hasil2=kurang2.toFixed(2);
-
-	
 	$('#t_volume').val(hasil);
 	$('#label_volume').html(hasil);
-		$('#t_pacs').val(hasil2);
-		$('#label_pacs').html(hasil2);
-
-//alert(hasil_pecah);
+	
+	var t_pacs=$('#t_pacs').val();
+	var kurang2=parseFloat(t_pacs)-parseFloat(pcs);
+	var hasil2=kurang2.toFixed(2);
+	$('#t_pacs').val(hasil2);
+	$('#label_pacs').html(hasil2);
+	
+	var t_weight=$('#t_weight').val();
+	var kurang3=parseFloat(t_weight)-parseFloat(weight);
+	var hasil3=kurang3.toFixed(2);
+	$('#t_weight').val(hasil3);
+	$('#label_weight').html(hasil3);
+	
+	if(hasil > hasil3){
+		$('#cwt').val(hasil);
+	} else {
+		$('#cwt').val(hasil3);
+	}
+	
+	
      t = $(myid);
      tr = t.parent().parent();
      tr.remove();
@@ -1061,6 +1131,20 @@ $("#label_charges").html(hasil);
      tr.remove();
 }
 
+   $('#plane').change(function(){
+    	$.getJSON("<?php echo base_url('transaction/getcost'); ?>",
+		{
+			action:'getcode', plane:$(this).val()}, function(json){
+    		if (json == null) {
+    			$('#goodcost').text('');
+    			$('#freight').val('');
+    			} else {
+    			$('#goodcost').text(json.AirLineCode);
+    			$('#freight').val(json.AirLineName);
+    			}
+    		});
+    });
+					
 </script>
 
  
