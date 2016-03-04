@@ -1692,8 +1692,15 @@ function print_SOA(){
 function getcost(){
 	$code = $_GET['plane'];
 	
-	   $data=$this->model_app->getdata('ms_airline',"WHERE AirLineCode='$code'");
-	   $this->load->view('pages/booking/data_barang',$data);
+	   $cari=$this->model_app->getdata('ms_airline',"WHERE AirLineCode='$code'");
+	   $data=$this->
+	   
+	     $query = "SELECT kd_barang, nm_barang, harga FROM barang WHERE kd_barang='$kd_barang'";
+    	$sql = mysqli_query($conn, $query);
+    	$row = mysqli_fetch_assoc($sql);
+    	echo json_encode($row);
+    	exit;
+		
    }
 function barang(){
 	   $data=$this->model_app->getdata('barang',"");
