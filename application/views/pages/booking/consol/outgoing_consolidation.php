@@ -18,10 +18,12 @@
   <script src="<?php echo base_url();?>asset/jquery_ui/external/jquery/jquery.js"></script>
   <script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
   <script>
-  $(function() {
-    $("#tgl").datepicker();
-    $("#tgl2").datepicker();
 
+   $(function() {
+  $("#etd").datepicker({
+    dateFormat:'yy-mm-dd',
+    });
+    
   });
   </script>
 
@@ -52,11 +54,18 @@
                        
           <strong><label class="col-sm-4"> SMU No</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" />
+           <select name="paymentype" class="form-control" required="required" id="paymentype">
+          <option value="">Select SMU</option>
+                   <?php
+                   foreach ($payment_type as $pay) {
+                   ?>
+                     <option value="<?php echo $pay->payCode.'-'.$pay->payName;?>"><?php echo $pay->payName;?></option>
+                     <?php } ?>
+          </select>
           </div>
           <strong><label class="col-sm-4"> Origin</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly"/>
+           <input name="origin" type="text" class="form-control"  id="origin" required="required" readonly="readonly"/>
           </div>
            <strong><label class="col-sm-4"> Destinatioln</label></strong>
           <div class="col-sm-7">
@@ -75,14 +84,14 @@
         <div class="col-sm-11">
         <strong><label class="col-sm-4">ETD</label></strong>
           <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly"/>
+           <input name="etd" type="text" class="form-control"  id="etd" required="required" readonly="readonly"/>
           </div>
-          <strong><label class="col-sm-4"> Tot. Qty</label></strong>
+          <strong><label class="col-sm-4"> QTY</label></strong>
           <div class="col-sm-7">
         <input name="name" type="text" class="form-control"  readonly="readonly" required="required"/>
           </div>
 
-           <strong><label class="col-sm-4"> Tot CWT</label></strong>
+           <strong><label class="col-sm-4">  CWT</label></strong>
           <div class="col-sm-7">
            <input name="name" type="text" class="form-control" r readonly="readonly" required="required"/>
           </div>
@@ -95,37 +104,32 @@
    </div>
 </div>
 <br style="clear:both;margin-bottom:40px;">
-            <div class="row">
-                <div class="col-lg-12 portlets ui-sortable">
+            <div class="row" id="konten">
+                <div class="col-lg-5 portlets ui-sortable">
                     <div class="panel">
                         <!--<div class="panel-header"></div>-->
                         
                                     <div class="form-group">
                                         <div class="table-responsive" id="table_responsive">
+<span class="span3 label label-large label-pink arrowed-in-right">Free House</span>
                                         <table class="table table-striped table-bordered table-hover">
                                               <thead>
                                                 
                                                   <th>No.</th>
                                                   <th>House No</th>
-                                                  <th>Shipper/th>
-                                                  <th>Consigne</th>
-                                                  <th>Origin</th>
-                                                  <th>Destination</th>
-                                                  <th>Tot Qty</th>
-                                                  <th>Tot CWT</th>
+                                                  <th>Shipper</th>
+                                                  <th>QTY</th>
+                                                  <th>CWT</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                               </thead>
                                               <tbody>
                                                   <tr>
-                                                  <td>1</td>
-                                                  <td>xxx</td>
-                                                  <td>999</td>
-                                                  <td>999</td>
-                                                  <td>999</td>
-                                                  <td>999</td>
-                                                  <td>999</td>
-                                                  <td>999</td>
+                                                  <td>0</td>
+                                                  <td>0</td>
+                                                  <td>0</td>
+                                                  <td>0</td>
+                                                  <td>0</td>
                                                   <td>
                                                   <div align="center">
                                                 <input type="checkbox" name="ck" class="ace-checkbox-2"> 
@@ -142,9 +146,6 @@ $no=1;
                                                     <th scope="row"><?php echo $no?></th>
                                                     <td><?php echo $data->custName?></td>
                                                     <td><?php echo $data->Name?></td>
-                                                    <td><?php echo $data->ori?></td>
-                                                    <td><?php echo $data->dest?></td>
-                                                    <td><?php echo $data->venName?></td>
                                                     <td class="text-center"><div align="center"><a class="btn-action" href="#modaledit<?php echo $data->discCode?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i>
                                                       <button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>
                                                       </a>
@@ -161,14 +162,12 @@ $no=1;
                                                 <thead>
                                                  <tr>
                                                   <td><b>Total</b></td>
-                                                  <td><strong>xxx</strong></td>
+                                                  <td></td>
                                                   <td>&nbsp;</td>
-                                                  <td>&nbsp;</td>
-                                                  <td>&nbsp;</td>
-                                                  <td><strong>xxx</strong></td>  
-                                                  <td>&nbsp;</td>
-                                                  <td>&nbsp;</td>
-                                                  <td>&nbsp;</td>
+                                                  <td><strong>0</strong></td>
+                                                  <td><strong>0</strong></td>
+                                                  <td></td>  
+                                                
                                                 </tr>
                                                 </thead>
                                               </tbody>
@@ -178,6 +177,87 @@ $no=1;
                                     
                     
 
+
+          </div>
+      </div>
+                <div class="col-lg-6 portlets ui-sortable">
+                    <div class="panel">
+                        <!--<div class="panel-header"></div>-->
+                        
+                                    <div class="form-group">
+                                        <div class="table-responsive" id="table_responsive">
+                                          
+<span class="span4 label label-large label-pink arrowed-in-right">Consolidation House added</span>
+                                        <table class="table table-striped table-bordered table-hover">
+                                              <thead>
+                                                
+                                                  <th>No.</th>
+                                                  <th>House No</th>
+                                                  <th>Shipper</th>
+                                                  <th>QTY</th>
+                                                  <th>CWT</th>
+                                                  <th class="text-center"><div align="center">Action</div></th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                  <tr>
+                                                  <td>0</td>
+                                                  <td>0</td>
+                                                  <td>0</td>
+                                                  <td>0</td>
+                                                  <td>0</td>
+                                                  <td>
+                                                  <div align="center">
+                                                <input type="checkbox" name="ck" class="ace-checkbox-2"> 
+                                                 
+                                                  </div>
+                                                  </td>
+                                                </tr>
+                                        <?php 
+$no=1;
+      foreach($list as $data){
+        
+      ?>
+                                                <tr class="gradeX">
+                                                    <th scope="row"><?php echo $no?></th>
+                                                    <td><?php echo $data->custName?></td>
+                                                    <td><?php echo $data->Name?></td>
+                                                    <td class="text-center"><div align="center"><a class="btn-action" href="#modaledit<?php echo $data->discCode?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i>
+                                                      <button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>
+                                                      </a>
+                                                      
+                                                      <a href="<?php echo base_url();?>master/delete_disc/<?php echo $data->discCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
+                                                        <button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>
+                                                      </a>          
+                                                    </div></td>
+                                                </tr>                                
+                                                <?php $no++; } ;?>
+                                                 <tr>
+                                                  <td colspan="9">&nbsp;</td>
+                                                </tr>
+                                                <thead>
+                                                 <tr>
+                                                  <td><b>Total</b></td>
+                                                  <td></td>
+                                                  <td>&nbsp;</td>
+                                                  <td><strong>xxx</strong></td>
+                                                  <td><strong>xxx</strong></td>
+                                                  <td></td>  
+                                                
+                                                </tr>
+                                                </thead>
+                                              </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    
+                    
+
+
+          </div>
+      </div>
+
+      <div class="clearfix clearfx"></div>
                                   <div class="cpl-sm-12"><h2>&nbsp;</h2>
                                   <div class="row">
                                       <div class="col-md-4"></div>
@@ -187,16 +267,13 @@ $no=1;
                                          <div class="col-md-2">
                                              <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Process Consol</button>
                                         </div>  </div>     
-              </div>
-          </div>
-      </div>
-
+                                      </div>
       </form>
   </div>
             </div>
   
 
-<!-----edit data------->
+<!-- edit data -->
 <?php
 
     foreach($list as $row){
@@ -406,6 +483,21 @@ $("#txtsearch").keyup(function(){
                 }
             });
         });
+
+
+   $("#origin").click(function(){
+            var filter ='120'// $("#filter").val();
+          $.ajax({
+                type: "POST",
+                url : "<?php echo base_url('transaction/filter_consol'); ?>",
+                data: "filter="+filter,
+                success: function(data){
+                    $('#konten').html(data);
+                }
+            });
+
+        });
+
 	 $("#filter").change(function(){
             var filter = $("#filter").val();
           $.ajax({
