@@ -91,7 +91,7 @@ footer{display:none;}
     <td height="76"><p>PIECES/JUMLAH SATUAN</p>
       <p align="center"><?php echo $data->grandPCS;?></p></td>
     <td><p>WEIGHT/BERAT</p>
-      <p align="center"><?php echo $data->GrossWeight;?></p></td>
+      <p align="center"><?php echo $data->CWT;?></p></td>
   </tr>
   <tr>
     <td colspan="2">Account No.</td>

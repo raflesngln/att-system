@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="en-US"><head>
-	    <title>Codeigniter Autocomplete</title>
+      <title>Codeigniter Autocomplete</title>
         
 <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
 
@@ -13,50 +13,50 @@
 
 <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/base/jquery-ui.css" type="text/css" media="all" />
 -->
-		
-	    <style>
-	    	/* Autocomplete
-			----------------------------------*/
-			.ui-autocomplete { position: absolute; cursor: default; }	
-			.ui-autocomplete-loading { background: white url('http://jquery-ui.googlecode.com/svn/tags/1.8.2/themes/flick/images/ui-anim_basic_16x16.gif') right center no-repeat; }*/
+    
+      <style>
+        /* Autocomplete
+      ----------------------------------*/
+      .ui-autocomplete { position: absolute; cursor: default; } 
+      .ui-autocomplete-loading { background: white url('http://jquery-ui.googlecode.com/svn/tags/1.8.2/themes/flick/images/ui-anim_basic_16x16.gif') right center no-repeat; }*/
+      /* workarounds */
+      * html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
+      /* Menu
+      ----------------------------------*/
+      .ui-menu {
+        list-style:none;
+        padding: 2px;
+        margin: 0;
+        display:block;
+      }
+      .ui-menu .ui-menu {
+        margin-top: -3px;
+      }
+      .ui-menu .ui-menu-item {
+        margin:0;
+        padding: 0;
+        zoom: 1;
+        float: left;
+        clear: left;
+        width: 100%;
+        font-size:80%;
+      }
+      .ui-menu .ui-menu-item a {
+        text-decoration:none;
+        display:block;
+        padding:.2em .4em;
+        line-height:1.5;
+        zoom:1;
+      }
+      .ui-menu .ui-menu-item a.ui-state-hover,
+      .ui-menu .ui-menu-item a.ui-state-active {
+        font-weight: normal;
+        margin: -1px;
+      }
+	  .txtrp{text-align:right;}
 
-			/* workarounds */
-			* html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
-
-			/* Menu
-			----------------------------------*/
-			.ui-menu {
-				list-style:none;
-				padding: 2px;
-				margin: 0;
-				display:block;
-			}
-			.ui-menu .ui-menu {
-				margin-top: -3px;
-			}
-			.ui-menu .ui-menu-item {
-				margin:0;
-				padding: 0;
-				zoom: 1;
-				float: left;
-				clear: left;
-				width: 100%;
-				font-size:80%;
-			}
-			.ui-menu .ui-menu-item a {
-				text-decoration:none;
-				display:block;
-				padding:.2em .4em;
-				line-height:1.5;
-				zoom:1;
-			}
-			.ui-menu .ui-menu-item a.ui-state-hover,
-			.ui-menu .ui-menu-item a.ui-state-active {
-				font-weight: normal;
-				margin: -1px;
-			}
-	    </style>
-  <script>
+      </style>
+    <script type="text/ecmascript">
   $(function() {
 	$("#tgl").datepicker({
 		dateFormat:'yy-mm-dd',
@@ -95,7 +95,7 @@ function toRp(angka){
   document.getElementById("t_total").value=formatgrand;
  document.getElementById("txttotal").value=t_total;
  document.getElementById("grandtotal").value=formatgrand;
-document.getElementById("txtgrandtotal").value=t_total;
+ document.getElementById("txtgrandtotal").value=t_total;
  }
 function count_quarantine(){
   var pcs =document.getElementById("t_pacs").value;
@@ -237,11 +237,10 @@ document.getElementById("txtgrandtotal").value=t_total;
     		});
 
 	    });
-	    </script>
-	    
-	</head>
-	<body>
-		
+	    </script>      
+  </head>
+  <body>
+    
 
  <!-- ==========================================================  -->   
   <div class="row-fluid">
@@ -323,16 +322,6 @@ document.getElementById("txtgrandtotal").value=t_total;
           <?php } ?>
           </select>
           </div>
-          <strong><label class="col-sm-4"> Air Plane</label></strong>
-          <div class="col-sm-7">
-           <select name="plane" id="plane" class="form-control" required="required">
-          <option value="">Choose Airplane</option>
-          <?php foreach ($airline as $air) {
-          ?>
-          <option value="<?php echo $air->AirLineCode;?>"><?php echo $air->AirLineName;?></option>
-          <?php } ?>
-          </select>
-          </div>
 <div class="col-sm-12"><hr style="border:1px #CCC dashed"></div>
           <strong><label class="col-sm-4"> Shipper</label></strong>
           <div class="col-sm-7">
@@ -366,7 +355,7 @@ document.getElementById("txtgrandtotal").value=t_total;
 
 <div class="col-sm-13" id="contenshipper">
 <!-- CONTENT AJAX VIEW HERE -->
-   <i class="fa fa-spinner fa-pulse fa-2x" style="display:none"></i>
+sdkjhsjf shfjdshfj  <i class="fa fa-spinner fa-pulse fa-2x" style="display:none"></i>
 </div>
 
 <!-- detail for sender -->    
@@ -455,8 +444,8 @@ document.getElementById("txtgrandtotal").value=t_total;
                             <th><div align="center">Length ( P )</div></th>
                             <th><div align="center">Width ( L )</div></th>
                             <th><div align="center">Height ( T )</div></th>
-                            <th><div align="center">Volume</div></th>
-                            <th class="text-center">Weight</th>
+                            <th>Volume</th>
+                            <th><div align="center">G.Weight</div></th>
                             <th class="text-center"><div align="center"><a class="btn btn-primary btn-addnew btn-rounded" href="#modaladd" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add New</a>
                             </div></th>
                           </tr>
@@ -473,11 +462,10 @@ document.getElementById("txtgrandtotal").value=t_total;
                                                   <td colspan="2"><label id="label_pacs">0</label>
                                                    <input name="t_pacs" type="hidden" id="t_pacs" value="0" /></td>
                                                   <td colspan="3">Total</td>
-                                                  <td><input name="t_volume" type="hidden" id="t_volume" value="0" />      
-                                                    <label id="label_volume">0</label>                                           
-                                                  </td>
+                                                  <td><input name="t_volume" type="hidden" id="t_volume" value="0" />
+                                                   <label id="label_volume">0</label></td>
                                                   <td><input name="t_weight" type="hidden" id="t_weight" value="0" />      
-                                                   <label id="label_weight">0</label> </td>  
+                                                   <label id="label_weight">0</label></td>  
                                                   <td>&nbsp;</td>
                                                 </tr>
                                                 </thead>
@@ -533,15 +521,18 @@ document.getElementById("txtgrandtotal").value=t_total;
                                               </div>
                                             </div>
   <!-- END RIGHT INPUT -->
-  
-   <!-- COST INPUT -->
+  <div class="clearfix"> </div>
+
+                    </div>
+<!--  INPUT COST -->
 <h2><span class="label label-large label-pink arrowed-in-right"><strong>COST / CHARGES</strong></span></h2>
- <div class="col-md-5">
-                                              <div class="row">
-                                                <div class="col-md-12">
+
+<div class="col-md-5">
+      <div class="row">
+        <div class="col-md-12">
   <label class="col-sm-4">Air Freight</label> 
   <div class="col-sm-7">
-  <input type="text" name="freight" id="freight" class="form-control" onkeypress="return isNumberKey(event)" onchange="count_freight();"  required>
+  <input type="text" name="freight" id="freight" class="form-control" onkeypress="return isNumberKey(event)" onchange="return count_freight();"  required>
   </div>
 </div>
 <div class="col-md-12">
@@ -564,20 +555,20 @@ document.getElementById("txtgrandtotal").value=t_total;
   <input type="text" name="delivery" id="delivery" class="form-control" onkeypress="return isNumberKey(event)" onChange="return deliveryRp(this)" required>
   </div>
 </div>
-                                              <div class="col-md-12">
-                                              <label class="col-sm-4">Other Cost &nbsp;</label>
-                                              <div class="col-sm-7"><input type="text" name="other" id="other" class="form-control" onkeypress="return isNumberKey(event)" onChange="return otherRp(this)"></div>
-                                             </div>
+<div class="col-md-12">
+<label class="col-sm-4">Other Cost &nbsp;</label>
+<div class="col-sm-7"><input type="text" name="other" id="other" class="form-control" onkeypress="return isNumberKey(event)" onChange="return otherRp(this)"></div>
+</div>
   
-                                              </div>
-                                            </div>
-<!-- right input -->
+    </div>
+      </div>
+<!-- Right input -->
 <div class="col-md-6">
       <div class="row">
           <div class="col-md-12">
   <label class="col-sm-7 text-right">Rp</label> 
     <div class="col-sm-4">
-      <input type="text" name="t_freight" id="t_freight" class="form-control" onkeypress="return isNumberKey(event)" required readonly>
+      <input type="text" name="t_freight" id="t_freight" class="form-control txtrp" onkeypress="return isNumberKey(event)" required readonly>
     <input type="hidden" name="txtfreight" id="txtfreight">
     </div>
 </div>
@@ -585,57 +576,55 @@ document.getElementById("txtgrandtotal").value=t_total;
 <div class="col-md-12">
 <label class="col-sm-7 text-right">Rp</label> 
   <div class="col-sm-4">
-    <input type="text" name="t_quarantine" id="t_quarantine" class="form-control" onkeypress="return isNumberKey(event)" required readonly>
+    <input type="text" name="t_quarantine" id="t_quarantine" class="form-control txtrp" onkeypress="return isNumberKey(event)" required readonly>
     <input type="hidden" name="txtquarantine" id="txtquarantine">
   </div>
 </div>
 <div class="col-md-12">
  <label class="col-sm-7 text-right">Rp</label>
 <div class="col-sm-4">
-  <input type="text" name="adm2" id="adm2" class="form-control" onkeypress="return isNumberKey(event)" required>
+  <input type="text" name="adm2" id="adm2" class="form-control txtrp" onkeypress="return isNumberKey(event)" required>
 </div>
 
 </div>
 <div class="col-md-12">
  <label class="col-sm-7 text-right">Rp</label> 
   <div class="col-sm-4">
-  <input type="text" name="delivery2" id="delivery2" class="form-control" onkeypress="return isNumberKey(event)"  required>
+  <input type="text" name="delivery2" id="delivery2" class="form-control txtrp" onkeypress="return isNumberKey(event)"  required>
   </div>
 </div>
 <div class="col-md-12">
 <label class="col-sm-7 text-right">Rp</label>
-<div class="col-sm-4"><input type="text" name="other2" id="other2" class="form-control" onkeypress="return isNumberKey(event)"></div>
-</div>
- 
-  
-</div>
+<div class="col-sm-4"><input type="text" name="other2" id="other2" class="form-control txtrp" onkeypress="return isNumberKey(event)"></div>
 </div>
 
-<!-- COST INPUIT -->      
+``</div>
+</div>
+
+<!-- diskon input -->
 <div class="col-sm-12 line" id="line">
 <hr>
 
 <div class="col-sm-8"><p class="text-right">TOTAL </p></div>
-<div class="col-sm-3"><p class="text-left"><input type="text" name="t_total" id="t_total" class="form-control">
+<div class="col-sm-3"><p class="text-left"><input type="text" name="t_total" id="t_total" class="form-control txtrp" readonly="readonly">
 <input type="hidden" name="txttotal" id="txttotal" value="0">
-</p></div>
+</p>
+</div>
 
 <div class="col-sm-8"><p class="text-right">DISKON </p></div>
-<div class="col-sm-3"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control" onchange="diskonRp();">
+<div class="col-sm-3"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="diskonRp();">
 <input type="hidden" name="txtdiskon" id="txtdiskon" class="form-control" value="0">
 </p></div>
 
 <div class="col-sm-8"><p class="text-right">GRAND TOTAL </p></div>
-<div class="col-sm-3"><p class="text-left"><input type="text" name="grandtotal" id="grandtotal" class="form-control" onchange="grandtotalRp();">
+<div class="col-sm-3"><p class="text-left"><input type="text" name="grandtotal" id="grandtotal" class="form-control txtrp" onchange="grandtotalRp();" readonl="readonly">
 <input type="hidden" name="txtgrandtotal" id="txtgrandtotal" class="form-control" value="0">
 </p></div>
 
-<hr style="clearfx col-sm-12">
-</div>
 
-      <div class="clearfix clearfix"></div>
-  
-                                    
+</div>
+<!-- END COST -->  
+              <div class="clearfix clearfx"></div>
                                   <div class="cpl-sm-12"><h2>&nbsp;</h2>
                                   <div class="row">
                                       <div class="col-md-4"></div>
@@ -704,10 +693,9 @@ document.getElementById("txtgrandtotal").value=t_total;
 </span></div>
                         <div class="clearfix"></div>
                </div>
-                      
   <div class="modal-footer">
 <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary" type="button" id="iditems"> Save</button>
+                        <button class="btn btn-primary" id="iditems"> Save</button>
                <!-- </form>  -->
     </div>
                     </div>
@@ -917,7 +905,6 @@ document.getElementById("txtgrandtotal").value=t_total;
         </div>
     </div>
     </div>
-
 <script type="text/javascript">
    
 $("#txtsearch").keyup(function(){
@@ -1185,5 +1172,5 @@ $("#label_charges").html(hasil);
  
   <!-- ============================================================== -->   
 
-	</body>
+  </body>
 </html>

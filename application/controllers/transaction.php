@@ -1116,7 +1116,13 @@ function hapus_item_temp(){
 		'GrossWeight' =>$this->input->post('grossweight2'),
 		'grandVolume' =>$this->input->post('t_volume'),
 		'grandPCS' =>$this->input->post('t_pacs'),
-		'Amount' =>$this->input->post('total_charge'),
+		'AirFreight'=>$this->input->post('txtfreight'),
+		'Adm'=>$this->input->post('adm'),
+		'Quarantine'=>$this->input->post('txtquarantine'),
+		'Delivery'=>$this->input->post('delivery'),
+		'Others'=>$this->input->post('other'),
+		'Discount'=>$this->input->post('txtdiskon'),
+		'Amount' =>$this->input->post('txtgrandtotal'),
 		'SpecialIntraction' =>$this->input->post('special'),
 		'CWT' =>$this->input->post('cwt'),
 		'DeclareValue' =>$this->input->post('declare'),
@@ -1230,6 +1236,13 @@ function print_outgoing_master(){
 		'GrossWeight' =>$this->input->post('grossweight2'),
 		'grandVolume' =>$this->input->post('t_volume'),
 		'grandPCS' =>$this->input->post('t_pacs'),
+		'AirFreight'=>$this->input->post('txtfreight'),
+		'Adm'=>$this->input->post('adm'),
+		'Quarantine'=>$this->input->post('txtquarantine'),
+		'Delivery'=>$this->input->post('delivery'),
+		'Others'=>$this->input->post('other'),
+		'Discount'=>$this->input->post('txtdiskon'),
+		'Amount' =>$this->input->post('txtgrandtotal'),
 		'SpecialIntraction' =>$this->input->post('special'),
 		'CWT' =>$this->input->post('cwt'),
 		'DeclareValue' =>$this->input->post('declare'),
@@ -1424,8 +1437,7 @@ function print_invoice_OM(){
 	WHERE a.HouseNo='$kode' ORDER BY a.CreateDate DESC LIMIT 1"),
 	
 	'list'=>$this->model_app->getdatapaging("*","outgoing_master a",
-	"INNER JOIN booking_charges b on a.HouseNo=b.HouseNo
-	WHERE a.HouseNo='$kode'
+	"WHERE a.HouseNo='$kode'
 	ORDER BY a.CreateDate DESC"),
 	);
 
@@ -1474,8 +1486,7 @@ function print_save_invoice_OM(){
 	WHERE a.HouseNo='$kode' ORDER BY a.CreateDate DESC LIMIT 1"),
 	
 	'list'=>$this->model_app->getdatapaging("*","outgoing_master a",
-	"INNER JOIN booking_charges b on a.HouseNo=b.HouseNo
-	WHERE a.HouseNo='$kode'
+	"WHERE a.HouseNo='$kode'
 	ORDER BY a.CreateDate DESC"),
 	'invoice'=>$getInvoice
 	);
@@ -1651,15 +1662,6 @@ $OutHouse=array(
 		WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust'
 		");
         $this->load->view('pages/booking/outgoing_master/tabel_SOA',$data);
-}
-function filter_consol(){
-        $idcust=$this->input->post('filter');
-		
-		
-		$data['list']=$this->model_app->getdata('outgoing_master',
-		"WHERE Shipper < '$idcust'
-		");
-        $this->load->view('pages/booking/consol/consol_filter',$data);
 }	
 //   DATA TO PDF 
 function print_SOA(){
@@ -1669,9 +1671,10 @@ function print_SOA(){
 		$currency=$this->input->post('currency');
 	
 		$data=array(
-		'list'=>$this->model_app->getdata("outgoing_master a",
-				"INNER JOIN ms_customer b on b.custCode=a.Shipper
-				WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust'"),
+		'list'=>$this->model_app->getdata('outgoing_master a',
+		"INNER JOIN ms_customer b on b.custCode=a.Shipper
+		INNER JOIN invoice c on a.HouseNo=c.HouseNo
+		WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust'"),
 		'cust'=>$this->model_app->getdata("outgoing_master a",
 				"INNER JOIN ms_customer b on b.custCode=a.Shipper
 				WHERE a.Shipper='$idcust' LIMIT 1"),
@@ -1687,7 +1690,7 @@ function print_SOA(){
         $this->load->library('html2pdf');
         try
         {
-            $html2pdf = new HTML2PDF('P', 'A4', 'fr');
+            $html2pdf = new HTML2PDF('L', 'A4', 'fr');
             $html2pdf->pdf->SetDisplayMode('fullpage');
             $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
             $html2pdf->Output('Report SOA.pdf');
@@ -1697,6 +1700,13 @@ function print_SOA(){
             exit;
         }
 }  
+function filter_consol(){
+        $idcust=$this->input->post('filter');		
+		$data['list']=$this->model_app->getdata('outgoing_master',
+		"WHERE Shipper < '$idcust'
+		");
+        $this->load->view('pages/booking/consol/consol_filter',$data);
+}
 function getcost(){
 	$code = $_GET['plane'];
 	

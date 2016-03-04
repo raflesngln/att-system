@@ -1,6 +1,6 @@
 <style>
 *{
-	font-size:10px;
+	font-size:9px;
 }
 .mytable tr td{ 
 border-bottom:1px #999 solid;
@@ -18,9 +18,14 @@ p{ margin-top:-8px}
    foreach($cust as $cust){
 	  
    ?>
-<h1>PT. Expresindo System Network</h1>
-<h2>Statement Of Account( Credit )</h2>
+<h1>PT. ATT CARGO</h1>
+<p style="text-align:center">Domestic and International Freight Forwarding</p>
+<p style="text-align:center">PERGUDANGAN DOMESTIK IF 6/G-1</p>
+<p style="text-align:center">Cargo Area Bandara Juanda Surabaya </p>
+<p style="text-align:center">Telp :031-8688511, 082894057864 ,082894057865</p>
+<p style="text-align:center">Fax. : 031-8688512</p>
 
+<h4 style="text-decoration:underline">Doc   :  Statement Of Account</h4>
 <pre class="head">
 <p>SOA No        : <?php echo $cust->custName;?></p>
 <p>SOA Date      : <?php echo date('d-m-Y');?></p>
@@ -34,11 +39,18 @@ p{ margin-top:-8px}
 <table width="200" border="0" class="mytable" id="mytable">
   <tr style="background-color:#D0E8E8">
     <td>No</td>
-    <td style="width:90px">Job</td>
-    <td style="width:80px">Invoice</td>
-    <td style="width:60px">Date</td>
-    <td style="width:80px">SMU</td>
-    <td style="width:180px">Origin-Desti</td>
+    <td style="width:30px">Date</td>
+    <td style="width:70px">Invoice</td>
+    <td style="width:60px">SMU</td>
+    <td style="width:70px">Job</td>
+    <td style="width:110px">Origin-Desti</td>
+    <td style="width:20px">Collie</td>
+    <td style="width:20px">CWT</td>
+    <td style="width:20px">Air Freight</td>
+    <td style="width:20px">Adm SMU</td>
+    <td style="width:20px">Quarantine</td>
+    <td style="width:20px">Dellivery</td>
+    <td style="width:20px">Others</td>
     <td style="width:20px">Weight</td>
     <td style="width:20px">Qty</td>
     <td style="width:70px">Amount</td>
@@ -51,11 +63,18 @@ p{ margin-top:-8px}
    ?>
   <tr>
     <td><?php echo $no;?></td>
-    <td><?php echo $row->JobNo;?></td>
-    <td><?php echo $row->HouseNo;?></td>
     <td><?php echo date("d-m-Y",strtotime($row->ETD)); ?></td>
+    <td><?php echo $row->InvoiceNo;?></td>
     <td><?php echo $row->HouseNo;?></td>
+    <td><?php echo $row->JobNo;?></td>
     <td><?php echo substr($row->Origin,4,15).' - ';?><?php echo substr($row->Destination,4,15);?></td>
+    <td><span style="text-align:right"><?php echo number_format($row->grandPCS,0,'.','.');?></span></td>
+    <td><span style="text-align:right"><?php echo number_format($row->CWT,0,'.','.');?></span></td>
+    <td><span style="text-align:right"><?php echo $row->Airlines;?></span></td>
+    <td><span style="text-align:right"><?php echo number_format($row->Amount,0,'.','.');?></span></td>
+    <td><span style="text-align:right"><?php echo number_format($row->Amount,0,'.','.');?></span></td>
+    <td><span style="text-align:right"><?php echo number_format($row->Amount,0,'.','.');?></span></td>
+    <td><span style="text-align:right"><?php echo number_format($row->Amount,0,'.','.');?></span></td>
     <td><?php echo $row->GrossWeight;?></td>
     <td><?php echo $row->grandPCS;?></td>
     <td style="text-align:right"><?php echo number_format($row->Amount,0,'.','.');?></td>
@@ -63,7 +82,16 @@ p{ margin-top:-8px}
     
     <?php $no++; } ?>
   <tr style="background-color:#F3F3F3">
-    <td colspan="8" style="text-align:right"><label style="color:#03F">TOTAL</label></td>
+    <td colspan="15" style="text-align:right"><label style="color:#03F">TOTAL</label></td>
     <td style="text-align:right"><label style="color:#03F"><?php echo 'Rp '.number_format($t_amount,0,'.','.');?></label></td>
     </tr>
 </table>
+
+<h4>Pembayaran Secara Full Amount ke Rekenign Dibawah ini :</h4>
+<pre class="head">
+<p>Currency         : IDR</p>
+<p>Bank Name        : Bank Central Asia (BCA)</p>
+<p>Branch           : Indrapura-Surabaya</p>
+<p>Beneficiary      : Syamungningsih</p>
+<p>Account          : 468-5606-900</p>
+</pre>
