@@ -23,8 +23,6 @@ function profil_user(){
         );
         $this->load->view('home/home',$data);
      }
-
-
  function change_profil(){
  	$iduser=$this->input->post('iduser');
  	$old=$this->input->post('old');

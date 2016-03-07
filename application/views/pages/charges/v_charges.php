@@ -408,8 +408,12 @@ $("#txtsearch").keyup(function(){
                 }
             });
         });
-       
-	   
+
+		
+$(".opn").click(function(){
+	var nilai=$(this).attr("html");
+alert('haii' + nilai);
+        });
 	   
 	 $("#filter").change(function(){
             var filter = $("#filter").val();
