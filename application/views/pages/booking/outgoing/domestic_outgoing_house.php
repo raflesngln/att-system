@@ -1,12 +1,10 @@
 <!DOCTYPE HTML>
 <html lang="en-US"><head>
-      <title>Codeigniter Autocomplete</title>
+      <title>outgoing house</title>
         
 <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
 
   <script type='text/javascript' src='<?php echo base_url();?>asset/js/jquery.min.js'></script>
-
-    
   <link href='<?php echo base_url();?>asset/jquery_ui/jquery.autocomplete.css' rel='stylesheet' />
 <script type='text/javascript' src='<?php echo base_url();?>asset/jquery_ui/jquery.autocomplete.js'></script>
 <script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
@@ -240,8 +238,6 @@ document.getElementById("txtgrandtotal").value=t_total;
 	    </script>      
   </head>
   <body>
-    
-
  <!-- ==========================================================  -->   
   <div class="row-fluid">
     <div class="span12">
@@ -926,7 +922,7 @@ $("#txtsearch").keyup(function(){
             });
         });
 
-     $("#idconsigneeeee").change(function(){
+$("#idconsigneeeee").change(function(){
             var custCode = $("#idconsigne").val();
           $.ajax({
                 type: "POST",
@@ -937,8 +933,8 @@ $("#txtsearch").keyup(function(){
                 }
             });
 
-        });
-  $("#addcust").click(function(){
+ });
+$("#addcust").click(function(){
 		var initial=$("#initial").val();
 		var namecust=$("#namecust").val();
 		var address=$("#address").val();
@@ -1065,11 +1061,11 @@ function hapus(th) {
 
 <!-- hapus item dan kurangi total items pack
 function hapus2(myid){
-var input = $(myid).val();
-//var input2 = $(myid).val();
-var pecah=input.split('/');
-var pcs=pecah[1];
-var weight=pecah[2];
+	var input = $(myid).val();
+	//var input2 = $(myid).val();
+	var pecah=input.split('/');
+	var pcs=pecah[1];
+	var weight=pecah[2];
 
 	var t_volume=$('#t_volume').val();
 	var kurang=parseFloat(t_volume)-parseFloat(input);
@@ -1094,7 +1090,6 @@ var weight=pecah[2];
 	} else {
 		$('#cwt').val(hasil3);
 	}
-	
 	
      t = $(myid);
      tr = t.parent().parent();
@@ -1140,20 +1135,20 @@ $('#desc').val("");
 
 
 function hapus3(myid){
-var input = $(myid).val();
-
-var total_charge=$('#total_charge').val();
-var hasil=parseFloat(total_charge)-parseFloat(input);
-
-$('#total_charge').val(hasil);
-$("#label_charges").html(hasil);
-
-     t = $(myid);
-     tr = t.parent().parent();
-     tr.remove();
+		var input = $(myid).val();
+		
+		var total_charge=$('#total_charge').val();
+		var hasil=parseFloat(total_charge)-parseFloat(input);
+		
+		$('#total_charge').val(hasil);
+		$("#label_charges").html(hasil);
+	
+		 t = $(myid);
+		 tr = t.parent().parent();
+		 tr.remove();
 }
 
-   $('#plane').change(function(){
+$('#plane').change(function(){
     	$.getJSON("<?php echo base_url('transaction/getcost'); ?>",
 		{
 			action:'getcode', plane:$(this).val()}, function(json){
@@ -1165,12 +1160,8 @@ $("#label_charges").html(hasil);
     			$('#freight').val(json.AirLineName);
     			}
     		});
-    });
+});
 					
 </script>
-
- 
-  <!-- ============================================================== -->   
-
   </body>
 </html>
