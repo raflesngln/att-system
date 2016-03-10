@@ -948,6 +948,8 @@ function delete_outgoing_master(){
         $data = array(
             'title'=>'outgoing_consolidation',
             'scrumb_name'=>'outgoing_consolidation',
+			'master'=>$this->model_app->getdata('outgoing_master',"where status_proses='1'"),
+			'freehouse'=>$this->model_app->getdata('outgoing_connote a',"INNER JOIN ms_customer b on a.Shipper=b.custCode"),
             'scrumb'=>'transaction/outgoing_consolidation',
             'view'=>'pages/booking/consol/outgoing_consolidation',
         );  
