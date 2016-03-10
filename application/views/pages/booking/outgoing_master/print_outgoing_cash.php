@@ -38,7 +38,7 @@ p{ margin-top:-8px;}
 <table width="800" border="0" id="tabel">
   <tr>
     <td width="22%">AWB/SMU.........................</td>
-    <td width="21%">: <strong><?php echo $row->HouseNo;?></strong></td>
+    <td width="21%">: <strong><?php echo $row->NoSMU;?></strong></td>
     <td width="26%" rowspan="9"><p style="color:#FFF">.....................................</p></td>
     <td width="31%" rowspan="9">
     <div id="right-header">

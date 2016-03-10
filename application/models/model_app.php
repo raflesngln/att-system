@@ -64,7 +64,7 @@ class Model_app extends CI_Model{
             $kd = "00001";
         }
         return "08".date('Ym').$kd;
-    }
+}
 	//    kode house
     public function getJobMaster($status)
     {

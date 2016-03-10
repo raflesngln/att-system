@@ -52,6 +52,7 @@
         margin: -1px;
       }
 	  .txtrp{text-align:right;}
+#t_freight,#t_quarantine,#other2,#delivery2,#adm2{ text-align:right;}
 
       </style>
     <script type="text/ecmascript">
@@ -80,92 +81,125 @@ function toRp(angka){
 }
 
  function count_freight(){
-  var cwt =document.getElementById("cwt").value;
+  var cwt =document.getElementById("ori_cwt").value;
   var freight =document.getElementById("freight").value;
   var result=parseFloat(cwt) * parseFloat(freight);  
-  var t_freight=result;//toRp(result);
-  var total=document.getElementById("txttotal").value; 
-  var t_total=parseFloat(total)+parseFloat(result);
-  var formatgrand=toRp(t_total);
-   
+  var t_freight=toRp(result);
+  
+ var txtquarantine=document.getElementById("txtquarantine").value;
+ var adm=document.getElementById("adm").value;
+ var delivery=document.getElementById("delivery").value;
+ var other=document.getElementById("other").value; 
+ var total=parseFloat(result)+parseFloat(txtquarantine)+parseFloat(adm)+			          parseFloat(delivery)+parseFloat(other);
+ var format_total=toRp(total);
+
   document.getElementById("t_freight").value=t_freight;
   document.getElementById("txtfreight").value=result;
-  document.getElementById("t_total").value=formatgrand;
- document.getElementById("txttotal").value=t_total;
- document.getElementById("grandtotal").value=formatgrand;
- document.getElementById("txtgrandtotal").value=t_total;
+ document.getElementById("t_total").value=format_total;
+ document.getElementById("txttotal").value=total;
  }
 function count_quarantine(){
   var pcs =document.getElementById("t_pacs").value;
   var quarantine =document.getElementById("quarantine").value;
   var result=parseFloat(pcs) * parseFloat(quarantine);  
   var t_quarantine=toRp(result);
-  var total=document.getElementById("txttotal").value; 
-  var t_total=parseFloat(total)+parseFloat(result);
-  var formatgrand=toRp(t_total);
+  
+ var txtfreight=document.getElementById("txtfreight").value;
+ var adm=document.getElementById("adm").value;
+ var delivery=document.getElementById("delivery").value;
+ var other=document.getElementById("other").value; 
+ var total=parseFloat(result)+parseFloat(txtfreight)+parseFloat(adm)+			          parseFloat(delivery)+parseFloat(other);
+ var format_total=toRp(total);
    
   document.getElementById("t_quarantine").value=t_quarantine;
   document.getElementById("txtquarantine").value=result;
-  document.getElementById("t_total").value=formatgrand;
- document.getElementById("txttotal").value=t_total; 
- document.getElementById("grandtotal").value=formatgrand;
-document.getElementById("txtgrandtotal").value=t_total;
+ document.getElementById("t_total").value=format_total;
+ document.getElementById("txttotal").value=total;
  }
- function otherRp(input){
+function otherRp(input){
   var angka =$(input).val();
   var format=toRp(angka);
-  var total=document.getElementById("txttotal").value; 
-  var t_total=parseFloat(total)+parseFloat(angka);
-  var formatgrand=toRp(t_total);
+ var txtfreight=document.getElementById("txtfreight").value;
+ var adm=document.getElementById("adm").value;
+ var delivery=document.getElementById("delivery").value;
+ var txtquarantine=document.getElementById("txtquarantine").value; 
+ var total=parseFloat(angka)+parseFloat(txtfreight)+parseFloat(adm)+			          parseFloat(delivery)+parseFloat(txtquarantine);
+ var format_total=toRp(total);
 
  document.getElementById("other2").value=format; 
- document.getElementById("t_total").value=formatgrand;
- document.getElementById("txttotal").value=t_total; 
- document.getElementById("grandtotal").value=formatgrand;
-document.getElementById("txtgrandtotal").value=t_total; 
+ document.getElementById("t_total").value=format_total;
+ document.getElementById("txttotal").value=total; 
+ 
  }
   function admRp(input){
   var angka =$(input).val();
   var format=toRp(angka);
-    var total=document.getElementById("txttotal").value; 
-  var t_total=parseFloat(total)+parseFloat(angka);
-  var formatgrand=toRp(t_total);
+ var txtfreight=document.getElementById("txtfreight").value;
+ var other=document.getElementById("other").value;
+ var delivery=document.getElementById("delivery").value;
+ var txtquarantine=document.getElementById("txtquarantine").value; 
+ var total=parseFloat(angka)+parseFloat(txtfreight)+parseFloat(other)+			          parseFloat(delivery)+parseFloat(txtquarantine);
+ var format_total=toRp(total);
 
  document.getElementById("adm2").value=format;  
- document.getElementById("t_total").value=formatgrand;
- document.getElementById("txttotal").value=t_total; 
- document.getElementById("grandtotal").value=formatgrand;
-document.getElementById("txtgrandtotal").value=t_total;
- }
-  function deliveryRp(input){
-  var angka =$(input).val();
-  var format=toRp(angka);
-  var total=document.getElementById("txttotal").value; 
-  var t_total=parseFloat(total)+parseFloat(angka);
-  var formatgrand=toRp(t_total);
-
- document.getElementById("delivery2").value=format; 
- document.getElementById("t_total").value=formatgrand;
- document.getElementById("txttotal").value=t_total;
- document.getElementById("grandtotal").value=formatgrand;
-document.getElementById("txtgrandtotal").value=t_total; 
- }
-  function diskonRp(){
-  var angka =document.getElementById("diskon").value;
-  var format=toRp(angka);
-  var total=document.getElementById("txttotal").value; 
-  var t_total=parseFloat(total)-parseFloat(angka);
-  var formatgrand=toRp(t_total);
-
- document.getElementById("diskon").value=format;
- document.getElementById("txtdiskon").value=angka;
-document.getElementById("grandtotal").value=formatgrand;
-document.getElementById("txtgrandtotal").value=t_total; 
-  
+ document.getElementById("t_total").value=format_total;
+ document.getElementById("txttotal").value=total;
  }
  
+function deliveryRp(input){
+  var angka =$(input).val();
+  var format=toRp(angka);
+ var txtfreight=document.getElementById("txtfreight").value;
+ var other=document.getElementById("other").value;
+ var adm=document.getElementById("adm").value;
+ var txtquarantine=document.getElementById("txtquarantine").value; 
+ var total=parseFloat(angka)+parseFloat(txtfreight)+parseFloat(other)+			          parseFloat(adm)+parseFloat(txtquarantine);
+ var format_total=toRp(total);
+
+ document.getElementById("delivery2").value=format; 
+ document.getElementById("t_total").value=format_total;
+ document.getElementById("txttotal").value=total;
+ }
+ 
+ function diskonRp(input){
+  var angka =$(input).val();
+  var format=toRp(angka);
+  var txtdiskon=document.getElementById("txtdiskon").value=angka;
+  document.getElementById("diskon").format=format; 
+  
+  var delivery=document.getElementById("delivery").value;
+ var txtfreight=document.getElementById("txtfreight").value;
+ var other=document.getElementById("other").value;
+ var adm=document.getElementById("adm").value;
+ var txtquarantine=document.getElementById("txtquarantine").value; 
+ var t_charge=parseFloat(delivery)+parseFloat(txtfreight)+parseFloat(other)+			          parseFloat(adm)+parseFloat(txtquarantine);
+ var total=parseFloat(t_charge)- parseFloat(txtdiskon);
+ var format_total=toRp(total);
+
+ document.getElementById("txtdiskon").value=angka;
+ document.getElementById("grandtotal").value=format_total;
+ document.getElementById("txtgrandtotal").value=total;
+ }
+
+ function hitung(){
+var txtdiskon=document.getElementById("txtdiskon").value;
+	  
+ var delivery=document.getElementById("delivery").value;
+ var txtfreight=document.getElementById("txtfreight").value;
+ var other=document.getElementById("other").value;
+ var adm=document.getElementById("adm").value;
+ var txtquarantine=document.getElementById("txtquarantine").value; 
+ var total=parseFloat(delivery)+parseFloat(txtfreight)+parseFloat(other)+			          parseFloat(adm)+parseFloat(txtquarantine);
+ var t_netto=parseFloat(total)- parseFloat(txtdiskon);
+ var format_total=toRp(t_netto);
+
+ document.getElementById("grandtotal").value=format_total;
+ document.getElementById("txtgrandtotal").value=t_netto;
+ }
+
 
 </script>	    
+
 <script type="text/javascript">
 	    $(this).ready( function() {
     		$("#idshipper").autocomplete({
@@ -351,7 +385,7 @@ document.getElementById("txtgrandtotal").value=t_total;
 
 <div class="col-sm-13" id="contenshipper">
 <!-- CONTENT AJAX VIEW HERE -->
-sdkjhsjf shfjdshfj  <i class="fa fa-spinner fa-pulse fa-2x" style="display:none"></i>
+  <i class="fa fa-spinner fa-pulse fa-2x" style="display:none"></i>
 </div>
 
 <!-- detail for sender -->    
@@ -453,20 +487,22 @@ sdkjhsjf shfjdshfj  <i class="fa fa-spinner fa-pulse fa-2x" style="display:none"
                                               </thead>
                                               <tbody>
 
-                                                <thead>
+                                          <thead>
                                                  <tr align="right">
                                                   <td colspan="2"><label id="label_pacs">0</label>
                                                    <input name="t_pacs" type="hidden" id="t_pacs" value="0" /></td>
                                                   <td colspan="3">Total</td>
                                                   <td><input name="t_volume" type="hidden" id="t_volume" value="0" />
-                                                   <label id="label_volume">0</label></td>
-                                                  <td><input name="t_weight" type="hidden" id="t_weight" value="0" />      
-                                                   <label id="label_weight">0</label></td>  
+<label id="label_volume">0</label>
+                                                  </td>
+                                                  <td><input name="t_weight" type="hidden" id="t_weight" value="0" />
+                                                  <label id="label_weight">0</label>
+                                                  </td>  
                                                   <td>&nbsp;</td>
                                                 </tr>
-                                                </thead>
+                                          </thead>
                                               </tbody>
-                                            </table>
+                                          </table>
                                         </div>
                                     </div>
   
@@ -484,7 +520,7 @@ sdkjhsjf shfjdshfj  <i class="fa fa-spinner fa-pulse fa-2x" style="display:none"
             <option value="<?php echo $cm->commCode;?>"><?php echo $cm->Name;?></option>
           <?php } ?>
       </select>
-                                                 </div>
+                                                </div>
                                                 </div>
 
                                               <div class="col-md-12">
@@ -501,7 +537,7 @@ sdkjhsjf shfjdshfj  <i class="fa fa-spinner fa-pulse fa-2x" style="display:none"
                                                 <div class="col-md-12">
                                               <label class="col-sm-3">CWT &nbsp;</label>
                                               <div class="col-sm-8">
-                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)" value="0">
+                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)"><input type="hidden" name="ori_cwt" id="ori_cwt" value="0">
                                               </div>
                                                 </div>
                                               <div class="col-md-12">
@@ -518,9 +554,8 @@ sdkjhsjf shfjdshfj  <i class="fa fa-spinner fa-pulse fa-2x" style="display:none"
                                             </div>
   <!-- END RIGHT INPUT -->
   <div class="clearfix"> </div>
-
-                    </div>
-<!--  INPUT COST -->
+                                    
+    </div>
 <h2><span class="label label-large label-pink arrowed-in-right"><strong>COST / CHARGES</strong></span></h2>
 
 <div class="col-md-5">
@@ -541,31 +576,31 @@ sdkjhsjf shfjdshfj  <i class="fa fa-spinner fa-pulse fa-2x" style="display:none"
 <div class="col-md-12">
 <label class="col-sm-4">Adm SMU</label> 
   <div class="col-sm-7">
-  <input type="text" name="adm" id="adm" class="form-control" onkeypress="return isNumberKey(event)" onChange="return admRp(this)" required>
+  <input type="text" name="adm" id="adm" class="form-control" onkeypress="return isNumberKey(event)" onChange="return admRp(this)" required value="0">
   </div>
 </div>
 
 <div class="col-md-12">
 <label class="col-sm-4">Delivery</label> 
   <div class="col-sm-7">
-  <input type="text" name="delivery" id="delivery" class="form-control" onkeypress="return isNumberKey(event)" onChange="return deliveryRp(this)" required>
+  <input type="text" name="delivery" id="delivery" class="form-control" onkeypress="return isNumberKey(event)" onChange="return deliveryRp(this)" required value="0">
   </div>
 </div>
 <div class="col-md-12">
 <label class="col-sm-4">Other Cost &nbsp;</label>
-<div class="col-sm-7"><input type="text" name="other" id="other" class="form-control" onkeypress="return isNumberKey(event)" onChange="return otherRp(this)"></div>
+<div class="col-sm-7"><input type="text" name="other" id="other" class="form-control" onkeypress="return isNumberKey(event)" onChange="return otherRp(this)" value="0"></div>
 </div>
   
     </div>
       </div>
-<!-- Right input -->
-<div class="col-md-6">
+ <!-- right input -->
+ <div class="col-md-6">
       <div class="row">
           <div class="col-md-12">
   <label class="col-sm-7 text-right">Rp</label> 
     <div class="col-sm-4">
       <input type="text" name="t_freight" id="t_freight" class="form-control txtrp" onkeypress="return isNumberKey(event)" required readonly>
-    <input type="hidden" name="txtfreight" id="txtfreight">
+    <input type="hidden" name="txtfreight" id="txtfreight" value="0">
     </div>
 </div>
 
@@ -573,54 +608,61 @@ sdkjhsjf shfjdshfj  <i class="fa fa-spinner fa-pulse fa-2x" style="display:none"
 <label class="col-sm-7 text-right">Rp</label> 
   <div class="col-sm-4">
     <input type="text" name="t_quarantine" id="t_quarantine" class="form-control txtrp" onkeypress="return isNumberKey(event)" required readonly>
-    <input type="hidden" name="txtquarantine" id="txtquarantine">
+    <input type="hidden" name="txtquarantine" id="txtquarantine" value="0">
   </div>
 </div>
 <div class="col-md-12">
  <label class="col-sm-7 text-right">Rp</label>
 <div class="col-sm-4">
-  <input type="text" name="adm2" id="adm2" class="form-control txtrp" onkeypress="return isNumberKey(event)" required>
+  <input type="text" name="adm2" id="adm2" class="form-control txtrp" onkeypress="return isNumberKey(event)" readonly required>
 </div>
 
 </div>
 <div class="col-md-12">
  <label class="col-sm-7 text-right">Rp</label> 
   <div class="col-sm-4">
-  <input type="text" name="delivery2" id="delivery2" class="form-control txtrp" onkeypress="return isNumberKey(event)"  required>
+  <input type="text" name="delivery2" id="delivery2" class="form-control txtrp" onkeypress="return isNumberKey(event)" readonly required>
   </div>
 </div>
 <div class="col-md-12">
 <label class="col-sm-7 text-right">Rp</label>
-<div class="col-sm-4"><input type="text" name="other2" id="other2" class="form-control txtrp" onkeypress="return isNumberKey(event)"></div>
+<div class="col-sm-4"><input type="text" name="other2" id="other2" class="form-control txtrp" onkeypress="return isNumberKey(event)" value="" readonly></div>
 </div>
 
 ``</div>
 </div>
-
-<!-- diskon input -->
+<!-- discoount iinput -->
 <div class="col-sm-12 line" id="line">
 <hr>
 
 <div class="col-sm-8"><p class="text-right">TOTAL </p></div>
-<div class="col-sm-3"><p class="text-left"><input type="text" name="t_total" id="t_total" class="form-control txtrp" readonly="readonly">
+<div class="col-sm-2"><p class="text-left"><input type="text" name="t_total" id="t_total" class="form-control txtrp" readonly>
 <input type="hidden" name="txttotal" id="txttotal" value="0">
 </p>
 </div>
 
 <div class="col-sm-8"><p class="text-right">DISKON </p></div>
-<div class="col-sm-3"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="diskonRp();">
+<div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="return diskonRp(this);">
 <input type="hidden" name="txtdiskon" id="txtdiskon" class="form-control" value="0">
 </p></div>
 
 <div class="col-sm-8"><p class="text-right">GRAND TOTAL </p></div>
-<div class="col-sm-3"><p class="text-left"><input type="text" name="grandtotal" id="grandtotal" class="form-control txtrp" onchange="grandtotalRp();" readonl="readonly">
+<div class="col-sm-2"><p class="text-left"><input type="text" name="grandtotal" id="grandtotal" class="form-control txtrp"  readonl="readonly" readonly>
 <input type="hidden" name="txtgrandtotal" id="txtgrandtotal" class="form-control" value="0">
 </p></div>
 
-
+<div class="col-sm-1">
+<button type="button" id="btn_hitung" onClick="return hitung()" class="btn btn-small btn-danger">Hitung</button>
 </div>
-<!-- END COST -->  
-              <div class="clearfix clearfx"></div>
+</p>
+</div>
+
+
+
+
+  
+   </div><!--  INPUT COST -->
+                                    
                                   <div class="cpl-sm-12"><h2>&nbsp;</h2>
                                   <div class="row">
                                       <div class="col-md-4"></div>
@@ -637,7 +679,6 @@ sdkjhsjf shfjdshfj  <i class="fa fa-spinner fa-pulse fa-2x" style="display:none"
       </form>
   </div>
             </div>
-              
 
 
 <!--adding form-->
@@ -922,7 +963,7 @@ $("#txtsearch").keyup(function(){
             });
         });
 
-$("#idconsigneeeee").change(function(){
+     $("#idconsigneeeee").change(function(){
             var custCode = $("#idconsigne").val();
           $.ajax({
                 type: "POST",
@@ -933,7 +974,7 @@ $("#idconsigneeeee").change(function(){
                 }
             });
 
- });
+        });
 $("#addcust").click(function(){
 		var initial=$("#initial").val();
 		var namecust=$("#namecust").val();
@@ -992,12 +1033,13 @@ $("#iditems").click(function(){
 	var kali=hitung.toFixed(2); //membuat desimal 2 angka belakang koma
  	var t_volume=$('#t_volume').val();
 	var volume=parseFloat(kali)+ parseFloat(t_volume);
-	var total_volume=volume.toFixed(2); //membuat desimal 2 angka belakang koma
+	var format_volume=volume.toFixed(2); //membuat desimal 2 angka belakang koma
 	
 	var t_pacs=$('#t_pacs').val();
 	var total_pacs=parseFloat(t_pacs) + parseFloat(pcs);
 	var t_weight=$('#t_weight').val();
 	var total_weight=parseFloat(t_weight) + parseFloat(weight);
+	var format_weight=total_weight.toFixed(2);
 	//var total_pacs=parseFloat(t_pacs)+ parseFloat(pcs);
 	
 if (panjang == '' || lebar == '' || pcs == ''){
@@ -1012,14 +1054,14 @@ if (panjang == '' || lebar == '' || pcs == ''){
     + '<td>' +  '<input type="hidden" name="l[]" id="l[]" size="5" value="'+ lebar +'">'+ '<label id="l_pcs">'+ lebar +'</label>' +'</td>'
     + '<td>' +  '<input type="hidden" name="t[]" id="t[]" size="5" value="'+ tinggi +'">'+ '<label id="l_pcs">'+ tinggi +'</label>' +'</td>'
     + '<td>' + '<input type="hidden" name="v[]" id="v[]" size="5" value="'+ kali +'">'+ '<label id="l_pcs">'+ kali +'</label>' +'</td>'
-    + '<td>' + '<input type="hidden" name="v[]" id="v[]" size="5" value="'+ weight +'">'+ '<label id="l_pcs">'+ weight +'</label>' +'</td>'
+    + '<td>' + '<input type="hidden" name="w[]" id="w[]" size="5" value="'+ weight +'">'+ '<label id="l_pcs">'+ weight +'</label>' +'</td>'
 
 	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali + '/'+ pcs + '/' + weight + '" onclick="hapus2(this)" type="button" ><i class="fa fa-times"></i></button></td>'
     + '</tr>';
 	
 		$('#tblitems tbody').append(text);
-		$("#t_volume").val(total_volume);
-		$("#label_volume").html(total_volume);
+		$("#t_volume").val(volume);
+		$("#label_volume").html(format_volume);
 		$("#t_weight").val(total_weight);
 		$("#label_weight").html(total_weight);
 		$("#t_pacs").val(total_pacs);
@@ -1033,15 +1075,28 @@ if (panjang == '' || lebar == '' || pcs == ''){
 		$("#weight").val("");
 		$("#modaladd").modal('hide');
 		
-		if(total_volume > total_weight)
+		if(volume > total_weight)
 		{
-			$("#cwt").val(total_volume);
+			$("#cwt").val(volume);
 			
 		} else {
 			
 			$("#cwt").val(total_weight);
 		}
-		
+		var input=$("#cwt").val();
+		var pecah=input.split('.');
+		var bulat=pecah[0];
+		var koma=pecah[1];
+		if(koma > 49){
+			var maks=parseFloat(bulat) + 1;
+			$("#ori_cwt").val(maks);
+			
+		} else {
+			var maks=parseFloat(bulat);
+			$("#ori_cwt").val(maks);
+			
+		}
+
 	}
  });
 
@@ -1061,11 +1116,11 @@ function hapus(th) {
 
 <!-- hapus item dan kurangi total items pack
 function hapus2(myid){
-	var input = $(myid).val();
-	//var input2 = $(myid).val();
-	var pecah=input.split('/');
-	var pcs=pecah[1];
-	var weight=pecah[2];
+var input = $(myid).val();
+//var input2 = $(myid).val();
+var pecah=input.split('/');
+var pcs=pecah[1];
+var weight=pecah[2];
 
 	var t_volume=$('#t_volume').val();
 	var kurang=parseFloat(t_volume)-parseFloat(input);
@@ -1085,11 +1140,18 @@ function hapus2(myid){
 	$('#t_weight').val(hasil3);
 	$('#label_weight').html(hasil3);
 	
-	if(hasil > hasil3){
+	var total_volum=$('#t_volume').val();
+	var total_weight=$('#t_weight').val();
+	
+	if(total_volum > total_weight)
+	{
 		$('#cwt').val(hasil);
-	} else {
+	} 
+	else if(total_weight > total_volum)
+	 {
 		$('#cwt').val(hasil3);
 	}
+	
 	
      t = $(myid);
      tr = t.parent().parent();
@@ -1135,20 +1197,20 @@ $('#desc').val("");
 
 
 function hapus3(myid){
-		var input = $(myid).val();
-		
-		var total_charge=$('#total_charge').val();
-		var hasil=parseFloat(total_charge)-parseFloat(input);
-		
-		$('#total_charge').val(hasil);
-		$("#label_charges").html(hasil);
-	
-		 t = $(myid);
-		 tr = t.parent().parent();
-		 tr.remove();
+var input = $(myid).val();
+
+var total_charge=$('#total_charge').val();
+var hasil=parseFloat(total_charge)-parseFloat(input);
+
+$('#total_charge').val(hasil);
+$("#label_charges").html(hasil);
+
+     t = $(myid);
+     tr = t.parent().parent();
+     tr.remove();
 }
 
-$('#plane').change(function(){
+   $('#plane').change(function(){
     	$.getJSON("<?php echo base_url('transaction/getcost'); ?>",
 		{
 			action:'getcode', plane:$(this).val()}, function(json){
@@ -1160,8 +1222,8 @@ $('#plane').change(function(){
     			$('#freight').val(json.AirLineName);
     			}
     		});
-});
+    });
 					
 </script>
-  </body>
+</body>
 </html>

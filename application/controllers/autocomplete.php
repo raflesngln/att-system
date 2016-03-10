@@ -27,8 +27,8 @@ function lookup_om(){
             {
 			//Add a row to array
               $data['message'][] = array( 
-                    'id'=>$row->HouseNo,
-                     'value' =>$row->HouseNo,
+                    'id'=>$row->NoSMU,
+                     'value' =>$row->NoSMU,
                      'name' => $row->JobNO,
                      'origin' => $row->Origin,
 					 'destination' => $row->Destination,

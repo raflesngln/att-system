@@ -109,8 +109,8 @@ $("#idhouse").autocomplete({
 </form>
 
 <div class="col-sm-11 col-xs-12">
-  <label class="label label-grey">Search by House No</label></div>
-<div class="col-sm-9 col-xs-12 text-right"><input type="text" class="form-control" name="txtsearch" id="txtsearch" placeholder="type house Number"></div>
+  <label class="label label-grey">Search by SAMU/Master No</label></div>
+<div class="col-sm-9 col-xs-12 text-right"><input type="text" class="form-control" name="txtsearch" id="txtsearch" placeholder="type SMU/Master Number"></div>
 <div class="col-sm-3 col-xs-12"><button class="btn btn-small btn-blue" id="btnsearch"><i class="fa fa-search"></i> Search</button></div>
 
 </div>
@@ -143,7 +143,7 @@ $("#idhouse").autocomplete({
                                         <table width="500" class="table table-striped table-bordered table-hover" id="tblhouse">
                                               <thead>
                                                 <tr align="left" style="background:#EBEBEB">
-                                                  <th colspan="2"><div align="left">House No</div></th>
+                                                  <th colspan="2"><div align="left">SMU No</div></th>
                                                   <th width="54"><div align="center">ETD</div></th>
                                                   <th width="46"><div align="center">Paycode</div></th>
                                                   <th width="58"><div align="center">Service</div></th>
@@ -169,7 +169,7 @@ $("#idhouse").autocomplete({
         ?>
             
                                             <tr align="right" class="gradeX">
-                                                    <td colspan="2"><div align="left"><a class="dethouse" href="#modaladding" data-toggle="modal" id="dethouse" title="click for detail"><?php echo $items->HouseNo;?></a></div></td>
+                                                    <td colspan="2"><div align="left"><a class="dethouse" href="#modaladding" data-toggle="modal" id="dethouse" title="click for detail"><?php echo $items->NoSMU;?></a></div></td>
                                                     <td><div align="left"><?php echo date("d-m-Y",strtotime($items->ETD)); ?></div></td>
                                                     <td><div align="left"><?php echo $items->PayCode;?></div></td>
                                                     <td><div align="left"><?php echo $items->Service;?></div></td>
@@ -179,12 +179,12 @@ $("#idhouse").autocomplete({
                                                     <td><div align="left"><?php echo $items->Consigne;?></div></td>
                                                     <td>
                                                    <form action="<?php echo base_url();?>transaction/print_invoice_OM" method="post" target="new" class="text-left">
-                                                   <input type="hidden" value="<?php echo $items->HouseNo;?>" name=" houseno" />
+                                                   <input type="hidden" value="<?php echo $items->NoSMU;?>" name=" NoSMU" />
                                                   <button class="btn btn-mini btn-warning"><i class="fa fa-print bigger-120"></i></button>
-                                                                                                      <a href="<?php echo base_url();?>transaction/edit_outgoing_master/<?php echo $items->HouseNo;?>" title="Edit item">
+                                                                                                      <a href="<?php echo base_url();?>transaction/edit_outgoing_master/<?php echo $items->NoSMU;?>" title="Edit item">
                                                   <button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>
                                                   </a>                                                   
-                                                  <a href="<?php echo base_url(); ?>transaction/delete_outgoing_master/<?php echo $items->HouseNo; ?>" onClick="return confirm('Yakin Hapus No. House ( <?php echo $items->HouseNo;?> ) ?? . Ini akan menghapus sekaligus items nya !');" title="Delete item">
+                                                  <a href="<?php echo base_url(); ?>transaction/delete_outgoing_master/<?php echo $items->NoSMU; ?>" onClick="return confirm('Yakin Hapus No. House ( <?php echo $items->NoSMU;?> ) ?? . Ini akan menghapus sekaligus items nya !');" title="Delete item">
                                                   <button class="btn btn-mini btn-danger" type="button" ><i class="fa fa-times bigger-120"></i></button>
                                                   </a>  
                                                   </form>
@@ -236,9 +236,9 @@ $("#idhouse").autocomplete({
                      
                    
 <div class="form-group">
-                        <label class="col-sm-3 control-label">HouseNo/SMU </label>
+                        <label class="col-sm-3 control-label">NoSMU/SMU </label>
                         <div class="col-sm-9"><span class="controls">
-                        <input name="houseno" type="text" class="form-control" id="idhouse" required="required" />
+                        <input name="NoSMU" type="text" class="form-control" id="idhouse" required="required" />
                         </span></div>
                         <div class="clearfix"></div>
   </div>
@@ -313,12 +313,12 @@ $("#idhouse").click(function(){
 });
 
  $("#btn-invoice").click(function(){
-	var idhouse=$("#idhouse").val();
+	var NoSMU=$("#NoSMU").val();
 	var idorigin=$("#idorigin").val();
 			$.ajax({
                 type: "POST",
                 url : "<?php echo base_url('transaction/cek_house_invoice'); ?>",
-                data: "idhouse="+idhouse,
+                data: "NoSMU="+NoSMU,
                 success: function(data){
 				   $('.detail_outgoing').html(data);
 				   	$("#idorigin").val('');

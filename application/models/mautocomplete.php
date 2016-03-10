@@ -6,7 +6,7 @@ class Mautocomplete extends CI_Model{
 	}
 	function lookup_om($keyword){
        $this->db->select('*')->from('outgoing_master');
-        $this->db->like('HouseNo',$keyword,'after');
+        $this->db->like('NoSMU',$keyword,'after');
 		$this->db->where('status_proses','0');
 		$this->db->where('status_proses','0');
         $query = $this->db->get();    

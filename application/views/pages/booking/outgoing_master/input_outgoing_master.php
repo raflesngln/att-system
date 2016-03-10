@@ -55,6 +55,7 @@
 				font-weight: normal;
 				margin: -1px;
 			}
+#t_freight,#t_quarantine,#other2,#delivery2,#adm2{ text-align:right;}
 	    </style>
     <script type="text/ecmascript">
   $(function() {
@@ -82,90 +83,98 @@ function toRp(angka){
 }
 
  function count_freight(){
-  var cwt =document.getElementById("cwt").value;
+  var cwt =document.getElementById("ori_cwt").value;
   var freight =document.getElementById("freight").value;
   var result=parseFloat(cwt) * parseFloat(freight);  
-  var t_freight=result;//toRp(result);
-  var total=document.getElementById("txttotal").value; 
-  var t_total=parseFloat(total)+parseFloat(result);
-  var formatgrand=toRp(t_total);
-   
+  var t_freight=toRp(result);
+  
+ var txtquarantine=document.getElementById("txtquarantine").value;
+ var adm=document.getElementById("adm").value;
+ var delivery=document.getElementById("delivery").value;
+ var other=document.getElementById("other").value; 
+ var total=parseFloat(result)+parseFloat(txtquarantine)+parseFloat(adm)+			          parseFloat(delivery)+parseFloat(other);
+ var format_total=toRp(total);
+
   document.getElementById("t_freight").value=t_freight;
   document.getElementById("txtfreight").value=result;
-  document.getElementById("t_total").value=formatgrand;
- document.getElementById("txttotal").value=t_total;
- document.getElementById("grandtotal").value=formatgrand;
- document.getElementById("txtgrandtotal").value=t_total;
+ document.getElementById("t_total").value=format_total;
+ document.getElementById("txttotal").value=total;
  }
 function count_quarantine(){
   var pcs =document.getElementById("t_pacs").value;
   var quarantine =document.getElementById("quarantine").value;
   var result=parseFloat(pcs) * parseFloat(quarantine);  
   var t_quarantine=toRp(result);
-  var total=document.getElementById("txttotal").value; 
-  var t_total=parseFloat(total)+parseFloat(result);
-  var formatgrand=toRp(t_total);
+  
+ var txtfreight=document.getElementById("txtfreight").value;
+ var adm=document.getElementById("adm").value;
+ var delivery=document.getElementById("delivery").value;
+ var other=document.getElementById("other").value; 
+ var total=parseFloat(result)+parseFloat(txtfreight)+parseFloat(adm)+			          parseFloat(delivery)+parseFloat(other);
+ var format_total=toRp(total);
    
   document.getElementById("t_quarantine").value=t_quarantine;
   document.getElementById("txtquarantine").value=result;
-  document.getElementById("t_total").value=formatgrand;
- document.getElementById("txttotal").value=t_total; 
- document.getElementById("grandtotal").value=formatgrand;
-document.getElementById("txtgrandtotal").value=t_total;
+ document.getElementById("t_total").value=format_total;
+ document.getElementById("txttotal").value=total;
  }
- function otherRp(input){
+function otherRp(input){
   var angka =$(input).val();
   var format=toRp(angka);
-  var total=document.getElementById("txttotal").value; 
-  var t_total=parseFloat(total)+parseFloat(angka);
-  var formatgrand=toRp(t_total);
+ var txtfreight=document.getElementById("txtfreight").value;
+ var adm=document.getElementById("adm").value;
+ var delivery=document.getElementById("delivery").value;
+ var txtquarantine=document.getElementById("txtquarantine").value; 
+ var total=parseFloat(angka)+parseFloat(txtfreight)+parseFloat(adm)+			          parseFloat(delivery)+parseFloat(txtquarantine);
+ var format_total=toRp(total);
 
  document.getElementById("other2").value=format; 
- document.getElementById("t_total").value=formatgrand;
- document.getElementById("txttotal").value=t_total; 
- document.getElementById("grandtotal").value=formatgrand;
-document.getElementById("txtgrandtotal").value=t_total; 
+ document.getElementById("t_total").value=format_total;
+ document.getElementById("txttotal").value=total; 
+ 
  }
   function admRp(input){
   var angka =$(input).val();
   var format=toRp(angka);
-    var total=document.getElementById("txttotal").value; 
-  var t_total=parseFloat(total)+parseFloat(angka);
-  var formatgrand=toRp(t_total);
+ var txtfreight=document.getElementById("txtfreight").value;
+ var other=document.getElementById("other").value;
+ var delivery=document.getElementById("delivery").value;
+ var txtquarantine=document.getElementById("txtquarantine").value; 
+ var total=parseFloat(angka)+parseFloat(txtfreight)+parseFloat(other)+			          parseFloat(delivery)+parseFloat(txtquarantine);
+ var format_total=toRp(total);
 
  document.getElementById("adm2").value=format;  
- document.getElementById("t_total").value=formatgrand;
- document.getElementById("txttotal").value=t_total; 
- document.getElementById("grandtotal").value=formatgrand;
-document.getElementById("txtgrandtotal").value=t_total;
+ document.getElementById("t_total").value=format_total;
+ document.getElementById("txttotal").value=total;
  }
-  function deliveryRp(input){
+function deliveryRp(input){
   var angka =$(input).val();
   var format=toRp(angka);
-  var total=document.getElementById("txttotal").value; 
-  var t_total=parseFloat(total)+parseFloat(angka);
-  var formatgrand=toRp(t_total);
+ var txtfreight=document.getElementById("txtfreight").value;
+ var other=document.getElementById("other").value;
+ var adm=document.getElementById("adm").value;
+ var txtquarantine=document.getElementById("txtquarantine").value; 
+ var total=parseFloat(angka)+parseFloat(txtfreight)+parseFloat(other)+			          parseFloat(adm)+parseFloat(txtquarantine);
+ var format_total=toRp(total);
 
  document.getElementById("delivery2").value=format; 
- document.getElementById("t_total").value=formatgrand;
- document.getElementById("txttotal").value=t_total;
- document.getElementById("grandtotal").value=formatgrand;
-document.getElementById("txtgrandtotal").value=t_total; 
+ document.getElementById("t_total").value=format_total;
+ document.getElementById("txttotal").value=total;
  }
-  function diskonRp(){
-  var angka =document.getElementById("diskon").value;
-  var format=toRp(angka);
-  var total=document.getElementById("txttotal").value; 
-  var t_total=parseFloat(total)-parseFloat(angka);
-  var formatgrand=toRp(t_total);
 
- document.getElementById("diskon").value=format;
- document.getElementById("txtdiskon").value=angka;
-document.getElementById("grandtotal").value=formatgrand;
-document.getElementById("txtgrandtotal").value=t_total; 
-  
+ function hitung(){
+ var delivery=document.getElementById("delivery").value;
+ var txtfreight=document.getElementById("txtfreight").value;
+ var other=document.getElementById("other").value;
+ var adm=document.getElementById("adm").value;
+ var txtquarantine=document.getElementById("txtquarantine").value; 
+ var total=parseFloat(delivery)+parseFloat(txtfreight)+parseFloat(other)+			          parseFloat(adm)+parseFloat(txtquarantine);
+ var format_total=toRp(total);
+
+ document.getElementById("t_total").value=format_total;
+ document.getElementById("txttotal").value=total;
  }
- 
+
 
 </script>	    
 <script type="text/javascript">
@@ -206,7 +215,7 @@ document.getElementById("txtgrandtotal").value=t_total;
     		});
 			
 //for shipper
-    		$("#idconsigne").autocomplete({
+$("#idconsigne").autocomplete({
       			minLength: 1,
       			source: 
         		function(req, add){
@@ -279,7 +288,7 @@ document.getElementById("txtgrandtotal").value=t_total;
           <strong>
           <label class="col-sm-4"> SMU/Air Waybill</label></strong>
           <div class="col-sm-7">
-           <input name="house" type="text" class="form-control"  id="name" />
+           <input name="smu" type="text" class="form-control"  id="name" />
           </div>
 
           <strong><label class="col-sm-4"> Payment Type</label></strong>
@@ -298,9 +307,9 @@ document.getElementById("txtgrandtotal").value=t_total;
           <select name="airline" class="form-control" required="required" id="airline">
           <option value="">Select AirLine</option>
                    <?php
-                   foreach ($payment_type as $pay) {
+                   foreach ($airline as $air) {
                    ?>
-                     <option value="<?php echo $pay->payCode.'-'.$pay->payName;?>"><?php echo $pay->payName;?></option>
+                     <option value="<?php echo $air->AirLineCode;?>"><?php echo $air->AirLineName;?></option>
                      <?php } ?>
           </select>
           </div>
@@ -475,7 +484,7 @@ document.getElementById("txtgrandtotal").value=t_total;
 <br style="clear:both;margin-bottom:40px;">
             <div class="container">
                 <div class="col-lg-12 portlets ui-sortable">
-                    <div class="panel">
+                  <div class="panel">
                         <!--<div class="panel-header"></div>-->
                         
                                     <div class="form-group">
@@ -502,21 +511,22 @@ document.getElementById("txtgrandtotal").value=t_total;
                                               </thead>
                                               <tbody>
 
-                                                <thead>
+                                          <thead>
                                                  <tr align="right">
                                                   <td colspan="2"><label id="label_pacs">0</label>
                                                    <input name="t_pacs" type="hidden" id="t_pacs" value="0" /></td>
                                                   <td colspan="3">Total</td>
                                                   <td><input name="t_volume" type="hidden" id="t_volume" value="0" />
-                                                   0</td>
+<label id="label_volume">0</label>
+                                                  </td>
                                                   <td><input name="t_weight" type="hidden" id="t_weight" value="0" />
                                                   <label id="label_weight">0</label>
                                                   </td>  
                                                   <td>&nbsp;</td>
                                                 </tr>
-                                                </thead>
+                                          </thead>
                                               </tbody>
-                                            </table>
+                                          </table>
                                         </div>
                                     </div>
   
@@ -534,7 +544,7 @@ document.getElementById("txtgrandtotal").value=t_total;
             <option value="<?php echo $cm->commCode;?>"><?php echo $cm->Name;?></option>
           <?php } ?>
       </select>
-                                                 </div>
+                                                </div>
                                                 </div>
 
                                               <div class="col-md-12">
@@ -551,7 +561,7 @@ document.getElementById("txtgrandtotal").value=t_total;
                                                 <div class="col-md-12">
                                               <label class="col-sm-3">CWT &nbsp;</label>
                                               <div class="col-sm-8">
-                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)">
+                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)"><input type="hidden" name="ori_cwt" id="ori_cwt" value="0">
                                               </div>
                                                 </div>
                                               <div class="col-md-12">
@@ -569,7 +579,7 @@ document.getElementById("txtgrandtotal").value=t_total;
   <!-- END RIGHT INPUT -->
   <div class="clearfix"> </div>
                                     
-                                    </div>
+    </div>
   
                                    
 <h2><span class="label label-large label-pink arrowed-in-right"><strong>COST / CHARGES</strong></span></h2>
@@ -592,19 +602,19 @@ document.getElementById("txtgrandtotal").value=t_total;
 <div class="col-md-12">
 <label class="col-sm-4">Adm SMU</label> 
   <div class="col-sm-7">
-  <input type="text" name="adm" id="adm" class="form-control" onkeypress="return isNumberKey(event)" onChange="return admRp(this)" required>
+  <input type="text" name="adm" id="adm" class="form-control" onkeypress="return isNumberKey(event)" onChange="return admRp(this)" required value="0">
   </div>
 </div>
 
 <div class="col-md-12">
 <label class="col-sm-4">Delivery</label> 
   <div class="col-sm-7">
-  <input type="text" name="delivery" id="delivery" class="form-control" onkeypress="return isNumberKey(event)" onChange="return deliveryRp(this)" required>
+  <input type="text" name="delivery" id="delivery" class="form-control" onkeypress="return isNumberKey(event)" onChange="return deliveryRp(this)" required value="0">
   </div>
 </div>
 <div class="col-md-12">
 <label class="col-sm-4">Other Cost &nbsp;</label>
-<div class="col-sm-7"><input type="text" name="other" id="other" class="form-control" onkeypress="return isNumberKey(event)" onChange="return otherRp(this)"></div>
+<div class="col-sm-7"><input type="text" name="other" id="other" class="form-control" onkeypress="return isNumberKey(event)" onChange="return otherRp(this)" value="0"></div>
 </div>
   
     </div>
@@ -616,7 +626,7 @@ document.getElementById("txtgrandtotal").value=t_total;
   <label class="col-sm-7 text-right">Rp</label> 
     <div class="col-sm-4">
       <input type="text" name="t_freight" id="t_freight" class="form-control txtrp" onkeypress="return isNumberKey(event)" required readonly>
-    <input type="hidden" name="txtfreight" id="txtfreight">
+    <input type="hidden" name="txtfreight" id="txtfreight" value="0">
     </div>
 </div>
 
@@ -624,25 +634,25 @@ document.getElementById("txtgrandtotal").value=t_total;
 <label class="col-sm-7 text-right">Rp</label> 
   <div class="col-sm-4">
     <input type="text" name="t_quarantine" id="t_quarantine" class="form-control txtrp" onkeypress="return isNumberKey(event)" required readonly>
-    <input type="hidden" name="txtquarantine" id="txtquarantine">
+    <input type="hidden" name="txtquarantine" id="txtquarantine" value="0">
   </div>
 </div>
 <div class="col-md-12">
  <label class="col-sm-7 text-right">Rp</label>
 <div class="col-sm-4">
-  <input type="text" name="adm2" id="adm2" class="form-control txtrp" onkeypress="return isNumberKey(event)" required>
+  <input type="text" name="adm2" id="adm2" class="form-control txtrp" onkeypress="return isNumberKey(event)" readonly required>
 </div>
 
 </div>
 <div class="col-md-12">
  <label class="col-sm-7 text-right">Rp</label> 
   <div class="col-sm-4">
-  <input type="text" name="delivery2" id="delivery2" class="form-control txtrp" onkeypress="return isNumberKey(event)"  required>
+  <input type="text" name="delivery2" id="delivery2" class="form-control txtrp" onkeypress="return isNumberKey(event)" readonly required>
   </div>
 </div>
 <div class="col-md-12">
 <label class="col-sm-7 text-right">Rp</label>
-<div class="col-sm-4"><input type="text" name="other2" id="other2" class="form-control txtrp" onkeypress="return isNumberKey(event)"></div>
+<div class="col-sm-4"><input type="text" name="other2" id="other2" class="form-control txtrp" onkeypress="return isNumberKey(event)" value="" readonly></div>
 </div>
 
 ``</div>
@@ -652,20 +662,19 @@ document.getElementById("txtgrandtotal").value=t_total;
 <hr>
 
 <div class="col-sm-8"><p class="text-right">TOTAL </p></div>
-<div class="col-sm-3"><p class="text-left"><input type="text" name="t_total" id="t_total" class="form-control txtrp" readonly>
+<div class="col-sm-2"><p class="text-left"><input type="text" name="t_total" id="t_total" class="form-control txtrp" readonly>
 <input type="hidden" name="txttotal" id="txttotal" value="0">
 </p>
 </div>
+<div class="col-sm-1">
+<button type="button" id="btn_hitung" onClick="return hitung()" class="btn btn-small btn-danger">Hitung</button>
+</div>
+</p>
+</div>
 
-<div class="col-sm-8"><p class="text-right">DISKON </p></div>
-<div class="col-sm-3"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="diskonRp();">
-<input type="hidden" name="txtdiskon" id="txtdiskon" class="form-control" value="0">
-</p></div>
 
-<div class="col-sm-8"><p class="text-right">GRAND TOTAL </p></div>
-<div class="col-sm-3"><p class="text-left"><input type="text" name="grandtotal" id="grandtotal" class="form-control txtrp" onchange="grandtotalRp();" readonl="readonly">
-<input type="hidden" name="txtgrandtotal" id="txtgrandtotal" class="form-control" value="0">
-</p></div>
+
+
   
    </div><!--  INPUT COST -->
                                     
@@ -982,7 +991,7 @@ $("#txtsearch").keyup(function(){
             });
 
         });
-  $("#addcust").click(function(){
+$("#addcust").click(function(){
 		var initial=$("#initial").val();
 		var namecust=$("#namecust").val();
 		var address=$("#address").val();
@@ -1040,12 +1049,13 @@ $("#iditems").click(function(){
 	var kali=hitung.toFixed(2); //membuat desimal 2 angka belakang koma
  	var t_volume=$('#t_volume').val();
 	var volume=parseFloat(kali)+ parseFloat(t_volume);
-	var total_volume=volume.toFixed(2); //membuat desimal 2 angka belakang koma
+	var format_volume=volume.toFixed(2); //membuat desimal 2 angka belakang koma
 	
 	var t_pacs=$('#t_pacs').val();
 	var total_pacs=parseFloat(t_pacs) + parseFloat(pcs);
 	var t_weight=$('#t_weight').val();
 	var total_weight=parseFloat(t_weight) + parseFloat(weight);
+	var format_weight=total_weight.toFixed(2);
 	//var total_pacs=parseFloat(t_pacs)+ parseFloat(pcs);
 	
 if (panjang == '' || lebar == '' || pcs == ''){
@@ -1066,8 +1076,8 @@ if (panjang == '' || lebar == '' || pcs == ''){
     + '</tr>';
 	
 		$('#tblitems tbody').append(text);
-		$("#t_volume").val(total_volume);
-		$("#label_volume").html(total_volume);
+		$("#t_volume").val(volume);
+		$("#label_volume").html(format_volume);
 		$("#t_weight").val(total_weight);
 		$("#label_weight").html(total_weight);
 		$("#t_pacs").val(total_pacs);
@@ -1081,15 +1091,28 @@ if (panjang == '' || lebar == '' || pcs == ''){
 		$("#weight").val("");
 		$("#modaladd").modal('hide');
 		
-		if(total_volume > total_weight)
+		if(volume > total_weight)
 		{
-			$("#cwt").val(total_volume);
+			$("#cwt").val(volume);
 			
 		} else {
 			
 			$("#cwt").val(total_weight);
 		}
-		
+		var input=$("#cwt").val();
+		var pecah=input.split('.');
+		var bulat=pecah[0];
+		var koma=pecah[1];
+		if(koma > 49){
+			var maks=parseFloat(bulat) + 1;
+			$("#ori_cwt").val(maks);
+			
+		} else {
+			var maks=parseFloat(bulat);
+			$("#ori_cwt").val(maks);
+			
+		}
+
 	}
  });
 
@@ -1133,9 +1156,15 @@ var weight=pecah[2];
 	$('#t_weight').val(hasil3);
 	$('#label_weight').html(hasil3);
 	
-	if(hasil > hasil3){
+	var total_volum=$('#t_volume').val();
+	var total_weight=$('#t_weight').val();
+	
+	if(total_volum > total_weight)
+	{
 		$('#cwt').val(hasil);
-	} else {
+	} 
+	else if(total_weight > total_volum)
+	 {
 		$('#cwt').val(hasil3);
 	}
 	
