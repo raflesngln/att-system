@@ -293,6 +293,17 @@ document.getElementById("txtgrandtotal").value=t_total;
                      <?php } ?>
           </select>
           </div>
+          <strong><label class="col-sm-4">Air Line</label></strong>
+          <div class="col-sm-7">
+          <select name="airline" class="form-control" required="required" id="airline">
+          <option value="">Select AirLine</option>
+                   <?php
+                   foreach ($payment_type as $pay) {
+                   ?>
+                     <option value="<?php echo $pay->payCode.'-'.$pay->payName;?>"><?php echo $pay->payName;?></option>
+                     <?php } ?>
+          </select>
+          </div>
           <strong><label class="col-sm-4"> Service</label></strong>
           <div class="col-sm-7">
            <select name="service" id="service" class="form-control" required="required">
@@ -323,6 +334,7 @@ document.getElementById("txtgrandtotal").value=t_total;
           <?php } ?>
           </select>
           </div>
+
 <strong><label class="col-sm-4">  Flight no/Date (1)</label></strong>
 <div class="col-sm-8">
 		<div class="row">
@@ -640,7 +652,7 @@ document.getElementById("txtgrandtotal").value=t_total;
 <hr>
 
 <div class="col-sm-8"><p class="text-right">TOTAL </p></div>
-<div class="col-sm-3"><p class="text-left"><input type="text" name="t_total" id="t_total" class="form-control txtrp" readonly="readonly">
+<div class="col-sm-3"><p class="text-left"><input type="text" name="t_total" id="t_total" class="form-control txtrp" readonly>
 <input type="hidden" name="txttotal" id="txttotal" value="0">
 </p>
 </div>
