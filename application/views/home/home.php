@@ -259,7 +259,8 @@ return true;
  		<li> <a href="<?php echo base_url();?>transaction/domestic_outgoing_house"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Outgoing-House</a></li>
 		<li> <a href="<?php echo base_url();?>transaction/outgoing_consolidation"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-clone bigger-120"></i> &nbsp;Consolidation</a></li>
 <li> <a href="<?php echo base_url();?>transaction/cargo_manifest"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Cargo Manifest</a></li>
-
+		
+<li> <a href="<?php echo base_url();?>transaction/add_soa"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;SOA</a></li>
         
         </ul>
 	  </li>

@@ -132,7 +132,7 @@ $("#idhouse").autocomplete({
 
 <div class="col-sm-8">
 <div class="col-sm-5" style="margin-left:30px"><a class="btn btn-primary btn-addnew btn-rounded" id="addinvoice" href="#modalInvoice" data-toggle="modal" title="Add item"><i class="fa fa-envelope-o"></i>&nbsp; Add Invoice</a></div>
-<div class="col-sm-5 text-left" style="margin-left:-150px"><a class="btn btn-primary btn-addnew btn-rounded" id="addinvoice" href="<?php echo base_url();?>transaction/add_soa"><i class="fa fa-share-square-o"></i>&nbsp; Add SOA</a></div>
+
 </div>
 
 
@@ -150,7 +150,6 @@ $("#idhouse").autocomplete({
                                                   <th width="48">Origin</th>
                                                   <th width="48">Destination</th>
                                                   <th width="48">Shipper</th>
-                                                  <th width="50">Consigne</th>
                                                   <th width="53" class="text-center"><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item" style="visibility:hidden"><i class="icon-plus icons"></i> Add items</a>Actions</div></th>
                                                 </tr>
                                                 </thead>
@@ -175,8 +174,7 @@ $("#idhouse").autocomplete({
                                                     <td><div align="left"><?php echo $items->Service;?></div></td>
                                                     <td><div align="left"><?php echo $items->Origin;?></div></td>
                                                     <td><div align="left"><?php echo $items->Destination;?></div></td>
-                                                    <td><div align="left"><?php echo $items->Shipper;?></div></td>
-                                                    <td><div align="left"><?php echo $items->Consigne;?></div></td>
+                                                    <td><div align="left"><?php echo $items->custName;?></div></td>
                                                     <td>
                                                    <form action="<?php echo base_url();?>transaction/print_invoice_OM" method="post" target="new" class="text-left">
                                                    <input type="hidden" value="<?php echo $items->NoSMU;?>" name=" NoSMU" />
@@ -197,7 +195,7 @@ $("#idhouse").autocomplete({
                                               <td width="74"></tbody>
                                             </table>
  <div align="right"> <?php echo $paginator;?></div>
-                                        </div>
+                                      </div>
                                     </div>
   
   <!-- LEFT INPUT  -->

@@ -24,12 +24,14 @@
                                                 <tr>
                                                   <th height="21" colspan="2"> <div align="left"><a class="btn-addnew btn-blue" href="#modaladd" data-toggle="modal" title="Add"><button class="btn btn-blue"><i class="icon-plus icons"></i>Add User</button></a></div></th>
                                                   <th>&nbsp;</th>
+                                                  <th>&nbsp;</th>
                                                   <th class="text-center">&nbsp;</th>
                                                 </tr>
                                                 <tr>
                                                   <th>No.</th>
                                                   <th>Name</th>
                                                   <th>Username</th>
+                                                  <th>Level</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                               </thead>
@@ -43,6 +45,7 @@ $no=1;
                                                     <td><?php echo $no?></th>
                                                     <td><a href="<?php echo base_url();?>transaksi/det_transaksi/<?php echo $data->cust_id;?>"><?php echo $data->FullName?></a></td>
                                                     <td><?php echo $data->UserName?></td>
+                                                    <td><?php echo $data->Level?></td>
                                                     <td class="text-center">
                                                       <div align="center">
 <a class="btn-action" href="#modaledit<?php echo $data->UserName?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i>
@@ -104,11 +107,32 @@ $no=1;
     </div>
                         <div class="clearfix"></div>
                       </div>
+ <div class="form-group">
+                        <label class="col-sm-3 control-label">Email</label>
+    <div class="col-sm-9">
+    <input name="em" type="text" class="form-control" id="em" value="<?php echo $row->Email;?>" required/>
+    </div>
+                        <div class="clearfix"></div>
+                      </div>
     <div class="form-group">
                         <label class="col-sm-3 control-label">Password</label>
     <div class="col-sm-9">
-    <input name="ps2" type="password" class="form-control" id="ps2" value="" required="required"/>
-    </div>
+    
+      <span class="controls">
+      <input name="ps2" type="password" class="form-control" id="ps2" required="required" minlength="5"/>
+</span></div>
+                        <div class="clearfix"></div>
+                      </div>
+<div class="form-group">
+                        <label class="col-sm-3 control-label">Level</label>
+                        <div class="col-sm-9">
+                          <select name="level" class="form-control" required="required" id="level">
+                            <option value="<?php echo $row->Level;?>"><?php echo $row->Level;?></option>
+                          <option value="Kasir">Kasir</option>
+                          <option value="Admin">Admin</option>
+                          <option value="K_Kasir">K Kasir</option> 
+                          </select>
+                        </div>
                         <div class="clearfix"></div>
                       </div>
                 <div class="clearfix"></div>
@@ -155,11 +179,30 @@ $no=1;
                         </span></div>
                         <div class="clearfix"></div>
                       </div>
+ <div class="form-group">
+                        <label class="col-sm-3 control-label">Email</label>
+    <div class="col-sm-9">
+    <input name="em" type="text" class="form-control" id="em"/>
+    </div>
+                        <div class="clearfix"></div>
+                      </div>
   <div class="form-group">
                         <label class="col-sm-3 control-label">Password</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="ps" type="text" class="form-control" id="ps" required="required"/>
-                        </span></div>
+                          <input name="ps" type="password" class="form-control" id="ps" required="required" minlength="5"/>
+              </span></div>
+                        <div class="clearfix"></div>
+                      </div>
+<div class="form-group">
+                        <label class="col-sm-3 control-label">Level</label>
+                        <div class="col-sm-9">
+                          <select name="level" class="form-control" required="required" id="level">
+                            <option value="">Select Level</option>
+                          <option value="Kasir">Kasir</option>
+                          <option value="Admin">Admin</option>
+                          <option value="K_Kasir">K Kasir</option> 
+                          </select>
+                       </div>
                         <div class="clearfix"></div>
                       </div>
   <div class="modal-footer">

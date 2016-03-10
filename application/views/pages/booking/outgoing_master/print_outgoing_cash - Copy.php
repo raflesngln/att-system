@@ -119,8 +119,8 @@ p{ margin-top:-8px;}
   <tr style="background:#EBEBEB">
     <td style="border-top:2px #999 solid; padding:10px 15px">No</td>
     <td style="border-top:2px #999 solid; padding:10px 15px"> Charge Item</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px">Unit</td>
     <td style="border-top:2px #999 solid; padding:10px 15px">Qty</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px">Unit</td>
     <td style="border-top:2px #999 solid; padding:10px 15px; width:30px">Rate</td>
     <td style="border-top:2px #999 solid; padding:10px 15px; width:60px">Amount Rp</td>
   </tr>
@@ -136,31 +136,31 @@ p{ margin-top:-8px;}
   <tr>
      <td height="26" >1</td>
      <td style="width:350px">Airfreight</td>
-     <td style="text-align:center">Kg</td>
-     <td style="text-align:right"><span style="font-size:13px;"><?php echo number_format($row->CWT,0,'.','.'); ?></span></td>
      <td style="text-align:right">&nbsp;</td>
+     <td style="text-align:right">&nbsp;</td>
+     <td style="text-align:right"><span style="font-size:13px;"><?php echo number_format($row->CWT,0,'.','.'); ?></span></td>
      <td style="text-align:right"><span style="font-size:13px;"><?php echo number_format($row->AirFreight,0,'.','.'); ?></span></td>
   </tr>
   <tr>
      <td height="26" >2</td>
-     <td style="width:350px">Quarantine</td>
-     <td style="text-align:center">Pcs</td>
-     <td style="text-align:right"><span style="font-size:13px;"><?php echo number_format($row->PCS,0,'.','.'); ?></span></td>
+     <td style="width:350px">Adm</td>
      <td style="text-align:right">&nbsp;</td>
-     <td style="text-align:right"><span style="font-size:13px; "><?php echo number_format($row->Quarantine,0,'.','.'); ?></span></td>
+     <td style="text-align:right">&nbsp;</td>
+     <td style="text-align:right">&nbsp;</td>
+     <td style="text-align:right"><span style="font-size:13px; "><?php echo number_format($row->Adm,0,'.','.'); ?></span></td>
   </tr>
   <tr>
     <td height="26" >3</td>
-    <td style="width:350px">Adm</td>
-    <td style="text-align:center">-</td>
+    <td style="width:350px">Quarantine</td>
     <td style="text-align:right">&nbsp;</td>
     <td style="text-align:right">&nbsp;</td>
-    <td style="text-align:right"><span style="font-size:13px; "><?php echo number_format($row->Adm,0,'.','.'); ?></span></td>
+    <td style="text-align:right">&nbsp;</td>
+    <td style="text-align:right"><span style="font-size:13px; "><?php echo number_format($row->Quarantine,0,'.','.'); ?></span></td>
   </tr>
   <tr>
     <td height="26" >4</td>
     <td style="width:350px">delivery</td>
-    <td style="text-align:center">-</td>
+    <td style="text-align:right">&nbsp;</td>
     <td style="text-align:right">&nbsp;</td>
     <td style="text-align:right">&nbsp;</td>
     <td style="text-align:right"><span style="font-size:13px; "><?php echo number_format($row->Delivery,0,'.','.'); ?></span></td>
@@ -168,7 +168,7 @@ p{ margin-top:-8px;}
   <tr>
     <td height="26" >5</td>
     <td style="width:350px">Others</td>
-    <td style="text-align:center">-</td>
+    <td style="text-align:right">&nbsp;</td>
     <td style="text-align:right">&nbsp;</td>
     <td style="text-align:right">&nbsp;</td>
     <td style="text-align:right"><span style="font-size:13px; "><?php echo number_format($row->Others,0,'.','.'); ?></span></td>

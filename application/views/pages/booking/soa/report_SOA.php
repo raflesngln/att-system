@@ -1,6 +1,6 @@
 <style>
 *{
-	font-size:9px;
+	font-size:10px;
 }
 .mytable tr td{ 
 border-bottom:1px #999 solid;

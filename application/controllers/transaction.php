@@ -9,6 +9,7 @@ class Transaction extends CI_Controller{
         $this->load->model('model_app');
         $this->load->helper('currency_format_helper');
 		date_default_timezone_set("Asia/Jakarta"); 
+		 
     }
 	
 	
@@ -43,7 +44,7 @@ class Transaction extends CI_Controller{
 	 */
 
  function domestic_outgoing_house(){
-        $idusr=$this->session->userdata('idusr');
+    $idusr=$this->session->userdata('idusr');
 		$page=$this->uri->segment(3);
       	$limit=20;
 		if(!$page):
@@ -65,7 +66,7 @@ class Transaction extends CI_Controller{
             'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
             'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
             'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
-            'connote'=>$this->model_app->getdatapaging("*","outgoing_connote","ORDER BY HouseNo DESC LIMIT $offset,$limit"),
+            'connote'=>$this->model_app->getdatapaging("*","outgoing_connote","WHERE CreateBy='$idusr' ORDER BY HouseNo DESC LIMIT $offset,$limit"),
             'view'=>'pages/booking/outgoing/outgoing_house',
         );  
 			$tot_hal = $this->model_app->hitung_isi_tabel("*","outgoing_connote","ORDER BY HouseNo DESC");
@@ -91,11 +92,7 @@ class Transaction extends CI_Controller{
 		$config['prev_tagl_close'] = "</li>";
       	$this->pagination->initialize($config);
 		$data["paginator"] =$this->pagination->create_links();
-		
-		//$data['view']='pages/charges/v_charges';
         $this->load->view('home/home',$data);
-
-      //$this->load->view('home/home',$data);
     }
 	
   function cek_house_invoice(){
@@ -249,8 +246,9 @@ function search_outgoing_master(){
 		$offset = $page;
 		endif;
 
-	$data['master']=$this->model_app->getdatapaging("*","outgoing_master",
-		"WHERE NoSMU LIKE '$txtsearch%' 
+	$data['master']=$this->model_app->getdatapaging("*","outgoing_master a",
+		"INNER JOIN ms_customer c on a.Shipper=c.custCode
+		WHERE NoSMU LIKE '$txtsearch%' 
 		ORDER BY NoSMU DESC LIMIT $offset,$limit");
 	$tot_hal = $this->model_app->hitung_isi_tabel("*","outgoing_master",
 		 "WHERE NoSMU LIKE '$txtsearch%' ORDER BY NoSMU DESC");
@@ -370,8 +368,9 @@ function periode_outgoing_master(){
 		endif;
 	$idusr=$this->session->userdata('idusr');      
 
-	$data['master']=$this->model_app->getdatapaging("*","outgoing_master",
-		"WHERE LEFT(ETD,10) BETWEEN '$tgl1' AND '$tgl2' 
+	$data['master']=$this->model_app->getdatapaging("*","outgoing_master a",
+		"INNER JOIN ms_customer c on a.Shipper=c.custCode
+		WHERE LEFT(ETD,10) BETWEEN '$tgl1' AND '$tgl2' 
 		ORDER BY NoSMU DESC LIMIT $offset,$limit");
 	$tot_hal = $this->model_app->hitung_isi_tabel("*","outgoing_master",
 		"WHERE LEFT(ETD,10) BETWEEN '$tgl1' AND '$tgl2' ORDER BY NoSMU DESC");
@@ -972,7 +971,7 @@ function delete_outgoing_master(){
 
      //===DATA TO SESSION
 function domestic_outgoing_master(){
-	 $idusr=$this->session->userdata('idusr');
+	$idusr=$this->session->userdata('idusr');
 		$page=$this->uri->segment(3);
       	$limit=20;
 		if(!$page):
@@ -993,9 +992,10 @@ function domestic_outgoing_master(){
             'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
             'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
             'commodity'=>$this->model_app->getdatapaging("commCode,Name","ms_commodity","ORDER BY Name ASC"),
-            'master'=>$this->model_app->getdatapaging("a.NoSMU,a.ETD,a.Service,a.Origin,a.Destination,a.Shipper,a.Consigne,a.PayCode","outgoing_master a",
+            'master'=>$this->model_app->getdatapaging("a.NoSMU,a.ETD,a.Service,a.Origin,a.Destination,a.Shipper,a.Consigne,a.PayCode,c.custName","outgoing_master a",
 			"LEFT join invoice b on a.NoSMU=b.NoSMU
-			ORDER BY a.NoSMU DESC LIMIT $offset,$limit"),
+			INNER JOIN ms_customer c on a.Shipper=c.custCode
+			WHERE a.CreateBy='$idusr' ORDER BY a.NoSMU DESC LIMIT $offset,$limit"),
             'view'=>'pages/booking/outgoing_master/outgoing_master',
         );  
 			$tot_hal = $this->model_app->hitung_isi_tabel("*","outgoing_master","ORDER BY NoSMU DESC");
@@ -1084,24 +1084,26 @@ function hapus_item_temp(){
 		);		
 		 $this->model_app->insert('booking_items',$newitem);
 	}
-	$qty=$_POST['qty'];	
-	foreach($qty as $key => $val)
-	{
-   		$charge =$_POST['idcharge'][$key];
-        $unit =$_POST['unit'][$key];
-		$qty  =$_POST['qty'][$key];
-		$desc =$_POST['desc'][$key];
-		$newcharge=array(
-		'HouseNo' =>$getHouse,
-		'NoSMU'=>$this->input->post('smu'),
-		'ChargeName'=>$charge,
-		'Unit'=>$unit,
-		'Qty'=>$qty,
-		'Description'=>$desc,
-		'Date'=>date('Y-m-d H:i:s')
+		//cost master
+		$quarantine=array(
+		'NoSMU' =>$this->input->post('smu'),
+		'QuarantineQty'=>$this->input->post('t_pacs'),
+		'QuarantineName'=>$this->input->post('commodity'),
+		'QuarantineRate'=>$this->input->post('quarantine'),
+		'QuarantineTotal'=>$this->input->post('txtquarantine'),
+		'QuarantineDesc'=>$this->input->post('description'),
 		);		
-		 $this->model_app->insert('booking_charges',$newcharge);
-	}
+		 $this->model_app->insert('quarantine_cost',$quarantine);
+		$airfreight=array(
+		'NoSMU' =>$this->input->post('smu'),
+		'AirFreightQty'=>$this->input->post('cwt'),
+		'AirFreightName'=>$this->input->post('airline'),
+		'AirFreightRate'=>$this->input->post('freight'),
+		'AirFreightTotal'=>$this->input->post('txtfreight'),
+		'AirFreightDesc'=>$this->input->post('description'),
+		);		
+		 $this->model_app->insert('airfreight_cost',$airfreight);
+	
 	//----- SAVE OF OUT GOING Master --------------////
 	$insert=array(
 		'NoSMU' =>$this->input->post('smu'),
@@ -1121,8 +1123,9 @@ function hapus_item_temp(){
 		'Consigne' =>$this->input->post('idreceivement'),
 		'CodeConsigne' =>$this->input->post('codesigne'),
 		'Commodity' =>$this->input->post('commodity'),
+		'PCS' =>$this->input->post('t_pacs'),
 		'GrossWeight' =>$this->input->post('t_weight'),
-		'grandVolume' =>$this->input->post('t_pacs'),
+		'grandVolume' =>$this->input->post('t_volume'),
 		'AirFreight'=>$this->input->post('txtfreight'),
 		'Adm'=>$this->input->post('adm'),
 		'Quarantine'=>$this->input->post('txtquarantine'),
@@ -1183,6 +1186,7 @@ function print_outgoing_master(){
 }
 //     DATA TO PDF
  function confirm_outgoing_house(){
+	 $getInvoice=$this->model_app->getInvoice();
 		$getHouse=$this->model_app->getHouseNo();
 		$getjob=$this->model_app->getJob();
 		$etd=$this->input->post('etd');
@@ -1227,6 +1231,20 @@ function print_outgoing_master(){
 		);		
 		 $this->model_app->insert('booking_charges',$newcharge);
 	}
+$insert_invoice=array(
+		'InvoiceNo' =>$getInvoice,
+		'HouseNo' =>$getHouse,
+		'NoSMU' =>$getHouse,
+		'CreateBy' =>$this->session->userdata('idusr'),
+		'CreateDate' =>date('Y-m-d H:i:s'),
+		'InvoiceStatus' =>'1'
+		);
+		$updateconnote=array(
+		'status_proses'=>'1'
+		);	
+		$this->model_app->update('outgoing_connote','HouseNo',$getHouse,$updateconnote);	
+		$save=$this->model_app->insert('invoice',$insert_invoice);
+		
 	//----- SAVE OF OUT GOING HOUSE --------------////
 	$OutHouse=array(
 		'HouseNo' =>$getHouse,
@@ -1674,9 +1692,9 @@ $OutHouse=array(
 		'scrumb_name'=>'Adding SOA',
 		'scrumb'=>'transaction/add_soa',
 		'customer'=>$this->model_app->getdata('ms_customer a',
-		"INNER JOIN outgoing_master b on a.custCode=b.Shipper WHERE b.payCode='CRD-CREDIT' GROUP BY a.custCode"),
+		"INNER JOIN outgoing_connote b on a.custCode=b.Shipper WHERE b.payCode='CRD-CREDIT' GROUP BY a.custCode"),
 		
-		'view'=>'pages/booking/outgoing_master/add_SOA',
+		'view'=>'pages/booking/soa/add_SOA',
 		);
 	$this->load->view('home/home',$data);
  }
@@ -1685,11 +1703,11 @@ $OutHouse=array(
 		$etd1=$this->input->post('etd1');
 		$etd2=$this->input->post('etd2');
 		
-		$data['list']=$this->model_app->getdata('outgoing_master a',
+		$data['list']=$this->model_app->getdata('outgoing_connote a',
 		"INNER JOIN ms_customer b on b.custCode=a.Shipper
 		WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust'
 		");
-        $this->load->view('pages/booking/outgoing_master/tabel_SOA',$data);
+        $this->load->view('pages/booking/soa/tabel_SOA',$data);
 }	
 //   DATA TO PDF 
 function print_SOA(){
@@ -1699,11 +1717,11 @@ function print_SOA(){
 		$currency=$this->input->post('currency');
 	
 		$data=array(
-		'list'=>$this->model_app->getdata('outgoing_master a',
+		'list'=>$this->model_app->getdata('outgoing_connote a',
 		"INNER JOIN ms_customer b on b.custCode=a.Shipper
-		INNER JOIN invoice c on a.HouseNo=c.HouseNo
+		left JOIN invoice c on a.HouseNo=c.HouseNo
 		WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust'"),
-		'cust'=>$this->model_app->getdata("outgoing_master a",
+		'cust'=>$this->model_app->getdata("outgoing_connote a",
 				"INNER JOIN ms_customer b on b.custCode=a.Shipper
 				WHERE a.Shipper='$idcust' LIMIT 1"),
 		'idcust'=>$idcust,
@@ -1713,7 +1731,7 @@ function print_SOA(){
 		);
 		
         ob_start();
-        $content = $this->load->view('pages/booking/outgoing_master/report_SOA',$data);
+        $content = $this->load->view('pages/booking/soa/report_SOA',$data);
         $content = ob_get_clean();      
         $this->load->library('html2pdf');
         try

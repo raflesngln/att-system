@@ -59,7 +59,7 @@
                    <?php
                    foreach ($master as $ms) {
                    ?>
-                     <option value="<?php echo $ms->HouseNo;?>"><?php echo $ms->HouseNo;?></option>
+                     <option value="<?php echo $ms->NoSMU;?>"><?php echo $ms->NoSMU;?></option>
                      <?php } ?>
           </select>
           </div>

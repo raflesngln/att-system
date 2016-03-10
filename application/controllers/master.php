@@ -146,9 +146,11 @@ $this->form_validation->set_rules('name','name','required|trim|xss_clean');
 		else
 	{
 		$data=array(
-		'UserName' =>$this->input->post('us'),
+		'UserName' =>$this->input->post('name'),
 		'FullName'=>$this->input->post('name'),
+		'Email'=>$this->input->post('em'),
 		'password'=>md5($this->input->post('ps')),
+		'Level'=>$this->input->post('level'),
 		);		
 		 $this->model_app->insert('ms_user',$data);	
 		 redirect('master/view_user');
@@ -275,6 +277,8 @@ $id=$this->input->post('id2');
 		'UserName'=>$this->input->post('us2'),
 		'Password'=>md5($this->input->post('ps2')),
 		'FullName'=>$this->input->post('name2'),
+		'Email'=>$this->input->post('em'),
+		'Level'=>$this->input->post('level'),
 		);
 		
 		$this->model_app->update('ms_user','UserName',$id,$dataubah);

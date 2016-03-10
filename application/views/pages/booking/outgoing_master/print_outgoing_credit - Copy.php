@@ -2,10 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Documento sin título</title>
+<title></title>
 <style>
 *{
-	font-size:11px;
+	font-size:12px;
 }
 .tabelll{
 	width:900px;
@@ -17,6 +17,8 @@ h3{font-size:14px; margin-top:-10px}
 p{ margin-top:-8px;}
 #logo{height:90xp; width:50px; float:left}
 #right-header{margin-top:-8px}
+
+
 </style>
 </head>
 
@@ -29,19 +31,13 @@ p{ margin-top:-8px;}
        <?php 
  $no=1;
  foreach($header as $row){
-	 $a=$row->AirFreight;
-	 $b=$row->Adm;
-	 $c=$row->Quarantine;
-	 $d=$row->Delivery;
-	 $e=$row->Others;
-	 $t_cost=$a+$b+$c+$d+$e;
 
         ?>
-<h1 style="text-align:center; margin-top:-44px; text-decoration:underline">OUTGOING MASTER CASH</h1>
+<h1 style="text-align:center; margin-top:-44px; text-decoration:underline">OUTGOING MASTER CREDIT</h1>
 <h1 style="text-align:center; margin-top:-12px; font-size:18px"><?php echo $row->InvoiceNo;?></h1>
 <hr style="border:1px #999 dashed" />
 
-<table width="800" border="0" id="tabel">
+<table width="800" border="0" id="mytabel">
   <tr>
     <td width="22%">AWB/SMU.........................</td>
     <td width="21%">: <strong><?php echo $row->NoSMU;?></strong></td>
@@ -100,8 +96,8 @@ p{ margin-top:-8px;}
     <td>: <?php echo $row->Commodity;?></td>
   </tr>
   <tr>
-    <td>Pieces...........................</td>
-    <td>: <?php echo $row->PCS;?></td>
+    <td>Piesces...........................</td>
+    <td>: <?php echo $row->grandPCS;?></td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>
@@ -118,67 +114,41 @@ p{ margin-top:-8px;}
 <table border="0" class="mytable">
   <tr style="background:#EBEBEB">
     <td style="border-top:2px #999 solid; padding:10px 15px">No</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px"> Charge Item</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px">Unit</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px">Qty</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px; width:30px">Rate</td>
-    <td style="border-top:2px #999 solid; padding:10px 15px; width:60px">Amount Rp</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px">Commodity</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px">Ref</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px">Flight</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px; width:30px">AWB/SMU</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px; width:30px">PCS</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px; width:30px">GWT</td>
+    <td style="border-top:2px #999 solid; padding:10px 15px; width:30px">CWT</td>
   </tr>
    <?php 
- /* $no=1;
+ $no=1;
  foreach($list as $items){
-	 $qty=$items->Qty;
-	 $unit=$items->Unit;
-	 $amount=$unit*$qty;
-	 $total+=$amount;
+	 $cwt=$items->CWT;
+	 $total+=$cwt;
 
-      */  ?>
+        ?>
   <tr>
-     <td height="26" >1</td>
-     <td style="width:350px">Airfreight</td>
-     <td style="text-align:center">Kg</td>
-     <td style="text-align:right"><span style="font-size:13px;"><?php echo number_format($row->CWT,0,'.','.'); ?></span></td>
-     <td style="text-align:right">&nbsp;</td>
-     <td style="text-align:right"><span style="font-size:13px;"><?php echo number_format($row->AirFreight,0,'.','.'); ?></span></td>
+    <td height="26" ><?php echo $no;?></td>
+    <td style="width:160px"><?php echo $items->Commodity;?></td>
+    <td style="text-align:right"><span style="width:190px"><?php echo $flight1[0].'/'.$flight2[0];?></span></td>
+    <td style="text-align:right"><span style="width:190px"><?php echo $items->Airlines;?></span></td>
+    <td style="text-align:right"><?php echo $items->NoSMU;?></td>
+    <td style="text-align:center"><?php echo number_format($items->grandPCS,0,'.','.'); ?></td>
+    <td style="text-align:center"><?php echo number_format($items->CWT,0,'.','.'); ?></td>
+    <td style="text-align:center"><?php echo number_format($items->CWT,0,'.','.'); ?></td>
   </tr>
+  <?php $no++; } ?>
   <tr>
-     <td height="26" >2</td>
-     <td style="width:350px">Quarantine</td>
-     <td style="text-align:center">Pcs</td>
-     <td style="text-align:right"><span style="font-size:13px;"><?php echo number_format($row->PCS,0,'.','.'); ?></span></td>
-     <td style="text-align:right">&nbsp;</td>
-     <td style="text-align:right"><span style="font-size:13px; "><?php echo number_format($row->Quarantine,0,'.','.'); ?></span></td>
-  </tr>
-  <tr>
-    <td height="26" >3</td>
-    <td style="width:350px">Adm</td>
-    <td style="text-align:center">-</td>
+    <td height="18" colspan="4"><div align="left"><strong>Total &nbsp; </strong></div></td>
     <td style="text-align:right">&nbsp;</td>
     <td style="text-align:right">&nbsp;</td>
-    <td style="text-align:right"><span style="font-size:13px; "><?php echo number_format($row->Adm,0,'.','.'); ?></span></td>
-  </tr>
-  <tr>
-    <td height="26" >4</td>
-    <td style="width:350px">delivery</td>
-    <td style="text-align:center">-</td>
-    <td style="text-align:right">&nbsp;</td>
-    <td style="text-align:right">&nbsp;</td>
-    <td style="text-align:right"><span style="font-size:13px; "><?php echo number_format($row->Delivery,0,'.','.'); ?></span></td>
-  </tr>
-  <tr>
-    <td height="26" >5</td>
-    <td style="width:350px">Others</td>
-    <td style="text-align:center">-</td>
-    <td style="text-align:right">&nbsp;</td>
-    <td style="text-align:right">&nbsp;</td>
-    <td style="text-align:right"><span style="font-size:13px; "><?php echo number_format($row->Others,0,'.','.'); ?></span></td>
-  </tr>
-  <?php // $no++; } ?>
-  <tr>
-    <td height="18" colspan="5"><div align="right"><label style="margin-right:20px; margin-top:9px; font-weight:bold">TOTAL &nbsp;</label></div></td>
-    <td style="text-align:right"><label style="font-size:13px; font-weight:bold">Rp. <?php echo number_format($t_cost,0,'.','.'); ?></label></td>
+    <td style="text-align:center"><strong><?php echo number_format($total,0,'.','.'); ?></strong></td>
+    <td style="text-align:center"><strong><?php echo number_format($total,0,'.','.'); ?></strong></td>
   </tr>
 </table>
+
 
 <table width="786" border="0">
   <tr>
