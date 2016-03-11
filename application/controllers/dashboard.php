@@ -10,7 +10,16 @@ class Dashboard extends CI_Controller{
     }
 
     function index(){
-       redirect('customer/view_customer');
+       	  $data['view']='home/welcome';
+	  $this->load->view('home/home',$data);
 	}
+
+    function welcome(){
+      
+	  $data['view']='home/welcome';
+	  $this->load->view('home/home',$data);
+	}
+	
+	
 
 }
