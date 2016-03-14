@@ -258,7 +258,11 @@ return true;
          <li> <a href="<?php echo base_url();?>transaction/domestic_outgoing_master"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-file-archive-o bigger-120"></i> &nbsp;Outgoing-Master</a></li>
  		<li> <a href="<?php echo base_url();?>transaction/domestic_outgoing_house"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Outgoing-House</a></li>
 		<li> <a href="<?php echo base_url();?>transaction/outgoing_consolidation"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-clone bigger-120"></i> &nbsp;Consolidation</a></li>
+<<<<<<< HEAD
  <li> <a href="<?php echo base_url();?>transaction/add_soa"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;SOA</a></li>
+=======
+<li> <a href="<?php echo base_url();?>transaction/add_soa"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;SOA</a></li>
+>>>>>>> 9c4295ff7a986de68727de66b582fe40d8020388
 <li> <a href="<?php echo base_url();?>transaction/cargo_manifest"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Cargo Manifest</a></li>
 		
 

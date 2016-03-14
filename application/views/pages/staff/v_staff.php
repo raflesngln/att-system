@@ -132,16 +132,12 @@ if($status=='1'){ $statusname='<font color="#0033FF">Aktif</font>';} else{$statu
                                                     <td><?php echo date("d-m-Y / h:m:s",strtotime($data->ModifiedDate)); ?></td>
                                                     <td class="text-center">
                                                       <a href="#modaledit<?php echo $data->empCode?>" data-toggle="modal" title="Edit">
-                                                      <button class="btn btn-primary btn-small tooltip-info" title="Edit data">
-                                                      <i class="icon-edit icon-1x icon-only"></i>
-                                                      </button>                                          
+<i class="icon-pencil bigger-130 green"></i>                                          
                                                       </a>                                              
                                                     </td>
              <td>
     <a href="<?php echo base_url();?>staff/delete_staff/<?php echo $data->empCode?>" onClick="return confirm('Yakin Hapus  Data !!');">
- <button class="btn btn-danger btn-small" title="Delete Data">
-	<i class="icon-trash icon-1x icon-only"></i>
-	</button>
+	<i class="icon-trash bigger-130 red"></i>
     </a>
     
 

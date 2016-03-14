@@ -541,7 +541,7 @@ $("#idconsigne").autocomplete({
            <option value="">Choose Commodity</option>
           <?php foreach ($commodity as $cm) {
           ?>
-            <option value="<?php echo $cm->commCode;?>"><?php echo $cm->Name;?></option>
+            <option value="<?php echo $cm->Name;?>"><?php echo $cm->Name;?></option>
           <?php } ?>
       </select>
                                                 </div>
