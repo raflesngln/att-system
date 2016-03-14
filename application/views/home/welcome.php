@@ -1,46 +1,43 @@
+<style>
+.jdl{font-size:12px;}
+</style>
 
-<div class="container">
-	<div class="row">
-<div class="col-md-4">
-<div class="box box-widget widget-user-2">
-<div class="widget-user-header bg-yellow">
-        <div class="widget-user-image">
-        <img class="img-circle" alt="User Avatar" src="http://lorempixel.com/g/128/128/people/">
-        </div>
-<h3 class="widget-user-username">Nadia Carmichael</h3>
-<h5 class="widget-user-desc">Lead Developer</h5>
-</div>
-        <div class="box-footer no-padding" style=" box-shadow:4px 5px  8px #CCC">
-        <ul class="nav nav-stacked">
-        <li>
-        <a href="#">
-        Projects
-        <span class="pull-right badge bg-blue">31</span>
-        </a>
-        </li>
-        <li>
-        <a href="#">
-        Tasks
-        <span class="pull-right badge bg-aqua">5</span>
-        </a>
-        </li>
-        <li>
-        <a href="#">
-        Completed Projects
-        <span class="pull-right badge bg-green">12</span>
-        </a>
-        </li>
-        <li>
-        <a href="#">
-        Followers
-        <span class="pull-right badge bg-red">842</span>
-        </a>
-        </li>
-        </ul>
-        </div>
-</div>
-</div>    
-    
-    
-    </div>
+<div class="container" id="wel">
+	
+
+<h1 class="text-center"> <i class="fa fa-bullhorn red fa-2x">&raquo; </i> Board Notification !!</h1>
+<div class="span12"></div>
+
+<a href="#" class="btn btn-app btn-warning btn-large no-radius">
+   <i class="icon-calendar bigger-200"></i>
+	<label class="jdl">Outgoing House</label>
+	<span class="label label-pink arrowed-in">25</span>
+</a>
+
+<a href="#" class="btn btn-app btn-primary btn-large no-radius">
+   <i class="icon-exchange bigger-200"></i>
+	<label class="jdl">Free House</label>
+	<span class="label label-pink arrowed-in">7</span>
+</a>
+
+<a href="#" class="btn btn-app btn-pink btn-large no-radius">
+   <i class="icon-folder-open bigger-200"></i>
+	<label class="jdl">SMU/Master</label>
+	<span class="label label-inverse arrowed-in">3</span>
+</a>
+
+<a href="#" class="btn btn-app btn-success btn-large no-radius">
+   <i class="icon-bookmark bigger-200"></i>
+	<label class="jdl">Invoice Cash</label>
+	<span class="label label-pink arrowed-in">6</span>
+</a>  
+<div class="col-sm-12 clearfix"></div>
+<br />
+
+
+
+
+ 
+
+ 
  </div>
