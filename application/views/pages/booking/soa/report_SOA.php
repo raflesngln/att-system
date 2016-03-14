@@ -1,6 +1,6 @@
 <style>
 *{
-	font-size:10px;
+	font-size:12px;
 }
 .mytable tr td{ 
 border-bottom:1px #999 solid;
@@ -40,10 +40,10 @@ p{ margin-top:-8px}
   <tr style="background-color:#D0E8E8">
     <td>No</td>
     <td style="width:30px">Date</td>
-    <td style="width:70px">Invoice</td>
-    <td style="width:60px">SMU</td>
+    <td style="width:80px">Invoice</td>
+    <td style="width:70px">SMU</td>
     <td style="width:70px">Job</td>
-    <td style="width:110px">Origin-Desti</td>
+    <td style="width:130px">Origin-Desti</td>
     <td style="width:20px">Collie</td>
     <td style="width:20px">CWT</td>
     <td style="width:20px">Air Freight</td>
@@ -70,7 +70,7 @@ p{ margin-top:-8px}
     <td><?php echo substr($row->Origin,4,15).' - ';?><?php echo substr($row->Destination,4,15);?></td>
     <td><span style="text-align:right"><?php echo number_format($row->grandPCS,0,'.','.');?></span></td>
     <td><span style="text-align:right"><?php echo number_format($row->CWT,0,'.','.');?></span></td>
-    <td><span style="text-align:right"><?php echo $row->Airlines;?></span></td>
+    <td><span style="text-align:right"><?php echo $row->AirFreight;?></span></td>
     <td><span style="text-align:right"><?php echo number_format($row->Amount,0,'.','.');?></span></td>
     <td><span style="text-align:right"><?php echo number_format($row->Amount,0,'.','.');?></span></td>
     <td><span style="text-align:right"><?php echo number_format($row->Amount,0,'.','.');?></span></td>
