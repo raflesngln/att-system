@@ -29,12 +29,12 @@ class Customer extends CI_Controller{
 		$data['scrumb']='customer/view_customer';
 		$data['list']=$this->model_app->getdatapaging('*',
 		'ms_customer a',"LEFT join ms_staff b on a.empCode=b.empCode
-		LEFT join ms_city c on a.cyCode=c.cyCode
+		LEFT join ms_city c on a.Address=c.cyCode
 		 order by a.custCode ASC LIMIT $offset,$limit");
 		 
 		$tot_hal = $this->model_app->hitung_isi_tabel('*',
 		'ms_customer a',"LEFT join ms_staff b on a.empCode=b.empCode
-		LEFT join ms_city c on a.cyCode=c.cyCode
+		LEFT join ms_city c on a.Address=c.cyCode
 		 order by a.custCode");
         					//create for pagination		
 			$config['base_url'] = base_url() . 'customer/view_customer/';
