@@ -27,14 +27,17 @@ class Customer extends CI_Controller{
         $data['title']='list_customer';
 		$data['scrumb_name']='Data Customers';
 		$data['scrumb']='customer/view_customer';
+		$data['type']=$this->model_app->getdatapaging('*',
+		'ms_address_type a',"order by a.AddressTypeName");
+		 
 		$data['list']=$this->model_app->getdatapaging('*',
 		'ms_customer a',"LEFT join ms_staff b on a.empCode=b.empCode
-		LEFT join ms_city c on a.Address=c.cyCode
+		LEFT join ms_city c on a.cyCode=c.cyCode
 		 order by a.custCode ASC LIMIT $offset,$limit");
-		 
+		 		 
 		$tot_hal = $this->model_app->hitung_isi_tabel('*',
 		'ms_customer a',"LEFT join ms_staff b on a.empCode=b.empCode
-		LEFT join ms_city c on a.Address=c.cyCode
+		LEFT join ms_city c on a.AddressNo=c.cyCode
 		 order by a.custCode");
         					//create for pagination		
 			$config['base_url'] = base_url() . 'customer/view_customer/';
@@ -84,8 +87,8 @@ $this->form_validation->set_rules('initial','initial','required|trim|xss_clean')
 		$newdata=array(
 		'custInitial' =>$this->input->post('initial'),
 		'custName' =>$this->input->post('name'),
-		'Address'=>$this->input->post('address'),
-		'cyCode' =>$this->input->post('city'),
+		'AddressNo'=>$this->input->post('address'),
+		'cyCode'=>$this->input->post('city'),
 		'Phone' =>$this->input->post('phone'),
 		'Fax' =>$this->input->post('fax'),
 		'PostalCode' =>$this->input->post('postcode'),
@@ -104,7 +107,7 @@ $this->form_validation->set_rules('initial','initial','required|trim|xss_clean')
 		'NPWP' =>$this->input->post('npwp'),
 		'NPWPAddress' =>$this->input->post('npwpaddress'),
 		'Remarks' =>$this->input->post('remarks'),
-		'CreateBy' =>$this->session->userdata('nameusr'),
+		'CreateBy' =>$this->session->userdata('idusr'),
 		'CreateDate' =>date('Y-m-d h:i:s'),
 		'ModifiedBy' =>'',
 		'ModifiedDate' =>'',	
@@ -126,7 +129,7 @@ $this->form_validation->set_rules('initial','initial','required|trim|xss_clean')
 		$data['clas']=$clas;
 		$data['list']=$this->model_app->getdatapaging('a.Fax,a.email,a.isAgent,a.isActive,a.isShipper,a.isCnee,a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,
 		a.TermsPayment,a.PostalCode,a.custCode,a.custName,a.Remarks,a.NPWPAddress,
-		a.Address,a.custInitial,a.Phone,a.Email,a.CreditLimit,a.Deposit,a.NPWP,
+		a.AddressNo,a.custInitial,a.Phone,a.Email,a.CreditLimit,a.Deposit,a.NPWP,
 		a.ModifiedBy,a.ModifiedDate,b.empCode,b.empName,b.devisi,c.cyCode,c.cyName',
 		'ms_customer a',"inner join ms_staff b on a.empCode=b.empCode
 		inner join ms_city c on a.cyCode=c.cyCode
@@ -134,7 +137,7 @@ $this->form_validation->set_rules('initial','initial','required|trim|xss_clean')
 		 order by a.custCode ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel('a.Fax,a.custInitial,a.email,a.isAgent,a.isActive,a.isShipper,a.isCnee,a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,
 		a.TermsPayment,a.PostalCode,a.custCode,a.custName,a.Remarks,a.NPWPAddress,
-		a.Address,a.Phone,a.Email,a.CreditLimit,a.Deposit,a.NPWP,
+		a.AddressNo,a.Phone,a.Email,a.CreditLimit,a.Deposit,a.NPWP,
 		a.ModifiedBy,a.ModifiedDate,b.empCode,b.empName,b.devisi,c.cyCode,c.cyName',
 		'ms_customer a',"inner join ms_staff b on a.empCode=b.empCode
 		inner join ms_city c on a.cyCode=c.cyCode
@@ -172,7 +175,7 @@ $this->form_validation->set_rules('initial','initial','required|trim|xss_clean')
 	$update=array(
 		'custInitial' =>$this->input->post('initial'),
 		'custName' =>$this->input->post('name'),
-		'Address'=>$this->input->post('address'),
+		'AddressNo'=>$this->input->post('address'),
 		'cyCode' =>$this->input->post('city'),
 		'Phone' =>$this->input->post('phone'),
 		'Fax' =>$this->input->post('fax'),
@@ -299,8 +302,40 @@ function search_customer(){
 			$data["paginator"] =$this->pagination->create_links();			
         $this->load->view('pages/customer/filter',$data);
 }
-	
 
+ function confirm_delete_type(){
+	 $kode=$this->input->post('kode');
+	  $this->model_app->delete_data('ms_address_type','AddressTypeCode',$kode);
+		
+		$data['type']=$this->model_app->getdatapaging('*','ms_address_type a',"order by a.AddressTypeName");
+		$this->load->view('pages/customer/type/address_type_tabel',$data);		
+}
+ function save_address_type(){
+	   $insert=array(
+     	'AddressTypeName'=>$this->input->post('typename2'),
+		'AddressTypeDesc'=>$this->input->post('typedesc2'),
+		'CreatedBy'=>$this->session->userdata('idusr'),
+		'CreatedDate' =>date('Y-m-d h:i:s'),
+		);
+		$this->model_app->insert('ms_address_type',$insert);
+		
+		$data['type']=$this->model_app->getdatapaging('*','ms_address_type a',"order by a.AddressTypeName");
+		$this->load->view('pages/customer/type/address_type_tabel',$data);		
+}	
+ function update_type(){
+	 
+	  $kode=$this->input->post('idtype');
+	   $update=array(
+     	'AddressTypeName'=>$this->input->post('typename'),
+		'AddressTypeDesc'=>$this->input->post('typedesc'),
+		'CreatedBy'=>$this->session->userdata('idusr'),
+		'CreatedDate' =>date('Y-m-d h:i:s'),
+		);
+		$this->model_app->update('ms_address_type','AddressTypeCode',$kode,$update);
+		
+		$data['type']=$this->model_app->getdatapaging('*','ms_address_type a',"order by a.AddressTypeName");
+		$this->load->view('pages/customer/type/address_type_tabel',$data);		
+}
 
 
 }
