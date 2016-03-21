@@ -9,29 +9,10 @@
       <br />
       </label>
             <?php }?>  
-      <div class="row">  
-      <div class="col-sm-6">
-           <h1><i class="fa fa-building fa-2x"></i> &nbsp; Addres Type  List</h1> 
-           <p>&nbsp;</p>
-            </div>
-     
-      <div class="top-hdr col-sm-6">              
-      <div class="col-sm-5"> </div>   
-
-      <form action="<?php echo base_url();?>customer/search_customer" method="post"> 
-           <div class="col-sm-7">
-           <div class="row">
-          <div class="col-sm-9">Search Customer<span class="controls">
-           <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="Name / Address" />
-            </span>
-          </div>
-         <div class="col-md-2">
-         &nbsp;<input type="submit" name="button" id="button" value="Search" class="btn btn-mini btn-search btn-primary" />
-         </div>
-           </div>
-        </div>              
-      </form> 
-   </div>
+      <div class="row">
+        <div class="top-hdr col-sm-6">              
+      <div class="col-sm-5"> </div>
+        </div>
 </div>
 
             <div class="row">
@@ -44,12 +25,13 @@
                                         <table class="table table-striped table-bordered table-hover">
                                               <thead>
                                                 <tr>
-                                                  <th colspan="4"> <div align="left"><a class="btn btn-blue btn-addnew tbladdtype" href="#addmodaltype" data-toggle="modal" title="Add" id="tbladd"><i class="icon-plus icons"></i>Add Address Type</a></div></th>
+                                                  <th colspan="5"> <div align="left"><a class="btn btn-blue btn-addnew tbladdtype" href="#addmodaltype" data-toggle="modal" title="Add" id="tbladd"><i class="icon-plus icons"></i>Add Address</a></div></th>
                                                 </tr>
                                                 <tr>
                                                   <th>No.</th>
-                                                  <th>Type  Name</th>
-                                                  <th>Type Description</th>
+                                                  <th>Adress Name</th>
+                                                  <th>UP</th>
+                                                  <th>Address Detail</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                               </thead>
@@ -63,6 +45,7 @@ $no=1;
                                                     <td><?php echo $no?></td>
                                                     <td><?php echo $data->AddressTypeName?></td>
                                                     <td><?php echo $data->AddressTypeDesc?></td>
+                                                    <td><?php echo $data->AddressTypeDesc?></td>
                                                     <td class="text-center"><div align="center"><a class="btn-action" href="#modaledittype<?php echo $data->AddressTypeCode?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i>
                                                       <button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>
                                                       </a>
@@ -72,14 +55,18 @@ $no=1;
                                                 </tr>                                
                                                 <?php $no++; } ;?>
                                               <tr class="gradeX pagin">
-                                                  <th colspan="7" scope="row">
+                                                  <th colspan="8" scope="row">
                           <div align="right"> <?php echo $paginator;?></div></th>
                                                 </tr> 
                                               </tbody>
                                             </table>
                                         </div>
                                     </div>
-                                </form>
+   <div class="clearfix clearfx"></div>
+  <div class="col-sm-10 text-right">
+<a data-toggle="tab" href="#contact" class="next2 btn btn-warning btn-large">
+  <i class="red fa fa-buildingg bigger-110"></i>Next</a>
+   </div>
               </div>
           </div>
       </div>
@@ -104,12 +91,19 @@ $no=1;
             <div class="smart-form">      
                   <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label"> Type Name </label>
+                        <label class="col-sm-3 control-label">  Name </label>
                       <div class="col-sm-9"><span class="controls">
                         <input name="typename" type="text" class="form-control typename" id="typename" required="required" value="<?php echo $row->AddressTypeName;?>" />
                       </span>
                         <input type="hidden" name="idtype" id="idtype" value="<?php echo $row->AddressTypeCode;?>" />
                       </div>
+                        <div class="clearfix"></div>
+                      </div>
+<div class="form-group">
+                        <label class="col-sm-3 control-label">Address</label>
+                        <div class="col-sm-9">
+                          <textarea name="typedesc2" cols="30" rows="2" class="form-control" id="typedesc2" required="required"></textarea>
+                        </div>
                         <div class="clearfix"></div>
                       </div>
                     <div class="form-group">
@@ -140,19 +134,26 @@ $no=1;
         <div class="modal-content">
           <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add Address Type</h3>
+                <h3 id="myModalLabel">Add Address</h3>
             </div>
             <div class="smart-form scroll">
 <form name="addtype">
                     <div class="modal-body">
                       <div class="form-group">
-                        <label class="col-sm-3 control-label"> Type Name </label>
+                        <label class="col-sm-3 control-label">  Name </label>
                         <div class="col-sm-9"><span class="controls">
                           <input name="typename2" type="text" class="form-control" id="typename2" required="required" maxlength="30" />
                         </span></div>
                         <div class="clearfix"></div>
                       </div>
                       <div class="form-group">
+                        <label class="col-sm-3 control-label">Address</label>
+                        <div class="col-sm-9">
+                          <textarea name="typedesc2" cols="30" rows="2" class="form-control" id="typedesc2" required="required"></textarea>
+                        </div>
+                        <div class="clearfix"></div>
+                      </div>
+<div class="form-group">
                         <label class="col-sm-3 control-label">Description</label>
                         <div class="col-sm-9">
                           <textarea name="typedesc2" cols="30" rows="2" class="form-control" id="typedesc2" required="required"></textarea>

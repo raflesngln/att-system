@@ -11,7 +11,7 @@
             <?php }?>  
       <div class="row">  
       <div class="col-sm-6">
-           <h1><i class="fa fa-opencart fa-2x"></i> &nbsp; Customer  List</h1> 
+           <h1><i class="fa fa-users fa-2x"></i> &nbsp; Customer  List</h1> 
            <p>&nbsp;</p>
             </div>
      
@@ -44,7 +44,12 @@
                                         <table class="table table-striped table-bordered table-hover">
                                               <thead>
                                                 <tr>
-                                                  <th colspan="9"> <div align="left"><a class="btn btn-blue btn-addnew" href="#modaladd" data-toggle="modal" title="Add"><i class="icon-plus icons"></i>Add Customer</a></div></th>
+                                                  <th colspan="9"> <div align="left"><a class="btn btn-blue btn-addnew" href="#modaladd" data-toggle="modal" title="Add"><i class="icon-plus icons"></i>Add Customer</a>
+
+
+
+<a class="btn btn-blue btn-addnew" href="<?php echo base_url();?>customer/add_customer" data-toggle="modal" title="Add"><i class="icon-plus icons"></i>Add Cust</a>
+                                                  </div></th>
                                                 </tr>
                                                 <tr>
                                                   <th>No.</th>

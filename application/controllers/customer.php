@@ -11,6 +11,15 @@ class Customer extends CI_Controller{
 		date_default_timezone_set("Asia/Jakarta"); 
     }	
 	 //--VIEW customer CUSTOMERS
+function add_customer(){
+		 
+		 $data['title']='add_customer';
+		$data['scrumb_name']='add Customer';
+		$data['scrumb']='customer/add_customer';
+		
+		$data['view']='pages/customer/v_add_customer';
+        $this->load->view('home/home',$data);	  
+}
  function view_customer(){
 	 
 	 	$page=$this->uri->segment(3);
@@ -29,6 +38,8 @@ class Customer extends CI_Controller{
 		$data['scrumb']='customer/view_customer';
 		$data['type']=$this->model_app->getdatapaging('*',
 		'ms_address_type a',"order by a.AddressTypeName");
+		$data['contact']=$this->model_app->getdatapaging('*',
+		'ms_contact_type a',"order by a.ContactTypeName");
 		 
 		$data['list']=$this->model_app->getdatapaging('*',
 		'ms_customer a',"LEFT join ms_staff b on a.empCode=b.empCode
@@ -303,13 +314,6 @@ function search_customer(){
         $this->load->view('pages/customer/filter',$data);
 }
 
- function confirm_delete_type(){
-	 $kode=$this->input->post('kode');
-	  $this->model_app->delete_data('ms_address_type','AddressTypeCode',$kode);
-		
-		$data['type']=$this->model_app->getdatapaging('*','ms_address_type a',"order by a.AddressTypeName");
-		$this->load->view('pages/customer/type/address_type_tabel',$data);		
-}
  function save_address_type(){
 	   $insert=array(
      	'AddressTypeName'=>$this->input->post('typename2'),
@@ -321,8 +325,23 @@ function search_customer(){
 		
 		$data['type']=$this->model_app->getdatapaging('*','ms_address_type a',"order by a.AddressTypeName");
 		$this->load->view('pages/customer/type/address_type_tabel',$data);		
+}
+function save_contact_type(){
+	   $insertdata=array(
+     	'ContactTypeName'=>$this->input->post('name'),
+		'ContactTypeDesc'=>$this->input->post('description'),
+		'CreatedBy'=>$this->session->userdata('idusr'),
+		'CreatedDate' =>date('Y-m-d h:i:s'),
+		);
+		$this->model_app->insert('ms_contact_type',$insertdata);
+		$data['contact']=$this->model_app->getdatapaging('*',
+		'ms_contact_type a',"order by a.ContactTypeName");
+		
+		$this->load->view('pages/customer/contact/contact_type_tabel',$data);	
+			
 }	
- function update_type(){
+
+ function update_address_type(){
 	 
 	  $kode=$this->input->post('idtype');
 	   $update=array(
@@ -337,6 +356,38 @@ function search_customer(){
 		$this->load->view('pages/customer/type/address_type_tabel',$data);		
 }
 
+
+ function update_contact_type(){
+	 
+	  $kode=$this->input->post('idtype');
+	   $update=array(
+     	'ContactTypeName'=>$this->input->post('name'),
+		'ContactTypeDesc'=>$this->input->post('desc'),
+		'CreatedBy'=>$this->session->userdata('idusr'),
+		'CreatedDate' =>date('Y-m-d h:i:s'),
+		);
+		$this->model_app->update('ms_contact_type','ContactTypeCode',$kode,$update);
+		
+		$data['contact']=$this->model_app->getdatapaging('*','ms_contact_type a',"order by a.ContactTypeName");
+		$this->load->view('pages/customer/contact/contact_type_tabel',$data);		
+}
+
+
+ function confirm_delete_contact_type(){
+	 $kode=$this->input->post('kode');
+	  $this->model_app->delete_data('ms_contact_type','ContactTypeCode',$kode);
+		
+		$data['contact']=$this->model_app->getdatapaging('*','ms_contact_type a',"order by a.ContactTypeName");
+		$this->load->view('pages/customer/contact/contact_type_tabel',$data);		
+}
+
+ function confirm_delete_type(){
+	 $kode=$this->input->post('kode');
+	  $this->model_app->delete_data('ms_address_type','AddressTypeCode',$kode);
+		
+		$data['type']=$this->model_app->getdatapaging('*','ms_address_type a',"order by a.AddressTypeName");
+		$this->load->view('pages/customer/type/address_type_tabel',$data);		
+}
 
 }
 

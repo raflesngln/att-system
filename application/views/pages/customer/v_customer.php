@@ -9,21 +9,22 @@
 										<ul class="nav nav-tabs" id="myTab">
 											<li class="active">
 												<a data-toggle="tab" href="#home">
-													<i class="green icon-home bigger-110"></i>
+													<i class="red fa fa-users bigger-110"></i>
 													Customers
 												</a>
 											</li>
 
 											<li>
 												<a data-toggle="tab" href="#profile">
-  <i class="green icon-home bigger-110"></i>
+  <i class="red fa fa-building bigger-110"></i>
 													Address Type
 		
 												</a>
 											</li>
     	<li>
 												<a data-toggle="tab" href="#more">
-													button
+                                                 <i class="red fa fa-book bigger-110"></i>
+													Contact Type
 		
 											</a></li>
 										</ul>
@@ -37,7 +38,7 @@
 <p><?php $this->load->view('pages/customer/type/ms_address_type');?></p>
 											</div>
   											<div id="more" class="tab-pane">
-<p>rafles nainggolan</p>
+<p><?php $this->load->view('pages/customer/contact/ms_contact_type');?></p>
 											</div>
 
 											<div id="dropdown1" class="tab-pane">

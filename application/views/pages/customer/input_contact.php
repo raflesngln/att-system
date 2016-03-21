@@ -9,29 +9,10 @@
       <br />
       </label>
             <?php }?>  
-      <div class="row">  
-      <div class="col-sm-6">
-           <h1><i class="fa fa-building fa-2x"></i> &nbsp; Addres Type  List</h1> 
-           <p>&nbsp;</p>
-            </div>
-     
-      <div class="top-hdr col-sm-6">              
-      <div class="col-sm-5"> </div>   
-
-      <form action="<?php echo base_url();?>customer/search_customer" method="post"> 
-           <div class="col-sm-7">
-           <div class="row">
-          <div class="col-sm-9">Search Customer<span class="controls">
-           <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="Name / Address" />
-            </span>
-          </div>
-         <div class="col-md-2">
-         &nbsp;<input type="submit" name="button" id="button" value="Search" class="btn btn-mini btn-search btn-primary" />
-         </div>
-           </div>
-        </div>              
-      </form> 
-   </div>
+      <div class="row">
+        <div class="top-hdr col-sm-6">              
+      <div class="col-sm-5"> </div>
+        </div>
 </div>
 
             <div class="row">
@@ -44,7 +25,7 @@
                                         <table class="table table-striped table-bordered table-hover">
                                               <thead>
                                                 <tr>
-                                                  <th colspan="4"> <div align="left"><a class="btn btn-blue btn-addnew tbladdtype" href="#addmodaltype" data-toggle="modal" title="Add" id="tbladd"><i class="icon-plus icons"></i>Add Address Type</a></div></th>
+                                                  <th colspan="4"> <div align="left"><a class="btn btn-blue btn-addnew tbladdtype" href="#addmodaltype2" data-toggle="modal" title="Add" id="tbladd"><i class="icon-plus icons"></i>Add Contact </a></div></th>
                                                 </tr>
                                                 <tr>
                                                   <th>No.</th>
@@ -135,7 +116,7 @@ $no=1;
 <?php } ?>
 
 <!--ADD DATA-->
-<div id="addmodaltype" class="addmodaltype modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="addmodaltype2" class="addmodaltype2 modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -199,12 +180,12 @@ $("#btn-save-type").click(function(){
                 cache:false,
                 success: function(data){
                     $('#table_address_type').html(data);
-                    $("#addmodaltype").modal('hide');
+                    $("#addmodaltype2").modal('hide');
 					$("#typedesc2").val('');
 					$("#typename2").val('');
                 }
             }); 
-			$("#addmodaltype").modal('hide');
+			$("#addmodaltype2").modal('hide');
         });
 		
 function del2(dat){

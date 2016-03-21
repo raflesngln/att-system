@@ -11,7 +11,7 @@
             <?php }?>  
       <div class="row">  
       <div class="col-sm-6">
-           <h1><i class="fa fa-building fa-2x"></i> &nbsp; Addres Type  List</h1> 
+           <h1><i class="fa fa-book fa-2x"></i> &nbsp; Contact Type  List</h1> 
            <p>&nbsp;</p>
             </div>
      
@@ -21,7 +21,7 @@
       <form action="<?php echo base_url();?>customer/search_customer" method="post"> 
            <div class="col-sm-7">
            <div class="row">
-          <div class="col-sm-9">Search Customer<span class="controls">
+          <div class="col-sm-9">Search Contact<span class="controls">
            <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="Name / Address" />
             </span>
           </div>
@@ -40,11 +40,11 @@
                         <!--<div class="panel-header"></div>-->
                         
                                     <div class="form-group">
-                                        <div class="table-responsive" id="table_address_type">
+                                        <div class="table-responsive" id="table_contact_type">
                                         <table class="table table-striped table-bordered table-hover">
                                               <thead>
                                                 <tr>
-                                                  <th colspan="4"> <div align="left"><a class="btn btn-blue btn-addnew tbladdtype" href="#addmodaltype" data-toggle="modal" title="Add" id="tbladd"><i class="icon-plus icons"></i>Add Address Type</a></div></th>
+                                                  <th colspan="4"> <div align="left"><a class="btn btn-blue btn-addnew tbladdtype" href="#addmodalcontact" data-toggle="modal" title="Add" id="tbladd"><i class="icon-plus icons"></i>Add contact Type</a></div></th>
                                                 </tr>
                                                 <tr>
                                                   <th>No.</th>
@@ -56,18 +56,18 @@
                                               <tbody>
                                         <?php 
 $no=1;
-			foreach($type as $data){
+			foreach($contact as $data){
 				
 			?>
                                                 <tr class="gradeX">
                                                     <td><?php echo $no?></td>
-                                                    <td><?php echo $data->AddressTypeName?></td>
-                                                    <td><?php echo $data->AddressTypeDesc?></td>
-                                                    <td class="text-center"><div align="center"><a class="btn-action" href="#modaledittype<?php echo $data->AddressTypeCode?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i>
+                                                    <td><?php echo $data->ContactTypeName?></td>
+                                                    <td><?php echo $data->ContactTypeDesc?></td>
+                                                    <td class="text-center"><div align="center"><a class="btn-action" href="#modaledicontact<?php echo $data->ContactTypeCode?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i>
                                                       <button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>
                                                       </a>
-                                                      
-  <button value="<?php echo $data->AddressTypeCode?>" name="deltype" id="deltype" class="deltype fa fa-times btn btn-danger btn-mini" onclick="return del2(this)"></button>          
+                                                          
+  <button value="<?php echo $data->ContactTypeCode?>" name="delcontact" id="delcontact" class="delcontact fa fa-times btn btn-danger btn-mini" onclick="return del(this)"></button>          
                                                     </div></td>
                                                 </tr>                                
                                                 <?php $no++; } ;?>
@@ -90,10 +90,10 @@ $no=1;
  <!-- edit data -->
 <?php
 
-    foreach($type as $row){
+    foreach($contact as $row){
 		
         ?>
-<div id="modaledittype<?php echo $data->AddressTypeCode?>" class="modaledittype modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="modaledicontact<?php echo $data->ContactTypeCode?>" class="modaleditcontact modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -106,16 +106,16 @@ $no=1;
                     <div class="form-group">
                         <label class="col-sm-3 control-label"> Type Name </label>
                       <div class="col-sm-9"><span class="controls">
-                        <input name="typename" type="text" class="form-control typename" id="typename" required="required" value="<?php echo $row->AddressTypeName;?>" />
+                        <input name="contacttype" type="text" class="form-control typename" id="contacttype" required="required" value="<?php echo $row->ContactTypeName;?>" />
                       </span>
-                        <input type="hidden" name="idtype" id="idtype" value="<?php echo $row->AddressTypeCode;?>" />
+                        <input type="hidden" name="idcontact" id="idcontact" value="<?php echo $row->ContactTypeCode;?>" />
                       </div>
                         <div class="clearfix"></div>
                       </div>
                     <div class="form-group">
                       <label class="col-sm-3 control-label">Description</label>
                         <div class="col-sm-9">
-                          <textarea name="typedesc" cols="30" rows="2" class="form-control typedesc" id="typedesc" required="required"><?php echo $row->AddressTypeDesc;?></textarea>
+                          <textarea name="desccontact" cols="30" rows="2" class="form-control typedesc" id="desccontact" required="required"><?php echo $row->ContactTypeDesc;?></textarea>
                         </div>
                         
                     </div>
@@ -125,7 +125,7 @@ $no=1;
                   </div>
                   <div class="modal-footer">
                     <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary btn-edit-type" type="submit" id="btn-edit-type"><i class="icon-save bigger-160 icons">&nbsp;</i> Update</button>
+                        <button class="btn btn-primary btn-edit-contact" type="submit" id="btn-edit-contact"><i class="icon-save bigger-160 icons">&nbsp;</i> Update</button>
 </div>
                     
             
@@ -135,12 +135,12 @@ $no=1;
 <?php } ?>
 
 <!--ADD DATA-->
-<div id="addmodaltype" class="addmodaltype modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="addmodalcontact" class="addmodalcontact modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add Address Type</h3>
+                <h3 id="myModalLabel">Add Contact Type</h3>
             </div>
             <div class="smart-form scroll">
 <form name="addtype">
@@ -148,20 +148,20 @@ $no=1;
                       <div class="form-group">
                         <label class="col-sm-3 control-label"> Type Name </label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="typename2" type="text" class="form-control" id="typename2" required="required" maxlength="30" />
+                          <input name="contacttype2" type="text" class="form-control" id="contacttype2" required="required" maxlength="30" />
                         </span></div>
                         <div class="clearfix"></div>
                       </div>
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Description</label>
                         <div class="col-sm-9">
-                          <textarea name="typedesc2" cols="30" rows="2" class="form-control" id="typedesc2" required="required"></textarea>
+                          <textarea name="desccontact2" cols="30" rows="2" class="form-control" id="desccontact2" required="required"></textarea>
                         </div>
                         <div class="clearfix"></div>
                       </div>
 <div class="modal-footer">
   <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-<button class="btn btn-primary" type="button" id="btn-save-type"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
+<button class="btn btn-primary" type="button" id="btn-save-contact"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
 </div>
 <div class="clearfx">&nbsp;</div>
                     </div>
@@ -188,59 +188,58 @@ $("#txtsearch").keyup(function(){
                 }
             });
         });
-$("#btn-save-type").click(function(){
-         var typename2 = $("#typename2").val();
-		 var typedesc2 = $("#typedesc2").val();
+$("#btn-save-contact").click(function(){
+         var name = $("#contacttype2").val();
+		 var description = $("#desccontact2").val();
 		 
-  				$.ajax({
+  	$.ajax({
                 type: "POST",
-              url : "<?php echo base_url('customer/save_address_type');?>",
-                data: "typename2="+typename2+"&typedesc2="+typedesc2,
+                url : "<?php echo base_url('customer/save_contact_type'); ?>",
+                data: "name="+name+"&description="+description,
                 cache:false,
                 success: function(data){
-                    $('#table_address_type').html(data);
-                    $("#addmodaltype").modal('hide');
-					$("#typedesc2").val('');
-					$("#typename2").val('');
+                    $('#table_contact_type').html(data);
+                    $("#addmodalcontact").modal('hide');
+					$("#contacttype2").val('');
+					$("#desccontact2").val('');
                 }
-            }); 
-			$("#addmodaltype").modal('hide');
+            });
+			$("#addmodalcontact").modal('hide');
         });
 		
-function del2(dat){
+function del(dat){
 			 var kode =$(dat).val();
-			$.ajax({
+			 $.ajax({
                 type: "POST",
-                url : "<?php echo base_url('customer/confirm_delete_type'); ?>",
+                url : "<?php echo base_url('customer/confirm_delete_contact_type'); ?>",
                 data: "kode="+kode,
                 cache:false,
                 success: function(data){
-                    $('#table_address_type').html(data);
-                    $("#addcustom").modal('hide');
+                    $('#table_contact_type').html(data);
+                   
                 }
-            }); 
+            });
 			 
 		}
 
 
-$("#btn-edit-type").click(function(e) {
+$("#btn-edit-contact").click(function(e) {
   e.preventDefault();
-  var typename = $("#typename").val(); 
-  var idtype = $("#idtype").val(); 
+     var name = $("#contacttype").val();
+	var desc = $("#desccontact").val();
   
-  var typedesc = $("#typedesc").val();
-  
-  var dataString = 'typename='+typename+'&typedesc='+typedesc+'&idtype='+idtype;
-  $.ajax({
+  var idcontact = $("#idcontact").val();
+  var dataString = 'name='+name+'&desc='+desc+'&idcontact='+idcontact;
+    $.ajax({
     type:'POST',
     data:dataString,
-    url:"<?php echo base_url('customer/update_address_type'); ?>",
+    url:"<?php echo base_url('customer/update_contact_type'); ?>",
     success:function(data) {
-                    $('#table_address_type').html(data);
-                    $(".modaledittype").modal('hide');
+                    $('#table_contact_type').html(data);
+                    $(".modaleditcontact").modal('hide');
     }
   });
-   $(".modaledittype").modal('hide');
+  $(".modaleditcontact").modal('hide');
 });
 
 
