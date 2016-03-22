@@ -1,3 +1,8 @@
+<style>
+p{
+	cursor:pointer
+	background-color:#DFDFDF #
+</style>
 <table class="table table-striped table-bordered table-hover">
                                               <thead>
                                                 <tr>

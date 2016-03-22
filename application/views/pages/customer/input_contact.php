@@ -87,7 +87,7 @@ $no=1;
                     <div class="form-group">
                         <label class="col-sm-3 control-label"> Type Name </label>
                       <div class="col-sm-9"><span class="controls">
-                        <input name="typename" type="text" class="form-control typename" id="typename" required="required" value="<?php echo $row->AddressTypeName;?>" />
+                        <input name="typenamessss" type="text" class="form-control typename" id="typenamessss" required="required" value="<?php echo $row->AddressTypeName;?>" />
                       </span>
                         <input type="hidden" name="idtype" id="idtype" value="<?php echo $row->AddressTypeCode;?>" />
                       </div>
@@ -96,7 +96,7 @@ $no=1;
                     <div class="form-group">
                       <label class="col-sm-3 control-label">Description</label>
                         <div class="col-sm-9">
-                          <textarea name="typedesc" cols="30" rows="2" class="form-control typedesc" id="typedesc" required="required"><?php echo $row->AddressTypeDesc;?></textarea>
+                          <textarea name="typedescsssss" cols="30" rows="2" class="form-control typedesc" id="typedescsssss" required="required"><?php echo $row->AddressTypeDesc;?></textarea>
                         </div>
                         
                     </div>
@@ -121,7 +121,7 @@ $no=1;
         <div class="modal-content">
           <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add Address Type</h3>
+                <h3 id="myModalLabel">Add Contact Type</h3>
             </div>
             <div class="smart-form scroll">
 <form name="addtype">
@@ -129,14 +129,14 @@ $no=1;
                       <div class="form-group">
                         <label class="col-sm-3 control-label"> Type Name </label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="typename2" type="text" class="form-control" id="typename2" required="required" maxlength="30" />
+                          <input name="typenam" type="text" class="form-control" id="typenam" required="required" maxlength="30" />
                         </span></div>
                         <div class="clearfix"></div>
                       </div>
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Description</label>
                         <div class="col-sm-9">
-                          <textarea name="typedesc2" cols="30" rows="2" class="form-control" id="typedesc2" required="required"></textarea>
+                          <textarea name="typedes" cols="30" rows="2" class="form-control" id="typedes" required="required"></textarea>
                         </div>
                         <div class="clearfix"></div>
                       </div>

@@ -21,8 +21,8 @@
                         <!--<div class="panel-header"></div>-->
                         
                                     <div class="form-group">
-                                        <div class="table-responsive" id="table_address_type">
-                                        <table class="table table-striped table-bordered table-hover">
+                                        <div class="table-responsive" id="table_address_detail">
+                                        <table class="table table-striped table-bordered tableaddressdetail">
                                               <thead>
                                                 <tr>
                                                   <th colspan="5"> <div align="left"><a class="btn btn-blue btn-addnew tbladdtype" href="#addmodaltype" data-toggle="modal" title="Add" id="tbladd"><i class="icon-plus icons"></i>Add Address</a></div></th>
@@ -102,7 +102,7 @@ $no=1;
 <div class="form-group">
                         <label class="col-sm-3 control-label">Address</label>
                         <div class="col-sm-9">
-                          <textarea name="typedesc2" cols="30" rows="2" class="form-control" id="typedesc2" required="required"></textarea>
+                          <textarea name="typedesc" cols="30" rows="2" class="form-control" id="typedesc" required="required"></textarea>
                         </div>
                         <div class="clearfix"></div>
                       </div>
@@ -119,7 +119,7 @@ $no=1;
                   </div>
                   <div class="modal-footer">
                     <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary btn-edit-type" type="submit" id="btn-edit-type"><i class="icon-save bigger-160 icons">&nbsp;</i> Update</button>
+                        <button class="btn btn-primary btnupdateaddress" type="submit" id="btnupdateaddress"><i class="icon-save bigger-160 icons">&nbsp;</i> Update</button>
 </div>
                     
             
@@ -142,27 +142,27 @@ $no=1;
                       <div class="form-group">
                         <label class="col-sm-3 control-label">  Name </label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="typename2" type="text" class="form-control" id="typename2" required="required" maxlength="30" />
+                          <input name="addresstitle" type="text" class="form-control" id="addresstitle" required="required" maxlength="30" />
                         </span></div>
                         <div class="clearfix"></div>
                       </div>
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Address</label>
                         <div class="col-sm-9">
-                          <textarea name="typedesc2" cols="30" rows="2" class="form-control" id="typedesc2" required="required"></textarea>
+                          <textarea name="addressname" cols="30" rows="2" class="form-control" id="addressname" required="required"></textarea>
                         </div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Description</label>
                         <div class="col-sm-9">
-                          <textarea name="typedesc2" cols="30" rows="2" class="form-control" id="typedesc2" required="required"></textarea>
+                          <textarea name="addressdesc" cols="30" rows="2" class="form-control" id="addressdesc" required="required"></textarea>
                         </div>
                         <div class="clearfix"></div>
                       </div>
 <div class="modal-footer">
   <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-<button class="btn btn-primary" type="button" id="btn-save-type"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
+<button class="btn btn-primary" type="button" id="btnaddaddress"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
 </div>
 <div class="clearfx">&nbsp;</div>
                     </div>
@@ -224,6 +224,8 @@ function del2(dat){
 		}
 
 
+
+
 $("#btn-edit-type").click(function(e) {
   e.preventDefault();
   var typename = $("#typename").val(); 
@@ -244,6 +246,36 @@ $("#btn-edit-type").click(function(e) {
    $(".modaledittype").modal('hide');
 });
 
+$("#btnaddaddress").click(function(){
+	//var t_volume=$('#idtotal').val();   
+	var nama=$('#addresstitle').val();
+	var address=$('#addressname').val();
+	var desc=$('#addressdesc').val();		
+if (nama == '' || address == ''){
+	alert('Mohon isi data dengan lengkap');	
+	}
+	else
+	{
+	text='<tr class="gradeX" align="right">'
+	+ '<td></td>'
+    + '<td>' + '<input type="hidden" name="nama[]" id="nama[]" size="5" value="'+ nama +'">'+ '<label id="l_pcs">'+ nama +'</label>' +'</td>'
+   
+    + '<td>' + '<input type="hidden" name="desc[]" id="desc[]" size="5" value="'+ desc +'">'+ '<label id="l_pcs">'+ desc +'</label>' +'</td>'
+	
+    + '<td>' +  '<input type="hidden" name="address[]" id="l[]" size="5" value="'+ address +'">'+ '<label id="l_pcs">'+ address +'</label>' +'</td>'
+
+	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + nama +'" onclick="hapus3(this)" type="button"><i class="fa fa-times"></i></button></td>'
+    + '</tr>';
+	
+		$('#tableaddressdetail tbody').append(text);
+
+		//RESET INPUT
+		$('#typename2').val("");
+		$('#typename2').val("");
+		$('#typename2').val("");
+
+	}
+ });
 
 </script>
  

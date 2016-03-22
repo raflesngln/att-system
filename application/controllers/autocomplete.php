@@ -129,6 +129,38 @@ function lookup_receivement(){
                      'name' => $row->custName,
                      'phone' => $row->Phone,
 					 'address' => $row->Address,
+					 'email' => $row->Email,
+                  );  //Add a row to array
+            }
+        }
+        if('IS_AJAX')
+        {
+            echo json_encode($data); //echo json string if ajax request
+            
+        }
+        else
+        {
+            $this->load->view('autocomplete/index',$data); //Load html view of search results
+        }
+    }
+function lookup_customers(){ 
+        // process posted form data (the requested items like province)
+        $keyword = $this->input->post('term');
+        $data['response'] = 'false'; //Set default response
+        $query = $this->Mautocomplete->lookup_receive($keyword); //Search DB
+        if( ! empty($query) )
+        {
+            $data['response'] = 'true'; //Set response
+            $data['message'] = array(); //Create an array
+            foreach( $query as $row )
+            {
+              $data['message'][] = array( 
+                    'id'=>$row->custCode,
+                     'value' => $row->custName,
+                     'name' => $row->custName,
+                     'phone' => $row->Phone,
+					 'email' => $row->Email,
+					 'initial' => $row->custInitial,
                   );  //Add a row to array
             }
         }

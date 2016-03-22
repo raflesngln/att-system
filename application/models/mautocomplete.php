@@ -38,5 +38,13 @@ class Mautocomplete extends CI_Model{
         
         return $query->result();
     }
+	function lookup_cust($keyword){
+       $this->db->select('*')->from('ms_customer');
+        $this->db->like('custName',$keyword,'after');
+		$this->db->where('isActive','1');
+        $query = $this->db->get();    
+        
+        return $query->result();
+    }
 }
 
