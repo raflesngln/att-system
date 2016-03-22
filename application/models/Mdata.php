@@ -32,8 +32,10 @@ class Mdata extends CI_Model {
 			$order = $orderby;
 			$this->db->order_by(key($order), $order[key($order)]);
 		}
+		
+		if($where != ''){
         $this->db->where($where); 
-        
+		}
 
 	}
 

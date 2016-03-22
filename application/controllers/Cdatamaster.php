@@ -6,7 +6,7 @@ class Cdatamaster extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('person_model','person');
+		$this->load->model('Mdata');
 	}
 
 	public function index()
@@ -24,8 +24,8 @@ public function ajax_list()
 		$nm_tabel='ms_address_type';
         $nm_coloum= array('AddressTypeCode','AddressTypeCode','AddressTypeName','AddressTypeDesc');
         $orderby= array('AddressTypeCode' => 'desc');
-        $where=  array('');
-        $list = $this->person_model->get_datatables($nm_tabel,$nm_coloum,$orderby,$where);
+        $where=  array();
+        $list = $this->Mdata->get_datatables($nm_tabel,$nm_coloum,$orderby,$where);
         
 		$data = array();
 		$no = $_POST['start'];
@@ -44,8 +44,8 @@ public function ajax_list()
 
 		$output = array(
 						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->person_model->count_all($nm_tabel,$nm_coloum,$orderby),
-						"recordsFiltered" => $this->person_model->count_filtered($nm_tabel,$nm_coloum,$orderby,$where),
+						"recordsTotal" => $this->Mdata->count_all($nm_tabel,$nm_coloum,$orderby),
+						"recordsFiltered" => $this->Mdata->count_filtered($nm_tabel,$nm_coloum,$orderby,$where),
 						"data" => $data,
 				);
 		//output to json format
@@ -57,7 +57,7 @@ public function ajax_list()
 	   	$AddressTypeCode     = $this->input->post('cid');
         $nmtabel= $this->input->post('cnmtabel');
         $key    = $this->input->post('ckeytabel');
-		$data = $this->person->get_by_id($AddressTypeCode,$nmtabel,$key);
+		$data = $this->Mdata->get_by_id($AddressTypeCode,$nmtabel,$key);
 		echo json_encode($data);
 	}
 
@@ -68,7 +68,7 @@ public function ajax_list()
 				'AddressTypeName' => $this->input->post('AddressTypeName'),
 				'AddressTypeDesc' => $this->input->post('AddressTypeDesc'),
 			);
-		$insert = $this->person->save($data,$nmtabel);
+		$insert = $this->Mdata->save($data,$nmtabel);
 		echo json_encode(array("status" => TRUE));
 	}
 
@@ -80,7 +80,7 @@ public function ajax_list()
 				'AddressTypeName' => $this->input->post('AddressTypeName'),
 				'AddressTypeDesc' => $this->input->post('AddressTypeDesc'),
 			);
-		$this->person->update(array($key => $this->input->post('AddressTypeCode')), $data,$nmtabel);
+		$this->Mdata->update(array($key => $this->input->post('AddressTypeCode')), $data,$nmtabel);
 		echo json_encode(array("status" => TRUE));
 	}
 
@@ -90,7 +90,7 @@ public function ajax_list()
        $nmtabel= $this->input->post('cnmtabel');
        $key    = $this->input->post('ckeytabel');
        
-		$this->person->delete_by_id($id,$nmtabel,$key);
+		$this->Mdata->delete_by_id($id,$nmtabel,$key);
 		echo json_encode(array("status" => TRUE));
 	}
 }

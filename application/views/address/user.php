@@ -52,12 +52,14 @@ function edit_person(id)
       $.ajax({
         url : "<?php echo site_url('Cdatamaster/ajax_edit/')?>",
         type: "POST",
-        data:({cid:AddressTypeCode,cnmtabel:nmtabel,ckeytabel:keytabel}),
+        data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
         dataType: "JSON",
         success: function(data)
         {
-            $('[name="AddressTypeCode"]').val(data.AddressTypeCode);
+            $('[name="AddressTypeName"]').val(data.AddressTypeName);
+			 $('[name="AddressTypeCode"]').val(data.AddressTypeCode);
             $('[name="AddressTypeDesc"]').val(data.AddressTypeDesc);
+			
             $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
             $('.modal-title').text('Edit Person'); // Set title to Bootstrap modal title
             
@@ -115,7 +117,7 @@ function delete_person(id)
           $.ajax({
             url : "<?php echo site_url('Cdatamaster/ajax_delete')?>",
             type: "POST",
-            data:({cid:AddressTypeCode,cnmtabel:nmtabel,ckeytabel:keytabel}),
+            data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
             dataType: "JSON",
             success: function(data)
             {
@@ -180,7 +182,7 @@ function delete_person(id)
             <div class="form-group">
               <label class="control-label col-md-3"> Name</label>
               <div class="col-md-9">
-                <input name="AddressTypeName" placeholder="First Name" class="form-control nama" type="text" id="AddressTypeName">
+                <input name="AddressTypeName" type="text" class="form-control nama" id="AddressTypeName" placeholder="First Name" value="" />
               </div>
             </div>
             <div class="form-group">
