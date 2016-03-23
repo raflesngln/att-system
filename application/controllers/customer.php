@@ -17,6 +17,11 @@ function add_customer(){
 		$data['scrumb_name']='add Customer';
 		$data['scrumb']='customer/add_customer';
 		
+		$data['type']=$this->model_app->getdatapaging('*',
+		'ms_address_type a',"order by a.AddressTypeName");
+		$data['contact']=$this->model_app->getdatapaging('*',
+		'ms_contact_type a',"order by a.ContactTypeName");
+		
 		$data['view']='pages/customer/v_add_customer';
         $this->load->view('home/home',$data);	  
 }

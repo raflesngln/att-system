@@ -22,16 +22,16 @@
                         
                                     <div class="form-group">
                                         <div class="table-responsive" id="table_address_detail">
-                                        <table class="table table-striped table-bordered tableaddressdetail">
+ <table class="table table-striped table-bordered tableaddressdetail" id="tableaddressdetail">
                                               <thead>
                                                 <tr>
                                                   <th colspan="5"> <div align="left"><a class="btn btn-blue btn-addnew tbladdtype" href="#addmodaltype" data-toggle="modal" title="Add" id="tbladd"><i class="icon-plus icons"></i>Add Address</a></div></th>
                                                 </tr>
                                                 <tr>
-                                                  <th>No.</th>
-                                                  <th>Adress Name</th>
-                                                  <th>UP</th>
-                                                  <th>Address Detail</th>
+                                                  <th height="33">Address Type</th>
+                                                  <th>Name</th>
+                                                  <th>Address</th>
+                                                  <th>Description</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                               </thead>
@@ -41,18 +41,6 @@ $no=1;
 			foreach($type as $data){
 				
 			?>
-                                                <tr class="gradeX">
-                                                    <td><?php echo $no?></td>
-                                                    <td><?php echo $data->AddressTypeName?></td>
-                                                    <td><?php echo $data->AddressTypeDesc?></td>
-                                                    <td><?php echo $data->AddressTypeDesc?></td>
-                                                    <td class="text-center"><div align="center"><a class="btn-action" href="#modaledittype<?php echo $data->AddressTypeCode?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i>
-                                                      <button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>
-                                                      </a>
-                                                      
-  <button value="<?php echo $data->AddressTypeCode?>" name="deltype" id="deltype" class="deltype fa fa-times btn btn-danger btn-mini" onclick="return del2(this)"></button>          
-                                                    </div></td>
-                                                </tr>                                
                                                 <?php $no++; } ;?>
                                               <tr class="gradeX pagin">
                                                   <th colspan="8" scope="row">
@@ -74,59 +62,7 @@ $no=1;
            
  
  
- <!-- edit data -->
-<?php
 
-    foreach($type as $row){
-		
-        ?>
-<div id="modaledittype<?php echo $data->AddressTypeCode?>" class="modaledittype modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Edit Data</h3>
-            </div>
-            <div class="smart-form">      
-                  <div class="modal-body">
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">  Name </label>
-                      <div class="col-sm-9"><span class="controls">
-                        <input name="typename" type="text" class="form-control typename" id="typename" required="required" value="<?php echo $row->AddressTypeName;?>" />
-                      </span>
-                        <input type="hidden" name="idtype" id="idtype" value="<?php echo $row->AddressTypeCode;?>" />
-                      </div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Address</label>
-                        <div class="col-sm-9">
-                          <textarea name="typedesc" cols="30" rows="2" class="form-control" id="typedesc" required="required"></textarea>
-                        </div>
-                        <div class="clearfix"></div>
-                      </div>
-                    <div class="form-group">
-                      <label class="col-sm-3 control-label">Description</label>
-                        <div class="col-sm-9">
-                          <textarea name="typedesc" cols="30" rows="2" class="form-control typedesc" id="typedesc" required="required"><?php echo $row->AddressTypeDesc;?></textarea>
-                        </div>
-                        
-                    </div>
-
-    
-<div class="clearfix"></div>
-                  </div>
-                  <div class="modal-footer">
-                    <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary btnupdateaddress" type="submit" id="btnupdateaddress"><i class="icon-save bigger-160 icons">&nbsp;</i> Update</button>
-</div>
-                    
-            
-            </div>
-  </div></div></div>
-    
-<?php } ?>
 
 <!--ADD DATA-->
 <div id="addmodaltype" class="addmodaltype modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -139,6 +75,19 @@ $no=1;
             <div class="smart-form scroll">
 <form name="addtype">
                     <div class="modal-body">
+<div class="form-group">
+                        <label class="col-sm-3 control-label">Type contact</label>
+                        <div class="col-sm-9">
+                          <select name="address" id="address" class="form-control" required="required">
+                            <option value="">Choose type</option>
+                            <?php foreach ($type as $sv) {
+          ?>
+                            <option value="<?php echo $sv->AddressTypeCode.'-'.$sv->AddressTypeName;?>"><?php echo $sv->AddressTypeName;?></option>
+                            <?php } ?>
+                          </select>
+              </div>
+                        
+                      </div>
                       <div class="form-group">
                         <label class="col-sm-3 control-label">  Name </label>
                         <div class="col-sm-9"><span class="controls">
@@ -146,6 +95,7 @@ $no=1;
                         </span></div>
                         <div class="clearfix"></div>
                       </div>
+ 
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Address</label>
                         <div class="col-sm-9">
@@ -175,104 +125,43 @@ $no=1;
     
     
 <script type="text/javascript">			
-$("#txtsearch").keyup(function(){
+function hapus3(myid){
+	var input = $(myid).val();
+		 t = $(myid);
+		 tr = t.parent().parent();
+		 tr.remove();
+}
 
-            var txtsearch = $("#txtsearch").val();
-            $.ajax({
-                type: "POST",
-                url : "<?php echo base_url('customer/search_customer_ajax'); ?>",
-                data: "txtsearch="+txtsearch,
-                cache:false,
-                success: function(data){
-                    $('#table_responsive').html(data);
-                    //document.frm.add.disabled=false;
-                }
-            });
-        });
-$("#btn-save-type").click(function(){
-         var typename2 = $("#typename2").val();
-		 var typedesc2 = $("#typedesc2").val();
-		 
-  				$.ajax({
-                type: "POST",
-              url : "<?php echo base_url('customer/save_address_type');?>",
-                data: "typename2="+typename2+"&typedesc2="+typedesc2,
-                cache:false,
-                success: function(data){
-                    $('#table_address_type').html(data);
-                    $("#addmodaltype").modal('hide');
-					$("#typedesc2").val('');
-					$("#typename2").val('');
-                }
-            }); 
-			$("#addmodaltype").modal('hide');
-        });
-		
-function del2(dat){
-			 var kode =$(dat).val();
-			$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('customer/confirm_delete_type'); ?>",
-                data: "kode="+kode,
-                cache:false,
-                success: function(data){
-                    $('#table_address_type').html(data);
-                    $("#addcustom").modal('hide');
-                }
-            }); 
-			 
-		}
-
-
-
-
-$("#btn-edit-type").click(function(e) {
-  e.preventDefault();
-  var typename = $("#typename").val(); 
-  var idtype = $("#idtype").val(); 
-  
-  var typedesc = $("#typedesc").val();
-  
-  var dataString = 'typename='+typename+'&typedesc='+typedesc+'&idtype='+idtype;
-  $.ajax({
-    type:'POST',
-    data:dataString,
-    url:"<?php echo base_url('customer/update_address_type'); ?>",
-    success:function(data) {
-                    $('#table_address_type').html(data);
-                    $(".modaledittype").modal('hide');
-    }
-  });
-   $(".modaledittype").modal('hide');
-});
 
 $("#btnaddaddress").click(function(){
-	//var t_volume=$('#idtotal').val();   
-	var nama=$('#addresstitle').val();
-	var address=$('#addressname').val();
-	var desc=$('#addressdesc').val();		
-if (nama == '' || address == ''){
+	//var t_volume=$('#idtotal').val();
+	var address=$('#address').val();   
+	var addressname=$('#addressname').val();
+	var addresstitle=$('#addresstitle').val();
+	var addressdesc=$('#addressdesc').val();		
+if (address == '' || addressname == ''){
 	alert('Mohon isi data dengan lengkap');	
 	}
 	else
 	{
 	text='<tr class="gradeX" align="right">'
-	+ '<td></td>'
-    + '<td>' + '<input type="hidden" name="nama[]" id="nama[]" size="5" value="'+ nama +'">'+ '<label id="l_pcs">'+ nama +'</label>' +'</td>'
+    + '<td align="left">' + '<input type="hidden" name="address3[]" id="address3[]" size="5" value="'+ address +'">'+ '<label id="l_pcs">'+ address +'</label>' +'</td>'
    
-    + '<td>' + '<input type="hidden" name="desc[]" id="desc[]" size="5" value="'+ desc +'">'+ '<label id="l_pcs">'+ desc +'</label>' +'</td>'
+    + '<td align="left">' + '<input type="hidden" name="addresstitle3[]" id="addresstitle3[]" size="5" value="'+ addresstitle +'">'+ '<label id="l_pcs">'+ addresstitle +'</label>' +'</td>'
 	
-    + '<td>' +  '<input type="hidden" name="address[]" id="l[]" size="5" value="'+ address +'">'+ '<label id="l_pcs">'+ address +'</label>' +'</td>'
+    + '<td align="left">' +  '<input type="hidden" name="addressname3[]" id="l[]" size="5" value="'+ addressname +'">'+ '<label id="l_pcs">'+ addressname +'</label>' +'</td>'
 
-	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + nama +'" onclick="hapus3(this)" type="button"><i class="fa fa-times"></i></button></td>'
+    + '<td align="left">' +  '<input type="hidden" name="addressdesc3[]" id="l[]" size="5" value="'+ addressdesc +'">'+ '<label id="l_pcs">'+ addressdesc +'</label>' +'</td>'
+
+	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + address +'" onclick="hapus3(this)" type="button"><i class="fa fa-times"></i></button></td>'
     + '</tr>';
 	
 		$('#tableaddressdetail tbody').append(text);
-
+		$("#addmodaltype").modal('hide');
 		//RESET INPUT
-		$('#typename2').val("");
-		$('#typename2').val("");
-		$('#typename2').val("");
+		$('#addressname').val("");
+		$('#addresstitle').val("");
+		$('#addressdesc').val("");
 
 	}
  });

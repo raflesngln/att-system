@@ -100,11 +100,11 @@ $("#custcode").mousedown(function(){
 
 	    </script>  
 
-<div class="col-sm-11">
-        <div class="col-sm-11">
+<div class="col-sm-6">
+        <div class="col-sm-12">
 
 <div class="clearfx">&nbsp;</div>
-        <strong><label class="col-sm-11">Cust code</label></strong>
+        <strong><label class="col-sm-11">Name</label></strong>
           <div class="col-sm-7">
            <input name="custcode" type="text" class="form-control"  id="custcode"  />
           </div>
@@ -113,16 +113,16 @@ $("#custcode").mousedown(function(){
           <div class="col-sm-7">
             <input name="custname" type="text" class="form-control"  id="custname"  />
           </div>
-           <strong><label class="col-sm-11"> Initial</label></strong>
+           <strong>
+           <label class="col-sm-11"> Phone</label></strong>
           <div class="col-sm-7">
             <input name="initial" type="text" class="form-control"  id="initial"  />
           </div>
-          <div class="col-sm-12"><hr style="border:1px #CCC dashed"></div>
 
          
              
 
-<div class="form-group infocust col-sm-12" id="infocust" style=" box-shadow:6px 11px 14px #CCC; border:1px #CCC solid; transition:all 1s">
+<div class="form-group infocust col-sm-12" id="infocust" style=" box-shadow:6px 11px 14px #CCC; border:1px #CCC solid; transition:all 1s; display:none">
 <h5>Customer Details</h5>
 
 </span><span class="col-sm-5">
@@ -152,8 +152,61 @@ $("#custcode").mousedown(function(){
   </div>
 </div>
 
+
+<div class="col-sm-6">
+        <div class="col-sm-11">
+
+<div class="clearfx">&nbsp;</div>
+        <strong><label class="col-sm-11">Deposit</label></strong>
+          <div class="col-sm-7">
+           <input name="custcode" type="text" class="form-control"  id="custcode"  />
+          </div>
+
+           <strong>
+           <label class="col-sm-11"> NPWP</label></strong>
+          <div class="col-sm-7">
+            <input name="custname" type="text" class="form-control"  id="custname"  />
+          </div>
+           <strong>
+           <label class="col-sm-11"> Remarks</label></strong>
+          <div class="col-sm-7">
+            <input name="initial" type="text" class="form-control"  id="initial"  />
+          </div>
+          <div class="col-sm-12"><hr style="border:1px #CCC dashed"></div>
+
+  </div>
+</div>
+
+
+
  <div class="clearfix clearfx"></div>
   <div class="col-sm-10 text-right">
 <a data-toggle="tab" href="#profile" class="next1 btn btn-warning btn-large">
   <i class="red fa fa-buildingg bigger-110"></i>Next</a>
    </div>
+   
+   
+   <div class="form-group infocust col-sm-12" id="infocust" style=" box-shadow:6px 11px 14px #CCC; border:1px #CCC solid; transition:all 1s; display:none">
+<h5>Customer Details</h5>
+
+</span><span class="col-sm-5">
+  <label class="col-sm-5"> Initial</label>
+<input name="initial2" type="text" class="form-control"  id="initial2" readonly="readonly"  />
+</span>
+
+<span class="col-sm-5">
+  <label class="col-sm-5"> Name</label>
+  <input name="nama2" type="text" class="form-control"  id="nama2" readonly="readonly"  />
+
+</span><span class="col-sm-5">
+  <label class="col-sm-5"> Phone</label>
+<input name="phone2" type="text" class="form-control"  id="phone2" readonly="readonly" />
+
+</span><span class="col-sm-5">
+  <label class="col-sm-5"> Email</label>
+<input name="email2" type="text" class="form-control"  id="email2" readonly="readonly"  />
+</span>
+
+<input name="id2" id="id2" type="hidden" />
+<i class="fa fa-spinner fa-pulse fa-2x" style="display:none"></i>
+</div>
