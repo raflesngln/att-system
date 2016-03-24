@@ -240,6 +240,7 @@ return true;
                       <ul class="submenu">
                         <li> <a href="<?php echo base_url();?>customer/view_customer"> <i class="icon-double-angle-right"></i> </i>
 		<i class="fa fa-opencart"></i> &nbsp; Customers </a> </li>
+
                           <li> <a href="<?php echo base_url();?>vendor/view_vendor"> <i class="icon-double-angle-right"></i> </i>
 		<i class="fa fa-cubes"></i> &nbsp; Vendor</a></li>
                       </ul>
