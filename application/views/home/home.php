@@ -6,6 +6,11 @@
 
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      
+<!-- font from w3schools -->  
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+<!-- font from w3schools -->
 
 		<!--basic styles-->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -37,6 +42,10 @@
 <style>
 	.bigger{color:#040AF7;
 	}
+.app-name{
+  font-family: "Tangerine", serif;
+  font-size:x-large;
+}
 </style>
 
 <script type="text/javascript">
@@ -57,7 +66,7 @@ return true;
 					<a href="#" class="brand">
 						<small>
 							
-		<label class="company-name"><i class="icon-leaf"></i><font color="#00FF80"> ATT-GROUP </font> <em>Internal Systems Application</em> </label>
+		<label class="company-name"><i class="icon-leaf"></i><font color="#00FF80"> ATT-GROUP </font> <span class="app-name">Internal Systems Application</span> </label>
 						</small>
 					</a><!--/.brand-->
 

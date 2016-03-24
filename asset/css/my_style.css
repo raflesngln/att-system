@@ -12,11 +12,11 @@
 	transition: background-color 240ms ease 0s;
 }
 .company-name{
-
-	background-color: rgba(140, 34, 34, 0.94);
-	padding:7px;
+	background-color:#000;
 	margin-top:5px;
-	border-radius:0px 50px 50px 0px;
+	padding-left:10px;
+	padding-right:10px;
+	box-shadow:2px 2px 5px #52DE10;
 	}
 .brand{font-size:xx-large;}
  
