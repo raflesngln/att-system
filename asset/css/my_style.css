@@ -18,6 +18,13 @@
 	padding-right:10px;
 	box-shadow:2px 2px 5px #52DE10;
 	}
+.comp-name{
+	 font-family: "brick-sign", serif;	
+}
+.app-name{
+  font-family: "Tangerine", serif;
+  font-size:x-large;
+}
 .brand{font-size:xx-large;}
  
    #stcode,#stname2,#stname,#stcode2,

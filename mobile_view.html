@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3-theme-red.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<body style="max-width:600px">
+
+<header class="w3-container w3-card-4 w3-theme w3-top">
+  <h1>
+  <i class="w3-opennav fa fa-bars" onclick="w3_open()"></i>
+  Movies 2014
+  </h1>
+</header>
+
+<nav class="w3-sidenav w3-card-2 w3-white w3-top"  style="width:30%;display:none">
+<div class="w3-container w3-theme-d2">
+  <span onclick="w3_close()" class="w3-closenav w3-right w3-xlarge">x</span>
+  <br>
+  <div class="w3-padding w3-center">
+    <img class="w3-circle" src="img_avatar.jpg" alt="avatar" style="width:75%">
+  </div>
+</div>
+<br>
+<a href="#">Movies</a>		
+<a href="#">Friends</a>		
+<a href="#">Messages</a>		
+</nav>
+
+<div class="w3-container" style="margin-top:75px">
+<hr>
+<div class="w3-row">
+  <div class="w3-col s3">
+    <img class="w3-circle" src="img_avatar.jpg" style="width:100%">
+  </div>
+  <div class="w3-col s9 w3-container">
+    <h3 class="w3-text-red">Frozen</h3>
+    <p>The response to the animations was ridiculous.</p>
+  </div>
+</div>  
+<hr>
+<div class="w3-row">
+  <div class="w3-col s3">
+    <img class="w3-circle" src="img_avatar.jpg" style="width:100%">
+  </div>
+  <div class="w3-col s9 w3-container">
+    <h3 class="w3-text-red">The Fault in Our Stars</h3>
+    <p>Touching, gripping and genuinely well made.</p>
+  </div>
+</div>
+<hr>
+<div class="w3-row">
+  <div class="w3-col s3">
+    <img class="w3-circle" src="img_avatar.jpg" style="width:100%">
+  </div>
+  <div class="w3-col s9 w3-container">
+    <h3 class="w3-text-red">The Avengers</h3>
+    <p>A huge success for Marvel and Disney.</p>
+  </div>
+</div>
+<hr>
+</div>
+
+<footer class="w3-container w3-theme w3-bottom">
+  <h3>Footer</h3>
+</footer>
+
+<script>
+function w3_open() {
+    var x = document.getElementsByClassName("w3-sidenav")[0];
+    x.style.display = "block";
+}
+function w3_close() {
+    var x = document.getElementsByClassName("w3-sidenav")[0];
+    x.style.display = "none";
+}
+</script>
+
+</body>

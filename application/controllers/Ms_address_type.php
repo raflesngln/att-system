@@ -21,11 +21,15 @@ class Ms_address_type extends CI_Controller {
 
 public function ajax_list()
 	{
-		$nm_tabel='ms_address_type';
-        $nm_coloum= array('AddressTypeCode','AddressTypeCode','AddressTypeName','AddressTypeDesc');
-        $orderby= array('AddressTypeCode' => 'desc');
+		$nm_tabel='ms_address_type a';
+		$nm_tabel2='ms_user b';
+		$kolom1='a.CreatedBy';
+		$kolom2='b.id_user';
+		
+        $nm_coloum= array('a.AddressTypeCode','a.AddressTypeCode','a.AddressTypeName','a.AddressTypeDesc','b.Email');
+        $orderby= array('a.AddressTypeCode' => 'desc');
         $where=  array();
-        $list = $this->Mdata->get_datatables($nm_tabel,$nm_coloum,$orderby,$where);
+        $list = $this->Mdata->get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
 		$data = array();
 		$no = $_POST['start'];
@@ -36,6 +40,8 @@ public function ajax_list()
             'AddressTypeCode' => $datalist->AddressTypeCode,
             'AddressTypeName' => $datalist->AddressTypeName,
             'AddressTypeDesc' =>$datalist->AddressTypeDesc,
+			'Email' =>$datalist->Email,
+			
             'action'=> '<a class="green" href="javascript:void()" title="Edit" onclick="edit_person('."'".$datalist->AddressTypeCode."'".')"><i class="icon-pencil bigger-150"></i></a>&nbsp;&nbsp;
 				    <a class="red" href="javascript:void()" title="Hapus" onclick="delete_person('."'".$datalist->AddressTypeCode."'".')"><i class="icon-trash bigger-150"></i></a>'
             );
@@ -44,8 +50,8 @@ public function ajax_list()
 
 		$output = array(
 						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->Mdata->count_all($nm_tabel,$nm_coloum,$orderby),
-						"recordsFiltered" => $this->Mdata->count_filtered($nm_tabel,$nm_coloum,$orderby,$where),
+						"recordsTotal" => $this->Mdata->count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
+						"recordsFiltered" => $this->Mdata->count_filtered2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
 						"data" => $data,
 				);
 		//output to json format
@@ -67,6 +73,7 @@ public function ajax_list()
 		$data = array(
 				'AddressTypeName' => $this->input->post('AddressTypeName'),
 				'AddressTypeDesc' => $this->input->post('AddressTypeDesc'),
+				'CreatedBy' => $this->session->userdata('idusr'),
 			);
 		$insert = $this->Mdata->save($data,$nmtabel);
 		echo json_encode(array("status" => TRUE));

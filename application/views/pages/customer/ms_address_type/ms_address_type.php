@@ -21,6 +21,7 @@
             { "data": "AddressTypeCode" },
             { "data": "AddressTypeName" },
             { "data": "AddressTypeDesc" },
+			 { "data": "Email" },
             { "data": "action" }
             ]
           });
@@ -150,6 +151,7 @@ function delete_person(id)
           <th>id</th>
           <th> Name</th>
           <th>Description</th>
+          <th style="width:125px;">Email</th>
           <th style="width:125px;">Action</th>
         </tr>
       </thead>
@@ -162,6 +164,7 @@ function delete_person(id)
           <th>id</th>
           <th> Name</th>
           <th>Description</th>
+          <th><span style="width:125px;">Email</span></th>
           <th>Action</th>
         </tr>
       </tfoot>

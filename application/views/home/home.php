@@ -10,6 +10,8 @@
 <!-- font from w3schools -->  
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=brick-sign"">
+
 <!-- font from w3schools -->
 
 		<!--basic styles-->
@@ -42,10 +44,7 @@
 <style>
 	.bigger{color:#040AF7;
 	}
-.app-name{
-  font-family: "Tangerine", serif;
-  font-size:x-large;
-}
+
 </style>
 
 <script type="text/javascript">
@@ -66,7 +65,7 @@ return true;
 					<a href="#" class="brand">
 						<small>
 							
-		<label class="company-name"><i class="icon-leaf"></i><font color="#00FF80"> ATT-GROUP </font> <span class="app-name">Internal Systems Application</span> </label>
+		<label class="company-name"><i class="icon-leaf"></i><span class="comp-name"> ATT-GROUP </span> <span class="app-name">Internal Systems Application</span> </label>
 						</small>
 					</a><!--/.brand-->
 
