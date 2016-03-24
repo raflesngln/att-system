@@ -35,10 +35,10 @@
 											</div>
 
 											<div id="profile" class="tab-pane">
-<p><?php $this->load->view('pages/customer/type/ms_address_type');?></p>
+<p><?php $this->load->view('pages/customer/ms_address_type/ms_address_type');?></p>
 											</div>
   											<div id="more" class="tab-pane">
-<p><?php $this->load->view('pages/customer/contact/ms_contact_type');?></p>
+<p><?php $this->load->view('pages/customer/contact_type/ms_contact_type');?></p>
 											</div>
 
 											<div id="dropdown1" class="tab-pane">
