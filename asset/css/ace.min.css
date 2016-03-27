@@ -2167,12 +2167,18 @@ button.btn:active {
 .label-yellow,.badge-yellow {
     background-color: #fee188!important}
 .label-light,.badge-light {
-    background-color: #e7e7e7!important}
+    background-color:#FFF}
+
+.label-notif,.badge-notif {
+    background-color: white}	
+.badge-notif,.label-notif {
+    color:red}	
+	
 .badge-yellow,.label-yellow {
     color: #963!important;
     border-color: #fee188}
 .badge-light,.label-light {
-    color: #888!important}
+    color:#F00}
 .label.arrowed,.label.arrowed-in {
     position: relative;
     margin-left: 9px}

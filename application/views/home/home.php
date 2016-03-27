@@ -114,10 +114,10 @@ return true;
                           </ul>
                         </li>
 </ul>
-                    	<ul class="nav ace-nav pull-right"><li class="purple"><li class="purple">
+<li class="btn btn-success pull-right">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-								<i class="icon-bell-alt icon-animated-bell"></i>
-								<span class="badge badge-important">8 New Notif</span>
+								<i class="icon-bell-alt icon-animated-bell white"> &nbsp;Notification</i>
+								<span class="badge badge-light">8</span>
 							</a>
 
 							<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
@@ -166,7 +166,111 @@ return true;
 							</ul>
 						</li>
  </li>
-</ul>
+
+                    	
+                    	<li class="btn btn-warning pull-right">
+							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+								<i class="icon icon-bullhorn white">&raquo; Alert !</i>
+								<span class="badge badge-light">13</span>
+							</a>
+
+							<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
+								<li class="nav-header">
+									<i class="icon-warning-sign"></i>
+									8 Notifications Incoming
+								</li>
+
+								<li>
+									<a href="#">
+										<div class="clearfix">
+											<span class="pull-left">
+												<i class="btn btn-mini no-hover btn-pink icon-comment"></i>
+												New Booking changed
+											</span>
+											<span class="pull-right badge badge-info">+12</span>
+										</div>
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										<i class="btn btn-mini btn-primary icon-user"></i>
+										Andi edit Shipment...
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										<div class="clearfix">
+											<span class="pull-left">
+												<i class="btn btn-mini no-hover btn-success icon-shopping-cart"></i>
+												Raffles Approve Invoice
+											</span>
+											<span class="pull-right badge badge-success">+8</span>
+										</div>
+									</a>
+								</li>
+		
+								<li>
+									<a href="#">
+										See all Alert
+										<i class="icon-arrow-right"></i>
+									</a>
+								</li>
+							</ul>
+						</li>
+<li class="btn btn-pink pull-right">
+							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+								<i class="icon icon-envelope white"> &nbsp;  INBOX</i>
+								<span class="badge badge-light">4</span>
+							</a>
+
+							<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-closer">
+								<li class="nav-header">
+									<i class="icon-warning-sign"></i>
+									8 Notifications Incoming
+								</li>
+
+								<li>
+									<a href="#">
+										<div class="clearfix">
+											<span class="pull-left">
+												<i class="btn btn-mini no-hover btn-pink icon-comment"></i>
+												New Booking changed
+											</span>
+											<span class="pull-right badge badge-info">+12</span>
+										</div>
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										<i class="btn btn-mini btn-primary icon-user"></i>
+										Andi edit Shipment...
+									</a>
+								</li>
+
+								<li>
+									<a href="#">
+										<div class="clearfix">
+											<span class="pull-left">
+												<i class="btn btn-mini no-hover btn-success icon-shopping-cart"></i>
+												Raffles Approve Invoice
+											</span>
+											<span class="pull-right badge badge-success">+8</span>
+										</div>
+									</a>
+								</li>
+		
+								<li>
+									<a href="#">
+										See all Alert
+										<i class="icon-arrow-right"></i>
+									</a>
+								</li>
+							</ul>
+						</li>
+
           
 
 					<!--/.ace-nav-->

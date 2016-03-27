@@ -1,7 +1,23 @@
   <script src="<?php echo base_url('assets/datatables/js/jquery.dataTables.min.js')?>"></script>
   <script src="<?php echo base_url('assets/datatables/js/dataTables.bootstrap.js')?>"></script>
   
+<link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
+  <script type='text/javascript' src='<?php echo base_url();?>asset/js/jquery.min.js'></script>
+<script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
+
+
   <script type="text/javascript">
+
+  $(function() {
+	$("#tgl1").datepicker({
+		dateFormat:'yy-mm-dd',
+		});
+	$("#tgl2").datepicker({
+		dateFormat:'yy-mm-dd',
+		});
+
+  });
+
 
     var save_method; //for save method string
     var table;
@@ -144,6 +160,15 @@ function delete_person(id)
     <button class="btn btn-success" onclick="add_person()"><i class="glyphicon glyphicon-plus"></i> Add Type Address</button>
     <br />
     <br />
+    <form method="post" class="form-inline pull-right" style="margin-right:10px">
+    <h5>Sorting Periode</h5>
+    <input type="text" id="tgl1" name="tgl1" class="form-control" value="<?php echo date('Y-m-d');?>" readonly="readonly" />
+    S/D
+    <input type="text" id="tgl2" name="tgl2" class="form-control" value="<?php echo date('Y-m-d');?>" readonly="readonly"/>
+    <button type="submit" name="btn-periode" class="btn btn-mini btn-primary"><i class="icon icon-exchange"></i> SORT</button>
+    </form>
+   
+    
     <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
       <thead>
         <tr>

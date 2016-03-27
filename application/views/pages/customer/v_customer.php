@@ -4,29 +4,43 @@
   <script type="text/javascript" src="<?php echo base_url();?>asset/js/jquery.js"></script>
 
 <div class="row-fluid">
-								<div class="span6">
+								<div class="span10">
 									<div class="tabbable">
 										<ul class="nav nav-tabs" id="myTab">
 											<li class="active">
 												<a data-toggle="tab" href="#home">
-													<i class="red fa fa-users bigger-110"></i>
+													<i class="green fa fa-users bigger-110"></i>
 													Customers
 												</a>
 											</li>
 
 											<li>
 												<a data-toggle="tab" href="#profile">
-  <i class="red fa fa-building bigger-110"></i>
+  <i class="green fa fa-building bigger-110"></i>
 													Address Type
 		
 												</a>
 											</li>
     	<li>
 												<a data-toggle="tab" href="#more">
-                                                 <i class="red fa fa-book bigger-110"></i>
+                                                 <i class="green fa fa-book bigger-110"></i>
 													Contact Type
 		
 											</a></li>
+<li>
+<a data-toggle="tab" href="#linebusiness">
+<i class="green fa fa-briefcase bigger-110"></i>
+Line Bisnis
+</a>
+</li>
+
+<li>
+<a data-toggle="tab" href="#commodity">
+<i class="green fa fa-asterisk bigger-110"></i>
+Commodity
+</a>
+</li>
+
 										</ul>
 
 										<div class="tab-content container">
@@ -41,13 +55,14 @@
 <p><?php $this->load->view('pages/customer/contact_type/ms_contact_type');?></p>
 											</div>
 
-											<div id="dropdown1" class="tab-pane">
-												<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
-											</div>
+<div id="linebusiness" class="tab-pane">
+<p><?php $this->load->view('pages/customer/linebusiness/ms_linebusiness');?></p>
+											</div>	
+<div id="commodity" class="tab-pane">
+<p><?php $this->load->view('pages/customer/commodity/ms_commodity');?></p>
+											</div>										
 
-											<div id="dropdown2" class="tab-pane">
-												<p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin.</p>
-											</div>
+											
 										</div>
 									</div>
 								</div><!--/span-->
