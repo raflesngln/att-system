@@ -182,13 +182,13 @@ function delete_person2(id)
             <div class="form-group">
               <label class="control-label col-md-3"> Name</label>
               <div class="col-md-9">
-                <input name="ContactTypeName" type="text" class="form-control nama" id="ContactTypeName" placeholder="First Name" value="" />
+                <input name="ContactTypeName" type="text" class="form-control nama" id="ContactTypeName" placeholder="Name" value="" />
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-md-3">Address</label>
               <div class="col-md-9">
-                <textarea name="ContactTypeDesc" placeholder="Address"class="form-control" id="ContactTypeDesc"></textarea>
+                <textarea name="ContactTypeDesc" placeholder="decription"class="form-control" id="ContactTypeDesc"></textarea>
               </div>
             </div>
             

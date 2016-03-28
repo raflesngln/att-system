@@ -210,13 +210,13 @@ function delete_person(id)
             <div class="form-group">
               <label class="control-label col-md-3"> Name</label>
               <div class="col-md-9">
-                <input name="AddressTypeName" type="text" class="form-control nama" id="AddressTypeName" placeholder="First Name" value="" />
+                <input name="AddressTypeName" type="text" class="form-control nama" id="AddressTypeName" placeholder="Name" value="" />
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-md-3">Address</label>
               <div class="col-md-9">
-                <textarea name="AddressTypeDesc" placeholder="Address"class="form-control" id="AddressTypeDesc"></textarea>
+                <textarea name="AddressTypeDesc" placeholder="decription"class="form-control" id="AddressTypeDesc"></textarea>
               </div>
             </div>
             

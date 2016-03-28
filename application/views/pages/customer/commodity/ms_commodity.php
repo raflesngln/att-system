@@ -33,7 +33,7 @@
          });
 });
 
-function add_person3()
+function add_person4()
     {
       save_method4 = 'add';
       $('#form4')[0].reset(); // reset form on modals
@@ -141,7 +141,7 @@ function delete_person4(id)
 
 
 
-    <button class="btn btn-success" onclick="add_person3()"><i class="glyphicon glyphicon-plus"></i> Add Commodity</button>
+    <button class="btn btn-success" onclick="add_person4()"><i class="glyphicon glyphicon-plus"></i> Add Commodity</button>
     <br />
     <br />
     <table id="tablecommodity" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -185,13 +185,13 @@ function delete_person4(id)
             <div class="form-group">
               <label class="control-label col-md-3"> Name</label>
               <div class="col-md-9">
-                <input name="CommName" type="text" class="form-control nama" id="CommName" placeholder="First Name" value="" />
+                <input name="CommName" type="text" class="form-control nama" id="CommName" placeholder="Name" value="" />
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-md-3">Address</label>
               <div class="col-md-9">
-                <textarea name="CommDesc" placeholder="Address"class="form-control" id="CommDesc"></textarea>
+                <textarea name="CommDesc" placeholder="decription"class="form-control" id="CommDesc"></textarea>
               </div>
             </div>
             
