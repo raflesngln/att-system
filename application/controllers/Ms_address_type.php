@@ -3,12 +3,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Ms_address_type extends CI_Controller {
 
-	public function __construct()
-	{
-		parent::__construct();
-		$this->load->model('Mdata');
-	}
-
+    function __construct(){
+        parent::__construct();
+        if($this->session->userdata('login_status') != TRUE ){
+            $this->session->set_flashdata('notif','LOGIN GAGAL USERNAME ATAU PASSWORD ANDA SALAH !');
+            redirect('');
+        };
+        $this->load->model('Mdata');
+        $this->load->helper('currency_format_helper');
+		date_default_timezone_set("Asia/Jakarta"); 
+    }
+	
 	public function index()
 	{  
        $data['title']='list ms_address_type';
@@ -26,7 +31,7 @@ public function ajax_list()
 		$kolom1='a.CreatedBy';
 		$kolom2='b.id_user';
 		
-        $nm_coloum= array('a.AddressTypeCode','a.AddressTypeCode','a.AddressTypeName','a.AddressTypeDesc','b.Email');
+        $nm_coloum= array('a.AddressTypeCode','a.AddressTypeCode','a.AddressTypeName','a.AddressTypeDesc','b.FullName');
         $orderby= array('a.AddressTypeCode' => 'desc');
         $where=  array();
         $list = $this->Mdata->get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
@@ -40,7 +45,7 @@ public function ajax_list()
             'AddressTypeCode' => $datalist->AddressTypeCode,
             'AddressTypeName' => $datalist->AddressTypeName,
             'AddressTypeDesc' =>$datalist->AddressTypeDesc,
-			'Email' =>$datalist->Email,
+			'FullName' =>$datalist->FullName,
 			
             'action'=> '<a class="green" href="javascript:void()" title="Edit" onclick="edit_person('."'".$datalist->AddressTypeCode."'".')"><i class="icon-pencil bigger-150"></i></a>&nbsp;&nbsp;
 				    <a class="red" href="javascript:void()" title="Hapus" onclick="delete_person('."'".$datalist->AddressTypeCode."'".')"><i class="icon-trash bigger-150"></i></a>'
@@ -74,6 +79,8 @@ public function ajax_list()
 				'AddressTypeName' => $this->input->post('AddressTypeName'),
 				'AddressTypeDesc' => $this->input->post('AddressTypeDesc'),
 				'CreatedBy' => $this->session->userdata('idusr'),
+				'CreatedDate'=>date('Y-m-d H:i:s'),
+
 			);
 		$insert = $this->Mdata->save($data,$nmtabel);
 		echo json_encode(array("status" => TRUE));
@@ -86,6 +93,8 @@ public function ajax_list()
 		$data = array(
 				'AddressTypeName' => $this->input->post('AddressTypeName'),
 				'AddressTypeDesc' => $this->input->post('AddressTypeDesc'),
+				'ModifiedBy'=>$this->session->userdata('idusr'),
+				'ModifiedDate'=>date('Y-m-d H:i:s'),
 			);
 		$this->Mdata->update(array($key => $this->input->post('AddressTypeCode')), $data,$nmtabel);
 		echo json_encode(array("status" => TRUE));
