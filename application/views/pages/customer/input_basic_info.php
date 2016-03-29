@@ -186,7 +186,7 @@ $("#custcode").mousedown(function(){
    </div>
    
    
-   <div class="form-group infocust col-sm-12" id="infocust" style=" box-shadow:6px 11px 14px #CCC; border:1px #CCC solid; transition:all 1s; display:none">
+   <div class="form-group infocust col-sm-12" id="infocust" style=" box-shadow:6px 11px 14px #CCC; border:1px #CCC solid; transition:all 1s; display:">
 <h5>Customer Details</h5>
 
 </span><span class="col-sm-5">

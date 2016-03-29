@@ -30,10 +30,17 @@ class Mautocomplete extends CI_Model{
         
         return $query->result();
     }
-	function lookup_receive($keyword){
-       $this->db->select('*')->from('ms_customer');
-        $this->db->like('custName',$keyword,'after');
-		$this->db->where('isCnee','1');
+	function lookup_receive($keyword,$kolom,$tabel,$where,$kondisi){
+       $this->db->select('*')->from($tabel);
+        $this->db->like($kolom,$keyword,'after');
+		$this->db->where($where,$kondisi);
+        $query = $this->db->get();    
+        
+        return $query->result();
+    }
+	function lookupall($keyword,$kolom,$tabel){
+       $this->db->select('*')->from($tabel);
+        $this->db->like($kolom,$keyword,'after');
         $query = $this->db->get();    
         
         return $query->result();
