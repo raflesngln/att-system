@@ -2,7 +2,6 @@
   <script src="<?php echo base_url('assets/datatables/js/dataTables.bootstrap.js')?>"></script>
   
   <script type="text/javascript">
-
     var save_method4; //for save method string
     var tablecommodity;
  
@@ -185,13 +184,13 @@ function delete_person4(id)
             <div class="form-group">
               <label class="control-label col-md-3"> Name</label>
               <div class="col-md-9">
-                <input name="CommName" type="text" class="form-control nama" id="CommName" placeholder="First Name" value="" />
+                <input name="CommName" type="text" class="form-control nama" id="CommName" placeholder="Name" value="" />
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-md-3">Address</label>
               <div class="col-md-9">
-                <textarea name="CommDesc" placeholder="Address"class="form-control" id="CommDesc"></textarea>
+                <textarea name="CommDesc" placeholder="decription"class="form-control" id="CommDesc"></textarea>
               </div>
             </div>
             

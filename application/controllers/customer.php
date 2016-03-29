@@ -25,6 +25,21 @@ function add_customer(){
 		$data['view']='pages/customer/v_add_customer';
         $this->load->view('home/home',$data);	  
 }
+ 	 //--VIEW customer CUSTOMERS
+function add_customer2(){
+		 
+		 $data['title']='add_customer';
+		$data['scrumb_name']='add Customer';
+		$data['scrumb']='customer/add_customer2';
+		
+		$data['address']=$this->model_app->getdatapaging('*',
+		'ms_address_type a',"order by a.AddressTypeName");
+		$data['contact']=$this->model_app->getdatapaging('*',
+		'ms_contact_type a',"order by a.ContactTypeName");
+		
+		$data['view']='pages/customer/add/v_add_customer';
+        $this->load->view('home/home',$data);	  
+}
  function view_customer(){
 	 
 	 	$page=$this->uri->segment(3);

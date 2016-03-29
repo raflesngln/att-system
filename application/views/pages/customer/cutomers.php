@@ -49,6 +49,8 @@
 
 
 <a class="btn btn-blue btn-addnew" href="<?php echo base_url();?>customer/add_customer"  title="Add"><i class="icon-plus icons"></i>Add Cust</a>
+
+<a class="btn btn-mini" href="<?php echo base_url();?>customer/add_customer2"  title="Add"><i class="icon-plus icons"></i>Add Cust</a>
                                                   </div></th>
                                                 </tr>
                                                 <tr>

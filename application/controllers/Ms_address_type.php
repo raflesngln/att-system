@@ -10,6 +10,7 @@ class Ms_address_type extends CI_Controller {
             redirect('');
         };
         $this->load->model('Mdata');
+		$this->load->model('model_app');
         $this->load->helper('currency_format_helper');
 		date_default_timezone_set("Asia/Jakarta"); 
     }
@@ -72,7 +73,7 @@ public function ajax_list()
 		echo json_encode($data);
 	}
 
-	public function ajax_add()
+public function ajax_add()
 	{   
 	    $nmtabel='ms_address_type';
 		$data = array(
@@ -84,9 +85,11 @@ public function ajax_list()
 			);
 		$insert = $this->Mdata->save($data,$nmtabel);
 		echo json_encode(array("status" => TRUE));
-	}
 
-	public function ajax_update()
+		
+}
+
+public function ajax_update()
 	{
 	    $nmtabel='ms_address_type';
         $key='AddressTypeCode';

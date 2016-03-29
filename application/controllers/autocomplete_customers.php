@@ -1,5 +1,5 @@
 <?php
-class Autocomplete extends CI_Controller{
+class Autocomplete_customers extends CI_Controller{
     function __construct(){
         parent::__construct();
         if($this->session->userdata('login_status') != TRUE ){
@@ -147,7 +147,11 @@ function lookup_customers(){
         // process posted form data (the requested items like province)
         $keyword = $this->input->post('term');
         $data['response'] = 'false'; //Set default response
-        $query = $this->Mautocomplete->lookup_receive($keyword); //Search DB
+		$kolom='custName';
+		$tabel='ms_customer';
+		$where='isCnee';$kondisi='1';
+		
+        $query = $this->Mautocomplete->lookup_receive($keyword,$kolom,$tabel,$where,$kondisi); //Search DB
         if( ! empty($query) )
         {
             $data['response'] = 'true'; //Set response
@@ -161,6 +165,7 @@ function lookup_customers(){
                      'phone' => $row->Phone,
 					 'email' => $row->Email,
 					 'initial' => $row->custInitial,
+					 'remarks' => $row->Remarks,
                   );  //Add a row to array
             }
         }
@@ -171,7 +176,39 @@ function lookup_customers(){
         }
         else
         {
-            $this->load->view('autocomplete/index',$data); //Load html view of search results
+            $this->load->view('Autocomplete_customers/index',$data); //Load html view of search results
+        }
+    }
+function lookup_address_type(){ 
+        // process posted form data (the requested items like province)
+        $keyword = $this->input->post('term');
+        $data['response'] = 'false'; //Set default response
+		$kolom='AddressTypeName';
+		$tabel='ms_address_type';
+		
+        $query = $this->Mautocomplete->lookupall($keyword,$kolom,$tabel); //Search DB
+        if( ! empty($query) )
+        {
+            $data['response'] = 'true'; //Set response
+            $data['message'] = array(); //Create an array
+            foreach( $query as $row )
+            {
+              $data['message'][] = array( 
+                    'id'=>$row->AddressTypeCode,
+                     'value' => $row->AddressTypeName,
+                     'name' => $row->AddressTypeName,
+                     'desc' => $row->AddressTypeDesc,
+                  );  //Add a row to array
+            }
+        }
+        if('IS_AJAX')
+        {
+            echo json_encode($data); //echo json string if ajax request
+            
+        }
+        else
+        {
+            $this->load->view('Autocomplete_customers/index',$data); //Load html view of search results
         }
     }
 
