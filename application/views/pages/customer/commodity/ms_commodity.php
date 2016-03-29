@@ -33,7 +33,7 @@
          });
 });
 
-function add_person3()
+function add_person4()
     {
       save_method4 = 'add';
       $('#form4')[0].reset(); // reset form on modals
@@ -58,7 +58,7 @@ function edit_person4(id)
         success: function(data)
         {
             $('[name="CommName"]').val(data.CommName);
-			 $('[name="CommCode"]').val(data.CommCode	);
+			 $('[name="CommCode"]').val(data.CommCode);
             $('[name="CommDesc"]').val(data.CommDesc);
 			
             $('#modal_form4').modal('show'); // show bootstrap modal when complete loaded
@@ -141,7 +141,7 @@ function delete_person4(id)
 
 
 
-    <button class="btn btn-success" onclick="add_person3()"><i class="glyphicon glyphicon-plus"></i> Add Commodity</button>
+    <button class="btn btn-success" onclick="add_person4()"><i class="glyphicon glyphicon-plus"></i> Add Commodity</button>
     <br />
     <br />
     <table id="tablecommodity" class="table table-striped table-bordered" cellspacing="0" width="100%">
