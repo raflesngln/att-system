@@ -206,14 +206,19 @@ $("#nama").mousedown(function(){
 <div class="form-group">
 <label class="control-label col-sm-4" for="nama">Email</label>
       <div class="col-sm-7">          
-        <input name="email" type="text" class="form-control" id="email" placeholder="Input Name">
+        <input name="email" type="text" class="form-control" id="email" placeholder="email">
 </div>
 </div>
-
+<div class="form-group">
+<label class="control-label col-sm-4" for="nama">City</label>
+      <div class="col-sm-7">          
+        <input name="city" type="text" class="form-control" id="city" placeholder="city">
+</div>
+</div>
 <div class="form-group">
 <label class="control-label col-sm-4" for="nama">Remarks</label>
       <div class="col-sm-7">
-        <textarea name="remarks" class="form-control" id="remarks" placeholder="address"></textarea>
+        <textarea name="remarks" class="form-control" id="remarks" placeholder="remarks"></textarea>
       </div>
 </div>
 
@@ -227,7 +232,7 @@ $("#nama").mousedown(function(){
 
 <div class="clearfix">&nbsp;</div>
 
-<div class="col-sm-11" style="border:1px #CCC solid; padding:10px 9px; box-shadow:2px 2px 4px #999; margin-left:15px">
+<div class="col-sm-11" style="border:1px #CCC solid; padding:10px 9px; box-shadow:1px 2px 20px #ccc; margin-left:15px; width:96%">
 <button class="btn btn-danger" type="button"><i class="fa fa-times"></i> Discard</button>
 <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Save Data</button>
 

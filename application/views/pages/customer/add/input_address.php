@@ -1,6 +1,19 @@
   <script src="<?php echo base_url('assets/datatables/js/jquery.dataTables.min.js')?>"></script>
   <script src="<?php echo base_url('assets/datatables/js/dataTables.bootstrap.js')?>"></script>
+<style type="text/css">
+#dropdown_list_address{
+border:1px #999 solid; position:fixed; width:23%; margin-top:-8px; background-color:#CCC; z-index:1096; display:none;
+	list-style:none;
+	line-height:20px;
+}
 
+#dropdown_list_address li{
+	padding-left:9px;
+}
+#dropdown_list_address li:hover{
+	background-color:#09F;
+}
+</style>
             <div class="row-fluid">
                 <div class="col-lg-12 portlets ui-sortable">
                     <div class="panel">
@@ -11,12 +24,16 @@
  <table class="table table-striped table-bordered tablecontactdetail" id="tablecontactdetail">
                                               <thead>
                                                 <tr>
-                                                  <th colspan="5"> <div align="left"><a class="btn btn-blue btn-addnew tbladdtype" title="Add" id="tbladd" onclick="return add_address()"><i class="icon-plus icons"></i>Add Address</a></div></th>
+                                                  <th colspan="9"> <div align="left"><a class="btn btn-primary btn-mini tbladdtype" title="Add" id="tbladd" onclick="return add_address()"><i class="icon-plus icons"></i> Address</a></div></th>
                                                 </tr>
                                                 <tr>
                                                   <th height="33">Address Type</th>
                                                   <th>Name</th>
                                                   <th>Address</th>
+                                                  <th>fsfsdfd</th>
+                                                  <th>afafsf</th>
+                                                  <th>afaf</th>
+                                                  <th>dfsdfsd</th>
                                                   <th>Description</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
@@ -29,7 +46,7 @@ $no=1;
 			?>
                                                 <?php $no++; } ;?>
                                               <tr class="gradeX pagin">
-                                                  <th colspan="8" scope="row">
+                                                  <th colspan="12" scope="row">
                           <div align="right"> <?php echo $paginator;?></div></th>
                                                 </tr> 
                                               </tbody>
@@ -60,32 +77,39 @@ $no=1;
                     <div class="modal-body">
 <span class="span6">
 <div class="form-group form-inline">
-                        <label class="col-sm-3 control-label">Type contact</label>
-                        <div class="col-sm-9">
+                        <label class="col-sm-4 control-label">Contact Type </label>
+                        <div class="col-sm-8">
+ <span class="input-icon input-icon-right">
  <input name="addresstype" type="text" class="form-control" id="addresstype"/>
- 
- <button id="addmodaltype" class="addcust btn btn-mini btn-primary" type="button" onclick="return add_address_type()"><i class="fa fa-plus"></i></button>
- <input type="text" name="hidden_address_type" id="hidden_address_type" />
+<div id="dropdown_list_address">
+<li>satu</li>
+<li>dua</li>
+</div>
+<i class="icon-caret-down bigger-220" id="iconcaret" onclick="return dropdown_address()"></i>
+</span>              
+                          <button id="addmodaltype" class="addcust btn btn-mini btn-primary" type="button" onclick="return add_address_type()"><i class="fa fa-plus"></i></button>
+ <input type="hidden" name="hidden_address_type" id="hidden_address_type" />
               </div>
 </div>
+<div class="clearfix"></div>
                       <div class="form-group">
-                        <label class="col-sm-3 control-label">  Contact Name </label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="contactname" type="text" class="form-control" id="contactname" required="required" maxlength="30" />
-                        </span></div>
+                        <label class="col-sm-4 control-label">   Contact Name </label>
+<div class="col-sm-8">
+<input type="text" id="contactname" class="form-control" name="contactname"/>
+</div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
-                        <label class="col-sm-3 control-label"> UP </label>
-                        <div class="col-sm-9"><span class="controls">
+                        <label class="col-sm-4 control-label"> UP </label>
+                        <div class="col-sm-8"><span class="controls">
                           <input name="up" type="text" class="form-control" id="up" required="required" maxlength="30" />
                         </span></div>
                         <div class="clearfix"></div>
                       </div>
  
                       <div class="form-group">
-                        <label class="col-sm-3 control-label">Complete Address</label>
-                        <div class="col-sm-9">
+                        <label class="col-sm-4 control-label">Complete Address</label>
+                        <div class="col-sm-8">
                           <textarea name="completeaddress" cols="30" rows="2" class="form-control" id="completeaddress" required="required"></textarea>
                         </div>
                         <div class="clearfix"></div>
@@ -93,29 +117,29 @@ $no=1;
 </span>
 <span class="span6">
 <div class="form-group">
-                        <label class="col-sm-3 control-label">  City </label>
-                        <div class="col-sm-9"><span class="controls">
+                        <label class="col-sm-4 control-label">  City </label>
+                        <div class="col-sm-8"><span class="controls">
                           <input name="city" type="text" class="form-control" id="city" required="required" maxlength="30" />
                         </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
-                        <label class="col-sm-3 control-label">  State </label>
-                        <div class="col-sm-9"><span class="controls">
+                        <label class="col-sm-4 control-label">  State </label>
+                        <div class="col-sm-8"><span class="controls">
                           <input name="state" type="text" class="form-control" id="state" required="required" maxlength="30" />
                         </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
-                        <label class="col-sm-3 control-label">  Country </label>
-                        <div class="col-sm-9"><span class="controls">
+                        <label class="col-sm-4 control-label">  Country </label>
+                        <div class="col-sm-8"><span class="controls">
                           <input name="country" type="text" class="form-control" id="country" required="required" maxlength="30" />
                         </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
-                        <label class="col-sm-3 control-label"> Notes</label>
-                        <div class="col-sm-9">
+                        <label class="col-sm-4 control-label"> Notes</label>
+                        <div class="col-sm-8">
                           <textarea name="AddressDetailNotes" cols="30" rows="2" class="form-control" id="AddressDetailNotes" required="required"></textarea>
               </div>
                         <div class="clearfix"></div>
@@ -176,8 +200,20 @@ $no=1;
     
     
 <script type="text/javascript">
+$(document).focusin(function(e) {
+    $("#dropdown_list_address").hide('slow');
+});
 var save_method;
-  
+
+function dropdown_addressss(){
+	//$("#dropdown_list_address").toggle('slow');
+}
+$("#iconcaret").click(function(e) {
+    $("#dropdown_list_address").toggle('slow');
+});
+$("#iconcaret").focusout(function(e) {
+    $("#dropdown_list_address").hide('slow');
+});
 function hapus3(myid){
 	var input = $(myid).val();
 		 t = $(myid);
@@ -188,34 +224,46 @@ function hapus3(myid){
 
 
 $("#btn_add_address").click(function(){
-	//var t_volume=$('#idtotal').val();
-	var contacttype=$('#contacttype').val();   
+	var addresstype=$('#addresstype').val();   
+	var hidden_address_type=$('#hidden_address_type').val();
 	var contactname=$('#contactname').val();
-	var contactnumber=$('#contactnumber').val();
-	var contactdesc=$('#contactdesc').val();		
-if (contactname == '' || contactnumber == ''){
-	alert('Mohon isi data dengan lengkap');	
+	var up=$('#up').val();		
+	var completeaddress=$('#completeaddress').val(); 
+	var city=$('#city').val(); 
+	var state=$('#state').val(); 
+	var country=$('#country').val(); 
+	var AddressDetailNotes=$('#AddressDetailNotes').val(); 
+			
+if (addresstype == '' || hidden_address_type == '' || contactname == ''){
+	alert('Nama dan type contact tidak boleh kosong');	
 	}
 	else
 	{
 	text='<tr class="gradeX" align="right">'
-    + '<td align="left">' + '<input type="hidden" name="contacttype3[]" id="contacttype3[]" size="5" value="'+ contacttype +'">'+ '<label id="l_pcs">'+ contacttype +'</label>' +'</td>'
+    + '<td align="left">' + '<input type="hidden" name="addresstype2[]" id="addresstype2[]" size="5" value="'+ addresstype +'">'+ '<label id="l_pcs">'+ addresstype +'</label>' +'</td>'
    
-    + '<td align="left">' + '<input type="hidden" name="contactname3[]" id="contactname3[]" size="5" value="'+ contactname +'">'+ '<label id="l_pcs">'+ contactname +'</label>' +'</td>'
+    + '<td align="left">' + '<input type="hidden" name="contactname2[]" id="contactname2[]" size="5" value="'+ contactname +'">'+ '<label id="l_pcs">'+ contactname +'</label>' +'</td>'
 	
-    + '<td align="left">' +  '<input type="hidden" name="contactnumber3[]" id="contactnumber3[]" size="5" value="'+ contactnumber +'">'+ '<label id="l_pcs">'+ contactnumber +'</label>' +'</td>'
+    + '<td align="left">' +  '<input type="hidden" name="up2[]" id="up2[]" size="5" value="'+ up +'">'+ '<label id="l_pcs">'+ up +'</label>' +'</td>'
 
-    + '<td align="left">' +  '<input type="hidden" name="contactdesc3[]" id="contactdesc3[]" size="5" value="'+ contactdesc +'">'+ '<label id="l_pcs">'+ contactdesc +'</label>' +'</td>'
+    + '<td align="left">' +  '<input type="hidden" name="completeaddress2[]" id="completeaddress2[]" size="5" value="'+ completeaddress +'">'+ '<label id="l_pcs">'+ completeaddress +'</label>' +'</td>'
 
-	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + contact +'" onclick="hapus3(this)" type="button"><i class="fa fa-times"></i></button></td>'
+    + '<td align="left">' +  '<input type="hidden" name="city[]" id="city2[]" size="5" value="'+ city +'">'+ '<label id="l_pcs">'+ city +'</label>' +'</td>'
+	
+    + '<td align="left">' +  '<input type="hidden" name="state2[]" id="state2[]" size="5" value="'+ state +'">'+ '<label id="l_pcs">'+ state +'</label>' +'</td>'
+	
+    + '<td align="left">' +  '<input type="hidden" name="country2[]" id="country2[]" size="5" value="'+ country +'">'+ '<label id="l_pcs">'+ country +'</label>' +'</td>'
+	
+    + '<td align="left">' +  '<input type="hidden" name="AddressDetailNotes2[]" id="AddressDetailNotes2[]" size="5" value="'+ AddressDetailNotes +'">'+ '<label id="l_pcs">'+ AddressDetailNotes +'</label>' +'</td>'
+
+	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + hidden_address_type +'" onclick="hapus3(this)" type="button"><i class="fa fa-times"></i></button></td>'
     + '</tr>';
 	
-		$('#tablecontactdetail tbody').append(text);
-		$("#addmodalcontact").modal('hide');
+		$('#table_address_detail tbody').append(text);
+		$("#modal_address").modal('hide');
 		//RESET INPUT
-		$('#contactname').val("");
-		$('#contactnumber').val("");
-		$('#contactdesc').val("");
+		$('#form_add_address')[0].reset();
+
 
 	}
  });
@@ -226,9 +274,7 @@ function clear_address_type()
       $('#form_address_type')[0].reset(); // reset form on modals
       $("#modal_address_type").modal('show');
       $('.modal-title').text('Add addres Type');
-	  
 }
-
 function add_address()
     {
       
