@@ -57,7 +57,7 @@ function edit_person4(id)
         success: function(data)
         {
             $('[name="CommName"]').val(data.CommName);
-			 $('[name="CommCode"]').val(data.CommCode	);
+			 $('[name="CommCode"]').val(data.CommCode);
             $('[name="CommDesc"]').val(data.CommDesc);
 			
             $('#modal_form4').modal('show'); // show bootstrap modal when complete loaded

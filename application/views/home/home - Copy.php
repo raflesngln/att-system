@@ -94,7 +94,26 @@ return true;
 					</ul>
           	
 
- 
+ <ul class="nav ace-nav pull-right">
+                        <li class="light-dark">
+                          <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+  <i class="fa fa-database bigger-160"></i>  &nbsp;                      
+                     DB Tools
+                            
+                            <i class="icon-caret-down"></i>
+                          </a>
+                          
+                          <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
+                           
+                            
+                       <li><a href="<?php echo base_url();?>master/backup"><i class="fa fa-cloud-download bigger-160"></i>&nbsp; Backup DB</a></li>
+                            
+                       <li class="divider"></li>
+                            
+                       <li><a href="<?php echo base_url();?>master/restoreDB"><i class="fa fa-history bigger-150"></i>&nbsp; Restore DB </a> </li>
+                          </ul>
+                        </li>
+</ul>
 <li class="btn btn-success pull-right">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-bell-alt icon-animated-bell white"> &nbsp;Notification</i>

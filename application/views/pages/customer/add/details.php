@@ -45,13 +45,13 @@
                                             
   											<div id="sales" class="tab-pane">
 <p>
-  <?php //$this->load->view('pages/customer/add/input_contact');?>
+  <?php $this->load->view('pages/customer/add/sales&purchasing');?>
 </p>
 											</div>
 
 <div id="linebusiness" class="tab-pane">
 <p>
-  <?php //$this->load->view('pages/customer/add/input_contact');?>
+  <?php $this->load->view('pages/customer/add/input_line_bisnis');?>
 </p>
 											</div>											
 

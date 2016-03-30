@@ -74,11 +74,11 @@ function edit_person(id)
         success: function(data)
         {
             $('[name="AddressTypeName"]').val(data.AddressTypeName);
-			 $('[name="AddressTypeCode"]').val(data.AddressTypeCode);
+			$('[name="AddressTypeCode"]').val(data.AddressTypeCode);
             $('[name="AddressTypeDesc"]').val(data.AddressTypeDesc);
 			
-            $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Edit Person'); // Set title to Bootstrap modal title
+         $('#modal_form').modal('show');//show modal when complete loaded
+         $('.modal-title').text('Edit Person'); //Set title modal title
             
         },
         error: function (jqXHR, textStatus, errorThrown)
