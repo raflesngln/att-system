@@ -41,6 +41,13 @@ Commodity
 </a>
 </li>
 
+<li>
+<a data-toggle="tab" href="#bank">
+<i class="green fa fa-industry bigger-110"></i>
+Bank
+</a>
+</li>
+
 										</ul>
 
 										<div class="tab-content container">
@@ -61,7 +68,9 @@ Commodity
 <div id="commodity" class="tab-pane">
 <p><?php $this->load->view('pages/customer/commodity/ms_commodity');?></p>
 											</div>										
-
+<div id="bank" class="tab-pane">
+<p><?php $this->load->view('pages/customer/bank/ms_bank');?></p>
+											</div>
 											
 										</div>
 									</div>

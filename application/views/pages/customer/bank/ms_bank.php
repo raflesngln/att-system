@@ -3,65 +3,68 @@
   
   <script type="text/javascript">
 
-    var save_method2; //for save method string
-    var tablecontact;
+    var save_method5; //for save method string
+    var tablebank;
  
  $(document).ready(function() {    
     
-          tablecontact = $('#tablecontact').DataTable({ 
+          tablebank = $('#tablebank').DataTable({ 
             "processing": true, //Feature control the processing indicator.
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
             "ajax": {
-                "url": "<?php echo site_url('ms_contact_type/ajax_list')?>",
+                "url": "<?php echo site_url('ms_bank/ajax_list')?>",
                 "type": "POST"
             },
             "columns": [
             { "data": "no" },
-            { "data": "ContactTypeCode" },
-            { "data": "ContactTypeName" },
-            { "data": "ContactTypeDesc" },
+            { "data": "BankAccNo" },
+            { "data": "BankAccName" },
+			{ "data": "BusinessCode" },
+            { "data": "BankDesc" },
+			{ "data": "FullName" },
             { "data": "action" }
             ]
-          });
+          });  
     
-         $('#tablecontact tbody').on('dblclick', 'tr', function () {
+         $('#tablebank tbody').on('dblclick', 'tr', function () {
             var tr = $(this).closest('tr');
-            var row = tablecontact.row(tr);
+            var row = tablebank.row(tr);
            // alert(row.data().firstName);
          });
 });
 
-function add_person2()
+function add_person5()
     {
-      save_method2 = 'add';
-      $('#form2')[0].reset(); // reset form on modals
-      $('#modal_form2').modal('show'); // show bootstrap modal
-      $('.modal-title2').text('Add Contact'); // Set Title to Bootstrap modal title
+      save_method5 = 'add';
+      $('#form5')[0].reset(); // reset form on modals
+      $('#modal_form5').modal('show'); // show bootstrap modal
+      $('.modal-title5').text('Add Linebusiness'); // Set Title to Bootstrap modal title
     }
 
-function edit_person2(id)
+function edit_person5(id)
     {
-      save_method2 = 'update';
-      $('#form2')[0].reset(); // reset form on modals
+      save_method5 = 'update';
+      $('#form5')[0].reset(); // reset form on modals
         
-      var nmtabel='ms_contact_type';
-      var keytabel='ContactTypeCode';
+      var nmtabel='ms_bank';
+      var keytabel='BankAccNo';
         
       //Ajax Load data from ajax
       $.ajax({
-        url : "<?php echo site_url('ms_contact_type/ajax_edit/')?>",
+        url : "<?php echo site_url('ms_bank/ajax_edit/')?>",
         type: "POST",
         data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
         dataType: "JSON",
         success: function(data)
         {
-            $('[name="ContactTypeName"]').val(data.ContactTypeName);
-			 $('[name="ContactTypeCode"]').val(data.ContactTypeCode	);
-            $('[name="ContactTypeDesc"]').val(data.ContactTypeDesc);
+            $('[name="BankAccName"]').val(data.BankAccName);
+			 $('[name="BankAccNo"]').val(data.BankAccNo	);
+			 $('[name="BusinessCode"]').val(data.BusinessCode);
+            $('[name="BankDesc"]').val(data.BankDesc); 
 			
-            $('#modal_form2').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title2').text('Edit COntact'); // Set title to Bootstrap modal title
+            $('#modal_form5').modal('show'); // show bootstrap modal when complete loaded
+            $('.modal-title5').text('Edit Linebusiness'); // Set title to Bootstrap modal title
             
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -71,34 +74,34 @@ function edit_person2(id)
     });
     }
 
-    function reload_table2()
+    function reload_table3()
     {
-      tablecontact.ajax.reload(null,false); //reload datatable ajax 
+      tablebank.ajax.reload(null,false); //reload datatable ajax 
     }
 
-function save2()
+function save5()
     {
-      var url2;
-      if(save_method2 == 'add') 
+      var url5;
+      if(save_method5 == 'add') 
       {
-          url2 = "<?php echo site_url('ms_contact_type/ajax_add')?>";
+          url5 = "<?php echo site_url('ms_bank/ajax_add')?>";
       }
       else
       {
-        url2 = "<?php echo site_url('ms_contact_type/ajax_update')?>";
+        url5 = "<?php echo site_url('ms_bank/ajax_update')?>";
       }
 
        // ajax adding data to database
           $.ajax({
-            url : url2,
+            url : url5,
             type: "POST",
-            data: $('#form2').serialize(),
+            data: $('#form5').serialize(),
             dataType: "JSON",
             success: function(data)
             {
                //if success close modal and reload ajax table
-               $('#modal_form2').modal('hide');
-               reload_table2();
+               $('#modal_form5').modal('hide');
+               reload_table3();
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -107,23 +110,23 @@ function save2()
         });
     }
 
-function delete_person2(id)
+function delete_person5(id)
     {
       if(confirm('Are you sure delete this data?'))
-      var nmtabel='ms_contact_type';
-      var keytabel='ContactTypeCode';
+      var nmtabel='ms_bank';
+      var keytabel='BankAccNo';
       {
         // ajax delete data to database
           $.ajax({
-            url : "<?php echo site_url('ms_contact_type/ajax_delete')?>",
+            url : "<?php echo site_url('ms_bank/ajax_delete')?>",
             type: "POST",
             data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
             dataType: "JSON",
             success: function(data)
             {
                //if success reload ajax table
-               $('#modal_form2').modal('hide');
-               reload_table2();
+               $('#modal_form5').modal('hide');
+               reload_table3();
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -140,16 +143,18 @@ function delete_person2(id)
 
 
 
-    <button class="btn btn-success" onclick="add_person2()"><i class="glyphicon glyphicon-plus"></i> Add Type Contact</button>
+    <button class="btn btn-success" onclick="add_person5()"><i class="glyphicon glyphicon-plus"></i> Add Bakk Acc</button>
     <br />
     <br />
-    <table id="tablecontact" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <table id="tablebank" class="table table-striped table-bordered" cellspacing="0" width="100%">
       <thead>
         <tr>
           <th>no</th>  
           <th>id</th>
           <th> Name</th>
+          <th>Businescode</th>
           <th>Description</th>
+          <th>Createdby</th>
           <th style="width:125px;">Action</th>
         </tr>
       </thead>
@@ -161,34 +166,42 @@ function delete_person2(id)
           <th>no</th>
           <th>id</th>
           <th> Name</th>
+          <th>Businescode</th>
           <th>Description</th>
+          <th>Createdby</th>
           <th>Action</th>
         </tr>
       </tfoot>
     </table>
             
   <!-- Bootstrap modal -->
-  <div class="modal fade" id="modal_form2" role="dialog">
+  <div class="modal fade" id="modal_form5" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title2">contact Form</h3>
+        <h3 class="modal-title5">Addrest Form</h3>
       </div>
       <div class="modal-body form">
-        <form action="#" id="form2" class="form-horizontal">
-          <input name="ContactTypeCode" type="hidden" id="ContactTypeCode" value=""/> 
+        <form action="#" id="form5" class="form-horizontal">
+          <input name="BankAccNo" type="hidden" id="BankAccNo" value=""/> 
           <div class="form-body">
             <div class="form-group">
               <label class="control-label col-md-3"> Name</label>
               <div class="col-md-9">
-                <input name="ContactTypeName" type="text" class="form-control nama" id="ContactTypeName" placeholder="Name" value="" />
+                <input name="BankAccName" type="text" class="form-control nama" id="BankAccName" placeholder="Name" value="" />
+              </div>
+            </div>
+<div class="form-group">
+              <label class="control-label col-md-3"> BusinessCode</label>
+              <div class="col-md-9">
+                <input name="BusinessCode" type="text" class="form-control nama" id="BusinessCode" placeholder="Name" value="" />
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-md-3">Address</label>
               <div class="col-md-9">
-                <textarea name="ContactTypeDesc" placeholder="decription"class="form-control" id="ContactTypeDesc"></textarea>
+                <textarea name="BankDesc" placeholder="decription"class="form-control" id="BankDesc"></textarea>
               </div>
             </div>
             
@@ -196,7 +209,7 @@ function delete_person2(id)
         </form>
           </div>
           <div class="modal-footer">
-            <button type="button" id="btnSave" onclick="save2()" class="btn btn-primary">Save</button>
+            <button type="button" id="btnSave" onclick="save5()" class="btn btn-primary">Save</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
           </div>
         </div><!-- /.modal-content -->

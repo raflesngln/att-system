@@ -24,16 +24,15 @@ border:1px #999 solid; position:fixed; width:23%; margin-top:-8px; background-co
  <table class="table table-striped table-bordered tablecontactdetail" id="tablecontactdetail">
                                               <thead>
                                                 <tr>
-                                                  <th colspan="10"> <div align="left"><a class="btn btn-primary btn-mini tbladdtype" title="Add" id="tbladd" onclick="return add_contact()"><i class="icon-plus icons"></i> contact</a></div></th>
+                                                  <th colspan="9"> <div align="left"><button class="btn btn-primary btn-mini" onclick="add_contact()"><i class="glyphicon glyphicon-plus"></i>Contact</button></div></th>
                                                 </tr>
                                                 <tr>
-                                                  <th height="33"> Type</th>
+                                                  <th height="33">contact Type</th>
                                                   <th>Name</th>
-                                                  <th>Up</th>
                                                   <th>Phone</th>
                                                   <th>Ext</th>
                                                   <th>Fax</th>
-                                                  <th>Hp</th>
+                                                  <th>HP</th>
                                                   <th>Email</th>
                                                   <th>Notes</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
@@ -47,7 +46,7 @@ $no=1;
 			?>
                                                 <?php $no++; } ;?>
                                               <tr class="gradeX pagin">
-                                                  <th colspan="13" scope="row">
+                                                  <th colspan="12" scope="row">
                           <div align="right"> <?php echo $paginator;?></div></th>
                                                 </tr> 
                                               </tbody>
@@ -63,18 +62,19 @@ $no=1;
            
  
  
-
-
-<!--ADD DATA-->
-<div id="modal_contact" class="addmodalcontact modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div id="modal_contact" class="modal_contact modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header" style="background-color:#333">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add contact</h3>
+                <h3 id="myModalLabel">Add Address</h3>
             </div>
             <div class="smart-form scroll">
-<form name="addtype" id="form_add_contact">
+<div id="modal_address" class="addmodalcontact modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="smart-form scroll">
+  <form name="addtype" id="form_add_contact">
                     <div class="modal-body">
 <span class="span6">
 <div class="form-group form-inline">
@@ -89,7 +89,7 @@ $no=1;
 <i class="icon-caret-down bigger-220" id="iconcaret" onclick="return dropdown_contact()"></i>
 </span>              
                           <button id="addmodaltype" class="addcust btn btn-mini btn-primary" type="button" onclick="return add_contact_type()"><i class="fa fa-plus"></i></button>
- <input type="hidden" name="hidden_contact_type" id="hidden_contact_type" />
+ <input type="text" name="hidden_contact_type" id="hidden_contact_type" />
               </div>
 </div>
 <div class="clearfix"></div>
@@ -109,32 +109,33 @@ $no=1;
                       </div>
  
                       <div class="form-group">
-                        <label class="col-sm-4 control-label">Phone</label>
+                        <label class="col-sm-4 control-label"> Phone</label>
                         <div class="col-sm-8"><span class="controls">
                           <input name="phone2" type="text" class="form-control" id="phone2" required="required" maxlength="30" />
                         </span></div>
                         <div class="clearfix"></div>
                       </div>
-</span>
-<span class="span6">
 <div class="form-group">
-                        <label class="col-sm-4 control-label">  Extension </label>
+                        <label class="col-sm-4 control-label">  Ext </label>
                         <div class="col-sm-8"><span class="controls">
-                          <input name="ext2" type="text" class="form-control" id="ext2" required="required" maxlength="30" />
+                          <input name="ext" type="text" class="form-control" id="ext" required="required" maxlength="30" />
                         </span></div>
                         <div class="clearfix"></div>
                       </div>
+</span>
+<span class="span6">
+
 <div class="form-group">
                         <label class="col-sm-4 control-label">  Fax </label>
                         <div class="col-sm-8"><span class="controls">
-                          <input name="fax2" type="text" class="form-control" id="fax2" required="required" maxlength="30" />
+                          <input name="fax" type="text" class="form-control" id="fax" required="required" maxlength="30" />
                         </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
-                        <label class="col-sm-4 control-label">  Hanphone </label>
+                        <label class="col-sm-4 control-label">  Handphone </label>
                         <div class="col-sm-8"><span class="controls">
-                          <input name="hp2" type="text" class="form-control" id="hp2" required="required" maxlength="30" />
+                          <input name="hp" type="text" class="form-control" id="hp" required="required" maxlength="30" />
                         </span></div>
                         <div class="clearfix"></div>
                       </div>
@@ -144,7 +145,7 @@ $no=1;
                           <input name="email2" type="text" class="form-control" id="email2" required="required" maxlength="30" />
                         </span></div>
                         <div class="clearfix"></div>
-            </div>
+                      </div>
 <div class="form-group">
                         <label class="col-sm-4 control-label"> Notes</label>
                         <div class="col-sm-8">
@@ -163,46 +164,16 @@ $no=1;
                     </div>
             </form>
                 
-            </div>
+          </div>
         </div>
     </div>
     </div>
-    
-
-
-
-<div class="modal fade" id="modal_form2" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title2">contact Form</h3>
       </div>
-      <div class="modal-body form">
-        <form action="#" id="form2" class="form-horizontal">
-          <input name="ContactTypeCode" type="hidden" id="ContactTypeCode" value=""/> 
-          <div class="form-body">
-            <div class="form-group">
-              <label class="control-label col-md-3"> Name</label>
-              <div class="col-md-9">
-                <input name="ContactTypeName" type="text" class="form-control nama" id="ContactTypeName" placeholder="Name" value="" />
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label col-md-3">Address</label>
-              <div class="col-md-9">
-                <textarea name="ContactTypeDesc" placeholder="decription"class="form-control" id="ContactTypeDesc"></textarea>
-              </div>
-            </div>
-            
-          </div>
-        </form>
-          </div>
           <div class="modal-footer">
             <button type="button" id="btnSave" onclick="save2()" class="btn btn-primary">Save</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
           </div>
-        </div><!-- /.modal-content -->
+    </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div>
     
@@ -222,14 +193,14 @@ $("#iconcaret").click(function(e) {
 $("#iconcaret").focusout(function(e) {
     $("#dropdown_list_contact").hide('slow');
 });
-
-
-function hapus(myid){
+function hapus3(myid){
 	var input = $(myid).val();
 		 t = $(myid);
 		 tr = t.parent().parent();
 		 tr.remove();
 }
+
+
 
 $("#btn_add_contact").click(function(){
 	var contacttype=$('#contacttype').val();   
@@ -237,13 +208,12 @@ $("#btn_add_contact").click(function(){
 	var contactname=$('#contactname').val();
 	var up2=$('#up2').val();		
 	var phone2=$('#phone2').val(); 
-	var ext2=$('#ext2').val(); 
-	var fax2=$('#fax2').val(); 
-	var hp2=$('#hp2').val(); 
+	var ext=$('#ext').val(); 
+	var hp=$('#hp').val(); 
 	var email2=$('#email2').val(); 
 	var notes2=$('#notes2').val(); 
 			
-if (contacttype == '' || hidden_contact_type == '' || contactname == ''){
+if (contacttype == '' || hidden_contact_type == ''){
 	alert('Nama dan type contact tidak boleh kosong');	
 	}
 	else
@@ -257,17 +227,15 @@ if (contacttype == '' || hidden_contact_type == '' || contactname == ''){
 
     + '<td align="left">' +  '<input type="hidden" name="phone3[]" id="phone3[]" size="5" value="'+ phone2 +'">'+ '<label id="l_pcs">'+ phone2 +'</label>' +'</td>'
 
-    + '<td align="left">' +  '<input type="hidden" name="ext3[]" id="ext3[]" size="5" value="'+ ext2 +'">'+ '<label id="l_pcs">'+ ext2 +'</label>' +'</td>'
+    + '<td align="left">' +  '<input type="hidden" name="ext2[]" id="ext2[]" size="5" value="'+ ext +'">'+ '<label id="l_pcs">'+ ext +'</label>' +'</td>'
 	
-    + '<td align="left">' +  '<input type="hidden" name="fax3[]" id="fax3[]" size="5" value="'+ fax2 +'">'+ '<label id="l_pcs">'+ fax2 +'</label>' +'</td>'
-	
-    + '<td align="left">' +  '<input type="hidden" name="hp3[]" id="hp3[]" size="5" value="'+ hp2 +'">'+ '<label id="l_pcs">'+ hp2 +'</label>' +'</td>'
+    + '<td align="left">' +  '<input type="hidden" name="hp2[]" id="hp2[]" size="5" value="'+ hp +'">'+ '<label id="l_pcs">'+ hp +'</label>' +'</td>'
 	
     + '<td align="left">' +  '<input type="hidden" name="email3[]" id="email3[]" size="5" value="'+ email2 +'">'+ '<label id="l_pcs">'+ email2 +'</label>' +'</td>'
 	
     + '<td align="left">' +  '<input type="hidden" name="notes3[]" id="notes3[]" size="5" value="'+ notes2 +'">'+ '<label id="l_pcs">'+ notes2 +'</label>' +'</td>'
 
-	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + hidden_contact_type +'" onclick="hapus(this)" type="button"><i class="fa fa-times"></i></button></td>'
+	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + hidden_contact_type +'" onclick="hapus3(this)" type="button"><i class="fa fa-times"></i></button></td>'
     + '</tr>';
 	
 		$('#table_contact_detail tbody').append(text);
@@ -278,28 +246,29 @@ if (contacttype == '' || hidden_contact_type == '' || contactname == ''){
 
 	}
  });
+
+function clear_contact_type()
+    {
+      save_method = 'add';
+      $('#form_contact_type')[0].reset(); // reset form on modals
+      $("#modal_contact_type").modal('show');
+      $('.modal-title2').text('Add contact Type');
+}
 function add_contact()
     {
       
       $('#form_add_contact')[0].reset(); // reset form on modals
       $("#modal_contact").modal('show');
-      $('.modal-title').text('Add contact');
+      $('.modal-title2').text('Add contact');
 	  
-}
-function clear_contact_type()
-    {
-      save_method2 = 'add';
-      $('#form_contact_type')[0].reset(); // reset form on modals
-      $("#modal_contact_type").modal('show');
-      $('.modal-title2').text('Add contact Type');
 }
 
 function add_contact_type()
     {
       save_method2 = 'add';
-      $('#form2')[0].reset(); // reset form on modals
-      $("#modal_form2").modal('show');
-      $('.modal-title2').text('Add contact Type');
+      $('#form_contact_type')[0].reset(); // reset form on modals
+      $("#modal_contact_type").modal('show');
+      $('.modal-title').text('Add contact Type');
 	  
 }
 function save2()
@@ -318,12 +287,12 @@ function save2()
           $.ajax({
             url : url2,
             type: "POST",
-            data: $('#form2').serialize(),
+            data: $('#form_contact_type').serialize(),
             dataType: "JSON",
             success: function(data)
             {
                //if success close modal and reload ajax table
-               $('#modal_form2').modal('hide');
+               $('#modal_contact_type').modal('hide');
                reload_table2();
             },
             error: function (jqXHR, textStatus, errorThrown)

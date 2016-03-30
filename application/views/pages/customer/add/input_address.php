@@ -29,12 +29,12 @@ border:1px #999 solid; position:fixed; width:23%; margin-top:-8px; background-co
                                                 <tr>
                                                   <th height="33">Address Type</th>
                                                   <th>Name</th>
+                                                  <th>Up</th>
                                                   <th>Address</th>
-                                                  <th>fsfsdfd</th>
-                                                  <th>afafsf</th>
-                                                  <th>afaf</th>
-                                                  <th>dfsdfsd</th>
-                                                  <th>Description</th>
+                                                  <th>City</th>
+                                                  <th>State</th>
+                                                  <th>Country</th>
+                                                  <th>Notes</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                               </thead>
@@ -95,7 +95,7 @@ $no=1;
                       <div class="form-group">
                         <label class="col-sm-4 control-label">   Address Name </label>
 <div class="col-sm-8">
-<input type="text" id="contactname" class="form-control" name="contactname"/>
+<input type="text" id="addressname" class="form-control" name="addressname"/>
 </div>
                         <div class="clearfix"></div>
                       </div>
@@ -119,7 +119,7 @@ $no=1;
 <div class="form-group">
                         <label class="col-sm-4 control-label">  City </label>
                         <div class="col-sm-8"><span class="controls">
-                          <input name="city" type="text" class="form-control" id="city" required="required" maxlength="30" />
+                          <input name="city2" type="text" class="form-control" id="city2" required="required" maxlength="30" />
                         </span></div>
                         <div class="clearfix"></div>
                       </div>
@@ -226,15 +226,15 @@ function hapus3(myid){
 $("#btn_add_address").click(function(){
 	var addresstype=$('#addresstype').val();   
 	var hidden_address_type=$('#hidden_address_type').val();
-	var contactname=$('#contactname').val();
+	var addressname=$('#addressname').val();
 	var up=$('#up').val();		
 	var completeaddress=$('#completeaddress').val(); 
-	var city=$('#city').val(); 
+	var city2=$('#city2').val(); 
 	var state=$('#state').val(); 
 	var country=$('#country').val(); 
 	var AddressDetailNotes=$('#AddressDetailNotes').val(); 
 			
-if (addresstype == '' || hidden_address_type == '' || contactname == ''){
+if (addresstype == '' || hidden_address_type == '' || addressname == ''){
 	alert('Nama dan type contact tidak boleh kosong');	
 	}
 	else
@@ -242,13 +242,13 @@ if (addresstype == '' || hidden_address_type == '' || contactname == ''){
 	text='<tr class="gradeX" align="right">'
     + '<td align="left">' + '<input type="hidden" name="addresstype2[]" id="addresstype2[]" size="5" value="'+ addresstype +'">'+ '<label id="l_pcs">'+ addresstype +'</label>' +'</td>'
    
-    + '<td align="left">' + '<input type="hidden" name="contactname2[]" id="contactname2[]" size="5" value="'+ contactname +'">'+ '<label id="l_pcs">'+ contactname +'</label>' +'</td>'
+    + '<td align="left">' + '<input type="hidden" name="addressname2[]" id="addressname2[]" size="5" value="'+ addressname +'">'+ '<label id="l_pcs">'+ addressname +'</label>' +'</td>'
 	
     + '<td align="left">' +  '<input type="hidden" name="up2[]" id="up2[]" size="5" value="'+ up +'">'+ '<label id="l_pcs">'+ up +'</label>' +'</td>'
 
     + '<td align="left">' +  '<input type="hidden" name="completeaddress2[]" id="completeaddress2[]" size="5" value="'+ completeaddress +'">'+ '<label id="l_pcs">'+ completeaddress +'</label>' +'</td>'
 
-    + '<td align="left">' +  '<input type="hidden" name="city[]" id="city2[]" size="5" value="'+ city +'">'+ '<label id="l_pcs">'+ city +'</label>' +'</td>'
+    + '<td align="left">' +  '<input type="hidden" name="city3[]" id="city3[]" size="5" value="'+ city2 +'">'+ '<label id="l_pcs">'+ city2 +'</label>' +'</td>'
 	
     + '<td align="left">' +  '<input type="hidden" name="state2[]" id="state2[]" size="5" value="'+ state +'">'+ '<label id="l_pcs">'+ state +'</label>' +'</td>'
 	
