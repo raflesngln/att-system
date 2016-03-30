@@ -211,6 +211,38 @@ function lookup_address_type(){
             $this->load->view('Autocomplete_customers/index',$data); //Load html view of search results
         }
     }
+function lookup_contact_type(){ 
+        // process posted form data (the requested items like province)
+        $keyword = $this->input->post('term');
+        $data['response'] = 'false'; //Set default response
+		$kolom='ContactTypeName';
+		$tabel='ms_contact_type';
+		
+        $query = $this->Mautocomplete->lookupall($keyword,$kolom,$tabel); //Search DB
+        if( ! empty($query) )
+        {
+            $data['response'] = 'true'; //Set response
+            $data['message'] = array(); //Create an array
+            foreach( $query as $row )
+            {
+              $data['message'][] = array( 
+                    'id'=>$row->ContactTypeCode,
+                     'value' => $row->ContactTypeName,
+                     'name' => $row->ContactTypeName,
+                     'desc' => $row->ContactTypeDesc,
+                  );  //Add a row to array
+            }
+        }
+        if('IS_AJAX')
+        {
+            echo json_encode($data); //echo json string if ajax request
+            
+        }
+        else
+        {
+            $this->load->view('Autocomplete_customers/index',$data); //Load html view of search results
+        }
+    }
 
 
 

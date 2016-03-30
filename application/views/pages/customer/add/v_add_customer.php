@@ -145,6 +145,43 @@ $("#addresstype").autocomplete({
          		},		
 
     		});
+$("#contacttype").autocomplete({
+      			minLength: 1,
+      			source: 
+        		function(req, add){
+          			$.ajax({
+		        		url: "<?php echo base_url(); ?>index.php/Autocomplete_customers/lookup_address_type",
+		          		dataType: 'json',
+		          		type: 'POST',
+		          		data: req,
+					beforeSend: function(){
+					 $(".fa-pulse").show();
+         			 },
+					complete: function(){
+					 $(".fa-pulse").hide();
+         			 },
+		          		success:    
+		            	function(data){
+		              		if(data.response =="true"){
+		                 		add(data.message);
+								//$('#contenshipper').html('');
+								 $(".fa-pulse").hide();
+		              		}
+		            	},
+              		});
+         		},
+         	select: 
+         		function(event, ui) {
+ 					//$("#infocust").show();
+					$("#hidden_address_type").val(ui.item.id);
+					//$("#initial").val(ui.item.initial);
+					//$("#phone").val(ui.item.phone); 
+					//$("#email").val(ui.item.email);
+					//$("#remarks").val(ui.item.remarks);	
+		
+         		},		
+
+    		});
 
 $("#nama").mousedown(function(){
 					$("#nama").val('');

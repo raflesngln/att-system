@@ -77,7 +77,7 @@ $no=1;
                     <div class="modal-body">
 <span class="span6">
 <div class="form-group form-inline">
-                        <label class="col-sm-4 control-label">Contact Type </label>
+                        <label class="col-sm-4 control-label">Address Type </label>
                         <div class="col-sm-8">
  <span class="input-icon input-icon-right">
  <input name="addresstype" type="text" class="form-control" id="addresstype"/>
@@ -93,7 +93,7 @@ $no=1;
 </div>
 <div class="clearfix"></div>
                       <div class="form-group">
-                        <label class="col-sm-4 control-label">   Contact Name </label>
+                        <label class="col-sm-4 control-label">   Address Name </label>
 <div class="col-sm-8">
 <input type="text" id="contactname" class="form-control" name="contactname"/>
 </div>
