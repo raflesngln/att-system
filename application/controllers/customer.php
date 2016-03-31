@@ -96,7 +96,30 @@ function add_customer2(){
 		$data['view']='pages/customer/v_customer';
         $this->load->view('home/home',$data);
      } 
- 
+ function test_save()
+{	
+	$data=array(
+			'initial'=>$this->input->post('initial'),
+			'nama'=>$this->input->post('nama'),
+			'address'=>$this->input->post('address'),
+			'commodity'=>$this->input->post('commodity'),
+			'sales'=>$this->input->post('address'),
+			'iscnee'=>$this->input->post('iscnee'),
+            );
+		/*	
+		$addresstype2=$_POST['addresstype2']; 
+		foreach($cnote as $key => $val){
+			
+		$record=array();
+		  $data=array(
+		  'type' =>'rerer'
+		  );
+		  $record[]=$data;
+		}		
+			echo json_encode($record);*/
+	
+        $this->load->view('pages/customer/add/save',$data);
+}
 //--SAVE--------
 function save_customer()
 {	

@@ -166,7 +166,7 @@ $no=1;
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title">contact Form</h3>
+        <h3 class="modal-title">Contact Type Form</h3>
       </div>
       <div class="modal-body form">
    <!--     <form action="#" id="form_address_type" class="form-horizontal"> -->
@@ -186,7 +186,7 @@ $no=1;
             </div>
             
           </div>
- <!--       </form> -->
+ <div class="clearfix"></div>
           </div>
           <div class="modal-footer">
             <button type="button" id="btnSave" onclick="save2()" class="btn btn-primary">Save</button>
@@ -273,7 +273,7 @@ function add_contact()
       
       //$('#form_add_contact')[0].reset(); // reset form on modals
       $("#modal_contact").modal('show');
-      $('.modal-title').text('Add contact');
+    
 	  
 }
 function clear_contact_type()
@@ -281,7 +281,7 @@ function clear_contact_type()
       save_method2 = 'add';
       //$('#form_contact_type')[0].reset(); // reset form on modals
       $("#modal_contact_type").modal('show');
-      $('.modal-title2').text('Add contact Type');
+      
 }
 
 function add_contact_type()
@@ -289,7 +289,7 @@ function add_contact_type()
       save_method2 = 'add';
       //$('#form2')[0].reset(); // reset form on modals
       $("#modal_form2").modal('show');
-      $('.modal-title2').text('Add contact Type');
+    
 	  
 }
 function save2()

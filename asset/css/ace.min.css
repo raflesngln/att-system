@@ -2142,7 +2142,7 @@ button.btn:active {
     padding-bottom: 3px;
     font-weight: normal;
     line-height: 15px;
-    background-color: #abbac3!important}
+   }
 .label-transparent,.badge-transparent {
     background-color: transparent!important}
 .label-grey,.badge-grey {
@@ -2166,7 +2166,8 @@ button.btn:active {
 .label-yellow,.badge-yellow {
     background-color: #fee188!important}
 .label-light,.badge-light {
-    background-color:#FFF}
+    background-color:#FFF;
+	}
 
 .label-notif,.badge-notif {
     background-color: white}	

@@ -203,7 +203,7 @@ $("#nama").mousedown(function(){
 
 <div class="container-fluid" style=" border:1px #CCC solid;box-shadow:2px 6px 29px #CCC; padding-bottom:20px">
 
-<form method="post" action="sfdsf.phhp">
+<form method="post" action="<?php echo base_url();?>customer/test_save">
 <h2><i class="fa fa-plus"></i> New Customers</h2>
 <br />
 
@@ -257,10 +257,8 @@ $("#nama").mousedown(function(){
       </div>
 </div>
 
-
-
 </div>
-
+<br />
 
 
 <div class="container">
@@ -311,13 +309,13 @@ $("#nama").mousedown(function(){
                                             
   											<div id="sales" class="tab-pane">
 <p>
-  <?php //$this->load->view('pages/customer/add/sales&purchasing');?>
+  <?php $this->load->view('pages/customer/add/sales&purchasing');?>
 </p>
 											</div>
 
 <div id="linebusiness" class="tab-pane">
 <p>
-  <?php //$this->load->view('pages/customer/add/input_line_bisnis');?>
+  <?php $this->load->view('pages/customer/add/input_line_bisnis');?>
 </p>
 											</div>											
 

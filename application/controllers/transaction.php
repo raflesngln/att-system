@@ -588,8 +588,7 @@ function cek_cnote(){
 	var cnote=$this->input->post('cnote');
 		
 	$cnote=$_POST['cnote']; 
-		foreach($cnote as $key => $val)
-		{
+		foreach($cnote as $key => $val){
 		  $note =$_POST['cnote'][$key];
 
 	$data=array(

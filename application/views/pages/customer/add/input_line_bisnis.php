@@ -3,7 +3,7 @@
 <div class="form-group">
                         <label class="col-sm-4 control-label">  Line Bisnis </label>
                         <div class="col-sm-8"><span class="controls">
-                          <input name="linebisnis" type="text" class="form-control" id="linebisnis" required="required" maxlength="30" />
+                          <input name="linebisnis" type="text" class="form-control" id="linebisnis" />
                         </span></div>
                         <div class="clearfix"></div>
   </div>
@@ -16,7 +16,7 @@
                         <label class="col-sm-4 control-label">  Commodity</label>
 
   <div class="col-sm-8"><span class="controls">
-                  <input name="commodity" type="text" class="form-control" id="commodity" required="required" maxlength="30" />
+                  <input name="commodity" type="text" class="form-control" id="commodity"/>
       </span></div>
                         <div class="clearfix"></div>
   </div>

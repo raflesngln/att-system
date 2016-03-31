@@ -163,23 +163,24 @@ $no=1;
       </div>
       <div class="modal-body form">
    <!--     <form action="#" id="form_address_type" class="form-horizontal"> -->
-          <input name="AddressTypeCode" type="hidden" id="AddressTypeCode" value=""/> 
-          <div class="form-body">
-            <div class="form-group">
-              <label class="control-label col-md-3"> Name</label>
-              <div class="col-md-9">
-                <input name="AddressTypeName" type="text" class="form-control nama" id="AddressTypeName" placeholder="Name" value="" />
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label col-md-3">Address</label>
-              <div class="col-md-9">
-                <textarea name="AddressTypeDesc" placeholder="decription"class="form-control" id="AddressTypeDesc"></textarea>
-              </div>
-            </div>
+
+<div class="form-group">
+            <span class="col-sm-4">
+            <label for="psw"><span></span> Name</label></span>
+          <span class="col-sm-8">
+              <input name="AddressTypeName" type="text" class="form-control nama" id="AddressTypeName" placeholder="Name" value="" /></span>
+              <span class="col-md-9">
+              <input name="AddressTypeCode" type="hidden" id="AddressTypeCode" value=""/>
+              </span></div>
             
-          </div>
- <!--       </form> -->
+<div class="form-group">
+            <span class="col-sm-4">
+            <label for="psw"><span></span> Address</label></span>
+          <span class="col-sm-8">
+              <textarea name="AddressTypeDesc" placeholder="decription"class="form-control" id="AddressTypeDesc"></textarea></span></div>   
+            
+            
+  <div class="clearfix"></div>
           </div>
           <div class="modal-footer">
             <button type="button" id="btnSave_address_type" onclick="save_address_type()" class="btn btn-primary">Save</button>
@@ -264,14 +265,14 @@ function clear_address_type()
       save_method = 'add';
       $('#form_address_type')[0].reset(); // reset form on modals
       $("#modal_address_type").modal('show');
-      $('.modal-title').text('Add addres Type');
+     
 }
 function add_address()
     {
       
       //$('#form_add_address')[0].reset(); // reset form on modals
       $("#modal_address").modal('show');
-      $('.modal-title').text('Add addres');
+     
 	  
 }
 function add_address_type()
@@ -279,7 +280,7 @@ function add_address_type()
       save_method = 'add';
       //$('#form_address_type')[0].reset(); // reset form on modals
       $("#modal_address_type").modal('show');
-      $('.modal-title').text('Add addres Type');
+      
 	  
 }
 function save_address_type()
