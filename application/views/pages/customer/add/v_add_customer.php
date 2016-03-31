@@ -66,7 +66,7 @@
 </style>
 
 <script type="text/javascript">
-	    $(this).ready( function() {
+	    $(document).ready( function() {
 $("#nama").autocomplete({
       			minLength: 1,
       			source: 
@@ -208,7 +208,6 @@ $("#nama").mousedown(function(){
 <br />
 
 <div class="col-sm-6">
-
 <div class="form-group">
 <label class="control-label col-sm-4" for="nama">Name</label>
       <div class="col-sm-7">          
@@ -237,7 +236,6 @@ $("#nama").mousedown(function(){
 </div>
 
 
-<form class="form-horizontal" role="form">
 <div class="col-sm-6">
 
 <div class="form-group">
@@ -262,7 +260,7 @@ $("#nama").mousedown(function(){
 
 
 </div>
-</form>
+
 
 
 <div class="container">
@@ -300,7 +298,7 @@ $("#nama").mousedown(function(){
 										<div class="tab-content container-fluid">
 											<div id="home" class="tab-pane in active">
 <p>
-  <?php $this->load->view('pages/customer/add/input_address');?>
+  <?php  $this->load->view('pages/customer/add/input_address');?>
  
 </p>
 											</div>
@@ -313,13 +311,13 @@ $("#nama").mousedown(function(){
                                             
   											<div id="sales" class="tab-pane">
 <p>
-  <?php $this->load->view('pages/customer/add/sales&purchasing');?>
+  <?php //$this->load->view('pages/customer/add/sales&purchasing');?>
 </p>
 											</div>
 
 <div id="linebusiness" class="tab-pane">
 <p>
-  <?php $this->load->view('pages/customer/add/input_line_bisnis');?>
+  <?php //$this->load->view('pages/customer/add/input_line_bisnis');?>
 </p>
 											</div>											
 

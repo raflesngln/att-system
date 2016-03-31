@@ -42,9 +42,9 @@
 	 }
    
    .modal-header{
-	   background-color:rgba(11, 125, 177, 0.98);
-	   text-align:center;
-	   color:#FFF;
+	   background-color:rgba(136, 136, 136, 0.27);
+	   color:#888;
+	   text-transform:capitalize;
    }
    .modal-header #myModalLabel{
 	   margin-top:-1px;

@@ -2031,6 +2031,7 @@ input[type=button].btn-block,input[type=reset].btn-block,input[type=submit].btn-
     opacity: 0;
     -webkit-transition: opacity .15s linear;
     -o-transition: opacity .15s linear;
+	background-color:rgba(85, 85, 85, 0.61);
     transition: opacity .15s linear}
 .fade.in {
     opacity: 1}
@@ -3552,20 +3553,18 @@ a.list-group-item-danger.active,a.list-group-item-danger.active:focus,a.list-gro
     font-size: 21px;
     font-weight: 700;
     line-height: 1;
-    color: white;
     text-shadow: 0 1px 0 #fff;
     filter: alpha(opacity=20);
-    opacity: .2}
+    }
 .close:focus,.close:hover {
-    color: #000;
+    color: red;
     text-decoration: none;
     cursor: pointer;
     filter: alpha(opacity=50);
-    opacity: 1}
+    }
 button.close {
     -webkit-appearance: none;
-    padding: 0;
-    color: white;
+    color: rgba(162, 13, 13, 0.74);
     cursor: pointer;
     background: 0 0;
     border: 0}
@@ -3601,6 +3600,7 @@ button.close {
 .modal-dialog {
     position: relative;
     width: auto;
+	box-shadow:7px 11px 25px #555;
     margin: 10px}
 .modal-content {
     position: relative;
@@ -3626,8 +3626,8 @@ button.close {
     filter: alpha(opacity=50);
     opacity: .5}
 .modal-header {
-    min-height: 16.43px;
-    padding: 15px;
+	padding:5px;
+	padding-left:8px;
     border-bottom: 1px solid #e5e5e5}
 .modal-header .close {
     margin-top: -2px}
@@ -3637,15 +3637,15 @@ button.close {
 .modal-body {
     position: relative;
     padding: 15px;
-    background-color: rgb(242, 242, 242);
+    background-color: #eee;
     color: rgba(8, 8, 23, 0.68);
-    border: 1px #99A9B6 solid;
+  /*  border: 1px #99A9B6 solid; */
 }
 .modal-footer {
-    padding: 15px;
+    padding: 5px;
     text-align: right;
     border-top: 1px solid #e5e5e5;
-    background-color: #1F486B;
+    background-color: ##e7e7e7;
 }
 .modal-footer .btn+.btn {
     margin-bottom: 0;

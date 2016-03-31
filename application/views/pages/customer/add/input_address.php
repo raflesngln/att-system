@@ -63,22 +63,23 @@ $no=1;
  
  
 
+<div class="modal fade" id="modal_address" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 class="modal-title">Address  Form</h3>
+      </div>
+   <!--     <form action="#" id="form_address_type" class="form-horizontal"> -->
+   <div class="modal-body" style="padding:20px 5px;">
 
-<!--ADD DATA-->
-<div id="modal_address" class="addmodalcontact modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header" style="background-color:#333">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add Address</h3>
-            </div>
-            <div class="smart-form scroll">
-<form name="addtype" id="form_add_address">
-                    <div class="modal-body">
-<span class="span6">
-<div class="form-group form-inline">
-                        <label class="col-sm-4 control-label">Address Type </label>
-                        <div class="col-sm-8">
+<div class="col-sm-6">         
+
+<div class="form-group">
+            <span class="col-sm-4">
+              <label for="usrname"><span></span> Type</label>
+              </span>
+              <span class="col-sm-7">
  <span class="input-icon input-icon-right">
  <input name="addresstype" type="text" class="form-control" id="addresstype"/>
 <div id="dropdown_list_address">
@@ -86,82 +87,72 @@ $no=1;
 <li>dua</li>
 </div>
 <i class="icon-caret-down bigger-220" id="iconcaret" onclick="return dropdown_address()"></i>
-</span>              
-                          <button id="addmodaltype" class="addcust btn btn-mini btn-primary" type="button" onclick="return add_address_type()"><i class="fa fa-plus"></i></button>
- <input type="hidden" name="hidden_address_type" id="hidden_address_type" />
-              </div>
-</div>
-<div class="clearfix"></div>
-                      <div class="form-group">
-                        <label class="col-sm-4 control-label">   Address Name </label>
-<div class="col-sm-8">
-<input type="text" id="addressname" class="form-control" name="addressname"/>
-</div>
-                        <div class="clearfix"></div>
-                      </div>
+</span> 
+              </span>
+ <span class="col-sm-">
+<button id="addmodaltype" class="addcust btn btn-mini btn-primary" type="button" onclick="return add_address_type()"><i class="fa fa-plus"></i></button>
+</span>
+              <input type="hidden" name="hidden_address_type" id="hidden_address_type" />
+            </div>
+        <div class="form-group">
+            <span class="col-sm-4">
+            <label for="psw"><span></span> Address </label></span><span class="col-sm-8">
+              <input type="text" id="addressname" class="form-control" name="addressname"/>
+              </span></div>
 <div class="form-group">
-                        <label class="col-sm-4 control-label"> UP </label>
-                        <div class="col-sm-8"><span class="controls">
-                          <input name="up" type="text" class="form-control" id="up" required="required" maxlength="30" />
-                        </span></div>
-                        <div class="clearfix"></div>
-                      </div>
+            <span class="col-sm-4">
+            <label for="psw"><span></span> UP</label></span><span class="col-sm-8">
+              <input type="text" id="up" class="form-control" name="up"/>
+              </span></div>
+<div class="form-group">
+            <span class="col-sm-4">
+            <label for="psw"><span></span> Address</label></span><span class="col-sm-8">
+              <textarea name="completeaddress" cols="30" rows="2" class="form-control" id="completeaddress"></textarea>
+              </span></div>            
+ </div>   
  
-                      <div class="form-group">
-                        <label class="col-sm-4 control-label">Complete Address</label>
-                        <div class="col-sm-8">
-                          <textarea name="completeaddress" cols="30" rows="2" class="form-control" id="completeaddress" required="required"></textarea>
-                        </div>
-                        <div class="clearfix"></div>
-                      </div>
-</span>
-<span class="span6">
+ 
+<div class="col-sm-6">         
+            <div class="form-group">
+            <span class="col-sm-4">
+              <label for="usrname"><span></span> City</label>
+              </span>
+              <span class="col-sm-8">
+              <input name="city2" type="text" class="form-control" id="city2" />
+              </span>
+            </div>
+        <div class="form-group">
+            <span class="col-sm-4">
+            <label for="psw"><span></span> State</label></span>
+              <span class="col-sm-8">
+              <input name="state" type="text" class="form-control" id="state"/></span>
+            </div>
+ <div class="form-group">
+            <span class="col-sm-4">
+            <label for="psw"><span></span> Country</label></span>
+              <span class="col-sm-8">
+              <input name="country" type="text" class="form-control" id="country" /></span>
+            </div>
 <div class="form-group">
-                        <label class="col-sm-4 control-label">  City </label>
-                        <div class="col-sm-8"><span class="controls">
-                          <input name="city2" type="text" class="form-control" id="city2" required="required" maxlength="30" />
-                        </span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-4 control-label">  State </label>
-                        <div class="col-sm-8"><span class="controls">
-                          <input name="state" type="text" class="form-control" id="state" required="required" maxlength="30" />
-                        </span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-4 control-label">  Country </label>
-                        <div class="col-sm-8"><span class="controls">
-                          <input name="country" type="text" class="form-control" id="country" required="required" maxlength="30" />
-                        </span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-4 control-label"> Notes</label>
-                        <div class="col-sm-8">
-                          <textarea name="AddressDetailNotes" cols="30" rows="2" class="form-control" id="AddressDetailNotes" required="required"></textarea>
-              </div>
-                        <div class="clearfix"></div>
-                      </div>
-                      
-</span>
-<div class="clearfix"></div>
-<div class="modal-footer">
+            <span class="col-sm-4">
+              <label for="psw"><span></span> Notes</label></span>
+              <span class="col-sm-8">
+              <textarea name="AddressDetailNotes" cols="30" rows="2" class="form-control" id="AddressDetailNotes"></textarea></span>
+            </div>
+ </div>        
+              <div class="clearfix"></div>
+          
+      </div>
+          <div class="modal-footer">
+
 <button class="btn btn-primary" type="button" id="btn_add_address"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-</div>
-<div class="clearfx">&nbsp;</div>
-                    </div>
-            </form>
-                
-            </div>
-        </div>
-    </div>
-    </div>
-    
 
-
+          </div>
+    </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+<!--ADD DATA-->
 
 <div class="modal fade" id="modal_address_type" role="dialog">
   <div class="modal-dialog">
@@ -171,7 +162,7 @@ $no=1;
         <h3 class="modal-title">Address Type Form</h3>
       </div>
       <div class="modal-body form">
-        <form action="#" id="form_address_type" class="form-horizontal">
+   <!--     <form action="#" id="form_address_type" class="form-horizontal"> -->
           <input name="AddressTypeCode" type="hidden" id="AddressTypeCode" value=""/> 
           <div class="form-body">
             <div class="form-group">
@@ -188,7 +179,7 @@ $no=1;
             </div>
             
           </div>
-        </form>
+ <!--       </form> -->
           </div>
           <div class="modal-footer">
             <button type="button" id="btnSave_address_type" onclick="save_address_type()" class="btn btn-primary">Save</button>
@@ -278,7 +269,7 @@ function clear_address_type()
 function add_address()
     {
       
-      $('#form_add_address')[0].reset(); // reset form on modals
+      //$('#form_add_address')[0].reset(); // reset form on modals
       $("#modal_address").modal('show');
       $('.modal-title').text('Add addres');
 	  
@@ -286,7 +277,7 @@ function add_address()
 function add_address_type()
     {
       save_method = 'add';
-      $('#form_address_type')[0].reset(); // reset form on modals
+      //$('#form_address_type')[0].reset(); // reset form on modals
       $("#modal_address_type").modal('show');
       $('.modal-title').text('Add addres Type');
 	  
@@ -294,6 +285,9 @@ function add_address_type()
 function save_address_type()
     {
       var url;
+	  var AddressTypeName=$("#AddressTypeName").val();
+	  var AddressTypeDesc=$("#AddressTypeDesc").val();
+	  
       if(save_method == 'add') 
       {
           url = "<?php echo site_url('ms_address_type/ajax_add')?>";
@@ -307,7 +301,7 @@ function save_address_type()
           $.ajax({
             url : url,
             type: "POST",
-            data: $('#form_address_type').serialize(),
+	data: "AddressTypeName="+AddressTypeName+"&AddressTypeDesc="+AddressTypeDesc,
             dataType: "JSON",
             success: function(data)
             {
