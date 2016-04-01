@@ -140,7 +140,7 @@ function delete_person2(id)
 
 
 
-    <button class="btn btn-success" onclick="add_person2()"><i class="glyphicon glyphicon-plus"></i> Add Type Contact</button>
+    <button class="btn-normal" onclick="add_person2()"><i class="glyphicon glyphicon-plus"></i> Create</button>
     <br />
     <br />
     <table id="tablecontact" class="table table-striped table-bordered" cellspacing="0" width="100%">

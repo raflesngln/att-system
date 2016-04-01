@@ -143,7 +143,7 @@ function delete_person5(id)
 
 
 
-    <button class="btn btn-success" onclick="add_person5()"><i class="glyphicon glyphicon-plus"></i> Add Bakk Acc</button>
+    <button class="btn-normal" onclick="add_person5()"><i class="glyphicon glyphicon-plus"></i>  Create</button>
     <br />
     <br />
     <table id="tablebank" class="table table-striped table-bordered" cellspacing="0" width="100%">

@@ -98,7 +98,7 @@ function add_customer2(){
      } 
  function test_save()
 {	
-	$data=array(
+	/*$data=array(
 			'initial'=>$this->input->post('initial'),
 			'nama'=>$this->input->post('nama'),
 			'address'=>$this->input->post('address'),
@@ -106,7 +106,7 @@ function add_customer2(){
 			'sales'=>$this->input->post('address'),
 			'iscnee'=>$this->input->post('iscnee'),
             );
-		/*	
+			
 		$addresstype2=$_POST['addresstype2']; 
 		foreach($cnote as $key => $val){
 			
@@ -117,8 +117,19 @@ function add_customer2(){
 		  $record[]=$data;
 		}		
 			echo json_encode($record);*/
+        $addresstype2=$_POST['addresstype2']; 
+		foreach($addresstype2 as $key => $val){
+		
+		  $data=array(
+		  'BankAccName' =>$_POST['addresstype2'][$key],
+		  'BankName' =>$_POST['addressname2'][$key],
+		  'BankDesc' =>$_POST['up2'][$key],
+		  'BusinessCode' =>$_POST['completeaddress2'][$key],
+		  );
+		  $this->model_app->insert('ms_bank',$data);
+		}
 	
-        $this->load->view('pages/customer/add/save',$data);
+        //$this->load->view('pages/customer/add/save',$data);
 }
 //--SAVE--------
 function save_customer()

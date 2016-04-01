@@ -54,7 +54,6 @@ function add_person()
       save_method = 'add';
       $('#form')[0].reset(); // reset form on modals
       $('#modal_form').modal('show'); // show bootstrap modal
-      $('.modal-title').text('Add Person'); // Set Title to Bootstrap modal title
     }
 
 function edit_person(id)
@@ -77,9 +76,7 @@ function edit_person(id)
 			$('[name="AddressTypeCode"]').val(data.AddressTypeCode);
             $('[name="AddressTypeDesc"]').val(data.AddressTypeDesc);
 			
-         $('#modal_form').modal('show');//show modal when complete loaded
-         $('.modal-title').text('Edit Person'); //Set title modal title
-            
+            $('#modal_form').modal('show');//show modal when complete loa        
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
@@ -157,7 +154,7 @@ function delete_person(id)
 
 
 
-    <button class="btn btn-success" onclick="add_person()"><i class="glyphicon glyphicon-plus"></i> Add Type Address</button>
+    <button class="btn-normal" onclick="add_person()"><i class="glyphicon glyphicon-plus"></i> Create</button>
     <br />
     <br />
     <form method="post" class="form-inline pull-right" style="margin-right:10px">
@@ -201,7 +198,7 @@ function delete_person(id)
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title">Addrest Form</h3>
+        <h3 class="modal-title">Addres Type Form</h3>
       </div>
       <div class="modal-body form">
         <form action="#" id="form" class="form-horizontal">

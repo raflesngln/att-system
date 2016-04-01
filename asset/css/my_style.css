@@ -43,7 +43,7 @@
    
    .modal-header{
 	   background-color:rgba(136, 136, 136, 0.27);
-	   color:#888;
+	   color:#444;
 	   text-transform:capitalize;
    }
    .modal-header #myModalLabel{

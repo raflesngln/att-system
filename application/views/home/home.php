@@ -94,8 +94,7 @@ return true;
 					</ul>
           	
 
- 
-<li class="btn btn-success pull-right">
+<li class="btn btn-primary pull-right">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon-bell-alt icon-animated-bell white"> &nbsp;Notification</i>
 								<span class="badge badge-light">8</span>
@@ -149,7 +148,7 @@ return true;
  </li>
 
                     	
-                    	<li class="btn btn-warning pull-right">
+                    	<li class="btn btn-primary pull-right">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon icon-bullhorn white">&raquo; Alert !</i>
 								<span class="badge badge-light">13</span>
@@ -200,7 +199,7 @@ return true;
 								</li>
 							</ul>
 						</li>
-<li class="btn btn-pink pull-right">
+<li class="btn btn-primary pull-right">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="icon icon-envelope white"> &nbsp;  INBOX</i>
 								<span class="badge badge-light">4</span>

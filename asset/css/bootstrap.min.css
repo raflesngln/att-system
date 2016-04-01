@@ -1992,6 +1992,16 @@ select[multiple].form-group-lg .form-control,textarea.form-group-lg .form-contro
     font-weight: 400;
     color: #337ab7;
     border-radius: 0}
+.btn-normal {
+	background:linear-gradient(#1963aa,#1963aa,#1963aa);
+	color:#FFF;
+	border-radius:4px;
+	padding:8px;
+	border:none;
+	
+	
+	}
+
 .btn-link,.btn-link.active,.btn-link:active,.btn-link[disabled],fieldset[disabled] .btn-link {
     background-color: transparent;
     -webkit-box-shadow: none;
@@ -2031,7 +2041,7 @@ input[type=button].btn-block,input[type=reset].btn-block,input[type=submit].btn-
     opacity: 0;
     -webkit-transition: opacity .15s linear;
     -o-transition: opacity .15s linear;
-	background-color:rgba(85, 85, 85, 0.61);
+	background:linear-gradient(rgba(136, 136, 136, 0.89),rgba(85, 85, 85, 0.6),#555);
     transition: opacity .15s linear}
 .fade.in {
     opacity: 1}
