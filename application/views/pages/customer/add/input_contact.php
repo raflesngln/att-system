@@ -96,17 +96,17 @@ $no=1;
             </div>
         <div class="form-group">
             <span class="col-sm-4">
-            <label for="psw"><span></span> Address </label></span><span class="col-sm-8">
+            <label for="psw"><span></span> Contact Name </label></span><span class="col-sm-8">
               <input type="text" id="contactname" class="form-control" name="contactname"/>
               </span></div>
 <div class="form-group">
             <span class="col-sm-4">
             <label for="psw"><span></span> UP</label></span><span class="col-sm-8">
-              <input name="up2" type="text" class="form-control" id="up2"/>
+              <input name="up3" type="text" class="form-control" id="up3"/>
               </span></div>
 <div class="form-group">
             <span class="col-sm-4">
-            <label for="psw"><span></span> Address</label></span><span class="col-sm-8">
+            <label for="psw"><span></span> Phone</label></span><span class="col-sm-8">
               <input name="phone2" type="text" class="form-control" id="phone2" />
               </span></div>            
  </div>   
@@ -115,7 +115,7 @@ $no=1;
 <div class="col-sm-6">         
             <div class="form-group">
             <span class="col-sm-4">
-              <label for="usrname"><span></span> City</label>
+              <label for="usrname"><span></span> Etx</label>
               </span>
               <span class="col-sm-8">
               <input name="ext2" type="text" class="form-control" id="ext2"  />
@@ -123,27 +123,27 @@ $no=1;
             </div>
         <div class="form-group">
             <span class="col-sm-4">
-            <label for="psw"><span></span> State</label></span>
+            <label for="psw"><span></span> Fax</label></span>
               <span class="col-sm-8">
               <input name="fax2" type="text" class="form-control" id="fax2"/></span>
             </div>
  <div class="form-group">
             <span class="col-sm-4">
-            <label for="psw"><span></span> Country</label></span>
+            <label for="psw"><span></span> Handphone</label></span>
               <span class="col-sm-8">
               <input name="hp2" type="text" class="form-control" id="hp2"  /></span>
             </div>
 <div class="form-group">
             <span class="col-sm-4">
-            <label for="psw"><span></span> Country</label></span>
+            <label for="psw"><span></span> Email</label></span>
               <span class="col-sm-8">
               <input name="email2" type="text" class="form-control" id="email2"  /></span>
             </div>
 <div class="form-group">
             <span class="col-sm-4">
-              <label for="psw"><span></span> Notes</label></span>
+              <label for="psw"><span></span> Desc</label></span>
               <span class="col-sm-8">
-              <textarea name="notes2" cols="30" rows="2" class="form-control" id="notes2"></textarea></span>
+              <textarea name="contactdesc" cols="30" rows="2" class="form-control" id="contactdesc"></textarea></span>
             </div>
  </div>        
               <div class="clearfix"></div>
@@ -225,13 +225,13 @@ $("#btn_add_contact").click(function(){
 	var contacttype=$('#contacttype').val();   
 	var hidden_contact_type=$('#hidden_contact_type').val();
 	var contactname=$('#contactname').val();
-	var up2=$('#up2').val();		
+	var up3=$('#up3').val();		
 	var phone2=$('#phone2').val(); 
 	var ext2=$('#ext2').val(); 
 	var fax2=$('#fax2').val(); 
 	var hp2=$('#hp2').val(); 
 	var email2=$('#email2').val(); 
-	var notes2=$('#notes2').val(); 
+	var contactdesc=$('#contactdesc').val(); 
 			
 if (contacttype == '' || hidden_contact_type == '' || contactname == ''){
 	alert('Nama dan type contact tidak boleh kosong');	
@@ -243,7 +243,7 @@ if (contacttype == '' || hidden_contact_type == '' || contactname == ''){
    
     + '<td align="left">' + '<input type="hidden" name="contactname2[]" id="contactname2[]" size="5" value="'+ contactname +'">'+ '<label id="l_pcs">'+ contactname +'</label>' +'</td>'
 	
-    + '<td align="left">' +  '<input type="hidden" name="up3[]" id="up3[]" size="5" value="'+ up2 +'">'+ '<label id="l_pcs">'+ up2 +'</label>' +'</td>'
+    + '<td align="left">' +  '<input type="hidden" name="up4[]" id="up4[]" size="5" value="'+ up3 +'">'+ '<label id="l_pcs">'+ up3 +'</label>' +'</td>'
 
     + '<td align="left">' +  '<input type="hidden" name="phone3[]" id="phone3[]" size="5" value="'+ phone2 +'">'+ '<label id="l_pcs">'+ phone2 +'</label>' +'</td>'
 
@@ -255,7 +255,7 @@ if (contacttype == '' || hidden_contact_type == '' || contactname == ''){
 	
     + '<td align="left">' +  '<input type="hidden" name="email3[]" id="email3[]" size="5" value="'+ email2 +'">'+ '<label id="l_pcs">'+ email2 +'</label>' +'</td>'
 	
-    + '<td align="left">' +  '<input type="hidden" name="notes3[]" id="notes3[]" size="5" value="'+ notes2 +'">'+ '<label id="l_pcs">'+ notes2 +'</label>' +'</td>'
+    + '<td align="left">' +  '<input type="hidden" name="contactdesc2[]" id="contactdesc2[]" size="5" value="'+ contactdesc +'">'+ '<label id="l_pcs">'+ contactdesc +'</label>' +'</td>'
 
 	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + hidden_contact_type +'" onclick="hapus(this)" type="button"><i class="fa fa-times"></i></button></td>'
     + '</tr>';
@@ -295,6 +295,9 @@ function add_contact_type()
 function save2()
     {
       var url2;
+	  var ContactTypeName=$("#ContactTypeName").val();
+	  var ContactTypeDesc=$("#ContactTypeDesc").val();
+	  
       if(save_method2 == 'add') 
       {
           url2 = "<?php echo site_url('ms_contact_type/ajax_add')?>";
@@ -308,7 +311,7 @@ function save2()
           $.ajax({
             url : url2,
             type: "POST",
-            data: $('#form2').serialize(),
+	data: "ContactTypeName="+ContactTypeName+"&ContactTypeDesc="+ContactTypeDesc,
             dataType: "JSON",
             success: function(data)
             {

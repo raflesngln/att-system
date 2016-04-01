@@ -141,7 +141,7 @@ function delete_person3(id)
 
 
 
-    <button class="btn btn-success" onclick="add_person3()"><i class="glyphicon glyphicon-plus"></i> Add Line Bisnis</button>
+    <button class="btn-normal" onclick="add_person3()"><i class="glyphicon glyphicon-plus"></i> Create</button>
     <br />
     <br />
     <table id="tablebisnis" class="table table-striped table-bordered" cellspacing="0" width="100%">

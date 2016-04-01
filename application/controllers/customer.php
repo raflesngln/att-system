@@ -68,7 +68,7 @@ function add_customer2(){
 		 		 
 		$tot_hal = $this->model_app->hitung_isi_tabel('*',
 		'ms_customer a',"LEFT join ms_staff b on a.empCode=b.empCode
-		LEFT join ms_city c on a.AddressNo=c.cyCode
+		LEFT join ms_city c on a.Address=c.cyCode
 		 order by a.custCode");
         					//create for pagination		
 			$config['base_url'] = base_url() . 'customer/view_customer/';
@@ -96,43 +96,78 @@ function add_customer2(){
 		$data['view']='pages/customer/v_customer';
         $this->load->view('home/home',$data);
      } 
- function test_save()
+ function save_customer()
 {	
-	/*$data=array(
-			'initial'=>$this->input->post('initial'),
-			'nama'=>$this->input->post('nama'),
-			'address'=>$this->input->post('address'),
-			'commodity'=>$this->input->post('commodity'),
-			'sales'=>$this->input->post('address'),
-			'iscnee'=>$this->input->post('iscnee'),
+	$data=array(
+			'custInitial'=>$this->input->post('initial'),
+			'custName'=>$this->input->post('nama'),
+			'Address'=>$this->input->post('address'),
+			'Phone'=>$this->input->post('commodity'),
+			'Fax'=>$this->input->post('address'),
+			'PostalCode'=>$this->input->post('iscnee'),
+			'isAgent'=>$this->input->post('iscnee'),
+			'isShipper'=>$this->input->post('iscnee'),
+			'isCnee'=>$this->input->post('iscnee'),
+			'Email'=>$this->input->post('iscnee'),
+			'PIC01'=>$this->input->post('iscnee'),
+			'PIC02'=>$this->input->post('iscnee'),
+			'HPPIC01'=>$this->input->post('iscnee'),
+			'HPPIC02'=>$this->input->post('iscnee'),
+			'CreditLimit'=>$this->input->post('iscnee'),
+			'TermsPayment'=>$this->input->post('iscnee'),
+			'Deposit'=>$this->input->post('iscnee'),
+			'empCode'=>$this->input->post('iscnee'),
+			'isActive'=>$this->input->post('iscnee'),
+			'NPWP'=>$this->input->post('iscnee'),
+			'NPWPAddress'=>$this->input->post('iscnee'),
+			'Remarks'=>$this->input->post('iscnee'),
+			 'CreatedBy' =>$this->session->userdata('idusr'),
+			 'CreatedDate' =>date('Y-m-d h:i:s'),
             );
+
 			
-		$addresstype2=$_POST['addresstype2']; 
-		foreach($cnote as $key => $val){
 			
-		$record=array();
-		  $data=array(
-		  'type' =>'rerer'
-		  );
-		  $record[]=$data;
-		}		
-			echo json_encode($record);*/
         $addresstype2=$_POST['addresstype2']; 
 		foreach($addresstype2 as $key => $val){
-		
-		  $data=array(
-		  'BankAccName' =>$_POST['addresstype2'][$key],
-		  'BankName' =>$_POST['addressname2'][$key],
-		  'BankDesc' =>$_POST['up2'][$key],
-		  'BusinessCode' =>$_POST['completeaddress2'][$key],
+		  $data2=array(
+		  'UP' =>$_POST['up2'][$key],
+		  'AddressName' =>$_POST['addressname2'][$key],
+		  'AddressDesc' =>$_POST['completeaddress2'][$key],
+		  'custCode' =>'1',
+		  'AddressTypeCode' =>$_POST['hidden_address_type'][$key],
+		  'City' =>$_POST['city3'][$key],
+		  'Country' =>$_POST['country2'][$key],
+		  'PostalCode' =>$_POST['PostalCode2'][$key],
+		  'State' =>$_POST['state2'][$key],
+		  'CreatedBy' =>$this->session->userdata('idusr'),
+		  'CreatedDate' =>date('Y-m-d h:i:s'),
 		  );
-		  $this->model_app->insert('ms_bank',$data);
+		  $this->model_app->insert('tr_address_detail',$data2);   
 		}
+			    $contacttype2=$_POST['contacttype2']; 
+		foreach($contacttype2 as $key => $val){
+		  $data3=array(
+		  'UP' =>$_POST['up4'][$key],
+		  'ContactName' =>$_POST['contactname2'][$key],
+		  'Phone' =>$_POST['phone3'][$key],
+		  'custCode' =>'1',
+		  'Fax' =>$_POST['fax3'][$key],
+		  'Extention' =>$_POST['ext3'][$key],
+		  'Handphone' =>$_POST['hp3'][$key],
+		  'ContactDesc' =>$_POST['contactdesc2'][$key],
+		  'ContactTypeCode' =>$_POST['hidden_contact_type'][$key],
+		  'Email' =>$_POST['email3'][$key],
+		  'CreatedBy' =>$this->session->userdata('idusr'),
+		  'CreatedDate' =>date('Y-m-d h:i:s'),
+		  );
+		  $this->model_app->insert('tr_contact_detail',$data3);
+		}
+
 	
         //$this->load->view('pages/customer/add/save',$data);
 }
 //--SAVE--------
-function save_customer()
+function save_customerrrrrrrrrrrrrrrrr()
 {	
 $this->form_validation->set_rules('initial','initial','required|trim|xss_clean');
 	 if ($this->form_validation->run() == FALSE)
@@ -194,7 +229,7 @@ $this->form_validation->set_rules('initial','initial','required|trim|xss_clean')
 		$data['clas']=$clas;
 		$data['list']=$this->model_app->getdatapaging('a.Fax,a.email,a.isAgent,a.isActive,a.isShipper,a.isCnee,a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,
 		a.TermsPayment,a.PostalCode,a.custCode,a.custName,a.Remarks,a.NPWPAddress,
-		a.AddressNo,a.custInitial,a.Phone,a.Email,a.CreditLimit,a.Deposit,a.NPWP,
+		a.Address,a.custInitial,a.Phone,a.Email,a.CreditLimit,a.Deposit,a.NPWP,
 		a.ModifiedBy,a.ModifiedDate,b.empCode,b.empName,b.devisi,c.cyCode,c.cyName',
 		'ms_customer a',"inner join ms_staff b on a.empCode=b.empCode
 		inner join ms_city c on a.cyCode=c.cyCode
@@ -202,7 +237,7 @@ $this->form_validation->set_rules('initial','initial','required|trim|xss_clean')
 		 order by a.custCode ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel('a.Fax,a.custInitial,a.email,a.isAgent,a.isActive,a.isShipper,a.isCnee,a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,
 		a.TermsPayment,a.PostalCode,a.custCode,a.custName,a.Remarks,a.NPWPAddress,
-		a.AddressNo,a.Phone,a.Email,a.CreditLimit,a.Deposit,a.NPWP,
+		a.Address,a.Phone,a.Email,a.CreditLimit,a.Deposit,a.NPWP,
 		a.ModifiedBy,a.ModifiedDate,b.empCode,b.empName,b.devisi,c.cyCode,c.cyName',
 		'ms_customer a',"inner join ms_staff b on a.empCode=b.empCode
 		inner join ms_city c on a.cyCode=c.cyCode

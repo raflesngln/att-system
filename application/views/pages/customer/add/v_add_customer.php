@@ -203,7 +203,7 @@ $("#nama").mousedown(function(){
 
 <div class="container-fluid" style=" border:1px #CCC solid;box-shadow:2px 6px 29px #CCC; padding-bottom:20px">
 
-<form method="post" action="<?php echo base_url();?>customer/test_save">
+<form method="post" action="<?php echo base_url();?>customer/save_customer">
 <h2><i class="fa fa-plus"></i> New Customers</h2>
 <br />
 

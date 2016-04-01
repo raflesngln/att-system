@@ -34,7 +34,7 @@ border:1px #999 solid; position:fixed; width:23%; margin-top:-8px; background-co
                                                   <th>City</th>
                                                   <th>State</th>
                                                   <th>Country</th>
-                                                  <th>Notes</th>
+                                                  <th>P.Code</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                               </thead>
@@ -96,7 +96,7 @@ $no=1;
             </div>
         <div class="form-group">
             <span class="col-sm-4">
-            <label for="psw"><span></span> Address </label></span><span class="col-sm-8">
+            <label for="psw"><span></span> Address Name </label></span><span class="col-sm-8">
               <input type="text" id="addressname" class="form-control" name="addressname"/>
               </span></div>
 <div class="form-group">
@@ -106,7 +106,7 @@ $no=1;
               </span></div>
 <div class="form-group">
             <span class="col-sm-4">
-            <label for="psw"><span></span> Address</label></span><span class="col-sm-8">
+            <label for="psw"><span></span> Full Address </label></span><span class="col-sm-8">
               <textarea name="completeaddress" cols="30" rows="2" class="form-control" id="completeaddress"></textarea>
               </span></div>            
  </div>   
@@ -135,10 +135,11 @@ $no=1;
             </div>
 <div class="form-group">
             <span class="col-sm-4">
-              <label for="psw"><span></span> Notes</label></span>
+            <label for="psw"><span></span> Postal Cose</label></span>
               <span class="col-sm-8">
-              <textarea name="AddressDetailNotes" cols="30" rows="2" class="form-control" id="AddressDetailNotes"></textarea></span>
+              <input name="PostalCode" type="text" class="form-control" id="PostalCode" /></span>
             </div>
+
  </div>        
               <div class="clearfix"></div>
           
@@ -224,7 +225,7 @@ $("#btn_add_address").click(function(){
 	var city2=$('#city2').val(); 
 	var state=$('#state').val(); 
 	var country=$('#country').val(); 
-	var AddressDetailNotes=$('#AddressDetailNotes').val(); 
+	var PostalCode=$('#PostalCode').val(); 
 			
 if (addresstype == '' || hidden_address_type == '' || addressname == ''){
 	alert('Nama dan type contact tidak boleh kosong');	
@@ -246,7 +247,7 @@ if (addresstype == '' || hidden_address_type == '' || addressname == ''){
 	
     + '<td align="left">' +  '<input type="hidden" name="country2[]" id="country2[]" size="5" value="'+ country +'">'+ '<label id="l_pcs">'+ country +'</label>' +'</td>'
 	
-    + '<td align="left">' +  '<input type="hidden" name="AddressDetailNotes2[]" id="AddressDetailNotes2[]" size="5" value="'+ AddressDetailNotes +'">'+ '<label id="l_pcs">'+ AddressDetailNotes +'</label>' +'</td>'
+    + '<td align="left">' +  '<input type="hidden" name="PostalCode2[]" id="PostalCode2[]" size="5" value="'+ PostalCode +'">'+ '<label id="l_pcs">'+ PostalCode +'</label>' +'</td>'
 
 	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + hidden_address_type +'" onclick="hapus3(this)" type="button"><i class="fa fa-times"></i></button></td>'
     + '</tr>';
