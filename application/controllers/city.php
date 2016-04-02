@@ -26,13 +26,13 @@ function view_city(){
 		$data['country']=$this->model_app->getdata('ms_country',"");
 		$data['state']=$this->model_app->getdata('ms_state',"");
 		$data['list']=$this->model_app->getdatapaging("a.cyCode,a.cyName,a.stCode,a.isAirport,
-		a.isSeaport,a.CreateBy,a.CreateDate,a.ModifiedBy,a.ModifiedDate,b.couCode,b.couName,c.stCode,c.stName",
+		a.isSeaport,a.CreatedBy,a.CreatedDate,a.ModifiedBy,a.ModifiedDate,b.couCode,b.couName,c.stCode,c.stName",
 		"ms_city a",
 		"LEFT join ms_country b on a.couCode=b.couCode 
 		LEFT join ms_state c on a.stCode=c.stCode
 		order by a.cyCode ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel("a.cyCode,a.cyName,a.stCode,a.isAirport,
-		a.isSeaport,a.CreateBy,a.CreateDate,a.ModifiedBy,a.ModifiedDate,b.couCode,b.couName,c.stCode,c.stName",
+		a.isSeaport,a.CreatedBy,a.CreatedDate,a.ModifiedBy,a.ModifiedDate,b.couCode,b.couName,c.stCode,c.stName",
 		"ms_city a",
 		"LEFT join ms_country b on a.couCode=b.couCode 
 		LEFT join ms_state c on a.stCode=c.stCode
@@ -90,7 +90,7 @@ $this->form_validation->set_rules('cycode','cycode','required|trim|xss_clean');
 		'stCode'=>$this->input->post('tstcode'),
 		'isAirport'=>$this->input->post('airport'),
 		'isSeaport'=>$this->input->post('seaport'),
-		'CreateBy'=>$this->session->userdata('nameusr'),
+		'CreatedBy'=>$this->session->userdata('nameusr'),
 		'CreateDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
@@ -114,12 +114,12 @@ $this->form_validation->set_rules('cycode','cycode','required|trim|xss_clean');
 		$data['state']=$this->model_app->getdata('ms_state',"");
 
 		$data['list']=$this->model_app->getdatapaging("a.cyCode,a.cyName,a.stCode,a.isAirport,
-		a.isSeaport,a.CreateBy,a.CreateDate,a.ModifiedBy,a.ModifiedDate,b.couCode,b.couName,c.stCode,c.stName",
+		a.isSeaport,a.CreatedBy,a.CreateDate,a.ModifiedBy,a.ModifiedDate,b.couCode,b.couName,c.stCode,c.stName",
 		"ms_city a","inner join ms_country b on a.couCode=b.couCode 
 		inner join ms_state c on a.stCode=c.stCode
 		order by a.cyCode ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel("a.cyCode,a.cyName,a.stCode,a.isAirport,
-		a.isSeaport,a.CreateBy,a.CreateDate,a.ModifiedBy,a.ModifiedDate,b.couCode,b.couName,c.stCode,c.stName",
+		a.isSeaport,a.CreatedBy,a.CreateDate,a.ModifiedBy,a.ModifiedDate,b.couCode,b.couName,c.stCode,c.stName",
 		"ms_city a","inner join ms_country b on a.couCode=b.couCode 
 		inner join ms_state c on a.stCode=c.stCode");
         	//create for pagination		
@@ -165,7 +165,7 @@ $this->form_validation->set_rules('cycode','cycode','required|trim|xss_clean');
 		'stCode'=>$this->input->post('tstcode'),
 		'isAirport'=>$this->input->post('airport'),
 		'isSeaport'=>$this->input->post('seaport'),
-		'CreateBy'=>$this->session->userdata('nameusr'),
+		'CreatedBy'=>$this->session->userdata('nameusr'),
 		'CreateDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
@@ -186,13 +186,13 @@ $this->form_validation->set_rules('cycode','cycode','required|trim|xss_clean');
 		$data['country']=$this->model_app->getdata('ms_country',"");
 		$data['state']=$this->model_app->getdata('ms_state',"");
 		$data['list']=$this->model_app->getdatapaging("a.cyCode,a.cyName,a.stCode,a.isAirport,
-		a.isSeaport,a.CreateBy,a.CreateDate,a.ModifiedBy,a.ModifiedDate,b.couCode,b.couName,c.stCode,c.stName",
+		a.isSeaport,a.CreatedBy,a.CreateDate,a.ModifiedBy,a.ModifiedDate,b.couCode,b.couName,c.stCode,c.stName",
 		"ms_city a",
 		"LEFT join ms_country b on a.couCode=b.couCode 
 		LEFT join ms_state c on a.stCode=c.stCode
 		order by a.cyCode ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel("a.cyCode,a.cyName,a.stCode,a.isAirport,
-		a.isSeaport,a.CreateBy,a.CreateDate,a.ModifiedBy,a.ModifiedDate,b.couCode,b.couName,c.stCode,c.stName",
+		a.isSeaport,a.CreatedBy,a.CreateDate,a.ModifiedBy,a.ModifiedDate,b.couCode,b.couName,c.stCode,c.stName",
 		"ms_city a",
 		"LEFT join ms_country b on a.couCode=b.couCode 
 		LEFT join ms_state c on a.stCode=c.stCode
@@ -269,13 +269,13 @@ function search_city(){
 		$data['country']=$this->model_app->getdata('ms_country',"");
 		$data['state']=$this->model_app->getdata('ms_state',"");
 $data['list']=$this->model_app->getdatapaging("a.cyCode,a.cyName,a.stCode,a.isAirport,
-		a.isSeaport,a.CreateBy,a.CreateDate,a.ModifiedBy,a.ModifiedDate,b.couCode,b.couName,c.stCode,c.stName",
+		a.isSeaport,a.CreatedBy,a.CreateDate,a.ModifiedBy,a.ModifiedDate,b.couCode,b.couName,c.stCode,c.stName",
 		"ms_city a","inner join ms_country b on a.couCode=b.couCode 
 		inner join ms_state c on a.stCode=c.stCode
 		WHERE a.cyName LIKE '$cari%' OR b.couName LIKE '$cari%' OR a.cyCode LIKE '$cari%'
 		order by a.cyCode ASC LIMIT $offset,$limit");
 $tot_hal = $this->model_app->hitung_isi_tabel("a.cyCode,a.cyName,a.stCode,a.isAirport,
-		a.isSeaport,a.CreateBy,a.CreateDate,a.ModifiedBy,a.ModifiedDate,b.couCode,b.couName,c.stCode,c.stName",
+		a.isSeaport,a.CreatedBy,a.CreateDate,a.ModifiedBy,a.ModifiedDate,b.couCode,b.couName,c.stCode,c.stName",
 		"ms_city a","inner join ms_country b on a.couCode=b.couCode 
 		inner join ms_state c on a.stCode=c.stCode
 		WHERE a.cyName LIKE '$cari%' OR b.couName LIKE '$cari%' OR a.cyCode LIKE '$cari%'");
@@ -304,13 +304,13 @@ $tot_hal = $this->model_app->hitung_isi_tabel("a.cyCode,a.cyName,a.stCode,a.isAi
 		$offset = $page;
 		endif;
 $data['list']=$this->model_app->getdatapaging("a.cyCode,a.cyName,a.stCode,a.isAirport,
-		a.isSeaport,a.CreateBy,a.CreateDate,a.ModifiedBy,a.ModifiedDate,b.couCode,b.couName,c.stCode,c.stName",
+		a.isSeaport,a.CreatedBy,a.CreateDate,a.ModifiedBy,a.ModifiedDate,b.couCode,b.couName,c.stCode,c.stName",
 		"ms_city a","inner join ms_country b on a.couCode=b.couCode 
 		inner join ms_state c on a.stCode=c.stCode
 		WHERE a.cyName LIKE '$cari%' OR b.couName LIKE '$cari%' OR a.cyCode LIKE '$cari%'
 		order by a.cyCode ASC LIMIT $offset,$limit");
 $tot_hal = $this->model_app->hitung_isi_tabel("a.cyCode,a.cyName,a.stCode,a.isAirport,
-		a.isSeaport,a.CreateBy,a.CreateDate,a.ModifiedBy,a.ModifiedDate,b.couCode,b.couName,c.stCode,c.stName",
+		a.isSeaport,a.CreatedBy,a.CreateDate,a.ModifiedBy,a.ModifiedDate,b.couCode,b.couName,c.stCode,c.stName",
 		"ms_city a","inner join ms_country b on a.couCode=b.couCode 
 		inner join ms_state c on a.stCode=c.stCode
 		WHERE a.cyName LIKE '$cari%' OR b.couName LIKE '$cari%' OR a.cyCode LIKE '$cari%'");

@@ -596,7 +596,6 @@ function cek_cnote(){
     'cnote'=>$note,
 	);
 }
-	
 	$this->load->view('pages/booking/cargo/data',$data);
 */	
 }
