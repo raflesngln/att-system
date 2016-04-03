@@ -225,11 +225,34 @@ $("#nama").mousedown(function(){
 </div>
 
 <div class="form-group">
-<label class="control-label col-sm-4" for="nama">Address</label>
+<label class="control-label col-sm-4" for="nama">Phone</label>
       <div class="col-sm-7">          
-        <textarea name="address" class="form-control" id="address" placeholder="address"></textarea>
+        <input name="phone" type="text" class="form-control" id="phone" placeholder="phone">
 </div>
 </div>
+
+<div class="form-group">
+<label class="control-label col-sm-4" for="nama">Fax</label>
+      <div class="col-sm-7">          
+        <input name="fax" type="text" class="form-control" id="fax" placeholder="fax">
+</div>
+</div>
+
+<div class="form-group">
+<label class="control-label col-sm-4" for="nama">Mobile Phone</label>
+      <div class="col-sm-7">          
+        <input name="hp" type="text" class="form-control" id="hp" placeholder="mobile phone">
+</div>
+</div>
+
+<div class="form-group">
+<label class="control-label col-sm-4" for="nama">Email</label>
+      <div class="col-sm-7">          
+        <input name="email" type="text" class="form-control" id="email" placeholder="email">
+</div>
+</div>
+
+
 
 
 
@@ -239,17 +262,60 @@ $("#nama").mousedown(function(){
 <div class="col-sm-6">
 
 <div class="form-group">
-<label class="control-label col-sm-4" for="nama">Email</label>
-      <div class="col-sm-7">          
-        <input name="email" type="text" class="form-control" id="email" placeholder="email">
-</div>
-</div>
+        <label class="col-sm-4 control-label">Country</label>
+           <div class="col-sm-7">               
+                          <select name="custCountry" id="custCountry" required="required" class="form-control">
+                            <option value="">choose country</option>
+                            <?php
+	foreach($country as $ct){
+	    ?>
+                            <option value="<?php echo $ct->couCode;?>"><?php echo $ct->couName;?></option>
+                            <?php } ?>
+                          </select>
+        </div>
+      </div>
+
+<div class="form-group">
+        <label class="col-sm-4 control-label">State</label>
+                        <div class="col-sm-7">
+       <select name="custState" id="custState" required="required" class="form-control">
+          <option value="">Chosse state</option>
+          <?php
+	foreach($state as $st){
+	    ?>
+          <option value="<?php echo $st->stCode;?>"><?php echo $st->stName;?></option>
+          <?php } ?>
+</select></div>
+      </div>
+
 <div class="form-group">
 <label class="control-label col-sm-4" for="nama">City</label>
+      <div class="col-sm-7">
+        <select name="custCity" id="custCity" required="required" class="form-control">
+          <option value="">Chosse city</option>
+          <?php
+	foreach($city as $ct){
+	    ?>
+          <option value="<?php echo $ct->cyCode;?>"><?php echo $ct->cyName;?></option>
+          <?php } ?>
+        </select>
+      </div>
+</div>
+
+<div class="form-group">
+<label class="control-label col-sm-4" for="nama">Postal Code</label>
       <div class="col-sm-7">          
-        <input name="city" type="text" class="form-control" id="city" placeholder="city">
+        <input name="custPostal" type="text" class="form-control" id="custPostal" placeholder="fax">
 </div>
 </div>
+
+<div class="form-group">
+<label class="control-label col-sm-4" for="nama">Full Address</label>
+      <div class="col-sm-7">          
+        <textarea name="address" class="form-control" id="address" placeholder="address"></textarea>
+</div>
+</div>
+
 <div class="form-group">
 <label class="control-label col-sm-4" for="nama">Remarks</label>
       <div class="col-sm-7">
@@ -258,7 +324,7 @@ $("#nama").mousedown(function(){
 </div>
 
 </div>
-<br />
+<br /><br />
 
 
 <div class="container">
@@ -282,9 +348,7 @@ $("#nama").mousedown(function(){
     	<li>
 												<a data-toggle="tab" href="#sales" id="3">
                                                  <i class="red fa fa-bookk bigger-110"></i>
-													Sales & Purchasing  
-		
-											</a></li>
+											Sales Information</a></li>
     	<li>
 												<a data-toggle="tab" href="#linebusiness" id="3">
                                                  <i class="red fa fa-bookk bigger-110"></i>Line Business</a></li>

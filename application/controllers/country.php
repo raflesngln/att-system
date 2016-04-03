@@ -65,8 +65,8 @@ $this->form_validation->set_rules('coucode','coucode','required|trim|xss_clean')
 		$newdata=array(
 		'couCode' =>strtoupper($this->input->post('coucode')),
 		'couName'=>strtoupper($this->input->post('couname')),
-		'CreateBy'=>$this->session->userdata('nameusr'),
-		'CreateDate'=>date('Y-m-d H:i:s'),
+		'CreatedBy'=>$this->session->userdata('nameusr'),
+		'CreatedDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
 		);		

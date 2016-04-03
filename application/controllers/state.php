@@ -65,8 +65,8 @@ $this->form_validation->set_rules('stcode','stcode','required|trim|xss_clean');
 		$newdata=array(
 		'stCode' =>strtoupper($this->input->post('stcode')),
 		'stName'=>strtoupper($this->input->post('stname')),
-		'CreateBy'=>$this->session->userdata('nameusr'),
-		'CreateDate'=>date('Y-m-d H:i:s'),
+		'CreatedBy'=>$this->session->userdata('nameusr'),
+		'CreatedDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
 		);		

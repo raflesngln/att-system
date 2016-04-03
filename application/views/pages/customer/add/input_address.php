@@ -24,11 +24,10 @@ border:1px #999 solid; position:fixed; width:23%; margin-top:-8px; background-co
  <table class="table table-striped table-bordered tablecontactdetail" id="tablecontactdetail">
                                               <thead>
                                                 <tr>
-                                                  <th colspan="9"> <div align="left"><a class="btn btn-primary btn-mini tbladdtype" title="Add" id="tbladd" onclick="return add_address()"><i class="icon-plus icons"></i> Address</a></div></th>
+                                                  <th colspan="8"> <div align="left"><a class="btn btn-primary btn-mini tbladdtype" title="Add" id="tbladd" onclick="return add_address()"><i class="icon-plus icons"></i> Address</a></div></th>
                                                 </tr>
                                                 <tr>
                                                   <th height="33">Address Type</th>
-                                                  <th>Name</th>
                                                   <th>Up</th>
                                                   <th>Address</th>
                                                   <th>City</th>
@@ -46,7 +45,7 @@ $no=1;
 			?>
                                                 <?php $no++; } ;?>
                                               <tr class="gradeX pagin">
-                                                  <th colspan="12" scope="row">
+                                                  <th colspan="11" scope="row">
                           <div align="right"> <?php echo $paginator;?></div></th>
                                                 </tr> 
                                               </tbody>
@@ -94,11 +93,6 @@ $no=1;
 </span>
               <input type="hidden" name="hidden_address_type" id="hidden_address_type" />
             </div>
-        <div class="form-group">
-            <span class="col-sm-4">
-            <label for="psw"><span></span> Address Name </label></span><span class="col-sm-8">
-              <input type="text" id="addressname" class="form-control" name="addressname"/>
-              </span></div>
 <div class="form-group">
             <span class="col-sm-4">
             <label for="psw"><span></span> UP</label></span><span class="col-sm-8">
@@ -219,7 +213,6 @@ function hapus3(myid){
 $("#btn_add_address").click(function(){
 	var addresstype=$('#addresstype').val();   
 	var hidden_address_type=$('#hidden_address_type').val();
-	var addressname=$('#addressname').val();
 	var up=$('#up').val();		
 	var completeaddress=$('#completeaddress').val(); 
 	var city2=$('#city2').val(); 
@@ -227,15 +220,13 @@ $("#btn_add_address").click(function(){
 	var country=$('#country').val(); 
 	var PostalCode=$('#PostalCode').val(); 
 			
-if (addresstype == '' || hidden_address_type == '' || addressname == ''){
+if (addresstype == '' || hidden_address_type == ''){
 	alert('Nama dan type contact tidak boleh kosong');	
 	}
 	else
 	{
 	text='<tr class="gradeX" align="right">'
     + '<td align="left">' + '<input type="hidden" name="addresstype2[]" id="addresstype2[]" size="5" value="'+ addresstype +'">'+ '<label id="l_pcs">'+ addresstype +'</label>' +'</td>'
-   
-    + '<td align="left">' + '<input type="hidden" name="addressname2[]" id="addressname2[]" size="5" value="'+ addressname +'">'+ '<label id="l_pcs">'+ addressname +'</label>' +'</td>'
 	
     + '<td align="left">' +  '<input type="hidden" name="up2[]" id="up2[]" size="5" value="'+ up +'">'+ '<label id="l_pcs">'+ up +'</label>' +'</td>'
 

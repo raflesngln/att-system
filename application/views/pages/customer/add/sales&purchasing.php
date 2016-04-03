@@ -51,14 +51,14 @@
 <div class="form-group">
                         <label class="col-sm-4 control-label">  Is CNEE</label>
                         <div class="col-sm-8">
-                          <input type="checkbox" name="iscnee" id="iscnee" />
+                          <input type="checkbox" name="isCnee" id="isCnee" />
                         </div>
                         <div class="clearfix"></div>
   </div>
 <div class="form-group">
                         <label class="col-sm-4 control-label">  Is Shipper</label>
                         <div class="col-sm-8">
-                          <input type="checkbox" name="isshipper" id="isshipper" />
+                          <input type="checkbox" name="isShipper" id="isShipper" />
                         </div>
                         <div class="clearfix"></div>
   </div>
@@ -66,7 +66,7 @@
                         <label class="col-sm-4 control-label">  Is Agent</label>
 
   <div class="col-sm-8">
-                          <input type="checkbox" name="isagent" id="isagent" />
+                          <input type="checkbox" name="isAgent" id="isAgent" />
               </div>
                         <div class="clearfix"></div>
   </div>

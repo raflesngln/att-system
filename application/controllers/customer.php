@@ -31,6 +31,11 @@ function add_customer2(){
 		 $data['title']='add_customer';
 		$data['scrumb_name']='add Customer';
 		$data['scrumb']='customer/add_customer2';
+		$data['country']=$this->model_app->getdata('ms_country',"");
+		$data['state']=$this->model_app->getdata('ms_state',"");
+		$data['city']=$this->model_app->getdata('ms_city',"");
+		$data['linebusiness']=$this->model_app->getdata('ms_linebusiness',"");
+		$data['commodity']=$this->model_app->getdata('ms_commodity',"");
 		
 		$data['address']=$this->model_app->getdatapaging('*',
 		'ms_address_type a',"order by a.AddressTypeName");
@@ -61,7 +66,8 @@ function add_customer2(){
 		$data['contact']=$this->model_app->getdatapaging('*',
 		'ms_contact_type a',"order by a.ContactTypeName");
 		 
-		$data['list']=$this->model_app->getdatapaging('*',
+		$data['list']=$this->model_app->getdatapaging('a.custCode,a.Email,a.CreditLimit,a.Deposit,a.custInitial,a.custName,a.Address,
+		a.Phone,b.empCode,b.empName,c.cyCode,c.cyName',
 		'ms_customer a',"LEFT join ms_staff b on a.empCode=b.empCode
 		LEFT join ms_city c on a.cyCode=c.cyCode
 		 order by a.custCode ASC LIMIT $offset,$limit");
@@ -102,36 +108,34 @@ function add_customer2(){
 			'custInitial'=>$this->input->post('initial'),
 			'custName'=>$this->input->post('nama'),
 			'Address'=>$this->input->post('address'),
-			'Phone'=>$this->input->post('commodity'),
-			'Fax'=>$this->input->post('address'),
-			'PostalCode'=>$this->input->post('iscnee'),
-			'isAgent'=>$this->input->post('iscnee'),
-			'isShipper'=>$this->input->post('iscnee'),
-			'isCnee'=>$this->input->post('iscnee'),
-			'Email'=>$this->input->post('iscnee'),
-			'PIC01'=>$this->input->post('iscnee'),
-			'PIC02'=>$this->input->post('iscnee'),
-			'HPPIC01'=>$this->input->post('iscnee'),
-			'HPPIC02'=>$this->input->post('iscnee'),
-			'CreditLimit'=>$this->input->post('iscnee'),
-			'TermsPayment'=>$this->input->post('iscnee'),
-			'Deposit'=>$this->input->post('iscnee'),
-			'empCode'=>$this->input->post('iscnee'),
-			'isActive'=>$this->input->post('iscnee'),
-			'NPWP'=>$this->input->post('iscnee'),
-			'NPWPAddress'=>$this->input->post('iscnee'),
-			'Remarks'=>$this->input->post('iscnee'),
+			'Country'=>$this->input->post('custCountry'),
+			'State'=>$this->input->post('custState'),
+			'cyCode'=>$this->input->post('custCity'),
+			'Phone'=>$this->input->post('phone'),
+			'MobilePhone'=>$this->input->post('hp'),
+			'Fax'=>$this->input->post('fax'),
+			'PostalCode'=>$this->input->post('custPostal'),
+			'isAgent'=>$this->input->post('isAgent'),
+			'isShipper'=>$this->input->post('isShipper'),
+			'isCnee'=>$this->input->post('isCnee'),
+			'Email'=>$this->input->post('email'),
+			'CreditLimit'=>$this->input->post('creditlimit'),
+			'TermsPayment'=>$this->input->post('terms'),
+			'Deposit'=>$this->input->post('deposit'),
+			'empCode'=>$this->input->post('commodity'),
+			'isActive'=>'1',
+			'NPWP'=>$this->input->post('npwp'),
+			'NPWPAddress'=>$this->input->post('npwpaddress'),
+			'Remarks'=>$this->input->post('remarks'),
 			 'CreatedBy' =>$this->session->userdata('idusr'),
 			 'CreatedDate' =>date('Y-m-d h:i:s'),
             );
-
-			
-			
+			$this->model_app->insert('ms_customer',$data);
+				
         $addresstype2=$_POST['addresstype2']; 
 		foreach($addresstype2 as $key => $val){
 		  $data2=array(
 		  'UP' =>$_POST['up2'][$key],
-		  'AddressName' =>$_POST['addressname2'][$key],
 		  'AddressDesc' =>$_POST['completeaddress2'][$key],
 		  'custCode' =>'1',
 		  'AddressTypeCode' =>$_POST['hidden_address_type'][$key],
@@ -148,7 +152,6 @@ function add_customer2(){
 		foreach($contacttype2 as $key => $val){
 		  $data3=array(
 		  'UP' =>$_POST['up4'][$key],
-		  'ContactName' =>$_POST['contactname2'][$key],
 		  'Phone' =>$_POST['phone3'][$key],
 		  'custCode' =>'1',
 		  'Fax' =>$_POST['fax3'][$key],
@@ -163,7 +166,7 @@ function add_customer2(){
 		  $this->model_app->insert('tr_contact_detail',$data3);
 		}
 
-	
+	redirect('customer/view_customer');
         //$this->load->view('pages/customer/add/save',$data);
 }
 //--SAVE--------

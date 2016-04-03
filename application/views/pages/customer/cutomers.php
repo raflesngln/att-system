@@ -18,19 +18,18 @@
       <div class="top-hdr col-sm-6">              
       <div class="col-sm-5"> </div>   
 
-      <form action="<?php echo base_url();?>customer/search_customer" method="post"> 
-           <div class="col-sm-7">
-           <div class="row">
-          <div class="col-sm-9">Search Customer<span class="controls">
-           <input name="txtsearch" type="text" class="form-control"  id="txtsearch" required="required" placeholder="Name / Address" />
-            </span>
-          </div>
-         <div class="col-md-2">
-         &nbsp;<input type="submit" name="button" id="button" value="Search" class="btn btn-mini btn-search btn-primary" />
-         </div>
-           </div>
-        </div>              
-      </form> 
+      <form method="post" class="form-inline pull-right" style="margin-right:10px">
+    <h5>Filters By</h5>
+    <span class="controls">
+    <select name="commodity" id="commodity" class="form-control">
+    <option value="">Sales Person</option>
+      <option value="">State</option>
+      <option value="">Country</option>
+    </select>
+    </span>
+<input type="text" id="txtsearch" name="txtsearch" class="form-control" />
+    <button type="submit" name="btn-periode" class="btn btn-mini btn-primary"><i class="fa fa-search"></i> Search</button>
+    </form> 
    </div>
 </div>
 
@@ -44,24 +43,18 @@
                                         <table class="table table-striped table-bordered table-hover">
                                               <thead>
                                                 <tr>
-                                                  <th colspan="9"> <div align="left"><a class="btn btn-blue btn-addnew" href="#modaladd" data-toggle="modal" title="Add"><i class="icon-plus icons"></i>Add Customer</a>
-
-
-
-<a class="btn btn-blue btn-addnew" href="<?php echo base_url();?>customer/add_customer"  title="Add"><i class="icon-plus icons"></i>Add Cust</a>
-
-<a class="btn btn-mini" href="<?php echo base_url();?>customer/add_customer2"  title="Add"><i class="icon-plus icons"></i>Add Cust</a>
+                                                  <th colspan="8"> <div align="left">
+<a class="btn-normal" href="<?php echo base_url();?>customer/add_customer2"  title="Add"><i class="icon-plus icons"></i> Create Customer</a>
                                                   </div></th>
                                                 </tr>
                                                 <tr>
                                                   <th>No.</th>
-                                                  <th>customer Name</th>
+                                                  <th>Customers Name</th>
                                                   <th>Address</th>
                                                   <th>Phone</th>
                                                   <th>Email</th>
                                                   <th>Credit Limit</th>
                                                   <th>Deposit</th>
-                                                  <th>NPWP</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                               </thead>
@@ -79,7 +72,6 @@ $no=1;
                                                     <td><?php echo $data->Email?></td>
                                                     <td><?php echo $data->CreditLimit?></td>
                                                     <td><?php echo $data->Deposit?></td>
-                                                    <td><?php echo $data->NPWP?></td>
                                                     <td class="text-center"><div align="center"><a class="btn-action" href="#modaledit<?php echo $data->custCode?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i>
                                                       <button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>
                                                       </a>
@@ -91,7 +83,7 @@ $no=1;
                                                 </tr>                                
                                                 <?php $no++; } ;?>
                                               <tr class="gradeX pagin">
-                                                  <th colspan="12" scope="row">
+                                                  <th colspan="11" scope="row">
                           <div align="right"> <?php echo $paginator;?></div></th>
                                                 </tr> 
                                               </tbody>
