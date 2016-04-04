@@ -44,7 +44,7 @@
                                               <thead>
                                                 <tr>
                                                   <th colspan="8"> <div align="left">
-<a class="btn-normal" href="<?php echo base_url();?>customer/add_customer2"  title="Add"><i class="icon-plus icons"></i> Create Customer</a>
+<a class="btn-normal" href="<?php echo base_url();?>customer/add_customer"  title="Add"><i class="icon-plus icons"></i> Create Customer</a>
                                                   </div></th>
                                                 </tr>
                                                 <tr>
@@ -72,13 +72,15 @@ $no=1;
                                                     <td><?php echo $data->Email?></td>
                                                     <td><?php echo $data->CreditLimit?></td>
                                                     <td><?php echo $data->Deposit?></td>
-                                                    <td class="text-center"><div align="center"><a class="btn-action" href="#modaledit<?php echo $data->custCode?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i>
-                                                      <button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>
-                                                      </a>
+                                                    <td class="text-center"><div align="center">
+                                                    
+<a class="btn-action" href="<?php echo base_url();?>customer/edit_customer/<?php echo $data->custCode?>" title="Edit">
+<button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>
+</a>
                                                       
-                                                      <a href="<?php echo base_url();?>customer/delete_customer/<?php echo $data->custCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
-                                                        <button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>
-                                                      </a>          
+<a href="<?php echo base_url();?>customer/delete_customer/<?php echo $data->custCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
+<button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>
+</a>          
                                                     </div></td>
                                                 </tr>                                
                                                 <?php $no++; } ;?>

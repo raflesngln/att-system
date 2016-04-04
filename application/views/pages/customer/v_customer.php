@@ -35,7 +35,7 @@ Line Business
 </li>
 
 <li>
-<a data-toggle="tab" href="#commodity">
+<a data-toggle="tab" href="#commo">
 <i class="green fa fa-asterisk bigger-110"></i>
 Commodity
 </a>
@@ -65,7 +65,7 @@ Bank
 <div id="linebusiness" class="tab-pane">
 <p><?php $this->load->view('pages/customer/linebusiness/ms_linebusiness');?></p>
 											</div>	
-<div id="commodity" class="tab-pane">
+<div id="commo" class="tab-pane">
 <p><?php $this->load->view('pages/customer/commodity/ms_commodity');?></p>
 											</div>										
 <div id="bank" class="tab-pane">

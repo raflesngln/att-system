@@ -4,7 +4,7 @@ class Model_app extends CI_Model{
         parent::__construct();
     }
 //  kode job
-    public function getInvoice()
+public function getInvoice()
     {
 		$bulan=date('m');
         $query = $this->db->query("select MAX(RIGHT(InvoiceNo,5)) as kd_max from invoice WHERE MID(InvoiceNo,8,2)='$bulan'");
@@ -23,7 +23,25 @@ class Model_app extends CI_Model{
         }
         return "INV".date('Ym').$kd;
     }
-
+public function generateNo($table,$kolom,$kd_unik)
+    {
+		$bulan=date('m');
+        $query = $this->db->query("select MAX(RIGHT($kolom,5)) as kd_max from $table WHERE MID($kolom,8,2)='$bulan'");
+        $kd = "";
+        if($query->num_rows()>0)
+        {
+            foreach($query->result() as $k)
+            {
+                $tmp = ((int)$k->kd_max)+1;
+                $kd = sprintf("%05s", $tmp);
+            }
+        }
+        else
+        {
+            $kd = "00001";
+        }
+        return $kd_unik.date('Ym').$kd;
+    }
 //    kode house
     public function getJob($status)
     {

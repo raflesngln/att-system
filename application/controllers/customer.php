@@ -10,27 +10,13 @@ class Customer extends CI_Controller{
         $this->load->helper('currency_format_helper');
 		date_default_timezone_set("Asia/Jakarta"); 
     }	
-	 //--VIEW customer CUSTOMERS
+ 	 //--VIEW customer CUSTOMERS
 function add_customer(){
 		 
+		$data['kd_unik']=$this->model_app->generateNo("ms_customer","custCode","CUST");
 		 $data['title']='add_customer';
 		$data['scrumb_name']='add Customer';
 		$data['scrumb']='customer/add_customer';
-		
-		$data['type']=$this->model_app->getdatapaging('*',
-		'ms_address_type a',"order by a.AddressTypeName");
-		$data['contact']=$this->model_app->getdatapaging('*',
-		'ms_contact_type a',"order by a.ContactTypeName");
-		
-		$data['view']='pages/customer/v_add_customer';
-        $this->load->view('home/home',$data);	  
-}
- 	 //--VIEW customer CUSTOMERS
-function add_customer2(){
-		 
-		 $data['title']='add_customer';
-		$data['scrumb_name']='add Customer';
-		$data['scrumb']='customer/add_customer2';
 		$data['country']=$this->model_app->getdata('ms_country',"");
 		$data['state']=$this->model_app->getdata('ms_state',"");
 		$data['city']=$this->model_app->getdata('ms_city',"");
@@ -43,6 +29,40 @@ function add_customer2(){
 		'ms_contact_type a',"order by a.ContactTypeName");
 		
 		$data['view']='pages/customer/add/v_add_customer';
+        $this->load->view('home/home',$data);	  
+}
+ 	 //--VIEW customer CUSTOMERS
+function edit_customer(){
+		 
+		 $kode=$this->uri->segment(3);
+		 
+		 $data['title']='edit_customer';
+		$data['scrumb_name']='edit Customer';
+		$data['scrumb']='customer/edit_customer';
+		$data['country']=$this->model_app->getdata('ms_country',"");
+		$data['state']=$this->model_app->getdata('ms_state',"");
+		$data['city']=$this->model_app->getdata('ms_city',"");
+		$data['linebusiness']=$this->model_app->getdata('ms_linebusiness',"");
+		$data['commodity']=$this->model_app->getdata('ms_commodity',"");
+		
+		$data['address']=$this->model_app->getdatapaging('*',
+		'ms_address_type a',"order by a.AddressTypeName");
+		$data['contact']=$this->model_app->getdatapaging('*',
+		'ms_contact_type a',"order by a.ContactTypeName");
+		$data['tr_address_detail']=$this->model_app->getdatapaging('*',
+		'ms_contact_type a',"order by a.ContactTypeName");
+		$data['tr_contact_detail']=$this->model_app->getdatapaging('*',
+		'ms_contact_type a',"order by a.ContactTypeName");
+
+						
+		$data['detailCustomer']=$this->model_app->getdatapaging('*',
+		'ms_customer a',
+		"INNER JOIN ms_country b on a.Country=b.couCode
+		INNER JOIN ms_state c on a.State=c.stCode
+		INNER JOIN ms_city d on a.cyCode=d.cyCode
+		WHERE a.custCode='$kode'");
+		
+		$data['view']='pages/customer/edit/v_edit_customer';
         $this->load->view('home/home',$data);	  
 }
  function view_customer(){
@@ -105,6 +125,7 @@ function add_customer2(){
  function save_customer()
 {	
 	$data=array(
+          	'custCode'=>$this->input->post('idcustomer'),
 			'custInitial'=>$this->input->post('initial'),
 			'custName'=>$this->input->post('nama'),
 			'Address'=>$this->input->post('address'),
@@ -137,7 +158,7 @@ function add_customer2(){
 		  $data2=array(
 		  'UP' =>$_POST['up2'][$key],
 		  'AddressDesc' =>$_POST['completeaddress2'][$key],
-		  'custCode' =>'1',
+		  'custCode' =>$this->input->post('idcustomer'),
 		  'AddressTypeCode' =>$_POST['hidden_address_type'][$key],
 		  'City' =>$_POST['city3'][$key],
 		  'Country' =>$_POST['country2'][$key],
@@ -153,7 +174,7 @@ function add_customer2(){
 		  $data3=array(
 		  'UP' =>$_POST['up4'][$key],
 		  'Phone' =>$_POST['phone3'][$key],
-		  'custCode' =>'1',
+		  'custCode' =>$this->input->post('idcustomer'),
 		  'Fax' =>$_POST['fax3'][$key],
 		  'Extention' =>$_POST['ext3'][$key],
 		  'Handphone' =>$_POST['hp3'][$key],
