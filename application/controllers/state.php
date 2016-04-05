@@ -24,8 +24,8 @@ function view_state(){
         $data['title']='list state';
 		$data['scrumb_name']='Data state';
 		$data['scrumb']='state/view_state';
-		$data['list']=$this->model_app->getdata('ms_state',"order by stCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_state',"order by stCode ASC");
+		$data['list']=$this->model_app->getdata('ms_state',"order by StateCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_state',"order by StateCode ASC");
         					//create for pagination		
 			$config['base_url'] = base_url() . 'state/view_state/';
         	$config['total_rows'] = $tot_hal->num_rows();
@@ -45,15 +45,15 @@ function view_state(){
 //--SAVE--------
 function save_state()
 {	
-$this->form_validation->set_rules('stcode','stcode','required|trim|xss_clean');
+$this->form_validation->set_rules('StateCode','StateCode','required|trim|xss_clean');
 	 if ($this->form_validation->run() == FALSE)
 	{
 		redirect('state/view_state');
 	}
 		else
 	{
-		$code=$this->input->post('stcode');
-		$cari=$this->model_app->getdata('ms_state',"where stCode='$code'");
+		$code=$this->input->post('StateCode');
+		$cari=$this->model_app->getdata('ms_state',"where StateCode='$code'");
 		if($cari){ ?>
 			<script type="text/javascript">
 			alert('Data with This Code  has already exist !. try another code');
@@ -63,8 +63,8 @@ $this->form_validation->set_rules('stcode','stcode','required|trim|xss_clean');
 		$message="New Data has been Saved with code ( ".$code." )";
 		$clas='success';
 		$newdata=array(
-		'stCode' =>strtoupper($this->input->post('stcode')),
-		'stName'=>strtoupper($this->input->post('stname')),
+		'StateCode' =>strtoupper($this->input->post('StateCode')),
+		'StateName'=>strtoupper($this->input->post('StateName')),
 		'CreatedBy'=>$this->session->userdata('nameusr'),
 		'CreatedDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy'=>'',
@@ -85,8 +85,8 @@ $this->form_validation->set_rules('stcode','stcode','required|trim|xss_clean');
 		$data['scrumb']='state/view_state';
 		$data['message']=$message;
 		$data['clas']=$clas;
-		$data['list']=$this->model_app->getdata('ms_state',"order by stCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_state',"order by stCode ASC");
+		$data['list']=$this->model_app->getdata('ms_state',"order by StateCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_state',"order by StateCode ASC");
         					//create for pagination		
 			$config['base_url'] = base_url() . 'state/view_state/';
         	$config['total_rows'] = $tot_hal->num_rows();
@@ -108,8 +108,8 @@ $this->form_validation->set_rules('stcode','stcode','required|trim|xss_clean');
 function update_state()
 {	
 
-$code=$this->input->post('stcode2');
-$this->form_validation->set_rules('stcode2','stcode2','required|trim|xss_clean');
+$code=$this->input->post('StateCode2');
+$this->form_validation->set_rules('StateCode2','StateCode2','required|trim|xss_clean');
 	 if ($this->form_validation->run() == FALSE)
 	{
 		redirect('state/view_state');
@@ -117,12 +117,12 @@ $this->form_validation->set_rules('stcode2','stcode2','required|trim|xss_clean')
 		else
 	{
 	$update=array(
-		'stCode'=>strtoupper($this->input->post('stcode2')),
-		'stName'=>strtoupper($this->input->post('stname2')),
+		'StateCode'=>strtoupper($this->input->post('StateCode2')),
+		'StateName'=>strtoupper($this->input->post('StateName2')),
 		'ModifiedBy'=>$this->session->userdata('nameusr'),
 		'ModifiedDate'=>date('Y-m-d H:i:s'),
 		);	
-		$this->model_app->update('ms_state','stCode',$code,$update);
+		$this->model_app->update('ms_state','StateCode',$code,$update);
 	  redirect('state/view_state');
 		}	
 }
@@ -132,7 +132,7 @@ function delete_state(){
 	$kode=$this->uri->segment(3);
 	 if($this->session->userdata('login_status') == TRUE )
  	{
-		     $this->model_app->delete_data('ms_state','stCode',$kode);
+		     $this->model_app->delete_data('ms_state','StateCode',$kode);
 			redirect('state/view_state');
 	}
 	else
@@ -153,8 +153,8 @@ function search_state(){
         $data['title']='list State';
 		$data['scrumb_name']='Data State';
 		$data['scrumb']='state/view_state';
-		$data['list']=$this->model_app->getdata('ms_state',"WHERE stName LIKE '$cari%' order by stName ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_state',"WHERE stName LIKE '$cari%' order by stName ASC");
+		$data['list']=$this->model_app->getdata('ms_state',"WHERE StateName LIKE '$cari%' order by StateName ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_state',"WHERE StateName LIKE '$cari%' order by StateName ASC");
 		    					//create for pagination		
 			$config['base_url'] = base_url() . 'search/search_state/';
         	$config['total_rows'] = $tot_hal->num_rows();
@@ -178,8 +178,8 @@ function search_state(){
 		else:
 		$offset = $page;
 		endif;
-		$data['list']=$this->model_app->getdata('ms_state',"WHERE stName LIKE '$cari%' order by stName ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_state',"WHERE stName LIKE '$cari%' order by stName ASC");
+		$data['list']=$this->model_app->getdata('ms_state',"WHERE StateName LIKE '$cari%' order by StateName ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_state',"WHERE StateName LIKE '$cari%' order by StateName ASC");
 
 	//create for pagination		
 			$config['base_url'] = base_url() . 'search/search_state/';

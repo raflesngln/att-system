@@ -48,16 +48,13 @@
                                         <table class="table table-striped table-bordered table-hover">
                                               <thead>
                                                 <tr>
-                                                  <th height="21" colspan="8"> <div align="left"><a class="btn-addnew" href="#modaladd" data-toggle="modal" title="Add"><button class="btn btn-blue"><i class="icon-plus icons"></i>Add Country</button></a></div></th>
+                                                  <th height="21" colspan="5"> <div align="left"><a class="btn-addnew" href="#modaladd" data-toggle="modal" title="Add"><button class="btn btn-blue"><i class="icon-plus icons"></i>Add Country</button></a></div></th>
                                                 </tr>
                                                 <tr>
                                                   <th>No.</th>
-                                                  <th>couCode</th>
-                                                  <th>couName</th>
-                                                  <th>CreateBy</th>
-                                                  <th>Create Date</th>
-                                                  <th>Modified By</th>
-                                                  <th>Modified Date</th>
+                                                  <th>CountryCode</th>
+                                                  <th>CountryName</th>
+                                                  <th>Remarks</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                               </thead>
@@ -69,19 +66,16 @@ $no=1;
 			?>
                                                 <tr class="gradeX">
                                                     <td><?php echo $no?></td>
-                                                    <td><?php echo $data->couCode?></td>
-                                                    <td><?php echo $data->couName?></td>
-                                                    <td><?php echo $data->CreateBy?></td>
-                                                    <td><?php echo date("d-m-Y / h:m:s",strtotime($data->CreateDate)); ?></td>
-                                                    <td><?php echo $data->ModifiedBy?></td>
-                                                    <td><?php echo date("d-m-Y / h:m:s",strtotime($data->ModifiedDate)); ?></td>
+                                                    <td><?php echo $data->CountryCode?></td>
+                                                    <td><?php echo $data->CountryName?></td>
+                                                    <td><?php echo $data->Remarks?></td>
                                                     <td class="text-center">
                                                       <div align="center">
-<a class="btn-action" href="#modaledit<?php echo $data->couCode?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i>
+<a class="btn-action" href="#modaledit<?php echo $data->CountryCode?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i>
                                                       <button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>
                                                       </a>
                                                         
-                                                        <a href="<?php echo base_url();?>country/delete_country/<?php echo $data->couCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
+                                                        <a href="<?php echo base_url();?>country/delete_country/<?php echo $data->CountryCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
                                                           <button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>
                                                         </a>                            
                                                         
@@ -108,7 +102,7 @@ $no=1;
 
     foreach($list as $row){
         ?>
-<div id="modaledit<?php echo $row->couCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="modaledit<?php echo $row->CountryCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -123,16 +117,23 @@ $no=1;
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Country Code</label>
     <div class="col-sm-9">
-    <input name="coucode2" type="text" class="form-control" id="coucode2" value="<?php echo $row->couCode;?>" readonly="readonly"/>
+    <input name="CountryCode" type="text" class="form-control" id="CountryCode" value="<?php echo $row->CountryCode;?>" readonly="readonly"/>
               <span class="controls">
-              <input type="hidden" name="id2" id="id2" value="<?php echo $row->couCode;?>" />
+              <input type="hidden" name="id2" id="id2" value="<?php echo $row->CountryCode;?>" />
               </span></div>
                         <div class="clearfix"></div>
                       </div>
                 <div class="form-group">
                         <label class="col-sm-3 control-label">Country Name</label>
     <div class="col-sm-9">
-    <input name="couname2" type="text" class="form-control" id="couname2" value="<?php echo $row->couName;?>" />
+    <input name="CountryName" type="text" class="form-control" id="CountryName" value="<?php echo $row->CountryName;?>" />
+        </div>
+                        <div class="clearfix"></div>
+                      </div>
+<div class="form-group">
+                        <label class="col-sm-3 control-label"> Remarks</label>
+    <div class="col-sm-9">
+    <textarea name="Remarks" class="form-control" id="Remarks"><?php echo $row->Remarks;?></textarea>
         </div>
                         <div class="clearfix"></div>
                       </div>
@@ -168,15 +169,22 @@ $no=1;
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Country Code</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="coucode" type="text" class="form-control"  id="coucode" required="required" maxlength="2" />
+                          <input name="CountryCode" type="text" class="form-control"  id="CountryCode" required="required" maxlength="2" />
                         </span></div>
                         <div class="clearfix"></div>
                       </div>
  <div class="form-group">
                         <label class="col-sm-3 control-label">Country Name</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="couname" type="text" class="form-control"  id="couname" required="required" />
+                          <input name="CountryName" type="text" class="form-control"  id="CountryName" required="required" />
     </span></div>
+                        <div class="clearfix"></div>
+                      </div>
+<div class="form-group">
+                        <label class="col-sm-3 control-label"> Remarks</label>
+    <div class="col-sm-9">
+    <textarea name="Remarks" class="form-control" id="Remarks"></textarea>
+        </div>
                         <div class="clearfix"></div>
                       </div>
  <div class="modal-footer">

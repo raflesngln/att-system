@@ -54,8 +54,8 @@
                                                 </tr>
                                                 <tr>
                                                   <th>No.</th>
-                                                  <th>stCode</th>
-                                                  <th>stName</th>
+                                                  <th>StateCode</th>
+                                                  <th>StateName</th>
                                                   <th>CreateBy</th>
                                                   <th>Create Date</th>
                                                   <th>Modified By</th>
@@ -71,19 +71,19 @@ $no=1;
 			?>
                                                 <tr class="gradeX">
                                                     <td><?php echo $no?></td>
-                                                    <td><?php echo $data->stCode?></td>
-                                                    <td><?php echo $data->stName?></td>
+                                                    <td><?php echo $data->StateCode?></td>
+                                                    <td><?php echo $data->StateName?></td>
                                                     <td><?php echo $data->CreateBy?></td>
                                                     <td><?php echo date("d-m-Y / h:m:s",strtotime($data->CreateDate)); ?></td>
                                                     <td><?php echo $data->ModifiedBy?></td>
                                                     <td><?php echo date("d-m-Y / h:m:s",strtotime($data->ModifiedDate)); ?></td>
                                                     <td class="text-center">
                                                       <div align="center">
-<a class="btn-action" href="#modaledit<?php echo $data->stCode?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i>
+<a class="btn-action" href="#modaledit<?php echo $data->StateCode?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i>
                                                       <button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>
                                                       </a>
                                                         
-                                                        <a href="<?php echo base_url();?>state/delete_state/<?php echo $data->stCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
+                                                        <a href="<?php echo base_url();?>state/delete_state/<?php echo $data->StateCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
                                                           <button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>
                                                         </a>                            
                                                         
@@ -110,7 +110,7 @@ $no=1;
 
     foreach($list as $row){
         ?>
-<div id="modaledit<?php echo $row->stCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="modaledit<?php echo $row->StateCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -125,16 +125,16 @@ $no=1;
                       <div class="form-group">
                         <label class="col-sm-3 control-label">State Code</label>
     <div class="col-sm-9">
-    <input name="stcode2" type="text" class="form-control" id="stcode2" value="<?php echo $row->stCode;?>" readonly="readonly" />
+    <input name="StateCode2" type="text" class="form-control" id="StateCode2" value="<?php echo $row->StateCode;?>" readonly="readonly" />
               <span class="controls">
-              <input type="hidden" name="id2" id="id2" value="<?php echo $row->stCode;?>" />
+              <input type="hidden" name="id2" id="id2" value="<?php echo $row->StateCode;?>" />
               </span></div>
                         <div class="clearfix"></div>
                       </div>
                 <div class="form-group">
                         <label class="col-sm-3 control-label">` Name</label>
     <div class="col-sm-9">
-    <input name="stname2" type="text" class="form-control" id="stname2" value="<?php echo $row->stName;?>" />
+    <input name="StateName2" type="text" class="form-control" id="StateName2" value="<?php echo $row->StateName;?>" />
   </div>
                         <div class="clearfix"></div>
                       </div>
@@ -171,14 +171,14 @@ $no=1;
                       <div class="form-group">
                         <label class="col-sm-3 control-label">State Code</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="stcode" type="text" class="form-control"  id="stcode" required="required" maxlength="2" />
+                          <input name="StateCode" type="text" class="form-control"  id="StateCode" required="required" maxlength="2" />
                         </span></div>
                         <div class="clearfix"></div>
                       </div>
  <div class="form-group">
                         <label class="col-sm-3 control-label">State Name</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="stname" type="text" class="form-control"  id="stname" required="required" />
+                          <input name="StateName" type="text" class="form-control"  id="StateName" required="required" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>

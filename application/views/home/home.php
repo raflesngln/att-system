@@ -292,7 +292,7 @@ return true;
 					<li>
 						<a href="#" class="dropdown-toggle">
 						<span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
-							<span class="menu-text"> Region Master </span>
+							<span class="menu-text"> Region & Country </span>
 
 							<b class="arrow icon-angle-down"></b>
 						</a>
@@ -319,11 +319,15 @@ return true;
                
 						</ul>
 				  </li>
-					<li> <a href="#" class="dropdown-toggle"> <span class="glyphicon glyphicon-link" aria-hidden="true"></span> <span class="menu-text"> Relation Master </span> <b class="arrow icon-angle-down"></b> </a>
+					<li> <a href="#" class="dropdown-toggle"> <span class="glyphicon glyphicon-link" aria-hidden="true"></span> <span class="menu-text"> Relation Port </span> <b class="arrow icon-angle-down"></b> </a>
                       <ul class="submenu">
+                        <li> <a href="<?php echo base_url();?>ms_organitation/view_organitation"> <i class="icon-double-angle-right"></i> </i>
+		<i class="fa fa-opencart"></i> &nbsp; Organitation </a> </li>
+                        <li> <a href="<?php echo base_url();?>ms_port/view_port"> <i class="icon-double-angle-right"></i> </i>
+		<i class="fa fa-opencart"></i> &nbsp; Port </a> </li>
+        
                         <li> <a href="<?php echo base_url();?>customer/view_customer"> <i class="icon-double-angle-right"></i> </i>
 		<i class="fa fa-opencart"></i> &nbsp; Customers </a> </li>
-
                           <li> <a href="<?php echo base_url();?>vendor/view_vendor"> <i class="icon-double-angle-right"></i> </i>
 		<i class="fa fa-cubes"></i> &nbsp; Vendor</a></li>
                       </ul>

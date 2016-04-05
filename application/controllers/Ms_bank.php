@@ -26,8 +26,8 @@ public function ajax_list()
 		$kolom1='a.CreatedBy';
 		$kolom2='b.id_user';
 		
-        $nm_coloum= array('a.BankAccNo','a.BankAccNo','a.BankAccName','a.BusinessCode','a.BankDesc','b.FullName');
-        $orderby= array('a.BankAccNo' => 'desc');
+        $nm_coloum= array('a.BankCode','a.BankCode','a.BankName','a.BankDesc','b.FullName');
+        $orderby= array('a.BankCode' => 'desc');
         $where=  array();
         $list = $this->Mdata->get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
@@ -37,14 +37,13 @@ public function ajax_list()
 			$no++;
 			$row = array(
             'no' => $no,
-            'BankAccNo' => $datalist->BankAccNo,
-            'BankAccName' => $datalist->BankAccName,
-			'BusinessCode' => $datalist->BusinessCode,
+            'BankCode' => $datalist->BankCode,
+            'BankName' => $datalist->BankName,
             'BankDesc' =>$datalist->BankDesc,
 			'FullName' =>$datalist->FullName,
 			
-            'action'=> '<a class="green" href="javascript:void()" title="Edit" onclick="edit_person5('."'".$datalist->BankAccNo."'".')"><i class="icon-pencil bigger-150"></i></a>&nbsp;&nbsp;
-				    <a class="red" href="javascript:void()" title="Hapus" onclick="delete_person5('."'".$datalist->BankAccNo."'".')"><i class="icon-trash bigger-150"></i></a>'
+            'action'=> '<a class="green" href="javascript:void()" title="Edit" onclick="edit_person5('."'".$datalist->BankCode."'".')"><i class="icon-pencil bigger-150"></i></a>&nbsp;&nbsp;
+				    <a class="red" href="javascript:void()" title="Hapus" onclick="delete_person5('."'".$datalist->BankCode."'".')"><i class="icon-trash bigger-150"></i></a>'
             );
 			$data[] = $row;
 		}
@@ -61,10 +60,10 @@ public function ajax_list()
 
 public function ajax_edit()
 	{
-	   	$BankAccNo     = $this->input->post('cid');
+	   	$BankCode     = $this->input->post('cid');
         $nmtabel= $this->input->post('cnmtabel');
         $key    = $this->input->post('ckeytabel');
-		$data = $this->Mdata->get_by_id($BankAccNo,$nmtabel,$key);
+		$data = $this->Mdata->get_by_id($BankCode,$nmtabel,$key);
 		echo json_encode($data);
 	}
 
@@ -72,8 +71,8 @@ public function ajax_edit()
 	{   
 	    $nmtabel='ms_bank';
 		$data = array(
-				'BankAccName' => $this->input->post('BankAccName'),
-				'BusinessCode' => $this->input->post('BusinessCode'),
+				'BankName' => $this->input->post('BankName'),
+				'BankCode' => $this->input->post('BankCode2'),
 				'BankDesc' => $this->input->post('BankDesc'), 
 				'CreatedBy' => $this->session->userdata('idusr'),
 			);
@@ -84,13 +83,12 @@ public function ajax_edit()
 	public function ajax_update()
 	{
 	    $nmtabel='ms_bank';
-        $key='BankAccNo';
+        $key='BankCode';
 		$data = array(
-				'BankAccName' => $this->input->post('BankAccName'),
-				'BusinessCode' => $this->input->post('BusinessCode'),
+				'BankName' => $this->input->post('BankName'),
 				'BankDesc' => $this->input->post('BankDesc'),
 			);
-		$this->Mdata->update(array($key => $this->input->post('BankAccNo')), $data,$nmtabel);
+		$this->Mdata->update(array($key => $this->input->post('BankCode')), $data,$nmtabel);
 		echo json_encode(array("status" => TRUE));
 	}
 

@@ -18,9 +18,8 @@
             },
             "columns": [
             { "data": "no" },
-            { "data": "BankAccNo" },
-            { "data": "BankAccName" },
-			{ "data": "BusinessCode" },
+            { "data": "BankCode" },
+            { "data": "BankName" },
             { "data": "BankDesc" },
 			{ "data": "FullName" },
             { "data": "action" }
@@ -39,7 +38,8 @@ function add_person5()
       save_method5 = 'add';
       $('#form5')[0].reset(); // reset form on modals
       $('#modal_form5').modal('show'); // show bootstrap modal
-      $('.modal-title5').text('Add Linebusiness'); // Set Title to Bootstrap modal title
+      $('.modal-title5').text('Add Linebusiness');
+	  document.getElementById("BankCode2").disabled=false;
     }
 
 function edit_person5(id)
@@ -48,7 +48,7 @@ function edit_person5(id)
       $('#form5')[0].reset(); // reset form on modals
         
       var nmtabel='ms_bank';
-      var keytabel='BankAccNo';
+      var keytabel='BankCode';
         
       //Ajax Load data from ajax
       $.ajax({
@@ -58,13 +58,14 @@ function edit_person5(id)
         dataType: "JSON",
         success: function(data)
         {
-            $('[name="BankAccName"]').val(data.BankAccName);
-			 $('[name="BankAccNo"]').val(data.BankAccNo	);
-			 $('[name="BusinessCode"]').val(data.BusinessCode);
+            $('[name="BankName"]').val(data.BankName);
+			 $('[name="BankCode"]').val(data.BankCode);
+			$('[name="BankCode2"]').val(data.BankCode);
             $('[name="BankDesc"]').val(data.BankDesc); 
 			
-            $('#modal_form5').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title5').text('Edit Linebusiness'); // Set title to Bootstrap modal title
+            $('#modal_form5').modal('show');
+            $('.modal-title5').text('Edit Linebusiness');
+			document.getElementById("BankCode2").disabled=true;
             
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -114,7 +115,7 @@ function delete_person5(id)
     {
       if(confirm('Are you sure delete this data?'))
       var nmtabel='ms_bank';
-      var keytabel='BankAccNo';
+      var keytabel='BankCode';
       {
         // ajax delete data to database
           $.ajax({
@@ -152,7 +153,6 @@ function delete_person5(id)
           <th>no</th>  
           <th>id</th>
           <th> Name</th>
-          <th>Businescode</th>
           <th>Description</th>
           <th>Createdby</th>
           <th style="width:125px;">Action</th>
@@ -166,7 +166,6 @@ function delete_person5(id)
           <th>no</th>
           <th>id</th>
           <th> Name</th>
-          <th>Businescode</th>
           <th>Description</th>
           <th>Createdby</th>
           <th>Action</th>
@@ -184,20 +183,21 @@ function delete_person5(id)
       </div>
       <div class="modal-body form">
         <form action="#" id="form5" class="form-horizontal">
-          <input name="BankAccNo" type="hidden" id="BankAccNo" value=""/> 
+          <input name="BankCode" type="hidden" id="BankCode" value=""/> 
           <div class="form-body">
+<div class="form-group">
+              <label class="control-label col-md-3"> Bank Code</label>
+              <div class="col-md-9">
+                <input name="BankCode2" type="text" class="form-control nama" id="BankCode2" placeholder="Name" value="" />
+              </div>
+            </div>
             <div class="form-group">
               <label class="control-label col-md-3"> Name</label>
               <div class="col-md-9">
-                <input name="BankAccName" type="text" class="form-control nama" id="BankAccName" placeholder="Name" value="" />
+                <input name="BankName" type="text" class="form-control nama" id="BankName" placeholder="Name" value="" />
               </div>
             </div>
-<div class="form-group">
-              <label class="control-label col-md-3"> BusinessCode</label>
-              <div class="col-md-9">
-                <input name="BusinessCode" type="text" class="form-control nama" id="BusinessCode" placeholder="Name" value="" />
-              </div>
-            </div>
+
             <div class="form-group">
               <label class="control-label col-md-3">Address</label>
               <div class="col-md-9">

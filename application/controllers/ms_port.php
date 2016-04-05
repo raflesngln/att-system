@@ -1,5 +1,5 @@
 <?php
-class City extends CI_Controller{
+class ms_port extends CI_Controller{
     function __construct(){
         parent::__construct();
         if($this->session->userdata('login_status') != TRUE ){
@@ -11,7 +11,7 @@ class City extends CI_Controller{
 		date_default_timezone_set("Asia/Jakarta"); 
     }	
 	 
-function view_city(){  
+function view_port(){  
 	 
 	 	$page=$this->uri->segment(3);
       	$limit=25;
@@ -20,24 +20,26 @@ function view_city(){
 		else:
 		$offset = $page;
 		endif;
-		$data['title']='list City';
-		$data['scrumb_name']='Data City';
-		$data['scrumb']='city/view_city';
+		$data['title']='list port';
+		$data['scrumb_name']='Data port';
+		$data['scrumb']='ms_port/view_port';
 		$data['country']=$this->model_app->getdata('ms_country',"");
-		$data['state']=$this->model_app->getdata('ms_state',"");
-		$data['list']=$this->model_app->getdatapaging("a.CityCode,a.CityIATACode,a.CityName,a.State,b.CountryCode,b.CountryName,c.StateCode,c.StateName",
-		"ms_city a",
-		"LEFT join ms_country b on a.Country=b.CountryCode 
-		LEFT join ms_state c on a.State=c.StateCode
-		order by a.CityCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel("a.CityCode,a.CityName,a.State,b.CountryCode,b.CountryName,c.StateCode,c.StateName",
-		"ms_city a",
-		"LEFT join ms_country b on a.Country=b.CountryCode 
-		LEFT join ms_state c on a.State=c.StateCode
-		order by a.CityCode ASC");
+		$data['city']=$this->model_app->getdata('ms_city',"");
+		$data['organitation']=$this->model_app->getdata('ms_organitation',"");
+		
+		$data['list']=$this->model_app->getdatapaging("a.PortCode,a.Remarks,a.PortName,b.OrgCode,b.OrgName,c.CityCode,c.CityName",
+		"ms_port a",
+		"LEFT JOIN ms_organitation b on a.Organitation=b.OrgCode 
+		LEFT JOIN ms_city c on a.City=c.CityCode
+		order by a.PortCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel("a.PortCode,a.Remarks,a.PortName,b.OrgName,c.CityCode,c.CityName",
+		"ms_port a",
+		"LEFT JOIN ms_organitation b on a.Organitation=b.OrgCode 
+		LEFT JOIN ms_city c on a.City=c.CityCode
+		order by a.PortCode ASC");
 
         	//create for pagination		
-			$config['base_url'] = base_url() . 'city/view_city/';
+			$config['base_url'] = base_url() . 'ms_port/view_port/';
 			$config['total_rows'] = $tot_hal->num_rows();
         	$config['per_page'] = $limit;
 			$config['uri_segment'] = 3;
@@ -59,44 +61,35 @@ function view_city(){
        		$this->pagination->initialize($config);
 			$data["paginator"] =$this->pagination->create_links();
 		
-		$data['view']='pages/city/v_city';
+		$data['view']='pages/port/v_port';
         $this->load->view('home/home',$data);
      }
  
-//--SAVE--------
-function update_city2()
-{	
 
- }
-//--SAVE--------
-function save_city()
+function save_port()
 {	
-		$country=$this->input->post('tCountry');
-		$nomor=$this->model_app->generateCity("ms_city","CityCode",$country);
-		
-		$this->form_validation->set_rules('CityName','CityName','required|trim|xss_clean');
+		$PortCode=$this->input->post('PortCode');
+		$this->form_validation->set_rules('PortCode','PortCode','required|trim|xss_clean');
+		$this->form_validation->set_rules('PortName','PortName','required|trim|xss_clean');
 	 if ($this->form_validation->run() == FALSE)
 	{
-		redirect('city/view_city');
+		redirect('ms_port/view_port');
 	}
 		else
 	{
 		$message="New Data has been Saved with code ( ".$code." )";
 		$clas='success';
 		$newdata=array(
-		'CityCode' =>$nomor,
-		'CityName'=>strtoupper($this->input->post('CityName')),
-		'Country'=>$this->input->post('tCountry'),
-		'State'=>$this->input->post('tState'),
-		'CityIATACode'=>$this->input->post('CityIATACode'),
-		'CityFIATACode'=>$this->input->post('CityFIATACode'),
-		'CityICAOCode'=>$this->input->post('CityICAOCode'),
-		'Remarks'=>$this->input->post('Remarks'),
+		'PortCode' =>$this->input->post('PortCode'),
+		'PortName'=>strtoupper($this->input->post('PortName')),
+		'Organitation'=>$this->input->post('organitation'),
+		'City'=>$this->input->post('city'),
+		'Remarks'=>$this->input->post('remarks'),
 		'CreatedBy'=>$this->session->userdata('nameusr'),
 		'CreatedDate'=>date('Y-m-d H:i:s'),
 		);		
-		 $this->model_app->insert('ms_city',$newdata);	
-		redirect('city/view_city');
+		 $this->model_app->insert('ms_port',$newdata);	
+		redirect('ms_port/view_port');
 	 
 	}
  }
@@ -125,12 +118,12 @@ $this->form_validation->set_rules('CityName2','CityName2','required|trim|xss_cle
 }
 
 //------------delete data----------------------------------
-function delete_city(){
+function delete_port(){
 	$kode=$this->uri->segment(3);
 	 if($this->session->userdata('login_status') == TRUE )
  	{
-		     $this->model_app->delete_data('ms_city','CityCode',$kode);
-			redirect('city/view_city');
+		     $this->model_app->delete_data('ms_port','PortCode',$kode);
+			redirect('ms_port/view_port');
 	}
 	else
 	{

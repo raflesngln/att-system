@@ -71,6 +71,7 @@ public function ajax_edit()
 	{   
 	    $nmtabel='ms_commodity';
 		$data = array(
+		        'CommCode' => $this->input->post('CommCode2'),
 				'CommName' => $this->input->post('CommName'),
 				'CommDesc' => $this->input->post('CommDesc'),
 				'CreatedBy' => $this->session->userdata('idusr'),

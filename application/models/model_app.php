@@ -42,6 +42,25 @@ public function generateNo($table,$kolom,$kd_unik)
         }
         return $kd_unik.date('Ym').$kd;
     }
+public function generateCity($table,$kolom,$kd_unik)
+    {
+		//$bulan=date('m');
+        $query = $this->db->query("select MAX(RIGHT(".$kolom.",5)) as kd_max from ".$table." ");
+        $kd = "";
+        if($query->num_rows()>0)
+        {
+            foreach($query->result() as $k)
+            {
+                $tmp = ((int)$k->kd_max)+1;
+                $kd = sprintf("%05s", $tmp);
+            }
+        }
+        else
+        {
+            $kd = "00001";
+        }
+        return $kd_unik.$kd;
+    }
 //    kode house
     public function getJob($status)
     {

@@ -37,7 +37,8 @@ function add_person4()
       save_method4 = 'add';
       $('#form4')[0].reset(); // reset form on modals
       $('#modal_form4').modal('show'); // show bootstrap modal
-      $('.modal-title4').text('Add Commodity'); // Set Title to Bootstrap modal title
+      $('.modal-title4').text('Add Commodity');
+	  document.getElementById("CommCode2").disabled=false;
     }
 
 function edit_person4(id)
@@ -56,12 +57,14 @@ function edit_person4(id)
         dataType: "JSON",
         success: function(data)
         {
-            $('[name="CommName"]').val(data.CommName);
-			 $('[name="CommCode"]').val(data.CommCode);
-            $('[name="CommDesc"]').val(data.CommDesc);
+		$('[name="CommCode"]').val(data.CommCode);
+		$('[name="CommCode2"]').val(data.CommCode);
+          $('[name="CommName"]').val(data.CommName); 
+		  $('[name="CommDesc"]').val(data.CommDesc);
 			
-            $('#modal_form4').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title4').text('Edit Comodity'); // Set title to Bootstrap modal title
+            $('#modal_form4').modal('show');
+            $('.modal-title4').text('Edit Comodity');
+			document.getElementById("CommCode2").disabled=true;
             
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -181,6 +184,12 @@ function delete_person4(id)
         <form action="#" id="form4" class="form-horizontal">
           <input name="CommCode" type="hidden" id="CommCode" value=""/> 
           <div class="form-body">
+ <div class="form-group">
+              <label class="control-label col-md-3"> Code</label>
+              <div class="col-md-9">
+                <input name="CommCode2" type="text" class="form-control nama" id="CommCode2" placeholder="Name" value="" />
+              </div>
+            </div>
             <div class="form-group">
               <label class="control-label col-md-3"> Name</label>
               <div class="col-md-9">

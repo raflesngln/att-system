@@ -24,8 +24,8 @@ function view_country(){
         $data['title']='list Country';
 		$data['scrumb_name']='Data Country';
 		$data['scrumb']='country/view_country';
-		$data['list']=$this->model_app->getdata('ms_country',"order by couName ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_country',"order by couName ASC");
+		$data['list']=$this->model_app->getdata('ms_country',"order by CountryCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_country',"order by CountryCode ASC");
         					//create for pagination		
 			$config['base_url'] = base_url() . 'country/view_country/';
         	$config['total_rows'] = $tot_hal->num_rows();
@@ -45,15 +45,15 @@ function view_country(){
 //--SAVE--------
 function save_country()
 {	
-$this->form_validation->set_rules('coucode','coucode','required|trim|xss_clean');
+$this->form_validation->set_rules('CountryCode','CountryCode','required|trim|xss_clean');
 	 if ($this->form_validation->run() == FALSE)
 	{
 		redirect('country/view_country');
 	}
 		else
 	{
-		$code=$this->input->post('coucode');
-		$cari=$this->model_app->getdata('ms_country',"where couCode='$code'");
+		$code=$this->input->post('CountryCode');
+		$cari=$this->model_app->getdata('ms_country',"where CountryCode='$code'");
 		if($cari){ ?>
 			<script type="text/javascript">
 			alert('Data with This Code  has already exist !. try another code');
@@ -63,8 +63,9 @@ $this->form_validation->set_rules('coucode','coucode','required|trim|xss_clean')
 		$message="New Data has been Saved with code ( ".$code." )";
 		$clas='success';
 		$newdata=array(
-		'couCode' =>strtoupper($this->input->post('coucode')),
-		'couName'=>strtoupper($this->input->post('couname')),
+		'CountryCode' =>strtoupper($this->input->post('CountryCode')),
+		'CountryName'=>strtoupper($this->input->post('CountryName')),
+		'Remarks'=>$this->input->post('Remarks'),
 		'CreatedBy'=>$this->session->userdata('nameusr'),
 		'CreatedDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy'=>'',
@@ -73,33 +74,7 @@ $this->form_validation->set_rules('coucode','coucode','required|trim|xss_clean')
 		 $this->model_app->insert('ms_country',$newdata);	
 		}
 
-		$page=$this->uri->segment(3);
-      	$limit=25;
-		if(!$page):
-		$offset = 0;
-		else:
-		$offset = $page;
-		endif;
-        $data['title']='list country';
-		$data['scrumb_name']='Data country';
-		$data['scrumb']='country/view_country';
-		$data['message']=$message;
-		$data['clas']=$clas;
-		$data['list']=$this->model_app->getdata('ms_country',"order by couName ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_country',"order by couName ASC");
-        					//create for pagination		
-			$config['base_url'] = base_url() . 'country/view_country/';
-        	$config['total_rows'] = $tot_hal->num_rows();
-        	$config['per_page'] = $limit;
-			$config['uri_segment'] = 3;
-	    	$config['first_link'] = 'First';
-			$config['last_link'] = 'last';
-			$config['next_link'] = 'Next';
-			$config['prev_link'] = 'Prev';
-       		$this->pagination->initialize($config);
-			$data["paginator"] =$this->pagination->create_links();
-		$data['view']='pages/country/v_country';
-        $this->load->view('home/home',$data);
+	 redirect('country/view_country');
 
 	 }
  }
@@ -108,8 +83,8 @@ $this->form_validation->set_rules('coucode','coucode','required|trim|xss_clean')
 function update_country()
 {	
 
-$code=$this->input->post('coucode2');
-$this->form_validation->set_rules('coucode2','coucode2','required|trim|xss_clean');
+$code=$this->input->post('id2');
+$this->form_validation->set_rules('CountryCode','CountryCode','required|trim|xss_clean');
 	 if ($this->form_validation->run() == FALSE)
 	{
 		redirect('country/view_country');
@@ -117,11 +92,13 @@ $this->form_validation->set_rules('coucode2','coucode2','required|trim|xss_clean
 		else
 	{
 	$update=array(
-		'couName'=>strtoupper($this->input->post('couname2')),
+		'CountryCode' =>strtoupper($this->input->post('CountryCode')),
+		'CountryName'=>strtoupper($this->input->post('CountryName')),
+		'Remarks'=>$this->input->post('Remarks'),
 		'ModifiedBy'=>$this->session->userdata('nameusr'),
 		'ModifiedDate'=>date('Y-m-d H:i:s')
 		);	
-		$this->model_app->update('ms_country','couCode',$code,$update);
+		$this->model_app->update('ms_country','CountryCode',$code,$update);
 	  redirect('country/view_country');
 		}	
 }
@@ -131,7 +108,7 @@ function delete_country(){
 	$kode=$this->uri->segment(3);
 	 if($this->session->userdata('login_status') == TRUE )
  	{
-		     $this->model_app->delete_data('ms_country','couCode',$kode);
+		     $this->model_app->delete_data('ms_country','CountryCode',$kode);
 			redirect('country/view_country');
 	}
 	else
@@ -161,8 +138,8 @@ function search_country(){
         $data['title']='list country';
 		$data['scrumb_name']='Data country';
 		$data['scrumb']='country/view_country';
-		$data['list']=$this->model_app->getdata('ms_country',"where couName like '%$cari%' OR couCode like '%$cari%' order by couCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_country a',"where couName like '%$cari%' OR couCode like '%$cari%' order by couCode ASC");
+		$data['list']=$this->model_app->getdata('ms_country',"where CountryCode like '%$cari%' OR CountryCode like '%$cari%' order by CountryCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_country a',"where CountryCode like '%$cari%' OR CountryCode like '%$cari%' order by CountryCode ASC");
         					//create for pagination		
 			$config['base_url'] = base_url() . 'country/view_country/';
         	$config['total_rows'] = $tot_hal->num_rows();
@@ -191,8 +168,8 @@ function search_country_ajax(){
 		$offset = $page;
 		endif;
 		
-		$data['list']=$this->model_app->getdata('ms_country',"where couName like '$cari%' OR couCode like '$cari%' order by couCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_country a',"where couName like '$cari%' OR couCode like '$cari%' order by couCode ASC");
+		$data['list']=$this->model_app->getdata('ms_country',"where CountryCode like '$cari%' OR CountryCode like '$cari%' order by CountryCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_country a',"where CountryCode like '$cari%' OR CountryCode like '$cari%' order by CountryCode ASC");
 	//create for pagination		
 			$config['base_url'] = base_url() . 'country/view_country/';
         	$config['total_rows'] = $tot_hal->num_rows();

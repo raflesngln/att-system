@@ -18,7 +18,7 @@
 
       <div class="row">  
       <div class="col-sm-6">
-           <h1><i class="fa fa-industry fa-2x"></i> &nbsp; City  List</h1> 
+           <h1><i class="fa fa-industry fa-2x"></i> &nbsp; Port  List</h1> 
            <p>&nbsp;</p>
             </div>
      
@@ -52,14 +52,14 @@
                                               <thead>
                                                 <tr>
                                                   <th height="21" colspan="6"><div align="left"><a class="btn-addnew" href="#modaladd" data-toggle="modal" title="Add">
-                                                    <button class="btn btn-blue"><i class="icon-plus icons"></i>Add City</button></a></div></th>
+                                                    <button class="btn btn-blue"><i class="icon-plus icons"></i>Add port</button></a></div></th>
                                                 </tr>
                                                 <tr>
                                                   <th>No.</th>
-                                                  <th>CityCode</th>
-                                                  <th>CityName</th>
-                                                  <th>CountryName</th>
-                                                  <th>StateName</th>
+                                                  <th>Port Code</th>
+                                                  <th>Port Name</th>
+                                                  <th>Organitation</th>
+                                                  <th>City</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                               </thead>
@@ -76,15 +76,15 @@ if($sea=='1'){ $issea='<font color="#0000FF">Yes</font>';} else{$issea='<font co
 			?>
                                                 <tr class="gradeX">
                                                     <td><?php echo $no?></td>
-                                                    <td><?php echo $data->CityCode?></td>
+                                                    <td><?php echo $data->PortCode?></td>
+                                                    <td><?php echo $data->PortName?></td>
+                                                    <td><?php echo $data->OrgName?></td>
                                                     <td><?php echo $data->CityName?></td>
-                                                    <td><?php echo $data->CountryName?></td>
-                                                    <td><?php echo $data->CityIATACode?></td>
                                                     <td class="text-center">
-                                                      <a class="btn-action" href="#modaledit<?php echo $data->CityCode?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i>
+                                                      <a class="btn-action" href="#modaledit<?php echo $data->PortCode?>" data-toggle="modal" title="Edit"><i class="icon-note icons"></i>
                                                         <button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>
                                                       </a>
-                                                        <a href="<?php echo base_url();?>city/delete_city/<?php echo $data->CityCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
+                                                        <a href="<?php echo base_url();?>ms_port/delete_port/<?php echo $data->PortCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
                                                           <button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>
                                                         </a>
                                                     </td>
@@ -112,14 +112,10 @@ if($sea=='1'){ $issea='<font color="#0000FF">Yes</font>';} else{$issea='<font co
 <?php
 
     foreach($list as $row){
-  		$isAirport=$row->isAirport;
-		$isSeaport=$row->isSeaport;
-
-		if($isAirport==1){ $status1='YES';}else{$status1='NO';}
-		if($isSeaport==1){ $status2='YES';}else{$status2='NO';}
+  
 
         ?>
-<div id="modaledit<?php echo $row->CityCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="modaledit<?php echo $row->PortCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -132,16 +128,16 @@ if($sea=='1'){ $issea='<font color="#0000FF">Yes</font>';} else{$issea='<font co
                     <div class="modal-body">
                       <div class="clearfix"></div>
                       <div class="form-group">
-                        <label class="col-sm-3 control-label">City Code</label>
+                        <label class="col-sm-3 control-label">Port Code</label>
     <div class="col-sm-9">
-    <input name="CityCode2" type="text" class="form-control" id="CityCode2" value="<?php echo $row->CityCode;?>" readonly="readonly" />
+    <input name="PortCode2" type="text" class="form-control" id="PortCode2" value="<?php echo $row->PortCode;?>" readonly="readonly" />
               <span class="controls">
-              <input type="hidden" name="id2" id="id2" value="<?php echo $row->CityCode;?>" />
+              <input type="hidden" name="id2" id="id2" value="<?php echo $row->PortCode;?>" />
               </span></div>
                         <div class="clearfix"></div>
                       </div>
                 <div class="form-group">
-                        <label class="col-sm-3 control-label">City Name</label>
+                        <label class="col-sm-3 control-label">Port Name</label>
     <div class="col-sm-9">
     <input name="CityName2" type="text" class="form-control" id="CityName2" value="<?php echo $row->CityName;?>" />
 </div>
@@ -168,7 +164,7 @@ if($sea=='1'){ $issea='<font color="#0000FF">Yes</font>';} else{$issea='<font co
  <div class="form-group">
                         <label class="col-sm-3 control-label">State</label>
                         <div class="col-sm-9">
-       <select name="tState" id="tState" class="form-control">
+       <select name="tState" id="tState" required="required" class="form-control">
           <option value="<?php echo $row->StateCode;?>"><?php echo $row->StateName;?></option>
           <?php
 	foreach($state as $st){
@@ -205,72 +201,57 @@ if($sea=='1'){ $issea='<font color="#0000FF">Yes</font>';} else{$issea='<font co
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add City</h3>
+                <h3 id="myModalLabel">Add port</h3>
             </div>
             <div class="smart-form">
-                <form method="post" action="<?php echo site_url('city/save_city')?>">
+                <form method="post" action="<?php echo site_url('ms_port/save_port')?>">
                     <div class="modal-body">
                       
  <div class="form-group">
-                        <label class="col-sm-3 control-label">City Name</label>
+                        <label class="col-sm-3 control-label">Port code</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="CityName" type="text" class="form-control"  id="CityName" required="required" />
+                          <input name="PortCode" type="text" class="form-control"  id="PortCode" required="required" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>
- 
+ <div class="form-group">
+                        <label class="col-sm-3 control-label">Port Name</label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="PortName" type="text" class="form-control"  id="PortName" required="required" />
+</span></div>
+                        <div class="clearfix"></div>
+                      </div>
   
 <div class="form-group">
-                        <label class="col-sm-3 control-label">Country</label>
+                        <label class="col-sm-3 control-label">Organitation</label>
                         <div class="col-sm-9">
                           
-                          <select name="tCountry" id="tCountry" required="required" class="form-control">
-                            <option value="">choose country</option>
+                          <select name="organitation" id="organitation" required="required" class="form-control">
+                            <option value="">choose Organitation</option>
                             <?php
-	foreach($country as $ct){
+	foreach($organitation as $org){
 	    ?>
-                            <option value="<?php echo $ct->CountryCode;?>"><?php echo $ct->CountryName;?></option>
+                            <option value="<?php echo $org->OrgCode;?>"><?php echo $org->OrgName;?></option>
                             <?php } ?>
                           </select>
               </div>
                         <div class="clearfix"></div>
                       </div>
         <div class="form-group">
-                        <label class="col-sm-3 control-label">State</label>
+                        <label class="col-sm-3 control-label">City</label>
                         <div class="col-sm-9">
-       <select name="tState" id="tState" class="form-control">
-          <option value="">Chosse state</option>
+       <select name="city" id="city" class="form-control">
+          <option value="">Chosse City</option>
           <?php
-	foreach($state as $st){
+	foreach($city as $cty){
 	    ?>
-          <option value="<?php echo $st->StateCode;?>"><?php echo $st->StateName;?></option>
+          <option value="<?php echo $cty->PortCode;?>"><?php echo $cty->CityName;?></option>
           <?php } ?>
 </select></div>
                         <div class="clearfix"></div>
                       </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">CityIATACode</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="CityIATACode" type="text" class="form-control"  id="CityIATACode"/>
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">CityFIATACode</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="CityFIATACode" type="text" class="form-control"  id="CityFIATACode" />
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">CityICAOCode</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="CityICAOCode" type="text" class="form-control"  id="CityICAOCode" />
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Remarks</label>
+        <div class="form-group">
+              <label class="col-sm-3 control-label">Remarks</label>
                         <div class="col-sm-9"><span class="controls">
  <textarea name="remarks" id="remarks" class="form-control"></textarea>
 </span></div>
