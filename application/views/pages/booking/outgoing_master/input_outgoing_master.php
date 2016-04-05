@@ -184,7 +184,7 @@ function deliveryRp(input){
       			source: 
         		function(req, add){
           			$.ajax({
-		        		url: "<?php echo base_url(); ?>index.php/autocomplete/lookup_sender",
+		        		url: "<?php echo base_url(); ?>index.php/autocomplete_customers/lookup_sender",
 		          		dataType: 'json',
 		          		type: 'POST',
 		          		data: req,
@@ -220,7 +220,7 @@ $("#idconsigne").autocomplete({
       			source: 
         		function(req, add){
           			$.ajax({
-		        		url: "<?php echo base_url(); ?>index.php/autocomplete/lookup_receivement",
+		        		url: "<?php echo base_url(); ?>index.php/autocomplete_customers/lookup_receivement",
 		          		dataType: 'json',
 		          		type: 'POST',
 		          		data: req,
@@ -254,7 +254,7 @@ $("#idconsigne").autocomplete({
 
  <!-- ==========================================================  -->   
   <div class="row-fluid">
-    <div class="span12">
+    <div class="span9">
                   <?php
       if(isset($eror)){?>
             <label class="alert alert-error col-sm-12">
@@ -329,7 +329,7 @@ $("#idconsigne").autocomplete({
           <option value="">Choose Origin</option>
           <?php foreach ($city as $ct) {
           ?>
-          <option value="<?php echo $ct->cyCode.'-'.$ct->cyName;?>"><?php echo $ct->cyName;?></option>
+          <option value="<?php echo $ct->CityCode;?>"><?php echo $ct->CityName;?></option>
           <?php } ?>
           </select>
           </div>
@@ -339,7 +339,7 @@ $("#idconsigne").autocomplete({
           <option value="">Choose Destination</option>
           <?php foreach ($city as $ct) {
           ?>
-          <option value="<?php echo $ct->cyCode.'-'.$ct->cyName;?>"><?php echo $ct->cyName;?></option>
+          <option value="<?php echo $ct->CityCode;?>"><?php echo $ct->CityName;?></option>
           <?php } ?>
           </select>
           </div>
@@ -541,7 +541,7 @@ $("#idconsigne").autocomplete({
            <option value="">Choose Commodity</option>
           <?php foreach ($commodity as $cm) {
           ?>
-            <option value="<?php echo $cm->Name;?>"><?php echo $cm->Name;?></option>
+            <option value="<?php echo $cm->CommCode;?>"><?php echo $cm->CommName;?></option>
           <?php } ?>
       </select>
                                                 </div>

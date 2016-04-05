@@ -213,7 +213,7 @@ $("#nama").mousedown(function(){
       <div class="col-sm-7">          
         <input name="nama" type="text" class="form-control" id="nama" placeholder="Input Name">
 <i class="fa fa-spinner fa-pulse fa-2x" style="display:none">..</i>
-<input type="hidden" name="idcustomer" value="<?php echo $kd_unik;?>" />
+<input type="hidden" name="idcustomer" value="<?php //echo $kd_unik;?>" />
 </div>
 </div>
 
@@ -269,7 +269,7 @@ $("#nama").mousedown(function(){
                             <?php
 	foreach($country as $ct){
 	    ?>
-                            <option value="<?php echo $ct->couCode;?>"><?php echo $ct->couName;?></option>
+                            <option value="<?php echo $ct->CountryCode;?>"><?php echo $ct->CountryName;?></option>
                             <?php } ?>
                           </select>
         </div>
@@ -283,7 +283,7 @@ $("#nama").mousedown(function(){
           <?php
 	foreach($state as $st){
 	    ?>
-          <option value="<?php echo $st->stCode;?>"><?php echo $st->stName;?></option>
+          <option value="<?php echo $st->StateCode;?>"><?php echo $st->StateName;?></option>
           <?php } ?>
 </select></div>
       </div>
@@ -296,7 +296,7 @@ $("#nama").mousedown(function(){
           <?php
 	foreach($city as $ct){
 	    ?>
-          <option value="<?php echo $ct->cyCode;?>"><?php echo $ct->cyName;?></option>
+          <option value="<?php echo $ct->CityCode;?>"><?php echo $ct->CityName;?></option>
           <?php } ?>
         </select>
       </div>

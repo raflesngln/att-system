@@ -64,10 +64,18 @@ function view_city(){
      }
  
 //--SAVE--------
-function update_city2()
+/*function update_city2()
 {	
-
- }
+	$query=$this->db->query("SELECT * FROM `ms_port` a INNER JOIN `ms_city` b ON a.PortCode=b.CityIATACode");
+	foreach($query->result_array() as $row){
+		$pc= $row['PortCode'];
+		$cc= $row['CityCode'];
+		
+		$update=array('City'=>$cc);		
+		$this->model_app->update('ms_port','PortCode',$pc,$update);
+	}
+	
+ }*/
 //--SAVE--------
 function save_city()
 {	

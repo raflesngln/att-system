@@ -116,7 +116,7 @@ function lookup_receivement(){
         // process posted form data (the requested items like province)
         $keyword = $this->input->post('term');
         $data['response'] = 'false'; //Set default response
-        $query = $this->Mautocomplete->lookup_receive($keyword); //Search DB
+        $query = $this->Mautocomplete->lookup_receivement($keyword); //Search DB
         if( ! empty($query) )
         {
             $data['response'] = 'true'; //Set response

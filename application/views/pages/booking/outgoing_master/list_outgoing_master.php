@@ -90,7 +90,11 @@ $("#idhouse").autocomplete({
     		});
 		});
 </script>
-<div class="pull-right col-xs-12">
+
+
+<div class="row-fuid">
+<div class="span12">
+<div class="pull-right col-xs-10" style="margin-right:50px">
 
 <div class="col-sm-6 col-xs-12 pull-right">
 <div class="row">
@@ -120,8 +124,6 @@ $("#idhouse").autocomplete({
 
 
 </div>
-
-<div class="row">
                 <div class="col-lg-12 col-xs-12 portlets ui-sortable">
                     <div class="panel">
                         <!--<div class="panel-header"></div>-->
@@ -218,7 +220,12 @@ $("#idhouse").autocomplete({
                   </div>
           </div>
          </div>
-         
+    
+</div>    
+
+
+
+     
  <div id="modalInvoice" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:1000; position:;">
     
     <div class="modal-dialog" role="document">

@@ -179,6 +179,9 @@ $("#btn_add_linebusiness").click(function(){
 	var linebusinessname=$('#linebusinessname').val();   
 	var linebusinessdesc=$('#linebusinessdesc').val();
 
+	var pecah=linebusinessname.split('-');
+	var lineid=pecah[0];
+	var lineName=pecah[1];
 			
 if (linebusinessname == '' || linebusinessdesc == ''){
 	alert('Nama dan type contact tidak boleh kosong');	
@@ -186,9 +189,9 @@ if (linebusinessname == '' || linebusinessdesc == ''){
 	else
 	{
 	text='<tr class="gradeX" align="right">'
-    + '<td align="left">' + '<input type="hidden" name="linebusinessname2[]" id="linebusinessname2[]" size="5" value="'+ linebusinessname +'">'+ '<label id="l_pcs">'+ linebusinessname +'</label>' +'</td>'
+    + '<td align="left">' + '<input type="hidden" name="lineid[]" id="lineid[]" size="5" value="'+ lineid +'">'+ '<label id="l_pcs">'+ lineName +'</label>' +'</td>'
 	
-    + '<td align="left">' +  '<input type="hidden" name="linebusinessdesc2[]" id="linebusinessdesc2[]" size="5" value="'+ linebusinessdesc +'">'+ '<label id="l_pcs">'+ linebusinessdesc +'</label>' +'</td>'
+    + '<td align="left">' +  '<input type="hidden" name="linedesc[]" id="linedesc[]" size="5" value="'+ linebusinessdesc +'">'+ '<label id="l_pcs">'+ linebusinessdesc +'</label>' +'</td>'
 
 	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + linebusinessname +'" onclick="hapus3(this)" type="button"><i class="fa fa-times"></i></button></td>'
     + '</tr>';

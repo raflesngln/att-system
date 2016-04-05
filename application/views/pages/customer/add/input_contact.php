@@ -234,7 +234,7 @@ if (contacttype == '' || hidden_contact_type == ''){
 	else
 	{
 	text='<tr class="gradeX" align="right">'
-    + '<td align="left">' + '<input type="hidden" name="contacttype2[]" id="contacttype2[]" size="5" value="'+ contacttype +'">'+ '<label id="l_pcs">'+ contacttype +'</label>' +'</td>'
+    + '<td align="left">' + '<input type="hidden" name="contacttype2[]" id="contacttype2[]" size="5" value="'+ hidden_contact_type +'">'+ '<label id="l_pcs">'+ contacttype +'</label>' +'</td>'
    
 	
     + '<td align="left">' +  '<input type="hidden" name="up4[]" id="up4[]" size="5" value="'+ up3 +'">'+ '<label id="l_pcs">'+ up3 +'</label>' +'</td>'

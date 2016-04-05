@@ -74,11 +74,11 @@ $no=1;
                                                     <td><?php echo $data->Deposit?></td>
                                                     <td class="text-center"><div align="center">
                                                     
-<a class="btn-action" href="<?php echo base_url();?>customer/edit_customer/<?php echo $data->custCode?>" title="Edit">
+<a class="btn-action" href="<?php echo base_url();?>customer/edit_customer/<?php echo $data->CustCode?>" title="Edit">
 <button class="btn btn-mini btn-info"><i class="icon-edit bigger-120"></i></button>
 </a>
                                                       
-<a href="<?php echo base_url();?>customer/delete_customer/<?php echo $data->custCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
+<a href="<?php echo base_url();?>customer/delete_customer/<?php echo $data->CustCode?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete">
 <button class="btn btn-mini btn-danger"><i class="icon-trash bigger-120"></i></button>
 </a>          
                                                     </div></td>
@@ -114,7 +114,7 @@ $no=1;
 		if($isCnee==1){ $status3='YES';}else{$status3='NO';}
 		if($isaktif==1){ $status4='YES';}else{$status4='NO';}
         ?>
-<div id="modaledit<?php echo $row->custCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="modaledit<?php echo $row->CustCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -130,7 +130,7 @@ $no=1;
                         <div class="col-sm-9"><span class="controls">
                           <input name="initial" type="text" class="form-control" id="initial" value="<?php echo $row->custInitial;?>" required="required" readonly="readonly"/>
                         </span>
-                          <input type="hidden" name="id" id="id" value="<?php echo $row->custCode;?>" />
+                          <input type="hidden" name="id" id="id" value="<?php echo $row->CustCode;?>" />
                         </div>
                         <div class="clearfix"></div>
                       </div>

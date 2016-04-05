@@ -13,13 +13,14 @@ class Customer extends CI_Controller{
  	 //--VIEW customer CUSTOMERS
 function add_customer(){
 		 
-		$data['kd_unik']=$this->model_app->generateNo("ms_customer","custCode","CUST");
-		 $data['title']='add_customer';
+		//$data['kd_unik']=$this->model_app->generateNo("ms_customer","CustCode","CUST");
+		$data['title']='add_customer';
 		$data['scrumb_name']='add Customer';
 		$data['scrumb']='customer/add_customer';
 		$data['country']=$this->model_app->getdata('ms_country',"");
 		$data['state']=$this->model_app->getdata('ms_state',"");
 		$data['city']=$this->model_app->getdata('ms_city',"");
+		$data['bank']=$this->model_app->getdata('ms_bank',"");
 		$data['linebusiness']=$this->model_app->getdata('ms_linebusiness',"");
 		$data['commodity']=$this->model_app->getdata('ms_commodity',"");
 		
@@ -42,6 +43,7 @@ function edit_customer(){
 		$data['country']=$this->model_app->getdata('ms_country',"");
 		$data['state']=$this->model_app->getdata('ms_state',"");
 		$data['city']=$this->model_app->getdata('ms_city',"");
+		$data['bank']=$this->model_app->getdata('ms_bank',"");
 		$data['linebusiness']=$this->model_app->getdata('ms_linebusiness',"");
 		$data['commodity']=$this->model_app->getdata('ms_commodity',"");
 		
@@ -57,10 +59,10 @@ function edit_customer(){
 						
 		$data['detailCustomer']=$this->model_app->getdatapaging('*',
 		'ms_customer a',
-		"INNER JOIN ms_country b on a.Country=b.couCode
-		INNER JOIN ms_state c on a.State=c.stCode
+		"INNER JOIN ms_country b on a.Country=b.CountryCode
+		INNER JOIN ms_state c on a.State=c.StateCode
 		INNER JOIN ms_city d on a.City=d.CityCode
-		WHERE a.custCode='$kode'");
+		WHERE a.CustCode='$kode'");
 		
 		$data['view']='pages/customer/edit/v_edit_customer';
         $this->load->view('home/home',$data);	  
@@ -86,16 +88,16 @@ function edit_customer(){
 		$data['contact']=$this->model_app->getdatapaging('*',
 		'ms_contact_type a',"order by a.ContactTypeName");
 		 
-		$data['list']=$this->model_app->getdatapaging('a.custCode,a.Email,a.CreditLimit,a.Deposit,a.custInitial,a.custName,a.Address,
+		$data['list']=$this->model_app->getdatapaging('a.CustCode,a.Email,a.CreditLimit,a.Deposit,a.custInitial,a.custName,a.Address,
 		a.Phone,b.empCode,b.empName,c.CityCode,c.CityName',
 		'ms_customer a',"LEFT join ms_staff b on a.empCode=b.empCode
 		LEFT join ms_city c on a.City=c.CityCode
-		 order by a.custCode ASC LIMIT $offset,$limit");
+		 order by a.CustCode ASC LIMIT $offset,$limit");
 		 		 
 		$tot_hal = $this->model_app->hitung_isi_tabel('*',
 		'ms_customer a',"LEFT join ms_staff b on a.empCode=b.empCode
 		LEFT join ms_city c on a.Address=c.CityCode
-		 order by a.custCode");
+		 order by a.CustCode");
         					//create for pagination		
 			$config['base_url'] = base_url() . 'customer/view_customer/';
   			$config['total_rows'] = $tot_hal->num_rows();
@@ -124,21 +126,22 @@ function edit_customer(){
      } 
  function save_customer()
 {	
+	$no_customer=$this->model_app->generateNo("ms_customer","CustCode","CST");
 	$data=array(
-          	'custCode'=>$this->input->post('idcustomer'),
+          	'CustCode'=>$no_customer,
 			'custInitial'=>$this->input->post('initial'),
 			'custName'=>$this->input->post('nama'),
 			'Address'=>$this->input->post('address'),
 			'Country'=>$this->input->post('custCountry'),
 			'State'=>$this->input->post('custState'),
-			'CityCode'=>$this->input->post('custCity'),
+			'City'=>$this->input->post('custCity'),
 			'Phone'=>$this->input->post('phone'),
 			'MobilePhone'=>$this->input->post('hp'),
 			'Fax'=>$this->input->post('fax'),
 			'PostalCode'=>$this->input->post('custPostal'),
-			'isAgent'=>$this->input->post('isAgent'),
-			'isShipper'=>$this->input->post('isShipper'),
-			'isCnee'=>$this->input->post('isCnee'),
+			'IsAgent'=>$this->input->post('isAgent'),
+			'IsShipper'=>$this->input->post('isShipper'),
+			'IsCnee'=>$this->input->post('isCnee'),
 			'Email'=>$this->input->post('email'),
 			'CreditLimit'=>$this->input->post('creditlimit'),
 			'TermsPayment'=>$this->input->post('terms'),
@@ -158,7 +161,7 @@ function edit_customer(){
 		  $data2=array(
 		  'UP' =>$_POST['up2'][$key],
 		  'AddressDesc' =>$_POST['completeaddress2'][$key],
-		  'custCode' =>$this->input->post('idcustomer'),
+		  'PartyCode' =>$no_customer,
 		  'AddressTypeCode' =>$_POST['hidden_address_type'][$key],
 		  'City' =>$_POST['city3'][$key],
 		  'Country' =>$_POST['country2'][$key],
@@ -169,12 +172,40 @@ function edit_customer(){
 		  );
 		  $this->model_app->insert('tr_address_detail',$data2);   
 		}
-			    $contacttype2=$_POST['contacttype2']; 
+	$bankdcd=$_POST['bankdcd']; 
+		foreach($bankdcd as $key => $val){
+		  $bank=array(
+		  'BankAccNo' =>$_POST['bankrek'][$key],
+		  'BankAccName' =>$_POST['banknm'][$key],
+		  'BankCode' =>$_POST['bankdcd'][$key],
+		  'BranchName' =>$_POST['bankbranch'][$key],
+		  'PartyCode' =>$no_customer,
+		  'SwiftCode' =>$_POST['bankrek'][$key],
+		  'BankDetail' =>$_POST['bandkdsc'][$key],
+		  'isActive' =>'1',
+		  'CreatedBy' =>$this->session->userdata('idusr'),
+		  'CreatedDate' =>date('Y-m-d h:i:s'),
+		  );
+		  $this->model_app->insert('tr_bank_detail',$bank);   
+		}
+		$lineid=$_POST['lineid']; 
+		foreach($lineid as $key => $val){
+		  $linebusinessname2=array(
+		  'LineBusiness' =>$_POST['lineid'][$key],
+		  'Remarks' =>$_POST['linedesc'][$key],
+		  'PartyCode' =>$no_customer,
+		  'CreatedBy' =>$this->session->userdata('idusr'),
+		  'CreatedDate' =>date('Y-m-d h:i:s'),
+		  );
+		  $this->model_app->insert('tr_linebusiness',$linebusinessname2);   
+		}
+		
+		$contacttype2=$_POST['contacttype2']; 
 		foreach($contacttype2 as $key => $val){
 		  $data3=array(
 		  'UP' =>$_POST['up4'][$key],
 		  'Phone' =>$_POST['phone3'][$key],
-		  'custCode' =>$this->input->post('idcustomer'),
+		  'PartyCode' =>$no_customer,
 		  'Fax' =>$_POST['fax3'][$key],
 		  'Extention' =>$_POST['ext3'][$key],
 		  'Handphone' =>$_POST['hp3'][$key],
@@ -252,21 +283,21 @@ $this->form_validation->set_rules('initial','initial','required|trim|xss_clean')
 		$data['message']=$message;
 		$data['clas']=$clas;
 		$data['list']=$this->model_app->getdatapaging('a.Fax,a.email,a.isAgent,a.isActive,a.isShipper,a.isCnee,a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,
-		a.TermsPayment,a.PostalCode,a.custCode,a.custName,a.Remarks,a.NPWPAddress,
+		a.TermsPayment,a.PostalCode,a.CustCode,a.custName,a.Remarks,a.NPWPAddress,
 		a.Address,a.custInitial,a.Phone,a.Email,a.CreditLimit,a.Deposit,a.NPWP,
 		a.ModifiedBy,a.ModifiedDate,b.empCode,b.empName,b.devisi,c.CityCode,c.CityName',
 		'ms_customer a',"inner join ms_staff b on a.empCode=b.empCode
 		inner join ms_city c on a.City=c.CityCode
 		where b.devisi='sales'
-		 order by a.custCode ASC LIMIT $offset,$limit");
+		 order by a.CustCode ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel('a.Fax,a.custInitial,a.email,a.isAgent,a.isActive,a.isShipper,a.isCnee,a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,
-		a.TermsPayment,a.PostalCode,a.custCode,a.custName,a.Remarks,a.NPWPAddress,
+		a.TermsPayment,a.PostalCode,a.CustCode,a.custName,a.Remarks,a.NPWPAddress,
 		a.Address,a.Phone,a.Email,a.CreditLimit,a.Deposit,a.NPWP,
 		a.ModifiedBy,a.ModifiedDate,b.empCode,b.empName,b.devisi,c.CityCode,c.CityName',
 		'ms_customer a',"inner join ms_staff b on a.empCode=b.empCode
 		inner join ms_city c on a.City=c.CityCode
 		where b.devisi='sales'
-		 order by a.custCode");
+		 order by a.CustCode");
         					//create for pagination		
 			$config['base_url'] = base_url() . 'customer/view_customer/';
         	$config['total_rows'] = $tot_hal->num_rows();
@@ -322,7 +353,7 @@ $this->form_validation->set_rules('initial','initial','required|trim|xss_clean')
 		'ModifiedBy' =>$this->session->userdata('nameusr'),
 		'ModifiedDate' =>date('Y-m-d h:i:s')	
 		);
-		$this->model_app->update('ms_customer','custCode',$code,$update);
+		$this->model_app->update('ms_customer','CustCode',$code,$update);
 	  redirect('customer/view_customer');
 		}	
 }
@@ -332,7 +363,7 @@ function delete_customer(){
 	$kode=$this->uri->segment(3);
 	 if($this->session->userdata('login_status') == TRUE )
  	{
-		     $this->model_app->delete_data('ms_customer','custCode',$kode);
+		     $this->model_app->delete_data('ms_customer','CustCode',$kode);
 			redirect('customer/view_customer');
 	}
 	else
@@ -358,21 +389,21 @@ function search_customer(){
 		$data['scrumb_name']='Data Customers';
 		$data['scrumb']='master/view_customer';
 		$data['list']=$this->model_app->getdatapaging('a.Fax,a.email,a.isAgent,a.isActive,a.isShipper,a.isCnee,a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,
-		a.TermsPayment,a.PostalCode,a.custCode,a.custName,a.Remarks,a.NPWPAddress,
+		a.TermsPayment,a.PostalCode,a.CustCode,a.custName,a.Remarks,a.NPWPAddress,
 		a.Address,a.Phone,a.Email,a.CreditLimit,a.Deposit,a.NPWP,
 		a.ModifiedBy,a.ModifiedDate,b.empCode,b.empName,b.devisi,c.CityCode,c.CityName',
 		'ms_customer a',"inner join ms_staff b on a.empCode=b.empCode
 		inner join ms_city c on a.City=c.CityCode
 		WHERE b.devisi='sales' AND a.custName LIKE '$cari%' OR a.Address LIKE '%$cari%'
-		 order by a.custCode ASC LIMIT $offset,$limit");
+		 order by a.CustCode ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel('a.Fax,a.email,a.isAgent,a.isActive,a.isShipper,a.isCnee,a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,
-		a.TermsPayment,a.PostalCode,a.custCode,a.custName,a.Remarks,a.NPWPAddress,
+		a.TermsPayment,a.PostalCode,a.CustCode,a.custName,a.Remarks,a.NPWPAddress,
 		a.Address,a.Phone,a.Email,a.CreditLimit,a.Deposit,a.NPWP,
 		a.ModifiedBy,a.ModifiedDate,b.empCode,b.empName,b.devisi,c.CityCode,c.CityName',
 		'ms_customer a',"inner join ms_staff b on a.empCode=b.empCode
 		inner join ms_city c on a.City=c.CityCode
 		WHERE b.devisi='sales' AND a.custName LIKE '$cari%' OR a.Address LIKE '%$cari%'
-		 order by a.custCode");
+		 order by a.CustCode");
  		    //create for pagination		
 			$config['base_url'] = base_url() . 'search/search_customer/';
         	$config['total_rows'] = $tot_hal->num_rows();
@@ -398,21 +429,21 @@ function search_customer(){
 		$offset = $page;
 		endif;
 		$data['list']=$this->model_app->getdatapaging('a.Fax,a.email,a.isAgent,a.isActive,a.isShipper,a.isCnee,a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,
-		a.TermsPayment,a.PostalCode,a.custCode,a.custName,a.Remarks,a.NPWPAddress,
+		a.TermsPayment,a.PostalCode,a.CustCode,a.custName,a.Remarks,a.NPWPAddress,
 		a.Address,a.Phone,a.Email,a.CreditLimit,a.Deposit,a.NPWP,
 		a.ModifiedBy,a.ModifiedDate,b.empCode,b.empName,b.devisi,c.CityCode,c.CityName',
 		'ms_customer a',"inner join ms_staff b on a.empCode=b.empCode
 		inner join ms_city c on a.City=c.CityCode
 		WHERE b.devisi='sales' AND a.custName like '$cari%' OR a.Address LIKE '%$cari%'
-		 order by a.custCode ASC LIMIT $offset,$limit");
+		 order by a.CustCode ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel('a.Fax,a.email,a.isAgent,a.isActive,a.isShipper,a.isCnee,a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,
-		a.TermsPayment,a.PostalCode,a.custCode,a.custName,a.Remarks,a.NPWPAddress,
+		a.TermsPayment,a.PostalCode,a.CustCode,a.custName,a.Remarks,a.NPWPAddress,
 		a.Address,a.Phone,a.Email,a.CreditLimit,a.Deposit,a.NPWP,
 		a.ModifiedBy,a.ModifiedDate,b.empCode,b.empName,b.devisi,c.CityCode,c.CityName',
 		'ms_customer a',"inner join ms_staff b on a.empCode=b.empCode
 		inner join ms_city c on a.City=c.CityCode
 		WHERE b.devisi='sales' AND a.custName like '$cari%' OR a.Address LIKE '%$cari%'
-		 order by a.custCode");
+		 order by a.CustCode");
 		 	//create for pagination		
 			$config['base_url'] = base_url() . 'master/view_customer/';
         	$config['total_rows'] = $tot_hal->num_rows();

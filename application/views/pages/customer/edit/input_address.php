@@ -118,7 +118,7 @@ $no=1;
                             <?php
 	foreach($country as $ct){
 	    ?>
-                            <option value="<?php echo $ct->couCode;?>"><?php echo $ct->couName;?></option>
+                            <option value="<?php echo $ct->CountryCode.'-'.$ct->CountryName;?>"><?php echo $ct->CountryName;?></option>
                             <?php } ?>
                           </select></span>
             </div>
@@ -131,7 +131,7 @@ $no=1;
           <?php
 	foreach($state as $st){
 	    ?>
-          <option value="<?php echo $st->stCode;?>"><?php echo $st->stName;?></option>
+          <option value="<?php echo $st->StateCode.'-'.$st->StateName;?>"><?php echo $st->StateName;?></option>
           <?php } ?>
 </select></span>
             </div>
@@ -145,7 +145,7 @@ $no=1;
           <?php
 	foreach($city as $ct){
 	    ?>
-          <option value="<?php echo $ct->cyCode;?>"><?php echo $ct->cyName;?></option>
+          <option value="<?php echo $ct->CityCode.'-'.$ct->CityName;?>"><?php echo $ct->CityName;?></option>
           <?php } ?>
         </select>
               </span>
@@ -242,7 +242,19 @@ $("#btn_add_address").click(function(){
 	var city2=$('#city2').val(); 
 	var state=$('#state').val(); 
 	var country=$('#country').val(); 
-	var PostalCode=$('#PostalCode').val(); 
+	var PostalCode=$('#PostalCode').val();
+	
+	var pecah=country.split('-');
+	var idCountry=pecah[0];
+	var nmCountry=pecah[1]; 
+	
+	var pecah2=state.split('-');
+	var idState=pecah2[0];
+	var nmState=pecah2[1]; 
+	
+	var pecah3=city2.split('-');
+	var idCity=pecah3[0];
+	var nmCity=pecah3[1]; 
 			
 if (addresstype == '' || hidden_address_type == ''){
 	alert('Nama dan type contact tidak boleh kosong');	
@@ -250,17 +262,17 @@ if (addresstype == '' || hidden_address_type == ''){
 	else
 	{
 	text='<tr class="gradeX" align="right">'
-    + '<td align="left">' + '<input type="hidden" name="addresstype2[]" id="addresstype2[]" size="5" value="'+ addresstype +'">'+ '<label id="l_pcs">'+ addresstype +'</label>' +'</td>'
+    + '<td align="left">' + '<input type="hidden" name="addresstype2[]" id="addresstype2[]" size="5" value="'+ hidden_address_type +'">'+ '<label id="l_pcs">'+ addresstype +'</label>' +'</td>'
 	
     + '<td align="left">' +  '<input type="hidden" name="up2[]" id="up2[]" size="5" value="'+ up +'">'+ '<label id="l_pcs">'+ up +'</label>' +'</td>'
 
     + '<td align="left">' +  '<input type="hidden" name="completeaddress2[]" id="completeaddress2[]" size="5" value="'+ completeaddress +'">'+ '<label id="l_pcs">'+ completeaddress +'</label>' +'</td>'
 
-    + '<td align="left">' +  '<input type="hidden" name="city3[]" id="city3[]" size="5" value="'+ city2 +'">'+ '<label id="l_pcs">'+ city2 +'</label>' +'</td>'
+    + '<td align="left">' +  '<input type="hidden" name="city3[]" id="city3[]" size="5" value="'+ idCity +'">'+ '<label id="l_pcs">'+ nmCity +'</label>' +'</td>'
 	
-    + '<td align="left">' +  '<input type="hidden" name="state2[]" id="state2[]" size="5" value="'+ state +'">'+ '<label id="l_pcs">'+ state +'</label>' +'</td>'
+    + '<td align="left">' +  '<input type="hidden" name="state2[]" id="state2[]" size="5" value="'+ idState +'">'+ '<label id="l_pcs">'+ nmState +'</label>' +'</td>'
 	
-    + '<td align="left">' +  '<input type="hidden" name="country2[]" id="country2[]" size="5" value="'+ country +'">'+ '<label id="l_pcs">'+ country +'</label>' +'</td>'
+    + '<td align="left">' +  '<input type="hidden" name="country2[]" id="country2[]" size="5" value="'+ idCountry +'">'+ '<label id="l_pcs">'+ nmCountry +'</label>' +'</td>'
 	
     + '<td align="left">' +  '<input type="hidden" name="PostalCode2[]" id="PostalCode2[]" size="5" value="'+ PostalCode +'">'+ '<label id="l_pcs">'+ PostalCode +'</label>' +'</td>'
 
