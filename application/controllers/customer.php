@@ -172,7 +172,7 @@ function edit_customer(){
 		  );
 		  $this->model_app->insert('tr_address_detail',$data2);   
 		}
-	$bankdcd=$_POST['bankdcd']; 
+	 $bankdcd=$_POST['bankdcd']; 
 		foreach($bankdcd as $key => $val){
 		  $bank=array(
 		  'BankAccNo' =>$_POST['bankrek'][$key],

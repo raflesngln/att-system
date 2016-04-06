@@ -60,6 +60,7 @@ function lookup_sender(){
               $data['message'][] = array( 
                     'id'=>$row->custCode,
                      'value' =>$row->custName,
+					 'nomor' =>$row->CustCode,
                      'name' => $row->custName,
                      'phone' => $row->Phone,
 					 'address' => $row->Address,
@@ -125,8 +126,9 @@ function lookup_receivement(){
             {
               $data['message'][] = array( 
                     'id'=>$row->custCode,
-                     'value' => $row->custCode.'-'.$row->custName,
+                     'value' =>$row->custName,
                      'name' => $row->custName,
+					 'nomor' =>$row->CustCode,
                      'phone' => $row->Phone,
 					 'address' => $row->Address,
 					 'email' => $row->Email,

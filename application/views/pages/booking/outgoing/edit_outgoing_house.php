@@ -544,7 +544,7 @@ foreach($connote as $row){
                                                 <div class="col-md-12">
                                               <label class="col-sm-3">CWT &nbsp;</label>
                                               <div class="col-sm-8">
-                                              <input type="text" name="cwt" id="cwt" value="<?php echo $tot_weight;?>" class="form-control" onkeypress="return isNumberKey(event)">
+                                              <input type="text" name="cwt" id="cwt" value="<?php echo $row->CWT;?>" class="form-control" onkeypress="return isNumberKey(event)">
                                               <input type="hidden" name="ori_cwt" id="ori_cwt" value="0">
                                               </div>
                                                 </div>

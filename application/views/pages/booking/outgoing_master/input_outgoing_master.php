@@ -329,7 +329,7 @@ $("#idconsigne").autocomplete({
           <option value="">Choose Origin</option>
           <?php foreach ($city as $ct) {
           ?>
-          <option value="<?php echo $ct->CityCode;?>"><?php echo $ct->CityName;?></option>
+          <option value="<?php echo $ct->PortCode;?>"><?php echo $ct->PortName;?></option>
           <?php } ?>
           </select>
           </div>
@@ -339,7 +339,7 @@ $("#idconsigne").autocomplete({
           <option value="">Choose Destination</option>
           <?php foreach ($city as $ct) {
           ?>
-          <option value="<?php echo $ct->CityCode;?>"><?php echo $ct->CityName;?></option>
+          <option value="<?php echo $ct->PortCode;?>"><?php echo $ct->PortName;?></option>
           <?php } ?>
           </select>
           </div>
@@ -1066,11 +1066,11 @@ if (panjang == '' || lebar == '' || pcs == ''){
 	text='<tr class="gradeX" align="right">'
 	+ '<td></td>'
     + '<td>' + '<input type="hidden" name="pcs[]" id="pcs[]" size="5" value="'+ pcs +'">'+ '<label id="l_pcs">'+ pcs +'</label>' +'</td>'
-    + '<td>' + '<input type="hidden" name="p[]" id="p[]" size="5" value="'+ panjang +'">'+ '<label id="l_pcs">'+ panjang +'</label>' +'</td>'
-    + '<td>' +  '<input type="hidden" name="l[]" id="l[]" size="5" value="'+ lebar +'">'+ '<label id="l_pcs">'+ lebar +'</label>' +'</td>'
+    + '<td>' + '<input type="hidden" name="p[]" id="p[]" value="'+ panjang +'">'+ '<label id="l_pcs">'+ panjang +'</label>' +'</td>'
+    + '<td>' +  '<input type="hidden" name="l[]" id="l[]" value="'+ lebar +'">'+ '<label id="l_pcs">'+ lebar +'</label>' +'</td>'
     + '<td>' +  '<input type="hidden" name="t[]" id="t[]" size="5" value="'+ tinggi +'">'+ '<label id="l_pcs">'+ tinggi +'</label>' +'</td>'
-    + '<td>' + '<input type="hidden" name="v[]" id="v[]" size="5" value="'+ kali +'">'+ '<label id="l_pcs">'+ kali +'</label>' +'</td>'
-    + '<td>' + '<input type="hidden" name="v[]" id="v[]" size="5" value="'+ weight +'">'+ '<label id="l_pcs">'+ weight +'</label>' +'</td>'
+    + '<td>' + '<input type="hidden" name="v[]" id="v[]" value="'+ kali +'">'+ '<label id="l_pcs">'+ kali +'</label>' +'</td>'
+    + '<td>' + '<input type="hidden" name="w[]" id="w[]" value="'+ weight +'">'+ '<label id="l_pcs">'+ weight +'</label>' +'</td>'
 
 	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali + '/'+ pcs + '/' + weight + '" onclick="hapus2(this)" type="button" ><i class="fa fa-times"></i></button></td>'
     + '</tr>';

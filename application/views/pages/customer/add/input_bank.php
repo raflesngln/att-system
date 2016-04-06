@@ -7,6 +7,7 @@
                          
 <a class="btn btn-primary btn-mini tbladdtype" title="Add" id="tbladd" onclick="return add_bank()"><i class="icon-plus icons"></i> Create</a>
                         </span></div>
+                       
 <div class="col-sm-12" id="bankadd">
 
 </div>
@@ -109,7 +110,7 @@ $("#iconcaret").focusout(function(e) {
     $("#dropdown_list_address").hide('slow');
 });
 function hapus3(myid){
-	var input = $(myid).val();
+	//var input = $(myid).val();
 		 t = $(myid);
 		 tr = t.parent().parent();
 		 tr.remove();

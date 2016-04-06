@@ -15,8 +15,8 @@ class Mautocomplete extends CI_Model{
     }
 	function lookup_sender($keyword){
        $this->db->select('*')->from('ms_customer');
-        $this->db->like('custName',$keyword,'after');
-		$this->db->where('isShipper','1');
+        $this->db->like('CustName',$keyword,'after');
+		$this->db->where('IsShipper','1');
         $query = $this->db->get();    
         
         return $query->result();

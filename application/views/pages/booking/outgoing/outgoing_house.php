@@ -109,110 +109,49 @@ function toRp(angka){
 } 
 
  }
-</script>	    
-	    <script type="text/javascript">
-	    $(this).ready( function() {
-    		$("#idshipper").autocomplete({
-      			minLength: 1,
-      			source: 
-        		function(req, add){
-          			$.ajax({
-		        		url: "<?php echo base_url(); ?>index.php/autocomplete/lookup_sender",
-		          		dataType: 'json',
-		          		type: 'POST',
-		          		data: req,
-		          		success:    
-		            	function(data){
-		              		if(data.response =="true"){
-		                 		add(data.message);
-							
-		              		}
-		            	},
-              		});
-         		},
-         	select: 
-         		function(event, ui) {
-            	/*	$("#result").append(
-            			"<li>"+ ui.item.kota + "</li>"
-            		);    */
-					$("#name1").val(ui.item.name); 
-					$("#phone1").val(ui.item.phone);
-					$("#address1").val(ui.item.address); 		
-         		},		
-    		});
-			
-//for shipper
-    		$("#idconsigne").autocomplete({
-      			minLength: 1,
-      			source: 
-        		function(req, add){
-          			$.ajax({
-		        		url: "<?php echo base_url(); ?>index.php/autocomplete/lookup_receivement",
-		          		dataType: 'json',
-		          		type: 'POST',
-		          		data: req,
-		          		success:    
-		            	function(data){
-		              		if(data.response =="true"){
-		                 		add(data.message);
-							
-		              		}
-		            	},
-              		});
-         		},
-         	select: 
-         		function(event, ui) {
-            	/*	$("#result").append(
-            			"<li>"+ ui.item.kota + "</li>"
-            		);    */
-					$("#name2").val(ui.item.name); 
-					$("#phone2").val(ui.item.phone);
-					$("#address2").val(ui.item.address); 		
-         		},		
-    		});
-
-	    });
-	    </script>
-	    
+</script>
 	</head>
 	<body>
-<div class="container-fluid" style="margin-left:-40px">
-		<div class="span12 widget-container-span">
-		  <div class="widget-box">
-										<div class="widget-header">
-											<h5 class="bigger">&nbsp; :: DOMESTIC OUTGOING HOUSE ::</h5>
+<div class="row-fluid">
+								<div class="span10">
+									<div class="tabbable">
+										<ul class="nav nav-tabs" id="myTab">
+											<li class="active">
+												<a data-toggle="tab" href="#home">
+													<i class="green fa fa-users bigger-110"></i>
+		List Outgoing House
+												</a>
+											</li>
 
-											<div class="widget-toolbar no-border">
-												<ul class="nav nav-tabs" id="myTab">
-													<li class="active">
-														<a data-toggle="tab" href="#home"><i class="fa fa-list"></i> List Outgoing House</a>
-													</li>
+											<li>
+												<a data-toggle="tab" href="#profile">
+  <i class="green fa fa-building bigger-110"></i>
+		Entry Outgoing House
+		
+												</a>
+											</li>
 
-													<li>
-													<a data-toggle="tab" href="#profile"><i class="fa fa-plus"></i> Entry Outgoing House</a></li>
-												</ul>
+
+
+										</ul>
+
+										<div class="tab-content container">
+											<div id="home" class="tab-pane in active">
+<p>
+  <?php $this->load->view('pages/booking/outgoing/list_outgoing_house');?>
+</p>
 											</div>
-										</div>
 
-										<div class="widget-body">
-											<div class="widget-main padding-0">
-												<div class="tab-content">
-													<div id="home" class="tab-pane in active">
-	<?php $this->load->view('pages/booking/outgoing/list_outgoing_house');?>
-													</div>
-
-													<div id="profile" class="tab-pane">
-	<?php $this->load->view('pages/booking/outgoing/domestic_outgoing_house');?>
-													</div>
-
-													<div id="info" class="tab-pane">
-&nbsp;&nbsp;
-													</div>
-												</div>
+											<div id="profile" class="tab-pane">
+<p>
+  <?php $this->load->view('pages/booking/outgoing/input_outgoing_house');?>
+</p>
 											</div>
 										</div>
 									</div>
-								</div>
+								</div><!--/span-->
+
+							
 </div>		
 
  <!-- ==========================================================  -->   

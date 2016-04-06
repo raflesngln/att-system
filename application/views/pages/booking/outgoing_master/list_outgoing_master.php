@@ -64,7 +64,7 @@ $("#idhouse").autocomplete({
       			source: 
         		function(req, add){
           			$.ajax({
-		        		url: "<?php echo base_url(); ?>index.php/autocomplete/lookup_om",
+		        		url: "<?php echo base_url(); ?>index.php/Autocomplete_customers/lookup_om",
 		          		dataType: 'json',
 		          		type: 'POST',
 		          		data: req,
@@ -83,6 +83,7 @@ $("#idhouse").autocomplete({
          		},
          	select: 
          		function(event, ui) {
+					$("#NoSMU2").val(ui.item.id);
 					$("#idorigin").val(ui.item.origin);
 					$("#iddestination").val(ui.item.destination); 
 					$("#idcwt").val(ui.item.cwt);		
@@ -243,7 +244,9 @@ $("#idhouse").autocomplete({
 <div class="form-group">
                         <label class="col-sm-3 control-label">NoSMU/SMU </label>
                         <div class="col-sm-9"><span class="controls">
-                        <input name="NoSMU" type="text" class="form-control" id="idhouse" required="required" />
+                        <input name="idhouse" type="text" class="form-control" id="idhouse" required="required" />
+                        </span><span class="text-left">
+                        <input type="hidden" name="NoSMU2" id="NoSMU2" />
                         </span></div>
                         <div class="clearfix"></div>
   </div>
@@ -314,6 +317,8 @@ $("#idhouse").click(function(){
 	$("#idorigin").val('');
 	$("#iddestination").val('');
 	$("#idcwt").val('');
+	$("#idhouse").val('');
+	$("#NoSMU2").val('');
 	
 });
 

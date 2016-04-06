@@ -207,7 +207,7 @@ var txtdiskon=document.getElementById("txtdiskon").value;
       			source: 
         		function(req, add){
           			$.ajax({
-		        		url: "<?php echo base_url(); ?>index.php/autocomplete/lookup_sender",
+		        		url: "<?php echo base_url(); ?>index.php/Autocomplete_customers/lookup_sender",
 		          		dataType: 'json',
 		          		type: 'POST',
 		          		data: req,
@@ -230,7 +230,7 @@ var txtdiskon=document.getElementById("txtdiskon").value;
             	/*	$("#result").append(
             			"<li>"+ ui.item.kota + "</li>"
             		);    */
-					$("#idsender").val(ui.item.id);
+					$("#idsender").val(ui.item.nomor);
 					$("#name1").val(ui.item.name); 
 					$("#phone1").val(ui.item.phone);
 					$("#address1").val(ui.item.address); 		
@@ -243,7 +243,7 @@ var txtdiskon=document.getElementById("txtdiskon").value;
       			source: 
         		function(req, add){
           			$.ajax({
-		        		url: "<?php echo base_url(); ?>index.php/autocomplete/lookup_receivement",
+		        		url: "<?php echo base_url(); ?>index.php/Autocomplete_customers/lookup_receivement",
 		          		dataType: 'json',
 		          		type: 'POST',
 		          		data: req,
@@ -261,7 +261,7 @@ var txtdiskon=document.getElementById("txtdiskon").value;
             	/*	$("#result").append(
             			"<li>"+ ui.item.kota + "</li>"
             		);    */
-					$("#idreceivement").val(ui.item.id);
+					$("#idreceivement").val(ui.item.nomor);
 					$("#name2").val(ui.item.name); 
 					$("#phone2").val(ui.item.phone);
 					$("#address2").val(ui.item.address);		
@@ -338,7 +338,7 @@ var txtdiskon=document.getElementById("txtdiskon").value;
           <option value="">Choose Origin</option>
           <?php foreach ($city as $ct) {
           ?>
-          <option value="<?php echo $ct->cyCode.'-'.$ct->cyName;?>"><?php echo $ct->cyName;?></option>
+          <option value="<?php echo $ct->PortCode;?>"><?php echo $ct->PortName.' - '.$ct->PortCode;?></option>
           <?php } ?>
           </select>
           </div>
@@ -348,7 +348,7 @@ var txtdiskon=document.getElementById("txtdiskon").value;
           <option value="">Choose Destination</option>
           <?php foreach ($city as $ct) {
           ?>
-          <option value="<?php echo $ct->cyCode.'-'.$ct->cyName;?>"><?php echo $ct->cyName;?></option>
+          <option value="<?php echo $ct->PortCode;?>"><?php echo $ct->PortName.' - '.$ct->PortCode;?></option>
           <?php } ?>
           </select>
           </div>
@@ -357,7 +357,7 @@ var txtdiskon=document.getElementById("txtdiskon").value;
           <div class="col-sm-7">
             <input type="text" name="idshipper" id="idshipper" class="form-control" placeholder="types customer name" autocomplete="off" required/>
           <input name="name1" type="hidden" class="form-control"  id="name1" required value="<?php echo $row->custName;?>"/>
-          <input name="idsender" type="hidden" class="form-control"  id="idsender" required value="<?php echo $row->custName;?>"/>
+          <input name="idsender" type="hidden" class="form-control"  id="idsender" required/>
           </div>
 <div class="col-sm-1"><a class="btn btn-success btn-addnew btn-mini" href="#modaladdcust" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a></div>
 
@@ -422,7 +422,7 @@ var txtdiskon=document.getElementById("txtdiskon").value;
             <div class="col-sm-7">
             <input name="idconsigne" type="text" class="form-control"  id="idconsigne" placeholder="types customer name" autocomplete="off" required/>
             <input name="name2" type="hidden" class="form-control"  id="name2" required />
-            <input name="idreceivement" type="hidden" class="form-control"  id="idreceivement" required value="<?php echo $row->custName;?>"/>
+            <input name="idreceivement" type="hidden" class="form-control"  id="idreceivement" required/>
           </div> 
 <div class="col-sm-1"><a class="btn btn-success btn-addnew btn-mini" href="#modaladdcust" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i></a></div>
 <div class="form-group">      
@@ -454,6 +454,7 @@ var txtdiskon=document.getElementById("txtdiskon").value;
 <div class="col-sm-13" id="contencnee"><!-- CONTENT AJAX VIEW HERE --></div>
    </div>
 </div>
+
 
 
 
@@ -517,7 +518,7 @@ var txtdiskon=document.getElementById("txtdiskon").value;
            <option value="">Choose Commodity</option>
           <?php foreach ($commodity as $cm) {
           ?>
-            <option value="<?php echo $cm->commCode;?>"><?php echo $cm->Name;?></option>
+            <option value="<?php echo $cm->CommCode;?>"><?php echo $cm->CommName;?></option>
           <?php } ?>
       </select>
                                                 </div>
@@ -556,6 +557,65 @@ var txtdiskon=document.getElementById("txtdiskon").value;
   <div class="clearfix"> </div>
                                     
     </div>
+ 
+ 
+<div class="form-group">
+                                        <div class="table-responsive" id="table_responsive">
+                                        <table class="table table-striped table-bordered table-hover" id="tblcharges" style="width:95%">
+                                              <thead>
+                                                <thead>
+                                                <tr>
+                                                  <th width="71"><div align="center"></div></th>
+                                                  <th width="158"><div align="center">Charges</div></th>
+                                                  <th width="382"><div align="center">Desc</div></th>
+                                                  <th width="158"><div align="center">Unit</div></th>
+                                                  <th width="114"><div align="center">Qty</div></th>
+                                                  <th width="222"><div align="center">Total</div></th>
+                                                  <th class="text-center"><div align="center"><a class="btn  btn-primary btn-round" href="#modaladdCharge" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add New</a></div></th>
+                                                </tr>
+                                                </thead>
+                                                
+                                               
+                                              
+                                              <tbody>
+   <?php 
+$i=1;
+foreach($tmpcharge as $chr){
+$grandt+=$chr->Total;
+ //$t_volume+=$itm['v'];
+        ?>
+                                                  <tr>
+                                                  <td><?=$i;?></td>
+                                                  <td><?php echo $chr->ChargeName;?></td>
+                                                  <td><?php echo $chr->Description;?></td>
+                                                  <td><div align="right"><?php echo number_format($chr->Unit,2,',','.');?>                                                  </div></td>
+                                                  <td><div align="right"><?php echo $chr->Qty;?></div></td>
+                                                  <td><div align="right"><?php echo number_format($chr->Total,2,'.',',');?></div></td>
+                                                  <td>
+                                                  <div align="center">
+                                               <a href="<?php echo base_url();?>temp/delete_charge/<?php echo $chr->tempChargeId?>" onclick="return confirm('Yakin Hapus  Akun ?');" title="Delete item">
+                                                  <button class="btn btn-mini btn-danger" type="button"><i class="fa fa-times bigger-120"></i></button>
+                                                  </a>                                                  </div>                                                  </td>
+                                                </tr>
+<?php $no++; } ?>
+                                                <thead>
+                                                 <tr>
+
+                                                  <td colspan="3"><b>Total</b></td>
+                                                  <td colspan="3"><div align="right"><strong>
+                                                  <input name="total_charge" type="hidden" id="total_charge" value="0" />
+  <label id="label_charges">0</label>                                                                                           
+                                                  
+                                                  </strong></div></td>
+                                                  <td width="129">&nbsp;</td>
+                                                </tr>
+                                                </thead>
+                                              </tbody>
+                                            </table>
+                                        </div>
+                  </div>
+                                     
+ 
 <h2><span class="label label-large label-pink arrowed-in-right"><strong>COST / CHARGES</strong></span></h2>
 
 <div class="col-md-5">
@@ -759,12 +819,11 @@ var txtdiskon=document.getElementById("txtdiskon").value;
                         <label class="col-sm-3 control-label">Charges </label>
                         <div class="col-sm-9"><span class="controls">
               <select name="charge" class="form-control" required="required" id="charge">
-                <option value="">Select One</option>
-<?php foreach ($charges as $crg) {
-  ?>
-                <option value="<?php echo $crg->Description;?>"><?php echo $crg->Description;?></option>
-<?php } ?>
-
+          <option value="Airfreight">Airgreight Cost</option>
+         <option value="Quarantine">Quarantine Cost</option>
+         <option value="Delivery">Delivery Cost</option>
+         <option value="adm">Adm SMU Cost</option>
+         <option value="OtherCost">Other Cost</option>
               </select> 
                           </span>
                           </div>

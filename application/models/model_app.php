@@ -65,7 +65,7 @@ public function generateCity($table,$kolom,$kd_unik)
     public function getJob($status)
     {
 		$bulan=date('m');
-        $query = $this->db->query("select MAX(RIGHT(JobNo,5)) as kd_max from outgoing_connote WHERE MID(JobNo,8,2)='$bulan'");
+        $query = $this->db->query("select MAX(RIGHT(JobNo,5)) as kd_max from outgoing_house WHERE MID(JobNo,8,2)='$bulan'");
         $kd = "";
         if($query->num_rows()>0)
         {
@@ -79,14 +79,14 @@ public function generateCity($table,$kolom,$kd_unik)
         {
             $kd = "00001";
         }
-        return "JOB".date('Ym').$kd;
+        return "JOH".date('Ym').$kd;
     }
 	
 //  kode job
     public function getHouseNo()
     {
 		$bulan=date('m');
-        $query = $this->db->query("select MAX(RIGHT(HouseNo,4)) as kd_max from outgoing_connote WHERE MID(HouseNo,7,2)='$bulan'");
+        $query = $this->db->query("select MAX(RIGHT(HouseNo,4)) as kd_max from outgoing_house WHERE MID(HouseNo,7,2)='$bulan'");
         $kd = "";
         if($query->num_rows()>0)
         {
@@ -120,7 +120,7 @@ public function generateCity($table,$kolom,$kd_unik)
         {
             $kd = "00001";
         }
-        return "JOT".date('Ym').$kd;
+        return "JOB".date('Ym').$kd;
     }
 	
 //    kode job
