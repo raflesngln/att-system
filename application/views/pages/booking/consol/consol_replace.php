@@ -1,12 +1,12 @@
-<div class="row" id="konten">
-                <div class="col-lg-5 portlets ui-sortable">
+<div class="row" id="contentreplace">
+                <div class="col-lg-5 portlets ui-sortable" id="freecontent">
                     <div class="panel">
                         <!--<div class="panel-header"></div>-->
                         
                                     <div class="form-group">
                                         <div class="table-responsive" id="table_responsive">
 <span class="span3 label label-large label-pink arrowed-in-right">Free House</span>
-                                        <table class="table table-striped table-bordered table-hover">
+                                        <table class="table table-striped table-bordered table-hover" id="tabelfree">
                                               <thead>
                                                 
                                                   <th>No.</th>
@@ -31,7 +31,10 @@
                                                     <td><?php echo $free->grandPCS?></td>
                                                     <td><div align="right"><?php echo $free->CWT?></div></td>
                                                     <td><div align="center">
-                                                      <input type="checkbox" name="ck2" class="ace-checkbox-2" />
+ 
+ 
+ <button value="<?php echo $free->HouseNo?>" id="ceklish" class="ceklish btn btn-mini btn-success" type="button" onclick="return consol_house(this)"><i class="icon icon-share-alt icon-on-right white"></i></button>
+ 
                                                     </div></td>
                                                   </tr>
                 <?php $no++;} ?>  
@@ -58,7 +61,7 @@ $no=1;
 
           </div>
       </div>
-                <div class="col-lg-6 portlets ui-sortable">
+                <div class="col-lg-6 portlets ui-sortable" id="added">
                     <div class="panel">
                         <!--<div class="panel-header"></div>-->
                         
@@ -80,16 +83,16 @@ $no=1;
                                               <tbody>
  <?php 
  $no=1;
- foreach ($freehouse as $free) {
-	 $cwt=$free->CWT;
+ foreach ($added as $row) {
+	 $cwt=$row->CWT;
 	 $t_cwt+=$cwt;
   ?>
                                                   <tr>
                                                     <td><?php echo $no?></td>
-                                                    <td><?php echo $free->HouseNo?></td>
-                                                    <td><?php echo $free->custName?></td>
-                                                    <td><?php echo $free->grandPCS?></td>
-                                                    <td><div align="right"><?php echo $free->CWT?></div></td>
+                                                    <td><?php echo $row->HouseNo?></td>
+                                                    <td><?php echo $row->custName?></td>
+                                                    <td><?php echo $row->grandPCS?></td>
+                                                    <td><div align="right"><?php echo $row->CWT?></div></td>
                                                     <td><div align="center">
                                                       <input type="checkbox" name="ck2" class="ace-checkbox-2" />
                                                     </div></td>

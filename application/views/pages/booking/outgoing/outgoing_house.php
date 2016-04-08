@@ -112,7 +112,7 @@ function toRp(angka){
 </script>
 	</head>
 	<body>
-<div class="row-fluid">
+<div class="row-fluid" style=" border:1px #CCC solid;box-shadow:2px 6px 29px #CCC; padding-bottom:20px>
 								<div class="span10">
 									<div class="tabbable">
 										<ul class="nav nav-tabs" id="myTab">

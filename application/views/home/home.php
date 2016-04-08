@@ -391,7 +391,6 @@ return true;
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-
 						
 							<a href="<?php echo base_url();?><?php echo $scrumb;?>"><?php echo isset($scrumb_name)?$scrumb_name:'';?></a>
 
@@ -407,7 +406,7 @@ return true;
 					</div><!--#nav-search-->
 				</div>
 
-				<div class="page-content">
+				<div class="page" style=" margin:8px 8px 15px 8px;">
 					<div class="row-fluid">
 						<div class="span12">
 

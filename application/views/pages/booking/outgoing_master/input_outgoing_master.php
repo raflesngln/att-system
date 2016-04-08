@@ -329,7 +329,7 @@ $("#idconsigne").autocomplete({
           <option value="">Choose Origin</option>
           <?php foreach ($city as $ct) {
           ?>
-          <option value="<?php echo $ct->PortCode;?>"><?php echo $ct->PortName;?></option>
+          <option value="<?php echo $ct->PortCode;?>"><?php echo $ct->PortName.' - '.$ct->PortCode;?></option>
           <?php } ?>
           </select>
           </div>
@@ -339,7 +339,7 @@ $("#idconsigne").autocomplete({
           <option value="">Choose Destination</option>
           <?php foreach ($city as $ct) {
           ?>
-          <option value="<?php echo $ct->PortCode;?>"><?php echo $ct->PortName;?></option>
+          <option value="<?php echo $ct->PortCode;?>"><?php echo $ct->PortName.' - '.$ct->PortCode;?></option>
           <?php } ?>
           </select>
           </div>

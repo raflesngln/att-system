@@ -199,6 +199,16 @@ public function generateCity($table,$kolom,$kd_unik)
 		$this->db->where($kolom,$id);
 		$this->db->delete($table);
 	}	
+//=================== sub query ===============================
+
+		function subsmu($nosmu)
+	{
+		 $query = $this->db->query("SELECT *,
+		 (select b.CityName from ms_city b where a.Origin=b.CityCode) as origin,
+		 (select c.CityName from ms_city c where a.Destination=c.CityCode) as destination
+		from outgoing_master a WHERE a.NoSMU='$nosmu'");
+		return $query->result();
+	}	
 //=================== select1 ===============================
 
 		function select1($table,$kolom,$id)

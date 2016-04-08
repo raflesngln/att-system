@@ -37,7 +37,7 @@ function barcode_generate($kode)
 			'connote'=>$this->model_app->getdatapaging("*","outgoing_house","WHERE HouseNo ='$nohouse' LIMIT 1"),
 			'shipper'=>$this->model_app->getdatapaging("*","outgoing_house a","INNER JOIN ms_customer b on b.custCode=a.Shipper WHERE a.HouseNo ='$nohouse' LIMIT 1"),
 			'consigne'=>$this->model_app->getdatapaging("*","outgoing_house a","INNER JOIN ms_customer b on b.custCode=a.Consigne WHERE a.HouseNo ='$nohouse' LIMIT 1"),
-			'charges'=>$this->model_app->getdatapaging("*","booking_charges","WHERE HouseNo ='$nohouse'"),
+			'charges'=>$this->model_app->getdatapaging("*","booking_charge a","INNER JOIN ms_charge b on a.CostID=b.ChargeCode WHERE Reff ='$nohouse'"),
 			'kode'=>$this->input->post('houseno'),
 			'kode2'=>$nohouse
         ); 

@@ -26,7 +26,7 @@
             ]
           });  
     
-         $('#tablebank tbody').on('dblclick', 'tr', function () {
+$('#tablebank tbody').on('dblclick', 'tr', function () {
             var tr = $(this).closest('tr');
             var row = tablebank.row(tr);
            // alert(row.data().firstName);

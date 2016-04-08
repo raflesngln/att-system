@@ -7,7 +7,8 @@
                          
 <a class="btn btn-primary btn-mini tbladdtype" title="Add" id="tbladd" onclick="return add_bank()"><i class="icon-plus icons"></i> Create</a>
                         </span></div>
-                       
+              
+  <div class="clearfix"></div>   <br />      
 <div class="col-sm-12" id="bankadd">
 
 </div>
@@ -134,14 +135,14 @@ if (bankcode == '' || bankdesc == ''){
 	}
 	else
 	{
-	text='<div class="col-sm-3" style="border:1px blue solid;height:160px; margin-left:8px;margin-bottom:8px">'+ '<input type="hidden" name="codebank[]" value="'+ idbank +'">'
+	text='<div class="col-sm-3" style="border:1px #DDD solid;height:160px;box-shadow:4px 3px 8px #DDD; margin-left:8px;margin-bottom:8px">'+ '<a href="#" class="contact"><input type="hidden" name="codebank[]" value="'+ idbank +'">'
 	+ '<input type="hidden" name="bankdcd[]" value="'+ idbank +'">'
 	+ '<input type="hidden" name="bankrek[]" value="'+ rekno +'">'
 	+ '<input type="hidden" name="banknm[]" value="'+ rekname +'">'
 	+ '<input type="hidden" name="bandkdsc[]" value="'+ bankdesc +'">'
 	+ '<input type="hidden" name="bankbranch[]" value="'+ branch +'">'
 	+ nmbank 
-	+'<p>'+ rekno +'</p><p>'+ rekname + '</p><p>'+ bankdesc + '</p><p>' + '<button class="btndel btn-danger btn-mini" value="' + bankcode + '" onclick="hapus3(this)" type="button"><i class="fa fa-times"></i></button></p></div>';
+	+'<p>'+ rekno +'</p><p>'+ rekname + '</p><p>'+ bankdesc + '</p><p></a>' + '<button class="btndel btn-danger btn-mini" value="' + bankcode + '" onclick="hapus3(this)" type="button"><i class="fa fa-times"></i></button></p></div>';
 	
 
 		$('#bankadd').append(text);

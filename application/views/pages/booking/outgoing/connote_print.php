@@ -89,13 +89,13 @@ footer{display:none;}
     </tr>
   <tr>
     <td height="76"><p>PIECES/JUMLAH SATUAN</p>
-      <p align="center"><?php echo $data->grandPCS;?></p></td>
+      <p align="center"><?php echo $data->PCS;?></p></td>
     <td><p>WEIGHT/BERAT</p>
       <p align="center"><?php echo $data->CWT;?></p></td>
   </tr>
   <tr>
     <td colspan="2">Account No.</td>
-    <td colspan="2" rowspan="3"><div class="note">By giving us shipment you agree of all itemsof conditions of nonNegoitable Connote /Dengan menyerahkan kiriman anda setuju dengan ketentuan dan kondisi pada nota pengiriman ini tanpa syarat, termasuk kondisi dan ketentuan yang tertera pada bagian belakang.menyerahkan kiriman anda setuju dengan kondisi dan ketentuan pada nota ini.</div></td>
+    <td colspan="2" rowspan="3"><div class="note">By giving us shipment you agree of all itemsof conditions of non Negoitable Connote /Dengan menyerahkan kiriman anda setuju dengan ketentuan dan kondisi pada nota pengiriman ini tanpa syarat, termasuk kondisi dan ketentuan yang tertera pada bagian belakang.menyerahkan kiriman anda setuju dengan kondisi dan ketentuan pada nota ini.</div></td>
     <td colspan="2">DECLARE VALUE/NILAI KIRIMAN</td>
     </tr>
   <tr>
@@ -114,13 +114,12 @@ footer{display:none;}
         </tr>
       <?php foreach($charges as $row){
 		$unit=$row->Unit;
-		$qty=$row->Qty;
-		$total=$unit*$qty;
+		$total=$row->Total;
 		$grantotal+=$total;
 		 ?>
       <tr>
         <td width="150" style="border-left:none"><?php echo $row->ChargeName;?></td>
-        <td width="60" style="text-align:right; border-right:none"><?php echo number_format($total,0,'.',',');?> &nbsp;</td>
+        <td width="60" style="text-align:right; border-right:none"><?php echo number_format($row->Total,0,'.',',');?> &nbsp;</td>
         </tr>
       <?php } ?>
 </table></td>
@@ -148,7 +147,7 @@ footer{display:none;}
      <?php
 	foreach($shipper as $ship){
 	?>
-    <p style="margin-top:3px">SHIPMENT/PENGIRIM</p>
+    <p style="margin-top:3px">SHIPPER/PENGIRIM</p>
     <p><?php echo $ship->custName;?></p>
       <p>ADDRESS/ALAMAT</p>
       <p><?php echo $ship->Address;?></p>
@@ -160,7 +159,7 @@ footer{display:none;}
   <?php
 	foreach($consigne as $con){
 	?>
-      <p style="margin-top:3px">RECEIVE/PENERIMA</p>
+      <p style="margin-top:3px">CONSIGNEE/PENERIMA</p>
       <p><?php echo $con->custName;?></p>
       <p>ADDRESS/ALAMAT</p>
       <p><?php echo $con->Address;?> </p>
@@ -186,7 +185,7 @@ footer{display:none;}
       </td>
     </tr>
   <tr>
-    <td colspan="2"><p class="detsend" style="margin-top:2px;">DIMENTION/DIMENSI BARANG : </p>
+    <td colspan="2"><p class="detsend" style="margin-top:2px;">DIMENSION/DIMENSI BARANG : </p>
       <p class="detsend"><?php echo $data->grandVolume;?></p>
       </td>
     <td colspan="2" rowspan="3"><div class="det" style="margin-top:-4px">
