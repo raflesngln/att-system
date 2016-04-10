@@ -7,8 +7,7 @@ class Mautocomplete extends CI_Model{
 	function lookup_om($keyword){
        $this->db->select('*')->from('outgoing_master');
         $this->db->like('NoSMU',$keyword,'after');
-		$this->db->where('status_proses','0');
-		$this->db->where('status_proses','0');
+		$this->db->where('status_invoice','0');
         $query = $this->db->get();    
         
         return $query->result();
@@ -18,7 +17,6 @@ class Mautocomplete extends CI_Model{
         $this->db->like('CustName',$keyword,'after');
 		$this->db->where('IsShipper','1');
         $query = $this->db->get();    
-        
         return $query->result();
     }
 	function lookup_cnote($keyword){

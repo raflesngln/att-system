@@ -50,7 +50,7 @@ class Transaction extends CI_Controller{
             'title'=>'domesctic-outgoing-house',
             'scrumb_name'=>'Domesctic outgoing house',
             'scrumb'=>'transaction/domestic_outgoing_house',
-            'payment_type'=>$this->model_app->getdatapaging("payCode,payName","ms_payment_type","ORDER BY payCode ASC"),
+           'payment_type'=>$this->model_app->getdatapaging("PayCode,PayName","ms_payment_type","ORDER BY PayCode ASC"),
             'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
 			'airline'=>$this->model_app->getdata('ms_airline',""),
             'shipper'=>$this->model_app->getdata('ms_customer',"WHERE IsShipper ='1' ORDER BY CustCode Desc"),
@@ -127,19 +127,24 @@ class Transaction extends CI_Controller{
             'title'=>'domesctic-outgoing-master',
             'scrumb_name'=>'Domesctic outgoing master / Edit Master',
             'scrumb'=>'transaction/domestic_outgoing_master',
-            'payment_type'=>$this->model_app->getdatapaging("payCode,payName","ms_payment_type","ORDER BY payCode ASC"),
+            'payment_type'=>$this->model_app->getdatapaging("PayCode,PayName","ms_payment_type","ORDER BY PayCode ASC"),
             'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
             'shipper'=>$this->model_app->getdata('ms_customer',"WHERE IsShipper ='1' ORDER BY CustCode Desc"),
             'cnee'=>$this->model_app->getdata('ms_customer',"WHERE IsCnee ='1' ORDER BY CustCode Desc"),
             'city'=>$this->model_app->getdatapaging("PortCode,PortName","ms_port","GROUP BY PortName"),
             'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
            // 'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
-            'commodity'=>$this->model_app->getdatapaging("CommCode,CommName","ms_commodity","ORDER BY CommName ASC"),
-			'shipper'=>$this->model_app->getdatapaging("*","outgoing_master a","INNER JOIN ms_customer b on b.CustCode=a.Shipper WHERE a.NoSMU ='$houseno' LIMIT 1"),
-			'consigne'=>$this->model_app->getdatapaging("*","outgoing_master a","INNER JOIN ms_customer b on b.CustCode=a.Consigne WHERE a.NoSMU ='$houseno' LIMIT 1"),
-            'master'=>$this->model_app->getdatapaging("*","outgoing_master","WHERE NoSMU='$houseno' ORDER BY NoSMU DESC"),
+		'chargeoptional'=>$this->model_app->getdatapaging("ChargeCode,ChargeName,ChargeDetails","ms_charge","WHERE DefaultCharge='0' ORDER BY ChargeName"),
+		'chargedefault'=>$this->model_app->getdatapaging("ChargeCode,ChargeName,ChargeDetails","ms_charge","WHERE DefaultCharge='1' ORDER BY ChargeName"),
+     'commodity'=>$this->model_app->getdatapaging("CommCode,CommName","ms_commodity","ORDER BY CommName ASC"),
+	'shipper'=>$this->model_app->getdatapaging("*","outgoing_master a","INNER JOIN ms_customer b on b.CustCode=a.Shipper WHERE a.NoSMU ='$houseno' LIMIT 1"),
+	'consigne'=>$this->model_app->getdatapaging("*","outgoing_master a","INNER JOIN ms_customer b on b.CustCode=a.Consigne WHERE a.NoSMU ='$houseno' LIMIT 1"),
+     'master'=>$this->model_app->getdatapaging("*","outgoing_master a", 
+	 "INNER JOIN ms_customer b on a.Shipper=b.CustCode
+	 INNER JOIN ms_airline c on a.Airlines=c.AirlineCode
+	 WHERE a.NoSMU='$houseno' ORDER BY a.NoSMU DESC"),
 			//'list_charges'=>$this->model_app->getdatapaging("*","booking_charges","WHERE HouseNo ='$houseno'"),
-			'items'=>$this->model_app->getdatapaging("*","booking_items","WHERE HouseNo ='$houseno'"),
+			'items'=>$this->model_app->getdatapaging("*","booking_items","WHERE Reff ='$houseno'"),
             'view'=>'pages/booking/outgoing_master/edit_outgoing_master',
         );  
       $this->load->view('home/home',$data);
@@ -151,7 +156,7 @@ class Transaction extends CI_Controller{
             'title'=>'domesctic-outgoing-house',
             'scrumb_name'=>'Domesctic outgoing house / Edit House',
             'scrumb'=>'transaction/domestic_outgoing_house',
-            'payment_type'=>$this->model_app->getdatapaging("payCode,payName","ms_payment_type","ORDER BY payCode ASC"),
+            'payment_type'=>$this->model_app->getdatapaging("PayCode,PayName","ms_payment_type","ORDER BY PayCode ASC"),
             'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
             'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
             'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
@@ -166,7 +171,7 @@ class Transaction extends CI_Controller{
 			'consigne'=>$this->model_app->getdatapaging("*","outgoing_house a","INNER JOIN ms_customer b on b.custCode=a.Consigne WHERE a.HouseNo ='$houseno' LIMIT 1"),
             'connote'=>$this->model_app->getdatapaging("*","outgoing_house","WHERE HouseNo='$houseno' ORDER BY HouseNo DESC"),
 			'list_charges'=>$this->model_app->getdatapaging("*","booking_charge","WHERE Reff ='$houseno'"),
-			'items'=>$this->model_app->getdatapaging("*","booking_items","WHERE HouseNo ='$houseno'"),
+			'items'=>$this->model_app->getdatapaging("*","booking_items","WHERE Reff ='$houseno'"),
             'view'=>'pages/booking/outgoing/edit_outgoing_house',
         );  
       $this->load->view('home/home',$data);
@@ -184,7 +189,7 @@ function cargo_manifest(){
             'title'=>'cargo_manifest',
             'scrumb_name'=>'cargo_manifest',
             'scrumb'=>'transaction/cargo_manifest',
-            'payment_type'=>$this->model_app->getdatapaging("payCode,payName","ms_payment_type","ORDER BY payCode ASC"),
+            'payment_type'=>$this->model_app->getdatapaging("PayCode,PayName","ms_payment_type","ORDER BY PayCode ASC"),
             'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
             'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
 			'outgoing_connote'=>$this->model_app->getdata('outgoing_house',""),
@@ -349,9 +354,9 @@ function periode_outgoing_master(){
 	$idusr=$this->session->userdata('idusr');      
 	$data['master']=$this->model_app->getdatapaging("*","outgoing_master",
 		"WHERE LEFT(ETD,10) BETWEEN '$tgl1' AND '$tgl2' 
-		ORDER BY HouseNo DESC LIMIT $offset,$limit");
+		ORDER BY NoSMU DESC LIMIT $offset,$limit");
 	$tot_hal = $this->model_app->hitung_isi_tabel("*","outgoing_master",
-		"WHERE LEFT(ETD,10) BETWEEN '$tgl1' AND '$tgl2' ORDER BY HouseNo DESC");
+		"WHERE LEFT(ETD,10) BETWEEN '$tgl1' AND '$tgl2' ORDER BY NoSMU DESC");
 	//create for pagination		
 			$config['base_url'] = base_url() . 'transaction/periode_outgoing_master/';
         	$config['total_rows'] = $tot_hal->num_rows();
@@ -429,11 +434,11 @@ function laporan_outgoing_master(){
 		$format1=date("d M Y",strtotime($tgl1));
 		$format2=date("d M Y",strtotime($tgl2));
 		$data['master']=$this->model_app->getdata("outgoing_master a",
-		"INNER JOIN invoice b on a.HouseNo=b.HouseNo
-		INNER JOIN ms_customer c on c.custCode=a.Shipper 
+		"INNER JOIN invoice b on a.NoSMU=b.Reff
+		INNER JOIN ms_customer c on c.CustCode=a.Shipper 
 		WHERE LEFT(a.ETD,10) BETWEEN '$tgl1' AND '$tgl2'
 		 AND a.PayCode='CSH-CASH' 
-		ORDER BY a.HouseNo DESC");
+		ORDER BY a.NoSMU DESC");
 		$data['periode']=$format1.' s/d '.$format2;
 	ob_start();
 		$content = $this->load->view('pages/booking/outgoing_master/report_outgoing_master',$data);
@@ -816,18 +821,18 @@ function cetak_manifest(){
 	$search=$this->model_app->getdata('outgoing_house',"WHERE HouseNo='$kode'");
 	if($search){
 			$delete=$this->model_app->delete_data('booking_charge','Reff',$kode);
-			$delete=$this->model_app->delete_data('booking_items','HouseNo',$kode);
+			$delete=$this->model_app->delete_data('booking_items','Reff',$kode);
 			$delete=$this->model_app->delete_data('outgoing_house','HouseNo',$kode);
 		}
 		redirect('transaction/domestic_outgoing_house');
 	}
 function delete_outgoing_master(){
 	$kode=$this->uri->segment(3);
-	$search=$this->model_app->getdata('outgoing_master',"WHERE HouseNo='$kode'");
+	$search=$this->model_app->getdata('outgoing_master',"WHERE NoSMU='$kode'");
 	if($search){
-			$delete=$this->model_app->delete_data('booking_charges','HouseNo',$kode);
-			$delete=$this->model_app->delete_data('booking_items','HouseNo',$kode);
-			$delete=$this->model_app->delete_data('outgoing_master','HouseNo',$kode);
+			$delete=$this->model_app->delete_data('booking_charge','Reff',$kode);
+			$delete=$this->model_app->delete_data('booking_items','Reff',$kode);
+			$delete=$this->model_app->delete_data('outgoing_master','NoSMU',$kode);
 		}
 		redirect('transaction/domestic_outgoing_master');
 }	
@@ -877,7 +882,7 @@ function outgoing_consolidation(){
             'title'=>'outgoing_consolidation',
             'scrumb_name'=>'outgoing_consolidation',
             'scrumb'=>'transaction/outgoing_consolidation',
-			'master'=>$this->model_app->getdata('outgoing_master',"WHERE status_proses ='0'"),
+			'master'=>$this->model_app->getdata('outgoing_master',"WHERE status_invoice ='1'"),
 			'freehouse'=>$this->model_app->getdata('outgoing_house',"WHERE HouseStatus ='0' AND Consolidation='0'"),
 			'added'=>$this->model_app->getdata('consol',"WHERE MasterNo ='$nosmu' "),
             'view'=>'pages/booking/consol/outgoing_consolidation',
@@ -919,7 +924,7 @@ function getDetailMaster(){
 }
 function getmaster(){
 	$filter=$this->input->post('filter');
-        $list = $this->model_app->getdata('outgoing_master',"WHERE status_proses ='0' AND NoSMU='$filter'");
+        $list = $this->model_app->getdata('outgoing_master',"WHERE status_invoice ='0' AND NoSMU='$filter'");
         
 		$data = array();
 		
@@ -961,17 +966,20 @@ function domestic_outgoing_master(){
             'title'=>'domesctic-outgoing-master',
             'scrumb_name'=>'Domesctic outgoing master',
             'scrumb'=>'transaction/domestic_outgoing_master',
-            'payment_type'=>$this->model_app->getdatapaging("payCode,payName","ms_payment_type","ORDER BY payCode ASC"),
+            'payment_type'=>$this->model_app->getdatapaging("PayCode,PayName","ms_payment_type","ORDER BY PayCode ASC"),
             'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
             'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
             'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
             'city'=>$this->model_app->getdatapaging("PortCode,PortName","ms_port","GROUP BY PortName"),
             'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
 			'airline'=>$this->model_app->getdatapaging("*","ms_airline","ORDER BY AirLineName"),
-            //'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
+           // 'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
+		'chargeoptional'=>$this->model_app->getdatapaging("ChargeCode,ChargeName,ChargeDetails","ms_charge","WHERE DefaultCharge='0' ORDER BY ChargeName"),
+		'chargedefault'=>$this->model_app->getdatapaging("ChargeCode,ChargeName,ChargeDetails","ms_charge","WHERE DefaultCharge='1' ORDER BY ChargeName"),
+     'commodity'=>$this->model_app->getdatapaging("CommCode,CommName","ms_commodity","ORDER BY CommName ASC"),
             'commodity'=>$this->model_app->getdatapaging("CommCode,CommName","ms_commodity","ORDER BY CommName ASC"),
             'master'=>$this->model_app->getdatapaging("a.NoSMU,a.ETD,a.Service,a.Origin,a.Destination,a.Shipper,a.Consigne,a.PayCode","outgoing_master a",
-			"LEFT join invoice b on a.NoSMU=b.HouseNo
+			"LEFT join invoice b on a.NoSMU=b.Reff
 			ORDER BY a.NoSMU DESC LIMIT $offset,$limit"),
             'view'=>'pages/booking/outgoing_master/outgoing_master',
         );  
@@ -1035,25 +1043,8 @@ function hapus_item_temp(){
 		//$getHouse=$this->model_app->getHouseMasterNo();
 		$NoSMU=$this->input ->post('smu');
 		$etd=$this->input->post('etd');
-
-	/* $qty=$_POST['qty'];	
-	foreach($qty as $key => $val)
-	{
-   		$charge =$_POST['idcharge'][$key];
-        $unit =$_POST['unit'][$key];
-		$qty  =$_POST['qty'][$key];
-		$desc =$_POST['desc'][$key];
-		$newcharge=array(
-		'HouseNo' =>$getHouse,
-		'ChargeName'=>$charge,
-		'Unit'=>$unit,
-		'Qty'=>$qty,
-		'Description'=>$desc,
-		'Date'=>date('Y-m-d H:i:s')
-		);		
-		 $this->model_app->insert('booking_charges',$newcharge);
-	}   */		
-	//====Save charges and items in every table refer to SMU number =====//
+				
+	//==== INSSERT ITEMS ==============//
 	$pcs=$_POST['pcs'];	
 	foreach($pcs as $key => $val)
 	{
@@ -1062,18 +1053,43 @@ function hapus_item_temp(){
 		$l  =$_POST['l'][$key];	
 		$t  =$_POST['t'][$key];	
 		$v  =$_POST['v'][$key];	
+		$w  =$_POST['w'][$key];	
 		$newitem=array(
-		'HouseNo' =>$NoSMU,
+		'Reff' =>$NoSMU,
 		'NoPack'=>$pcs, 
 		'Length'=>$p,
 		'Width'=>$l,
 		'Height'=>$t,
 		'Volume'=>$v,
+		'G_Weight'=>$w,
 		'Date'=>date('Y-m-d H:i:s')
 		);		
 		 $this->model_app->insert('booking_items',$newitem);
 	}
-
+	//==== INSSERT CHARGES ==============//	
+	$idcharge=$_POST['idcharge'];	
+	foreach($idcharge as $key => $val)
+	{
+   		$idcharge2 =$_POST['idcharge'][$key];
+        $unit =$_POST['unit'][$key];
+		$qty  =$_POST['qty'][$key];
+		$desc =$_POST['desc'][$key];
+		$totalcharges =$_POST['totalcharges'][$key];
+		$newcharge=array(
+		'JobNo' =>$NoSMU,
+		'Reff'=>$NoSMU,
+		'CostID'=>$idcharge2,
+		'BusinessCode'=>$this->input->post('idsender'),
+		'Currency'=>'Rp',
+		'Qty'=>$qty,
+		'Price'=>$unit,
+		'Total'=>$totalcharges,
+		'ChargeDetail'=>$desc,
+		'ISPPN'=>'11111',
+		'ISPPNValue'=>'12121212'
+		);		
+		 $this->model_app->insert('booking_charge',$newcharge);
+	}
 	//----- SAVE OF OUT GOING Master --------------////
 	$insert=array(
 		'NoSMU' =>$NoSMU,
@@ -1085,7 +1101,7 @@ function hapus_item_temp(){
 		'Destination' =>$this->input->post('desti'),
 		'ETD' =>date($etd),
 		'Shipper' =>$this->input->post('idsender'),
-		'Airlines' =>$this->input->post('airlines'),
+		'Airlines' =>$this->input->post('airline'),
 		'FlightNumbDate1' =>$this->input->post('flightno1').'/'.$this->input->post('flightdate1'),
 		'FlightNumbDate2' =>$this->input->post('flightno2').'/'.$this->input->post('flightdate2'),
 		'FlightNumbDate3' =>$this->input->post('flightno3').'/'.$this->input->post('flightdate3'),
@@ -1093,17 +1109,12 @@ function hapus_item_temp(){
 		'Consigne' =>$this->input->post('idreceivement'),
 		'CodeConsigne' =>$this->input->post('codesigne'),
 		'Commodity' =>$this->input->post('commodity'),
-		'GrossWeight' =>$this->input->post('grossweight2'),
+		'GrossWeight' =>$this->input->post('t_weight'),
 		'grandVolume' =>$this->input->post('t_volume'),
 		'PCS' =>$this->input->post('t_pacs'),
-		'AirFreight'=>$this->input->post('txtfreight'),
-		'Adm'=>$this->input->post('adm'),
-		'Quarantine'=>$this->input->post('txtquarantine'),
-		'Delivery'=>$this->input->post('delivery'),
-		'Others'=>$this->input->post('other'),
 		'Amount' =>$this->input->post('txtgrandtotal'),
 		'SpecialIntraction' =>$this->input->post('special'),
-		'CWT' =>$this->input->post('cwt'),
+		'CWT' =>$this->input->post('ori_cwt'),
 		'DeclareValue' =>$this->input->post('declare'),
 		'DescofShipment' =>$this->input->post('description'),
 		'CreatedBy' =>$this->session->userdata('idusr'),
@@ -1121,7 +1132,7 @@ function hapus_item_temp(){
             'view'=>'pages/booking/outgoing_master/confirm',
         );  
  		$this->load->view('home/home',$data);		
-    }
+}
 	
 function print_outgoing_master(){
 	$kode=$this->uri->segment(3);
@@ -1157,8 +1168,8 @@ function print_outgoing_master(){
 		$getHouse=$this->model_app->getHouseNo();
 		$getjob=$this->model_app->getJob();
 		$etd=$this->input->post('etd');
-			
-	//====Save charges and items inevery table refer to SMU number ==============//
+				
+	//====Save charges and items in every table refer to SMU number ==============//
 	$pcs=$_POST['pcs'];	
 	foreach($pcs as $key => $val)
 	{
@@ -1169,7 +1180,7 @@ function print_outgoing_master(){
 		$v  =$_POST['v'][$key];	
 		$w  =$_POST['w'][$key];	
 		$newitem=array(
-		'HouseNo' =>$getHouse,
+		'Reff' =>$getHouse,
 		'NoPack'=>$pcs, 
 		'Length'=>$p,
 		'Width'=>$l,
@@ -1251,7 +1262,7 @@ function print_outgoing_master(){
 			'outgoing_connote'=>$this->model_app->getdatapaging("*","outgoing_house","ORDER BY HouseNo ASC"),
 			
 			'connote'=>$this->model_app->getdatapaging("*","outgoing_house","where HouseNo='$getHouse' ORDER BY HouseNo ASC"),
-			'items'=>$this->model_app->getdatapaging("*","booking_items","where HouseNo='$getHouse' ORDER BY IdItems ASC"),
+			'items'=>$this->model_app->getdatapaging("*","booking_items","where Reff='$getHouse' ORDER BY IdItems ASC"),
 			'charges'=>$this->model_app->getdatapaging("*","booking_charge a","inner join ms_charge b on a.Reff=b.ChargeCode where a.Reff='$getHouse' ORDER BY a.Reff ASC"),
 			
 			
@@ -1264,11 +1275,36 @@ function print_outgoing_master(){
     }  
 //     DATA TO PDF
  function update_outgoing_master(){
-		$houseno=$this->input->post('house');
-	
+		$smu=$this->input->post('smu');
 		$etd=$this->input->post('etd');
 		
-	//----- SAVE OF OUTGOING HOUSE --------------////
+	$delete=$this->model_app->delete_data('booking_charge','Reff',$smu);
+	//==== INSSERT CHARGES ==============//	
+	$idcharge=$_POST['idcharge'];	
+	foreach($idcharge as $key => $val)
+	{
+   		$idcharge2 =$_POST['idcharge'][$key];
+        $unit =$_POST['unit'][$key];
+		$qty  =$_POST['qty'][$key];
+		$desc =$_POST['desc'][$key];
+		$totalcharges =$_POST['totalcharges'][$key];
+		$newcharge=array(
+		'JobNo' =>$smu,
+		'Reff'=>$smu,
+		'CostID'=>$idcharge2,
+		'BusinessCode'=>$this->input->post('idsender'),
+		'Currency'=>'Rp',
+		'Qty'=>$qty,
+		'Price'=>$unit,
+		'Total'=>$totalcharges,
+		'ChargeDetail'=>$desc,
+		'ISPPN'=>'11111',
+		'ISPPNValue'=>'12121212'
+		);		
+		 $this->model_app->insert('booking_charge',$newcharge);
+		 
+	}
+	//----- SAVE OF OUT GOING Master --------------////
 	$update=array(
 		'BookingNo' =>$this->input->post('booking'),
 		'PayCode' =>$this->input->post('paymentype'),
@@ -1276,95 +1312,142 @@ function print_outgoing_master(){
 		'Origin' =>$this->input->post('origin'),
 		'Destination' =>$this->input->post('desti'),
 		'ETD' =>date($etd),
-		'Shipper' =>$this->input->post('idsender'),
 		'CodeShipper' =>$this->input->post('codeship'),
-		'Consigne' =>$this->input->post('idreceivement'),
 		'CodeConsigne' =>$this->input->post('codesigne'),
 		'Commodity' =>$this->input->post('commodity'),
-		'GrossWeight' =>$this->input->post('grossweight2'),
-		'grandVolume' =>$this->input->post('t_volume'),
-		'grandPCS' =>$this->input->post('t_pacs'),
 		'SpecialIntraction' =>$this->input->post('special'),
 		'CWT' =>$this->input->post('cwt'),
+		'GrossWeight' =>$this->input->post('t_weight'),
+		'grandVolume' =>$this->input->post('t_volume'),
+		'PCS' =>$this->input->post('t_pacs'),
+		'Amount' =>$this->input->post('txtgrandtotal'),
 		'DeclareValue' =>$this->input->post('declare'),
 		'DescofShipment' =>$this->input->post('description'),
 		'ModifiedBy' =>$this->session->userdata('idusr'),
 		'ModifiedDate'=>date('Y-m-d H:i:s')
 		);		
-		 $this->model_app->update('outgoing_master','HouseNo',$houseno,$update);	
-//==============  print view in HTML   =======================//
+		$this->model_app->update('outgoing_master','NoSMU',$smu,$update);
+		//=======  print view in HTML   ============//
         $data = array(
             'title'=>'domestic_outgoing_master',
             'scrumb_name'=>'domestic_outgoing_master',
-			'houseno'=>$houseno,
+			'houseno'=>$NoSMU,
 			'jobno'=>$getjob,
             'scrumb'=>'transaction/domestic_outgoing_master',
-			'outgoing_connote'=>$this->model_app->getdatapaging("*","outgoing_house","ORDER BY HouseNo ASC"),
-			'connote'=>$this->model_app->getdatapaging("*","outgoing_house","where HouseNo='$houseno' ORDER BY HouseNo ASC"),
-			'items'=>$this->model_app->getdatapaging("*","booking_items","where HouseNo='$houseno' ORDER BY IdItems ASC"),
-			'charges'=>$this->model_app->getdatapaging("*","booking_charges","where HouseNo='$houseno' ORDER BY idCharges ASC"),
             'view'=>'pages/booking/outgoing_master/confirm',
-        );  
+        );    
    		$this->load->view('home/home',$data);
     }
-//     DATA TO PDF
+//    INsert Items
  function insert_book_items(){
-		$NoHouse=$this->input->post('NoHouse');
+		$house=$this->input->post('house');
 	//----- insert items-------------////
 	$insertdata=array(
-	    'HouseNo' =>$this->input->post('NoHouse'),
+	    'Reff' =>$this->input->post('house'),
 		'NoPack' =>$this->input->post('pcs'),
 		'Length' =>$this->input->post('panjang'),
 		'Width' =>$this->input->post('lebar'),
 		'Height' =>$this->input->post('tinggi'),
-		'G_Weight' =>$this->input->post('total_weight'),
+		'G_Weight' =>$this->input->post('weight'),
 		'Volume' =>$this->input->post('volume'),
 		);		
 		 $save=$this->model_app->insert('booking_items',$insertdata);
-		$data['items']=$this->model_app->getdatapaging("*","booking_items","WHERE HouseNo ='$NoHouse'");
+		$data['items']=$this->model_app->getdatapaging("*","booking_items","WHERE Reff ='$house'");
+
+ 		$this->load->view('pages/booking/outgoing/ajax_items_edit',$data);
+    } 
+//    INsert Items
+ function insert_book_items2(){
+		$smu=$this->input->post('smu');
+	//----- insert items-------------////
+	$insertdata=array(
+	    'Reff' =>$this->input->post('smu'),
+		'NoPack' =>$this->input->post('pcs'),
+		'Length' =>$this->input->post('panjang'),
+		'Width' =>$this->input->post('lebar'),
+		'Height' =>$this->input->post('tinggi'),
+		'G_Weight' =>$this->input->post('weight'),
+		'Volume' =>$this->input->post('volume'),
+		);		
+		 $save=$this->model_app->insert('booking_items',$insertdata);
+		$data['items']=$this->model_app->getdatapaging("*","booking_items","WHERE Reff ='$smu'");
+
+ 		$this->load->view('pages/booking/outgoing_master/ajax_items_edit',$data);
+    } 
+//     DATA TO PDF
+ function delete_book_items(){
+		$house=$this->input->post('house');
+		$kode=$this->input->post('kode');	
+		$delete=$this->model_app->delete_data('booking_items','IdItems',$kode);
+		 
+		$data['items']=$this->model_app->getdatapaging("*","booking_items","WHERE Reff ='$house'");
 
  		$this->load->view('pages/booking/outgoing/ajax_items_edit',$data);
     } 
 //     DATA TO PDF
- function delete_book_items(){
-		$NoHouse=$this->input->post('NoHouse');
+ function delete_book_items2(){
+		$smu=$this->input->post('smu');
 		$kode=$this->input->post('kode');	
 		$delete=$this->model_app->delete_data('booking_items','IdItems',$kode);
 		 
-		$data['items']=$this->model_app->getdatapaging("*","booking_items","WHERE HouseNo ='$NoHouse'");
+		$data['items']=$this->model_app->getdatapaging("*","booking_items","WHERE Reff ='$smu'");
 
- 		$this->load->view('pages/booking/outgoing/ajax_items_edit',$data);
+ 		$this->load->view('pages/booking/outgoing_master/ajax_items_edit',$data);
     }  
 //     DATA TO PDF
  function update_outgoing_house(){
 		$houseno=$this->input->post('house');
 		$etd=$this->input->post('etd');
 		
-	//----- Update OF OUTGOING HOUSE --------------////
-	$updatehouse=array(
+	$delete=$this->model_app->delete_data('booking_charge','Reff',$houseno);
+	//==== INSSERT CHARGES ==============//	
+	$idcharge=$_POST['idcharge'];	
+	foreach($idcharge as $key => $val)
+	{
+   		$idcharge2 =$_POST['idcharge'][$key];
+        $unit =$_POST['unit'][$key];
+		$qty  =$_POST['qty'][$key];
+		$desc =$_POST['desc'][$key];
+		$totalcharges =$_POST['totalcharges'][$key];
+		$newcharge=array(
+		'JobNo' =>$houseno,
+		'Reff'=>$houseno,
+		'CostID'=>$idcharge2,
+		'BusinessCode'=>$this->input->post('idsender'),
+		'Currency'=>'Rp',
+		'Qty'=>$qty,
+		'Price'=>$unit,
+		'Total'=>$totalcharges,
+		'ChargeDetail'=>$desc,
+		'ISPPN'=>'11111',
+		'ISPPNValue'=>'12121212'
+		);		
+		 $this->model_app->insert('booking_charge',$newcharge);
+	}
+	//----- SAVE OF OUT GOING Master --------------////
+	$update=array(
 		'BookingNo' =>$this->input->post('booking'),
 		'PayCode' =>$this->input->post('paymentype'),
 		'Service' =>$this->input->post('service'),
-		'Origin' =>$this->input->post('origin'),
-		'Destination' =>$this->input->post('desti'),
+		//'Origin' =>$this->input->post('origin'),
+		//'Destination' =>$this->input->post('desti'),
 		'ETD' =>date($etd),
 		'CodeShipper' =>$this->input->post('codeship'),
 		'CodeConsigne' =>$this->input->post('codesigne'),
 		'Commodity' =>$this->input->post('commodity'),
-		'GrossWeight' =>$this->input->post('grossweight2'),
+		'SpecialIntraction' =>$this->input->post('special'),
+		'CWT' =>$this->input->post('cwt'),
+		'GrossWeight' =>$this->input->post('t_weight'),
 		'grandVolume' =>$this->input->post('t_volume'),
 		'PCS' =>$this->input->post('t_pacs'),
-		'SpecialIntraction' =>$this->input->post('special'),		
-		'CWT' =>$this->input->post('cwt'),
-		'DeclareValue' =>$this->input->post('declare'),		
-		'DescofShipment' =>$this->input->post('description'),
-		'Discount'=>$this->input->post('txtdiskon'),
+		'Discount' =>$this->input->post('diskon'),
 		'Amount' =>$this->input->post('txtgrandtotal'),
+		'DeclareValue' =>$this->input->post('declare'),
+		'DescofShipment' =>$this->input->post('description'),
 		'ModifiedBy' =>$this->session->userdata('idusr'),
 		'ModifiedDate'=>date('Y-m-d H:i:s')
 		);		
-		 $this->model_app->update('outgoing_house','HouseNo',$houseno,$updatehouse);	
-
+		$this->model_app->update('outgoing_house','HouseNo',$houseno,$update);
 		redirect('transaction/domestic_outgoing_house');
     }  
 function add_invoice(){
@@ -1403,12 +1486,12 @@ function print_invoice_OM(){
 	
 	$kode=$this->input->post('NoSMU');
 	$search=$this->model_app->getdatapaging("*","outgoing_master a",
-	"INNER JOIN invoice c on a.NoSMU=c.HouseNo
+	"INNER JOIN invoice c on a.NoSMU=c.Reff
 	WHERE a.NoSMU='$kode' ORDER BY a.CreatedDate DESC LIMIT 1");
 	foreach($search as $row){
-	$paycode=$row->PayCode;
+	$PayCode=$row->PayCode;
 	
-	if($paycode=="CRD-CREDIT"){
+	if($PayCode=="CRD-CREDIT"){
 	$view='print_outgoing_credit';
 	 } 
 	 else 
@@ -1419,7 +1502,8 @@ function print_invoice_OM(){
      'title'=>'Invoice Cash',
      'header'=>$this->model_app->getdatapaging("*","outgoing_master a",
 	"INNER JOIN ms_customer b on a.Shipper=b.CustCode
-	 INNER JOIN invoice c on a.NoSMU=c.HouseNo
+	 INNER JOIN invoice c on a.NoSMU=c.Reff
+	 INNER JOIN ms_port d on a.Origin=d.PortCode
 	WHERE a.NoSMU='$kode' ORDER BY a.CreatedDate DESC LIMIT 1"),
 	
 	'consigne'=>$this->model_app->getdatapaging("*","outgoing_master a",
@@ -1450,12 +1534,13 @@ function print_invoice_OM(){
 function print_save_invoice_OM(){
 	$getInvoice=$this->model_app->getInvoice();
 	$kode=$this->input->post('NoSMU2');
+	$kode2=$this->input->post('NoSMU');
 	$search=$this->model_app->getdatapaging("*","outgoing_master",
 	"WHERE NoSMU='$kode' ORDER BY CreatedDate DESC LIMIT 1");
 	foreach($search as $row){
-	$paycode=$row->PayCode;
+	$PayCode=$row->PayCode;
 	
-	if($paycode=="CRD-CREDIT"){
+	if($PayCode=="CRD-CREDIT"){
 	$view='print_outgoing_credit';
 	 } 
 	 else 
@@ -1465,26 +1550,27 @@ function print_save_invoice_OM(){
 	$data=array(
      'title'=>'laporan jurnal',
      'header'=>$this->model_app->getdatapaging("*","outgoing_master a",
-	"INNER JOIN ms_customer b on a.Shipper=b.custCode
-	WHERE a.NoSMU='$kode' ORDER BY a.CreatedDate DESC LIMIT 1"),
+	"INNER JOIN ms_customer b on a.Shipper=b.CustCode
+	WHERE a.NoSMU='$kode' OR a.NoSMU='$kode2' ORDER BY a.CreatedDate DESC LIMIT 1"),
+	
 	'consigne'=>$this->model_app->getdatapaging("*","outgoing_master a",
-	"INNER JOIN ms_customer b on a.Consigne=b.custCode
-	WHERE a.NoSMU='$kode' ORDER BY a.CreatedDate DESC LIMIT 1"),
+	"INNER JOIN ms_customer b on a.Consigne=b.CustCode
+	WHERE a.NoSMU='$kode' OR a.NoSMU='$kode2' ORDER BY a.CreatedDate DESC LIMIT 1"),
 	
 	'list'=>$this->model_app->getdatapaging("*","outgoing_master a",
-	"WHERE a.NoSMU='$kode'
+	"WHERE a.NoSMU='$kode' OR a.NoSMU='$kode2'
 	ORDER BY a.CreatedDate DESC"),
 	'invoice'=>$getInvoice
 	);
 	$insert_invoice=array(
 		'InvoiceNo' =>$getInvoice,
-		'HouseNo' =>$kode,
+		'Reff' =>$kode,
 		'CreateBy' =>$this->session->userdata('idusr'),
 		'CreateDate' =>date('Y-m-d H:i:s'),
 		'InvoiceStatus' =>'1'
 		);
 		$updatemaster=array(
-		'status_proses'=>'1'
+		'status_invoice'=>'1'
 		);	
 		$this->model_app->update('outgoing_master','NoSMU',$kode,$updatemaster);	
 		$save=$this->model_app->insert('invoice',$insert_invoice);
@@ -1629,7 +1715,7 @@ $OutHouse=array(
 		'scrumb_name'=>'Adding SOA',
 		'scrumb'=>'transaction/add_soa',
 		'customer'=>$this->model_app->getdata('ms_customer a',
-		"INNER JOIN outgoing_master b on a.custCode=b.Shipper WHERE b.payCode='CRD-CREDIT' GROUP BY a.custCode"),
+		"INNER JOIN outgoing_master b on a.custCode=b.Shipper WHERE b.PayCode='CRD-CREDIT' GROUP BY a.custCode"),
 		
 		'view'=>'pages/booking/outgoing_master/add_SOA',
 		);

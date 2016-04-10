@@ -81,7 +81,7 @@ var weight=pecah[3];
 	
         $.ajax({
       type: "POST",
-     url : "<?php echo base_url('transaction/delete_book_items'); ?>",
+     url : "<?php echo base_url('transaction/delete_book_items2'); ?>",
      data: "kode="+kode+"&smu="+smu,
      success: function(data){
 			 $('#table_items').html(data);

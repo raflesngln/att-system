@@ -1581,6 +1581,7 @@ button.btn:active {
     border-color: #888}
 .btn-grey.no-hover:hover {
     background-color: #a0a0a0!important}
+
 .btn-grey.active {
     background-color: #949494!important;
     border-color: #858585}
@@ -3441,7 +3442,6 @@ input[type=checkbox].ace-switch.ace-switch-7: checked+.lbl: :after {
     color: #848484!important;
     background-color: #eee!important}
 .tab-content {
-    border: 1px solid #c5d0dc;
     padding: 16px 12px;
     position: relative;
     z-index: 11}
@@ -6710,6 +6710,7 @@ th .lbl: only-child,td .lbl: only-child {
     display: none}
 .wysiwyg-toolbar .btn-colorpicker {
     width: 24px;
+
     height: 24px;
     position: relative;
     background: #87b87f;

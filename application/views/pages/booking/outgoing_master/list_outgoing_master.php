@@ -180,7 +180,7 @@ $("#idhouse").autocomplete({
                                                     <td><div align="left"><?php echo $items->custName;?></div></td>
                                                     <td>
                                                    <form action="<?php echo base_url();?>transaction/print_invoice_OM" method="post" target="new" class="text-left">
-                                                   <input type="hidden" value="<?php echo $items->NoSMU;?>" name=" NoSMU" />
+                                                   <input type="hidden" value="<?php echo $items->NoSMU;?>" name="NoSMU" />
                                                   <button class="btn btn-mini btn-warning"><i class="fa fa-print bigger-120"></i></button>
                                                                                                       <a href="<?php echo base_url();?>transaction/edit_outgoing_master/<?php echo $items->NoSMU;?>" title="Edit item">
                                                   <button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>
@@ -382,7 +382,7 @@ if(idorigin==""){
                 }
             });
         });
-	 $("#btnsort").click(function(){
+$("#btnsort").click(function(){
             var tgl1 = $('#tg1').val();
 			var tgl2 = $('#tg2').val();
 				$.ajax({

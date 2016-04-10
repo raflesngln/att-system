@@ -51,10 +51,12 @@ p{ margin-top:-8px;}
 	$flight3=explode("/",$con->FlightNumbDate3);
 	
 	?>
-    <p>Consisgne........... : &nbsp;<?php echo $con->custName;?></p>
+    <p>Consisgne........... : &nbsp;<?php echo $con->CustName;?></p>
     <p>Phone................. :  &nbsp;<?php echo $con->Phone;?></p>
+    <p>Destination........... : &nbsp;<?php echo substr($row->PortName,0,30);?></p>
     <p>City..................... : &nbsp;<?php echo $con->cyCode;?></p>
     <p>&nbsp;</p>
+    
     <p>Airline.................. : &nbsp;<?php echo $con->Airlines;?></p>
     <p>Flight Numner...... : &nbsp;<?php echo $flight1[0].' / '.$flight2[0].' / '.$flight3[0];?></p>
     <p>CWT.................... : &nbsp;<?php echo $con->CWT;?></p>
@@ -73,12 +75,12 @@ p{ margin-top:-8px;}
     <td>: <?php echo date("d-m-Y / h:i:s",strtotime($row->CreateDate)); ?></td>
   </tr>
   <tr>
-    <td>Dest / Origin..................</td>
-    <td> ; <?php echo substr($row->Destination,4,30);?> / <?php echo substr($row->Origin,4,30);?></td>
+    <td>Origin..................</td>
+    <td> ; <?php echo substr($row->PortName,0,30);?></td>
   </tr>
   <tr>
     <td>Shipper.........................</td>
-    <td>: <?php echo $row->custName;?></td>
+    <td>: <?php echo $row->CustName;?></td>
   </tr>
   <tr>
     <td>Phone............................</td>
@@ -97,7 +99,7 @@ p{ margin-top:-8px;}
   </tr>
   <tr>
     <td>Piesces...........................</td>
-    <td>: <?php echo $row->grandPCS;?></td>
+    <td>: <?php echo $row->PCS;?></td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>

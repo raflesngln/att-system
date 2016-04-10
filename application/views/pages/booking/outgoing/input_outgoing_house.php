@@ -84,43 +84,52 @@ function toRp(angka){
 
 
  function count_freight3(input){
-	var total_charge=document.getElementById("total_charge").value;	 
-	var label_charges=document.getElementById("label_charges").value;	
-	var txttotal=document.getElementById("txttotal").value;	 
-	var t_total=document.getElementById("t_total").value;
+	var total=document.getElementById("total_charge").value;
 	var lastcharge=document.getElementById("totfreight").value;// ambil nilai sub total charge terakhir untuk membandingkan dengan inputan baru agar grandtota; tidak selalu bertambah
 
 	var price=document.getElementById("pricefreight").value;
 	var qty=document.getElementById("qtyfreight").value;
-	var hasil=parseFloat(price) * parseFloat(qty);
+	var subtotal=parseFloat(price) * parseFloat(qty);
+	//var format_sub=toRp(subtotal);
+	var newcharge=document.getElementById("totfreight").value=subtotal;
 
-	var grantotal=parseFloat(hasil) +  parseFloat(total_charge);
-
-    document.getElementById("totfreight").value=hasil;
-    document.getElementById("total_charge").value=grantotal;
-	document.getElementById("label_charges").innerHTML=lastcharge;
-	document.getElementById("t_total").value=grantotal;
-	document.getElementById("txttotal").value=grantotal;
-
+	if(newcharge > lastcharge)
+	{
+		 var selisih=parseFloat(newcharge) - parseFloat(lastcharge);
+		 var nilai=parseFloat(total) + parseFloat(selisih);
+	} else if(lastcharge > newcharge) {
+		var selisih=parseFloat(lastcharge) - parseFloat(newcharge);
+		var nilai=parseFloat(total) - parseFloat(selisih);	
+	}
+	var format_nilai=toRp(nilai);
+	document.getElementById("total_charge").value=nilai;
+	document.getElementById("label_charges").innerHTML=format_nilai;
+	document.getElementById("t_total").value=format_nilai;
+	document.getElementById("txttotal").value=nilai;
  }
  function count_freight2(input){
-	var total_charge=document.getElementById("total_charge").value;	 
-	var label_charges=document.getElementById("label_charges").value;	
-	var txttotal=document.getElementById("txttotal").value;	 
-	var t_total=document.getElementById("t_total").value;
-
+	var total=document.getElementById("total_charge").value;
+	var lastcharge=document.getElementById("totfreight2").value;// ambil nilai sub total charge terakhir untuk membandingkan dengan inputan baru agar grandtota; tidak selalu bertambah
+	
 	var price=document.getElementById("pricefreight2").value;
 	var qty=document.getElementById("qtyfreight2").value;
-	var hasil=parseFloat(price) * parseFloat(qty);
+	var subtotal=parseFloat(price) * parseFloat(qty);
+	//var format_sub=toRp(subtotal);
+	var newcharge=document.getElementById("totfreight2").value=subtotal;
 
-	var grantotal=parseFloat(hasil) +  parseFloat(total_charge);
-
-    document.getElementById("totfreight2").value=hasil;
-    document.getElementById("total_charge").value=grantotal;
-	document.getElementById("label_charges").innerHTML=grantotal;
-	document.getElementById("t_total").value=grantotal;
-	document.getElementById("txttotal").value=grantotal;
-
+	if(newcharge > lastcharge)
+	{
+		 var selisih=parseFloat(newcharge) - parseFloat(lastcharge);
+		 var nilai=parseFloat(total) + parseFloat(selisih);
+	} else if(lastcharge > newcharge) {
+		var selisih=parseFloat(lastcharge) - parseFloat(newcharge);
+		var nilai=parseFloat(total) - parseFloat(selisih);
+	}
+	var format_nilai=toRp(nilai);
+	document.getElementById("total_charge").value=nilai;
+	document.getElementById("label_charges").innerHTML=format_nilai;
+	document.getElementById("t_total").value=format_nilai;
+	document.getElementById("txttotal").value=nilai;
  }
 function count_quarantine(){
   var pcs =document.getElementById("t_pacs").value;
@@ -221,24 +230,23 @@ function deliveryRp(input){
 
 <script type="text/javascript">
 	    $(this).ready( function() {
-    		$("#idshipper").autocomplete({
+$("#idshipper").autocomplete({
       			minLength: 1,
       			source: 
         		function(req, add){
           			$.ajax({
-		        		url: "<?php echo base_url(); ?>index.php/Autocomplete_customers/lookup_sender",
+		       url: "<?php echo base_url();?>index.php/Autocomplete_customers/lookup_sender",
 		          		dataType: 'json',
 		          		type: 'POST',
 		          		data: req,
 					beforeSend: function(){
-            		 //$('#contenshipper').html(' data loading loading loanding');
+          //$('#contenshipper').html(' data loading loading loanding');
 					 $(".fa-pulse").show();
          			 },
 		          		success:    
 		            	function(data){
 		              		if(data.response =="true"){
 		                 		add(data.message);
-								//$('#contenshipper').html('');
 								 $(".fa-pulse").hide();
 		              		}
 		            	},
@@ -255,9 +263,15 @@ function deliveryRp(input){
 					$("#address1").val(ui.item.address); 		
          		},		
     		});
-			
+$("#idshipper").click(function(){
+					$("#idsender").val('');
+					$("#idshipper").val('');
+					$("#name1").val(''); 
+					$("#phone1").val('');
+					$("#address1").val(''); 	
+});
 //for shipper
-    		$("#idconsigne").autocomplete({
+$("#idconsigne").autocomplete({
       			minLength: 1,
       			source: 
         		function(req, add){
@@ -286,8 +300,17 @@ function deliveryRp(input){
 					$("#address2").val(ui.item.address);		
          		},		
     		});
+$("#idconsigne").click(function(){
+					$("#idconsigne").val('');
+					$("#idreceivement").val('');
+					$("#name2").val(''); 
+					$("#phone2").val('');
+					$("#address2").val('');	
+});
 
-	    });
+
+});
+
 	    </script>      
   </head>
   <body>
@@ -332,14 +355,14 @@ function deliveryRp(input){
 
           <strong><label class="col-sm-4"> Payment Type</label></strong>
           <div class="col-sm-7">
-          <select name="paymentype" class="form-control" required="required" id="paymentype">
-          <option value="">Select Payment  Type</option>
-                   <?php
+            <select name="paymentype" class="form-control" required="required" id="paymentype">
+              <option value="">Select Payment  Type</option>
+              <?php
                    foreach ($payment_type as $pay) {
                    ?>
-                     <option value="<?php echo $pay->payCode.'-'.$pay->payName;?>"><?php echo $pay->payName;?></option>
-                     <?php } ?>
-          </select>
+              <option value="<?php echo $pay->PayCode.'-'.$pay->PayName;?>"><?php echo $pay->PayName;?></option>
+              <?php } ?>
+            </select>
           </div>
           <strong><label class="col-sm-4"> Service</label></strong>
           <div class="col-sm-7">
@@ -475,11 +498,10 @@ function deliveryRp(input){
 
 
 
-
 <br style="clear:both;margin-bottom:40px;">
             <div class="container">
                 <div class="col-lg-12 portlets ui-sortable">
-                    <div class="panel">
+                  <div class="panel">
                         <!--<div class="panel-header"></div>-->
                         
                                     <div class="form-group">
@@ -556,7 +578,7 @@ function deliveryRp(input){
                                                 <div class="col-md-12">
                                               <label class="col-sm-3">CWT &nbsp;</label>
                                               <div class="col-sm-8">
-                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)" value="0"><input type="hidden" name="ori_cwt" id="ori_cwt" value="0">
+                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)"><input type="text" name="ori_cwt" id="ori_cwt" value="0">
                                               </div>
                                                 </div>
                                               <div class="col-md-12">
@@ -575,8 +597,8 @@ function deliveryRp(input){
   <div class="clearfix"> </div>
                                     
     </div>
- 
- 
+  
+                                   
 <div class="form-group">
     <div class="table-responsive" id="table_responsive">
 <h2><span class="label label-large label-pink arrowed-in-right"><strong>COST / CHARGES</strong></span></h2>
@@ -597,12 +619,12 @@ function deliveryRp(input){
    </span></th>
  
  <th><input type="text" name="unit[]" id="pricefreight" onChange="return count_freight3(this);" required class="form-control" style=" text-align:right"></th>
-                                                  <th><input type="text" name="qty[]" id="qtyfreight" style="width:98%;text-align:right" value="0" class="form-control"></th>
+                                                  <th><input type="text" name="qty[]" id="qtyfreight" style="width:98%;text-align:right" value="0" class="form-control" readonly></th>
                                                   <th>
 
       <input type="text" name="desc[]" id="descfreight" style="width:100%" class="form-control">                                            
                                                   </th>
-                                                  <th><input type="text" name="totalcharges[]" id="totfreight" style="width:98%;text-align:right" required readonly class="form-control">
+                                                  <th><input type="text" name="totalcharges[]" id="totfreight" style="width:98%;text-align:right" value="0" required readonly class="form-control">
                                                   <th class="text-center">&nbsp;</th>
                                                 </tr>
                                                 <tr>
@@ -618,7 +640,7 @@ function deliveryRp(input){
   <input type="text" name="desc[]" id="descfreight" style="width:100%" class="form-control">
                                                   </div></th>
                                                   <th width="222"><div align="center">
-                                                    <input type="text" name="totalcharges[]" id="totfreight2" style="width:98%;text-align:right" readonly required class="form-control">
+                                                    <input type="text" name="totalcharges[]" id="totfreight2" style="width:98%;text-align:right" readonly required class="form-control" value="0">
          
                                                   </div></th>
                                                   <th class="text-center"><div align="center"></div></th>
@@ -640,7 +662,7 @@ $grandt+=$chr->Total;
 
                                                   <td><b>Total</b></td>
                                                   <td colspan="4"><div align="right">
-                                                  <input name="total_charge" type="hidden" id="total_charge" value="0" />
+                                                  <input name="total_charge" type="text" id="total_charge" value="0" />
   <label id="label_charges">0</label>                                                                                           
                                                   
                                                   </strong></div></td>
@@ -680,7 +702,7 @@ $grandt+=$chr->Total;
 </p></div>
 
 <div class="col-sm-8"><p class="text-right">GRAND TOTAL </p></div>
-<div class="col-sm-2"><p class="text-left"><input type="text" name="grandtotal" id="grandtotal" class="form-control txtrp"  readonl="readonly" readonly>
+<div class="col-sm-2"><p class="text-left"><input type="text" name="grandtotal" id="grandtotal" class="form-control txtrp"  readonl="readonly" readonly value="0">
 <input type="hidden" name="txtgrandtotal" id="txtgrandtotal" class="form-control" value="0">
 </p></div>
 
@@ -730,35 +752,35 @@ $grandt+=$chr->Total;
 <div class="form-group">
                         <label class="col-sm-3 control-label">No of Pcs </label>
                         <div class="col-sm-9"><span class="controls">
-                        <input name="pack" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="pack" value="23" />
+                        <input name="pack" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="pack" value="" />
 </span></div>
             <div class="clearfix"></div>
             </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Length &nbsp; ( P )</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="panjang" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="panjang" value="23"/>
+                          <input name="panjang" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="panjang" value=""/>
 </span></div>
                         <div class="clearfix"></div>
                       </div>
   <div class="form-group">
                         <label class="col-sm-3 control-label">Width &nbsp; ( L )</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="lebar" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="lebar" value="23"/>
+                          <input name="lebar" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="lebar" value=""/>
 </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Height &nbsp; ( T )</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="tinggi" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="tinggi" value="23" />
+                          <input name="tinggi" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="tinggi" value="" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>                    
 <div class="form-group">
                         <label class="col-sm-3 control-label">Weight &nbsp; ( T )</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="weight" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="weight" value="23"/>
+                          <input name="weight" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="weight" value=""/>
 </span></div>
                         <div class="clearfix"></div>
                </div>
@@ -1107,7 +1129,6 @@ if (panjang == '' || lebar == '' || pcs == ''){
 		
 		if(volume > total_weight)
 		{
-        
 			$("#cwt").val(volume);
 			
 		} else {
@@ -1151,11 +1172,12 @@ function hapus2(myid){
 var input = $(myid).val();
 //var input2 = $(myid).val();
 var pecah=input.split('/');
+var vol=pecah[0];
 var pcs=pecah[1];
 var weight=pecah[2];
 
 	var t_volume=$('#t_volume').val();
-	var kurang=parseFloat(t_volume)-parseFloat(input);
+	var kurang=parseFloat(t_volume)-parseFloat(vol);
 	var hasil=kurang.toFixed(2);
 	$('#t_volume').val(hasil);
 	$('#label_volume').html(hasil);
@@ -1175,13 +1197,13 @@ var weight=pecah[2];
 	var total_volum=$('#t_volume').val();
 	var total_weight=$('#t_weight').val();
 	
-	if(total_volum > total_weight)
+	if(total_volum >= total_weight)
 	{
-		$('#cwt').val(hasil);
+		$('#cwt').val(total_volum);
 	} 
-	else if(total_weight > total_volum)
+	else if(total_weight >= total_volum)
 	 {
-		$('#cwt').val(hasil3);
+		$('#cwt').val(total_weight);
 	}
 
 		var input=$("#cwt").val();
@@ -1191,11 +1213,12 @@ var weight=pecah[2];
 		if(koma > 49){
 			var maks=parseFloat(bulat) + 1;
             $('#qtyfreight').val(maks);
+			$('#ori_cwt').val(maks);
 			
 		} else {
 			var maks=parseFloat(bulat);
 			$('#qtyfreight').val(maks);
-			
+			$('#ori_cwt').val(maks);
 		}
 
 

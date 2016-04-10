@@ -54,10 +54,10 @@ p{ margin-top:-8px}
         ?>
   <tr>
     <td style="width:70px"><?php echo $items->InvoiceNo;?></td>
-    <td style="width:130px"><?php echo $items->custName;?></td>
+    <td style="width:130px"><?php echo $items->CustName;?></td>
     <td style="width:90px"><?php echo $items->NoSMU;?></td>
     <td style="width:120px"><?php echo substr($items->Origin,4,30);?>-<?php echo substr($items->Destination,4,30);?></td>
-    <td style="width:10px">&nbsp; <?php echo $items->grandVolume;?></td>
+    <td style="width:10px">&nbsp; <?php echo $items->PCS;?></td>
     <td style="width:8px"> &nbsp; <?php echo number_format($items->CWT,0,'.','.');?></td>
     <td style="width:70px"><div align="right"><span style="width:8px"><?php echo number_format($items->Amount,0,'.','.');?></span></div></td>
     <td style="width:70px">&nbsp;<?php echo substr($items->CreateBy,0,13);?></td>

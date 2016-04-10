@@ -58,10 +58,10 @@ function lookup_sender(){
             foreach( $query as $row )
             {
               $data['message'][] = array( 
-                    'id'=>$row->custCode,
-                     'value' =>$row->custName,
+                    'id'=>$row->CustCode,
+                     'value' =>$row->CustName,
 					 'nomor' =>$row->CustCode,
-                     'name' => $row->custName,
+                     'name' => $row->CustName,
                      'phone' => $row->Phone,
 					 'address' => $row->Address,
                   );  //Add a row to array
@@ -69,15 +69,14 @@ function lookup_sender(){
         }
         if('IS_AJAX')
         {
-            echo json_encode($data); //echo json string if ajax request
-            
+          echo json_encode($data); //echo json string if ajax request  
         }
         else
         {
-            $this->load->view('autocomplete/index',$data); //Load html view of search results
+     $this->load->view('autocomplete/index',$data); //Load html view of search results
         }
     }
-
+	
 function lookup_cnote(){ 
   // process posted form data (the requested items code )
         $keyword = $this->input->post('term');
@@ -112,7 +111,6 @@ function lookup_cnote(){
         }
     }
 
-
 function lookup_receivement(){ 
         // process posted form data (the requested items like province)
         $keyword = $this->input->post('term');
@@ -125,9 +123,9 @@ function lookup_receivement(){
             foreach( $query as $row )
             {
               $data['message'][] = array( 
-                    'id'=>$row->custCode,
-                     'value' =>$row->custName,
-                     'name' => $row->custName,
+                    'id'=>$row->CustCode,
+                     'value' =>$row->CustName,
+                     'name' => $row->CustName,
 					 'nomor' =>$row->CustCode,
                      'phone' => $row->Phone,
 					 'address' => $row->Address,

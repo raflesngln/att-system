@@ -1,63 +1,63 @@
 <!DOCTYPE HTML>
 <html lang="en-US"><head>
-	    <title>Codeigniter Autocomplete</title>
+      <title>outgoing house</title>
         
 <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
 
   <script type='text/javascript' src='<?php echo base_url();?>asset/js/jquery.min.js'></script>
-
-    
-<link href='<?php echo base_url();?>asset/jquery_ui/jquery.autocomplete.css' rel='stylesheet' />
+  <link href='<?php echo base_url();?>asset/jquery_ui/jquery.autocomplete.css' rel='stylesheet' />
 <script type='text/javascript' src='<?php echo base_url();?>asset/jquery_ui/jquery.autocomplete.js'></script>
 <script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
 
 <!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/base/jquery-ui.css" type="text/css" media="all" />
 -->
-		
-	    <style>
-	    	/* Autocomplete
-			----------------------------------*/
-			.ui-autocomplete { position: absolute; cursor: default; }	
-			.ui-autocomplete-loading { background: white url('http://jquery-ui.googlecode.com/svn/tags/1.8.2/themes/flick/images/ui-anim_basic_16x16.gif') right center no-repeat; }*/
-
-			/* workarounds */
-			* html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
-
-			/* Menu
-			----------------------------------*/
-			.ui-menu {
-				list-style:none;
-				padding: 2px;
-				margin: 0;
-				display:block;
-			}
-			.ui-menu .ui-menu {
-				margin-top: -3px;
-			}
-			.ui-menu .ui-menu-item {
-				margin:0;
-				padding: 0;
-				zoom: 1;
-				float: left;
-				clear: left;
-				width: 100%;
-				font-size:80%;
-			}
-			.ui-menu .ui-menu-item a {
-				text-decoration:none;
-				display:block;
-				padding:.2em .4em;
-				line-height:1.5;
-				zoom:1;
-			}
-			.ui-menu .ui-menu-item a.ui-state-hover,
-			.ui-menu .ui-menu-item a.ui-state-active {
-				font-weight: normal;
-				margin: -1px;
-			}
+    
+      <style>
+        /* Autocomplete
+      ----------------------------------*/
+      .ui-autocomplete { position: absolute; cursor: default; } 
+      .ui-autocomplete-loading { background: white url('http://jquery-ui.googlecode.com/svn/tags/1.8.2/themes/flick/images/ui-anim_basic_16x16.gif') right center no-repeat; }*/
+      /* workarounds */
+      * html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
+      /* Menu
+      ----------------------------------*/
+      .ui-menu {
+        list-style:none;
+        padding: 2px;
+        margin: 0;
+        display:block;
+      }
+      .ui-menu .ui-menu {
+        margin-top: -3px;
+      }
+      .ui-menu .ui-menu-item {
+        margin:0;
+        padding: 0;
+        zoom: 1;
+        float: left;
+        clear: left;
+        width: 100%;
+        font-size:80%;
+      }
+      .ui-menu .ui-menu-item a {
+        text-decoration:none;
+        display:block;
+        padding:.2em .4em;
+        line-height:1.5;
+        zoom:1;
+      }
+      .ui-menu .ui-menu-item a.ui-state-hover,
+      .ui-menu .ui-menu-item a.ui-state-active {
+        font-weight: normal;
+        margin: -1px;
+      }
+	  .txtrp{text-align:right;}
 #t_freight,#t_quarantine,#other2,#delivery2,#adm2{ text-align:right;}
-	    </style>
-    <script type="text/ecmascript">
+
+      </style>
+ <script type="text/ecmascript">
+    
+
   $(function() {
 	$("#tgl").datepicker({
 		dateFormat:'yy-mm-dd',
@@ -82,23 +82,54 @@ function toRp(angka){
     return rev2.split('').reverse().join('');
 }
 
- function count_freight(){
-  var cwt =document.getElementById("ori_cwt").value;
-  var freight =document.getElementById("freight").value;
-  var result=parseFloat(cwt) * parseFloat(freight);  
-  var t_freight=toRp(result);
-  
- var txtquarantine=document.getElementById("txtquarantine").value;
- var adm=document.getElementById("adm").value;
- var delivery=document.getElementById("delivery").value;
- var other=document.getElementById("other").value; 
- var total=parseFloat(result)+parseFloat(txtquarantine)+parseFloat(adm)+			          parseFloat(delivery)+parseFloat(other);
- var format_total=toRp(total);
 
-  document.getElementById("t_freight").value=t_freight;
-  document.getElementById("txtfreight").value=result;
- document.getElementById("t_total").value=format_total;
- document.getElementById("txttotal").value=total;
+ function count_freight3(input){
+	var total=document.getElementById("total_charge").value;
+	var lastcharge=document.getElementById("totfreight").value;// ambil nilai sub total charge terakhir untuk membandingkan dengan inputan baru agar grandtota; tidak selalu bertambah
+
+	var price=document.getElementById("pricefreight").value;
+	var qty=document.getElementById("qtyfreight").value;
+	var subtotal=parseFloat(price) * parseFloat(qty);
+	//var format_sub=toRp(subtotal);
+	var newcharge=document.getElementById("totfreight").value=subtotal;
+
+	if(newcharge > lastcharge)
+	{
+		 var selisih=parseFloat(newcharge) - parseFloat(lastcharge);
+		 var nilai=parseFloat(total) + parseFloat(selisih);
+	} else if(lastcharge > newcharge) {
+		var selisih=parseFloat(lastcharge) - parseFloat(newcharge);
+		var nilai=parseFloat(total) - parseFloat(selisih);	
+	}
+	var format_nilai=toRp(nilai);
+	document.getElementById("total_charge").value=nilai;
+	document.getElementById("label_charges").innerHTML=format_nilai;
+	document.getElementById("t_total").value=format_nilai;
+	document.getElementById("txttotal").value=nilai;
+ }
+ function count_freight2(input){
+	var total=document.getElementById("total_charge").value;
+	var lastcharge=document.getElementById("totfreight2").value;// ambil nilai sub total charge terakhir untuk membandingkan dengan inputan baru agar grandtota; tidak selalu bertambah
+	
+	var price=document.getElementById("pricefreight2").value;
+	var qty=document.getElementById("qtyfreight2").value;
+	var subtotal=parseFloat(price) * parseFloat(qty);
+	//var format_sub=toRp(subtotal);
+	var newcharge=document.getElementById("totfreight2").value=subtotal;
+
+	if(newcharge > lastcharge)
+	{
+		 var selisih=parseFloat(newcharge) - parseFloat(lastcharge);
+		 var nilai=parseFloat(total) + parseFloat(selisih);
+	} else if(lastcharge > newcharge) {
+		var selisih=parseFloat(lastcharge) - parseFloat(newcharge);
+		var nilai=parseFloat(total) - parseFloat(selisih);
+	}
+	var format_nilai=toRp(nilai);
+	document.getElementById("total_charge").value=nilai;
+	document.getElementById("label_charges").innerHTML=format_nilai;
+	document.getElementById("t_total").value=format_nilai;
+	document.getElementById("txttotal").value=nilai;
  }
 function count_quarantine(){
   var pcs =document.getElementById("t_pacs").value;
@@ -147,6 +178,7 @@ function otherRp(input){
  document.getElementById("t_total").value=format_total;
  document.getElementById("txttotal").value=total;
  }
+ 
 function deliveryRp(input){
   var angka =$(input).val();
   var format=toRp(angka);
@@ -161,42 +193,60 @@ function deliveryRp(input){
  document.getElementById("t_total").value=format_total;
  document.getElementById("txttotal").value=total;
  }
-
- function hitung(){
- var delivery=document.getElementById("delivery").value;
+ 
+ function diskonRp(input){
+  var angka =$(input).val();
+  var format=toRp(angka);
+  var txtdiskon=document.getElementById("txtdiskon").value=angka;
+  document.getElementById("diskon").format=format; 
+  
+  var delivery=document.getElementById("delivery").value;
  var txtfreight=document.getElementById("txtfreight").value;
  var other=document.getElementById("other").value;
  var adm=document.getElementById("adm").value;
  var txtquarantine=document.getElementById("txtquarantine").value; 
- var total=parseFloat(delivery)+parseFloat(txtfreight)+parseFloat(other)+			          parseFloat(adm)+parseFloat(txtquarantine);
+ var t_charge=parseFloat(delivery)+parseFloat(txtfreight)+parseFloat(other)+			          parseFloat(adm)+parseFloat(txtquarantine);
+ var total=parseFloat(t_charge)- parseFloat(txtdiskon);
  var format_total=toRp(total);
 
- document.getElementById("t_total").value=format_total;
- document.getElementById("txttotal").value=total;
+ document.getElementById("txtdiskon").value=angka;
+ document.getElementById("grandtotal").value=format_total;
+ document.getElementById("txtgrandtotal").value=total;
  }
 
+ function hitung(){
+	var txtdiskon=document.getElementById("txtdiskon").value;
+	  
+ 	var total=document.getElementById("txttotal").value;
+
+	 var t_netto=parseFloat(total)- parseFloat(txtdiskon);
+	 var format_total=toRp(t_netto);
+
+ document.getElementById("grandtotal").value=format_total;
+ document.getElementById("txtgrandtotal").value=t_netto;
+ }
 
 </script>	    
+
 <script type="text/javascript">
 	    $(this).ready( function() {
-    		$("#idshipper").autocomplete({
+$("#idshipper").autocomplete({
       			minLength: 1,
       			source: 
         		function(req, add){
           			$.ajax({
-		        		url: "<?php echo base_url(); ?>index.php/autocomplete_customers/lookup_sender",
+		       url: "<?php echo base_url();?>index.php/Autocomplete_customers/lookup_sender",
 		          		dataType: 'json',
 		          		type: 'POST',
 		          		data: req,
 					beforeSend: function(){
-            		 //$('#contenshipper').html(' data loading loading loanding');
+          //$('#contenshipper').html(' data loading loading loanding');
 					 $(".fa-pulse").show();
          			 },
 		          		success:    
 		            	function(data){
 		              		if(data.response =="true"){
 		                 		add(data.message);
-								//$('#contenshipper').html('');
 								 $(".fa-pulse").hide();
 		              		}
 		            	},
@@ -207,20 +257,26 @@ function deliveryRp(input){
             	/*	$("#result").append(
             			"<li>"+ ui.item.kota + "</li>"
             		);    */
-					$("#idsender").val(ui.item.id);
+					$("#idsender").val(ui.item.nomor);
 					$("#name1").val(ui.item.name); 
 					$("#phone1").val(ui.item.phone);
 					$("#address1").val(ui.item.address); 		
          		},		
     		});
-			
+$("#idshipper").click(function(){
+					$("#idsender").val('');
+					$("#idshipper").val('');
+					$("#name1").val(''); 
+					$("#phone1").val('');
+					$("#address1").val(''); 	
+});
 //for shipper
 $("#idconsigne").autocomplete({
       			minLength: 1,
       			source: 
         		function(req, add){
           			$.ajax({
-		        		url: "<?php echo base_url(); ?>index.php/autocomplete_customers/lookup_receivement",
+		        		url: "<?php echo base_url(); ?>index.php/Autocomplete_customers/lookup_receivement",
 		          		dataType: 'json',
 		          		type: 'POST',
 		          		data: req,
@@ -238,19 +294,26 @@ $("#idconsigne").autocomplete({
             	/*	$("#result").append(
             			"<li>"+ ui.item.kota + "</li>"
             		);    */
-					$("#idreceivement").val(ui.item.id);
+					$("#idreceivement").val(ui.item.nomor);
 					$("#name2").val(ui.item.name); 
 					$("#phone2").val(ui.item.phone);
 					$("#address2").val(ui.item.address);		
          		},		
     		});
+$("#idconsigne").click(function(){
+					$("#idconsigne").val('');
+					$("#idreceivement").val('');
+					$("#name2").val(''); 
+					$("#phone2").val('');
+					$("#address2").val('');	
+});
 
-	    });
-	    </script>  
-	    
-	</head>
-	<body>
-		
+
+});
+
+	    </script>      
+  </head>
+  <body>
 
  <!-- ==========================================================  -->   
   <div class="row-fluid">
@@ -298,7 +361,7 @@ $("#idconsigne").autocomplete({
                    <?php
                    foreach ($payment_type as $pay) {
                    ?>
-                     <option value="<?php echo $pay->payCode.'-'.$pay->payName;?>"><?php echo $pay->payName;?></option>
+                     <option value="<?php echo $pay->PayCode.'-'.$pay->PayName;?>"><?php echo $pay->PayName;?></option>
                      <?php } ?>
           </select>
           </div>
@@ -561,7 +624,7 @@ $("#idconsigne").autocomplete({
                                                 <div class="col-md-12">
                                               <label class="col-sm-3">CWT &nbsp;</label>
                                               <div class="col-sm-8">
-                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)"><input type="hidden" name="ori_cwt" id="ori_cwt" value="0">
+                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)"><input type="text" name="ori_cwt" id="ori_cwt" value="0">
                                               </div>
                                                 </div>
                                               <div class="col-md-12">
@@ -582,90 +645,113 @@ $("#idconsigne").autocomplete({
     </div>
   
                                    
+<div class="form-group">
+    <div class="table-responsive" id="table_responsive">
 <h2><span class="label label-large label-pink arrowed-in-right"><strong>COST / CHARGES</strong></span></h2>
+    <table class="table table-striped table-bordered table-hover" id="tblcharges" style="width:95%">
+                                              <thead>
+                                                <thead>
+                                                <tr>
+                                                  <th>Charges</th>
+                                                  <th>Price</th>
+                                                  <th>Qty</th>
+                                                  <th style="width:28%">Desc</th>
+                                                  <th>Total</th>
+                                                  <th class="text-center"><a class="btn  btn-primary btn-round" href="#modaladdCharge" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add Cost</a></th>
+                                                </tr>
+                                                <tr>
+  <th height="26"><span class="col-sm-4">AirFreight
+ <input type="hidden" name="idcharge[]" id="idcharge[]" value="1">
+   </span></th>
+ 
+ <th><input type="text" name="unit[]" id="pricefreight" onChange="return count_freight3(this);" required class="form-control" style=" text-align:right"></th>
+                                                  <th><input type="text" name="qty[]" id="qtyfreight" style="width:98%;text-align:right" value="0" class="form-control" readonly></th>
+                                                  <th>
 
-<div class="col-md-5">
-      <div class="row">
-        <div class="col-md-12">
-  <label class="col-sm-4">Air Freight</label> 
-  <div class="col-sm-7">
-  <input type="text" name="freight" id="freight" class="form-control" onkeypress="return isNumberKey(event)" onchange="return count_freight();"  required>
-  </div>
-</div>
-<div class="col-md-12">
-<label class="col-sm-4">Quarantine</label>
-<div class="col-sm-7">
-  <input type="text" name="quarantine" id="quarantine" class="form-control" onkeypress="return isNumberKey(event)" onChange="count_quarantine()"  required>
-  </div>
+      <input type="text" name="desc[]" id="descfreight" style="width:100%" class="form-control">                                            
+                                                  </th>
+                                                  <th><input type="text" name="totalcharges[]" id="totfreight" style="width:98%;text-align:right" value="0" required readonly class="form-control">
+                                                  <th class="text-center">&nbsp;</th>
+                                                </tr>
+                                                <tr>
+                                                  <th width="158"><span class="col-sm-4">SMU
+                                                    <input type="hidden" name="idcharge[]" id="idcharge[]" value="2">
+                                                  </span></th>
+                                                  <th width="158"><input type="text" name="unit[]" id="pricefreight2" style="width:98%; text-align:right" onChange="return count_freight2(this)" required class="form-control"></th>
+                                                  <th width="158"><div align="center">
+                                                    <input type="text" name="qty[]" id="qtyfreight2" style="width:98%;text-align:right" value="1" class="form-control">
+                                                  </div></th>
+                                                  <th width="114"><div align="center">
+                                                    
+  <input type="text" name="desc[]" id="descfreight" style="width:100%" class="form-control">
+                                                  </div></th>
+                                                  <th width="222"><div align="center">
+                                                    <input type="text" name="totalcharges[]" id="totfreight2" style="width:98%;text-align:right" readonly required class="form-control" value="0">
+         
+                                                  </div></th>
+                                                  <th class="text-center"><div align="center"></div></th>
+                                                </tr>
+                                                </thead>
+                                                
+                                               
+                                              
+                                              <tbody>
+   <?php 
+$i=1;
+foreach($tmpcharge as $chr){
+$grandt+=$chr->Total;
+ //$t_volume+=$itm['v'];
+        ?>
+<?php $no++; } ?>
+                                                <thead>
+                                                 <tr>
 
-</div>
-<div class="col-md-12">
-<label class="col-sm-4">Adm SMU</label> 
-  <div class="col-sm-7">
-  <input type="text" name="adm" id="adm" class="form-control" onkeypress="return isNumberKey(event)" onChange="return admRp(this)" required value="0">
-  </div>
-</div>
+                                                  <td><b>Total</b></td>
+                                                  <td colspan="4"><div align="right">
+                                                  <input name="total_charge" type="text" id="total_charge" value="0" />
+  <label id="label_charges">0</label>                                                                                           
+                                                  
+                                                  </strong></div></td>
+                                                  <td width="129">&nbsp;</td>
+                                                </tr>
+                                                </thead>
+                                            </table>
+              </div>
+                  </div>
+                                     
+ 
 
-<div class="col-md-12">
-<label class="col-sm-4">Delivery</label> 
-  <div class="col-sm-7">
-  <input type="text" name="delivery" id="delivery" class="form-control" onkeypress="return isNumberKey(event)" onChange="return deliveryRp(this)" required value="0">
-  </div>
+
+
+<div class="col-md-6">
+ 
 </div>
-<div class="col-md-12">
-<label class="col-sm-4">Other Cost &nbsp;</label>
-<div class="col-sm-7"><input type="text" name="other" id="other" class="form-control" onkeypress="return isNumberKey(event)" onChange="return otherRp(this)" value="0"></div>
-</div>
-  
-    </div>
-      </div>
+<!-- FOR DEFAULT COST-->
+    
  <!-- right input -->
- <div class="col-md-6">
-      <div class="row">
-          <div class="col-md-12">
-  <label class="col-sm-7 text-right">Rp</label> 
-    <div class="col-sm-4">
-      <input type="text" name="t_freight" id="t_freight" class="form-control txtrp" onkeypress="return isNumberKey(event)" required readonly>
-    <input type="hidden" name="txtfreight" id="txtfreight" value="0">
-    </div>
-</div>
-
-<div class="col-md-12">
-<label class="col-sm-7 text-right">Rp</label> 
-  <div class="col-sm-4">
-    <input type="text" name="t_quarantine" id="t_quarantine" class="form-control txtrp" onkeypress="return isNumberKey(event)" required readonly>
-    <input type="hidden" name="txtquarantine" id="txtquarantine" value="0">
-  </div>
-</div>
-<div class="col-md-12">
- <label class="col-sm-7 text-right">Rp</label>
-<div class="col-sm-4">
-  <input type="text" name="adm2" id="adm2" class="form-control txtrp" onkeypress="return isNumberKey(event)" readonly required>
-</div>
-
-</div>
-<div class="col-md-12">
- <label class="col-sm-7 text-right">Rp</label> 
-  <div class="col-sm-4">
-  <input type="text" name="delivery2" id="delivery2" class="form-control txtrp" onkeypress="return isNumberKey(event)" readonly required>
-  </div>
-</div>
-<div class="col-md-12">
-<label class="col-sm-7 text-right">Rp</label>
-<div class="col-sm-4"><input type="text" name="other2" id="other2" class="form-control txtrp" onkeypress="return isNumberKey(event)" value="" readonly></div>
-</div>
-
-``</div>
-</div>
+ 
+ 
+ 
 <!-- discoount iinput -->
 <div class="col-sm-12 line" id="line">
-<hr>
+
 
 <div class="col-sm-8"><p class="text-right">TOTAL </p></div>
 <div class="col-sm-2"><p class="text-left"><input type="text" name="t_total" id="t_total" class="form-control txtrp" readonly>
 <input type="hidden" name="txttotal" id="txttotal" value="0">
 </p>
 </div>
+
+<div class="col-sm-8"><p class="text-right">DISKON </p></div>
+<div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="return diskonRp(this);">
+<input type="hidden" name="txtdiskon" id="txtdiskon" class="form-control" value="0">
+</p></div>
+
+<div class="col-sm-8"><p class="text-right">GRAND TOTAL </p></div>
+<div class="col-sm-2"><p class="text-left"><input type="text" name="grandtotal" id="grandtotal" class="form-control txtrp"  readonl="readonly" readonly value="0">
+<input type="hidden" name="txtgrandtotal" id="txtgrandtotal" class="form-control" value="0">
+</p></div>
+
 <div class="col-sm-1">
 <button type="button" id="btn_hitung" onClick="return hitung()" class="btn btn-small btn-danger">Hitung</button>
 </div>
@@ -676,7 +762,7 @@ $("#idconsigne").autocomplete({
 
 
   
-   </div><!--  INPUT COST -->
+   </div>
                                     
                                   <div class="cpl-sm-12"><h2>&nbsp;</h2>
                                   <div class="row">
@@ -694,10 +780,9 @@ $("#idconsigne").autocomplete({
       </form>
   </div>
             </div>
-              
 
 
-<!--adding form-->
+
 <div id="modaladd" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
     <div class="modal-dialog" role="document">
@@ -707,49 +792,48 @@ $("#idconsigne").autocomplete({
                 <h3 id="myModalLabel">Add Items</h3>
             </div>
             <div class="smart-form scroll">
-        <!-- <form method="post" action="<?php //echo site_url('temp/save_item')?>">   -->
                     <div class="modal-body">
                      
                    
 <div class="form-group">
                         <label class="col-sm-3 control-label">No of Pcs </label>
                         <div class="col-sm-9"><span class="controls">
-                        <input name="pack" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="pack" />
+                        <input name="pack" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="pack" value="" />
 </span></div>
             <div class="clearfix"></div>
             </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Length &nbsp; ( P )</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="panjang" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="panjang" />
+                          <input name="panjang" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="panjang" value=""/>
 </span></div>
                         <div class="clearfix"></div>
                       </div>
   <div class="form-group">
                         <label class="col-sm-3 control-label">Width &nbsp; ( L )</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="lebar" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="lebar" />
+                          <input name="lebar" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="lebar" value=""/>
 </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Height &nbsp; ( T )</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="tinggi" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="tinggi" />
+                          <input name="tinggi" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="tinggi" value="" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>                    
 <div class="form-group">
                         <label class="col-sm-3 control-label">Weight &nbsp; ( T )</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="weight" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="weight" />
+                          <input name="weight" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="weight" value=""/>
 </span></div>
                         <div class="clearfix"></div>
                </div>
   <div class="modal-footer">
 <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
                         <button class="btn btn-primary" id="iditems"> Save</button>
-               <!-- </form>  -->
+              
     </div>
                     </div>
             
@@ -767,7 +851,7 @@ $("#idconsigne").autocomplete({
                 <h3 id="myModalLabel">Add Charges</h3>
             </div>
             <div class="smart-form scroll">
-<!-- <form method="post" action="<?php //echo site_url('temp/save_temp_charge')?>">  -->
+
                     <div class="modal-body">
                      
                    
@@ -775,26 +859,19 @@ $("#idconsigne").autocomplete({
                         <label class="col-sm-3 control-label">Charges </label>
                         <div class="col-sm-9"><span class="controls">
               <select name="charge" class="form-control" required="required" id="charge">
-                <option value="">Select One</option>
-<?php foreach ($charges as $crg) {
-  ?>
-                <option value="<?php echo $crg->Description;?>"><?php echo $crg->Description;?></option>
-<?php } ?>
-
+          <option value="">Choose Charges</option>
+          <?php foreach ($chargeoptional as $crg) {
+          ?>
+            <option value="<?php echo $crg->ChargeCode.'-'.$crg->ChargeName;?>"><?php echo $crg->ChargeName;?></option>
+          <?php } ?>
               </select> 
                           </span>
                           </div>
                         <div class="clearfix"></div>
   </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Description &nbsp;</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="desc" type="text" class="form-control" id="desc" />
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>
+
   <div class="form-group">
-                        <label class="col-sm-3 control-label">Unit &nbsp; Price</label>
+                        <label class="col-sm-3 control-label">&nbsp;Price</label>
                         <div class="col-sm-9"><span class="controls">
                           <input name="txtunit" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="txtunit" />
 </span></div>
@@ -807,14 +884,20 @@ $("#idconsigne").autocomplete({
 </span></div>
                         <div class="clearfix"></div>
                       </div>                    
-
+<div class="form-group">
+                        <label class="col-sm-3 control-label">Description &nbsp;</label>
+                        <div class="col-sm-9"><span class="controls">
+                <textarea name="desc" id="desc" class="form-control"></textarea>
+</span></div>
+                        <div class="clearfix"></div>
+                      </div>
   <div class="modal-footer">
 <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
                         <button class="btn btn-primary" id="savecharges"> Save</button>
     </div>
                     </div>
             
-            <!--    </form>  -->
+           
             </div>
         </div>
     </div>
@@ -1056,7 +1139,6 @@ $("#iditems").click(function(){
 	var t_weight=$('#t_weight').val();
 	var total_weight=parseFloat(t_weight) + parseFloat(weight);
 	var format_weight=total_weight.toFixed(2);
-	//var total_pacs=parseFloat(t_pacs)+ parseFloat(pcs);
 	
 if (panjang == '' || lebar == '' || pcs == ''){
 	alert('Mohon isi data dengan lengkap');	
@@ -1066,11 +1148,11 @@ if (panjang == '' || lebar == '' || pcs == ''){
 	text='<tr class="gradeX" align="right">'
 	+ '<td></td>'
     + '<td>' + '<input type="hidden" name="pcs[]" id="pcs[]" size="5" value="'+ pcs +'">'+ '<label id="l_pcs">'+ pcs +'</label>' +'</td>'
-    + '<td>' + '<input type="hidden" name="p[]" id="p[]" value="'+ panjang +'">'+ '<label id="l_pcs">'+ panjang +'</label>' +'</td>'
-    + '<td>' +  '<input type="hidden" name="l[]" id="l[]" value="'+ lebar +'">'+ '<label id="l_pcs">'+ lebar +'</label>' +'</td>'
+    + '<td>' + '<input type="hidden" name="p[]" id="p[]" size="5" value="'+ panjang +'">'+ '<label id="l_pcs">'+ panjang +'</label>' +'</td>'
+    + '<td>' +  '<input type="hidden" name="l[]" id="l[]" size="5" value="'+ lebar +'">'+ '<label id="l_pcs">'+ lebar +'</label>' +'</td>'
     + '<td>' +  '<input type="hidden" name="t[]" id="t[]" size="5" value="'+ tinggi +'">'+ '<label id="l_pcs">'+ tinggi +'</label>' +'</td>'
-    + '<td>' + '<input type="hidden" name="v[]" id="v[]" value="'+ kali +'">'+ '<label id="l_pcs">'+ kali +'</label>' +'</td>'
-    + '<td>' + '<input type="hidden" name="w[]" id="w[]" value="'+ weight +'">'+ '<label id="l_pcs">'+ weight +'</label>' +'</td>'
+    + '<td>' + '<input type="hidden" name="v[]" id="v[]" size="5" value="'+ kali +'">'+ '<label id="l_pcs">'+ kali +'</label>' +'</td>'
+    + '<td>' + '<input type="hidden" name="w[]" id="w[]" size="5" value="'+ weight +'">'+ '<label id="l_pcs">'+ weight +'</label>' +'</td>'
 
 	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali + '/'+ pcs + '/' + weight + '" onclick="hapus2(this)" type="button" ><i class="fa fa-times"></i></button></td>'
     + '</tr>';
@@ -1106,10 +1188,12 @@ if (panjang == '' || lebar == '' || pcs == ''){
 		if(koma > 49){
 			var maks=parseFloat(bulat) + 1;
 			$("#ori_cwt").val(maks);
+            $("#qtyfreight").val(maks);
 			
 		} else {
 			var maks=parseFloat(bulat);
 			$("#ori_cwt").val(maks);
+           $("#qtyfreight").val(maks);
 			
 		}
 
@@ -1130,16 +1214,16 @@ function hapus(th) {
      tr.hide();
  }
 
-<!-- hapus item dan kurangi total items pack
 function hapus2(myid){
 var input = $(myid).val();
 //var input2 = $(myid).val();
 var pecah=input.split('/');
+var vol=pecah[0];
 var pcs=pecah[1];
 var weight=pecah[2];
 
 	var t_volume=$('#t_volume').val();
-	var kurang=parseFloat(t_volume)-parseFloat(input);
+	var kurang=parseFloat(t_volume)-parseFloat(vol);
 	var hasil=kurang.toFixed(2);
 	$('#t_volume').val(hasil);
 	$('#label_volume').html(hasil);
@@ -1159,16 +1243,31 @@ var weight=pecah[2];
 	var total_volum=$('#t_volume').val();
 	var total_weight=$('#t_weight').val();
 	
-	if(total_volum > total_weight)
+	if(total_volum >= total_weight)
 	{
-		$('#cwt').val(hasil);
+		$('#cwt').val(total_volum);
 	} 
-	else if(total_weight > total_volum)
+	else if(total_weight >= total_volum)
 	 {
-		$('#cwt').val(hasil3);
+		$('#cwt').val(total_weight);
 	}
-	
-	
+
+		var input=$("#cwt").val();
+		var pecah=input.split('.');
+		var bulat=pecah[0];
+		var koma=pecah[1];
+		if(koma > 49){
+			var maks=parseFloat(bulat) + 1;
+            $('#qtyfreight').val(maks);
+			$('#ori_cwt').val(maks);
+			
+		} else {
+			var maks=parseFloat(bulat);
+			$('#qtyfreight').val(maks);
+			$('#ori_cwt').val(maks);
+		}
+
+
      t = $(myid);
      tr = t.parent().parent();
      tr.remove();
@@ -1183,19 +1282,25 @@ $("#savecharges").click(function(){
 	var txtqty=$('#txtqty').val();
  	var kali = parseFloat(txtunit) * parseFloat(txtqty);
  	var total_charge=$('#total_charge').val();
-	var jumlah=parseFloat(total_charge) + parseFloat(kali);			
+	var jumlah=parseFloat(total_charge) + parseFloat(kali);	
+	
+	var pecah=charge.split('-');
+	var idcharge=pecah[0];
+	var nmcharge=pecah[1];
+			
 if (txtunit == '' || txtqty == '' || charge == ''){
 	alert('Mohon isi data dengan lengkap');	
 	}
 	else
 	{
-	text='<tr class="gradeX" align="right">'
-	+ '<td></td>'
-    + '<td>' + '<input type="hidden" name="idcharge[]" id="pcs[]" size="5" value="'+ charge +'">'+ '<label id="l_pcs">'+ charge +'</label>' +'</td>'
+	text='<tr class="gradeX">'
+    + '<td>' + '<input type="hidden" name="idcharge[]" id="idcharge[]" value="'+ idcharge +'">'+ '<label id="l_pcs">'+ nmcharge +'</label>' +'</td>'
+    + '<td align="right">' +  '<input type="hidden" name="unit[]" id="l[]" value="'+ txtunit +'">'+ '<label id="l_pcs">'+ txtunit +'</label>' +'</td>'
+    + '<td align="right">' +  '<input type="hidden" name="qty[]" id="t[]" size="5" value="'+ txtqty +'">'+ '<label id="l_pcs">'+ txtqty +'</label>' +'</td>'
+    
     + '<td>' + '<input type="hidden" name="desc[]" id="p[]" size="5" value="'+ desc +'">'+ '<label id="l_pcs">'+ desc +'</label>' +'</td>'
-    + '<td>' +  '<input type="hidden" name="unit[]" id="l[]" size="5" value="'+ txtunit +'">'+ '<label id="l_pcs">'+ txtunit +'</label>' +'</td>'
-    + '<td>' +  '<input type="hidden" name="qty[]" id="t[]" size="5" value="'+ txtqty +'">'+ '<label id="l_pcs">'+ txtqty +'</label>' +'</td>'
-    + '<td>' + '<input type="hidden" name="total[]" id="v[]" size="5" value="'+ kali +'">'+ '<label id="l_pcs">'+ kali +'</label>' +'</td>'
+    
+    + '<td align="right">' + '<input type="hidden" name="totalcharges[]" id="totalcharges[]" size="5" value="'+ kali +'">'+ '<label id="l_pcs">'+ kali +'</label>' +'</td>'
 
 	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali +'" onclick="hapus3(this)" type="button"><i class="fa fa-times"></i></button></td>'
     + '</tr>';
@@ -1203,6 +1308,9 @@ if (txtunit == '' || txtqty == '' || charge == ''){
 		$('#tblcharges tbody').append(text);
 		$("#total_charge").val(jumlah);
 		$("#label_charges").html(jumlah);
+	
+	document.getElementById("t_total").value=jumlah;
+	document.getElementById("txttotal").value=jumlah;
 //RESET INPUT
 $('#txtunit').val("");
 $('#txtqty').val("");
@@ -1213,20 +1321,29 @@ $('#desc').val("");
 
 
 function hapus3(myid){
-var input = $(myid).val();
+	var input = $(myid).val();
+	
+	var total_charge=$('#total_charge').val();
+	var hasil=parseFloat(total_charge)-parseFloat(input);
 
-var total_charge=$('#total_charge').val();
-var hasil=parseFloat(total_charge)-parseFloat(input);
 
+	document.getElementById("t_total").value=hasil;
+	document.getElementById("txttotal").value=hasil;
+	
 $('#total_charge').val(hasil);
 $("#label_charges").html(hasil);
 
+  <!-- delete rows -->
      t = $(myid);
      tr = t.parent().parent();
      tr.remove();
 }
 
-   $('#plane').change(function(){
+
+
+
+
+$('#plane').change(function(){
     	$.getJSON("<?php echo base_url('transaction/getcost'); ?>",
 		{
 			action:'getcode', plane:$(this).val()}, function(json){
@@ -1241,8 +1358,5 @@ $("#label_charges").html(hasil);
     });
 					
 </script>
- 
-  <!-- ============================================================== -->   
-
-	</body>
+</body>
 </html>
