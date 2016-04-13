@@ -340,9 +340,7 @@ foreach($master as $row){
 ?>
   <div class="row">
                <!--LEFT INPUT-->
-    <?php
-	foreach($shipper as $ship){
-	?>
+
   <div class="col-sm-6">      
       <div class="col-sm-11">
 <label class="col-sm-12"> <span class=" span3 label label-large label-pink arrowed-in-right">Sender</span></label> 
@@ -373,16 +371,16 @@ foreach($master as $row){
           </div>
           <strong><label class="col-sm-4"> Origin</label></strong>
           <div class="col-sm-7">
-            <input name="origin" type="text" class="form-control"  id="origin" value="<?php echo $row->Origin;?>" readonly />
+            <input name="origin" type="text" class="form-control"  id="origin" value="<?php echo $row->ori;?>" readonly />
           </div>
           <strong><label class="col-sm-4"> Destination</label></strong>
           <div class="col-sm-7">
-            <input name="desti" type="text" class="form-control"  id="desti" value="<?php echo $row->Destination;?>" readonly />
+            <input name="desti" type="text" class="form-control"  id="desti" value="<?php echo $row->desti;?>" readonly />
           </div>
 <div class="col-sm-12"><hr style="border:1px #CCC dashed"></div>
           <strong><label class="col-sm-4"> Shipper</label></strong>
           <div class="col-sm-7">
-            <input type="text" name="idshipper" id="idshipper" class="form-control" value="<?php echo $ship->CustName;?>" autocomplete="off" required readonly/>
+            <input type="text" name="idshipper" id="idshipper" class="form-control" value="<?php echo $row->sender;?>" autocomplete="off" required readonly/>
             <input name="name1" type="hidden" class="form-control"  id="name1" required value="<?php echo $row->custName;?>"/>
           <input name="idsender" type="hidden" class="form-control"  id="idsender" required value="<?php echo $ship->custCode;?>"/>
           </div>
@@ -391,7 +389,7 @@ foreach($master as $row){
     <div class="col-sm-4">
       <label for="codeship">Phone</label></div>
     <div class="col-sm-7">
-      <input type="text" name="phone1" id="phone1" class="autocomplete form-control" value="<?php echo $ship->Phone;?>" readonly/>
+      <input type="text" name="phone1" id="phone1" class="autocomplete form-control" value="<?php echo $row->phone1;?>" readonly/>
     </div>
 </div>
 
@@ -399,7 +397,7 @@ foreach($master as $row){
     <div class="col-sm-4">
       <label for="codeship">Address</label></div>
     <div class="col-sm-7">
-      <textarea name="address1" class="autocomplete form-control" id="address1" readonly><?php echo $ship->Address;?></textarea>
+      <textarea name="address1" class="autocomplete form-control" id="address1" readonly><?php echo $row->address1;?></textarea>
     </div>
 </div>
 
@@ -424,11 +422,9 @@ foreach($master as $row){
       </div>             
       </div>
       
-      <?php } ?>
+  
       <!--RIGHT INPUT-->
-          <?php
-	foreach($consigne as $con){
-	?>
+
       <div class="col-sm-6">
         <div class="col-sm-11">
 <label class="col-sm-12"> <span class="span3 label label-large label-pink arrowed-in-right">Receivement</span></label> 
@@ -450,7 +446,7 @@ foreach($master as $row){
           <strong><label class="col-sm-4"> Consignee</label>
           </strong>
             <div class="col-sm-7">
-              <input name="idconsigne" type="text" class="form-control"  id="idconsigne" value="<?php echo $con->custName;?>" readonly required/>
+              <input name="idconsigne" type="text" class="form-control"  id="idconsigne" value="<?php echo $row->receiver;?>" readonly required/>
               <input name="name2" type="hidden" class="form-control"  id="name2" required />
             <input name="idreceivement" type="hidden" class="form-control"  id="idreceivement" required value="<?php echo $con->custCode;?>"/>
           </div> 
@@ -458,7 +454,7 @@ foreach($master as $row){
   <div class="col-sm-4">
       <label for="codeship">Phone</label></div>
     <div class="col-sm-7">
-      <input name="phone2" type="text" class="form-control" readonly  id="phone2" value="<?php echo $con->Phone;?>"/>
+      <input name="phone2" type="text" class="form-control" readonly  id="phone2" value="<?php echo $row->phone2;?>"/>
     </div>
 </div>
 
@@ -466,7 +462,7 @@ foreach($master as $row){
     <div class="col-sm-4">
       <label for="codeship">Address</label></div>
     <div class="col-sm-7">
-      <textarea name="address2" class="autocomplete form-control" id="address2" readonly><?php echo $con->Address;?></textarea>
+      <textarea name="address2" class="autocomplete form-control" id="address2" readonly><?php echo $row->address2;?></textarea>
     </div>
 </div>
 
@@ -475,7 +471,7 @@ foreach($master as $row){
     <div class="col-sm-4">
       <label for="codeship">Code Consignee</label></div>
     <div class="col-sm-7">
-      <input name="codesigne" type="text" class="form-control" value="<?php echo $con->CodeConsigne;?>"  id="codesigne" readonly/>
+      <input name="codesigne" type="text" class="form-control" value="<?php echo $row->CodeConsigne;?>"  id="codesigne" readonly/>
     </div>
 </div>
 
@@ -483,7 +479,7 @@ foreach($master as $row){
 <div class="col-sm-13" id="contencnee"><!-- CONTENT AJAX VIEW HERE --></div>
    </div>
    
-   <?php } }?>
+   <?php }?>
 </div>
 
 
@@ -557,10 +553,10 @@ foreach($master as $row){
                                                   <td>Total</td>
                                                   <td colspan="3"><label id="label_pcs"><?php echo $pack; ?></label>
                                                   <input name="t_pacs" type="hidden" id="t_pacs" value="<?php echo $pack; ?>" />
-                                                  <input name="t_pcs" type="text" id="t_pcs" value="<?php echo $pack; ?>" /></td>
+                                                  <input name="t_pcs" type="hidden" id="t_pcs" value="<?php echo $pack; ?>" /></td>
                                                   <td colspan="3">&nbsp;</td>
-           <td><label id="label_volume"><?php echo $volume; ?></label>                                                    <input name="t_volume" type="text" id="t_volume" value="<?php echo $volume; ?>" /></td>
-       <td><label id="label_weight"> <?php echo $gross; ?></label>                                           <input name="t_weight" type="text" id="t_weight" value="<?php echo $gross; ?>" />
+           <td><label id="label_volume"><?php echo $volume; ?></label>                                                    <input name="t_volume" type="hidden" id="t_volume" value="<?php echo $volume; ?>" /></td>
+       <td><label id="label_weight"> <?php echo $gross; ?></label>                                           <input name="t_weight" type="hidden" id="t_weight" value="<?php echo $gross; ?>" />
                                                   </td>  
                                                   <td>&nbsp;</td>
                                                 </tr>
@@ -576,7 +572,7 @@ foreach($master as $row){
                                               <div class="col-md-12">
                                               <label class="col-sm-4">Commodity &nbsp;</label>
                                               <div class="col-sm-7">
-      <select data-placeholder="Choose Commodity..." class="chosen-select form-control" tabindex="2" required="required" name="commodity">
+      <select data-placeholder="Choose Commodity..." class="chosen-select form-control" tabindex="2"  name="commodity">
            <option value="">Choose Commodity</option>
           <?php foreach ($commodity as $cm) {
           ?>
@@ -600,7 +596,7 @@ foreach($master as $row){
                                                 <div class="col-md-12">
                                               <label class="col-sm-3">CWT &nbsp;</label>
                                               <div class="col-sm-8">
-                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)" value="<?php echo $maksi; ?>"><input type="text" name="ori_cwt" id="ori_cwt" value="<?php echo $maksi; ?>">
+                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)" value="<?php echo $maksi; ?>"><input type="hidden" name="ori_cwt" id="ori_cwt" value="<?php echo $maksi; ?>">
                                               </div>
                                                 </div>
                                               <div class="col-md-12">
@@ -640,7 +636,7 @@ foreach($master as $row){
  <input type="hidden" name="idcharge[]" id="idcharge[]" value="1">
    </span></th>
  
- <th><input type="text" name="unit[]" id="pricefreight" onChange="return count_freight3(this);" required class="form-control" style=" text-align:right"></th>
+ <th><input type="text" name="unit[]" id="pricefreight" onChange="return count_freight3(this);"  class="form-control" style=" text-align:right"></th>
                                                   <th><input type="text" name="qty[]" id="qtyfreight" style="width:98%;text-align:right" value="<?php echo $maksi; ?>" class="form-control" readonly></th>
                                                   <th>
 
@@ -653,7 +649,7 @@ foreach($master as $row){
                                                   <th width="158"><span class="col-sm-4">SMU
                                                     <input type="hidden" name="idcharge[]" id="idcharge[]" value="2">
                                                   </span></th>
-                                                  <th width="158"><input type="text" name="unit[]" id="pricefreight2" style="width:98%; text-align:right" onChange="return count_freight2(this)" required class="form-control"></th>
+                                                  <th width="158"><input type="text" name="unit[]" id="pricefreight2" style="width:98%; text-align:right" onChange="return count_freight2(this)"  class="form-control"></th>
                                                   <th width="158"><div align="center">
                                                     <input type="text" name="qty[]" id="qtyfreight2" style="width:98%;text-align:right" value="1" class="form-control">
                                                   </div></th>
@@ -662,7 +658,7 @@ foreach($master as $row){
   <input type="text" name="desc[]" id="descfreight" style="width:100%" class="form-control">
                                                   </div></th>
                                                   <th width="222"><div align="center">
-                                                    <input type="text" name="totalcharges[]" id="totfreight2" style="width:98%;text-align:right" readonly required class="form-control" value="0">
+                                                    <input type="text" name="totalcharges[]" id="totfreight2" style="width:98%;text-align:right" readonly  class="form-control" value="0">
          
                                                   </div></th>
                                                   <th class="text-center"><div align="center"></div></th>
@@ -684,7 +680,7 @@ $grandt+=$chr->Total;
 
                                                   <td><b>Total</b></td>
                                                   <td colspan="4"><div align="right">
-                                                  <input name="total_charge" type="text" id="total_charge" value="0" />
+                                                  <input name="total_charge" type="hidden" id="total_charge" value="0" />
   <label id="label_charges">0</label>                                                                                           
                                                   
                                                   </strong></div></td>

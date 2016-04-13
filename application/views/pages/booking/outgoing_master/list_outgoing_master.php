@@ -152,7 +152,6 @@ $("#idhouse").autocomplete({
                                                   <th width="58"><div align="center">Service</div></th>
                                                   <th width="48">Origin</th>
                                                   <th width="48">Destination</th>
-                                                  <th width="48">Shipper</th>
                                                   <th width="53" class="text-center"><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item" style="visibility:hidden"><i class="icon-plus icons"></i> Add items</a>Actions</div></th>
                                                 </tr>
                                                 </thead>
@@ -177,7 +176,6 @@ $("#idhouse").autocomplete({
                                                     <td><div align="left"><?php echo $items->Service;?></div></td>
                                                     <td><div align="left"><?php echo $items->Origin;?></div></td>
                                                     <td><div align="left"><?php echo $items->Destination;?></div></td>
-                                                    <td><div align="left"><?php echo $items->custName;?></div></td>
                                                     <td>
                                                    <form action="<?php echo base_url();?>transaction/print_invoice_OM" method="post" target="new" class="text-left">
                                                    <input type="hidden" value="<?php echo $items->NoSMU;?>" name="NoSMU" />

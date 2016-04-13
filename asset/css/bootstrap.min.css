@@ -1993,14 +1993,25 @@ select[multiple].form-group-lg .form-control,textarea.form-group-lg .form-contro
     color: #337ab7;
     border-radius: 0}
 .btn-normal {
-	background:linear-gradient(#1963aa,#1963aa,#1963aa);
+	background:#0077B0;
 	color:#FFF;
-	border-radius:4px;
-	padding:8px;
+	padding-top:11px;
+	padding-left:24px;
+	padding-right:24px;
 	border:none;
-	
-	
+	border-radius:100%;
+	line-height:60px;
+	box-shadow:2px 2px 16px #aaa;
+	transition:all 0.5s;
+	bottom:1px;
 	}
+.btn-normal:hover{
+background-color:#0080FF;
+box-shadow:2px 2px 16px #555;
+}
+.btn-normal i{
+	font-size:xx-large;	
+}
 
 .btn-link,.btn-link.active,.btn-link:active,.btn-link[disabled],fieldset[disabled] .btn-link {
     background-color: transparent;

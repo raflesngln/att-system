@@ -201,12 +201,12 @@ public function generateCity($table,$kolom,$kd_unik)
 	}	
 //=================== sub query ===============================
 
-		function subsmu($nosmu)
+		function subsmu($nosmu,$smu)
 	{
 		 $query = $this->db->query("SELECT *,
-		 (select b.CityName from ms_city b where a.Origin=b.CityCode) as origin,
-		 (select c.CityName from ms_city c where a.Destination=c.CityCode) as destination
-		from outgoing_master a WHERE a.NoSMU='$nosmu'");
+		 (select b.PortName from ms_port b where a.Origin=b.PortCode) as origin,
+		 (select c.PortName from ms_port c where a.Destination=c.PortCode) as destination
+		from outgoing_master a WHERE a.NoSMU='$nosmu' OR a.NoSMU='$smu'");
 		return $query->result();
 	}	
 //=================== select1 ===============================
@@ -352,7 +352,7 @@ public function insert($table,$data) {
         }
         return $kd;
     }
-	
+
 	//========================INSERT ========================
 public function backup($folder,$table) {
       $query = $this->db->query("SELECT * INTO OUTFILE ".$folder." FROM $table");

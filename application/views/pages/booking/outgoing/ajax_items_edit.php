@@ -52,6 +52,10 @@
    <script>
    
 $(".del_items2").click(function(){
+		
+var conf=confirm('Yakin Hapus');
+if (conf==true){
+	
 var allcode=$(this).val();
 var smu=$('#smu').val(); 
 
@@ -96,8 +100,14 @@ var weight=pecah[3];
 				$('#ori_cwt').val(new_weight);
 				$('#qtyfreight').val(new_weight);
 			}
+			var price=$('#pricefreight').val();
+			var new_qty=$('#qtyfreight').val();
+			var new_sub_weight=parseFloat(price) * parseFloat(new_qty);
+			//$('#pricefreight').val(price);
+			$('#totfreight').val(new_sub_weight);
   		}
    });
+  }
 });
 	
    

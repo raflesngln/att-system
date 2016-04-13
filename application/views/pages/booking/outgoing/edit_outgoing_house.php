@@ -106,6 +106,8 @@ function toRp(angka){
 	document.getElementById("label_charges").innerHTML=format_nilai;
 	document.getElementById("t_total").value=format_nilai;
 	document.getElementById("txttotal").value=nilai;
+	$('#grandtotal').val(toRp(nilai));
+	$("#txtgrandtotal").val(nilai);
  }
  function count_freight2(input){
 	var total=document.getElementById("total_charge").value;
@@ -130,7 +132,17 @@ function toRp(angka){
 	document.getElementById("label_charges").innerHTML=format_nilai;
 	document.getElementById("t_total").value=format_nilai;
 	document.getElementById("txttotal").value=nilai;
+	$('#grandtotal').val(toRp(nilai));
+	$("#txtgrandtotal").val(nilai);
  }
+ 
+ function count_others(input){
+	 var aa=$(this).val();
+	 alert(aa);
+ }
+ $(".others").click(function(e) {
+    alert('haii');
+});
 function count_quarantine(){
   var pcs =document.getElementById("t_pacs").value;
   var quarantine =document.getElementById("quarantine").value;
@@ -215,7 +227,7 @@ function deliveryRp(input){
  }
 
  function hitung(){
-	var txtdiskon=document.getElementById("txtdiskon").value;
+	var txtdiskon=document.getElementById("diskon").value;
 	  
  	var total=document.getElementById("txttotal").value;
 
@@ -337,6 +349,7 @@ $("#idconsigne").click(function(){
 <div class="container">
 <?php
 foreach($connote as $row){
+	$cwt=$row->CWT;
 ?>
   <div class="row">
                <!--LEFT INPUT-->
@@ -377,7 +390,7 @@ foreach($connote as $row){
 <div class="col-sm-12"><hr style="border:1px #CCC dashed"></div>
           <strong><label class="col-sm-4"> Shipper</label></strong>
           <div class="col-sm-7">
-            <input type="text" name="idshipper" id="idshipper" class="form-control" value="<?php echo $ship->custName;?>" autocomplete="off" required readonly/>
+            <input type="text" name="idshipper" id="idshipper" class="form-control" value="<?php echo $row->sender;?>" autocomplete="off" required readonly/>
             <input name="name1" type="hidden" class="form-control"  id="name1" required value="<?php echo $row->custName;?>"/>
           <input name="idsender" type="hidden" class="form-control"  id="idsender" required value="<?php echo $ship->custCode;?>"/>
           </div>
@@ -402,7 +415,7 @@ foreach($connote as $row){
     <div class="col-sm-4">
       <label for="codeship">Code Shipper</label></div>
     <div class="col-sm-7">
-      <input type="text" name="codeship" id="codeship" class="autocomplete form-control" value="<?php echo $row->CodeShipper;?>" readonly  />
+      <input type="text" name="codeship" id="codeship" class="autocomplete form-control" value="<?php echo $row->receiver;?>" readonly  />
     </div>
 </div>
 
@@ -444,7 +457,7 @@ foreach($connote as $row){
           <strong><label class="col-sm-4"> Consignee</label>
           </strong>
             <div class="col-sm-7">
-              <input name="idconsigne" type="text" class="form-control"  id="idconsigne" value="<?php echo $con->custName;?>" readonly required/>
+              <input name="idconsigne" type="text" class="form-control"  id="idconsigne" value="<?php echo $row->receiver;?>" readonly required/>
               <input name="name2" type="hidden" class="form-control"  id="name2" required />
             <input name="idreceivement" type="hidden" class="form-control"  id="idreceivement" required value="<?php echo $con->custCode;?>"/>
           </div> 
@@ -487,16 +500,15 @@ foreach($connote as $row){
                   <div class="panel">
                         <!--<div class="panel-header"></div>-->
                         
-                                    <div class="form-group">
+                    <div class="form-group">
 <h2><span class="label label-large label-pink arrowed-in-right"><strong>List Item's</strong></span></h2>
-                                        <div class="table-responsive" id="table_items">
-                                        <table class="table table-striped table-bordered table-hover" id="tblitems" style="width:95%">
+                      <div class="table-responsive" id="table_items">
+                        <table class="table table-striped table-bordered table-hover" id="tblitems" style="width:95%">
                                               <thead>
-                     <th colspan="9"></th>
+                     <th colspan="8"></th>
                                               <th><div align="center"><a class="btn btn-primary btn-addnew btn-rounded" href="#modaladd" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add New</a>
                                            </div></th>
                                                 <tr align="">
-                                                  <th>&nbsp;</th>
                                                   <th colspan="3"><div align="center">No Of Pcs</div></th>
                                                   <th><div align="center">Length ( P )</div></th>
                                                   <th><div align="center">Width ( L )</div></th>
@@ -513,56 +525,46 @@ foreach($connote as $row){
 		$pack+=$itm->NoPack;
 		$volume+=$itm->Volume;
 		$gross+=$itm->G_Weight;
-		if($gross > $volume){
-			$maksi=$gross;
-		} else {
-			$maksi=$volume;
-		}
+		
 		$total_volume=$unit*$qty;
 		$grantotal+=$total_volume;
 		 ?>
                                                   <tr align="right" class="gradeX">
-                                                    <td><?php echo $no; ?></td>
-                                                  <td colspan="3"><?php echo $itm->NoPack; ?></td>
-                                                  <td><?php echo $itm->Length; ?></td>
-                                                  <td><?php echo $itm->Width; ?></td>
-                                                  <td><?php echo $itm->Height; ?></td>
-                                                  <td><?php echo $itm->Volume; ?></td>
-                                                  <td><?php echo $itm->G_Weight; ?></td>
-                                                  <td>
-                                                  <div align="center">
- <button id="del_items" class="del_items btn btn-mini btn-danger" value="<?php echo $itm->IdItems.'/'.$itm->NoPack.'/'.$itm->Volume.'/'.$itm->G_Weight;?>" onClick="return del_items(this);" type="button">x</button>                                   
+                                                    <td colspan="3"><input name="pcs[]" type="hidden" id="pcs[]" value="<?php echo $pack; ?>" />                                                      <?php echo $itm->NoPack; ?></td>
+                                                    <td><input name="p[]" type="hidden" id="p[]" value="<?php echo $pack; ?>" />                                                      <?php echo $itm->Length; ?></td>
+                                                    <td><input name="l[]" type="hidden" id="l[]" value="<?php echo $pack; ?>" />                                                      <?php echo $itm->Width; ?></td>
+                                                    <td><input name="t[]" type="hidden" id="t[]" value="<?php echo $pack; ?>" />                                                      <?php echo $itm->Height; ?></td>
+                                                    <td><input name="v[]" type="hidden" id="v[]" value="<?php echo $pack; ?>" />                                                      <?php echo $itm->Volume; ?></td>
+                                                    <td><input name="w[]" type="hidden" id="w[]" value="<?php echo $pack; ?>" />                                                      <?php echo $itm->G_Weight; ?></td>
+                                                    <td>
+ <button id="del_items" class="del_items btn btn-mini btn-danger" value="<?php echo $itm->IdItems.'/'.$itm->NoPack.'/'.$itm->Volume.'/'.$itm->G_Weight;?>"  type="button">x</button>                                   
                                          
-                                                  </div>
                                                   </td>
-                                                </tr>
-  <?php $no++;} ?>
-                                                
-                                              </tbody>
-                                            </table>
-                                        </div>
- <table class="table table-striped table-bordered table-hover" id="tblitems" style="width:95%">
-                                              <thead>
-                     
-                                                
-                                              <tbody>
-                                                
-                                                <tr align="right">
-                                                  <td>Total</td>
-                                                  <td colspan="3"><label id="label_pcs"><?php echo $pack; ?></label>
-                                                  <input name="t_pacs" type="hidden" id="t_pacs" value="<?php echo $pack; ?>" />
-                                                  <input name="t_pcs" type="text" id="t_pcs" value="<?php echo $pack; ?>" /></td>
-                                                  <td colspan="3">&nbsp;</td>
-           <td><label id="label_volume"><?php echo $volume; ?></label>                                                    <input name="t_volume" type="text" id="t_volume" value="<?php echo $volume; ?>" /></td>
-       <td><label id="label_weight"> <?php echo $gross; ?></label>                                           <input name="t_weight" type="text" id="t_weight" value="<?php echo $gross; ?>" />
-                                                  </td>  
-                                                  <td>&nbsp;</td>
-                                                </tr>
-                                                
-                                              </tbody>
-                                      </table>
-                                    </div>
+                                                  </tr>
+ 
+    <?php $no++;} ?>
+                                          
+
   
+                                                
+                                              </tbody>
+    
+
+                                          
+                                            </table>
+                      </div><table width="95%" border="0">
+  <tr>
+    <td width="14%"  align="center"><input name="t_pcs" type="hidden" id="t_pcs" value="<?php echo $pack; ?>" /><label id="label_pcs"> <?php echo $pack; ?></label></td>
+    <td width="46%">&nbsp;</td>
+    <td width="14%" align="center"><label id="label_volume"><?php echo $volume;?></label>                                                    <input name="t_volume" type="hidden" id="t_volume" value="<?php echo $volume; ?>" /></td>
+    <td><label id="label_weight"><?php echo $gross; ?></label>                                                    <input name="t_weight" type="hidden" id="t_weight" value="<?php echo $gross; ?>" /></td>
+    </tr>
+  </table>
+ 
+                                    </div>
+ 
+ 
+ 
   <!-- LEFT INPUT  -->
                                             <div class="col-md-6">
                                               <div class="row">
@@ -586,7 +588,7 @@ foreach($connote as $row){
                                              </div>
   
                                               </div>
-                                            </div>
+                    </div>
   <!-- END LEFT INPUT -->
   <!-- RIGHT INPUT  -->
                                             <div class="col-md-6">
@@ -594,7 +596,7 @@ foreach($connote as $row){
                                                 <div class="col-md-12">
                                               <label class="col-sm-3">CWT &nbsp;</label>
                                               <div class="col-sm-8">
-                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)" value="<?php echo $maksi; ?>"><input type="text" name="ori_cwt" id="ori_cwt" value="<?php echo $maksi; ?>">
+                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)" value="<?php echo $cwt; ?>"><input type="text" name="ori_cwt" id="ori_cwt" value="<?php echo $cwt; ?>">
                                               </div>
                                                 </div>
                                               <div class="col-md-12">
@@ -620,7 +622,6 @@ foreach($connote as $row){
 <h2><span class="label label-large label-pink arrowed-in-right"><strong>COST / CHARGES</strong></span></h2>
     <table class="table table-striped table-bordered table-hover" id="tblcharges" style="width:95%">
                                               <thead>
-                                                <thead>
                                                 <tr>
                                                   <th>Charges</th>
                                                   <th>Price</th>
@@ -628,63 +629,87 @@ foreach($connote as $row){
                                                   <th style="width:28%">Desc</th>
                                                   <th>Total</th>
                                                   <th class="text-center"><a class="btn  btn-primary btn-round" href="#modaladdCharge" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add Cost</a></th>
-                                                </tr>
+                                                </tr> </thead>
+                                                
+ <?php 
+ foreach($airfreight as $fr)
+ {
+	  $total1=$fr->Total;
+	  
+ ?>
+       <tbody>
                                                 <tr>
-  <th height="26"><span class="col-sm-4">AirFreight
+  <td height="26"><span class="col-sm-4">AirFreight
  <input type="hidden" name="idcharge[]" id="idcharge[]" value="1">
-   </span></th>
+   </span></td>
  
- <th><input type="text" name="unit[]" id="pricefreight" onChange="return count_freight3(this);" required class="form-control" style=" text-align:right"></th>
-                                                  <th><input type="text" name="qty[]" id="qtyfreight" style="width:98%;text-align:right" value="<?php echo $maksi; ?>" class="form-control" readonly></th>
-                                                  <th>
+ <td><input type="text" name="unit[]" id="pricefreight" onChange="return count_freight3(this);" required class="form-control" style=" text-align:right" value="<?php echo $fr->Price; ?>"></td>
+                                                  <td><input type="text" name="qty[]" id="qtyfreight" style="width:98%;text-align:right" value="<?php echo $cwt; ?>" class="form-control" readonly></td>
+                                                  <td>
 
-      <input type="text" name="desc[]" id="descfreight" style="width:100%" class="form-control">                                            
-                                                  </th>
-                                                  <th><input type="text" name="totalcharges[]" id="totfreight" style="width:98%;text-align:right" value="0" required readonly class="form-control">
+      <input type="text" name="desc[]" id="descfreight" style="width:100%" class="form-control" value="<?php echo $fr->ChargeDetail; ?>">                                            
+                                                  </td>
+                                                  <td><input type="text" name="totalcharges[]" id="totfreight" style="width:98%;text-align:right" value="<?php echo $total1; ?>" required readonly class="form-control">
+                                                  <td class="text-center">&nbsp;</td>
+                                                </tr>
+ <?php } ?>                                               
+  <?php 
+ foreach($cost_smu as $c_smu)
+ {
+	 $total2=$c_smu->Total;
+ ?>
+                                                <tr>
+                                                  <th><span class="col-sm-4">SMU
+                                                    <input type="hidden" name="idcharge[]" id="idcharge[]2" value="2">
+                                                  </span></th>
+                                                  <th><input type="text" name="pricefreight" id="pricefreight2" style="width:98%; text-align:right" onChange="return count_freight2(this)" required class="form-control"  value="<?php echo $c_smu->Price; ?>"></th>
+                                                  <th><input type="text" name="qtyfreight" id="qtyfreight2" style="width:98%;text-align:right" class="form-control" value="<?php echo $c_smu->Qty; ?>"></th>
+                                                  <th><input type="text" name="descfreight" id="descfreight2" style="width:100%" class="form-control" value="<?php echo $c_smu->ChargeDetail; ?>"></th>
+                                                  <th><input type="text" name="totfreight" id="totfreight2" style="width:98%;text-align:right" readonly required class="form-control" value="<?php echo $total2; ?>"></th>
                                                   <th class="text-center">&nbsp;</th>
                                                 </tr>
+ <?php } ?>
+   <?php 
+ foreach($chargeoptional as $opsi)
+ {
+	 $total3+=$opsi->Total;
+ ?>
                                                 <tr>
-                                                  <th width="158"><span class="col-sm-4">SMU
-                                                    <input type="hidden" name="idcharge[]" id="idcharge[]" value="2">
-                                                  </span></th>
-                                                  <th width="158"><input type="text" name="unit[]" id="pricefreight2" style="width:98%; text-align:right" onChange="return count_freight2(this)" required class="form-control"></th>
-                                                  <th width="158"><div align="center">
-                                                    <input type="text" name="qty[]" id="qtyfreight2" style="width:98%;text-align:right" value="1" class="form-control">
-                                                  </div></th>
-                                                  <th width="114"><div align="center">
-                                                    
-  <input type="text" name="desc[]" id="descfreight" style="width:100%" class="form-control">
-                                                  </div></th>
-                                                  <th width="222"><div align="center">
-                                                    <input type="text" name="totalcharges[]" id="totfreight2" style="width:98%;text-align:right" readonly required class="form-control" value="0">
-         
-                                                  </div></th>
-                                                  <th class="text-center"><div align="center"></div></th>
+                                                  <td width="158"><?php echo $opsi->ChargeName; ?>
+                                                    <input type="hidden" name="idcharge[]" id="idcharge[]3" value="<?php echo $opsi->ChargeCode; ?>">
+                                                  </td>
+                                                  <td width="158"><?php echo $opsi->Price; ?>
+   
+ </td>
+                                                  <td width="158"><?php echo $opsi->Qty; ?></td>
+                                                  <td width="114"><?php echo $opsi->ChargeDetail; ?></td>
+                                                  <td width="222"><?php echo $opsi->Total; ?></td>
+                                                  <td class="text-center"><button value="<?php echo $opsi->Total; ?>" id="del_charge" class="del_charge btn btn-mini btn-danger" onClick="hapuscharge(this)" type="button">x</button></td>
                                                 </tr>
-                                                </thead>
+    <?php } ?>
+                                                
                                                 
                                                
-                                              
-                                              <tbody>
-   <?php 
-$i=1;
-foreach($tmpcharge as $chr){
-$grandt+=$chr->Total;
- //$t_volume+=$itm['v'];
-        ?>
-<?php $no++; } ?>
-                                                <thead>
+                                        
+                                            
+                                              </tbody>
+
+                                               <tfoot> 
                                                  <tr>
 
                                                   <td><b>Total</b></td>
                                                   <td colspan="4"><div align="right">
-                                                  <input name="total_charge" type="text" id="total_charge" value="0" />
-  <label id="label_charges">0</label>                                                                                           
+   <?php
+   $totalcharge=$total1+$total2+$total3;
+   
+   ?>
+                                                  <input name="total_charge" type="hidden" id="total_charge" value="<?php echo $totalcharge;?>" />
+  <label id="label_charges"><?php echo number_format($totalcharge,0,'.','.');?></label>                                                                                           
                                                   
                                                   </strong></div></td>
                                                   <td width="129">&nbsp;</td>
-                                                </tr>
-                                                </thead>
+                                                </tr></tfoot>
+                                                
                                             </table>
               </div>
                   </div>
@@ -707,23 +732,23 @@ $grandt+=$chr->Total;
 
 
 <div class="col-sm-8"><p class="text-right">TOTAL </p></div>
-<div class="col-sm-2"><p class="text-left"><input type="text" name="t_total" id="t_total" class="form-control txtrp" readonly>
+<div class="col-sm-2"><p class="text-left"><input type="text" name="t_total" id="t_total" class="form-control txtrp" readonly value="">
 <input type="hidden" name="txttotal" id="txttotal" value="0">
 </p>
 </div>
 
 <div class="col-sm-8"><p class="text-right">DISKON </p></div>
-<div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="return diskonRp(this);">
+<div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="return hitung()">
 <input type="hidden" name="txtdiskon" id="txtdiskon" class="form-control" value="0">
 </p></div>
 
 <div class="col-sm-8"><p class="text-right">GRAND TOTAL </p></div>
-<div class="col-sm-2"><p class="text-left"><input type="text" name="grandtotal" id="grandtotal" class="form-control txtrp"  readonl="readonly" readonly value="0">
-<input type="hidden" name="txtgrandtotal" id="txtgrandtotal" class="form-control" value="0">
+<div class="col-sm-2"><p class="text-left"><input type="text" name="grandtotal" id="grandtotal" class="form-control txtrp"  readonl="readonly" readonly value="<?php echo $totalcharge;?>">
+<input type="hidden" name="txtgrandtotal" id="txtgrandtotal" class="form-control" value="<?php echo $totalcharge;?>">
 </p></div>
 
 <div class="col-sm-1">
-<button type="button" id="btn_hitung" onClick="return hitung()" class="btn btn-small btn-danger">Hitung</button>
+
 </div>
 </p>
 </div>
@@ -850,7 +875,7 @@ $grandt+=$chr->Total;
 <div class="form-group">
                         <label class="col-sm-3 control-label">Qty &nbsp; </label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="qty" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="txtqty" />
+                          <input name="qty" type="number" value="1" class="form-control" onkeypress="return isNumberKey(event)" id="txtqty" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>                    
@@ -1091,110 +1116,169 @@ $("#addcust").click(function(){
    });
 	
 $("#iditems").click(function(){
-	var house=$('#house').val();   
+	//var t_volume=$('#idtotal').val();   
 	var pcs=$('#pack').val();
 	var panjang=$('#panjang').val();
 	var lebar=$('#lebar').val();
 	var tinggi=$('#tinggi').val();
 	var weight=$('#weight').val();
- 	var volume = parseFloat(panjang) * parseFloat(lebar) * parseFloat(tinggi)/6000;
+ 	var hitung =parseFloat(pcs) * parseFloat(panjang) * parseFloat(lebar) * parseFloat(tinggi)/6000;
+	var kali=hitung.toFixed(2); //membuat desimal 2 angka belakang koma
+ 	var t_volume=$('#t_volume').val();
+	var volume=parseFloat(kali)+ parseFloat(t_volume);
 	var format_volume=volume.toFixed(2); //membuat desimal 2 angka belakang koma
- 	
-	var t_pcs=$('#t_pcs').val();
-	var total_pcs=parseFloat(t_pcs) + parseFloat(pcs);
-	$('#t_pcs').val(total_pcs);
-	$('#label_pcs').html(total_pcs);
-		
-	var last_volume=$('#t_volume').val();
-	var new_volume=parseFloat(last_volume)+ parseFloat(format_volume);
-	var format_total_volume=new_volume.toFixed(2); //desimal 2 belakang koma
-	$('#t_volume').val(format_total_volume);
-	$('#label_volume').html(format_total_volume);
 	
-
-	var last_weight=$('#t_weight').val();
-	var new_weight=parseFloat(last_weight) + parseFloat(weight);
-	$('#t_weight').val(new_weight);
-	$('#label_weight').html(new_weight);
+	var t_pacs=$('#t_pacs').val();
+	var total_pacs=parseFloat(t_pacs) + parseFloat(pcs);
+	var t_weight=$('#t_weight').val();
+	var total_weight=parseFloat(t_weight) + parseFloat(weight);
+	var format_weight=total_weight.toFixed(2);
 	
 if (panjang == '' || lebar == '' || pcs == ''){
 	alert('Mohon isi data dengan lengkap');	
 	}
 	else
-	{	
-        $.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/insert_book_items'); ?>",
-  data: "pcs="+pcs+"&panjang="+panjang+"&lebar="+lebar+"&tinggi="+tinggi+"&weight="+weight+"&volume="+format_volume+"&house="+house,
-                success: function(data){
-			 $('#table_items').html(data);
-             $('#modaladd').hide();
-            if(format_total_volume > new_weight){
-				
-				$('#cwt').val(format_total_volume);
-				$('#ori_cwt').val(format_total_volume);
-				$('#qtyfreight').val(format_total_volume);
-			} else {
-				
-				$('#cwt').val(new_weight);
-				$('#ori_cwt').val(new_weight);
-				$('#qtyfreight').val(new_weight);
-			}
-     }
-  });
+	{				
+	text='<tr class="gradeX" align="right">'
 
-}
+    + '<td colspan="3">' + '<input type="hidden" name="pcs[]" id="pcs[]" size="5" value="'+ pcs +'">'+ '<label id="l_pcs">'+ pcs +'</label>' +'</td>'
+	
+    + '<td>' + '<input type="hidden" name="p[]" id="p[]" size="5" value="'+ panjang +'">'+ '<label id="l_pcs">'+ panjang +'</label>' +'</td>'
+    
+	+ '<td>' +  '<input type="hidden" name="l[]" id="l[]" size="5" value="'+ lebar +'">'+ '<label id="l_pcs">'+ lebar +'</label>' +'</td>'
+    
+	+ '<td>' +  '<input type="hidden" name="t[]" id="t[]" size="5" value="'+ tinggi +'">'+ '<label id="l_pcs">'+ tinggi +'</label>' +'</td>'
+    
+	+ '<td>' + '<input type="hidden" name="v[]" id="v[]" size="5" value="'+ kali +'">'+ '<label id="l_pcs">'+ kali +'</label>' +'</td>'
+    
+	+ '<td>' + '<input type="hidden" name="w[]" id="w[]" size="5" value="'+ weight +'">'+ '<label id="l_pcs">'+ weight +'</label>' +'</td>'
+
+	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali + '/'+ pcs + '/' + weight + '" onclick="hapus2(this)" type="button" ><i class="fa fa-times"></i></button></td>'
+    + '</tr>';
+	
+		$('#tblitems tbody').append(text);
+		$("#t_volume").val(volume);
+		$("#label_volume").html(format_volume);
+		$("#t_weight").val(total_weight);
+		$("#label_weight").html(total_weight);
+		$("#t_pacs").val(total_pacs);
+		$("#label_pacs").html(total_pacs);
+		
+		//RESET INPUTAN
+		$("#panjang").val("");
+		$("#lebar").val("");
+		$("#tinggi").val("");
+		$("#pack").val("");
+		$("#weight").val("");
+		$("#modaladd").modal('hide');
+		
+		if(volume > total_weight)
+		{
+			$("#cwt").val(volume);
+			
+		} else {
+			
+			$("#cwt").val(total_weight);
+		}
+		var input=$("#cwt").val();
+		var pecah=input.split('.');
+		var bulat=pecah[0];
+		var koma=pecah[1];
+		if(koma > 49){
+			var maks=parseFloat(bulat) + 1;
+            $('#qtyfreight').val(maks);
+			$('#ori_cwt').val(maks);
+			
+		} else {
+			var maks=parseFloat(bulat);
+			var qty=$('#qtyfreight').val(maks);
+			$('#ori_cwt').val(maks);
+		}
+		var new_price=$("#pricefreight").val();
+		var new_qty=$('#qtyfreight').val();
+		var old_sub=$("#totfreight").val();
+		var new_sub=parseFloat(new_price)*parseFloat(new_qty);
+		var selisih_sub=parseFloat(new_sub)-parseFloat(old_sub);
+		$("#totfreight").val(new_sub);
+		var old_total=$("#total_charge").val();
+		var new_total=parseFloat(old_total) + parseFloat(selisih_sub);
+		$("#total_charge").val(new_total);
+		$("#label_charges").html(toRp(new_total));
+		$("#t_total").val(toRp(new_total));
+		$("#grandtotal").val(toRp(new_total));
+		$("#txtgrandtotal").val(new_total);
+		$("#diskon").val('');
+	}
  });
- 
+
 $(".del_items").click(function(){
 var allcode=$(this).val();
 var house=$('#house').val(); 
 
 var pecah=allcode.split('/');
-var kode=pecah[0];
 var pcs=pecah[1];
 var vol=pecah[2];
 var weight=pecah[3];
-
-
-	var t_pcs=$('#t_pcs').val();
-	var total_pcs=parseFloat(t_pcs) - parseFloat(pcs);
-	$('#t_pcs').val(total_pcs);
-	$('#label_pcs').html(total_pcs);
-		
-	var last_volume=$('#t_volume').val();
-	var new_volume=parseFloat(last_volume) - parseFloat(vol);
-	var format_total_volume=new_volume.toFixed(2); //desimal 2 belakang koma
-	$('#t_volume').val(format_total_volume);
-	$('#label_volume').html(format_total_volume);
+ 
+ 	var old_pcs=$('#t_pcs').val();
+	var new_pcs=parseFloat(old_pcs)-parseFloat(pcs);
+	$('#t_pcs').val(new_pcs);
+	$('#label_pcs').html(new_pcs);
 	
-
-	var last_weight=$('#t_weight').val();
-	var new_weight=parseFloat(last_weight) - parseFloat(weight);
+ 	var old_volume=$('#t_volume').val();
+	var new_volume=parseFloat(old_volume)-parseFloat(vol);
+	var hasil=new_volume.toFixed(2);
+	$('#t_volume').val(hasil);
+	$('#label_volume').html(hasil);
+	
+	var old_weight=$('#t_weight').val();
+	var new_weight=parseFloat(old_weight)-parseFloat(weight);
 	$('#t_weight').val(new_weight);
 	$('#label_weight').html(new_weight);
+	  
+	var total_volum=$('#t_volume').val();
+	var total_weight=$('#t_weight').val();
 	
-        $.ajax({
-      type: "POST",
-     url : "<?php echo base_url('transaction/delete_book_items'); ?>",
-     data: "kode="+kode+"&house="+house,
-     success: function(data){
-		$('#table_items').html(data);
-	      if(format_total_volume > new_weight)
-		  {
-				$('#cwt').val(format_total_volume);
-				$('#ori_cwt').val(format_total_volume);
-				$('#qtyfreight').val(format_total_volume);
-			} else {
-				
-				$('#cwt').val(new_weight);
-				$('#ori_cwt').val(format_total_volume);
-				$('#qtyfreight').val(new_weight);
-			}
+	if(total_volum >= total_weight)
+	{
+		$('#cwt').val(total_volum);
+	} 
+	else
+	 {
+		$('#cwt').val(total_weight);
+	}
+	    var input=$("#cwt").val();
+		var ubah=input.split('.');
+		var bulat=ubah[0];
+		var koma=ubah[1];
+		if(koma > 49){
+			var maks=parseFloat(bulat) + 1;
+            $('#qtyfreight').val(maks);
+			$('#ori_cwt').val(maks);
+			
+		} else {
+			var maks=parseFloat(bulat);
+			var qty=$('#qtyfreight').val(maks);
+			$('#ori_cwt').val(maks);
+		}
+			var new_price=$("#pricefreight").val();
+		var new_qty=$('#qtyfreight').val();
+		var old_sub=$("#totfreight").val();
+		var new_sub=parseFloat(new_price)*parseFloat(new_qty);
+		var selisih_sub=parseFloat(old_sub)-parseFloat(new_sub);
+		$("#totfreight").val(new_sub);
+		var old_total=$("#total_charge").val();
+		var new_total=parseFloat(old_total)- parseFloat(selisih_sub);
+		$("#total_charge").val(new_total);
+		$("#label_charges").html(toRp(new_total));
+		$("#t_total").val(toRp(new_total));
+		$("#grandtotal").val(toRp(new_total));
+		$("#txtgrandtotal").val(new_total);
+		$("#diskon").val('');	
 
-  		}
-   });
-   
+     t = $(this);
+     tr = t.parent().parent();
+     tr.remove();
 });	
 
 function hapus(th) {
@@ -1297,7 +1381,8 @@ if (txtunit == '' || txtqty == '' || charge == ''){
     
     + '<td align="right">' + '<input type="hidden" name="totalcharges[]" id="totalcharges[]" size="5" value="'+ kali +'">'+ '<label id="l_pcs">'+ kali +'</label>' +'</td>'
 
-	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali +'" onclick="hapus3(this)" type="button"><i class="fa fa-times"></i></button></td>'
+	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali +'" onclick="hapuscharge(this)" type="button"><i class="fa fa-times"></i></button></td>'
+
     + '</tr>';
 	
 		$('#tblcharges tbody').append(text);
@@ -1306,6 +1391,13 @@ if (txtunit == '' || txtqty == '' || charge == ''){
 	
 	document.getElementById("t_total").value=jumlah;
 	document.getElementById("txttotal").value=jumlah;
+	$('#txttotal').val(jumlah);	
+	$('#total_charge').val(jumlah);
+	$("#label_charges").val(toRp(jumlah));
+	$('#t_total').val(toRp(jumlah));
+	$('#grandtotal').val(toRp(jumlah));
+	$("#txtgrandtotal").val(jumlah);
+
 //RESET INPUT
 $('#txtunit').val("");
 $('#txtqty').val("");
@@ -1315,18 +1407,19 @@ $('#desc').val("");
  });
 
 
-function hapus3(myid){
+function hapuscharge(myid){
 	var input = $(myid).val();
 	
 	var total_charge=$('#total_charge').val();
 	var hasil=parseFloat(total_charge)-parseFloat(input);
 
 
-	document.getElementById("t_total").value=hasil;
-	document.getElementById("txttotal").value=hasil;
-	
+$('#txttotal').val(hasil);	
 $('#total_charge').val(hasil);
-$("#label_charges").html(hasil);
+$("#label_charges").val(toRp(hasil));
+$('#t_total').val(toRp(hasil));
+$('#grandtotal').val(toRp(hasil));
+$("#txtgrandtotal").val(hasil);
 
   <!-- delete rows -->
      t = $(myid);
@@ -1334,6 +1427,46 @@ $("#label_charges").html(hasil);
      tr.remove();
 }
 
+function editcharge(myid){
+	var input = $(myid).val();
+
+		var pecah=input.split('/');
+		var id=pecah[0];
+		var nama=pecah[1];
+		var harga=pecah[2];
+		var koma=pecah[3];
+		var qty=pecah[4];
+		var subtotal=pecah[5];
+							
+	/* var total_charge=$('#total_charge').val();
+	var hasil=parseFloat(total_charge)-parseFloat(input);
+	document.getElementById("t_total").value=hasil;
+	document.getElementById("txttotal").value=hasil;
+	$('#total_charge').val(hasil);
+	$("#label_charges").html(hasil); */
+
+
+	 
+	text='<tr class="gradeX">'
+	 +'<td><input type="hidden" name="idcharge[]" id="idcharge[]" value="'+ pecah +'">'+ nama +'</td>'
+	 +'<td><input type="hidden" name="idcharge[]" id="idcharge[]" value="'+ pecah +'">'+ nama +'</td>'
+	 +'<td><input type="hidden" name="idcharge[]" id="idcharge[]" value="'+ pecah +'">'+ nama +'</td>'
+	 +'<td><input type="hidden" name="idcharge[]" id="idcharge[]" value="'+ pecah +'">'+ nama +'</td>'
+	 +'<td><input type="hidden" name="idcharge[]" id="idcharge[]" value="'+ pecah +'">'+ nama +'</td>'
+	 +'<td><button class="btndel btn-danger btn-mini" value="' + nama +'" onclick="hapuscharge(this)" type="button"><i class="fa fa-times"></i></button>'
+	
+	+ ' <button class="btneditcharge btn-primary btn-mini" value="' + harga +'/'+ harga +'/'+ harga +'/'+ harga +'/'+ harga +'/'+ harga +'" onclick="editcharge(this)" type="button"><i class="fa fa-edit"></i></button></td>'
+	 +'</tr>'
+	 
+	$('#tblcharges tbody').append(text);
+	  <!-- delete rows -->
+     t = $(myid);
+     tr = t.parent().parent();
+     tr.remove();
+	 
+	$("#modaladdCharge").modal('show');
+
+}
 
 
 

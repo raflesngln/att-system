@@ -51,18 +51,25 @@
                <!--LEFT INPUT-->
   <div class="col-sm-6">      
       <div class="col-sm-11">
-                       
-          <strong><label class="col-sm-4"> SMU No</label></strong>
+<div class="form-group">                     
+          <strong><label class="col-sm-4">Status SMU</label></strong>
           <div class="col-sm-7">
-           <select name="nosmu" class="form-control" required="required" id="nosmu">
-          <option value="">Select SMU</option>
-                   <?php
-                   foreach ($master as $ms) {
-                   ?>
-                     <option value="<?php echo $ms->NoSMU;?>"><?php echo $ms->NoSMU;?></option>
-                     <?php } ?>
+           <select name="status_smu" class="form-control" required="required" id="status_smu">
+           <option value="">Select Status </option>
+           
+          <option value="1">Empty SMU</option>
+		  <option value="2">Has House</option>
           </select>
           </div>
+ </div>
+  <div class="form-group">                     
+          <strong><label class="col-sm-4"> SMU No</label></strong>
+          <div class="col-sm-7">
+           <select name="nosmu" class="form-control" required="required" id="nosmu" onchange="return getDetailSMU(this);">
+			<option value=""></option>
+          </select>
+          </div>
+ </div>
           <strong><label class="col-sm-4"> Origin</label></strong>
           <div class="col-sm-7">
            <input name="origin" type="text" class="form-control"  id="origin" required="required" readonly="readonly"/>
@@ -74,9 +81,7 @@
               
         
           <div class="col-sm-4"></div>
-          <div class="col-sm-7">
-          <button class="btn btn-blue" id="btns" type="button">Search</button>
-          </div>
+
       </div>             
       </div>
                 <!--RIGHT INPUT-->
@@ -93,7 +98,7 @@
 
            <strong><label class="col-sm-4">  CWT</label></strong>
           <div class="col-sm-7">
-           <input name="cwt" type="text" class="form-control" r readonly="readonly" required="required" id="cwt"/>
+           <input name="cwt" type="text" class="form-control" readonly="readonly" required="required" id="cwt"/>
           </div>
 
 
@@ -106,7 +111,7 @@
 <br style="clear:both;margin-bottom:40px;">
    
    
-   <div class="row" id="konten">
+   <div class="container-fluid" id="konten">
   <div class="row" id="contentreplace">
                 <div class="col-lg-5 portlets ui-sortable" id="freecontent">
                     <div class="panel">
@@ -118,10 +123,10 @@
                                         <table class="table table-striped table-bordered table-hover" id="tabelfree">
                                               <thead>
                                                 
+                                                  <tr>
                                                   <th>No.</th>
                                                   <th>House No</th>
-                                                  <th>Shipper</th>
-                                                  <th>QTY</th>
+                                                  <th>PCS</th>
                                                   <th>CWT</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
@@ -136,13 +141,12 @@
                                                   <tr>
                                                     <td><?php echo $no?></td>
                                                     <td><?php echo $free->HouseNo?></td>
-                                                    <td><?php echo $free->custName?></td>
-                                                    <td><?php echo $free->grandPCS?></td>
+                                                    <td><div align="right"><?php echo $free->PCS?></div></td>
                                                     <td><div align="right"><?php echo $free->CWT?></div></td>
                                                     <td><div align="center">
  
  
- <button value="<?php echo $free->HouseNo?>" id="ceklish" class="ceklish btn btn-mini btn-success" type="button" onclick="return consol_house(this)"><i class="icon icon-share-alt icon-on-right white"></i></button>
+ <button value="<?php echo $free->HouseNo.'/'.$free->CWT.'/'.$free->PCS;?>" id="ceklish" class="ceklish btn btn-mini btn-primary" type="button" onclick="return consol_house(this)"><i class="icon icon-share-alt icon-on-right white"></i></button>
  
                                                     </div></td>
                                                   </tr>
@@ -150,16 +154,11 @@
                                                   
                                                   <tr style="background-color:#F5F5F5">
                                                   <td>&nbsp;</td>
-                                                  <td colspan="3">Total</td>
+                                                  <td>Total</td>
+                                                  <td>&nbsp;</td>
                                                   <td><div align="right"><?php echo $t_cwt?></div></td>
                                                   <td>&nbsp;</td>
                                                 </tr>
-                                        <?php 
-$no=1;
-			foreach($list as $data){
-				
-			?>
-                                                <?php $no++; } ;?>
                                               </tbody>
                                             </table>
                                         </div>
@@ -177,14 +176,14 @@ $no=1;
    <div class="form-group">
    <div class="table-responsive" id="table_responsive">
                                           
-<span class="span4 label label-large label-pink arrowed-in-right">Consolidation House added</span>
-                                        <table class="table table-striped table-bordered table-hover">
+<span class="span4 label label-large label-pink arrowed-in-right">Remain House in Master</span>
+                                        <table class="table table-striped table-bordered table-hover addedtable" id="addedtable">
                                               <thead>
                                                 
+                                                  <tr>
                                                   <th>No.</th>
                                                   <th>House No</th>
-                                                  <th>Shipper</th>
-                                                  <th>QTY</th>
+                                                  <th>&nbsp;</th>
                                                   <th>CWT</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
@@ -193,33 +192,28 @@ $no=1;
  <?php 
  $no=1;
  foreach ($added as $row) {
-	 $cwt=$row->CWT;
-	 $t_cwt+=$cwt;
+	 $cwt2=$row->CWT;
+	 $t_cwt2+=$cwt2;
   ?>
-                                                  <tr>
+                                                  <tr class="addedtable-tr">
                                                     <td><?php echo $no?></td>
                                                     <td><?php echo $row->HouseNo?></td>
-                                                    <td><?php echo $row->custName?></td>
-                                                    <td><?php echo $row->grandPCS?></td>
+                                                    <td><div align="right"><?php echo $row->PCS?></div></td>
                                                     <td><div align="right"><?php echo $row->CWT?></div></td>
                                                     <td><div align="center">
-                                                      <input type="checkbox" name="ck2" class="ace-checkbox-2" />
+                                                    <button value="<?php echo $row->HouseNo.'/'.$row->CWT.'/'.$row->PCS;?>" id="ceklish" class="ceklish btn btn-mini btn-success" type="button" onclick="return reconsol_house(this)"><i class="icon icon-share-alt icon-on-right white"></i></button>
                                                     </div></td>
                                                   </tr>
                 <?php $no++;} ?>  
                                                   
-                                                  <tr style="background-color:#F5F5F5">
+                                                  <tr style="background-color:#F5F5F5" class="addedtable-tr">
                                                   <td>&nbsp;</td>
-                                                  <td colspan="3">Total</td>
-                                                  <td><div align="right"><?php echo $t_cwt?></div></td>
+                                                  <td>Total</td>
+                                                  <td>&nbsp;</td>
+                                                  <td><div align="right"><?php echo $t_cwt2?></div></td>
                                                   <td>&nbsp;</td>
                                                 </tr>
-                                        <?php 
-$no=1;
-			foreach($list as $data){
-				
-			?>
-                                                <?php $no++; } ;?>
+
                                               </tbody>
                                             </table>
                                         </div>
@@ -234,7 +228,7 @@ $no=1;
 </div>
       <div class="clearfix clearfx"></div>
                                   <div class="cpl-sm-12"><h2>&nbsp;</h2>
-                                  <div class="row">
+                                  <div class="row" style="display:none">
                                       <div class="col-md-4"></div>
                                         <div class="col-md-2">
                                             <a class="btn btn-danger btn-addnew" href="<?php echo base_url();?>transaction/domesctic_outgoing_house" data-toggle="modal" title="Add"><i class="icon-reply bigger-120 icons"></i>Cancel </a>
@@ -440,9 +434,26 @@ $no=1;
     </div>
     
 <script type="text/javascript">			
-	$(window).load(function(){
-		$("#loading").fadeOut("slow");
-	})
+ 
+$("#status_smu").change(function(){
+    var status_smu = $("#status_smu").val();
+     $.ajax({
+	url: "<?php echo base_url('transaction/getsubMaster');?>",
+			//dataType: "json",
+			type: "POST",
+			data: "status_smu="+status_smu,
+			success: function(data) {
+				$('#nosmu').html(data);
+				
+				$('#origin').val('');
+				$('#desti').val('');
+				$('#etd').val('');
+				$('#qty').val('');
+				$('#cwt').val('');
+				$('.addedtable-tr').remove();	
+			}
+		});
+ });
 
 $("#nosmu").change(function(){
             var nosmu = $("#nosmu").val();
@@ -457,13 +468,14 @@ $("#nosmu").change(function(){
                 }
             });
  });
-$("#nosmu").change(function(){
-    var nosmu = $("#nosmu").val();
+function getDetailSMU(myid){
+    var nosmu = $(myid).val();
+	var smu=$("#nosmu").val();
        $.ajax({
 		url: "<?php echo base_url('transaction/getDetailMaster'); ?>",
 			dataType: "json",
 			type: "POST",
-			data: "nosmu="+nosmu,
+			data: "nosmu="+nosmu+"&smu="+smu,
 			success: function(data) {
 			 for (var i =0; i<data.length; i++){
 				 
@@ -473,50 +485,72 @@ $("#nosmu").change(function(){
 				$('#qty').val(data[i].PCS);
 				$('#cwt').val(data[i].CWT);
 			 }
-			  //$('#test').append(data_table);
-			  
+			  //$('#test').append(data_table); 
 			}
 		});
- });
-
-
-   $("#origin").click(function(){
-            var filter ='120'// $("#filter").val();
-          $.ajax({
-            type: "POST",
-            url : "<?php echo base_url('transaction/filter_consol'); ?>",
-            data: "filter="+filter,
-            success: function(data){
-               $('#konten').html(data);
-             }
-         });
-
-        });
+}
 function consol_house(myid){
-	var house= $(myid).val();
-	var smu= $("#nosmu").val();
-	if(smu == ''){
+		var input=$(myid).val();
+		var pecah=input.split('/');
 		
-	alert('Choose Master Number first to consol house !');	
+	var house= pecah[0];
+	var cwt= pecah[1];
+	var pcs= pecah[2];
+	var nosmu= $("#nosmu").val();
+	if(nosmu == ''){
+	
+	alert('Choose Master Number first to consol house !');
+		$('#origin').val('');
+		$('#desti').val('');
+		$('#etd').val('');
+		$('#qty').val('');
+		$('#cwt').val('');	
 	}
 	else {
 		
-	alert('smu' + smu + 'house' + house);	
+	 $.ajax({
+         type: "POST",
+         url : "<?php echo base_url('transaction/insert_consol'); ?>",
+         data: "house="+house+"&nosmu="+nosmu+"&cwt="+cwt+"&pcs="+pcs,
+         success: function(data){
+         $('#konten').html(data);
+		 getDetailSMU(myid);
+          }
+       });
 	}
 	
 }
 
+function reconsol_house(myid){
 
-	 $("#filter").change(function(){
-            var filter = $("#filter").val();
-          $.ajax({
-                type: "POST",
-                url : "<?php echo base_url('search/filter_discount'); ?>",
-                data: "filter="+filter,
-                success: function(data){
-                    $('#table_responsive').html(data);
+		var input=$(myid).val();
+		var pecah=input.split('/');
+		
+	var house= pecah[0];
+	var cwt= pecah[1];
+	var pcs= pecah[2];
+	var nosmu= $("#nosmu").val();
+	if(nosmu == ''){
+	
+	alert('Choose Master Number first to consol house !');
+		$('#origin').val('');
+		$('#desti').val('');
+		$('#etd').val('');
+		$('#qty').val('');
+		$('#cwt').val('');	
+	}
+	else {
+		
+	 $.ajax({
+         type: "POST",
+         url : "<?php echo base_url('transaction/edit_consol'); ?>",
+         data: "house="+house+"&nosmu="+nosmu+"&cwt="+cwt+"&pcs="+pcs,
+         success: function(data){
+         $('#konten').html(data);
+		 getDetailSMU(myid);
                 }
             });
+	}	
+}
 
-        });
 </script>

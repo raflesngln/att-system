@@ -154,7 +154,7 @@ function delete_person(id)
 
 
 
-    <button class="btn-normal" onclick="add_person()"><i class="glyphicon glyphicon-plus"></i> Create</button>
+    <button class="btn-normal" onclick="add_person()"><i class="fa fa-plus fa-2x"></i> </button>
     <br />
     <br />
     <form method="post" class="form-inline pull-right" style="margin-right:10px">

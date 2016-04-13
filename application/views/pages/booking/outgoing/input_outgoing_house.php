@@ -90,7 +90,6 @@ function toRp(angka){
 	var price=document.getElementById("pricefreight").value;
 	var qty=document.getElementById("qtyfreight").value;
 	var subtotal=parseFloat(price) * parseFloat(qty);
-	//var format_sub=toRp(subtotal);
 	var newcharge=document.getElementById("totfreight").value=subtotal;
 
 	if(newcharge > lastcharge)
@@ -101,11 +100,13 @@ function toRp(angka){
 		var selisih=parseFloat(lastcharge) - parseFloat(newcharge);
 		var nilai=parseFloat(total) - parseFloat(selisih);	
 	}
-	var format_nilai=toRp(nilai);
 	document.getElementById("total_charge").value=nilai;
-	document.getElementById("label_charges").innerHTML=format_nilai;
-	document.getElementById("t_total").value=format_nilai;
+	document.getElementById("label_charges").innerHTML=toRp(nilai);
+	document.getElementById("t_total").value=toRp(nilai);
 	document.getElementById("txttotal").value=nilai;
+	$("#grandtotal").val(toRp(nilai));
+	$("#txtgrandtotal").val(nilai);
+	$("#diskon").val('');
  }
  function count_freight2(input){
 	var total=document.getElementById("total_charge").value;
@@ -114,7 +115,6 @@ function toRp(angka){
 	var price=document.getElementById("pricefreight2").value;
 	var qty=document.getElementById("qtyfreight2").value;
 	var subtotal=parseFloat(price) * parseFloat(qty);
-	//var format_sub=toRp(subtotal);
 	var newcharge=document.getElementById("totfreight2").value=subtotal;
 
 	if(newcharge > lastcharge)
@@ -125,11 +125,14 @@ function toRp(angka){
 		var selisih=parseFloat(lastcharge) - parseFloat(newcharge);
 		var nilai=parseFloat(total) - parseFloat(selisih);
 	}
-	var format_nilai=toRp(nilai);
 	document.getElementById("total_charge").value=nilai;
-	document.getElementById("label_charges").innerHTML=format_nilai;
-	document.getElementById("t_total").value=format_nilai;
+	document.getElementById("label_charges").innerHTML=toRp(nilai);
+	document.getElementById("t_total").value=toRp(nilai);
 	document.getElementById("txttotal").value=nilai;
+	$("#grandtotal").val(toRp(nilai));
+	$("#txtgrandtotal").val(nilai);
+	$("#diskon").val('');
+	
  }
 function count_quarantine(){
   var pcs =document.getElementById("t_pacs").value;
@@ -215,14 +218,12 @@ function deliveryRp(input){
  }
 
  function hitung(){
-	var txtdiskon=document.getElementById("txtdiskon").value;
-	  
- 	var total=document.getElementById("txttotal").value;
+	var diskon=document.getElementById("diskon").value;
+ 	var total=document.getElementById("total_charge").value;
 
-	 var t_netto=parseFloat(total)- parseFloat(txtdiskon);
-	 var format_total=toRp(t_netto);
+	 var t_netto=parseFloat(total)- parseFloat(diskon);
 
- document.getElementById("grandtotal").value=format_total;
+ document.getElementById("grandtotal").value=toRp(t_netto);
  document.getElementById("txtgrandtotal").value=t_netto;
  }
 
@@ -618,7 +619,7 @@ $("#idconsigne").click(function(){
  <input type="hidden" name="idcharge[]" id="idcharge[]" value="1">
    </span></th>
  
- <th><input type="text" name="unit[]" id="pricefreight" onChange="return count_freight3(this);" required class="form-control" style=" text-align:right"></th>
+ <th><input type="text" name="unit[]" id="pricefreight" onChange="return count_freight3(this);" required class="form-control" style=" text-align:right" value="0"></th>
                                                   <th><input type="text" name="qty[]" id="qtyfreight" style="width:98%;text-align:right" value="0" class="form-control" readonly></th>
                                                   <th>
 
@@ -697,18 +698,16 @@ $grandt+=$chr->Total;
 </div>
 
 <div class="col-sm-8"><p class="text-right">DISKON </p></div>
-<div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="return diskonRp(this);">
+<div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="return hitung();">
 <input type="hidden" name="txtdiskon" id="txtdiskon" class="form-control" value="0">
 </p></div>
 
 <div class="col-sm-8"><p class="text-right">GRAND TOTAL </p></div>
 <div class="col-sm-2"><p class="text-left"><input type="text" name="grandtotal" id="grandtotal" class="form-control txtrp"  readonl="readonly" readonly value="0">
-<input type="hidden" name="txtgrandtotal" id="txtgrandtotal" class="form-control" value="0">
+<input type="text" name="txtgrandtotal" id="txtgrandtotal" class="form-control" value="0">
 </p></div>
 
-<div class="col-sm-1">
-<button type="button" id="btn_hitung" onClick="return hitung()" class="btn btn-small btn-danger">Hitung</button>
-</div>
+
 </p>
 </div>
 
@@ -1082,7 +1081,7 @@ $("#iditems").click(function(){
 	var lebar=$('#lebar').val();
 	var tinggi=$('#tinggi').val();
 	var weight=$('#weight').val();
- 	var hitung = parseFloat(panjang) * parseFloat(lebar) * parseFloat(tinggi)/6000;
+ 	var hitung =parseFloat(pcs) * parseFloat(panjang) * parseFloat(lebar) * parseFloat(tinggi)/6000;
 	var kali=hitung.toFixed(2); //membuat desimal 2 angka belakang koma
  	var t_volume=$('#t_volume').val();
 	var volume=parseFloat(kali)+ parseFloat(t_volume);
@@ -1141,16 +1140,28 @@ if (panjang == '' || lebar == '' || pcs == ''){
 		var koma=pecah[1];
 		if(koma > 49){
 			var maks=parseFloat(bulat) + 1;
-			$("#ori_cwt").val(maks);
-            $("#qtyfreight").val(maks);
+            $('#qtyfreight').val(maks);
+			$('#ori_cwt').val(maks);
 			
 		} else {
 			var maks=parseFloat(bulat);
-			$("#ori_cwt").val(maks);
-           $("#qtyfreight").val(maks);
-			
+			var qty=$('#qtyfreight').val(maks);
+			$('#ori_cwt').val(maks);
 		}
-
+		var new_price=$("#pricefreight").val();
+		var new_qty=$('#qtyfreight').val();
+		var old_sub=$("#totfreight").val();
+		var new_sub=parseFloat(new_price)*parseFloat(new_qty);
+		var selisih_sub=parseFloat(new_sub)-parseFloat(old_sub);
+		$("#totfreight").val(new_sub);
+		var old_total=$("#total_charge").val();
+		var new_total=parseFloat(old_total) + parseFloat(selisih_sub);
+		$("#total_charge").val(new_total);
+		$("#label_charges").html(toRp(new_total));
+		$("#t_total").val(toRp(new_total));
+		$("#grandtotal").val(toRp(new_total));
+		$("#txtgrandtotal").val(new_total);
+		$("#diskon").val('');
 	}
  });
 
@@ -1217,10 +1228,23 @@ var weight=pecah[2];
 			
 		} else {
 			var maks=parseFloat(bulat);
-			$('#qtyfreight').val(maks);
+			var qty=$('#qtyfreight').val(maks);
 			$('#ori_cwt').val(maks);
 		}
-
+		var new_price=$("#pricefreight").val();
+		var new_qty=$('#qtyfreight').val();
+		var old_sub=$("#totfreight").val();
+		var new_sub=parseFloat(new_price)*parseFloat(new_qty);
+		var selisih_sub=parseFloat(old_sub)-parseFloat(new_sub);
+		$("#totfreight").val(new_sub);
+		var old_total=$("#total_charge").val();
+		var new_total=parseFloat(old_total)- parseFloat(selisih_sub);
+		$("#total_charge").val(new_total);
+		$("#label_charges").html(toRp(new_total));
+		$("#t_total").val(toRp(new_total));
+		$("#grandtotal").val(toRp(new_total));
+		$("#txtgrandtotal").val(new_total);
+		$("#diskon").val('');
 
      t = $(myid);
      tr = t.parent().parent();
@@ -1261,14 +1285,18 @@ if (txtunit == '' || txtqty == '' || charge == ''){
 	
 		$('#tblcharges tbody').append(text);
 		$("#total_charge").val(jumlah);
-		$("#label_charges").html(jumlah);
+		$("#label_charges").html(toRp(jumlah));
 	
-	document.getElementById("t_total").value=jumlah;
-	document.getElementById("txttotal").value=jumlah;
-//RESET INPUT
-$('#txtunit').val("");
-$('#txtqty').val("");
-$('#desc').val("");
+		document.getElementById("t_total").value=toRp(jumlah);
+		document.getElementById("txttotal").value=jumlah;
+		$("#grandtotal").val(toRp(jumlah));
+		$("#txtgrandtotal").val(jumlah);
+		$("#diskon").val('');
+		//RESET INPUT
+		
+		$('#txtunit').val("");
+		$('#txtqty').val("");
+		$('#desc').val("");
 		$("#modaladdCharge").modal('hide');
 	}
  });
@@ -1281,11 +1309,14 @@ function hapus3(myid){
 	var hasil=parseFloat(total_charge)-parseFloat(input);
 
 
-	document.getElementById("t_total").value=hasil;
+	document.getElementById("t_total").value=toRp(hasil);
 	document.getElementById("txttotal").value=hasil;
 	
-$('#total_charge').val(hasil);
-$("#label_charges").html(hasil);
+		$('#total_charge').val(hasil);
+		$("#label_charges").html(toRp(hasil));
+		$("#grandtotal").val(toRp(hasil));
+		$("#txtgrandtotal").val(hasil);
+		$("#diskon").val('');
 
   <!-- delete rows -->
      t = $(myid);
