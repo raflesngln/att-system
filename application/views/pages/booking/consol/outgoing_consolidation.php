@@ -113,19 +113,20 @@
    
    <div class="container-fluid" id="konten">
   <div class="row" id="contentreplace">
-                <div class="col-lg-5 portlets ui-sortable" id="freecontent">
+  <div class="col-sm-6 portlets ui-sortable" id="freecontent" style="box-shadow:2px 3px 8px #CCC; border:1px #CCC solid">
                     <div class="panel">
                         <!--<div class="panel-header"></div>-->
                         
                                     <div class="form-group">
                                         <div class="table-responsive" id="table_responsive">
-<span class="span3 label label-large label-pink arrowed-in-right">Free House</span>
-                                        <table class="table table-striped table-bordered table-hover" id="tabelfree">
+<span class="span3 label label-large label-warning ">Free House</span>
+                                        <table class="table table-nostriped table-nobordered table-hover" id="tabelfree">
                                               <thead>
                                                 
                                                   <tr>
                                                   <th>No.</th>
                                                   <th>House No</th>
+                                                  <th>Shipper-Consigne</th>
                                                   <th>PCS</th>
                                                   <th>CWT</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
@@ -141,6 +142,7 @@
                                                   <tr>
                                                     <td><?php echo $no?></td>
                                                     <td><?php echo $free->HouseNo?></td>
+                                                    <td><div align="left"><?php echo substr($free->sender,0,10).'-'.substr($free->receiver,0,10)?></div></td>
                                                     <td><div align="right"><?php echo $free->PCS?></div></td>
                                                     <td><div align="right"><?php echo $free->CWT?></div></td>
                                                     <td><div align="center">
@@ -156,6 +158,7 @@
                                                   <td>&nbsp;</td>
                                                   <td>Total</td>
                                                   <td>&nbsp;</td>
+                                                  <td>&nbsp;</td>
                                                   <td><div align="right"><?php echo $t_cwt?></div></td>
                                                   <td>&nbsp;</td>
                                                 </tr>
@@ -169,21 +172,21 @@
 
           </div>
       </div>
-                <div class="col-lg-6 portlets ui-sortable" id="added">
+                <div class="col-sm-6 portlets ui-sortable" id="added">
                     <div class="panel">
                         <!--<div class="panel-header"></div>-->
                         
    <div class="form-group">
    <div class="table-responsive" id="table_responsive">
                                           
-<span class="span4 label label-large label-pink arrowed-in-right">Remain House in Master</span>
-                                        <table class="table table-striped table-bordered table-hover addedtable" id="addedtable">
+<span class="span4 label label-large label-warning">Remain House in Master</span>
+                                        <table class="table table-striped table-bordered table-hover addedtable" id="addedtable" style="box-shadow:2px 3px 8px #CCC; border:1px #CCC solid">
                                               <thead>
                                                 
                                                   <tr>
                                                   <th>No.</th>
                                                   <th>House No</th>
-                                                  <th>&nbsp;</th>
+                                                  <th>Shipper-COnsigne</th>
                                                   <th>CWT</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
@@ -198,7 +201,7 @@
                                                   <tr class="addedtable-tr">
                                                     <td><?php echo $no?></td>
                                                     <td><?php echo $row->HouseNo?></td>
-                                                    <td><div align="right"><?php echo $row->PCS?></div></td>
+                                                    <td><div align="left"><?php echo substr($row->sender,0,10).'-'.substr($row->receiver,0,10)?></div></td>
                                                     <td><div align="right"><?php echo $row->CWT?></div></td>
                                                     <td><div align="center">
                                                     <button value="<?php echo $row->HouseNo.'/'.$row->CWT.'/'.$row->PCS;?>" id="ceklish" class="ceklish btn btn-mini btn-success" type="button" onclick="return reconsol_house(this)"><i class="icon icon-share-alt icon-on-right white"></i></button>

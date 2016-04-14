@@ -229,12 +229,12 @@ function deliveryRp(input){
  function hitung(){
 	var txtdiskon=document.getElementById("diskon").value;
 	  
- 	var total=document.getElementById("txttotal").value;
+ 	var total=document.getElementById("total_charge").value;
 
 	 var t_netto=parseFloat(total)- parseFloat(txtdiskon);
-	 var format_total=toRp(t_netto);
+	
 
- document.getElementById("grandtotal").value=format_total;
+ document.getElementById("grandtotal").value=toRp(t_netto);
  document.getElementById("txtgrandtotal").value=t_netto;
  }
 
@@ -346,7 +346,7 @@ $("#idconsigne").click(function(){
 
 <br style="clear:both">
 <form method="post" action="<?php echo base_url();?>transaction/update_outgoing_house" autocomplete="off">
-<div class="container">
+
 <?php
 foreach($connote as $row){
 	$cwt=$row->CWT;
@@ -596,7 +596,7 @@ foreach($connote as $row){
                                                 <div class="col-md-12">
                                               <label class="col-sm-3">CWT &nbsp;</label>
                                               <div class="col-sm-8">
-                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)" value="<?php echo $cwt; ?>"><input type="text" name="ori_cwt" id="ori_cwt" value="<?php echo $cwt; ?>">
+                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)" value="<?php echo $cwt; ?>"><input type="hidden" name="ori_cwt" id="ori_cwt" value="<?php echo $cwt; ?>">
                                               </div>
                                                 </div>
                                               <div class="col-md-12">
@@ -678,12 +678,12 @@ foreach($connote as $row){
                                                   <td width="158"><?php echo $opsi->ChargeName; ?>
                                                     <input type="hidden" name="idcharge[]" id="idcharge[]3" value="<?php echo $opsi->ChargeCode; ?>">
                                                   </td>
-                                                  <td width="158"><?php echo $opsi->Price; ?>
+                                                  <td width="158" align="right"><?php echo $opsi->Price; ?>
    
  </td>
-                                                  <td width="158"><?php echo $opsi->Qty; ?></td>
-                                                  <td width="114"><?php echo $opsi->ChargeDetail; ?></td>
-                                                  <td width="222"><?php echo $opsi->Total; ?></td>
+                                                  <td width="158" align="right"><?php echo $opsi->Qty; ?></td>
+                                                  <td width="114" align="left"><?php echo $opsi->ChargeDetail; ?></td>
+                                                  <td width="222" align="right"><?php echo $opsi->Total; ?></td>
                                                   <td class="text-center"><button value="<?php echo $opsi->Total; ?>" id="del_charge" class="del_charge btn btn-mini btn-danger" onClick="hapuscharge(this)" type="button">x</button></td>
                                                 </tr>
     <?php } ?>
@@ -732,7 +732,7 @@ foreach($connote as $row){
 
 
 <div class="col-sm-8"><p class="text-right">TOTAL </p></div>
-<div class="col-sm-2"><p class="text-left"><input type="text" name="t_total" id="t_total" class="form-control txtrp" readonly value="">
+<div class="col-sm-2"><p class="text-left"><input type="text" name="t_total" id="t_total" class="form-control txtrp" readonly value="<?php echo $totalcharge;?>">
 <input type="hidden" name="txttotal" id="txttotal" value="0">
 </p>
 </div>

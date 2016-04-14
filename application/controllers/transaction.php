@@ -199,8 +199,8 @@ function cargo_manifest(){
 		$offset = $page;
 		endif;
         $data = array(
-            'title'=>'cargo_manifest',
-            'scrumb_name'=>'cargo_manifest',
+            'title'=>'cargo_Release',
+            'scrumb_name'=>'cargo_release',
             'scrumb'=>'transaction/cargo_manifest',
             'payment_type'=>$this->model_app->getdatapaging("PayCode,PayName","ms_payment_type","ORDER BY PayCode ASC"),
             'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
@@ -628,63 +628,40 @@ function cek_cnote(){
 */	
 }
 //=====================save cargo manifest ==========
- function save_chargo_manifest(){	
- 	
-		$tgl=$this->input->post('tgl');
-		$ref=$this->input->post('ref');
-		$tuju=$this->input->post('tuju');
-		$transit=$this->input->post('transit');
-		$ket=$this->input->post('ket');
-		$realisasi=$this->input->post('realisasi');
-		$t_cwt=$this->input->post('t_cwt');
-		$t_item=$this->input->post('t_item');
-		
-		$prefixcargo='CMO'.substr($tuju,0,3);
-		$kodecargo=$this->model_app->getCargoNo($prefixcargo);
-		//----- SAVE OF CARGO MANIFEST --------------////
-		$insert_cargo=array(
-		'CargoNo' =>$kodecargo,
-		'tgl_cargo' =>date($tgl),
-		'referensi' =>$ref,
-		'tujuan' =>$tuju,
-		'transit' =>$transit,
-		'keterangan' =>$ket,
-		'realisasi_berat' =>$realisasi,
-		'total_berat' =>$t_item,
+ function save_chargo_manifest(){
+	 $kode=$this->model_app->generateNo("tr_cargo_release","CargoReleaseCode","CR-");
+	 	
+ 	$smu=$_POST['smu'];	
+	foreach($smu as $key => $val)
+	{
+   		$smu =$_POST['smu'][$key];
+		$cargo_items=array(
+		'CargoReleaseCode' =>$kode,
+		'smu' =>$smu,
 		'CreateBy' =>$this->session->userdata('idusr'),
 		'CreateDate'=>date('Y-m-d H:i:s'),
 		);		
-		$save=$this->model_app->insert('cargo_manifest',$insert_cargo);	
-	//====Save items cargo ==============//
-     foreach($this->cart->contents() as $items){
-     	$nohouse=$items['id'];
-		$items=array(
-		'CargoNo' =>$kodecargo,
-		'HouseNo'=>$items['id'],
-		'HouseDate'=>$items['date'],
-		'Origin'=>$items['origin'],
-		'Destination'=>$items['destination'],
-		'Service'=>$items['service'],
-		'Berat'=>$items['price'],
-		'CWT'=>$items['cwt'],
-		'date_insert'=>date('Y-m-d H:i:s')
+		$save=$this->model_app->insert('cargo_items',$cargo_items);	
+	}
+	 	$smu2=$_POST['smu2'];	
+	foreach($smu2 as $key => $val)
+	{
+   		$smu2 =$_POST['smu2'][$key];	
+		$updatesmu=array(
+		'StatusProses' =>'3',
 		);		
-		 $this->model_app->insert('cargo_items',$items);
-		 //update status outgoing connote
-		 $update=array(
-		'status_proses'=>'1'
-		);	
-		$this->model_app->update('outgoing_house','HouseNo',$nohouse,$update);
-		}
-		$this->cart->destroy();
-		 $data=array(
-           'title'=>'cargo_manifest',
-          'scrumb_name'=>'cargo_manifest',
-          'scrumb'=>'transaction/cargo_manifest',
-		 'view'=>'pages/booking/cargo/confirm_create_manifest',
-		 'no_cargo'=>$kodecargo
-		 );
-		 $this->load->view('home/home',$data);
+		$this->model_app->update('outgoing_master','NoSMU',$smu2,$updatesmu);	
+	}
+	   	//---insert header manifest
+		$insert_cargo=array(
+		'CargoReleaseCode' =>$kode,
+		'CargoDetails' =>$this->input->post('details'),
+		'ReleaseDate' =>$this->input->post('tgl3'),
+		'CreateBy' =>$this->session->userdata('idusr'),
+		'CreateDate'=>date('Y-m-d H:i:s'),
+		);		
+		$save=$this->model_app->insert('tr_cargo_release',$insert_cargo);
+	
 		
   }
      //=====================save cargo manifest ==========
@@ -950,8 +927,10 @@ function outgoing_consolidation(){
             'title'=>'outgoing_consolidation',
             'scrumb_name'=>'outgoing_consolidation',
             'scrumb'=>'transaction/outgoing_consolidation',
-			'master'=>$this->model_app->getdata('outgoing_master',"WHERE status_invoice ='1'"),
-			'freehouse'=>$this->model_app->getdata('outgoing_house',"WHERE HouseStatus ='0' AND Consolidation='0'"),
+'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.PCS,a.CWT,b.CustName as sender,c.CustName as receiver","outgoing_house a",
+			            "LEFT JOIN ms_customer b on b.CustCode=a.Shipper
+						LEFT JOIN ms_customer c on c.CustCode=a.Consigne
+						 WHERE a.HouseStatus ='0' AND a.Consolidation='0'"),
 			//'added'=>$this->model_app->getdata('consol',"WHERE MasterNo ='$nosmu' "),
             'view'=>'pages/booking/consol/outgoing_consolidation',
         );  
@@ -963,9 +942,16 @@ function filter_consol(){
 		$nosmu=$this->input->post('nosmu');
         $data = array(
             'title'=>'Consol SMU',
-		     'freehouse'=>$this->model_app->getdata('outgoing_house',"WHERE HouseStatus ='0' AND Consolidation='0'"),
-			 'added'=>$this->model_app->getdatapaging("a.MasterNo,c.HouseNo,c.CWT,c.PCS","consol a",
-			 "INNER JOIN outgoing_master b ON a.MasterNo=b.NoSMU INNER JOIN outgoing_house c on a.HouseNo=c.HouseNo
+'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.PCS,a.CWT,b.CustName as sender,c.CustName as receiver","outgoing_house a",
+			            "LEFT JOIN ms_customer b on b.CustCode=a.Shipper
+						LEFT JOIN ms_customer c on c.CustCode=a.Consigne
+						 WHERE a.HouseStatus ='0' AND a.Consolidation='0'"),
+						 
+			'added'=>$this->model_app->getdatapaging("a.MasterNo,c.HouseNo,c.CWT,c.PCS,d.CustName as sender,e.CustName as receiver","consol a",
+			 "INNER JOIN outgoing_master b ON a.MasterNo=b.NoSMU 
+			  INNER JOIN outgoing_house c on a.HouseNo=c.HouseNo
+			  LEFT JOIN ms_customer d on d.CustCode=c.Shipper
+			  LEFT JOIN ms_customer e on e.CustCode=c.Consigne
 			 WHERE a.MasterNo ='$nosmu'"),
         );  
       $this->load->view('pages/booking/consol/consol_replace',$data);
@@ -1126,9 +1112,15 @@ function domestic_outgoing_master(){
 		
         $data = array(
             'title'=>'Consol SMU',
-		     'freehouse'=>$this->model_app->getdata('outgoing_house',"WHERE HouseStatus ='0' AND Consolidation='0'"),
-			 'added'=>$this->model_app->getdatapaging("a.MasterNo,c.HouseNo,c.CWT,c.PCS","consol a",
-			 "INNER JOIN outgoing_master b ON a.MasterNo=b.NoSMU INNER JOIN outgoing_house c on a.HouseNo=c.HouseNo
+'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.PCS,a.CWT,b.CustName as sender,c.CustName as receiver","outgoing_house a",
+			            "LEFT JOIN ms_customer b on b.CustCode=a.Shipper
+						LEFT JOIN ms_customer c on c.CustCode=a.Consigne
+						 WHERE a.HouseStatus ='0' AND a.Consolidation='0'"),
+			 'added'=>$this->model_app->getdatapaging("a.MasterNo,c.HouseNo,c.CWT,c.PCS,d.CustName as sender,e.CustName as receiver","consol a",
+			 "INNER JOIN outgoing_master b ON a.MasterNo=b.NoSMU 
+			  INNER JOIN outgoing_house c on a.HouseNo=c.HouseNo
+			  LEFT JOIN ms_customer d on d.CustCode=c.Shipper
+			  LEFT JOIN ms_customer e on e.CustCode=c.Consigne
 			 WHERE a.MasterNo ='$nosmu'"),
         );  
       $this->load->view('pages/booking/consol/consol_replace',$data);
@@ -1162,9 +1154,15 @@ function domestic_outgoing_master(){
 		$this->model_app->update('outgoing_master','NoSMU',$nosmu,$updatesmu);	
         $data = array(
             'title'=>'Consol SMU',
-		     'freehouse'=>$this->model_app->getdata('outgoing_house',"WHERE HouseStatus ='0' AND Consolidation='0'"),
-			 'added'=>$this->model_app->getdatapaging("a.MasterNo,c.HouseNo,c.CWT,c.PCS","consol a",
-			 "INNER JOIN outgoing_master b ON a.MasterNo=b.NoSMU INNER JOIN outgoing_house c on a.HouseNo=c.HouseNo
+'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.PCS,a.CWT,b.CustName as sender,c.CustName as receiver","outgoing_house a",
+			            "LEFT JOIN ms_customer b on b.CustCode=a.Shipper
+						LEFT JOIN ms_customer c on c.CustCode=a.Consigne
+						 WHERE a.HouseStatus ='0' AND a.Consolidation='0'"),
+			 'added'=>$this->model_app->getdatapaging("a.MasterNo,c.HouseNo,c.CWT,c.PCS,d.CustName as sender,e.CustName as receiver","consol a",
+			 "INNER JOIN outgoing_master b ON a.MasterNo=b.NoSMU 
+			  INNER JOIN outgoing_house c on a.HouseNo=c.HouseNo
+			  LEFT JOIN ms_customer d on d.CustCode=c.Shipper
+			  LEFT JOIN ms_customer e on e.CustCode=c.Consigne
 			 WHERE a.MasterNo ='$nosmu'"),
         );  
       $this->load->view('pages/booking/consol/consol_replace',$data);

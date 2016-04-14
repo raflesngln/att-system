@@ -409,33 +409,38 @@ $("#idconsigne").click(function(){
           </select>
           </div>
 
-<strong><label class="col-sm-4">  Flight no/Date (1)</label></strong>
+<div class="form-group">
+<label class="col-sm-4">  Flight No (1)</label>
 <div class="col-sm-8">
 		<div class="row">
         <div class="col-sm-5" style="margin-left:12px;"><input name="flightno1" class="form-control" type="text" id="flightno1"></div>
-        <div class="col-sm-1">/</div>
+        
         <div class="col-sm-5">
           <input id="flightdate1" type="text" class="form-control" readonly name="flightdate1" value="<?php echo date("Y-m-d") ;?>">
         </div>
          </div>
  </div>
-<strong>
-<label class="col-sm-4">  Flight no/Date (2)</label></strong>
+</div>
+<div class="clearfix"></div>
+<div class="form-group">
+<label class="col-sm-4">  Flight No (2)</label></strong>
 <div class="col-sm-8">
 		<div class="row">
         <div class="col-sm-5" style="margin-left:12px;"><input name="txtflightno2" class="form-control" type="text" id="txtflightno2"></div>
-        <div class="col-sm-1">/</div>
+       
         <div class="col-sm-5">
           <input id="flightdate2" type="text" class="form-control" readonly name="flightdate2" value="<?php echo date("Y-m-d") ;?>">
         </div>
          </div>
  </div>
-    <strong>
-    <label class="col-sm-4"> Flight no/Date (3)</label></strong>
+</div>
+
+    <label class="col-sm-4"> Flight No (3)</label>
+    </strong>
     <div class="col-sm-8">
     <div class="row">
      <div class="col-sm-5" style="margin-left:12px;"><input type="text" name="flightno3" class="form-control" id="flightno3"></div>
-     <div class="col-sm-1">/</div>
+    
      <div class="col-sm-5"><input id="flightdate3" type="text" class="form-control" readonly name="flightdate3" value="<?php echo date("Y-m-d") ;?>"></div>     
      </div>
      
