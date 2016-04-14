@@ -38,7 +38,7 @@
                                     <div class="form-group">
 <h2><span class="label label-large label-pink arrowed-in-right"><strong>List Outgoing House / Connote</strong></span></h2>
                                         <div class="table-responsive" id="table_connote">
-                                        <table width="500" class="table table-striped table-bordered table-hover" id="tblhouse">
+                                        <table width="" class="table table-striped table-bordered table-hover" id="tblhouse">
                                               <thead>
                                                 <tr align="left" style="background:#EBEBEB">
                                                   <th colspan="2"><div align="left">House No</div></th>
@@ -53,26 +53,19 @@
                                                 </thead>
                                           <tbody>
  <?php 
- if(count($connote) <=0){
-	 echo '
-	 <tr align="center" class="gradeX">
-	 <td colspan="10"><font color="red">Record Not found !</font></td>
-	 </tr>';
- }
- else
- {
+
  $no=1;
  foreach($connote as $items){
         ?>
             
-                                            <tr align="right" class="gradeX">
-                                                    <td colspan="2"><div align="left"><a class="dethouse" href="#modaladding" data-toggle="modal" id="dethouse" title="click for detail"><?php echo $items->HouseNo;?></a></div></td>
+                                            <tr align="left" class="gradeX">
+                                                    <td colspan="2"><div align="left"><?php echo $items->HouseNo;?></div></td>
                                                     <td><div align="left"><?php echo date("d-m-Y",strtotime($items->ETD)); ?></div></td>
                                                     <td><div align="left"><?php echo $items->PayCode;?></div></td>
                                                     <td><div align="left"><?php echo $items->Service;?></div></td>
-                                                    <td><div align="left"><?php echo $items->Origin;?></div></td>
-                                                    <td><div align="left"><?php echo $items->Destination;?></div></td>
-                                                    <td><div align="left"><?php echo $items->custName;?></div></td>
+                                                    <td><div align="left"><?php echo $items->origin;?></div></td>
+                                                    <td><div align="left"><?php echo $items->desti;?></div></td>
+                                                    <td><div align="left"><?php echo $items->shipper;?></div></td>
                                                     <td>
                                                    <form action="<?php echo base_url();?>connote_print" method="post" target="new" class="text-left">
                                                    <input type="hidden" value="<?php echo $items->HouseNo;?>" name=" houseno" />
@@ -89,9 +82,9 @@
                                          
                                                   </td>
                                                   </tr>
-  <?php $no++;} } ?>
+  <?php $no++;} ?>
                                                 
-                                              <td width="74"></tbody>
+     <td width="74"></td></tbody>
                                             </table>
  <div align="right"> <?php echo $paginator;?></div>
                                       </div>

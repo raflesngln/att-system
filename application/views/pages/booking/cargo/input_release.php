@@ -45,7 +45,7 @@
 <!--RIGHT INPUT-->
  <div class="col-sm-5" style="border:1px #CCC solid;box-shadow:2px 3px 8px #CCC; margin-right:5px">
  
-<table width="200" border="1" class="table table-stripped" id="tblcargo">
+<table width="200" border="0" class="table table-stripped" id="tblcargo">
   <tr>
     <td colspan="5"><h3>List SMU</h3></td>
     </tr>

@@ -145,7 +145,6 @@ function delete_data(id)
 
 
 
-    <button class="btn-normal" onclick="add_person5()"><i class="fa fa-plus"></i>  </button>
     <br />
     <br />
     

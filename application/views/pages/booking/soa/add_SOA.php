@@ -33,7 +33,7 @@ $("#etd2").datepicker({
   });
   </script>
 
-   <div class="row-fluid">
+   <div class="container-fluid">
     <div class="span12">
                   <?php
 			if(isset($eror)){?>
@@ -75,7 +75,7 @@ $("#etd2").datepicker({
           <option value="">Choose Customer</option>
           <?php foreach ($customer as $cust) {
           ?>
-          <option value="<?php echo $cust->custCode;?>"><?php echo $cust->custName;?></option>
+          <option value="<?php echo $cust->CustCode;?>"><?php echo $cust->CustName;?></option>
           <?php } ?>
           </select>
           </div>
@@ -107,41 +107,46 @@ $("#etd2").datepicker({
 </div>
 <br style="clear:both;margin-bottom:40px;">
             <div class="row">
-                <div class="col-lg-12 portlets ui-sortable">
+                <div class="col-sm-12 portlets ui-sortable">
                     <div class="panel">
                         <!--<div class="panel-header"></div>-->
                         
                                     <div class="form-group">
                                         <div class="table-responsive" id="table_soa">
-   <table width="200" border="1" class="table table-striped table-bordered table-hover">
+   <table width="100%" border="1" class="table table-striped table-bordered table-hover">
   <tr>
     <td>No</td>
     <td>Job</td>
-    <td>Invoice</td>
+    <td>House</td>
     <td>Date</td>
-    <td>SMU</td>
     <td>Origin-Desti</td>
     <td>Weight</td>
     <td>Qty</td>
-    <td>Amount</td>
+    <td><div align="center">Amount</div></td>
     <td>Action</td>
     </tr>
+   <?php
+   foreach($list as $row){
+	$amount=$row->Amount;
+	$t_amount+=$amount;   
+   ?>
   <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td><div align="right"></div></td>
+    <td>1</td>
+    <td><?php echo $row->JobNo;?></td>
+    <td><?php echo $row->HouseNo;?></td>
+    <td><?php echo $row->CreateDate;?></td>
+    <td><?php echo substr($row->ori,0,15).' - ';?><?php echo substr($row->desti,0,15);?></td>
+    <td><?php echo $row->GrossWeight;?></td>
+    <td><?php echo $row->PCS;?></td>
+    <td><div align="right"><?php echo number_format($row->Amount,0,'.','.');?></div></td>
     <td>&nbsp;</td>
     </tr>
-  <tr>
-    <td colspan="7"><div align="right">TOTAL</div></td>
+    
+    <?php } ?>
+  <tr style="background-color:#EBEBEB">
+    <td colspan="6"><div align="right"><label style="color:#06C">TOTAL</label></div></td>
     <td>&nbsp;</td>
-    <td><div align="right"></div></td>
+    <td><div align="right"><label style="color:#06C">Rp. <?php echo number_format($t_amount,0,'.','.');?></label></div></td>
     <td>&nbsp;</td>
     </tr>
 </table>
@@ -303,7 +308,7 @@ $("#etd2").datepicker({
 		$("#loading").fadeOut("slow");
 	})
 	
-	 $("#customers").change(function(){
+$("#customers").change(function(){
             var idcust = $("#customers").val();
 			var etd1 = $("#etd1").val();
 			var etd2 = $("#etd2").val();

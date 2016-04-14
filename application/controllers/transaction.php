@@ -62,7 +62,13 @@ class Transaction extends CI_Controller{
 			'chargedefault'=>$this->model_app->getdatapaging("ChargeCode,ChargeName,ChargeDetails","ms_charge","WHERE DefaultCharge='1' ORDER BY ChargeName"),
             //'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
             'commodity'=>$this->model_app->getdatapaging("CommCode,CommName","ms_commodity","ORDER BY CommName ASC"),
-            'connote'=>$this->model_app->getdatapaging("*","outgoing_house a"," INNER JOIN ms_customer b on a.Shipper=b.CustCode ORDER BY a.HouseNo DESC LIMIT $offset,$limit"),
+            'connote'=>$this->model_app->getdatapaging("a.HouseNo,a.ETD,a.PayCode,a.Service,b.CustName as shipper,d.PortName as origin,e.PortName as desti",
+			"outgoing_house a",
+			"INNER JOIN ms_customer b on a.Shipper=b.CustCode
+			 LEFT JOIN ms_customer c on a.Consigne=c.CustCode
+			 LEFT JOIN ms_port d on a.Origin=d.PortCode
+			 LEFT JOIN ms_port e on a.Destination=e.PortCode
+			 ORDER BY a.HouseNo DESC LIMIT $offset,$limit"),
             'view'=>'pages/booking/outgoing/outgoing_house',
         );  
 			$tot_hal = $this->model_app->hitung_isi_tabel("*","outgoing_house","ORDER BY HouseNo DESC");
@@ -448,9 +454,14 @@ function periode_outgoing_house(){
 		$offset = $page;
 		endif;
 	$idusr=$this->session->userdata('idusr');      
-	$data['connote']=$this->model_app->getdatapaging("*","outgoing_house",
-		"WHERE LEFT(ETD,10) BETWEEN '$tgl1' AND '$tgl2' 
-		ORDER BY HouseNo DESC LIMIT $offset,$limit");
+	$data['connote']=$this->model_app->getdatapaging("a.HouseNo,a.ETD,a.PayCode,a.Service,b.CustName as shipper,d.PortName as origin,e.PortName as desti",
+			"outgoing_house a",
+			"INNER JOIN ms_customer b on a.Shipper=b.CustCode
+			 LEFT JOIN ms_customer c on a.Consigne=c.CustCode
+			 LEFT JOIN ms_port d on a.Origin=d.PortCode
+			 LEFT JOIN ms_port e on a.Destination=e.PortCode
+			 WHERE LEFT(a.ETD,10) BETWEEN '$tgl1' AND '$tgl2'
+			 ORDER BY a.HouseNo DESC LIMIT $offset,$limit");
 	$tot_hal = $this->model_app->hitung_isi_tabel("*","outgoing_house",
 		"WHERE LEFT(ETD,10) BETWEEN '$tgl1' AND '$tgl2' ORDER BY HouseNo DESC");
 	//create for pagination		
@@ -638,31 +649,26 @@ function cek_cnote(){
 		$cargo_items=array(
 		'CargoReleaseCode' =>$kode,
 		'smu' =>$smu,
-		'CreateBy' =>$this->session->userdata('idusr'),
-		'CreateDate'=>date('Y-m-d H:i:s'),
-		);		
-		$save=$this->model_app->insert('cargo_items',$cargo_items);	
-	}
-	 	$smu2=$_POST['smu2'];	
-	foreach($smu2 as $key => $val)
-	{
-   		$smu2 =$_POST['smu2'][$key];	
+		'CreatedBy' =>$this->session->userdata('idusr'),
+		'CreatedDate'=>date('Y-m-d H:i:s'),
+		);	
 		$updatesmu=array(
 		'StatusProses' =>'3',
 		);		
-		$this->model_app->update('outgoing_master','NoSMU',$smu2,$updatesmu);	
+		$save=$this->model_app->insert('cargo_items',$cargo_items);	
+		$this->model_app->update('outgoing_master','NoSMU',$smu,$updatesmu);	
 	}
+
 	   	//---insert header manifest
 		$insert_cargo=array(
 		'CargoReleaseCode' =>$kode,
 		'CargoDetails' =>$this->input->post('details'),
 		'ReleaseDate' =>$this->input->post('tgl3'),
-		'CreateBy' =>$this->session->userdata('idusr'),
-		'CreateDate'=>date('Y-m-d H:i:s'),
+		'CreatedBy' =>$this->session->userdata('idusr'),
+		'CreatedDate'=>date('Y-m-d H:i:s'),
 		);		
 		$save=$this->model_app->insert('tr_cargo_release',$insert_cargo);
-	
-		
+		redirect('cargo_release');
   }
      //=====================save cargo manifest ==========
  function add_update_om_items(){	
@@ -1868,9 +1874,9 @@ $OutHouse=array(
 		'scrumb_name'=>'Adding SOA',
 		'scrumb'=>'transaction/add_soa',
 		'customer'=>$this->model_app->getdata('ms_customer a',
-		"INNER JOIN outgoing_master b on a.custCode=b.Shipper WHERE b.PayCode='CRD-CREDIT' GROUP BY a.custCode"),
+		"INNER JOIN outgoing_house b on a.CustCode=b.Shipper WHERE b.PayCode='CRD-CREDIT' GROUP BY a.CustCode"),
 		
-		'view'=>'pages/booking/outgoing_master/add_SOA',
+		'view'=>'pages/booking/soa/add_SOA',
 		);
 	$this->load->view('home/home',$data);
  }
@@ -1879,11 +1885,15 @@ $OutHouse=array(
 		$etd1=$this->input->post('etd1');
 		$etd2=$this->input->post('etd2');
 		
-		$data['list']=$this->model_app->getdata('outgoing_master a',
-		"INNER JOIN ms_customer b on b.custCode=a.Shipper
-		WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust'
-		");
-        $this->load->view('pages/booking/outgoing_master/tabel_SOA',$data);
+		$data['list']=$this->model_app->getdatapaging("a.*,b.CustName as sender,b.Address as address1,b.Phone as phone1,c.Phone as phone2,c.Address as address2,c.CustName as receiver,d.PortName as ori,e.PortName as desti",
+	 "outgoing_house a", 
+	 "LEFT JOIN ms_customer b on a.Shipper=b.CustCode
+	 LEFT JOIN ms_customer c on a.Consigne=c.CustCode
+	 LEFT JOIN ms_port d on a.Origin=d.PortCode
+	 LEFT JOIN ms_port e on a.Destination=e.PortCode
+	WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust'
+		");	 
+        $this->load->view('pages/booking/soa/tabel_SOA',$data);
 }	
 //   DATA TO PDF 
 function print_SOA(){
@@ -1893,10 +1903,14 @@ function print_SOA(){
 		$currency=$this->input->post('currency');
 	
 		$data=array(
-		'list'=>$this->model_app->getdata('outgoing_master a',
-		"INNER JOIN ms_customer b on b.custCode=a.Shipper
-		INNER JOIN invoice c on a.HouseNo=c.HouseNo
-		WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust'"),
+		'list'=>$$this->model_app->getdatapaging("a.*,b.CustName as sender,b.Address as address1,b.Phone as phone1,c.Phone as phone2,c.Address as address2,c.CustName as receiver,d.PortName as ori,e.PortName as desti",
+	 "outgoing_house a", 
+	 "LEFT JOIN ms_customer b on a.Shipper=b.CustCode
+	 LEFT JOIN ms_customer c on a.Consigne=c.CustCode
+	 LEFT JOIN ms_port d on a.Origin=d.PortCode
+	 LEFT JOIN ms_port e on a.Destination=e.PortCode
+	WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust'"),
+	
 		'cust'=>$this->model_app->getdata("outgoing_master a",
 				"INNER JOIN ms_customer b on b.custCode=a.Shipper
 				WHERE a.Shipper='$idcust' LIMIT 1"),
@@ -1907,7 +1921,7 @@ function print_SOA(){
 		);
 		
         ob_start();
-        $content = $this->load->view('pages/booking/outgoing_master/report_SOA',$data);
+        $content = $this->load->view('pages/booking/soa/report_SOA',$data);
         $content = ob_get_clean();      
         $this->load->library('html2pdf');
         try

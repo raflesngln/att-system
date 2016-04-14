@@ -40,7 +40,6 @@ p{ margin-top:-8px}
   <tr style="background-color:#D0E8E8">
     <td>No</td>
     <td style="width:30px">Date</td>
-    <td style="width:80px">Invoice</td>
     <td style="width:70px">SMU</td>
     <td style="width:70px">Job</td>
     <td style="width:130px">Origin-Desti</td>
@@ -64,11 +63,10 @@ p{ margin-top:-8px}
   <tr>
     <td><?php echo $no;?></td>
     <td><?php echo date("d-m-Y",strtotime($row->ETD)); ?></td>
-    <td><?php echo $row->InvoiceNo;?></td>
     <td><?php echo $row->HouseNo;?></td>
     <td><?php echo $row->JobNo;?></td>
-    <td><?php echo substr($row->Origin,4,15).' - ';?><?php echo substr($row->Destination,4,15);?></td>
-    <td><span style="text-align:right"><?php echo number_format($row->grandPCS,0,'.','.');?></span></td>
+    <td><?php echo substr($row->ori,0,15).' - ';?><?php echo substr($row->desti,0,15);?></td>
+    <td><span style="text-align:right"><?php echo number_format($row->PCS,0,'.','.');?></span></td>
     <td><span style="text-align:right"><?php echo number_format($row->CWT,0,'.','.');?></span></td>
     <td><span style="text-align:right"><?php echo $row->AirFreight;?></span></td>
     <td><span style="text-align:right"><?php echo number_format($row->Amount,0,'.','.');?></span></td>
@@ -82,7 +80,7 @@ p{ margin-top:-8px}
     
     <?php $no++; } ?>
   <tr style="background-color:#F3F3F3">
-    <td colspan="15" style="text-align:right"><label style="color:#03F">TOTAL</label></td>
+    <td colspan="14" style="text-align:right"><label style="color:#03F">TOTAL</label></td>
     <td style="text-align:right"><label style="color:#03F"><?php echo 'Rp '.number_format($t_amount,0,'.','.');?></label></td>
     </tr>
 </table>

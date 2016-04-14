@@ -579,7 +579,7 @@ $("#idconsigne").click(function(){
                                                 <div class="col-md-12">
                                               <label class="col-sm-3">CWT &nbsp;</label>
                                               <div class="col-sm-8">
-                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)"><input type="text" name="ori_cwt" id="ori_cwt" value="0">
+                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)"><input type="hidden" name="ori_cwt" id="ori_cwt" value="0">
                                               </div>
                                                 </div>
                                               <div class="col-md-12">
@@ -663,7 +663,7 @@ $grandt+=$chr->Total;
 
                                                   <td><b>Total</b></td>
                                                   <td colspan="4"><div align="right">
-                                                  <input name="total_charge" type="text" id="total_charge" value="0" />
+                                                  <input name="total_charge" type="hidden" id="total_charge" value="0" />
   <label id="label_charges">0</label>                                                                                           
                                                   
                                                   </strong></div></td>
@@ -704,7 +704,7 @@ $grandt+=$chr->Total;
 
 <div class="col-sm-8"><p class="text-right">GRAND TOTAL </p></div>
 <div class="col-sm-2"><p class="text-left"><input type="text" name="grandtotal" id="grandtotal" class="form-control txtrp"  readonl="readonly" readonly value="0">
-<input type="text" name="txtgrandtotal" id="txtgrandtotal" class="form-control" value="0">
+<input type="hidden" name="txtgrandtotal" id="txtgrandtotal" class="form-control" value="0">
 </p></div>
 
 
