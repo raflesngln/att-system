@@ -334,7 +334,6 @@ $("#idconsigne").click(function(){
 
 <br style="clear:both">
 <form method="post" action="<?php echo base_url();?>transaction/update_outgoing_master" autocomplete="off">
-<div class="container">
 <?php
 foreach($master as $row){
 ?>
@@ -345,40 +344,40 @@ foreach($master as $row){
       <div class="col-sm-11">
 <label class="col-sm-12"> <span class=" span3 label label-large label-pink arrowed-in-right">Sender</span></label> 
 <div class="clearfx">&nbsp;</div>         
-          <strong>
-          <label class="col-sm-4">SMU/Master</label></strong>
+           
+          <label class="col-sm-4">SMU/Master</label> 
           <div class="col-sm-7">
             <input name="smu" type="text" class="form-control"  id="smu" value="<?php echo $row->NoSMU;?>" readonly/>
           </div>
 
 
-          <strong><label class="col-sm-4"> Job No</label></strong>
+           <label class="col-sm-4"> Job No</label> 
           <div class="col-sm-7">
             <input name="job" type="text" class="form-control"  id="name" value="<?php echo $row->JobNo;?>" readonly />
           </div>
 
-          <strong><label class="col-sm-4"> Payment Type</label></strong>
+           <label class="col-sm-4"> Payment Type</label> 
           <div class="col-sm-7">
             <input name="paymentype" type="text" class="form-control"  id="paymentype" value="<?php echo $row->PayCode;?>" readonly />
           </div>
-          <strong><label class="col-sm-4"> AirLineName</label></strong>
+           <label class="col-sm-4"> AirLineName</label> 
           <div class="col-sm-7">
             <input name="service" type="text" class="form-control"  id="service" value="<?php echo $row->AirLineName;?>" readonly />
           </div>
-          <strong><label class="col-sm-4"> Service</label></strong>
+           <label class="col-sm-4"> Service</label> 
           <div class="col-sm-7">
             <input name="service" type="text" class="form-control"  id="service" value="<?php echo $row->Service;?>" readonly />
           </div>
-          <strong><label class="col-sm-4"> Origin</label></strong>
+           <label class="col-sm-4"> Origin</label> 
           <div class="col-sm-7">
             <input name="origin" type="text" class="form-control"  id="origin" value="<?php echo $row->ori;?>" readonly />
           </div>
-          <strong><label class="col-sm-4"> Destination</label></strong>
+           <label class="col-sm-4"> Destination</label> 
           <div class="col-sm-7">
             <input name="desti" type="text" class="form-control"  id="desti" value="<?php echo $row->desti;?>" readonly />
           </div>
 <div class="col-sm-12"><hr style="border:1px #CCC dashed"></div>
-          <strong><label class="col-sm-4"> Shipper</label></strong>
+           <label class="col-sm-4"> Shipper</label> 
           <div class="col-sm-7">
             <input type="text" name="idshipper" id="idshipper" class="form-control" value="<?php echo $row->sender;?>" autocomplete="off" required readonly/>
             <input name="name1" type="hidden" class="form-control"  id="name1" required value="<?php echo $row->custName;?>"/>
@@ -429,12 +428,12 @@ foreach($master as $row){
         <div class="col-sm-11">
 <label class="col-sm-12"> <span class="span3 label label-large label-pink arrowed-in-right">Receivement</span></label> 
 <div class="clearfx">&nbsp;</div>
-        <strong><label class="col-sm-4">Booking No</label></strong>
+         <label class="col-sm-4">Booking No</label> 
           <div class="col-sm-7">
             <input name="booking" type="text" class="form-control"  id="booking" value="<?php echo $row->BookingNo;?>" readonly />
           </div>
 
-           <strong><label class="col-sm-4"> ETD</label></strong>
+            <label class="col-sm-4"> ETD</label> 
           <div class="col-sm-7">
             <input name="etd" type="text" class="form-control"  id="tgl" required value="<?php echo substr($row->ETD,0,10) ;?>" readonly/>
           </div>
@@ -443,8 +442,8 @@ foreach($master as $row){
 <div class="col-sm-12"><h6>&nbsp;</h6></div>
 <div class="col-sm-12"><hr style="border:1px #CCC dashed"></div>
 
-          <strong><label class="col-sm-4"> Consignee</label>
-          </strong>
+           <label class="col-sm-4"> Consignee</label>
+           
             <div class="col-sm-7">
               <input name="idconsigne" type="text" class="form-control"  id="idconsigne" value="<?php echo $row->receiver;?>" readonly required/>
               <input name="name2" type="hidden" class="form-control"  id="name2" required />
@@ -490,7 +489,7 @@ foreach($master as $row){
                         <!--<div class="panel-header"></div>-->
                         
                                     <div class="form-group">
-<h2><span class="label label-large label-pink arrowed-in-right"><strong>List Item's</strong></span></h2>
+<h2><span class="label label-large label-pink arrowed-in-right"> List Item's </span></h2>
                                         <div class="table-responsive" id="table_items">
                                         <table class="table table-striped table-bordered table-hover" id="tblitems" style="width:95%">
                                               <thead>
@@ -573,7 +572,7 @@ foreach($master as $row){
                                               <label class="col-sm-4">Commodity &nbsp;</label>
                                               <div class="col-sm-7">
       <select data-placeholder="Choose Commodity..." class="chosen-select form-control" tabindex="2"  name="commodity">
-           <option value="">Choose Commodity</option>
+           <option value="<?php echo $row->Commodity;?>"><?php echo $row->Commodity;?></option>
           <?php foreach ($commodity as $cm) {
           ?>
             <option value="<?php echo $cm->CommCode;?>"><?php echo $cm->CommName;?></option>
@@ -584,7 +583,7 @@ foreach($master as $row){
 
                                               <div class="col-md-12">
                                               <label class="col-sm-4">Special Instructions &nbsp;</label>
-                                              <div class="col-sm-7"><input type="text" name="special" id="special" class="form-control"></div>
+                                              <div class="col-sm-7"><input type="text" name="spesial" id="spesial" class="form-control" value="<?php echo $row->SpecialIntraction;?>"></div>
                                              </div>
   
                                               </div>
@@ -596,17 +595,17 @@ foreach($master as $row){
                                                 <div class="col-md-12">
                                               <label class="col-sm-3">CWT &nbsp;</label>
                                               <div class="col-sm-8">
-                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)" value="<?php echo $maksi; ?>"><input type="hidden" name="ori_cwt" id="ori_cwt" value="<?php echo $maksi; ?>">
+                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)" value="<?php echo $row->CWT;?>"><input type="hidden" name="ori_cwt" id="ori_cwt" value="<?php echo $maksi; ?>">
                                               </div>
                                                 </div>
                                               <div class="col-md-12">
                                               <label class="col-sm-3">Declare Value &nbsp;</label>
-                                              <div class="col-sm-8"><input type="text" name="declare" id="declare" class="form-control"></div>
+                                              <div class="col-sm-8"><input type="text" name="declare" id="declare" class="form-control" value="<?php echo $row->DeclareValue;?>"></div>
                                              </div>
                                               <div class="col-md-12">
                                               <label class="col-sm-3">Description of Shipment &nbsp;</label>
                                               <div class="col-sm-8">
-                                              <textarea name="description" id="declare" class="form-control"></textarea>
+                                              <textarea name="description" id="declare" class="form-control"><?php echo $row->SpecialIntraction;?></textarea>
                                               </div>
                                              </div>
                                               </div>
@@ -619,7 +618,7 @@ foreach($master as $row){
                                    
 <div class="form-group">
     <div class="table-responsive" id="table_responsive">
-<h2><span class="label label-large label-pink arrowed-in-right"><strong>COST / CHARGES</strong></span></h2>
+<h2><span class="label label-large label-pink arrowed-in-right"> COST / CHARGES </span></h2>
     <table class="table table-striped table-bordered table-hover" id="tblcharges" style="width:95%">
                                               <thead>
                                                 <thead>
@@ -683,7 +682,7 @@ $grandt+=$chr->Total;
                                                   <input name="total_charge" type="hidden" id="total_charge" value="0" />
   <label id="label_charges">0</label>                                                                                           
                                                   
-                                                  </strong></div></td>
+                                                   </div></td>
                                                   <td width="129">&nbsp;</td>
                                                 </tr>
                                                 </thead>

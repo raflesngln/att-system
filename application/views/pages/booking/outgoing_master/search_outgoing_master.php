@@ -1,13 +1,12 @@
 <table width="500" class="table table-striped table-bordered table-hover" id="tblhouse">
                                               <thead>
                                                 <tr align="left" style="background:#EBEBEB">
-                                                  <th colspan="2"><div align="left">SMU No</div></th>
+                                                  <th height="69" colspan="2"><div align="left">SMU No</div></th>
                                                   <th width="54"><div align="center">ETD</div></th>
                                                   <th width="46"><div align="center">Paycode</div></th>
                                                   <th width="58"><div align="center">Service</div></th>
                                                   <th width="48">Origin</th>
                                                   <th width="48">Destination</th>
-                                                  <th width="48">Shipper</th>
                                                   <th width="53" class="text-center"><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item" style="visibility:hidden"><i class="icon-plus icons"></i> Add items</a>Actions</div></th>
                                                 </tr>
                                                 </thead>
@@ -32,7 +31,6 @@
                                                     <td><div align="left"><?php echo $items->Service;?></div></td>
                                                     <td><div align="left"><?php echo $items->Origin;?></div></td>
                                                     <td><div align="left"><?php echo $items->Destination;?></div></td>
-                                                    <td><div align="left"><?php echo $items->custName;?></div></td>
                                                     <td>
                                                    <form action="<?php echo base_url();?>transaction/print_invoice_OM" method="post" target="new" class="text-left">
                                                    <input type="hidden" value="<?php echo $items->NoSMU;?>" name="NoSMU" />

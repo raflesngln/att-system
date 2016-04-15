@@ -27,15 +27,14 @@ p{ margin-top:-8px}
 
 <h4 style="text-decoration:underline">Doc   :  Statement Of Account</h4>
 <pre class="head">
-<p>SOA No        : <?php echo $cust->custName;?></p>
+<p>SOA No        : <?php echo $cust->CustName;?></p>
 <p>SOA Date      : <?php echo date('d-m-Y');?></p>
-<p style="text-transform:uppercase">Customer      : <?php echo $cust->custName;?></p>
+<p style="text-transform:uppercase">Customer      : <?php echo $cust->CustName;?></p>
 <p>E.T.D Periode : <?php echo date("d/m/Y",strtotime($etd1)).' - '; ?><?php echo date("d/m/Y",strtotime($etd2)); ?></p>
 <p>Currency      : <?php echo $currency;?></p>
 </pre>
 
 <?php } ?>
-
 <table width="200" border="0" class="mytable" id="mytable">
   <tr style="background-color:#D0E8E8">
     <td>No</td>
@@ -84,7 +83,6 @@ p{ margin-top:-8px}
     <td style="text-align:right"><label style="color:#03F"><?php echo 'Rp '.number_format($t_amount,0,'.','.');?></label></td>
     </tr>
 </table>
-
 <h4>Pembayaran Secara Full Amount ke Rekenign Dibawah ini :</h4>
 <pre class="head">
 <p>Currency         : IDR</p>

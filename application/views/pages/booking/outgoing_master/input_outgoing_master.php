@@ -335,7 +335,6 @@ $("#idconsigne").click(function(){
 
 <br style="clear:both">
 <form method="post" action="<?php echo base_url();?>transaction/confirm_outgoing_master" autocomplete="off">
-<div class="container">
   <div class="row">
                <!--LEFT INPUT-->
   <div class="col-sm-6">      

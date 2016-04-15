@@ -163,7 +163,7 @@ class Transaction extends CI_Controller{
 		$houseno=$this->uri->segment(3);
         $data = array(
             'title'=>'domesctic-outgoing-house',
-            'scrumb_name'=>'Domesctic outgoing house / Edit House',
+            'scrumb_name'=>'Domesctic outgoing house',
             'scrumb'=>'transaction/domestic_outgoing_house',
             'payment_type'=>$this->model_app->getdatapaging("PayCode,PayName","ms_payment_type","ORDER BY PayCode ASC"),
             'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
@@ -171,6 +171,7 @@ class Transaction extends CI_Controller{
             'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
             'city'=>$this->model_app->getdatapaging("PortCode,PortName","ms_port","GROUP BY PortName"),
             'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
+            'charge'=>$this->model_app->getdatapaging("*","ms_charge","WHERE DefaultCharge='0'"),			
 			'chargeoptional'=>$this->model_app->getdatapaging("*","booking_charge a",
 			"INNER JOIN ms_charge b on a.CostID=b.ChargeCode 
 			 WHERE b.DefaultCharge='0' AND a.Reff='$houseno'"),
@@ -933,10 +934,11 @@ function outgoing_consolidation(){
             'title'=>'outgoing_consolidation',
             'scrumb_name'=>'outgoing_consolidation',
             'scrumb'=>'transaction/outgoing_consolidation',
-'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.PCS,a.CWT,b.CustName as sender,c.CustName as receiver","outgoing_house a",
-			            "LEFT JOIN ms_customer b on b.CustCode=a.Shipper
-						LEFT JOIN ms_customer c on c.CustCode=a.Consigne
-						 WHERE a.HouseStatus ='0' AND a.Consolidation='0'"),
+'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.PCS,a.CWT,b.CustName as sender,c.CustName as receiver",
+"outgoing_house a",
+			   "LEFT JOIN ms_customer b on b.CustCode=a.Shipper
+			     LEFT JOIN ms_customer c on c.CustCode=a.Consigne
+				 WHERE a.HouseStatus ='0' AND a.Consolidation='0' ORDER BY a.CWT DESC"),
 			//'added'=>$this->model_app->getdata('consol',"WHERE MasterNo ='$nosmu' "),
             'view'=>'pages/booking/consol/outgoing_consolidation',
         );  
@@ -1177,6 +1179,7 @@ function domestic_outgoing_master(){
 //=====================save cargo manifest ==========
  function confirm_outgoing_master(){	
 		$getjob=$this->model_app->getJobMaster();
+		$getInvoice=$this->model_app->getInvoice();
 		//$getHouse=$this->model_app->getHouseMasterNo();
 		$NoSMU=$this->input ->post('smu');
 		$etd=$this->input->post('etd');
@@ -1253,23 +1256,23 @@ function domestic_outgoing_master(){
 		'SpecialIntraction' =>$this->input->post('special'),
 		'CWT' =>$this->input->post('ori_cwt'),
 		'StatusProses' =>'1',
+		'status_invoice'=>'1',
 		'DeclareValue' =>$this->input->post('declare'),
 		'DescofShipment' =>$this->input->post('description'),
 		'CreatedBy' =>$this->session->userdata('idusr'),
 		'CreatedDate'=>date('Y-m-d H:i:s'),
-
 		);		
+		$insert_invoice=array(
+		'InvoiceNo' =>$getInvoice,
+		'Reff' =>$NoSMU,
+		'CreateBy' =>$this->session->userdata('idusr'),
+		'CreateDate' =>date('Y-m-d H:i:s'),
+		'InvoiceStatus' =>'1'
+		);
+		$save=$this->model_app->insert('invoice',$insert_invoice);
 		 $this->model_app->insert('outgoing_master',$insert);	
 		//=======  print view in HTML   ============//
-        $data = array(
-            'title'=>'domestic_outgoing_master',
-            'scrumb_name'=>'domestic_outgoing_master',
-			'houseno'=>$NoSMU,
-			'jobno'=>$getjob,
-            'scrumb'=>'transaction/domestic_outgoing_master',
-            'view'=>'pages/booking/outgoing_master/confirm',
-        );  
- 		$this->load->view('home/home',$data);		
+        redirect('transaction/domestic_outgoing_master');		
 }
 	
 function print_outgoing_master(){
@@ -1447,11 +1450,9 @@ function print_outgoing_master(){
 		'BookingNo' =>$this->input->post('booking'),
 		'PayCode' =>$this->input->post('paymentype'),
 		'Service' =>$this->input->post('service'),
-		'Origin' =>$this->input->post('origin'),
-		'Destination' =>$this->input->post('desti'),
 		'ETD' =>date($etd),
 		'Commodity' =>$this->input->post('commodity'),
-		'SpecialIntraction' =>$this->input->post('special'),
+		'SpecialIntraction' =>$this->input->post('spesial'),
 		'CWT' =>$this->input->post('cwt'),
 		'GrossWeight' =>$this->input->post('t_weight'),
 		'grandVolume' =>$this->input->post('t_volume'),
@@ -1464,15 +1465,7 @@ function print_outgoing_master(){
 		);		
 		$this->model_app->update('outgoing_master','NoSMU',$smu,$update);
 		//=======  print view in HTML   ============//
-        $data = array(
-            'title'=>'domestic_outgoing_master',
-            'scrumb_name'=>'domestic_outgoing_master',
-			'houseno'=>$NoSMU,
-			'jobno'=>$getjob,
-            'scrumb'=>'transaction/domestic_outgoing_master',
-            'view'=>'pages/booking/outgoing_master/confirm',
-        );    
-   		$this->load->view('home/home',$data);
+     redirect('transaction/domestic_outgoing_master');
     }
 //    INsert Items
  function insert_book_items(){
@@ -1548,7 +1541,7 @@ function print_outgoing_master(){
 		$v  =$_POST['v'][$key];	
 		$w  =$_POST['w'][$key];	
 		$newitem=array(
-		'Reff' =>$getHouse,
+		'Reff' =>$houseno,
 		'NoPack'=>$pcs, 
 		'Length'=>$p,
 		'Width'=>$l,
@@ -1598,7 +1591,7 @@ function print_outgoing_master(){
 		'CWT' =>$this->input->post('ori_cwt'),
 		'GrossWeight' =>$this->input->post('t_weight'),
 		'grandVolume' =>$this->input->post('t_volume'),
-		'PCS' =>$this->input->post('t_pacs'),
+		'PCS' =>$this->input->post('t_pcs'),
 		'Discount' =>$this->input->post('diskon'),
 		'Amount' =>$this->input->post('txtgrandtotal'),
 		'DeclareValue' =>$this->input->post('declare'),
@@ -1868,15 +1861,15 @@ $OutHouse=array(
             exit;
         }
     }  
- function add_soa(){	
+ function SOA(){	
  		$data=array(
-		'title'=>'Adding SOA',
-		'scrumb_name'=>'Adding SOA',
-		'scrumb'=>'transaction/add_soa',
+		'title'=>' SOA',
+		'scrumb_name'=>' SOA',
+		'scrumb'=>'transaction/soa',
 		'customer'=>$this->model_app->getdata('ms_customer a',
 		"INNER JOIN outgoing_house b on a.CustCode=b.Shipper WHERE b.PayCode='CRD-CREDIT' GROUP BY a.CustCode"),
 		
-		'view'=>'pages/booking/soa/add_SOA',
+		'view'=>'pages/booking/soa/SOA',
 		);
 	$this->load->view('home/home',$data);
  }
@@ -1897,13 +1890,33 @@ $OutHouse=array(
 }	
 //   DATA TO PDF 
 function print_SOA(){
+	 $idcust=$this->input->post('customers');
+		$etd1=$this->input->post('etd1');
+		$etd2=$this->input->post('etd2');
+		$currency=$this->input->post('currency');
+	   $data['list']=$this->model_app->getdatapaging("a.*","outgoing_house a",
+	  "LEFT JOIN ms_customer b on a.Shipper=b.CustCode
+	 LEFT JOIN ms_customer c on a.Consigne=c.CustCode
+	 LEFT JOIN ms_port d on a.Origin=d.PortCode
+	 LEFT JOIN ms_port e on a.Destination=e.PortCode
+	WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust'");
+      $data['cust']=$this->model_app->getdatapaging("*","outgoing_house a",
+	  "INNER JOIN ms_customer b on b.CustCode=a.Shipper
+				WHERE a.Shipper='$idcust' LIMIT 1");
+	
+
+
+	$this->load->view('pages/booking/soa/report_SOA',$data);
+}
+function print_SOAaaaaaa(){
+	
 	    $idcust=$this->input->post('customers');
 		$etd1=$this->input->post('etd1');
 		$etd2=$this->input->post('etd2');
 		$currency=$this->input->post('currency');
 	
 		$data=array(
-		'list'=>$$this->model_app->getdatapaging("a.*,b.CustName as sender,b.Address as address1,b.Phone as phone1,c.Phone as phone2,c.Address as address2,c.CustName as receiver,d.PortName as ori,e.PortName as desti",
+		'list'=>$$this->model_app->getdatapaging("a.*,b.CustName as sender,c.CustName as receiver,d.PortName as ori,e.PortName as desti",
 	 "outgoing_house a", 
 	 "LEFT JOIN ms_customer b on a.Shipper=b.CustCode
 	 LEFT JOIN ms_customer c on a.Consigne=c.CustCode
@@ -1911,8 +1924,8 @@ function print_SOA(){
 	 LEFT JOIN ms_port e on a.Destination=e.PortCode
 	WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust'"),
 	
-		'cust'=>$this->model_app->getdata("outgoing_master a",
-				"INNER JOIN ms_customer b on b.custCode=a.Shipper
+		'cust'=>$this->model_app->getdata("outgoing_house a",
+				"INNER JOIN ms_customer b on b.CustCode=a.Shipper
 				WHERE a.Shipper='$idcust' LIMIT 1"),
 		'idcust'=>$idcust,
 		'etd1'=>$etd1,
@@ -1921,7 +1934,7 @@ function print_SOA(){
 		);
 		
         ob_start();
-        $content = $this->load->view('pages/booking/soa/report_SOA',$data);
+        $content = $this->load->view('pages/booking/soa/report_SOA');
         $content = ob_get_clean();      
         $this->load->library('html2pdf');
         try

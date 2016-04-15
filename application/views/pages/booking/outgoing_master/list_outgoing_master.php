@@ -134,7 +134,7 @@ $("#idhouse").autocomplete({
 <div class="row">
 
 <div class="col-sm-8">
-<div class="col-sm-5" style="margin-left:30px"><a class="btn btn-primary btn-addnew btn-rounded" id="addinvoice" href="#modalInvoice" data-toggle="modal" title="Add item"><i class="fa fa-envelope-o"></i>&nbsp; Add Invoice</a></div>
+<div class="col-sm-5" style="margin-left:30px"><a class="btn btn-primary btn-addnew btn-rounded" id="addinvoice" href="#modalInvoice" data-toggle="modal" title="Add item" style=" display:none"><i class="fa fa-envelope-o"></i>&nbsp; Add Invoice</a></div>
 
 </div>
 
@@ -146,7 +146,7 @@ $("#idhouse").autocomplete({
                                         <table width="500" class="table table-striped table-bordered table-hover" id="tblhouse">
                                               <thead>
                                                 <tr align="left" style="background:#EBEBEB">
-                                                  <th colspan="2"><div align="left">SMU No</div></th>
+                                                  <th height="69" colspan="2"><div align="left">SMU No</div></th>
                                                   <th width="54"><div align="center">ETD</div></th>
                                                   <th width="46"><div align="center">Paycode</div></th>
                                                   <th width="58"><div align="center">Service</div></th>
@@ -234,7 +234,7 @@ $("#idhouse").autocomplete({
                 <h3 id="myModalLabel">Add Invoice</h3>
             </div>
             <div class="smart-form scroll">
-<form method="post" action="<?php echo site_url('transaction/print_save_invoice_OM')?>" target="new"> 
+<form method="post" action="<?php echo site_url('transaction/print_save_invoice_OM')?>" target="new" id="form_generate" name="form_generate"> 
                   
                     <div class="modal-body">
                      
@@ -272,6 +272,7 @@ $("#idhouse").autocomplete({
 <div id="detail_outgoing" class="detail_outgoing"></div>                  
   <div class="modal-footer">
 <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
+
                         <button class="btn btn-primary" id="btn-invoice"> Generate INV</button>
     </div>
                     </div>
@@ -318,23 +319,7 @@ $("#idhouse").click(function(){
 	$("#idhouse").val('');
 	$("#NoSMU2").val('');
 	
-});
-
- $("#btn-invoice").click(function(){
-	var NoSMU=$("#NoSMU").val();
-	var idorigin=$("#idorigin").val();
-			$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/cek_house_invoice'); ?>",
-                data: "NoSMU="+NoSMU,
-                success: function(data){
-				   $('.detail_outgoing').html(data);
-				   	$("#idorigin").val('');
-	$("#iddestination").val('');
-	$("#idcwt").val('');
-                }
-            });
-			
+		
 if(idorigin==""){
 	alert('Data Tidak boleh kosong');
 	return false;
@@ -342,6 +327,7 @@ if(idorigin==""){
 
 	
  });
+ 
 	 $(".dethouse").click(function(){
           var nomor=$(this).html();
              // alert('hai' + idcnote);
@@ -356,7 +342,7 @@ if(idorigin==""){
             });
         });
 	
-	 $("#txtsearch").keyup(function(){
+$("#txtsearch").keyup(function(){
             var txtsearch = $('#txtsearch').val();
              // alert('hai' + idcnote);
 				$.ajax({
@@ -369,7 +355,8 @@ if(idorigin==""){
             });
   });
 		
-	 $("#btnsearch").click(function(){
+
+$("#btnsearch").click(function(){
             var txtsearch = $('#txtsearch').val();
 				$.ajax({
                 type: "POST",
@@ -380,6 +367,7 @@ if(idorigin==""){
                 }
             });
         });
+
 $("#btnsort").click(function(){
             var tgl1 = $('#tg1').val();
 			var tgl2 = $('#tg2').val();
@@ -392,6 +380,7 @@ $("#btnsort").click(function(){
                 }
             });
         });
+
 
 		
 		

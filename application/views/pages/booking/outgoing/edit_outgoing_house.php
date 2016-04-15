@@ -362,7 +362,7 @@ foreach($connote as $row){
 <div class="clearfx">&nbsp;</div>         
           <strong><label class="col-sm-4">House/Connote</label></strong>
           <div class="col-sm-7">
-            <input name="house" type="text" class="form-control"  id="house" value="<?php echo $row->HouseNo;?>" readonly/>
+            <input name="house" type="text" class="form-control"  id="house" value="<?php echo $row->HouseNo;?>"/>
           </div>
 
 
@@ -554,7 +554,7 @@ foreach($connote as $row){
                                             </table>
                       </div><table width="95%" border="0">
   <tr>
-    <td width="14%"  align="center"><input name="t_pcs" type="hidden" id="t_pcs" value="<?php echo $pack; ?>" /><label id="label_pcs"> <?php echo $pack; ?></label></td>
+    <td width="14%"  align="center"><input name="t_pcs" type="text" id="t_pcs" value="<?php echo $pack; ?>" /><label id="label_pcs"> <?php echo $pack; ?></label></td>
     <td width="46%">&nbsp;</td>
     <td width="14%" align="center"><label id="label_volume"><?php echo $volume;?></label>                                                    <input name="t_volume" type="hidden" id="t_volume" value="<?php echo $volume; ?>" /></td>
     <td><label id="label_weight"><?php echo $gross; ?></label>                                                    <input name="t_weight" type="hidden" id="t_weight" value="<?php echo $gross; ?>" /></td>
@@ -662,10 +662,10 @@ foreach($connote as $row){
                                                   <th><span class="col-sm-4">SMU
                                                     <input type="hidden" name="idcharge[]" id="idcharge[]2" value="2">
                                                   </span></th>
-                                                  <th><input type="text" name="pricefreight" id="pricefreight2" style="width:98%; text-align:right" onChange="return count_freight2(this)" required class="form-control"  value="<?php echo $c_smu->Price; ?>"></th>
-                                                  <th><input type="text" name="qtyfreight" id="qtyfreight2" style="width:98%;text-align:right" class="form-control" value="<?php echo $c_smu->Qty; ?>"></th>
-                                                  <th><input type="text" name="descfreight" id="descfreight2" style="width:100%" class="form-control" value="<?php echo $c_smu->ChargeDetail; ?>"></th>
-                                                  <th><input type="text" name="totfreight" id="totfreight2" style="width:98%;text-align:right" readonly required class="form-control" value="<?php echo $total2; ?>"></th>
+                                                  <th><input type="text" name="unit[]" id="pricefreight2" style="width:98%; text-align:right" onChange="return count_freight2(this)" required class="form-control"  value="<?php echo $c_smu->Price; ?>"></th>
+                                                  <th><input type="text" name="qty[]" id="qtyfreight2" style="width:98%;text-align:right" class="form-control" value="<?php echo $c_smu->Qty; ?>"></th>
+                                                  <th><input type="text" name="desc[]" id="descfreight2" style="width:100%" class="form-control" value="<?php echo $c_smu->ChargeDetail; ?>"></th>
+                                                  <th><input type="text" name="totalcharges[]" id="totfreight2" style="width:98%;text-align:right" readonly required class="form-control" value="<?php echo $total2; ?>"></th>
                                                   <th class="text-center">&nbsp;</th>
                                                 </tr>
  <?php } ?>
@@ -676,14 +676,15 @@ foreach($connote as $row){
  ?>
                                                 <tr>
                                                   <td width="158"><?php echo $opsi->ChargeName; ?>
-                                                    <input type="hidden" name="idcharge[]" id="idcharge[]3" value="<?php echo $opsi->ChargeCode; ?>">
+                                                    <input type="hidden" name="idcharge[]" id="idcharge3" value="<?php echo $opsi->ChargeCode; ?>">
                                                   </td>
-                                                  <td width="158" align="right"><?php echo $opsi->Price; ?>
+                                                  <td width="158" align="right"><input type="hidden" name="unit[]" id="idcharge4" value="<?php echo $opsi->ChargeCode; ?>">                                                    <?php echo $opsi->Price; ?>
    
  </td>
-                                                  <td width="158" align="right"><?php echo $opsi->Qty; ?></td>
-                                                  <td width="114" align="left"><?php echo $opsi->ChargeDetail; ?></td>
-                                                  <td width="222" align="right"><?php echo $opsi->Total; ?></td>
+                                                  <td width="158" align="right"><input type="hidden" name="qty[]" id="idcharge5" value="<?php echo $opsi->ChargeCode; ?>">                                                    <?php echo $opsi->Qty; ?></td>
+                                                  <td width="114" align="left"><?php echo $opsi->ChargeDetail; ?>
+                                                  <input type="hidden" name="desc[]" id="idcharge" value="<?php echo $opsi->ChargeCode; ?>"></td>
+                                                  <td width="222" align="right"><input type="hidden" name="totalcharges[]" id="idcharge2" value="<?php echo $opsi->ChargeCode; ?>">                                                    <?php echo $opsi->Total; ?></td>
                                                   <td class="text-center"><button value="<?php echo $opsi->Total; ?>" id="del_charge" class="del_charge btn btn-mini btn-danger" onClick="hapuscharge(this)" type="button">x</button></td>
                                                 </tr>
     <?php } ?>
@@ -855,7 +856,7 @@ foreach($connote as $row){
                         <div class="col-sm-9"><span class="controls">
               <select name="charge" class="form-control" required="required" id="charge">
           <option value="">Choose Charges</option>
-          <?php foreach ($chargeoptional as $crg) {
+          <?php foreach ($charge as $crg) {
           ?>
             <option value="<?php echo $crg->ChargeCode.'-'.$crg->ChargeName;?>"><?php echo $crg->ChargeName;?></option>
           <?php } ?>
