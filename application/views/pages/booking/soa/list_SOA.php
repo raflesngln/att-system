@@ -13,7 +13,7 @@
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
             "ajax": {
-                "url": "<?php echo site_url('ms_contact_type/ajax_list')?>",
+                "url": "<?php echo site_url('C_Soa/ajax_list')?>",
                 "type": "POST"
             },
             "columns": [
@@ -40,17 +40,17 @@ function add_person2()
       $('.modal-title2').text('Add Contact'); // Set Title to Bootstrap modal title
     }
 
-function edit_person2(id)
+function edit_data(id)
     {
       save_method2 = 'update';
       $('#form2')[0].reset(); // reset form on modals
         
-      var nmtabel='ms_contact_type';
+      var nmtabel='tr_soa';
       var keytabel='SoaNo';
         
       //Ajax Load data from ajax
       $.ajax({
-        url : "<?php echo site_url('ms_contact_type/ajax_edit/')?>",
+        url : "<?php echo site_url('C_Soa/ajax_edit/')?>",
         type: "POST",
         data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
         dataType: "JSON",
@@ -81,11 +81,11 @@ function save2()
       var url2;
       if(save_method2 == 'add') 
       {
-          url2 = "<?php echo site_url('ms_contact_type/ajax_add')?>";
+          url2 = "<?php echo site_url('C_Soa/ajax_add')?>";
       }
       else
       {
-        url2 = "<?php echo site_url('ms_contact_type/ajax_update')?>";
+        url2 = "<?php echo site_url('C_Soa/ajax_update')?>";
       }
 
        // ajax adding data to database
@@ -107,15 +107,15 @@ function save2()
         });
     }
 
-function delete_person2(id)
+function delete_data(id)
     {
       if(confirm('Are you sure delete this data?'))
-      var nmtabel='ms_contact_type';
+      var nmtabel='tr_soa';
       var keytabel='SoaNo';
       {
         // ajax delete data to database
           $.ajax({
-            url : "<?php echo site_url('ms_contact_type/ajax_delete')?>",
+            url : "<?php echo site_url('C_Soa/ajax_delete')?>",
             type: "POST",
             data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
             dataType: "JSON",
@@ -140,7 +140,7 @@ function delete_person2(id)
 
 
 
-    <button class="btn-normal" onclick="add_person2()"><i class="fa fa-plus"></i> </button>
+
     <br />
     <br />
     <table id="tablecontact" class="table table-striped table-bordered" cellspacing="0" width="100%">

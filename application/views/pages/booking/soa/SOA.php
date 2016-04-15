@@ -58,10 +58,10 @@
 	    </style>
   <script>
   $(function() {
-	$("#tgl1").datepicker({
+	$("#etd1").datepicker({
 		dateFormat:'yy-mm-dd',
 		});
-	$("#tgl2").datepicker({
+	$("#etd2").datepicker({
 		dateFormat:'yy-mm-dd',
 		});
 	$("#tgl2").datepicker({
@@ -138,7 +138,7 @@ function toRp(angka){
 										<div class="tab-content container">
 											<div id="home" class="tab-pane in active">
 <p>
- <?php $this->load->view('pages/booking/cargo/list_cargo_release');?>
+ <?php $this->load->view('pages/booking/soa/list_SOA');?>
 </p>
 											</div>
 

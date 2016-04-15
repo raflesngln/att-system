@@ -352,6 +352,23 @@ public function insert($table,$data) {
         }
         return $kd;
     }
+//////////////////////////////////////
+	//=====================get data all============================
+    public function soadetail($shipper)
+    {
+        $query = $this->db->query("SELECT a.*, (SELECT SUM(total) FROM booking_charge b WHERE b.reff=a.reff AND b.costid='1') AS airfreight
+, (SELECT SUM(total) FROM booking_charge b WHERE b.reff=a.reff AND b.costid='2') AS smu
+, (SELECT SUM(total) FROM booking_charge b WHERE b.reff=a.reff AND b.costid='3') AS quarantine
+, (SELECT SUM(total) FROM booking_charge b WHERE b.reff=a.reff AND b.costid='4') AS delivery
+, (SELECT SUM(total) FROM booking_charge b WHERE b.reff=a.reff AND b.costid NOT IN ('1','2','3','4')) AS other,
+c.*
+FROM booking_charge a
+LEFT JOIN outgoing_house c ON a.Reff=c.HouseNo WHERE c.Shipper='$shipper'
+ GROUP BY a.reff");
+		 
+		return $query->result();
+    }
+	
 
 	//========================INSERT ========================
 public function backup($folder,$table) {

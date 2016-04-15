@@ -554,7 +554,7 @@ foreach($connote as $row){
                                             </table>
                       </div><table width="95%" border="0">
   <tr>
-    <td width="14%"  align="center"><input name="t_pcs" type="text" id="t_pcs" value="<?php echo $pack; ?>" /><label id="label_pcs"> <?php echo $pack; ?></label></td>
+    <td width="14%"  align="center"><input name="t_pcs" type="hidden" id="t_pcs" value="<?php echo $pack; ?>" /><label id="label_pcs"> <?php echo $pack; ?></label></td>
     <td width="46%">&nbsp;</td>
     <td width="14%" align="center"><label id="label_volume"><?php echo $volume;?></label>                                                    <input name="t_volume" type="hidden" id="t_volume" value="<?php echo $volume; ?>" /></td>
     <td><label id="label_weight"><?php echo $gross; ?></label>                                                    <input name="t_weight" type="hidden" id="t_weight" value="<?php echo $gross; ?>" /></td>
@@ -573,7 +573,7 @@ foreach($connote as $row){
                                               <label class="col-sm-4">Commodity &nbsp;</label>
                                               <div class="col-sm-7">
       <select data-placeholder="Choose Commodity..." class="chosen-select form-control" tabindex="2" required="required" name="commodity">
-           <option value="">Choose Commodity</option>
+           <option value="<?php echo $row->Commodity;?>"><?php echo $row->Commodity;?></option>
           <?php foreach ($commodity as $cm) {
           ?>
             <option value="<?php echo $cm->CommCode;?>"><?php echo $cm->CommName;?></option>
@@ -584,7 +584,7 @@ foreach($connote as $row){
 
                                               <div class="col-md-12">
                                               <label class="col-sm-4">Special Instructions &nbsp;</label>
-                                              <div class="col-sm-7"><input type="text" name="special" id="special" class="form-control"></div>
+                                              <div class="col-sm-7"><input type="text" name="special" id="special" class="form-control" value="<?php echo $row->SpecialIntraction;?>"></div>
                                              </div>
   
                                               </div>
@@ -601,12 +601,12 @@ foreach($connote as $row){
                                                 </div>
                                               <div class="col-md-12">
                                               <label class="col-sm-3">Declare Value &nbsp;</label>
-                                              <div class="col-sm-8"><input type="text" name="declare" id="declare" class="form-control"></div>
+                                              <div class="col-sm-8"><input type="text" name="declare" id="declare" class="form-control" value="<?php echo $row->DeclareValue;?>"></div>
                                              </div>
                                               <div class="col-md-12">
                                               <label class="col-sm-3">Description of Shipment &nbsp;</label>
                                               <div class="col-sm-8">
-                                              <textarea name="description" id="declare" class="form-control"></textarea>
+                                                <textarea name="description" id="description" class="form-control"><?php echo $row->DescofShipment;?></textarea>
                                               </div>
                                              </div>
                                               </div>
@@ -678,13 +678,13 @@ foreach($connote as $row){
                                                   <td width="158"><?php echo $opsi->ChargeName; ?>
                                                     <input type="hidden" name="idcharge[]" id="idcharge3" value="<?php echo $opsi->ChargeCode; ?>">
                                                   </td>
-                                                  <td width="158" align="right"><input type="hidden" name="unit[]" id="idcharge4" value="<?php echo $opsi->ChargeCode; ?>">                                                    <?php echo $opsi->Price; ?>
+                                                  <td width="158" align="right"><input type="hidden" name="unit[]" id="idcharge4" value="<?php echo $opsi->Price; ?>">                                                    <?php echo $opsi->Price; ?>
    
  </td>
-                                                  <td width="158" align="right"><input type="hidden" name="qty[]" id="idcharge5" value="<?php echo $opsi->ChargeCode; ?>">                                                    <?php echo $opsi->Qty; ?></td>
+                                                  <td width="158" align="right"><input type="hidden" name="qty[]" id="idcharge5" value="<?php echo $opsi->Qty; ?>">                                                    <?php echo $opsi->Qty; ?></td>
                                                   <td width="114" align="left"><?php echo $opsi->ChargeDetail; ?>
-                                                  <input type="hidden" name="desc[]" id="idcharge" value="<?php echo $opsi->ChargeCode; ?>"></td>
-                                                  <td width="222" align="right"><input type="hidden" name="totalcharges[]" id="idcharge2" value="<?php echo $opsi->ChargeCode; ?>">                                                    <?php echo $opsi->Total; ?></td>
+                                                  <input type="hidden" name="desc[]" id="idcharge" value="<?php echo $opsi->ChargeDetail; ?>"></td>
+                                                  <td width="222" align="right"><input type="hidden" name="totalcharges[]" id="idcharge2" value="<?php echo $opsi->Total; ?>">                                                    <?php echo $opsi->Total; ?></td>
                                                   <td class="text-center"><button value="<?php echo $opsi->Total; ?>" id="del_charge" class="del_charge btn btn-mini btn-danger" onClick="hapuscharge(this)" type="button">x</button></td>
                                                 </tr>
     <?php } ?>
@@ -858,7 +858,7 @@ foreach($connote as $row){
           <option value="">Choose Charges</option>
           <?php foreach ($charge as $crg) {
           ?>
-            <option value="<?php echo $crg->ChargeCode.'-'.$crg->ChargeName;?>"><?php echo $crg->ChargeName;?></option>
+            <option value="<?php echo $crg->ChargeCode.'/'.$crg->ChargeName;?>"><?php echo $crg->ChargeName;?></option>
           <?php } ?>
               </select> 
                           </span>
@@ -1058,7 +1058,7 @@ $("#txtsearch").keyup(function(){
             });
         });
 
-     $("#idconsigneeeee").change(function(){
+$("#idconsigneeeee").change(function(){
             var custCode = $("#idconsigne").val();
           $.ajax({
                 type: "POST",
@@ -1364,7 +1364,7 @@ $("#savecharges").click(function(){
  	var total_charge=$('#total_charge').val();
 	var jumlah=parseFloat(total_charge) + parseFloat(kali);	
 	
-	var pecah=charge.split('-');
+	var pecah=charge.split('/');
 	var idcharge=pecah[0];
 	var nmcharge=pecah[1];
 			

@@ -96,7 +96,7 @@ public function ajax_edit()
         $key='CargoReleaseCode';
 		$data = array(
 				'CargoDetails' => $this->input->post('CargoDetails'),
-				'ReleaseDate' => $this->input->post('ReleaseDate'),
+				'CWT' => $this->input->post('cwt'),
 			);
 		$this->Mdata->update(array($key => $this->input->post('CargoReleaseCode')), $data,$nmtabel);
 		echo json_encode(array("status" => TRUE));

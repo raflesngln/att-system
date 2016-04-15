@@ -647,9 +647,12 @@ function cek_cnote(){
 	foreach($smu as $key => $val)
 	{
    		$smu =$_POST['smu'][$key];
+		$cwt =$_POST['cwt'][$key];
+		$cwt_total+=$cwt;
 		$cargo_items=array(
 		'CargoReleaseCode' =>$kode,
 		'smu' =>$smu,
+		'CWT' =>$cwt,
 		'CreatedBy' =>$this->session->userdata('idusr'),
 		'CreatedDate'=>date('Y-m-d H:i:s'),
 		);	
@@ -665,6 +668,7 @@ function cek_cnote(){
 		'CargoReleaseCode' =>$kode,
 		'CargoDetails' =>$this->input->post('details'),
 		'ReleaseDate' =>$this->input->post('tgl3'),
+		'CWT' =>$cwt_total,
 		'CreatedBy' =>$this->session->userdata('idusr'),
 		'CreatedDate'=>date('Y-m-d H:i:s'),
 		);		
@@ -1893,20 +1897,22 @@ function print_SOA(){
 	 $idcust=$this->input->post('customers');
 		$etd1=$this->input->post('etd1');
 		$etd2=$this->input->post('etd2');
+		     $data['title']='SOA';
+            $data['scrumb_name']='SOA';
+			$data['houseno']=$getHouse;
+            $data['scrumb']='transaction/soa';
+			
 		$currency=$this->input->post('currency');
-	   $data['list']=$this->model_app->getdatapaging("a.*","outgoing_house a",
-	  "LEFT JOIN ms_customer b on a.Shipper=b.CustCode
-	 LEFT JOIN ms_customer c on a.Consigne=c.CustCode
-	 LEFT JOIN ms_port d on a.Origin=d.PortCode
-	 LEFT JOIN ms_port e on a.Destination=e.PortCode
-	WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust'");
-      $data['cust']=$this->model_app->getdatapaging("*","outgoing_house a",
+	   $data['list']=$this->model_app->soadetail($idcust);
+     
+	 
+	  $data['cust']=$this->model_app->getdatapaging("*","outgoing_house a",
 	  "INNER JOIN ms_customer b on b.CustCode=a.Shipper
 				WHERE a.Shipper='$idcust' LIMIT 1");
 	
-
-
-	$this->load->view('pages/booking/soa/report_SOA',$data);
+	$data['view']='pages/booking/soa/report_SOA';
+	//$this->load->view('pages/booking/soa/report_SOA',$data);
+	$this->load->view('home/home',$data);
 }
 function print_SOAaaaaaa(){
 	

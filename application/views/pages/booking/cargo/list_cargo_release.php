@@ -59,12 +59,13 @@ function edit_data(id)
         dataType: "JSON",
         success: function(data)
         {
-            $('[name="CargoDetails"]').val(data.CargoDetails);
+            
 			 $('[name="CargoReleaseCode"]').val(data.CargoReleaseCode);
-            $('[name="ReleaseDate"]').val(data.ReleaseDate); 
+			 $('[name="CargoDetails"]').val(data.CargoDetails);
+            $('[name="cwt"]').val(data.CWT); 
 			
             $('#modal_form5').modal('show');
-            $('.modal-title5').text('Edit Linebusiness');
+            $('.modal-title5').text('Edit Master');
 			//document.getElementById("CargoReleaseCode").disabled=true;
             
         },
@@ -190,16 +191,16 @@ function delete_data(id)
           <div class="form-body">
 
             <div class="form-group">
-              <label class="control-label col-md-3"> Name</label>
+              <label class="control-label col-md-3"> CWT</label>
               <div class="col-md-9">
-                <input name="CargoDetails" type="text" class="form-control nama" id="CargoDetails" placeholder="Name" value="" />
+                <input name="cwt" type="text" class="form-control nama" id="cwt" placeholder="Name" value="" />
               </div>
             </div>
 
             <div class="form-group">
               <label class="control-label col-md-3">Address</label>
               <div class="col-md-9">
-                <textarea name="ReleaseDate" placeholder="decription"class="form-control" id="ReleaseDate"></textarea>
+                <textarea name="CargoDetails" placeholder="decription"class="form-control" id="CargoDetails"></textarea>
               </div>
             </div>
             
