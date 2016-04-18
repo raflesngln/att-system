@@ -100,7 +100,7 @@
   <tr>
     <td>1</td>
     <td><?php echo $row->JobNo;?></td>
-    <td><?php echo $row->HouseNo;?></td>
+    <td><?php echo $row->HouseNo;?><input type="hidden" name="house" /></td>
     <td><?php echo $row->CreateDate;?></td>
     <td><?php echo substr($row->ori,0,15).' - ';?><?php echo substr($row->desti,0,15);?></td>
     <td><?php echo $row->GrossWeight;?></td>

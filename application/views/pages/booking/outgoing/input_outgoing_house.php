@@ -54,10 +54,9 @@
 	  .txtrp{text-align:right;}
 #t_freight,#t_quarantine,#other2,#delivery2,#adm2{ text-align:right;}
 
-      </style>
- <script type="text/ecmascript">
-    
-
+</style>
+<script type="text/ecmascript">
+ 
   $(function() {
 	$("#tgl").datepicker({
 		dateFormat:'yy-mm-dd',
@@ -100,14 +99,20 @@ function toRp(angka){
 		var selisih=parseFloat(lastcharge) - parseFloat(newcharge);
 		var nilai=parseFloat(total) - parseFloat(selisih);	
 	}
-	document.getElementById("total_charge").value=nilai;
-	document.getElementById("label_charges").innerHTML=toRp(nilai);
-	document.getElementById("t_total").value=toRp(nilai);
-	document.getElementById("txttotal").value=nilai;
-	$("#grandtotal").val(toRp(nilai));
-	$("#txtgrandtotal").val(nilai);
-	$("#diskon").val('');
+	var diskon=$("#txtdiskon").val();
+	var grand=parseFloat(nilai) - parseFloat(diskon);
+	
+	$("#label_price").html('Rp '+ toRp(price));
+	$("#total_charge").val(nilai);
+	$("#label_charges").html(toRp(nilai));
+	$("#t_total").val(toRp(nilai));
+	$("#txttotal").val(toRp(nilai));
+	$("#grandtotal").val(toRp(grand));
+	$("#txtgrandtotal").val(grand);
+	
+	
  }
+ 
  function count_freight2(input){
 	var total=document.getElementById("total_charge").value;
 	var lastcharge=document.getElementById("totfreight2").value;// ambil nilai sub total charge terakhir untuk membandingkan dengan inputan baru agar grandtota; tidak selalu bertambah
@@ -115,6 +120,7 @@ function toRp(angka){
 	var price=document.getElementById("pricefreight2").value;
 	var qty=document.getElementById("qtyfreight2").value;
 	var subtotal=parseFloat(price) * parseFloat(qty);
+	//var format_sub=toRp(subtotal);
 	var newcharge=document.getElementById("totfreight2").value=subtotal;
 
 	if(newcharge > lastcharge)
@@ -125,14 +131,18 @@ function toRp(angka){
 		var selisih=parseFloat(lastcharge) - parseFloat(newcharge);
 		var nilai=parseFloat(total) - parseFloat(selisih);
 	}
-	document.getElementById("total_charge").value=nilai;
-	document.getElementById("label_charges").innerHTML=toRp(nilai);
-	document.getElementById("t_total").value=toRp(nilai);
-	document.getElementById("txttotal").value=nilai;
-	$("#grandtotal").val(toRp(nilai));
-	$("#txtgrandtotal").val(nilai);
-	$("#diskon").val('');
+
+	$("#label_price2").html('Rp '+ toRp(price));
+	$("#total_charge").val(nilai);
+	$("#label_charges").html(toRp(nilai));
+	$("#t_total").val(toRp(nilai));
 	
+	var diskon=$("#txtdiskon").val();
+	var grand=parseFloat(nilai) - parseFloat(diskon);
+	$("#diskon").val(toRp(diskon));
+	$("#txtdiskon").val(diskon);
+	$("#grandtotal").val(toRp(grand));
+	$("#txtgrandtotal").val(grand);
  }
 function count_quarantine(){
   var pcs =document.getElementById("t_pacs").value;
@@ -199,32 +209,33 @@ function deliveryRp(input){
  
  function diskonRp(input){
   var angka =$(input).val();
-  var format=toRp(angka);
-  var txtdiskon=document.getElementById("txtdiskon").value=angka;
-  document.getElementById("diskon").format=format; 
   
-  var delivery=document.getElementById("delivery").value;
- var txtfreight=document.getElementById("txtfreight").value;
- var other=document.getElementById("other").value;
- var adm=document.getElementById("adm").value;
- var txtquarantine=document.getElementById("txtquarantine").value; 
- var t_charge=parseFloat(delivery)+parseFloat(txtfreight)+parseFloat(other)+			          parseFloat(adm)+parseFloat(txtquarantine);
+  var t_charge=document.getElementById("total_charge").value;
+  var txtdiskon=angka;
+
  var total=parseFloat(t_charge)- parseFloat(txtdiskon);
- var format_total=toRp(total);
 
  document.getElementById("txtdiskon").value=angka;
- document.getElementById("grandtotal").value=format_total;
+ document.getElementById("grandtotal").value=toRp(total);
  document.getElementById("txtgrandtotal").value=total;
+ document.getElementById("diskon").value=toRp(angka);
+
  }
 
  function hitung(){
-	var diskon=document.getElementById("diskon").value;
+	var txtdiskon=document.getElementById("txtdiskon").value;
  	var total=document.getElementById("total_charge").value;
-
-	 var t_netto=parseFloat(total)- parseFloat(diskon);
-
- document.getElementById("grandtotal").value=toRp(t_netto);
- document.getElementById("txtgrandtotal").value=t_netto;
+	var t_netto=parseFloat(total)- parseFloat(txtdiskon);
+	
+	document.getElementById("grandtotal").value=toRp(t_netto);
+	document.getElementById("txtgrandtotal").value=t_netto; 
+	var nilai=$("#txtgrandtotal").val();
+	 if(nilai <=0){
+		 alert('discount to much !');
+	 } else {
+		 
+ 		alert('yaaa');
+	 }
  }
 
 </script>	    
@@ -273,6 +284,8 @@ $("#idshipper").click(function(){
 });
 //for shipper
 $("#idconsigne").autocomplete({
+
+
       			minLength: 1,
       			source: 
         		function(req, add){
@@ -307,12 +320,11 @@ $("#idconsigne").click(function(){
 					$("#name2").val(''); 
 					$("#phone2").val('');
 					$("#address2").val('');	
-});
-
-
+	});
 });
 
 	    </script>      
+
   </head>
   <body>
  <!-- ==========================================================  -->   
@@ -532,12 +544,12 @@ $("#idconsigne").click(function(){
                                           <thead>
                                                  <tr align="right">
                                                   <td colspan="2"><label id="label_pacs">0</label>
-                                                   <input name="t_pacs" type="hidden" id="t_pacs" value="0" /></td>
+                                                   <input name="t_pacs" type="text" id="t_pacs" value="0" /></td>
                                                   <td colspan="3">Total</td>
-                                                  <td><input name="t_volume" type="hidden" id="t_volume" value="0" />
+                                                  <td><input name="t_volume" type="text" id="t_volume" value="0" />
 <label id="label_volume">0</label>
                                                   </td>
-                                                  <td><input name="t_weight" type="hidden" id="t_weight" value="0" />
+                                                  <td><input name="t_weight" type="text" id="t_weight" value="0" />
                                                   <label id="label_weight">0</label>
                                                   </td>  
                                                   <td>&nbsp;</td>
@@ -579,7 +591,7 @@ $("#idconsigne").click(function(){
                                                 <div class="col-md-12">
                                               <label class="col-sm-3">CWT &nbsp;</label>
                                               <div class="col-sm-8">
-                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)"><input type="hidden" name="ori_cwt" id="ori_cwt" value="0">
+                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)"><input type="text" name="ori_cwt" id="ori_cwt" value="0">
                                               </div>
                                                 </div>
                                               <div class="col-md-12">
@@ -619,7 +631,7 @@ $("#idconsigne").click(function(){
  <input type="hidden" name="idcharge[]" id="idcharge[]" value="1">
    </span></th>
  
- <th><input type="text" name="unit[]" id="pricefreight" onChange="return count_freight3(this);" required class="form-control" style=" text-align:right" value="0"></th>
+ <th><input type="text" name="unit[]" id="pricefreight" onChange="return count_freight3(this);" required class="form-control" style=" text-align:right" value="0"><label id="label_price" style="float:right;color:#abbac3;font-style:italic">0</label></th>
                                                   <th><input type="text" name="qty[]" id="qtyfreight" style="width:98%;text-align:right" value="0" class="form-control" readonly></th>
                                                   <th>
 
@@ -632,7 +644,9 @@ $("#idconsigne").click(function(){
                                                   <th width="158"><span class="col-sm-4">SMU
                                                     <input type="hidden" name="idcharge[]" id="idcharge[]" value="2">
                                                   </span></th>
-                                                  <th width="158"><input type="text" name="unit[]" id="pricefreight2" style="width:98%; text-align:right" onChange="return count_freight2(this)" required class="form-control"></th>
+                                                  <th width="158"><input type="text" name="unit[]" id="pricefreight2" style="width:98%; text-align:right" onChange="return count_freight2(this)" required class="form-control">
+ <label id="label_price2" style="float:right;color:#abbac3;font-style:italic">0</label>
+                                                  </th>
                                                   <th width="158"><div align="center">
                                                     <input type="text" name="qty[]" id="qtyfreight2" style="width:98%;text-align:right" value="1" class="form-control">
                                                   </div></th>
@@ -663,7 +677,7 @@ $grandt+=$chr->Total;
 
                                                   <td><b>Total</b></td>
                                                   <td colspan="4"><div align="right">
-                                                  <input name="total_charge" type="hidden" id="total_charge" value="0" />
+                                                  <input name="total_charge" type="text" id="total_charge" value="0" />
   <label id="label_charges">0</label>                                                                                           
                                                   
                                                   </strong></div></td>
@@ -693,18 +707,18 @@ $grandt+=$chr->Total;
 
 <div class="col-sm-8"><p class="text-right">TOTAL </p></div>
 <div class="col-sm-2"><p class="text-left"><input type="text" name="t_total" id="t_total" class="form-control txtrp" readonly>
-<input type="hidden" name="txttotal" id="txttotal" value="0">
+<input type="text" name="txttotal" id="txttotal" value="0">
 </p>
 </div>
 
 <div class="col-sm-8"><p class="text-right">DISKON </p></div>
-<div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="return hitung();">
-<input type="hidden" name="txtdiskon" id="txtdiskon" class="form-control" value="0">
+<div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="return diskonRp(this);">
+<input type="text" name="txtdiskon" id="txtdiskon" class="form-control" value="0">
 </p></div>
 
 <div class="col-sm-8"><p class="text-right">GRAND TOTAL </p></div>
 <div class="col-sm-2"><p class="text-left"><input type="text" name="grandtotal" id="grandtotal" class="form-control txtrp"  readonl="readonly" readonly value="0">
-<input type="hidden" name="txtgrandtotal" id="txtgrandtotal" class="form-control" value="0">
+<input type="text" name="txtgrandtotal" id="txtgrandtotal" class="form-control" value="0">
 </p></div>
 
 
@@ -752,6 +766,8 @@ $grandt+=$chr->Total;
                         <label class="col-sm-3 control-label">No of Pcs </label>
                         <div class="col-sm-9"><span class="controls">
                         <input name="pack" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="pack" value="" />
+</span><span class="col-sm-3 control-label">
+<input type="hidden" name="vol" id="vol" value="">
 </span></div>
             <div class="clearfix"></div>
             </div>
@@ -785,7 +801,7 @@ $grandt+=$chr->Total;
                </div>
   <div class="modal-footer">
 <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary" id="iditems"> Save</button>
+                        <button class="btn btn-primary" id="iditems" onClick="saveitem()"> Save</button>
               
     </div>
                     </div>
@@ -846,7 +862,7 @@ $grandt+=$chr->Total;
                       </div>
   <div class="modal-footer">
 <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary" id="savecharges"> Save</button>
+                        <button class="btn btn-primary" id="savecharges" onClick="savecharges()"> Save</button>
     </div>
                     </div>
             
@@ -995,38 +1011,7 @@ $grandt+=$chr->Total;
     </div>
     </div>
 <script type="text/javascript">
-   
-$("#txtsearch").keyup(function(){
-
-            var txtsearch = $("#txtsearch").val();
-            $.ajax({
-                type: "POST",
-                url : "<?php echo base_url('search/search_discount_ajax'); ?>",
-                data: "txtsearch="+txtsearch,
-                cache:false,
-				beforeSend: function(){
-            		 $('#loading').show();
-         			 },
-                success: function(data){
-                    $('#table_responsive').html(data);
-					 $('#loading').show();
-                    //document.frm.add.disabled=false;
-                }
-            });
-        });
-
-     $("#idconsigneeeee").change(function(){
-            var custCode = $("#idconsigne").val();
-          $.ajax({
-                type: "POST",
-                url : "<?php echo base_url('booking/detail_receivement'); ?>",
-                data: "custCode="+custCode,
-                success: function(data){
-                    $('#contencnee').html(data);
-                }
-            });
-
-        });
+  
 $("#addcust").click(function(){
 		var initial=$("#initial").val();
 		var namecust=$("#namecust").val();
@@ -1073,9 +1058,8 @@ $("#addcust").click(function(){
 			
    });
 	
-		
-$("#iditems").click(function(){
-	//var t_volume=$('#idtotal').val();   
+//$("#iditems").click(function(){
+function saveitem(){ 
 	var pcs=$('#pack').val();
 	var panjang=$('#panjang').val();
 	var lebar=$('#lebar').val();
@@ -1107,7 +1091,10 @@ if (panjang == '' || lebar == '' || pcs == ''){
     + '<td>' + '<input type="hidden" name="v[]" id="v[]" size="5" value="'+ kali +'">'+ '<label id="l_pcs">'+ kali +'</label>' +'</td>'
     + '<td>' + '<input type="hidden" name="w[]" id="w[]" size="5" value="'+ weight +'">'+ '<label id="l_pcs">'+ weight +'</label>' +'</td>'
 
-	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali + '/'+ pcs + '/' + weight + '" onclick="hapus2(this)" type="button" ><i class="fa fa-times"></i></button></td>'
+	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali + '/'+ pcs + '/' + weight + '" onclick="hapus2(this)" type="button" ><i class="fa fa-times"></i></button>'
+			
++'<button class="btndel btn-primary btn-mini" value="' + pcs+'/'+panjang+'/'+lebar+'/'+tinggi+'/'+weight+'/'+kali +'" onclick="edititems(this)" type="button"><i class="fa fa-edit"></i></button>'
+	+'</td>'
     + '</tr>';
 	
 		$('#tblitems tbody').append(text);
@@ -1130,15 +1117,23 @@ if (panjang == '' || lebar == '' || pcs == ''){
 		{
 			$("#cwt").val(volume);
 			
+			var koma=volume.toFixed(2); 
+		    $('#qtyfreight').val(koma);
+			$('#ori_cwt').val(koma);
+			
 		} else {
 			
 			$("#cwt").val(total_weight);
+			var koma=total_weight.toFixed(2); 
+		    $('#qtyfreight').val(koma);
+			$('#ori_cwt').val(koma);
 		}
-		var input=$("#cwt").val();
-		var pecah=input.split('.');
-		var bulat=pecah[0];
-		var koma=pecah[1];
-		if(koma > 49){
+		
+		//var pecah=input.split('.');
+		//var bulat=pecah[0];
+		//var koma=pecah[1];
+
+		/*if(koma > 49){
 			var maks=parseFloat(bulat) + 1;
             $('#qtyfreight').val(maks);
 			$('#ori_cwt').val(maks);
@@ -1147,7 +1142,8 @@ if (panjang == '' || lebar == '' || pcs == ''){
 			var maks=parseFloat(bulat);
 			var qty=$('#qtyfreight').val(maks);
 			$('#ori_cwt').val(maks);
-		}
+		} */
+
 		var new_price=$("#pricefreight").val();
 		var new_qty=$('#qtyfreight').val();
 		var old_sub=$("#totfreight").val();
@@ -1163,10 +1159,150 @@ if (panjang == '' || lebar == '' || pcs == ''){
 		$("#txtgrandtotal").val(new_total);
 		$("#diskon").val('');
 	}
- });
+}
 
  
+$(".del_items").click(function(){
+var allcode=$(this).val();
+var smu=$('#smu').val(); 
+
+var pecah=allcode.split('/');
+var kode=pecah[0];
+var pcs=pecah[1];
+var vol=pecah[2];
+var weight=pecah[3];
+
+
+	var t_pcs=$('#t_pcs').val();
+	var total_pcs=parseFloat(t_pcs) - parseFloat(pcs);
+	$('#t_pcs').val(total_pcs);
+	$('#label_pcs').html(total_pcs);
+		
+	var last_volume=$('#t_volume').val();
+	var new_volume=parseFloat(last_volume) - parseFloat(vol);
+	var format_total_volume=new_volume.toFixed(2); //desimal 2 belakang koma
+	$('#t_volume').val(format_total_volume);
+	$('#label_volume').html(format_total_volume);
 	
+
+	var last_weight=$('#t_weight').val();
+	var new_weight=parseFloat(last_weight) - parseFloat(weight);
+	$('#t_weight').val(new_weight);
+	$('#label_weight').html(new_weight);
+	
+        $.ajax({
+      type: "POST",
+     url : "<?php echo base_url('transaction/delete_book_items2'); ?>",
+     data: "kode="+kode+"&smu="+smu,
+     success: function(data){
+		$('#table_items').html(data);
+	      if(format_total_volume > new_weight)
+		  {
+				$('#cwt').val(format_total_volume);
+				$('#ori_cwt').val(format_total_volume);
+				$('#qtyfreight').val(format_total_volume);
+			} else {
+				
+				$('#cwt').val(new_weight);
+				$('#ori_cwt').val(format_total_volume);
+				$('#qtyfreight').val(new_weight);
+			}
+
+  		}
+   });
+   
+});	
+function hapuscharge(myid){
+	var input = $(myid).val();
+	
+	var total_charge=$('#total_charge').val();
+	var hasil=parseFloat(total_charge)-parseFloat(input);
+	var txtdiskon=$('#txtdiskon').val();
+	var grand=parseFloat(hasil)-parseFloat(txtdiskon);
+
+$('#txttotal').val(hasil);	
+$('#total_charge').val(hasil);
+$("#label_charges").html(toRp(hasil));
+$('#t_total').val(toRp(hasil));
+$('#grandtotal').val(toRp(grand));
+$("#txtgrandtotal").val(grand);
+
+  <!-- delete rows -->
+     t = $(myid);
+     tr = t.parent().parent();
+     tr.remove();
+}
+$("#addchrg").click(function(e) {
+ 	document.getElementById("cancel").disabled = false;
+	$(".close").show();   
+});
+
+
+function editcharge(myid){
+	var input = $(myid).val();
+	
+	var pecah=input.split('/');
+	var code=pecah[0];
+	var name=pecah[1];
+	var price=pecah[2];
+	var qty=pecah[3];
+	var deskripsi=pecah[4];
+	var total=pecah[5];
+	
+	$("#modaladdCharge").modal('show');	
+	text='<option value="'+ code +'">'+ name +'</option>';
+
+	$('#charge').append(text);
+	$('#txtqty').val(qty);
+	$('#txtunit').val(price);
+	$('#desc').val(deskripsi);
+
+	var total_charge=$('#total_charge').val();
+	var hasil=parseFloat(total_charge)-parseFloat(total);
+	var txtdiskon=$('#txtdiskon').val();
+	var grand=parseFloat(hasil)-parseFloat(txtdiskon);
+
+$('#txttotal').val(hasil);	
+$('#total_charge').val(hasil);
+$("#label_charges").html(toRp(hasil));
+$('#t_total').val(toRp(hasil));
+$('#grandtotal').val(toRp(grand));
+$("#txtgrandtotal").val(grand);
+
+  <!-- delete rows -->
+     t = $(myid);
+     tr = t.parent().parent();
+     tr.remove();	
+	document.getElementById("cancel").disabled = true;
+	$(".close").hide();
+}
+function edititems(myid){
+	var input = $(myid).val();
+	
+	var pecah=input.split('/');
+	var pcs=pecah[0];
+	var p=pecah[1];
+	var l=pecah[2];
+	var t=pecah[3];
+	var w=pecah[4];
+	var vol=pecah[5];
+	
+	$("#modaladd").modal('show');	
+
+	$('#pack').val(pcs);
+	$('#panjang').val(p);
+	$('#lebar').val(l);
+	$('#tinggi').val(t);
+	$('#weight').val(w);
+	$('#vol').val(vol);
+	
+	  <!-- delete rows -->
+     t = $(myid);
+     tr = t.parent().parent();
+     tr.remove();	
+	//document.getElementById("cancel").disabled = true;
+	//$(".close").hide();
+}
 function hapus(th) {
       var tt=$("#tt").val();;
 	  var t_volume=$('#t_volume').val();
@@ -1228,23 +1364,10 @@ var weight=pecah[2];
 			
 		} else {
 			var maks=parseFloat(bulat);
-			var qty=$('#qtyfreight').val(maks);
+			$('#qtyfreight').val(maks);
 			$('#ori_cwt').val(maks);
 		}
-		var new_price=$("#pricefreight").val();
-		var new_qty=$('#qtyfreight').val();
-		var old_sub=$("#totfreight").val();
-		var new_sub=parseFloat(new_price)*parseFloat(new_qty);
-		var selisih_sub=parseFloat(old_sub)-parseFloat(new_sub);
-		$("#totfreight").val(new_sub);
-		var old_total=$("#total_charge").val();
-		var new_total=parseFloat(old_total)- parseFloat(selisih_sub);
-		$("#total_charge").val(new_total);
-		$("#label_charges").html(toRp(new_total));
-		$("#t_total").val(toRp(new_total));
-		$("#grandtotal").val(toRp(new_total));
-		$("#txtgrandtotal").val(new_total);
-		$("#diskon").val('');
+
 
      t = $(myid);
      tr = t.parent().parent();
@@ -1252,7 +1375,7 @@ var weight=pecah[2];
 }
 
 
-$("#savecharges").click(function(){
+function savecharges(){
 	//var t_volume=$('#idtotal').val();   
 	var charge=$('#charge').val();
 	var desc=$('#desc').val();
@@ -1280,26 +1403,31 @@ if (txtunit == '' || txtqty == '' || charge == ''){
     
     + '<td align="right">' + '<input type="hidden" name="totalcharges[]" id="totalcharges[]" size="5" value="'+ kali +'">'+ '<label id="l_pcs">'+ kali +'</label>' +'</td>'
 
-	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali +'" onclick="hapus3(this)" type="button"><i class="fa fa-times"></i></button></td>'
+	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali +'" onclick="hapuscharge(this)" type="button"><i class="fa fa-times"></i></button>'
+	+'<button class="btndel btn-primary btn-mini" value="' + idcharge+'/'+nmcharge+'/'+txtunit+'/'+txtqty+'/'+desc+'/'+kali +'" onclick="editcharge(this)" type="button"><i class="fa fa-edit"></i></button>'
+	+'</td>'
     + '</tr>';
+
 	
 		$('#tblcharges tbody').append(text);
 		$("#total_charge").val(jumlah);
 		$("#label_charges").html(toRp(jumlah));
-	
-		document.getElementById("t_total").value=toRp(jumlah);
-		document.getElementById("txttotal").value=jumlah;
-		$("#grandtotal").val(toRp(jumlah));
-		$("#txtgrandtotal").val(jumlah);
-		$("#diskon").val('');
-		//RESET INPUT
+		$("#t_total").val(toRp(jumlah));
+		$("#txttotal").val(jumlah);
 		
-		$('#txtunit').val("");
-		$('#txtqty').val("");
-		$('#desc').val("");
+		var diskon=$("#txtdiskon").val();
+		var grand=parseFloat(jumlah)-parseFloat(diskon);
+		$("#grandtotal").val(toRp(grand));
+		$("#txtgrandtotal").val(grand);
+
+	//RESET INPUT
+	$('#txtunit').val("");
+	$('#txtqty').val("");
+	$('#desc').val("");
 		$("#modaladdCharge").modal('hide');
 	}
- });
+}
+
 
 
 function hapus3(myid){
@@ -1309,14 +1437,11 @@ function hapus3(myid){
 	var hasil=parseFloat(total_charge)-parseFloat(input);
 
 
-	document.getElementById("t_total").value=toRp(hasil);
+	document.getElementById("t_total").value=hasil;
 	document.getElementById("txttotal").value=hasil;
 	
-		$('#total_charge').val(hasil);
-		$("#label_charges").html(toRp(hasil));
-		$("#grandtotal").val(toRp(hasil));
-		$("#txtgrandtotal").val(hasil);
-		$("#diskon").val('');
+$('#total_charge').val(hasil);
+$("#label_charges").html(hasil);
 
   <!-- delete rows -->
      t = $(myid);
@@ -1327,7 +1452,14 @@ function hapus3(myid){
 
 
 
-
+$('#myform').submit(function(){
+	
+var txtgrandtotal=$("#txtgrandtotal").val();
+if(txtgrandtotal <=0){
+	alert('Diskon to much !');
+	return false;
+}
+});
 $('#plane').change(function(){
     	$.getJSON("<?php echo base_url('transaction/getcost'); ?>",
 		{

@@ -46,7 +46,7 @@ $("#etd2").datepicker({
             <?php }?>   
       <div class="header col-md-11">
 
-                <h3><i class="icon icon-credit-card bigger-150"></i> &nbsp;Statement Of Account</h3>
+                <h3><i class="icon icon-credit-card bigger-150"></i> &nbsp;Statementdd Of Account</h3>
       </div>
       
 
