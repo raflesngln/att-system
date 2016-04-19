@@ -90,6 +90,7 @@ function toRp(angka){
 	var qty=document.getElementById("qtyfreight").value;
 	var subtotal=parseFloat(price) * parseFloat(qty);
 	var newcharge=document.getElementById("totfreight").value=subtotal;
+	document.getElementById("label_totfreight").innerHTML=toRp(subtotal);
 
 	if(newcharge > lastcharge)
 	{
@@ -122,6 +123,7 @@ function toRp(angka){
 	var subtotal=parseFloat(price) * parseFloat(qty);
 	//var format_sub=toRp(subtotal);
 	var newcharge=document.getElementById("totfreight2").value=subtotal;
+	document.getElementById("label_totfreight2").innerHTML=toRp(subtotal);
 
 	if(newcharge > lastcharge)
 	{
@@ -346,7 +348,7 @@ $("#idconsigne").click(function(){
       
 
 <br style="clear:both">
-<form method="post" action="<?php echo base_url();?>transaction/confirm_outgoing_house" autocomplete="off">
+<form method="post" action="<?php echo base_url();?>transaction/confirm_outgoing_house" autocomplete="off" id="myform">
 <div class="container">
   <div class="row">
                <!--LEFT INPUT-->
@@ -530,32 +532,28 @@ $("#idconsigne").click(function(){
                             <th><div align="center">Height ( T )</div></th>
                             <th>Volume</th>
                             <th><div align="center">G.Weight</div></th>
-                            <th class="text-center"><div align="center"><a class="btn btn-primary btn-addnew btn-rounded" href="#modaladd" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add New</a>
-                            </div></th>
+                            <th class="text-center"><div align="center"><a class="btn btn-primary btn-addnew btn-rounded" href="#modaladd" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add New</a> </div></th>
                           </tr>
-                          </thead>
-                                                
-                                               
-                                                
-                                                
-                                              </thead>
-                                              <tbody>
-
-                                          <thead>
-                                                 <tr align="right">
-                                                  <td colspan="2"><label id="label_pacs">0</label>
-                                                   <input name="t_pacs" type="text" id="t_pacs" value="0" /></td>
-                                                  <td colspan="3">Total</td>
-                                                  <td><input name="t_volume" type="text" id="t_volume" value="0" />
-<label id="label_volume">0</label>
-                                                  </td>
-                                                  <td><input name="t_weight" type="text" id="t_weight" value="0" />
-                                                  <label id="label_weight">0</label>
-                                                  </td>  
-                                                  <td>&nbsp;</td>
-                                                </tr>
-                                          </thead>
-                                              </tbody>
+                          
+ <tbody>
+                             
+ </tbody>
+ <tfoot>
+ <tr align="">
+                            <th colspan="2" style="text-align:right">
+                                                   <input name="t_pacs" type="hidden" id="t_pacs" value="0" /><label id="label_pacs">0</label></th>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+  <th style="text-align:right"><input name="t_volume" type="hidden" id="t_volume" value="0" />
+<label id="label_volume">0</label></th>
+                            <th style="text-align:right"><input name="t_weight" type="hidden" id="t_weight" value="0" />
+                                                  <label id="label_weight">0</label></th>
+                            <th class="text-center">&nbsp;</th>
+                          </tr>
+ 
+ </tfoot>
+ 
                                           </table>
                                         </div>
                                     </div>
@@ -579,7 +577,9 @@ $("#idconsigne").click(function(){
 
                                               <div class="col-md-12">
                                               <label class="col-sm-4">Special Instructions &nbsp;</label>
-                                              <div class="col-sm-7"><input type="text" name="special" id="special" class="form-control"></div>
+                                              <div class="col-sm-7">
+                                                <textarea name="special" class="form-control" id="special"></textarea>
+                                              </div>
                                              </div>
   
                                               </div>
@@ -591,7 +591,7 @@ $("#idconsigne").click(function(){
                                                 <div class="col-md-12">
                                               <label class="col-sm-3">CWT &nbsp;</label>
                                               <div class="col-sm-8">
-                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)"><input type="text" name="ori_cwt" id="ori_cwt" value="0">
+                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)" required readonly><input type="text" name="ori_cwt" id="ori_cwt" value="0">
                                               </div>
                                                 </div>
                                               <div class="col-md-12">
@@ -615,8 +615,8 @@ $("#idconsigne").click(function(){
 <div class="form-group">
     <div class="table-responsive" id="table_responsive">
 <h2><span class="label label-large label-pink arrowed-in-right"><strong>COST / CHARGES</strong></span></h2>
-    <table class="table table-striped table-bordered table-hover" id="tblcharges" style="width:95%">
-                                              <thead>
+    <table class="table table-hover" id="tblcharges" style="width:95%">
+                                              
                                                 <thead>
                                                 <tr>
                                                   <th>Charges</th>
@@ -624,66 +624,63 @@ $("#idconsigne").click(function(){
                                                   <th>Qty</th>
                                                   <th style="width:28%">Desc</th>
                                                   <th>Total</th>
-                                                  <th class="text-center"><a class="btn  btn-primary btn-round" href="#modaladdCharge" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add Cost</a></th>
+                                                  <th class="text-center"><a class="btn  btn-primary btn-round" href="#modaladdCharge" data-toggle="modal" title="Add item"><i class="icon-plus icons" id="addchrg"></i> Add Cost</a></th>
                                                 </tr>
+ </thead>
+ <tbody>
                                                 <tr>
   <th height="26"><span class="col-sm-4">AirFreight
  <input type="hidden" name="idcharge[]" id="idcharge[]" value="1">
    </span></th>
  
- <th><input type="text" name="unit[]" id="pricefreight" onChange="return count_freight3(this);" required class="form-control" style=" text-align:right" value="0"><label id="label_price" style="float:right;color:#abbac3;font-style:italic">0</label></th>
-                                                  <th><input type="text" name="qty[]" id="qtyfreight" style="width:98%;text-align:right" value="0" class="form-control" readonly></th>
+ <th><input type="text" name="unit[]" id="pricefreight" onChange="return count_freight3(this);" required class="form-control" style=" text-align:right" value="0" onkeypress="return isNumberKey(event)"><label id="label_price" style="text-align:right;color:#1963aa;font-style:italic">0</label></th>
+                                                  <th><input type="text" name="qty[]" id="qtyfreight" style="width:85px;text-align:right" value="1" class="form-control" readonly></th>
                                                   <th>
 
       <input type="text" name="desc[]" id="descfreight" style="width:100%" class="form-control">                                            
                                                   </th>
-                                                  <th><input type="text" name="totalcharges[]" id="totfreight" style="width:98%;text-align:right" value="0" required readonly class="form-control">
+                                                  <th><input type="hidden" name="totalcharges[]" id="totfreight" style="width:98%;text-align:right" value="0" required readonly class="form-control">
+<label id="label_totfreight" style="float:right;color:#1963aa;font-style:italic">0</label>
                                                   <th class="text-center">&nbsp;</th>
                                                 </tr>
                                                 <tr>
-                                                  <th width="158"><span class="col-sm-4">SMU
+                                                  <th width="77"><span class="col-sm-4">SMU
                                                     <input type="hidden" name="idcharge[]" id="idcharge[]" value="2">
                                                   </span></th>
-                                                  <th width="158"><input type="text" name="unit[]" id="pricefreight2" style="width:98%; text-align:right" onChange="return count_freight2(this)" required class="form-control">
- <label id="label_price2" style="float:right;color:#abbac3;font-style:italic">0</label>
+                                                  <th width="144"><input type="text" name="unit[]" id="pricefreight2" style="width:98%; text-align:right" onChange="return count_freight2(this)" required class="form-control" onkeypress="return isNumberKey(event)">
+ <label id="label_price2" style="text-align:right;color:#1963aa;font-style:italic">0</label>
                                                   </th>
-                                                  <th width="158"><div align="center">
-                                                    <input type="text" name="qty[]" id="qtyfreight2" style="width:98%;text-align:right" value="1" class="form-control">
+                                                  <th width="60"><div align="center">
+                                                    <input type="text" name="qty[]" id="qtyfreight2" style="width:85px;text-align:right" value="1" class="form-control" onChange="return count_freight2(this)" onkeypress="return isNumberKey(event)">
                                                   </div></th>
-                                                  <th width="114"><div align="center">
+                                                  <th width="185"><div align="center">
                                                     
   <input type="text" name="desc[]" id="descfreight" style="width:100%" class="form-control">
                                                   </div></th>
-                                                  <th width="222"><div align="center">
-                                                    <input type="text" name="totalcharges[]" id="totfreight2" style="width:98%;text-align:right" readonly required class="form-control" value="0">
+                                                  <th width="144"><div align="center">
+                                                    <input type="hidden" name="totalcharges[]" id="totfreight2" style="width:98%;text-align:right" readonly required class="form-control" value="0">
+<label id="label_totfreight2" style="float:right;color:#1963aa;font-style:italic">0</label>
          
                                                   </div></th>
                                                   <th class="text-center"><div align="center"></div></th>
                                                 </tr>
-                                                </thead>
-                                                
-                                               
-                                              
-                                              <tbody>
-   <?php 
-$i=1;
-foreach($tmpcharge as $chr){
-$grandt+=$chr->Total;
- //$t_volume+=$itm['v'];
-        ?>
-<?php $no++; } ?>
-                                                <thead>
-                                                 <tr>
+    
+                                              </tbody>
+ <tfoot>
+ <tr>
 
                                                   <td><b>Total</b></td>
                                                   <td colspan="4"><div align="right">
-                                                  <input name="total_charge" type="text" id="total_charge" value="0" />
+                                                  <input name="total_charge" type="hidden" id="total_charge" value="0" />
   <label id="label_charges">0</label>                                                                                           
                                                   
                                                   </strong></div></td>
-                                                  <td width="129">&nbsp;</td>
+                                                  <td width="39">&nbsp;</td>
                                                 </tr>
-                                                </thead>
+ </tfoot>
+
+                                                 
+                                                
                                             </table>
               </div>
                   </div>
@@ -707,13 +704,13 @@ $grandt+=$chr->Total;
 
 <div class="col-sm-8"><p class="text-right">TOTAL </p></div>
 <div class="col-sm-2"><p class="text-left"><input type="text" name="t_total" id="t_total" class="form-control txtrp" readonly>
-<input type="text" name="txttotal" id="txttotal" value="0">
+<input type="hidden" name="txttotal" id="txttotal" value="0">
 </p>
 </div>
 
 <div class="col-sm-8"><p class="text-right">DISKON </p></div>
 <div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="return diskonRp(this);">
-<input type="text" name="txtdiskon" id="txtdiskon" class="form-control" value="0">
+<input type="hidden" name="txtdiskon" id="txtdiskon" class="form-control" value="0">
 </p></div>
 
 <div class="col-sm-8"><p class="text-right">GRAND TOTAL </p></div>
@@ -793,7 +790,7 @@ $grandt+=$chr->Total;
                         <div class="clearfix"></div>
                       </div>                    
 <div class="form-group">
-                        <label class="col-sm-3 control-label">Weight &nbsp; ( T )</label>
+                        <label class="col-sm-3 control-label">Weight &nbsp; ( W )</label>
                         <div class="col-sm-9"><span class="controls">
                           <input name="weight" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="weight" value=""/>
 </span></div>
@@ -861,7 +858,7 @@ $grandt+=$chr->Total;
                         <div class="clearfix"></div>
                       </div>
   <div class="modal-footer">
-<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
+<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true" id="cancel"><i class="fa fa-close">&nbsp;</i> Close</button>
                         <button class="btn btn-primary" id="savecharges" onClick="savecharges()"> Save</button>
     </div>
                     </div>
@@ -1117,23 +1114,20 @@ if (panjang == '' || lebar == '' || pcs == ''){
 		{
 			$("#cwt").val(volume);
 			
-			var koma=volume.toFixed(2); 
-		    $('#qtyfreight').val(koma);
-			$('#ori_cwt').val(koma);
-			
 		} else {
 			
 			$("#cwt").val(total_weight);
-			var koma=total_weight.toFixed(2); 
-		    $('#qtyfreight').val(koma);
-			$('#ori_cwt').val(koma);
-		}
-		
-		//var pecah=input.split('.');
-		//var bulat=pecah[0];
-		//var koma=pecah[1];
 
-		/*if(koma > 49){
+		}
+				var koma=volume.toFixed(2); 
+		    $('#qtyfreight').val(koma);
+		
+		var cwt=$('#cwt').val();	
+		var pecah=cwt.split('.');
+		var bulat=pecah[0];
+		var koma=pecah[1];
+
+		if(koma >= 50){
 			var maks=parseFloat(bulat) + 1;
             $('#qtyfreight').val(maks);
 			$('#ori_cwt').val(maks);
@@ -1142,7 +1136,7 @@ if (panjang == '' || lebar == '' || pcs == ''){
 			var maks=parseFloat(bulat);
 			var qty=$('#qtyfreight').val(maks);
 			$('#ori_cwt').val(maks);
-		} */
+		} 
 
 		var new_price=$("#pricefreight").val();
 		var new_qty=$('#qtyfreight').val();
@@ -1150,14 +1144,17 @@ if (panjang == '' || lebar == '' || pcs == ''){
 		var new_sub=parseFloat(new_price)*parseFloat(new_qty);
 		var selisih_sub=parseFloat(new_sub)-parseFloat(old_sub);
 		$("#totfreight").val(new_sub);
+		$("#label_totfreight").html(toRp(new_sub));
 		var old_total=$("#total_charge").val();
 		var new_total=parseFloat(old_total) + parseFloat(selisih_sub);
 		$("#total_charge").val(new_total);
 		$("#label_charges").html(toRp(new_total));
 		$("#t_total").val(toRp(new_total));
-		$("#grandtotal").val(toRp(new_total));
-		$("#txtgrandtotal").val(new_total);
-		$("#diskon").val('');
+		var diskon=$("#txtdiskon").val();
+		var grand=parseFloat(new_total) - parseFloat(diskon);
+		$("#grandtotal").val(toRp(grand));
+		$("#txtgrandtotal").val(grand);
+		
 	}
 }
 
@@ -1261,13 +1258,13 @@ function editcharge(myid){
 	var hasil=parseFloat(total_charge)-parseFloat(total);
 	var txtdiskon=$('#txtdiskon').val();
 	var grand=parseFloat(hasil)-parseFloat(txtdiskon);
-
-$('#txttotal').val(hasil);	
-$('#total_charge').val(hasil);
-$("#label_charges").html(toRp(hasil));
-$('#t_total').val(toRp(hasil));
-$('#grandtotal').val(toRp(grand));
-$("#txtgrandtotal").val(grand);
+	
+	$('#txttotal').val(hasil);	
+	$('#total_charge').val(hasil);
+	$("#label_charges").html(toRp(hasil));
+	$('#t_total').val(toRp(hasil));
+	$('#grandtotal').val(toRp(grand));
+	$("#txtgrandtotal").val(grand);
 
   <!-- delete rows -->
      t = $(myid);
@@ -1277,32 +1274,82 @@ $("#txtgrandtotal").val(grand);
 	$(".close").hide();
 }
 function edititems(myid){
+var input = $(myid).val();
+//var input2 = $(myid).val();
+var pecah=input.split('/');
+var vol=pecah[0];
+var pcs=pecah[1];
+var weight=pecah[2];
+
 	var input = $(myid).val();
-	
 	var pecah=input.split('/');
 	var pcs=pecah[0];
 	var p=pecah[1];
 	var l=pecah[2];
 	var t=pecah[3];
-	var w=pecah[4];
+	var weight=pecah[4];
 	var vol=pecah[5];
 	
-	$("#modaladd").modal('show');	
 
+	var t_volume=$('#t_volume').val();
+	var kurang=parseFloat(t_volume)-parseFloat(vol);
+	var hasil=kurang.toFixed(2);
+	$('#t_volume').val(hasil);
+	$('#label_volume').html(hasil);
+	
+	var t_pacs=$('#t_pacs').val();
+	var kurang2=parseFloat(t_pacs)-parseFloat(pcs);
+	var hasil2=kurang2.toFixed(2);
+	$('#t_pacs').val(hasil2);
+	$('#label_pacs').html(hasil2);
+	
+	var t_weight=$('#t_weight').val();
+	var kurang3=parseFloat(t_weight)-parseFloat(weight);
+	var hasil3=kurang3.toFixed(2);
+	$('#t_weight').val(hasil3);
+	$('#label_weight').html(hasil3);
+	
+	var total_volum=$('#t_volume').val();
+	var total_weight=$('#t_weight').val();
+
+	$("#modaladd").modal('show');	
 	$('#pack').val(pcs);
 	$('#panjang').val(p);
 	$('#lebar').val(l);
 	$('#tinggi').val(t);
-	$('#weight').val(w);
+	$('#weight').val(weight);
 	$('#vol').val(vol);
 	
-	  <!-- delete rows -->
+	if(total_volum >= total_weight)
+	{
+		$('#cwt').val(total_volum);
+	} 
+	else if(total_weight >= total_volum)
+	 {
+		$('#cwt').val(total_weight);
+	}
+
+		var input=$("#cwt").val();
+		var pecah=input.split('.');
+		var bulat=pecah[0];
+		var koma=pecah[1];
+		if(koma > 49){
+			var maks=parseFloat(bulat) + 1;
+            $('#qtyfreight').val(maks);
+			$('#ori_cwt').val(maks);
+			
+		} else {
+			var maks=parseFloat(bulat);
+			$('#qtyfreight').val(maks);
+			$('#ori_cwt').val(maks);
+		}
+
+
      t = $(myid);
      tr = t.parent().parent();
-     tr.remove();	
-	//document.getElementById("cancel").disabled = true;
-	//$(".close").hide();
+     tr.remove();
 }
+
 function hapus(th) {
       var tt=$("#tt").val();;
 	  var t_volume=$('#t_volume').val();
@@ -1341,20 +1388,20 @@ var weight=pecah[2];
 	$('#t_weight').val(hasil3);
 	$('#label_weight').html(hasil3);
 	
-	var total_volum=$('#t_volume').val();
-	var total_weight=$('#t_weight').val();
-	
-	if(total_volum >= total_weight)
+	var total_volum=document.getElementById("t_volume").value;
+	var total_weight=document.getElementById("t_weight").value;	
+	if(total_volum > total_weight)
 	{
 		$('#cwt').val(total_volum);
 	} 
-	else if(total_weight >= total_volum)
+	else if(total_volum < total_weight)
 	 {
 		$('#cwt').val(total_weight);
 	}
 
-		var input=$("#cwt").val();
-		var pecah=input.split('.');
+
+		var cwt=$("#cwt").val();
+		var pecah=cwt.split('.');
 		var bulat=pecah[0];
 		var koma=pecah[1];
 		if(koma > 49){
@@ -1366,9 +1413,25 @@ var weight=pecah[2];
 			var maks=parseFloat(bulat);
 			$('#qtyfreight').val(maks);
 			$('#ori_cwt').val(maks);
-		}
+		}     
 
-
+		var total_charge=$("#total_charge").val();
+		var new_price=$("#pricefreight").val();
+		var new_qty=$('#qtyfreight').val();
+		var old_sub=$("#totfreight").val();
+		var new_sub=parseFloat(new_price)*parseFloat(new_qty);
+		var selisih_sub=parseFloat(old_sub)-parseFloat(new_sub);
+		$("#totfreight").val(new_sub);
+		$("#label_totfreight").html(toRp(new_sub));
+		var new_total=parseFloat(total_charge) - parseFloat(selisih_sub);
+		$("#total_charge").val(new_total);
+		$("#label_charges").html(toRp(new_total));
+		$("#t_total").val(toRp(new_total));
+		var diskon=$("#txtdiskon").val();
+		var grand=parseFloat(new_total) - parseFloat(diskon);
+		$("#grandtotal").val(toRp(grand));
+		$("#txtgrandtotal").val(grand);
+		
      t = $(myid);
      tr = t.parent().parent();
      tr.remove();
@@ -1389,19 +1452,21 @@ function savecharges(){
 	var idcharge=pecah[0];
 	var nmcharge=pecah[1];
 			
-if (txtunit == '' || txtqty == '' || charge == ''){
+if (txtunit == '' || txtqty == ''){
 	alert('Mohon isi data dengan lengkap');	
 	}
 	else
 	{
 	text='<tr class="gradeX">'
     + '<td>' + '<input type="hidden" name="idcharge[]" id="idcharge[]" value="'+ idcharge +'">'+ '<label id="l_pcs">'+ nmcharge +'</label>' +'</td>'
-    + '<td align="right">' +  '<input type="hidden" name="unit[]" id="l[]" value="'+ txtunit +'">'+ '<label id="l_pcs">'+ txtunit +'</label>' +'</td>'
+	
+    + '<td align="right">' +  '<input type="hidden" name="unit[]" id="l[]" value="'+ txtunit +'">'+ '<label id="l_pcs">'+ toRp(txtunit) +'</label>' +'</td>'
+	
     + '<td align="right">' +  '<input type="hidden" name="qty[]" id="t[]" size="5" value="'+ txtqty +'">'+ '<label id="l_pcs">'+ txtqty +'</label>' +'</td>'
     
     + '<td>' + '<input type="hidden" name="desc[]" id="p[]" size="5" value="'+ desc +'">'+ '<label id="l_pcs">'+ desc +'</label>' +'</td>'
     
-    + '<td align="right">' + '<input type="hidden" name="totalcharges[]" id="totalcharges[]" size="5" value="'+ kali +'">'+ '<label id="l_pcs">'+ kali +'</label>' +'</td>'
+    + '<td align="right">' + '<input type="hidden" name="totalcharges[]" id="totalcharges[]" size="5" value="'+ kali +'">'+ '<label id="l_pcs">'+ toRp(kali) +'</label>' +'</td>'
 
 	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali +'" onclick="hapuscharge(this)" type="button"><i class="fa fa-times"></i></button>'
 	+'<button class="btndel btn-primary btn-mini" value="' + idcharge+'/'+nmcharge+'/'+txtunit+'/'+txtqty+'/'+desc+'/'+kali +'" onclick="editcharge(this)" type="button"><i class="fa fa-edit"></i></button>'
@@ -1455,8 +1520,13 @@ $("#label_charges").html(hasil);
 $('#myform').submit(function(){
 	
 var txtgrandtotal=$("#txtgrandtotal").val();
+var total_charge=$("#total_charge").val();
+$("#txtgrandtotal").val(total_charge);
+
 if(txtgrandtotal <=0){
 	alert('Diskon to much !');
+	$("#txtdiskon").val(0);
+	$("#diskon").val(0);
 	return false;
 }
 });

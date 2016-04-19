@@ -132,7 +132,7 @@ class Transaction extends CI_Controller{
 		$houseno=$this->uri->segment(3);
         $data = array(
             'title'=>'domesctic-outgoing-master',
-            'scrumb_name'=>'Domesctic outgoing master / Edit Master',
+            'scrumb_name'=>'Domesctic outgoing master',
             'scrumb'=>'transaction/domestic_outgoing_master',
             'payment_type'=>$this->model_app->getdatapaging("PayCode,PayName","ms_payment_type","ORDER BY PayCode ASC"),
             'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
@@ -1383,12 +1383,13 @@ function print_outgoing_master(){
 		'Commodity' =>$this->input->post('commodity'),
 		'GrossWeight' =>$this->input->post('t_weight'),
 		'grandVolume' =>$this->input->post('t_volume'),
+		'Discount' =>$this->input->post('txtdiskon'),
 		'PCS' =>$this->input->post('t_pacs'),
 		'SpecialIntraction' =>$this->input->post('special'),		
 		'CWT' =>$this->input->post('ori_cwt'),
 		'DeclareValue' =>$this->input->post('declare'),		
 		'DescofShipment' =>$this->input->post('description'),
-		'Discount'=>$this->input->post('diskon'),
+		'Discount'=>$this->input->post('txtdiskon'),
 		'Amount' =>$this->input->post('txtgrandtotal'),
 		'CreateBy' =>$this->session->userdata('idusr'),
 		'CreateDate'=>date('Y-m-d H:i:s'),
@@ -1540,8 +1541,9 @@ function print_outgoing_master(){
 		$etd=$this->input->post('etd');
 		
 	$delete=$this->model_app->delete_data('booking_charge','Reff',$houseno);
-	$delete=$this->model_app->delete_data('booking_items','Reff',$houseno);				
+	$delete2=$this->model_app->delete_data('booking_items','Reff',$houseno);				
 	//====insert items ==============//
+	
 	$pcs=$_POST['pcs'];	
 	foreach($pcs as $key => $val)
 	{
@@ -1602,8 +1604,8 @@ function print_outgoing_master(){
 		'CWT' =>$this->input->post('ori_cwt'),
 		'GrossWeight' =>$this->input->post('t_weight'),
 		'grandVolume' =>$this->input->post('t_volume'),
-		'PCS' =>$this->input->post('t_pcs'),
-		'Discount' =>$this->input->post('diskon'),
+		'PCS' =>$this->input->post('t_pacs'),
+		'Discount' =>$this->input->post('txtdiskon'),
 		'Amount' =>$this->input->post('txtgrandtotal'),
 		'DeclareValue' =>$this->input->post('declare'),
 		'DescofShipment' =>$this->input->post('description'),
@@ -2006,5 +2008,7 @@ echo "{\"list_event\":" . $data . "}";
 exit;
 }
 	
-	
+
+
+
 }

@@ -90,6 +90,7 @@ function toRp(angka){
 	var qty=document.getElementById("qtyfreight").value;
 	var subtotal=parseFloat(price) * parseFloat(qty);
 	var newcharge=document.getElementById("totfreight").value=subtotal;
+	document.getElementById("label_totfreight").innerHTML=toRp(subtotal);
 
 	if(newcharge > lastcharge)
 	{
@@ -122,6 +123,7 @@ function toRp(angka){
 	var subtotal=parseFloat(price) * parseFloat(qty);
 	//var format_sub=toRp(subtotal);
 	var newcharge=document.getElementById("totfreight2").value=subtotal;
+	document.getElementById("label_totfreight2").innerHTML=toRp(subtotal);
 
 	if(newcharge > lastcharge)
 	{
@@ -635,19 +637,16 @@ $("#idconsigne").click(function(){
                                               <div class="col-md-12">
                                               <label class="col-sm-4">Commodity &nbsp;</label>
                                               <div class="col-sm-7">
-      <select data-placeholder="Choose Commodity..." class="chosen-select form-control" tabindex="2" name="commodity">
-           <option value="">Choose Commodity</option>
-          <?php foreach ($commodity as $cm) {
-          ?>
-            <option value="<?php echo $cm->CommCode;?>"><?php echo $cm->CommName;?></option>
-          <?php } ?>
-      </select>
-                                                </div>
+                                                <label for="commodity"></label>
+                                                <textarea name="commodity" id="commodity" class="form-control"></textarea>
+                                              </div>
                                                 </div>
 
                                               <div class="col-md-12">
                                               <label class="col-sm-4">Special Instructions &nbsp;</label>
-                                              <div class="col-sm-7"><input type="text" name="special" id="special" class="form-control"></div>
+                                              <div class="col-sm-7">
+                                                <textarea name="spesial" id="spesial" class="form-control"></textarea>
+                                              </div>
                                              </div>
   
                                               </div>
@@ -683,75 +682,71 @@ $("#idconsigne").click(function(){
 <div class="form-group">
     <div class="table-responsive" id="table_responsive">
 <h2><span class="label label-large label-pink arrowed-in-right"> COST / CHARGES </span></h2>
-    <table class="table table-striped table-bordered table-hover" id="tblcharges" style="width:95%">
+    <table class="table table-hover" id="tblcharges" style="width:95%">
                                               <thead>
-                                                <thead>
+                                                
                                                 <tr>
                                                   <th>Charges</th>
                                                   <th>Price</th>
-                                                  <th>Qty</th>
+                                                  <th width="83">Qty</th>
                                                   <th style="width:28%">Desc</th>
                                                   <th>Total</th>
                                                   <th class="text-center"><a class="btn  btn-primary btn-round" href="#modaladdCharge" data-toggle="modal" title="Add item" id="addchrg"><i class="icon-plus icons"></i> Add Cost</a></th>
                                                 </tr>
+ </thead>  <tbody>
                                                 <tr>
   <th height="26"><span class="col-sm-4">AirFreight
  <input type="hidden" name="idcharge[]" id="idcharge[]" value="1">
    </span></th>
  
- <th><input type="text" name="unit[]" id="pricefreight" onChange="return count_freight3(this);" class="form-control" style=" text-align:right" value="0"><label id="label_price" style="float:right;color:#abbac3;font-style:italic">0</label></th>
-                                                  <th><input type="text" name="qty[]" id="qtyfreight" style="width:98%;text-align:right" value="1" class="form-control" onChange="return count_freight3(this);" ></th>
+ <th><input type="text" name="unit[]" id="pricefreight" onChange="return count_freight3(this);" class="form-control" style=" text-align:right" value="0" onkeypress="return isNumberKey(event)"><label id="label_price" style="text-align:right;color:#1963aa;font-style:italic">0</label></th>
+                                                  <th><input type="text" name="qty[]" id="qtyfreight" style="width:50px;text-align:right" value="1" class="form-control" onChange="return count_freight3(this);" onkeypress="return isNumberKey(event)"></th>
                                                   <th>
 
       <input type="text" name="desc[]" id="descfreight" style="width:100%" class="form-control">                                            
                                                   </th>
-                                                  <th><input type="text" name="totalcharges[]" id="totfreight" style="width:98%;text-align:right" value="0"  readonly class="form-control">
+                                                  <th><input type="hidden" name="totalcharges[]" id="totfreight" style="width:98%;text-align:right" value="0"  readonly class="form-control">
+<label id="label_totfreight" style="float:right;color:#1963aa;font-style:italic">0</label>
                                                   <th class="text-center">&nbsp;</th>
                                                 </tr>
                                                 <tr>
-                                                  <th width="158"><span class="col-sm-4">SMU
+                                                  <th width="84"><span class="col-sm-4">SMU
                                                     <input type="hidden" name="idcharge[]" id="idcharge[]" value="2">
                                                   </span></th>
-                                                  <th width="158"><input type="text" name="unit[]" id="pricefreight2" style="width:98%; text-align:right" onChange="return count_freight2(this)" class="form-control" value="0">
-<label id="label_price2" style="float:right;color:#abbac3;font-style:italic">0</label>
+                                                  <th width="208"><input type="text" name="unit[]" id="pricefreight2" style="width:98%; text-align:right" onChange="return count_freight2(this)" class="form-control" value="0" onkeypress="return isNumberKey(event)">
+<label id="label_price2" style="text-align:right;color:#1963aa;font-style:italic">0</label>
                                                   </th>
-                                                  <th width="158"><div align="center">
-                                                    <input type="text" name="qty[]" id="qtyfreight2" style="width:98%;text-align:right" value="1" class="form-control" onChange="return count_freight2(this)">
-                                                  </div></th>
-                                                  <th width="114"><div align="center">
+                                                  <th width="83">                                       <input type="text" name="qty[]" id="qtyfreight2" style="width:50px;text-align:right" value="1" class="form-control" onChange="return count_freight2(this)" onkeypress="return isNumberKey(event)">
+ </th>
+                                                  <th width="190"><div align="center">
                                                     
   <input type="text" name="desc[]" id="descfreight" style="width:100%" class="form-control">
                                                   </div></th>
-                                                  <th width="222"><div align="center">
-                                                    <input type="text" name="totalcharges[]" id="totfreight2" style="width:98%;text-align:right" readonly  class="form-control" value="0">
-         
+                                                  <th width="62"><div align="center">
+                                                    <input type="hidden" name="totalcharges[]" id="totfreight2" style="width:98%;text-align:right" readonly  class="form-control" value="0">
+<label id="label_totfreight2" style="float:right;color:#1963aa;font-style:italic">0</label>         
                                                   </div></th>
                                                   <th class="text-center"><div align="center"></div></th>
                                                 </tr>
-                                                </thead>
                                                 
-                                               
+                                                
+   
+    </tbody>                                           
                                               
-                                              <tbody>
-   <?php 
-$i=1;
-foreach($tmpcharge as $chr){
-$grandt+=$chr->Total;
- //$t_volume+=$itm['v'];
-        ?>
-<?php $no++; } ?>
-                                                <thead>
+                                              
+
+                                                <tfoot>
                                                  <tr>
 
                                                   <td><b>Total</b></td>
                                                   <td colspan="4"><div align="right">
-                                                  <input name="total_charge" type="text" id="total_charge" value="0" />
+                                                  <input name="total_charge" type="hidden" id="total_charge" value="0" />
   <label id="label_charges">0</label>                                                                                           
                                                   
                                                    </div></td>
-                                                  <td width="129">&nbsp;</td>
+                                                  <td width="42">&nbsp;</td>
                                                 </tr>
-                                                </thead>
+                                                </tfoot>
                                             </table>
               </div>
                   </div>
@@ -775,20 +770,20 @@ $grandt+=$chr->Total;
 
 <div class="col-sm-8"><p class="text-right">TOTAL </p></div>
 <div class="col-sm-2"><p class="text-left"><input type="text" name="t_total" id="t_total" class="form-control txtrp" readonly value="0">
-<input type="text" name="txttotal" id="txttotal" value="0">
+<input type="hidden" name="txttotal" id="txttotal" value="0">
 </p>
 </div>
 
 <div class="col-sm-8"><p class="text-right">DISKON </p></div>
-<div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="return diskonRp(this);" value="0">
+<div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="return diskonRp(this);" value="0" onkeypress="return isNumberKey(event)">
 </p></div>
 
 <div class="col-sm-8"><p class="text-right">GRAND TOTAL <span class="text-left">
-  <input type="text" name="txtdiskon" id="txtdiskon" class="form-control" value="0">
+  <input type="hidden" name="txtdiskon" id="txtdiskon" class="form-control" value="0">
 </span></p>
 </div>
 <div class="col-sm-2"><p class="text-left"><input type="text" name="grandtotal" id="grandtotal" class="form-control txtrp"  readonl="readonly" readonly value="0">
-<input type="text" name="txtgrandtotal" id="txtgrandtotal" class="form-control" value="0">
+<input type="hidden" name="txtgrandtotal" id="txtgrandtotal" class="form-control" value="0">
 </p></div>
 
 
@@ -929,7 +924,7 @@ $grandt+=$chr->Total;
                         <div class="clearfix"></div>
                       </div>
   <div class="modal-footer">
-<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
+<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true" id="cancel"><i class="fa fa-close">&nbsp;</i> Close</button>
                         <button class="btn btn-primary" id="savecharges" onClick="savecharges()"> Save</button>
     </div>
                     </div>
@@ -1390,12 +1385,14 @@ if (txtunit == '' || txtqty == '' || charge == ''){
 	{
 	text='<tr class="gradeX">'
     + '<td>' + '<input type="hidden" name="idcharge[]" id="idcharge[]" value="'+ idcharge +'">'+ '<label id="l_pcs">'+ nmcharge +'</label>' +'</td>'
-    + '<td align="right">' +  '<input type="hidden" name="unit[]" id="l[]" value="'+ txtunit +'">'+ '<label id="l_pcs">'+ txtunit +'</label>' +'</td>'
+	
+    + '<td align="right">' +  '<input type="hidden" name="unit[]" id="l[]" value="'+ txtunit +'">'+ '<label id="l_pcs">'+ toRp(txtunit) +'</label>' +'</td>'
+	
     + '<td align="right">' +  '<input type="hidden" name="qty[]" id="t[]" size="5" value="'+ txtqty +'">'+ '<label id="l_pcs">'+ txtqty +'</label>' +'</td>'
     
     + '<td>' + '<input type="hidden" name="desc[]" id="p[]" size="5" value="'+ desc +'">'+ '<label id="l_pcs">'+ desc +'</label>' +'</td>'
     
-    + '<td align="right">' + '<input type="hidden" name="totalcharges[]" id="totalcharges[]" size="5" value="'+ kali +'">'+ '<label id="l_pcs">'+ kali +'</label>' +'</td>'
+    + '<td align="right">' + '<input type="hidden" name="totalcharges[]" id="totalcharges[]" size="5" value="'+ kali +'">'+ '<label id="l_pcs">'+ toRp(kali) +'</label>' +'</td>'
 
 	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali +'" onclick="hapuscharge(this)" type="button"><i class="fa fa-times"></i></button>'
 	+'<button class="btndel btn-primary btn-mini" value="' + idcharge+'/'+nmcharge+'/'+txtunit+'/'+txtqty+'/'+desc+'/'+kali +'" onclick="editcharge(this)" type="button"><i class="fa fa-edit"></i></button>'

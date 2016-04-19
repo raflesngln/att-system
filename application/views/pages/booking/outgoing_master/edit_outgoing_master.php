@@ -90,6 +90,7 @@ function toRp(angka){
 	var qty=document.getElementById("qtyfreight").value;
 	var subtotal=parseFloat(price) * parseFloat(qty);
 	var newcharge=document.getElementById("totfreight").value=subtotal;
+	document.getElementById("label_totfreight").innerHTML=toRp(subtotal);
 
 	if(newcharge > lastcharge)
 	{
@@ -122,6 +123,7 @@ function toRp(angka){
 	var subtotal=parseFloat(price) * parseFloat(qty);
 	//var format_sub=toRp(subtotal);
 	var newcharge=document.getElementById("totfreight2").value=subtotal;
+	document.getElementById("label_totfreight2").innerHTML=toRp(subtotal);
 
 	if(newcharge > lastcharge)
 	{
@@ -590,19 +592,15 @@ foreach($master as $row){
                                               <div class="col-md-12">
                                               <label class="col-sm-4">Commodity &nbsp;</label>
                                               <div class="col-sm-7">
-      <select data-placeholder="Choose Commodity..." class="chosen-select form-control" tabindex="2"  name="commodity">
-           <option value="<?php echo $row->Commodity;?>"><?php echo $row->Commodity;?></option>
-          <?php foreach ($commodity as $cm) {
-          ?>
-            <option value="<?php echo $cm->CommCode;?>"><?php echo $cm->CommName;?></option>
-          <?php } ?>
-      </select>
-                                                </div>
+                                                <textarea name="commodity" id="commodity" class="form-control"><?php echo $row->Commodity;?></textarea>
+                                              </div>
                                                 </div>
 
                                               <div class="col-md-12">
                                               <label class="col-sm-4">Special Instructions &nbsp;</label>
-                                              <div class="col-sm-7"><input type="text" name="spesial" id="spesial" class="form-control" value="<?php echo $row->SpecialIntraction;?>"></div>
+                                              <div class="col-sm-7">
+                                                <textarea name="spesial" id="spesial" class="form-control"><?php echo $row->SpecialIntraction;?></textarea>
+                                              </div>
                                              </div>
   
                                               </div>
@@ -638,12 +636,12 @@ foreach($master as $row){
 <div class="form-group">
     <div class="table-responsive" id="table_responsive">
 <h2><span class="label label-large label-pink arrowed-in-right"> COST / CHARGES </span></h2>
-    <table class="table table-striped table-bordered table-hover" id="tblcharges" style="width:95%">
+    <table class="table table-hover" id="tblcharges" style="width:95%">
                                               <thead>
                                                 <tr>
                                                   <th>Charges</th>
                                                   <th>Price</th>
-                                                  <th>Qty</th>
+                                                  <th width="75">Qty</th>
                                                   <th style="width:28%">Desc</th>
                                                   <th>Total</th>
                                                   <th class="text-center"><a class="btn  btn-primary btn-round" href="#modaladdCharge" data-toggle="modal" title="Add item" id="addchrg"><i class="icon-plus icons"></i> Add Cost</a></th>
@@ -661,13 +659,16 @@ foreach($master as $row){
  <input type="hidden" name="idcharge[]" id="idcharge[]" value="1">
    </span></td>
  
- <td><input type="text" name="unit[]" id="pricefreight" onChange="return count_freight3(this);" required class="form-control" style=" text-align:right" value="<?php echo $fr->Price; ?>"> <label id="label_price" style="float:right;color:#abbac3;font-style:italic"><?php echo 'Rp '.number_format($fr->Price,0,'.','.'); ?></label></td>
-                                                  <td><input type="text" name="qty[]" id="qtyfreight" style="width:98%;text-align:right" value="<?php echo $row->CWT; ?>" class="form-control" readonly></td>
+ <td><input type="text" name="unit[]" id="pricefreight" onChange="return count_freight3(this);" required class="form-control" style=" text-align:right" value="<?php echo $fr->Price; ?>" onkeypress="return isNumberKey(event)"> <span id="label_price" style="text-align:right;color:#1963aa;font-style:italic"><?php echo 'Rp '.number_format($fr->Price,0,'.','.'); ?></span></td>
+                                                  <td><input type="text" name="qty[]" id="qtyfreight" style="text-align:right; width:50px" value="<?php echo $row->CWT; ?>" class="form-control" readonly></td>
                                                   <td>
 
       <input type="text" name="desc[]" id="descfreight" style="width:100%" class="form-control" value="<?php echo $fr->ChargeDetail; ?>">                                            
                                                   </td>
-                                                  <td><input type="text" name="totalcharges[]" id="totfreight" style="width:98%;text-align:right" value="<?php echo $total1; ?>" required readonly class="form-control">
+                                                  <td><input type="hidden" name="totalcharges[]" id="totfreight" style="width:98%;text-align:right" value="<?php echo $total1; ?>" required readonly class="form-control">
+<label id="label_totfreight" style="float:right;color:#1963aa;font-style:italic"><?php echo number_format($total1,0,'.','.'); ?></label>                                                  
+
+                                                  
                                                   <td class="text-center">&nbsp;</td>
                                                 </tr>
  <?php } ?>                                               
@@ -680,10 +681,12 @@ foreach($master as $row){
                                                   <th><span class="col-sm-4">SMU
                                                     <input type="hidden" name="idcharge[]" id="idcharge[]2" value="2">
                                                   </span></th>
-                                                  <th><input type="text" name="unit[]" id="pricefreight2" style="width:98%; text-align:right" onChange="return count_freight2(this)" required class="form-control"  value="<?php echo $c_smu->Price; ?>"><label id="label_price2" style="float:right;color:#abbac3;font-style:italic"><?php echo 'Rp '. number_format($c_smu->Price,0,'.','.'); ?></label></th>
-                                                  <th><input type="text" name="qty[]" id="qtyfreight2" style="width:98%;text-align:right" class="form-control" value="<?php echo $c_smu->Qty; ?>"></th>
+                                                  <th><input type="text" name="unit[]" id="pricefreight2" style="text-align:right" onChange="return count_freight2(this)" required class="form-control"  value="<?php echo $c_smu->Price; ?>" onkeypress="return isNumberKey(event)"><span id="label_price2" style="text-align:right;color:#1963aa;font-style:italic"><?php echo 'Rp '. number_format($c_smu->Price,0,'.','.'); ?></span></th>
+                                                  <th><input type="text" name="qty[]" id="qtyfreight2" style="text-align:right; width:50px" class="form-control" value="<?php echo $c_smu->Qty; ?>" onChange="return count_freight2(this)" onkeypress="return isNumberKey(event)"></th>
                                                   <th><input type="text" name="desc[]" id="descfreight2" style="width:100%" class="form-control" value="<?php echo $c_smu->ChargeDetail; ?>"></th>
-                                                  <th><input type="text" name="totalcharges[]" id="totfreight2" style="width:98%;text-align:right" readonly required class="form-control" value="<?php echo $total2; ?>"></th>
+                                                  <th><input type="hidden" name="totalcharges[]" id="totfreight2" style="width:98%;text-align:right" readonly required class="form-control" value="<?php echo $total2; ?>">
+<label id="label_totfreight2" style="float:right;color:#1963aa;font-style:italic"><?php echo number_format($total2,0,'.','.'); ?></label>
+</th>
                                                   <th class="text-center">&nbsp;</th>
                                                 </tr>
  <?php } ?>
@@ -693,16 +696,16 @@ foreach($master as $row){
 	 $total3+=$opsi->Total;
  ?>
                                                 <tr>
-                                                  <td width="158"><?php echo $opsi->ChargeName; ?>
+                                                  <td width="83"><?php echo $opsi->ChargeName; ?>
                                                     <input type="hidden" name="idcharge[]" id="idcharge3" value="<?php echo $opsi->ChargeCode; ?>">
                                                   </td>
-                                                  <td width="158" align="right"><input type="hidden" name="unit[]" id="idcharge4" value="<?php echo $opsi->Price; ?>">                                                    <?php echo number_format($opsi->Price,0,'.','.'); ?>
+                                                  <td width="190" align="right"><input type="hidden" name="unit[]" id="idcharge4" value="<?php echo $opsi->Price; ?>">                                                    <?php echo number_format($opsi->Price,0,'.','.'); ?>
    
  </td>
-                                                  <td width="158" align="right"><input type="hidden" name="qty[]" id="idcharge5" value="<?php echo $opsi->Qty; ?>">                                                    <?php echo $opsi->Qty; ?></td>
-                                                  <td width="114" align="left"><?php echo $opsi->ChargeDetail; ?>
+                                                  <td width="75" align="right"><input type="hidden" name="qty[]" id="idcharge5" value="<?php echo $opsi->Qty; ?>">                                                    <?php echo $opsi->Qty; ?></td>
+                                                  <td width="181" align="left"><?php echo $opsi->ChargeDetail; ?>
                                                   <input type="hidden" name="desc[]" id="idcharge" value="<?php echo $opsi->ChargeDetail; ?>"></td>
-                                                  <td width="222" align="right"><input type="hidden" name="totalcharges[]" id="idcharge2" value="<?php echo $opsi->Total; ?>">                                                    <?php echo $opsi->Total; ?></td>
+                                                  <td width="64" align="right"><input type="hidden" name="totalcharges[]" id="idcharge2" value="<?php echo $opsi->Total; ?>">                                                    <?php echo number_format($opsi->Total,0,'.','.'); ?></td>
                                                   <td class="text-center"><button value="<?php echo $opsi->Total; ?>" id="del_charge" class="del_charge btn btn-mini btn-danger" onClick="hapuscharge(this)" type="button">x</button>
                                                   
 <button value="<?php echo $opsi->ChargeCode.'/'.$opsi->ChargeName.'/'.$opsi->Price.'/'.$opsi->Qty.'/'.$opsi->ChargeDetail.'/'.$opsi->Total;?>" id="edit_charge" class="edit btn btn-mini btn-primary" onClick="editcharge(this)" type="button"><i class="fa fa-edit"></i></button>
@@ -725,11 +728,11 @@ foreach($master as $row){
    $totalcharge=$total1+$total2+$total3;
    $grand=$totalcharge-$row->Discount;
    ?>
-                                                  <input name="total_charge" type="text" id="total_charge" value="<?php echo $totalcharge;?>" />
-  <label id="label_charges"><?php echo number_format($totalcharge,0,'.','.');?></label>                                                                                           
+                                                  <input name="total_charge" type="hidden" id="total_charge" value="<?php echo $totalcharge;?>" />
+  <label id="label_charges"><?php echo 'Rp '.number_format($totalcharge,0,'.','.');?></label>                                                                                           
                                                   
                                                   </strong></div></td>
-                                                  <td width="129">&nbsp;</td>
+                                                  <td width="47">&nbsp;</td>
                                                 </tr></tfoot>
                                                 
                                             </table>
@@ -755,18 +758,18 @@ foreach($master as $row){
 
 <div class="col-sm-8"><p class="text-right">TOTAL </p></div>
 <div class="col-sm-2"><p class="text-left"><input type="text" name="t_total" id="t_total" class="form-control txtrp" value="<?php echo number_format($totalcharge,0,'.','.');?>" readonly>
-<input type="text" name="txttotal" id="txttotal" value="<?php echo $totalcharge;?>">
+<input type="hidden" name="txttotal" id="txttotal" value="<?php echo $totalcharge;?>">
 </p>
 </div>
 
 <div class="col-sm-8"><p class="text-right">DISKON </p></div>
 <div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="return diskonRp(this);" value="<?php echo $row->Discount;?>">
-<input type="text" name="txtdiskon" id="txtdiskon" class="form-control" value="<?php echo $row->Discount;?>">
+<input type="hidden" name="txtdiskon" id="txtdiskon" class="form-control" value="<?php echo $row->Discount;?>">
 </p></div>
 
 <div class="col-sm-8"><p class="text-right">GRAND TOTAL </p></div>
 <div class="col-sm-2"><p class="text-left"><input type="text" name="grandtotal" id="grandtotal" class="form-control txtrp"  readonl="readonly" readonly value="<?php echo number_format($grand,0,'.','.');?>">
-<input type="text" name="txtgrandtotal" id="txtgrandtotal" class="form-control" value="<?php echo $grand;?>">
+<input type="hidden" name="txtgrandtotal" id="txtgrandtotal" class="form-control" value="<?php echo $grand;?>">
 </p></div>
 
 
@@ -1367,12 +1370,14 @@ if (txtunit == '' || txtqty == '' || charge == ''){
 	{
 	text='<tr class="gradeX">'
     + '<td>' + '<input type="hidden" name="idcharge[]" id="idcharge[]" value="'+ idcharge +'">'+ '<label id="l_pcs">'+ nmcharge +'</label>' +'</td>'
-    + '<td align="right">' +  '<input type="hidden" name="unit[]" id="l[]" value="'+ txtunit +'">'+ '<label id="l_pcs">'+ txtunit +'</label>' +'</td>'
+	
+    + '<td align="right">' +  '<input type="hidden" name="unit[]" id="l[]" value="'+ txtunit +'">'+ '<label id="l_pcs">'+ toRp(txtunit) +'</label>' +'</td>'
+	
     + '<td align="right">' +  '<input type="hidden" name="qty[]" id="t[]" size="5" value="'+ txtqty +'">'+ '<label id="l_pcs">'+ txtqty +'</label>' +'</td>'
     
     + '<td>' + '<input type="hidden" name="desc[]" id="p[]" size="5" value="'+ desc +'">'+ '<label id="l_pcs">'+ desc +'</label>' +'</td>'
     
-    + '<td align="right">' + '<input type="hidden" name="totalcharges[]" id="totalcharges[]" size="5" value="'+ kali +'">'+ '<label id="l_pcs">'+ kali +'</label>' +'</td>'
+    + '<td align="right">' + '<input type="hidden" name="totalcharges[]" id="totalcharges[]" size="5" value="'+ kali +'">'+ '<label id="l_pcs">'+ toRp(kali) +'</label>' +'</td>'
 
 	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + kali +'" onclick="hapuscharge(this)" type="button"><i class="fa fa-times"></i></button>'
 	+'<button class="btndel btn-primary btn-mini" value="' + idcharge+'/'+nmcharge+'/'+txtunit+'/'+txtqty+'/'+desc+'/'+kali +'" onclick="editcharge(this)" type="button"><i class="fa fa-edit"></i></button>'

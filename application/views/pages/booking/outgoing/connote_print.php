@@ -59,39 +59,30 @@ footer{display:none;}
 		 ?>
 <table width="" border="1" id="mytable">
   <tr>
-    <td width="75" rowspan="2" style="background-color:#E6FFE6"><p style="font-size:20pt; color:#800040; text-align:center">XSYS</p>
+    <td colspan="2" rowspan="2" style="background-color:#E6FFE6"><p style="font-size:15pt; color:#800040; text-align:center">XSYS</p>
       <p align="center" style="font-family:'Comic Sans MS', cursive">Express Network</p>
-      </td>
-    <td width="142" rowspan="2" style="text-align:center; background-color:#E6FFE6">
-    <p style="margin-top:2px"><strong>PT.Expresindo System Network</strong></p>
-      <p>perkantoran Galaxy Blok N-27</p>
-      <p style="margin-top:-11px">Outer Ring Road Barat</p>
-      <p style="margin-top:-11px">Cengkareng-Jakarta Barat 11730</p>
-      <p style="margin-top:-11px">Telp :021-55950000</p>
-    <p style="margin-top:-11px">Fax :021-55955899</p>
-    <p style="margin-top:-11px">xsysnet.com</p>
-      </td>
+    </td>
     <td width="288">
-    <div style="margin-top:5px;">
-    <p>ORIGINAL/ASAL</p>
-    <p><?php echo $data->Origin;?></p>
-    </div>
-      </td>
+      <div style="margin-top:5px;">
+        <p>ORIGINAL/ASAL</p>
+        <p><?php echo $data->Origin;?></p>
+        </div>
+    </td>
     <td width="411">
      <div style="margin-top:5px;">
     <p>DESTINATION/TUJUAN</p>
       <p><?php echo $data->Destination;?></p>
       </div>
       </td>
-    <td colspan="2" rowspan="2" style="text-align:center"><img src="index.php/barcode/gambar/<?php echo $kode;?>" height="40" width="150">
+    <td colspan="2" rowspan="2" style="text-align:center"><img src="index.php/barcode/gambar/<?php echo $kode;?>" height="35" width="150">
 
       <p>&nbsp;</p></td>
     </tr>
   <tr>
-    <td height="76"><p>PIECES/JUMLAH SATUAN</p>
-      <p align="center"><?php echo $data->PCS;?></p></td>
-    <td><p>WEIGHT/BERAT</p>
-      <p align="center"><?php echo $data->CWT;?></p></td>
+    <td height="22">PIECES/JUMLAH SATUAN : <?php echo $data->PCS;?>
+      </td>
+    <td>WEIGHT/BERAT : <?php echo $data->CWT;?>
+      </td>
   </tr>
   <tr>
     <td colspan="2">Account No.</td>
@@ -104,13 +95,14 @@ footer{display:none;}
 	if($paycode=='CSH-CASH'?$cek1='checked="checked"':$cek1='');
 	if($paycode=='CRD-CREDIT'?$cek2='checked="checked"':$cek2='');
 	?>
-    <td><span class="lbl" style="font-size:5px">TYPE OF PAYMENT/JENIS PEMABAYARAN</span></td>
-    <td><span class="lbl" style="font-size:5px">TYPE OF SHIPMENT/JENIS KIRIMAN</span></td>
+    <td width="75"><span class="lbl" style="font-size:5px">TYPE OF PAYMENT/JENIS PEMABAYARAN</span></td>
+    <td width="142"><span class="lbl" style="font-size:5px">TYPE OF SHIPMENT/JENIS KIRIMAN</span></td>
     <td colspan="2" rowspan="3">
-    <table  width="95%" border="0" style="border:none; margin-top:-56px; width:100%; margin-left:-1PX">
+    <table  width="95%" border="0" style="border:none; margin-top:-6px; width:100%; margin-left:-1PX">
       <tr>
-        <td width="150" height="34" style="border-left:none; border-top:none; border-right:none">SERVICE/LAYANAN</td>
-        <td width="60" style="border-right:none; border-top:none; border-left:none">CHARGES/HARGA(IDR)</td>
+        <td height="34" colspan="2" style="border-left:none; border-top:none; border-right:none">
+        <label>SERVICE/LAYANAN : <?php echo $data->Service;?></p>
+          <label id="charge-header">CHARGES/HARGA(IDR)</label></td>
         </tr>
       <?php foreach($charges as $row){
 		$unit=$row->Unit;
@@ -122,6 +114,13 @@ footer{display:none;}
         <td width="60" style="text-align:right; border-right:none"><?php echo number_format($row->Total,0,'.',',');?> &nbsp;</td>
         </tr>
       <?php } ?>
+      <tr>
+      <td colspan="2"></td>
+      </tr>
+  <tr>
+  <td>Discount</td>
+  <td align="right"><?php echo 'Rp   '. number_format($data->Discount,0,',','.').',-';?></td>
+  </tr>
 </table></td>
     </tr>
   <tr>
@@ -173,7 +172,7 @@ footer{display:none;}
       </td>
     <td colspan="2"><div style="margin-top:-12px;"> ATTENTION & DEPT/DITUJUKAN & DEPT:</div></td>
     <td width="140">TOTAL/JUMLAH</td>
-    <td width="170" style="text-align:right"><strong><?php echo 'Rp   '. number_format($grantotal,0,',','.').',-';?></strong> &nbsp;
+    <td width="170" style="text-align:right"><strong><?php echo 'Rp   '. number_format($data->Amount,0,',','.').',-';?></strong> &nbsp;
       </td>
   </tr>
   <tr>
@@ -221,6 +220,14 @@ footer{display:none;}
 <label>4. Yello/Kuning:Return POD/POD Kembali</label> 
 <label>5. Red/Merah:Receiver/ Penerima</label> 
 </em>
+
+    <p style="margin-top:2px"><strong>PT.Expresindo System Network</strong></p>
+      <p>perkantoran Galaxy Blok N-27</p>
+      <p style="margin-top:-11px">Outer Ring Road Barat</p>
+      <p style="margin-top:-11px">Cengkareng-Jakarta Barat 11730</p>
+      <p style="margin-top:-11px">Telp :021-55950000</p>
+    <p style="margin-top:-11px">Fax :021-55955899</p>
+    <p style="margin-top:-11px">xsysnet.com</p>
 </div>
 </div>
 

@@ -2639,13 +2639,13 @@ textarea,input[type="text"],input[type="password"],input[type="datetime"],input[
     -webkit-border-radius: 0!important;
     -moz-border-radius: 0!important;
     border-radius: 0!important;
-    border-width: 2px;
+    border-width: 1px;
     color: #858585;
     background-color: #fff;
     border-color: #D9DFE2;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
-    box-shadow: none;
+    box-shadow: 2px 2px 5px #e7e7e7;
     -webkit-transition-duration: .1s;
     -moz-transition-duration: .1s;
     -o-transition-duration: .1s;
