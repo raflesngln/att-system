@@ -715,7 +715,7 @@ $("#idconsigne").click(function(){
 
 <div class="col-sm-8"><p class="text-right">GRAND TOTAL </p></div>
 <div class="col-sm-2"><p class="text-left"><input type="text" name="grandtotal" id="grandtotal" class="form-control txtrp"  readonl="readonly" readonly value="0">
-<input type="text" name="txtgrandtotal" id="txtgrandtotal" class="form-control" value="0">
+<input type="hidden" name="txtgrandtotal" id="txtgrandtotal" class="form-control" value="0">
 </p></div>
 
 
@@ -1521,7 +1521,6 @@ $('#myform').submit(function(){
 	
 var txtgrandtotal=$("#txtgrandtotal").val();
 var total_charge=$("#total_charge").val();
-$("#txtgrandtotal").val(total_charge);
 
 if(txtgrandtotal <=0){
 	alert('Diskon to much !');

@@ -331,7 +331,7 @@ $("#idconsigne").click(function(){
   <body>
 		
 
- <!-- ==========================================================  -->   
+<!-- ==========================================================  -->   
   <div class="row-fluid">
     <div class="span12">
                   <?php
@@ -350,7 +350,7 @@ $("#idconsigne").click(function(){
       
 
 <br style="clear:both">
-<form method="post" action="<?php echo base_url();?>transaction/update_outgoing_house" autocomplete="off">
+<form method="post" action="<?php echo base_url();?>transaction/update_outgoing_house" autocomplete="off" id="myform">
 
 <?php
 foreach($connote as $row){
@@ -612,7 +612,7 @@ foreach($connote as $row){
                                                 <div class="col-md-12">
                                               <label class="col-sm-3">CWT &nbsp;</label>
                                               <div class="col-sm-8">
-                                              <input type="text" name="cwt" id="cwt" class="form-control" onkeypress="return isNumberKey(event)" value="<?php echo $cwt; ?>"><input type="hidden" name="ori_cwt" id="ori_cwt" value="<?php echo $cwt; ?>">
+                                              <input type="text" name="cwt" id="cwt" class="form-control" onKeyPress="return isNumberKey(event)" value="<?php echo $cwt; ?>"><input type="hidden" name="ori_cwt" id="ori_cwt" value="<?php echo $cwt; ?>">
                                               </div>
                                                 </div>
                                               <div class="col-md-12">
@@ -759,13 +759,13 @@ foreach($connote as $row){
 
 
 <div class="col-sm-8"><p class="text-right">TOTAL </p></div>
-<div class="col-sm-2"><p class="text-left"><input type="text" name="t_total" id="t_total" class="form-control txtrp" readonly value="<?php echo $totalcharge;?>">
+<div class="col-sm-2"><p class="text-left"><input type="text" name="t_total" id="t_total" class="form-control txtrp" readonly value="<?php echo number_format($totalcharge,0,'.','.');?>">
 <input type="hidden" name="txttotal" id="txttotal" value="0">
 </p>
 </div>
 
 <div class="col-sm-8"><p class="text-right">DISKON </p></div>
-<div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="return diskonRp(this)" value="<?php echo $row->Discount;?>">
+<div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onChange="return diskonRp(this)" value="<?php echo $row->Discount;?>">
 <input type="hidden" name="txtdiskon" id="txtdiskon" class="form-control" value="<?php echo $row->Discount;?>">
 </p></div>
 
@@ -821,35 +821,35 @@ foreach($connote as $row){
 <div class="form-group">
                         <label class="col-sm-3 control-label">No of Pcs </label>
                         <div class="col-sm-9"><span class="controls">
-                        <input name="pack" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="pack" value="" />
+                        <input name="pack" type="text" class="form-control" onKeyPress="return isNumberKey(event)" id="pack" value="" />
 </span></div>
             <div class="clearfix"></div>
             </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Length &nbsp; ( P )</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="panjang" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="panjang" value=""/>
+                          <input name="panjang" type="text" class="form-control" onKeyPress="return isNumberKey(event)" id="panjang" value=""/>
 </span></div>
                         <div class="clearfix"></div>
                       </div>
   <div class="form-group">
                         <label class="col-sm-3 control-label">Width &nbsp; ( L )</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="lebar" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="lebar" value=""/>
+                          <input name="lebar" type="text" class="form-control" onKeyPress="return isNumberKey(event)" id="lebar" value=""/>
 </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Height &nbsp; ( T )</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="tinggi" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="tinggi" value="" />
+                          <input name="tinggi" type="text" class="form-control" onKeyPress="return isNumberKey(event)" id="tinggi" value="" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>                    
 <div class="form-group">
                         <label class="col-sm-3 control-label">Weight &nbsp; ( T )</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="weight" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="weight" value=""/>
+                          <input name="weight" type="text" class="form-control" onKeyPress="return isNumberKey(event)" id="weight" value=""/>
 </span></div>
                         <div class="clearfix"></div>
                </div>
@@ -896,14 +896,14 @@ foreach($connote as $row){
   <div class="form-group">
                         <label class="col-sm-3 control-label">&nbsp;Price</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="txtunit" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="txtunit" />
+                          <input name="txtunit" type="text" class="form-control" onKeyPress="return isNumberKey(event)" id="txtunit" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Qty &nbsp; </label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="qty" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="txtqty" />
+                          <input name="qty" type="text" class="form-control" onKeyPress="return isNumberKey(event)" id="txtqty" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>                    
@@ -979,21 +979,21 @@ foreach($connote as $row){
  <div class="form-group">
               <label class="col-sm-3 control-label">Phone</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="phone" type="text" class="form-control" required id="phone" onkeypress="return isNumberKey(event)" />
+                          <input name="phone" type="text" class="form-control" required id="phone" onKeyPress="return isNumberKey(event)" />
               </span></div>
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Fax</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="fax" type="text" class="form-control" required id="fax" onkeypress="return isNumberKey(event)" />
+                          <input name="fax" type="text" class="form-control" required id="fax" onKeyPress="return isNumberKey(event)" />
               </span></div>
                         <div class="clearfix"></div>
                       </div>
  <div class="form-group">
                         <label class="col-sm-3 control-label">Postal Code</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="postcode" type="text" class="form-control" id="postcode" onkeypress="return isNumberKey(event)" />
+                          <input name="postcode" type="text" class="form-control" id="postcode" onKeyPress="return isNumberKey(event)" />
     </span></div>
                         <div class="clearfix"></div>
                       </div>
@@ -1569,18 +1569,16 @@ $("#label_charges").html(hasil);
 
 
 $('#myform').submit(function(){
-	
 var txtgrandtotal=$("#txtgrandtotal").val();
 var total_charge=$("#total_charge").val();
-$("#txtgrandtotal").val(total_charge);
-$("#txtdiskon").val(0);
-$("#diskon").val(0);
 
 if(txtgrandtotal <=0){
 	alert('Diskon to much !');
 	return false;
 }
 });
+
+
 $('#plane').change(function(){
     	$.getJSON("<?php echo base_url('transaction/getcost'); ?>",
 		{

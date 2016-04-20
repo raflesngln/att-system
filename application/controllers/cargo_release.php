@@ -51,8 +51,10 @@ public function ajax_list()
 			'CWT' =>$datalist->CWT,
 			'CWT' =>$datalist->CWT,
 			
-            'action'=> '<a class="green" href="javascript:void()" title="Edit" onclick="edit_data('."'".$datalist->CargoReleaseCode."'".')"><i class="icon-pencil bigger-150"></i></a>&nbsp;&nbsp;
-				    <a class="red" href="javascript:void()" title="Hapus" onclick="delete_data('."'".$datalist->CargoReleaseCode."'".')"><i class="icon-trash bigger-150"></i></a>'
+            'action'=> '<a class="green" href="javascript:void()" title="Edit" onclick="edit_data('."'".$datalist->CargoReleaseCode."'".')"><i class="icon-edit bigger-150"></i></a>&nbsp;&nbsp;
+				    <a class="red" href="javascript:void()" title="Hapus" onclick="delete_data('."'".$datalist->CargoReleaseCode."'".')"><i class="icon-trash bigger-150"></i></a>
+		 <a class="red" href="'.base_url().'transaction/edit_cargo" title="Hapus"><i class="icon-edit bigger-150"></i></a>
+					'
             );
 			$data[] = $row;
 		}

@@ -23,7 +23,9 @@
   $("#etd").datepicker({
     dateFormat:'yy-mm-dd',
     });
-    
+  $("#tgl").datepicker({
+    dateFormat:'yy-mm-dd',
+    });
   });
   </script>
 
@@ -45,13 +47,31 @@
       
 
 <br style="clear:both">
-<form method="post" action="save.php">
+<form method="post" action="<?php echo base_url()?>transaction/insert_consol">
 <div class="container">
   <div class="row">
                <!--LEFT INPUT-->
   <div class="col-sm-6">      
       <div class="col-sm-11">
 <div class="form-group">                     
+          <strong><label class="col-sm-4">Status SMU</label></strong>
+          <div class="col-sm-7">
+            <input name="tgl" type="text" class="form-control"  id="tgl" required="required" readonly="readonly" value="<?php echo date('Y-m-d');?>"/>
+          </div>
+ </div>
+<div class="form-group">                     
+          <strong><label class="col-sm-4">Destination</label></strong>
+          <div class="col-sm-7">
+           <select name="destination" class="form-control" required="required" id="destination">
+           <option value="">Select Destination </option>
+      <?php foreach($desti as $data){
+		  ?>
+          <option value="<?php echo $data->portcode;?>"><?php echo $data->desti;?></option>
+          <?php } ?>
+          </select>
+          </div>
+ </div>
+ <div class="form-group">                     
           <strong><label class="col-sm-4">Status SMU</label></strong>
           <div class="col-sm-7">
            <select name="status_smu" class="form-control" required="required" id="status_smu">
@@ -101,7 +121,11 @@
            <input name="cwt" type="text" class="form-control" readonly="readonly" required="required" id="cwt"/>
           </div>
 
-
+           <strong><label class="col-sm-4">Limit  CWT</label></strong>
+          <div class="col-sm-7">
+           <input name="limitcwt" type="text" class="form-control" readonly="readonly" required="required" id="limitcwt"/>
+          </div>
+          
           </div>
                        
             
@@ -120,15 +144,14 @@
                                     <div class="form-group">
                                         <div class="table-responsive" id="table_responsive">
 <span class="span3 label label-large label-warning ">Free House</span>
-                                        <table class="table table-nostriped table-nobordered table-hover" id="tabelfree">
+                                        <table class="freetable table table-nostriped table-nobordered table-hover" id="freetable">
                                               <thead>
                                                 
                                                   <tr>
-                                                  <th>No.</th>
                                                   <th>House No</th>
                                                   <th>Shipper-Consigne</th>
-                                                  <th>PCS</th>
                                                   <th>CWT</th>
+                                                  <th>PCS</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                               </thead>
@@ -140,29 +163,29 @@
 	 $t_cwt+=$cwt;
   ?>
                                                   <tr>
-                                                    <td><?php echo $no?></td>
                                                     <td><?php echo $free->HouseNo?></td>
-                                                    <td><div align="left"><?php echo substr($free->sender,0,10).'-'.substr($free->receiver,0,10)?></div></td>
-                                                    <td><div align="right"><?php echo $free->PCS?></div></td>
-                                                    <td><div align="right"><?php echo $free->CWT?></div></td>
-                                                    <td><div align="center">
+                                                    <td><?php echo substr($free->sender,0,10).'-'.substr($free->receiver,0,10)?></td>
+                                                    <td><?php echo $free->CWT?></td>
+                                                    <td><?php echo $free->PCS?></td>
+                                                    <td>
  
  
- <button value="<?php echo $free->HouseNo.'/'.$free->CWT.'/'.$free->PCS;?>" id="ceklish" class="ceklish btn btn-mini btn-primary" type="button" onclick="return consol_house(this)"><i class="icon icon-share-alt icon-on-right white"></i></button>
- 
-                                                    </div></td>
+ <button style="display:none" value="<?php echo $free->HouseNo.'/'.$free->CWT.'/'.$free->PCS;?>" id="ceklish" class="ceklish btn btn-mini btn-primary" type="button" onclick="return consol_house(this)"><i class="icon icon-share-alt icon-on-right white"></i></button>
+
+<button class="move_consol btn btn-mini btn-primary" type="button" value="<?php echo $free->HouseNo.'/'.$free->sender.'/'.$free->CWT.'/'.$free->PCS;?>" onClick="move_consol(this)"><i class="fa fa-check"></i></button>
+ </td>
                                                   </tr>
                 <?php $no++;} ?>  
-                                                  
+                                                   </tbody>
+               								 <tfoot>
                                                   <tr style="background-color:#F5F5F5">
                                                   <td>&nbsp;</td>
-                                                  <td>Total</td>
                                                   <td>&nbsp;</td>
                                                   <td>&nbsp;</td>
-                                                  <td><div align="right"><?php echo $t_cwt?></div></td>
+                                                  <td><div align="right"><label id="pcsfree"><?php //echo $t_cwt?></label></div></td>
                                                   <td>&nbsp;</td>
                                                 </tr>
-                                              </tbody>
+                                             </tfoot>
                                             </table>
                                         </div>
                                     </div>
@@ -180,14 +203,14 @@
    <div class="table-responsive" id="table_responsive">
                                           
 <span class="span4 label label-large label-warning">Remain House in Master</span>
-                                        <table class="table table-striped table-bordered table-hover addedtable" id="addedtable" style="box-shadow:2px 3px 8px #CCC; border:1px #CCC solid">
+                  <table class=" tablehas table table-striped table-bordered table-hover addedtable" id="tablehas" style="box-shadow:2px 3px 8px #CCC; border:1px #CCC solid">
                                               <thead>
                                                 
                                                   <tr>
-                                                  <th>No.</th>
                                                   <th>House No</th>
                                                   <th>Shipper-COnsigne</th>
                                                   <th>CWT</th>
+                                                  <th>PCS</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                               </thead>
@@ -199,28 +222,37 @@
 	 $t_cwt2+=$cwt2;
   ?>
                                                   <tr class="addedtable-tr">
-                                                    <td><?php echo $no?></td>
-                                                    <td><?php echo $row->HouseNo?></td>
-                                                    <td><div align="left"><?php echo substr($row->sender,0,10).'-'.substr($row->receiver,0,10)?></div></td>
-                                                    <td><div align="right"><?php echo $row->CWT?></div></td>
-                                                    <td><div align="center">
+                                                    <td><?php echo $row->HouseNo?>
+                                                    <input type="hidden" name="house[]" id="house[]" /></td>
+                                                    <td><?php echo substr($row->sender,0,10).'-'.substr($row->receiver,0,10)?>
+                                                    <input type="hidden" name="shipper[]" id="shipper[]" /></td>
+                                                    <td><?php echo $row->CWT?>
+                                                    <input type="hidden" name="cwt2[]" id="cwt2[]" /></td>
+                                                    <td><?php echo $row->CWT?>
+                                                    <input type="hidden" name="pcs[]" id="pcs[]" /></td>
+                                                    <td>
                                                     <button value="<?php echo $row->HouseNo.'/'.$row->CWT.'/'.$row->PCS;?>" id="ceklish" class="ceklish btn btn-mini btn-success" type="button" onclick="return reconsol_house(this)"><i class="icon icon-share-alt icon-on-right white"></i></button>
-                                                    </div></td>
+                                                    
+
+                                                    </td>
                                                   </tr>
                 <?php $no++;} ?>  
                                                   
-                                                  <tr style="background-color:#F5F5F5" class="addedtable-tr">
-                                                  <td>&nbsp;</td>
-                                                  <td>Total</td>
-                                                  <td>&nbsp;</td>
-                                                  <td><div align="right"><?php echo $t_cwt2?></div></td>
-                                                  <td>&nbsp;</td>
-                                                </tr>
+                                                  
 
                                               </tbody>
+ <tfoot>
+ <tr style="background-color:#F5F5F5" class="addedtable-tr">
+                                                  <td>&nbsp;</td>
+                                                  <td>&nbsp;</td>
+                                                  <td><input type="text" class="totcwt" value="0" name="totcwt" style="width:50px" />                                                    <?php echo $t_cwt2?></td>
+                              <td><input type="text" class="totpcs" value="0" name="totpcs" style="width:50px" />                                <?php echo $t_cwt2?></td>
+                                                  <td>&nbsp;</td>
+                      </tr>
+</tfoot>   
                                             </table>
-                                        </div>
-                                    </div>
+   </div>
+                      </div>
                                     
                     
 
@@ -231,7 +263,7 @@
 </div>
       <div class="clearfix clearfx"></div>
                                   <div class="cpl-sm-12"><h2>&nbsp;</h2>
-                                  <div class="row" style="display:none">
+                                  <div class="row">
                                       <div class="col-md-4"></div>
                                         <div class="col-md-2">
                                             <a class="btn btn-danger btn-addnew" href="<?php echo base_url();?>transaction/domesctic_outgoing_house" data-toggle="modal" title="Add"><i class="icon-reply bigger-120 icons"></i>Cancel </a>
@@ -439,12 +471,14 @@
 <script type="text/javascript">			
  
 $("#status_smu").change(function(){
-    var status_smu = $("#status_smu").val();
+    var tgl = $("#tgl").val();
+	var destination = $("#destination").val();
+	var status_smu = $("#status_smu").val();
      $.ajax({
 	url: "<?php echo base_url('transaction/getsubMaster');?>",
 			//dataType: "json",
 			type: "POST",
-			data: "status_smu="+status_smu,
+			data: "tgl="+tgl+"&destination="+destination+"&status_smu="+status_smu,
 			success: function(data) {
 				$('#nosmu').html(data);
 				
@@ -487,6 +521,7 @@ function getDetailSMU(myid){
 				$('#etd').val(data[i].ETD);
 				$('#qty').val(data[i].PCS);
 				$('#cwt').val(data[i].CWT);
+				$('#limitcwt').val(data[i].limitcwt);
 			 }
 			  //$('#test').append(data_table); 
 			}
@@ -555,5 +590,95 @@ function reconsol_house(myid){
             });
 	}	
 }
+
+<!-- hapus item dan kurangi total items pack
+function move_consol(myid){
+		var nosmu = $("#nosmu").val();	
+		var input = $(myid).val();
+		var totcwt=$(".totcwt").val();
+		var totpcs=$(".totpcs").val();
+
+		var pecah=input.split('/');
+		var house=pecah[0];
+		var shipper=pecah[1];
+		var cwt=pecah[2];
+		var pcs=pecah[3];
+		
+		var new_cwt=parseFloat(totcwt)+ parseFloat(cwt);
+		var limit=$("#limitcwt").val();
+		
+if(nosmu ==''){
+	alert('SMU is not selected,Please Select First !');
+} else {
+	
+	if(new_cwt > limit){
+			alert('Limit SMU is reached. Please another SMU to consol');
+		} else {
+			
+		text='<tr class="gradeX">'
+    + '<td>' + '<input type="hidden" name="house[]" id="idcharge[]" value="'+ house +'">'+ '<label id="l_pcs">'+ house +'</label>' +'</td>'
+	
+    + '<td align="left">' +  '<input type="hidden" name="shipper[]" id="l[]" value="'+ shipper +'">'+ '<label id="l_pcs">'+ shipper +'</label>' +'</td>'
+	
+    + '<td align="right">' +  '<input type="hidden" name="cwt2[]" id="t[]" value="'+ cwt +'">'+ '<label id="l_pcs">'+ cwt +'</label>' +'</td>'
+    
+    + '<td align="right">' + '<input type="hidden" name="pcs[]" id="p[]"  value="'+ pcs +'">'+ '<label id="l_pcs">'+ pcs +'</label>' +'</td>'
+
+	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + input +'" onclick="replace_consol(this)" type="button">X</button></td>'
+
+    + '</tr>';
+	
+	
+		$('.tablehas').append(text);
+		var grand=parseFloat(totcwt) + parseFloat(cwt);
+		$(".totcwt").val(grand); 
+		var grand2=parseFloat(totpcs) + parseFloat(pcs);
+		$(".totpcs").val(grand2);
+		
+//alert(hasil_pecah);
+     t = $(myid);
+     tr = t.parent().parent();
+     tr.remove();
+		}
+	}
+}
+
+function replace_consol(myid){
+var input = $(myid).val();
+var totcwt=$(".totcwt").val();
+var totpcs=$(".totpcs").val();
+
+		var pecah=input.split('/');
+		var house=pecah[0];
+		var shipper=pecah[1];
+		var cwt=pecah[2];
+		var pcs=pecah[3];
+
+	text='<tr class="gradeX">'
+
+    + '<td>' + '<input type="hidden" name="house2[]" id="idcharge[]" value="'+ house +'">'+ '<label id="l_pcs">'+ house +'</label>' +'</td>'
+	
+    + '<td align="left">' +  '<input type="hidden" name="shipper2[]" id="l[]" value="'+ shipper +'">'+ '<label id="l_pcs">'+ shipper +'</label>' +'</td>'
+	
+    + '<td align="right">' +  '<input type="hidden" name="cwt3[]" id="t[]" value="'+ cwt +'">'+ '<label id="l_pcs">'+ cwt +'</label>' +'</td>'
+    
+    + '<td align="right">' + '<input type="hidden" name="pcs2[]" id="p[]"  value="'+ pcs +'">'+ '<label id="l_pcs">'+ pcs +'</label>' +'</td>'
+
+	+'<td align="center">' + '<button class="btndel btn-primary btn-mini" value="' + input +'" onclick="move_consol(this)" type="button"><i class="fa fa-check"></i></button></td>'
+
+    + '</tr>';
+	
+		$('.freetable').append(text);
+		var grand=parseFloat(totcwt) - parseFloat(cwt);
+		$(".totcwt").val(grand); 
+		var grand2=parseFloat(totpcs) - parseFloat(pcs);
+		$(".totpcs").val(grand2);
+		
+//alert(hasil_pecah);
+     t = $(myid);
+     tr = t.parent().parent();
+     tr.remove();
+}
+
 
 </script>

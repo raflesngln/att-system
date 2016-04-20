@@ -646,8 +646,8 @@ function cek_cnote(){
  function save_chargo_manifest(){
 	 $kode=$this->model_app->generateNo("tr_cargo_release","CargoReleaseCode","CR-");
 	 	
- 	$smu=$_POST['smu'];	
-	foreach($smu as $key => $val)
+ 	$nosmu=$_POST['smu'];	
+	foreach($nosmu as $key => $val)
 	{
    		$smu =$_POST['smu'][$key];
 		$cwt =$_POST['cwt'][$key];
@@ -937,17 +937,23 @@ function delete_outgoing_master(){
    //     consolidation
 function outgoing_consolidation(){
 		$nosmu=$this->input->post('nosmu');
+		$tgl=date('Y-m-d');
         $data = array(
             'title'=>'outgoing_consolidation',
             'scrumb_name'=>'outgoing_consolidation',
             'scrumb'=>'transaction/outgoing_consolidation',
+			'desti'=>$this->model_app->getdatapaging("a.NoSMU,a.Destination as portcode,b.PortName as desti","outgoing_master a",
+			 "INNER JOIN ms_port b ON a.Destination=b.PortCode 
+			  LEFT JOIN outgoing_house c on a.Destination=c.Destination GROUP BY b.PortName
+			 "),
+			 
 'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.PCS,a.CWT,b.CustName as sender,c.CustName as receiver",
 "outgoing_house a",
 			   "LEFT JOIN ms_customer b on b.CustCode=a.Shipper
 			     LEFT JOIN ms_customer c on c.CustCode=a.Consigne
-				 WHERE a.HouseStatus ='0' AND a.Consolidation='0' ORDER BY a.CWT DESC"),
+				 WHERE a.HouseStatus ='0' AND a.Consolidation='0' AND LEFT(a.ETD,10)='$tgl' ORDER BY a.CWT DESC"),
 			//'added'=>$this->model_app->getdata('consol',"WHERE MasterNo ='$nosmu' "),
-            'view'=>'pages/booking/consol/outgoing_consolidation',
+            'view'=>'pages/booking/consol/v_consol',
         );  
       $this->load->view('home/home',$data);
 	  
@@ -973,8 +979,11 @@ function filter_consol(){
 	  
 }
 function getsubMaster(){
+	$tgl=$this->input->post('tgl');
+	$destination=$this->input->post('destination');
 	$status_smu=$this->input->post('status_smu');
-      $result=$this->model_app->getdata('outgoing_master',"WHERE StatusProses ='$status_smu' ORDER BY NoSMU ASC");
+	
+      $result=$this->model_app->getdata('outgoing_master a',"WHERE Destination='$destination' AND StatusProses='$status_smu' AND LEFT(a.ETD,10)='$tgl' ORDER BY a.NoSMU ASC");
 	  
 	echo'<option value="">Pilih Nomor SMU</option>';
 	if($result)
@@ -1002,6 +1011,7 @@ function getDetailMaster(){
 			'CWT' =>$datalist->CWT,
 			'destination' =>$datalist->destination,
 			'origin' =>$datalist->origin,
+			'limitcwt' =>$datalist->LimitCWT,
 			);
 			$data[] = $row;		
 		}
@@ -1095,6 +1105,56 @@ function domestic_outgoing_master(){
 
 //=====================save cargo manifest ==========
  function insert_consol(){	
+	 
+	$nosmu=$this->input->post('nosmu');
+	$cwt=$this->input->post('totcwt');
+	$pcs=$this->input->post('totpcs');
+		
+	$delete=$this->model_app->delete_data('consol','MasterNo',$nosmu);
+	//==== INSSERT CHARGES ==============//	
+	$house=$_POST['house'];	
+	$house2=$_POST['house2'];	
+	
+	foreach($house as $key => $val)
+	{
+   		$house =$_POST['house'][$key];
+        $unit =$_POST['unit'][$key];
+		$qty  =$_POST['qty'][$key];
+		$desc =$_POST['desc'][$key];
+		$totalcharges =$_POST['totalcharges'][$key];
+		
+		$newitem=array(
+		'MasterNo' =>$this->input ->post('nosmu'),
+		'HouseNo'=>$house, 
+		'ConsolDesc'=>'',
+		);	
+		$updatehouse=array(
+		'Consolidation' =>'1'
+		);		
+		 $this->model_app->insert('consol',$newitem); 
+		 $this->model_app->update('outgoing_house','HouseNo',$house,$updatehouse);
+	}
+	
+	foreach($house2 as $key => $val)
+	{
+		$nohouse =$_POST['house2'][$key];
+		$replaceconsol=array(
+		'Consolidation' =>'0'
+		);	
+		
+		$this->model_app->update('outgoing_house','HouseNo',$nohouse,$replaceconsol);
+	}
+	$updatesmu=array(
+		'StatusProses' =>'2',
+		'CWT' =>$cwt,
+		'PCS' =>$pcs
+		);		
+		$this->model_app->update('outgoing_master','NoSMU',$nosmu,$updatesmu);
+		
+		redirect('transaction/outgoing_consolidation');
+}
+//=====================save cargo manifest ==========
+ function insert_consol2222222222222(){	
 	 $nosmu=$this->input->post('nosmu');
 	 $house=$this->input->post('house');
 	 $cwt=$this->input->post('cwt');
@@ -1141,6 +1201,7 @@ function domestic_outgoing_master(){
       $this->load->view('pages/booking/consol/consol_replace',$data);
 	  
 	}
+
 //=====================save cargo manifest ==========
  function edit_consol(){	
 	 $nosmu=$this->input->post('nosmu');
@@ -1604,8 +1665,8 @@ function print_outgoing_master(){
 		'CWT' =>$this->input->post('ori_cwt'),
 		'GrossWeight' =>$this->input->post('t_weight'),
 		'grandVolume' =>$this->input->post('t_volume'),
-		'PCS' =>$this->input->post('t_pacs'),
 		'Discount' =>$this->input->post('txtdiskon'),
+		'PCS' =>$this->input->post('t_pacs'),
 		'Amount' =>$this->input->post('txtgrandtotal'),
 		'DeclareValue' =>$this->input->post('declare'),
 		'DescofShipment' =>$this->input->post('description'),
