@@ -763,7 +763,7 @@ foreach($master as $row){
 </div>
 
 <div class="col-sm-8"><p class="text-right">DISKON </p></div>
-<div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="return diskonRp(this);" value="<?php echo $row->Discount;?>">
+<div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="return diskonRp(this);" value="<?php echo number_format($row->Discount,0,'.','.');?>">
 <input type="hidden" name="txtdiskon" id="txtdiskon" class="form-control" value="<?php echo $row->Discount;?>">
 </p></div>
 
@@ -1431,8 +1431,13 @@ $("#label_charges").html(hasil);
 $('#myform').submit(function(){
 	
 var txtgrandtotal=$("#txtgrandtotal").val();
+var total_charge=$("#total_charge").val();
 if(txtgrandtotal <=0){
-	alert('Diskon to much !');
+	alert('Discount to much !');
+	$("#txtgrandtotal").val(total_charge);
+	$("#grandtotal").val(toRp(total_charge));
+	$("#txtdiskon").val(0);
+	$("#diskon").val(0);
 	return false;
 }
 });

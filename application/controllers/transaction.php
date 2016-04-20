@@ -942,6 +942,9 @@ function outgoing_consolidation(){
             'title'=>'outgoing_consolidation',
             'scrumb_name'=>'outgoing_consolidation',
             'scrumb'=>'transaction/outgoing_consolidation',
+			'master'=>$this->model_app->getdatapaging("a.NoSMU,a.CWT,a.PCS,a.Destination as portcode,b.PortName as desti","outgoing_master a",
+			 "INNER JOIN ms_port b ON a.Destination=b.PortCode WHERE a.StatusProses='1' OR a.StatusProses='2' GROUP BY b.PortName
+			 "),
 			'desti'=>$this->model_app->getdatapaging("a.NoSMU,a.Destination as portcode,b.PortName as desti","outgoing_master a",
 			 "INNER JOIN ms_port b ON a.Destination=b.PortCode 
 			  LEFT JOIN outgoing_house c on a.Destination=c.Destination GROUP BY b.PortName
@@ -960,13 +963,15 @@ function outgoing_consolidation(){
 }
    //     consolidation
 function filter_consol(){
+		$tgl=$this->input->post('tgl');
+		$destination=$this->input->post('destination');
 		$nosmu=$this->input->post('nosmu');
         $data = array(
             'title'=>'Consol SMU',
 'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.PCS,a.CWT,b.CustName as sender,c.CustName as receiver","outgoing_house a",
 			            "LEFT JOIN ms_customer b on b.CustCode=a.Shipper
 						LEFT JOIN ms_customer c on c.CustCode=a.Consigne
-						 WHERE a.HouseStatus ='0' AND a.Consolidation='0'"),
+						WHERE a.HouseStatus ='0' AND a.Consolidation='0' AND a.Destination='$destination' AND LEFT(a.ETD,10)='$tgl'"),
 						 
 			'added'=>$this->model_app->getdatapaging("a.MasterNo,c.HouseNo,c.CWT,c.PCS,d.CustName as sender,e.CustName as receiver","consol a",
 			 "INNER JOIN outgoing_master b ON a.MasterNo=b.NoSMU 

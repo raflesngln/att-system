@@ -64,7 +64,7 @@
    <div class="form-group">
    <div class="table-responsive" id="table_responsive">
                                           
-<span class="span4 label label-large label-warning">Remain House in Mastesssr</span>
+<span class="span4 label label-large label-warning">Remain House in Master</span>
                                         <table class=" tablehas table table-striped table-bordered table-hover addedtable" id="tablehas" style="box-shadow:2px 3px 8px #CCC; border:1px #CCC solid">
                                               <thead>
                                                 

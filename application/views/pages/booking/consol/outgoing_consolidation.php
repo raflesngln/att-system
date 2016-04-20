@@ -66,7 +66,7 @@
            <option value="">Select Destination </option>
       <?php foreach($desti as $data){
 		  ?>
-          <option value="<?php echo $data->portcode;?>"><?php echo $data->desti;?></option>
+          <option value="<?php echo $data->portcode;?>"><?php echo $data->desti.' - '.$data->portcode;?></option>
           <?php } ?>
           </select>
           </div>
@@ -487,17 +487,20 @@ $("#status_smu").change(function(){
 				$('#etd').val('');
 				$('#qty').val('');
 				$('#cwt').val('');
+				$('#limitcwt').val('');
 				$('.addedtable-tr').remove();	
 			}
 		});
  });
 
 $("#nosmu").change(function(){
-            var nosmu = $("#nosmu").val();
+	var tgl = $("#tgl").val();
+	var destination = $("#destination").val();
+    var nosmu = $("#nosmu").val();
             $.ajax({
                 type: "POST",
                 url : "<?php echo base_url('transaction/filter_consol'); ?>",
-                data: "nosmu="+nosmu,
+				data: "tgl="+tgl+"&destination="+destination+"&nosmu="+nosmu,
                 cache:false,
                 success: function(data){
                     $('#konten').html(data);

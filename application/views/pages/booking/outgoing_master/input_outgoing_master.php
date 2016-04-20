@@ -397,7 +397,7 @@ $("#idconsigne").click(function(){
           <option value="">Choose Service</option>
           <?php foreach ($service as $sv) {
           ?>
-          <option value="<?php echo $sv->svCode.'-'.$sv->Name;?>"><?php echo $sv->Name;?></option>
+          <option value="<?php echo $sv->Name;?>"><?php echo $sv->Name;?></option>
           <?php } ?>
           </select>
           </div><div class="clearfix"></div> 
@@ -1446,8 +1446,13 @@ $("#label_charges").html(hasil);
 $('#myform').submit(function(){
 	
 var txtgrandtotal=$("#txtgrandtotal").val();
+var total_charge=$("#total_charge").val();
 if(txtgrandtotal <=0){
-	alert('Diskon to much !');
+	alert('Total Charge Cannot be null !');
+	$("#txtgrandtotal").val(total_charge);
+	$("#grandtotal").val(toRp(total_charge));
+	$("#txtdiskon").val(0);
+	$("#diskon").val(0);
 	return false;
 }
 });

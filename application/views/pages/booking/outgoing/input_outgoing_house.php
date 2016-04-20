@@ -532,7 +532,7 @@ $("#idconsigne").click(function(){
                             <th><div align="center">Height ( T )</div></th>
                             <th>Volume</th>
                             <th><div align="center">G.Weight</div></th>
-                            <th class="text-center"><div align="center"><a class="btn btn-primary btn-addnew btn-rounded" href="#modaladd" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add New</a> </div></th>
+                            <th class="text-center"><div align="center"><a id="addchrg2" class="btn btn-primary btn-addnew btn-rounded" href="#modaladd" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add New</a> </div></th>
                           </tr>
                           
  <tbody>
@@ -624,7 +624,7 @@ $("#idconsigne").click(function(){
                                                   <th>Qty</th>
                                                   <th style="width:28%">Desc</th>
                                                   <th>Total</th>
-                                                  <th class="text-center"><a class="btn  btn-primary btn-round" href="#modaladdCharge" data-toggle="modal" title="Add item"><i class="icon-plus icons" id="addchrg"></i> Add Cost</a></th>
+                                                  <th class="text-center"><a  id="addchrg" class="btn  btn-primary btn-round" href="#modaladdCharge" data-toggle="modal" title="Add item"><i class="icon-plus icons" id="addchrg"></i> Add Cost</a></th>
                                                 </tr>
  </thead>
  <tbody>
@@ -797,7 +797,7 @@ $("#idconsigne").click(function(){
                         <div class="clearfix"></div>
                </div>
   <div class="modal-footer">
-<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
+<button id="cancel2" class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
                         <button class="btn btn-primary" id="iditems" onClick="saveitem()"> Save</button>
               
     </div>
@@ -1112,15 +1112,13 @@ if (panjang == '' || lebar == '' || pcs == ''){
 		
 		if(volume > total_weight)
 		{
-			$("#cwt").val(volume);
+			$("#cwt").val(volume.toFixed(2));
 			
 		} else {
 			
-			$("#cwt").val(total_weight);
+			$("#cwt").val(total_weight.toFixed(2));
 
 		}
-				var koma=volume.toFixed(2); 
-		    $('#qtyfreight').val(koma);
 		
 		var cwt=$('#cwt').val();	
 		var pecah=cwt.split('.');
@@ -1233,7 +1231,10 @@ $("#addchrg").click(function(e) {
  	document.getElementById("cancel").disabled = false;
 	$(".close").show();   
 });
-
+$("#addchrg2").click(function(e) {
+ 	document.getElementById("cancel2").disabled = false;
+	$(".close").show();   
+});
 
 function editcharge(myid){
 	var input = $(myid).val();
@@ -1348,6 +1349,8 @@ var weight=pecah[2];
      t = $(myid);
      tr = t.parent().parent();
      tr.remove();
+	 document.getElementById("cancel2").disabled = true;
+	$(".close").hide();
 }
 
 function hapus(th) {
@@ -1521,9 +1524,10 @@ $('#myform').submit(function(){
 	
 var txtgrandtotal=$("#txtgrandtotal").val();
 var total_charge=$("#total_charge").val();
-
 if(txtgrandtotal <=0){
-	alert('Diskon to much !');
+	alert('Total Charge Cannot be null !');
+	$("#txtgrandtotal").val(total_charge);
+	$("#grandtotal").val(toRp(total_charge));
 	$("#txtdiskon").val(0);
 	$("#diskon").val(0);
 	return false;

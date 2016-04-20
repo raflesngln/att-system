@@ -511,7 +511,7 @@ foreach($connote as $row){
                         <table class="table table-striped table-bordered table-hover" id="tblitems" style="width:95%">
                                               <thead>
                      <th colspan="8"></th>
-                                              <th><div align="center"><a class="btn btn-primary btn-addnew btn-rounded" href="#modaladd" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add New</a>
+                                              <th><div align="center"><a id="addchrg2" class="btn btn-primary btn-addnew btn-rounded" href="#modaladd" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add New</a>
                                            </div></th>
                                                 <tr align="">
                                                   <th colspan="3"><div align="center">No Of Pcs</div></th>
@@ -644,7 +644,7 @@ foreach($connote as $row){
                                                   <th width="10%">Qty</th>
                                                   <th style="width:30%">Desc</th>
                                                   <th width="10%">Total</th>
-                                                  <th class="text-center" width="5%"><a class="btn  btn-primary btn-round" href="#modaladdCharge" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add Cost</a></th>
+                                                  <th class="text-center" width="5%"><a class="btn  btn-primary btn-round" href="#modaladdCharge" id="addchrg" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add Cost</a></th>
                                                 </tr> </thead>
                                                 
  <?php 
@@ -765,7 +765,7 @@ foreach($connote as $row){
 </div>
 
 <div class="col-sm-8"><p class="text-right">DISKON </p></div>
-<div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onChange="return diskonRp(this)" value="<?php echo $row->Discount;?>">
+<div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onChange="return diskonRp(this)" value="<?php echo number_format($row->Discount,0,'.','.');?>">
 <input type="hidden" name="txtdiskon" id="txtdiskon" class="form-control" value="<?php echo $row->Discount;?>">
 </p></div>
 
@@ -854,7 +854,7 @@ foreach($connote as $row){
                         <div class="clearfix"></div>
                </div>
   <div class="modal-footer">
-<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
+<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true" id="cancel2"><i class="fa fa-close">&nbsp;</i> Close</button>
                         <button class="btn btn-primary" id="iditems" onClick="return saveitem()"> Save</button>
               
     </div>
@@ -915,7 +915,7 @@ foreach($connote as $row){
                         <div class="clearfix"></div>
                       </div>
   <div class="modal-footer">
-<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
+<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true" id="cancel"><i class="fa fa-close">&nbsp;</i> Close</button>
                         <button class="btn btn-primary" id="savecharges" onClick="savecharges()"> Save</button>
     </div>
                     </div>
@@ -1168,25 +1168,24 @@ if (panjang == '' || lebar == '' || pcs == ''){
 		
 		if(volume > total_weight)
 		{
-			$("#cwt").val(volume);
-			
-			var koma=volume.toFixed(2); 
-		    $('#qtyfreight').val(koma);
-			$('#ori_cwt').val(koma);
+			$("#cwt").val(volume.toFixed(2));
+			//var koma=volume.toFixed(2); 
+		    //$('#qtyfreight').val(koma);
+			//$('#ori_cwt').val(koma);
 			
 		} else {
 			
-			$("#cwt").val(total_weight);
-			var koma=total_weight.toFixed(2); 
-		    $('#qtyfreight').val(koma);
-			$('#ori_cwt').val(koma);
+			$("#cwt").val(total_weight.toFixed(2));
+			//var koma=total_weight.toFixed(2); 
+		    //$('#qtyfreight').val(koma);
+			//$('#ori_cwt').val(koma);
 		}
-		
-		//var pecah=input.split('.');
-		//var bulat=pecah[0];
-		//var koma=pecah[1];
+		var cwt=$("#cwt").val();
+		var pecah=cwt.split('.');
+		var bulat=pecah[0];
+		var koma=pecah[1];
 
-		/*if(koma > 49){
+		if(koma > 49){
 			var maks=parseFloat(bulat) + 1;
             $('#qtyfreight').val(maks);
 			$('#ori_cwt').val(maks);
@@ -1195,7 +1194,7 @@ if (panjang == '' || lebar == '' || pcs == ''){
 			var maks=parseFloat(bulat);
 			var qty=$('#qtyfreight').val(maks);
 			$('#ori_cwt').val(maks);
-		} */
+		} 
 
 		var new_price=$("#pricefreight").val();
 		var new_qty=$('#qtyfreight').val();
@@ -1236,11 +1235,14 @@ $("#txtgrandtotal").val(grand);
      tr = t.parent().parent();
      tr.remove();
 }
+$("#addchrg2").click(function(e) {
+ 	document.getElementById("cancel2").disabled = false;
+	$(".close").show();   
+});
 $("#addchrg").click(function(e) {
  	document.getElementById("cancel").disabled = false;
 	$(".close").show();   
 });
-
 
 function editcharge(myid){
 	var input = $(myid).val();
@@ -1336,8 +1338,8 @@ var weight=pecah[2];
 		$('#cwt').val(total_weight);
 	}
 
-		var input=$("#cwt").val();
-		var pecah=input.split('.');
+		var cwt=$("#cwt").val();
+		var pecah=cwt.split('.');
 		var bulat=pecah[0];
 		var koma=pecah[1];
 		if(koma > 49){
@@ -1350,11 +1352,27 @@ var weight=pecah[2];
 			$('#qtyfreight').val(maks);
 			$('#ori_cwt').val(maks);
 		}
-
+		var new_price=$("#pricefreight").val();
+		var new_qty=$('#qtyfreight').val();
+		var old_sub=$("#totfreight").val();
+		var new_sub=parseFloat(new_price)*parseFloat(new_qty);
+		var selisih_sub=parseFloat(new_sub)-parseFloat(old_sub);
+		$("#totfreight").val(new_sub);
+		$("#label_totfreight").html(toRp(new_sub));
+		var old_total=$("#total_charge").val();
+		var new_total=parseFloat(old_total) + parseFloat(selisih_sub);
+		$("#total_charge").val(new_total);
+		$("#label_charges").html(toRp(new_total));
+		$("#t_total").val(toRp(new_total));
+		$("#grandtotal").val(toRp(new_total));
+		$("#txtgrandtotal").val(new_total);
+		$("#diskon").val('');
 
      t = $(myid);
      tr = t.parent().parent();
      tr.remove();
+	 document.getElementById("cancel2").disabled = true;
+	$(".close").hide();
 }
 
 function edititemsssssss(myid){
@@ -1467,8 +1485,8 @@ var weight=pecah[2];
 		$('#cwt').val(total_weight);
 	}
 
-		var input=$("#cwt").val();
-		var pecah=input.split('.');
+		var cw=$("#cwt").val();
+		var pecah=cw.split('.');
 		var bulat=pecah[0];
 		var koma=pecah[1];
 		if(koma > 49){
@@ -1481,7 +1499,21 @@ var weight=pecah[2];
 			$('#qtyfreight').val(maks);
 			$('#ori_cwt').val(maks);
 		}
-
+		var new_price=$("#pricefreight").val();
+		var new_qty=$('#qtyfreight').val();
+		var old_sub=$("#totfreight").val();
+		var new_sub=parseFloat(new_price)*parseFloat(new_qty);
+		var selisih_sub=parseFloat(new_sub)-parseFloat(old_sub);
+		$("#totfreight").val(new_sub);
+		$("#label_totfreight").html(toRp(new_sub));
+		var old_total=$("#total_charge").val();
+		var new_total=parseFloat(old_total) + parseFloat(selisih_sub);
+		$("#total_charge").val(new_total);
+		$("#label_charges").html(toRp(new_total));
+		$("#t_total").val(toRp(new_total));
+		$("#grandtotal").val(toRp(new_total));
+		$("#txtgrandtotal").val(new_total);
+		$("#diskon").val('');
 
      t = $(myid);
      tr = t.parent().parent();
@@ -1568,12 +1600,17 @@ $("#label_charges").html(hasil);
 
 
 
+
 $('#myform').submit(function(){
+	
 var txtgrandtotal=$("#txtgrandtotal").val();
 var total_charge=$("#total_charge").val();
-
 if(txtgrandtotal <=0){
-	alert('Diskon to much !');
+	alert('Discount to much !');
+	$("#txtgrandtotal").val(total_charge);
+	$("#grandtotal").val(toRp(total_charge));
+	$("#txtdiskon").val(0);
+	$("#diskon").val(0);
 	return false;
 }
 });

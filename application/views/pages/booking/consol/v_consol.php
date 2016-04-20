@@ -17,7 +17,7 @@
 											<li>
 												<a data-toggle="tab" href="#profile">
   <i class="green fa fa-building bigger-110"></i>
-										  List House
+										  List SMU/Master
 		
 											</a></li>
 
