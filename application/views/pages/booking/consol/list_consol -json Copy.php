@@ -1,4 +1,37 @@
+  <script src="<?php echo base_url('assets/datatables/js/jquery.dataTables.min.js')?>"></script>
+  <script src="<?php echo base_url('assets/datatables/js/dataTables.bootstrap.js')?>"></script>
+  
+   <script type="text/javascript">
 
+    var save_method2; //for save method string
+    var tablecontact;
+ 
+ $(document).ready(function() {    
+    
+          tbldet = $('#tbldet').DataTable({ 
+            "processing": true, //Feature control the processing indicator.
+            "serverSide": true, //Feature control DataTables' server-side processing mode
+            // Load data for the table's content from an Ajax source
+            "ajax": {
+                "url": "<?php echo site_url('transaction/ajax_detailSMU')?>",
+                "type": "POST"
+            },
+            "columns": [
+            { "data": "no" },
+            { "data": "HouseNo" },
+            { "data": "PCS" },
+            { "data": "CWT" },
+            { "data": "Amount" }
+            ]
+          });
+    
+         $('#tbldet tbody').on('dblclick', 'tr', function () {
+            var tr = $(this).closest('tr');
+            var row = tbldet.row(tr);
+           // alert(row.data().firstName);
+         });
+});
+</script>
   
 <div class="container-fluid" id="konten">
   <div class="row" id="contentreplace">
@@ -19,7 +52,7 @@
                                                   <th width="43">PCS</th>
                                                   <th width="53">CWT</th>
                                                   <th width="61" class="text-center">Status Consol</th>
-                                                  <th width="61" class="text-center">Detail</th>
+                                                  <th width="61" class="text-center">Status Consol</th>
                                                 </tr>
                                               </thead>
                                               <tbody>
@@ -42,7 +75,7 @@
                                                     <td><div align="center"><?php echo $free->PCS?></div></td>
                                                     <td><div align="center"><?php echo $free->CWT?></div></td>
                                                     <td><div align="center"><?php echo $status1?></div></td>
-                                                    <td><button class="btn btn-mini btn-primary btndet" value="<?php echo $free->NoSMU?>" onclick="detailsmu(this);"><i class="fa fa-eye"></i> Details</button></td>
+                                                    <td><button class="btndet" value="<?php echo $free->NoSMU?>" onclick="detailsmu(this);">det</button></td>
                                                   </tr>
                 <?php $no++;} ?>  
                                                   
@@ -76,21 +109,21 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="">Master Consol Detail</h3>
+                <h3 id="myModalLabel">Add Charges</h3>
             </div>
             <div class="smart-form scroll">
 
                     <div class="modal-body">
-                  <h5>List House Consol <span id="labelsmu"></span></h5>    
+                      
                         <div id="tabledetail">
                         <table id="tbldet" class="table table-striped table-bordered" cellspacing="0" width="100%">
       <thead>
         <tr>
-          <th>House</th>  
-          <th>Shipper</th>
-          <th> PCS</th>
-          <th>CWT</th>
-          <th style="width:125px;">Amount</th>
+          <th>no</th>  
+          <th>id</th>
+          <th> Name</th>
+          <th>Description</th>
+          <th style="width:125px;">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -98,18 +131,21 @@
 
       <tfoot>
         <tr>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
+          <th>no</th>
+          <th>id</th>
+          <th> Name</th>
+          <th>Description</th>
+          <th>Action</th>
         </tr>
       </tfoot>
     </table>
 
                         </div>
                      
-                      <div class="modal-footer"></div>
+                      <div class="modal-footer">
+                        <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true" id="cancel"><i class="fa fa-close">&nbsp;</i> Close</button>
+                        <button class="btn btn-primary" id="savecharges" onClick="savecharges()"> Save</button>
+</div>
               </div>
             
            
@@ -120,19 +156,9 @@
     
     <script>
 function detailsmu(myid){
-	var smu=$(myid).val();
-
-             // alert('hai' + idcnote);
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/ajax_detailSMU'); ?>",
-                data: "smu="+smu,
-                success: function(data){
-					$("#modaldetailsmu").modal('show'); 
-					$('#labelsmu').html(smu);
-                   $('#tabledetail').html(data);
-                }
-            });
+	var input=$(myid).val();
+	
+	$("#modaldetailsmu").modal('show');
 	
 }
 	

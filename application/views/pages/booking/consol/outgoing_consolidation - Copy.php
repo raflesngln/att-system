@@ -56,7 +56,7 @@
 <div class="form-group">                     
           <strong><label class="col-sm-4">Status SMU</label></strong>
           <div class="col-sm-7">
-            <input name="tgl" type="text" class="form-control"  id="tgl" required readonly value="<?php echo date('Y-m-d');?>"/>
+            <input name="tgl" type="text" class="form-control"  id="tgl" required="required" readonly="readonly" value="<?php echo date('Y-m-d');?>"/>
           </div>
  </div>
 <div class="form-group">                     
@@ -92,11 +92,11 @@
  </div>
           <strong><label class="col-sm-4"> Origin</label></strong>
           <div class="col-sm-7">
-           <input name="origin" type="text" class="form-control"  id="origin" required readonly/>
+           <input name="origin" type="text" class="form-control"  id="origin" required="required" readonly="readonly"/>
           </div>
            <strong><label class="col-sm-4"> Destinatioln</label></strong>
           <div class="col-sm-7">
-           <input name="desti" type="text" class="form-control"  id="desti" required readonly />
+           <input name="desti" type="text" class="form-control"  id="desti" required="required" readonly="readonly" />
           </div>
               
         
@@ -109,21 +109,21 @@
         <div class="col-sm-11">
         <strong><label class="col-sm-4">ETD</label></strong>
           <div class="col-sm-7">
-           <input name="etd" type="text" class="form-control"  id="etd" required readonly/>
+           <input name="etd" type="text" class="form-control"  id="etd" required="required" readonly="readonly"/>
           </div>
           <strong><label class="col-sm-4"> QTY</label></strong>
           <div class="col-sm-7">
-        <input name="qty" type="text" class="form-control"  readonly="readonly" required id="qty"/>
+        <input name="qty" type="text" class="form-control"  readonly="readonly" required="required" id="qty"/>
           </div>
 
            <strong><label class="col-sm-4">  CWT</label></strong>
           <div class="col-sm-7">
-           <input name="cwt" type="text" class="form-control" readonly required id="cwt"/>
+           <input name="cwt" type="text" class="form-control" readonly="readonly" required="required" id="cwt"/>
           </div>
 
            <strong><label class="col-sm-4">Limit  CWT</label></strong>
           <div class="col-sm-7">
-           <input name="limitcwt" type="text" class="form-control" readonly required id="limitcwt"/>
+           <input name="limitcwt" type="text" class="form-control" readonly="readonly" required="required" id="limitcwt"/>
           </div>
           
           </div>
@@ -157,7 +157,7 @@
                                                   <th>CWT</th>
                                                   <th>Consoled CWT</th>
                                                   <th>Remain CWT</th>
-                                                  <th class="text-center"><div align="center">Consol</div></th>
+                                                  <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                               </thead>
                                               <tbody>
@@ -174,12 +174,12 @@
                                                     <td><?php echo $free->CWT?></td>
                                                     <td><?php echo $free->ConsoledCWT?></td>
                                                     <td><?php echo $free->RemainCWT?></td>
-                                                    <td align="center">
+                                                    <td>
  
  
  <button style="display:none" value="<?php echo $free->HouseNo.'/'.$free->CWT.'/'.$free->PCS;?>" id="ceklish" class="ceklish btn btn-mini btn-primary" type="button" onclick="return consol_house(this)"><i class="icon icon-share-alt icon-on-right white"></i></button>
 
-<button class="move_consol btn btn-mini btn-primary" type="button" value="<?php echo $free->HouseNo.'/'.$free->sender.'/'.$free->CWT.'/'.$free->PCS;?>" onClick="move_consol(this)"><i class="fa fa-check-circle"></i> Consol</button>
+<button class="move_consol btn btn-mini btn-primary" type="button" value="<?php echo $free->HouseNo.'/'.$free->sender.'/'.$free->CWT.'/'.$free->PCS.'/'.$free->ConsoledCWT.'/'.$free->RemainCWT;?>" onClick="move_consol(this)"><i class="fa fa-check"></i></button>
  </td>
                                                   </tr>
                 <?php $no++;} ?>  
@@ -216,13 +216,15 @@
                                               <thead>
                                                 
                                                   <tr>
-                                                    <th colspan="5"><span class="span4 label label-large label-inverse" style="text-align:left;padding-top:7px">Remain House in SMU</span></th>
+                                                    <th colspan="7"><span class="span4 label label-large label-inverse" style="text-align:left;padding-top:7px">Remain House in SMU</span></th>
                                                   </tr>
                                                   <tr>
                                                   <th>House No</th>
                                                   <th>Shipper-Consigne</th>
                                                   <th>CWT</th>
                                                   <th>PCS</th>
+                                                  <th class="text-center">Consoled</th>
+                                                  <th class="text-center">Remain</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                               </thead>
@@ -242,6 +244,8 @@
                                                     <input type="hidden" name="cwt2[]" id="cwt2[]" /></td>
                                                     <td><?php echo $row->CWT?>
                                                     <input type="hidden" name="pcs[]" id="pcs[]" /></td>
+                                                    <td>&nbsp;</td>
+                                                    <td>&nbsp;</td>
                                                     <td>
                                                     <button value="<?php echo $row->HouseNo.'/'.$row->CWT.'/'.$row->PCS;?>" id="ceklish" class="ceklish btn btn-mini btn-success" type="button" onclick="return reconsol_house(this)"><i class="icon icon-share-alt icon-on-right white"></i></button>
                                                     
@@ -259,6 +263,8 @@
                                                   <td>&nbsp;</td>
                                                   <td><input type="text" class="totcwt" value="0" name="totcwt" style="width:50px" />                                                    <?php echo $t_cwt2?></td>
                               <td><input type="text" class="totpcs" value="0" name="totpcs" style="width:50px" />                                <?php echo $t_cwt2?></td>
+                              <td>&nbsp;</td>
+                              <td>&nbsp;</td>
                                                   <td>&nbsp;</td>
                       </tr>
 </tfoot>   
@@ -403,7 +409,7 @@
   <div class="form-group">
 <label class="col-sm-3 control-label">Remarks</label>
                         <div class="col-sm-9">
-                          <textarea name="remarks" cols="30" rows="2" class="form-control" id="remarks" required><?php echo $row->Remarks;?></textarea>
+                          <textarea name="remarks" cols="30" rows="2" class="form-control" id="remarks" required="required"><?php echo $row->Remarks;?></textarea>
 </div>
                         <div class="clearfix"></div>
                     </div>
@@ -420,69 +426,84 @@
     </div>
 <?php } ?>
 <!--adding form-->
-<div id="modaladd" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="customcwt" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add Item</h3>
+                <h2 align="center">CWT out space !</h2>
+     
             </div>
             <div class="smart-form scroll">
-                <form method="post" action="<?php echo site_url('master/save_disc')?>">
+    
                     <div class="modal-body">
                      
-                   
+ <h4 style="color:#999">CWT is too large or SMU is full,please input the available space in SMU</h4>   
+  <div class="clearfix"></div>       
+
+<div class="form-group">  
+  <span class="span2">House</span>  
+  <span class="span3"><input name="txthouse" type="number" class="form-control" placeholder="" id="txthouse" max="" min="1"/>
+  </span>
+
+ </div> <div class="clearfix"></div>
+ 
+ <div class="form-group">  
+  <span class="span2">Shipper</span>  
+  <span class="span6"><input name="txtshipper" type="text" class="form-control" id="txtshipper" max="" min="1"/>
+  </span>
+ </div>
+ 
+ <div class="clearfix"></div>
+ <div class="form-group">  
+  <span class="span2">CWT</span>  
+  <span class="span3"><input name="txtcwt" type="text" class="form-control" placeholder="" id="txtcwt" max="" min="1"/>
+  </span>
+<label class="span3" id="labelremain">Of remain cwt </label>
+
+<span class="span2">Available cwt</span>
+ <span class="span2">
+ <input name="remaintxtcwt" type="text" class="form-control" placeholder="" id="remaintxtcwt" /></span>
+ </div>
+                      
+   <div class="clearfix"></div>
 <div class="form-group">
-                        <label class="col-sm-3 control-label">No of Packs </label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
+<label class="span2">PCS </label>
+   <div class="col-sm-5"><span class="controls">
+ <input name="txtpcs" type="text" class="form-control" placeholder="" id="txtpcs" />
 </span></div>
+ 
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
-                        <label class="col-sm-3 control-label">Length &nbsp; ( P )</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
+<label class="span2">Consoled </label>
+   <div class="col-sm-5"><span class="controls">
+ <input name="txtconsoled" type="text" class="form-control" placeholder="" id="txtconsoled" />
 </span></div>
-                        <div class="clearfix"></div>
-                      </div>
-  <div class="form-group">
-                        <label class="col-sm-3 control-label">Width &nbsp; ( L )</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
-</span></div>
+ 
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
-                        <label class="col-sm-3 control-label">Height &nbsp; ( T )</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" />
+<label class="span2">Remain </label>
+   <div class="col-sm-5"><span class="controls">
+ <input name="txtremain" type="text" class="form-control" placeholder="" id="txtremain" />
 </span></div>
-                        <div class="clearfix"></div>
-                      </div>                    
- <div class="form-group">
-                        <label class="col-sm-3 control-label">Volume</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="rp" type="text" class="form-control" placeholder="" id="rp" readonly />
-    </span></div>
+ 
                         <div class="clearfix"></div>
                       </div>
-  <div class="modal-footer">
-<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
-    </div>
+<div class="modal-footer">
+  <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
+      <button class="btn btn-primary" id="btninsert"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
+</div>
                     </div>
             
-                </form>
             </div>
         </div>
     </div>
     </div>
     
-    
-
-<script type="text/javascript">			
+<script type="text/javascript">			 
 $("#status_smu").change(function(){
     var tgl = $("#tgl").val();
 	var destination = $("#destination").val();
@@ -576,7 +597,6 @@ function consol_house(myid){
 }
 
 function reconsol_house(myid){
-
 		var input=$(myid).val();
 		var pecah=input.split('/');
 		
@@ -606,7 +626,42 @@ function reconsol_house(myid){
             });
 	}	
 }
+$("#btninsert").click(function(){
+			var house=$("#txthouse").val();
+			var shipper=$("#shipper").val();
+			var pcs=$("#txtpcs").val();
+			var cwt=$("#txtcwt").val();
+			var consoled=$("#txtconsoled").val();
+			var remain=$("#txtremain").val();
+	var input=house+shipper+pcs+cwt+consoled+remain;
 
+		var sisacwt=parseFloat(remain)- parseFloat(cwt);
+			
+	text='<tr class="gradeX">'
+    + '<td>' + '<input type="hidden" name="house[]" id="idcharge[]" value="'+ house +'">'+ '<label id="l_pcs">'+ house +'</label>' +'</td>'
+	
+    + '<td align="left">' +  '<input type="hidden" name="shipper[]" id="l[]" value="'+ shipper +'">'+ '<label id="l_pcs">'+ shipper +'</label>' +'</td>'
+	
+    + '<td align="right">' +  '<input type="hidden" name="cwt2[]" id="t[]" value="'+ cwt +'">'+ '<label id="l_pcs">'+ cwt +'</label>' +'</td>'
+    
+    + '<td align="right">' + '<input type="hidden" name="pcs[]" id="p[]"  value="'+ pcs +'">'+ '<label id="l_pcs">'+ pcs +'</label>' +'</td>'
+	
+    + '<td align="right">' + '<input type="hidden" name="consoled[]" id="p[]"  value="'+ consoled +'">'+ '<label id="l_pcs">'+ consoled +'</label>' +'</td>'
+	
+    + '<td align="right">' + '<input type="hidden" name="remain[]" id="p[]"  value="'+ remain +'">'+ '<label id="l_pcs">'+ remain +'</label>' +'</td>'
+
+	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + input +'" onclick="replace_consol(this)" type="button">X</button></td>'
+
+    + '</tr>';
+	
+	
+		$('.tablehas').append(text);
+		//var grand=parseFloat(totcwt) + parseFloat(cwt);
+		//$(".totcwt").val(grand); 
+		//var grand2=parseFloat(totpcs) + parseFloat(pcs);
+		//$(".totpcs").val(grand2);
+
+ }); 
 <!-- hapus item dan kurangi total items pack
 function move_consol(myid){
 		var nosmu = $("#nosmu").val();	
@@ -619,21 +674,34 @@ function move_consol(myid){
 		var shipper=pecah[1];
 		var cwt=pecah[2];
 		var pcs=pecah[3];
+		var consoled=pecah[4];
+		var remain=pecah[5];
 		
 		var new_cwt=parseFloat(totcwt)+ parseFloat(cwt);
 		var limit=$("#limitcwt").val();
-		var selisih=parseFloat(limit)+ parseFloat(totcwt);
+		var selisih=parseFloat(limit)- parseFloat(totcwt);
+		var sisacwt=parseFloat(cwt)- parseFloat(selisih);
+		
+		var new_pcs=parseFloat(totpcs)+ parseFloat(pcs);
 		
 if(nosmu ==''){
 	alert('SMU is not selected,Please Select First !');
 } else {
 	
-/*	if(new_cwt > limit){
-			alert('Limit SMU is reached. Please another SMU to consol');
-		} else {
-			*/
+	if(new_cwt > limit){
+			$("#customcwt").modal('show');
 			
-		text='<tr class="gradeX">'
+			$("#remaintxtcwt").val(selisih);
+			$("#txtcwt").val(selisih);
+			$("#labelremain").html('Of <label class="badge badge-warning badge-large white"> '+ cwt+ '</label>');
+			$("#txtpcs").val(pcs);
+			$("#txthouse").val(house);
+			$("#txtshipper").val(shipper);
+			$("#txtconsoled").val(consoled);
+			$("#txtremain").val(remain);
+			
+		} else {
+					text='<tr class="gradeX">'
     + '<td>' + '<input type="hidden" name="house[]" id="idcharge[]" value="'+ house +'">'+ '<label id="l_pcs">'+ house +'</label>' +'</td>'
 	
     + '<td align="left">' +  '<input type="hidden" name="shipper[]" id="l[]" value="'+ shipper +'">'+ '<label id="l_pcs">'+ shipper +'</label>' +'</td>'
@@ -641,8 +709,12 @@ if(nosmu ==''){
     + '<td align="right">' +  '<input type="hidden" name="cwt2[]" id="t[]" value="'+ cwt +'">'+ '<label id="l_pcs">'+ cwt +'</label>' +'</td>'
     
     + '<td align="right">' + '<input type="hidden" name="pcs[]" id="p[]"  value="'+ pcs +'">'+ '<label id="l_pcs">'+ pcs +'</label>' +'</td>'
+	
+    + '<td align="right">' + '<input type="hidden" name="consoled[]" id="p[]"  value="'+ consoled +'">'+ '<label id="l_pcs">'+ consoled +'</label>' +'</td>'
+	
+    + '<td align="right">' + '<input type="hidden" name="remain[]" id="p[]"  value="'+ remain +'">'+ '<label id="l_pcs">'+ remain +'</label>' +'</td>'
 
-	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + input +'" onclick="replace_consol(this)" type="button"><i class="fa fa-times"></i></button></td>'
+	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + input +'" onclick="replace_consol(this)" type="button">X</button></td>'
 
     + '</tr>';
 	
@@ -652,12 +724,7 @@ if(nosmu ==''){
 		$(".totcwt").val(grand); 
 		var grand2=parseFloat(totpcs) + parseFloat(pcs);
 		$(".totpcs").val(grand2);
-		
-//alert(hasil_pecah);
-     t = $(myid);
-     tr = t.parent().parent();
-     tr.remove();
-		//}
+		}
 	}
 }
 
@@ -671,6 +738,8 @@ var totpcs=$(".totpcs").val();
 		var shipper=pecah[1];
 		var cwt=pecah[2];
 		var pcs=pecah[3];
+		var consoled=pecah[4];
+		var remain=pecah[5];
 
 	text='<tr class="gradeX">'
 
@@ -681,8 +750,12 @@ var totpcs=$(".totpcs").val();
     + '<td align="right">' +  '<input type="hidden" name="cwt3[]" id="t[]" value="'+ cwt +'">'+ '<label id="l_pcs">'+ cwt +'</label>' +'</td>'
     
     + '<td align="right">' + '<input type="hidden" name="pcs2[]" id="p[]"  value="'+ pcs +'">'+ '<label id="l_pcs">'+ pcs +'</label>' +'</td>'
+	
+    + '<td align="right">' + '<input type="hidden" name="consoled2[]" id="p[]"  value="'+ consoled +'">'+ '<label id="l_pcs">'+ consoled +'</label>' +'</td>'
+	
+    + '<td align="right">' + '<input type="hidden" name="remain2[]" id="p[]"  value="'+ remain +'">'+ '<label id="l_pcs">'+ remain +'</label>' +'</td>'
 
-	+'<td align="center">' + '<button class="btndel btn-primary btn-mini" value="' + input +'" onclick="move_consol(this)" type="button"><i class="fa fa-check-circle"></i> Consol</button></td>'
+	+'<td align="center">' + '<button class="btndel btn-primary btn-mini" value="' + input +'" onclick="move_consol(this)" type="button"><i class="fa fa-check"></i></button></td>'
 
     + '</tr>';
 	

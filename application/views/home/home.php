@@ -10,7 +10,7 @@
 <!-- font from w3schools -->  
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=brick-sign"">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=brick-sign">
 
 <!-- font from w3schools -->
 
@@ -40,6 +40,8 @@
 <link rel="stylesheet" href="<?php echo base_url();?>asset/css/ace-responsive.min.css"/>
 <link rel="stylesheet" href="<?php echo base_url();?>asset/css/ace-skins.min.css" />
 
+
+  
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <style>
 	.bigger{color:#040AF7;

@@ -176,7 +176,7 @@ footer{display:none;}
       </td>
   </tr>
   <tr>
-    <td colspan="2"><p class="detsend">DESCRIPTION OF SHIPMENT/KETERANGAN ISI : </p>
+    <td colspan="2"><p style="margin-top:3px">DESCRIPTION OF SHIPMENT/KETERANGAN ISI : </p>
       <p class="detsend"><?php echo $data->DescofShipment;?></p></td>
     <td colspan="2" rowspan="2"><div style="margin-top:-38px;">COLLECTED BY X-SYS/DIAMBIL OLEH X-SYS</div></td>
     <td colspan="2">   <label style="color:#F00">PERNYATAN PENGIRIMAN :</label>
@@ -221,8 +221,8 @@ footer{display:none;}
 <label>5. Red/Merah:Receiver/ Penerima</label> 
 </em>
 
-    <p style="margin-top:2px"><strong>PT.Expresindo System Network</strong></p>
-      <p>perkantoran Galaxy Blok N-27</p>
+    <p style="margin-top:-3px"><strong>PT.Expresindo System Network</strong></p>
+      <p style="margin-top:-9px">perkantoran Galaxy Blok N-27</p>
       <p style="margin-top:-11px">Outer Ring Road Barat</p>
       <p style="margin-top:-11px">Cengkareng-Jakarta Barat 11730</p>
       <p style="margin-top:-11px">Telp :021-55950000</p>

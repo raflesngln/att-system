@@ -4,6 +4,7 @@ class Transaction extends CI_Controller{
         parent::__construct();
      
         $this->load->model('model_app');
+		$this->load->model('Mdata');
 		$this->load->model('M_outgoing');
         $this->load->helper('currency_format_helper');
 		date_default_timezone_set("Asia/Jakarta"); 
@@ -62,7 +63,7 @@ class Transaction extends CI_Controller{
 			'chargedefault'=>$this->model_app->getdatapaging("ChargeCode,ChargeName,ChargeDetails","ms_charge","WHERE DefaultCharge='1' ORDER BY ChargeName"),
             //'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
             'commodity'=>$this->model_app->getdatapaging("CommCode,CommName","ms_commodity","ORDER BY CommName ASC"),
-            'connote'=>$this->model_app->getdatapaging("a.HouseNo,a.ETD,a.PayCode,a.Service,b.CustName as shipper,d.PortName as origin,e.PortName as desti",
+            'connote'=>$this->model_app->getdatapaging("a.HouseNo,a.ETD,a.Consolidation,a.PayCode,a.Service,b.CustName as shipper,d.PortName as origin,e.PortName as desti",
 			"outgoing_house a",
 			"INNER JOIN ms_customer b on a.Shipper=b.CustCode
 			 LEFT JOIN ms_customer c on a.Consigne=c.CustCode
@@ -950,7 +951,7 @@ function outgoing_consolidation(){
 			  LEFT JOIN outgoing_house c on a.Destination=c.Destination GROUP BY b.PortName
 			 "),
 			 
-'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.PCS,a.CWT,b.CustName as sender,c.CustName as receiver",
+'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.PCS,a.ConsoledCWT,a.RemainCWT,a.CWT,b.CustName as sender,c.CustName as receiver",
 "outgoing_house a",
 			   "LEFT JOIN ms_customer b on b.CustCode=a.Shipper
 			     LEFT JOIN ms_customer c on c.CustCode=a.Consigne
@@ -968,7 +969,7 @@ function filter_consol(){
 		$nosmu=$this->input->post('nosmu');
         $data = array(
             'title'=>'Consol SMU',
-'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.PCS,a.CWT,b.CustName as sender,c.CustName as receiver","outgoing_house a",
+'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.PCS,a.ConsoledCWT,a.RemainCWT,a.CWT,b.CustName as sender,c.CustName as receiver","outgoing_house a",
 			            "LEFT JOIN ms_customer b on b.CustCode=a.Shipper
 						LEFT JOIN ms_customer c on c.CustCode=a.Consigne
 						WHERE a.HouseStatus ='0' AND a.Consolidation='0' AND a.Destination='$destination' AND LEFT(a.ETD,10)='$tgl'"),
@@ -2073,7 +2074,55 @@ if($cari){
 echo "{\"list_event\":" . $data . "}";
 exit;
 }
-	
+public function ajax_detailSMU()
+	{
+		$kode=$this->input->post('smu');
+	$data['smu']=$this->model_app->getdatapaging("*","consol a",
+	"INNER JOIN outgoing_house b on a.HouseNo=b.HouseNo
+	 INNER JOIN ms_customer c on c.CustCode=b.Shipper
+	WHERE a.MasterNo='$kode'");
+	$this->load->view('pages/booking/consol/detail_smu',$data);
+		
+	}
+public function ajax_detailSMUuuuuuuuu()
+	{
+		$nm_tabel='consol a';
+		$nm_tabel2='outgoing_house b';
+		$kolom1='a.HouseNo';
+		$kolom2='b.HouseNo';
+		
+        $nm_coloum= array('a.HouseNo','a.HouseNo','b.PCS','b.CWT','b.Amount');
+        $orderby= array('a.HouseNo' => 'desc');
+        $where=  array('a.HouseNo'=>'');
+        $list = $this->Mdata->get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
+        
+		$data = array();
+		$no = $_POST['start'];
+		foreach ($list as $datalist){
+			$no++;
+			$row = array(
+            'no' => $no,
+            'HouseNo' => $datalist->HouseNo,
+            'PCS' => $datalist->PCS,
+            'CWT' =>$datalist->CWT,
+			'Amount' =>$datalist->Amount,
+			
+            'action'=> '<a class="green" href="javascript:void()" title="Edit" onclick="edit_person3('."'".$datalist->HouseNo."'".')"><i class="icon-pencil bigger-150"></i></a>&nbsp;&nbsp;
+				    <a class="red" href="javascript:void()" title="Hapus" onclick="delete_person3('."'".$datalist->HouseNo."'".')"><i class="icon-trash bigger-150"></i></a>'
+            );
+			$data[] = $row;
+		}
+
+		$output = array(
+						"draw" => $_POST['draw'],
+						"recordsTotal" => $this->Mdata->count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
+						"recordsFiltered" => $this->Mdata->count_filtered2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
+						"data" => $data,
+				);
+		//output to json format
+		echo json_encode($output);
+}
+
 
 
 
