@@ -25,7 +25,15 @@
           <th><?php echo $row->CWT?></th>
           <th style="text-align:right"><?php echo number_format($row->Amount,0,'.','.')?></th>
         </tr>
-        <?php } ?>
-        
+		<?php } ?>
+   
+  <tfoot>
+        <tr>
+          <th>&nbsp;</th>
+          <th>&nbsp;</th>
+          <th>&nbsp;</th>
+          <th>&nbsp;</th>
+          <th style="text-align:right">&nbsp;</th>
+        </tr>
       </tfoot>
     </table>

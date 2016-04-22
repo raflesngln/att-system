@@ -974,7 +974,7 @@ function filter_consol(){
 						LEFT JOIN ms_customer c on c.CustCode=a.Consigne
 						WHERE a.HouseStatus ='0' AND a.Consolidation='0' AND a.Destination='$destination' AND LEFT(a.ETD,10)='$tgl'"),
 						 
-			'added'=>$this->model_app->getdatapaging("a.MasterNo,c.HouseNo,c.CWT,c.PCS,d.CustName as sender,e.CustName as receiver","consol a",
+'added'=>$this->model_app->getdatapaging("a.MasterNo,c.HouseNo,c.CWT,c.PCS,c.ConsoledCWT,c.RemainCWT,d.CustName as sender,e.CustName as receiver","consol a",
 			 "INNER JOIN outgoing_master b ON a.MasterNo=b.NoSMU 
 			  INNER JOIN outgoing_house c on a.HouseNo=c.HouseNo
 			  LEFT JOIN ms_customer d on d.CustCode=c.Shipper

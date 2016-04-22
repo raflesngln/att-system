@@ -6,18 +6,19 @@
                                     <div class="form-group">
                                         <div class="table-responsive" id="table_responsive">
 
-                                        <table class="freetable table table-nostriped table-nobordered table-hover" id="freetable">
+                                        <table class="freetable table table-nostriped table-nobordered table-hover" id="freetable" width="99%">
                                               <thead>
                                                 
                                                   <tr>
-                                                    <th colspan="5"><span class="span4 label label-large label-inverse" style="text-align:left;padding-top:7px">Free House</span></th>
+                                                    <th colspan="6"><span class="span4 label label-large label-inverse" style="text-align:left;padding-top:7px">Free Housee</span></th>
                                                   </tr>
                                                   <tr>
-                                                  <th>House No</th>
-                                                  <th>Shipper-Consigne</th>
-                                                  <th>CWT</th>
-                                                  <th>PCS</th>
-                                                  <th class="text-center"><div align="center">Action</div></th>
+                                                  <th width="150">House No</th>
+                                                  <th width="111">CWT</th>
+                                                  <th width="68">PCS</th>
+                                                  <th width="88">Consoled Cwt</th>
+                                                  <th width="110">Remain Cwt</th>
+                                                  <th width="87" class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                               </thead>
                                               <tbody>
@@ -28,22 +29,33 @@
 	 $t_cwt+=$cwt;
   ?>
                                                   <tr>
-                                                    <td><?php echo $free->HouseNo?></td>
-                                                    <td><?php echo substr($free->sender,0,10).'-'.substr($free->receiver,0,10)?></td>
-                                                    <td><?php echo $free->CWT?></td>
-                                                    <td><?php echo $free->PCS?></td>
-                                                    <td align="center">
- 
- 
- <button style="display:none" value="<?php echo $free->HouseNo.'/'.$free->CWT.'/'.$free->PCS;?>" id="ceklish" class="ceklish btn btn-mini btn-primary" type="button" onclick="return consol_house(this)"><i class="icon icon-share-alt icon-on-right white"></i></button>
-
-<button class="move_consol btn btn-mini btn-primary" type="button" value="<?php echo $free->HouseNo.'/'.$free->sender.'/'.$free->CWT.'/'.$free->PCS;?>" onClick="move_consol(this)"><i class="fa fa-check-circle"></i> Consol</button>
+                                                    <td>
+                                                    <input type="text" name="lefthouse[]" id="lefthouse[]" value="<?php echo $free->HouseNo?>" style="width:150px"/></td>
+                                                    <td>
+                                                      <div align="right">
+                                                        <input type="text" name="leftcwt[]" id="leftcwt[]" value="<?php echo $free->CWT?>" style="width:50px" />
+                                                      </div></td>
+                                                    <td>
+                                                      <div align="right">
+                                                        <input type="text" name="leftpcs[]" id="leftpcs[]" value="<?php echo $free->PCS?>" style="width:50px" />
+                                                      </div></td>
+                                                    <td>
+                                                      <div align="right">
+                                                        <input type="text" name="leftconsoled[]" id="leftconsoled[]" value="<?php echo $free->ConsoledCWT?>" style="width:50px"/>
+                                                    </div></td>
+                                                    <td>
+                                                      <div align="right">
+                                                        <input type="text" name="leftremain[]" id="leftremain[]" value="<?php echo $free->RemainCWT?>" style="width:50px"/>
+                                                    </div></td>
+                                                    <td>
+<button class="move_consol btn btn-mini btn-primary" type="button" value="<?php echo $free->HouseNo.'/'.$free->CWT.'/'.$free->PCS.'/'.$free->ConsoledCWT.'/'.$free->RemainCWT;?>" onClick="move_consol(this)"><i class="fa fa-check"></i></button>
  </td>
                                                   </tr>
                 <?php $no++;} ?>  
                                                    </tbody>
-               								 <tfoot>
+               								 <tfoot class="foot">
                                                   <tr style="background-color:#F5F5F5">
+                                                  <td>&nbsp;</td>
                                                   <td>&nbsp;</td>
                                                   <td>&nbsp;</td>
                                                   <td>&nbsp;</td>
@@ -72,11 +84,10 @@
                                               <thead>
                                                 
                                                   <tr>
-                                                    <th colspan="5"><span class="span4 label label-large label-inverse" style="text-align:left">Remain House in SMU</span></th>
+                                                    <th colspan="4"><span class="span4 label label-large label-inverse" style="text-align:left;padding-top:7px">Remain House in SMU</span></th>
                                                   </tr>
                                                   <tr>
                                                   <th>House No</th>
-                                                  <th>Shipper-Consigne</th>
                                                   <th>CWT</th>
                                                   <th>PCS</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
@@ -91,10 +102,6 @@ $totpcs='0';
 } else{
  $no=1;
  foreach ($added as $row) {
-	 
-	 
-	 
-	 
 	 $cwt2=$row->CWT;
 	 $t_cwt2+=$cwt2;
 	 $pcs2=$row->PCS;
@@ -105,15 +112,14 @@ $totpcs='0';
   ?>
                                                   <tr class="addedtable-tr">
                                                     <td><?php echo $row->HouseNo?>
-                                                    <input type="hidden" name="house[]" id="house[]" value="<?php echo $row->HouseNo?>" /></td>
-                                                    <td><?php echo substr($row->sender,0,10).'-'.substr($row->receiver,0,10)?>
-                                                    <input type="hidden" name="shipper[]" id="shipper[]" /></td>
+                                                    <input type="hidden" name="righthouse[]" id="righthouse[]" value="<?php echo $row->HouseNo?>" /></td>
                                                     <td><?php echo $row->CWT?>
-                                                    <input type="hidden" name="cwt2[]" id="cwt2[]" /></td>
+                                                    <input type="hidden" name="rightcwt[]" id="rightcwt[]" value="<?php echo $row->HouseNo?>" /></td>
                                                     <td><?php echo $row->PCS?>
-                                                    <input type="hidden" name="pcs[]" id="pcs[]" /></td>
+                                                    <input type="hidden" name="rightpcs[]" id="rightpcs[]" value="<?php echo $row->PCS?>" /></td>
                                                     <td>
-                                                    <button value="<?php echo $row->HouseNo.'/'.$row->sender.'/'.$row->CWT.'/'.$row->PCS;?>" id="ceklish" class="ceklish btn btn-mini btn-danger" type="button" onclick="return replace_consol(this)"><i class="fa fa-times"></i></button>
+                                                    
+    <button value="<?php echo $row->HouseNo.'/'.$row->CWT.'/'.$row->PCS.'/'.$row->ConsoledCWT.'/'.$row->RemainCWT;?>" id="ceklish" class="ceklish btn btn-mini btn-danger" type="button" onclick="return replaceHouse(this)"><i class="fa fa-times"></i><i class="fa fa-times"></i></button>
                                                     
 
                                                     </td>
@@ -125,7 +131,6 @@ $totpcs='0';
                                               </tbody>
  <tfoot>
  <tr style="background-color:#F5F5F5" class="addedtable-tr">
-                                                  <td>&nbsp;</td>
                                                   <td>&nbsp;</td>
                                                   <td><input type="text" class="totcwt" value="<?php echo $totcwt?>" name="totcwt" style="width:50px" /></td>
                                                   <td><div align="right">
