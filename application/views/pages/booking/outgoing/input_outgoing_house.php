@@ -753,7 +753,7 @@ $("#idconsigne").click(function(){
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add Items</h3>
+                <h3 id="titleitems">Add Items</h3>
             </div>
             <div class="smart-form scroll">
                     <div class="modal-body">
@@ -814,7 +814,7 @@ $("#idconsigne").click(function(){
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add Charges</h3>
+                <h3 id="titlecharges">Add Charges</h3>
             </div>
             <div class="smart-form scroll">
 
@@ -1228,11 +1228,15 @@ $("#txtgrandtotal").val(grand);
      tr.remove();
 }
 $("#addchrg").click(function(e) {
- 	document.getElementById("cancel").disabled = false;
-	$(".close").show();   
+ 	 $("#savecharges").html('Save');
+	 $("#titlecharges").html('Add charge');
+	$("#cancel").show(); 
+	$(".close").show();    
 });
 $("#addchrg2").click(function(e) {
- 	document.getElementById("cancel2").disabled = false;
+     $("#iditems").html('Save');
+	 $("#titleitems").html('Add Items');
+	$("#cancel2").show(); 
 	$(".close").show();   
 });
 
@@ -1271,7 +1275,9 @@ function editcharge(myid){
      t = $(myid);
      tr = t.parent().parent();
      tr.remove();	
-	document.getElementById("cancel").disabled = true;
+	 $("#savecharges").html('Update');
+	 $("#titlecharges").html('Edit charge');
+	 $("#cancel").hide();
 	$(".close").hide();
 }
 function edititems(myid){
@@ -1349,8 +1355,10 @@ var weight=pecah[2];
      t = $(myid);
      tr = t.parent().parent();
      tr.remove();
-	 document.getElementById("cancel2").disabled = true;
-	$(".close").hide();
+	 $("#iditems").html('Update');
+	 $("#titleitems").html('Edit Items');
+	 $("#cancel2").hide();
+	 $(".close").hide();
 }
 
 function hapus(th) {
@@ -1364,7 +1372,6 @@ function hapus(th) {
      tr = t.parent().parent();
      tr.hide();
  }
-
 function hapus2(myid){
 var input = $(myid).val();
 //var input2 = $(myid).val();
@@ -1391,20 +1398,20 @@ var weight=pecah[2];
 	$('#t_weight').val(hasil3);
 	$('#label_weight').html(hasil3);
 	
-	var total_volum=document.getElementById("t_volume").value;
-	var total_weight=document.getElementById("t_weight").value;	
-	if(total_volum > total_weight)
+	var total_volum=$('#t_volume').val();
+	var total_weight=$('#t_weight').val();
+	
+	if(total_volum >= total_weight)
 	{
 		$('#cwt').val(total_volum);
 	} 
-	else if(total_volum < total_weight)
+	else if(total_weight >= total_volum)
 	 {
 		$('#cwt').val(total_weight);
 	}
 
-
-		var cwt=$("#cwt").val();
-		var pecah=cwt.split('.');
+		var cw=$("#cwt").val();
+		var pecah=cw.split('.');
 		var bulat=pecah[0];
 		var koma=pecah[1];
 		if(koma > 49){
@@ -1416,30 +1423,28 @@ var weight=pecah[2];
 			var maks=parseFloat(bulat);
 			$('#qtyfreight').val(maks);
 			$('#ori_cwt').val(maks);
-		}     
-
-		var total_charge=$("#total_charge").val();
+		}
 		var new_price=$("#pricefreight").val();
 		var new_qty=$('#qtyfreight').val();
 		var old_sub=$("#totfreight").val();
 		var new_sub=parseFloat(new_price)*parseFloat(new_qty);
-		var selisih_sub=parseFloat(old_sub)-parseFloat(new_sub);
+		var selisih_sub=parseFloat(new_sub)-parseFloat(old_sub);
 		$("#totfreight").val(new_sub);
 		$("#label_totfreight").html(toRp(new_sub));
-		var new_total=parseFloat(total_charge) - parseFloat(selisih_sub);
+		var old_total=$("#total_charge").val();
+		var new_total=parseFloat(old_total) + parseFloat(selisih_sub);
 		$("#total_charge").val(new_total);
 		$("#label_charges").html(toRp(new_total));
 		$("#t_total").val(toRp(new_total));
 		var diskon=$("#txtdiskon").val();
-		var grand=parseFloat(new_total) - parseFloat(diskon);
-		$("#grandtotal").val(toRp(grand));
-		$("#txtgrandtotal").val(grand);
-		
+		var netto=parseFloat(new_total) - parseFloat(diskon);
+		$("#grandtotal").val(toRp(netto));
+		$("#txtgrandtotal").val(netto);
+
      t = $(myid);
      tr = t.parent().parent();
      tr.remove();
 }
-
 
 function savecharges(){
 	//var t_volume=$('#idtotal').val();   
@@ -1521,11 +1526,11 @@ $("#label_charges").html(hasil);
 
 
 $('#myform').submit(function(){
-	
-var txtgrandtotal=$("#txtgrandtotal").val();
-var total_charge=$("#total_charge").val();
-if(txtgrandtotal <=0){
-	alert('Total Charge Cannot be null !');
+	var ori_cwt=$("#ori_cwt").val();
+	var txtgrandtotal=$("#txtgrandtotal").val();
+	var total_charge=$("#total_charge").val();
+if(txtgrandtotal <=0 || ori_cwt <=0){
+	alert('Discount to much or CWT Null !');
 	$("#txtgrandtotal").val(total_charge);
 	$("#grandtotal").val(toRp(total_charge));
 	$("#txtdiskon").val(0);

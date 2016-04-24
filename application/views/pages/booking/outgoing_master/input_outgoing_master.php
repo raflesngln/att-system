@@ -880,7 +880,7 @@ $("#idconsigne").click(function(){
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add Charges</h3>
+                <h3 id="titlecharges">Add Charges</h3>
             </div>
             <div class="smart-form scroll">
 
@@ -1248,8 +1248,10 @@ $("#txtgrandtotal").val(grand);
      tr.remove();
 }
 $("#addchrg").click(function(e) {
- 	document.getElementById("cancel").disabled = false;
-	$(".close").show();   
+ 	 $("#savecharges").html('Save');
+	 $("#titlecharges").html('Add charge');
+	$("#cancel").show(); 
+	$(".close").show();  
 });
 
 
@@ -1288,7 +1290,9 @@ $("#txtgrandtotal").val(grand);
      t = $(myid);
      tr = t.parent().parent();
      tr.remove();	
-	document.getElementById("cancel").disabled = true;
+	 $("#savecharges").html('Update');
+	 $("#titlecharges").html('Edit charge');
+	 $("#cancel").hide();
 	$(".close").hide();
 }
 

@@ -28,12 +28,5 @@
 		<?php } ?>
    
   <tfoot>
-        <tr>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-          <th style="text-align:right">&nbsp;</th>
-        </tr>
       </tfoot>
     </table>

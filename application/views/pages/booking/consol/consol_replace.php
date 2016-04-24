@@ -47,7 +47,7 @@
                                                       <div align="right">
                                                         <input type="text" name="leftremain[]" id="leftremain[]" value="<?php echo $free->RemainCWT?>" style="width:50px"/>
                                                     </div></td>
-                                                    <td>
+                                                    <td align="center">
 <button class="move_consol btn btn-mini btn-primary" type="button" value="<?php echo $free->HouseNo.'/'.$free->CWT.'/'.$free->PCS.'/'.$free->ConsoledCWT.'/'.$free->RemainCWT;?>" onClick="move_consol(this)"><i class="fa fa-check"></i></button>
  </td>
                                                   </tr>
@@ -117,9 +117,9 @@ $totpcs='0';
                                                     <input type="hidden" name="rightcwt[]" id="rightcwt[]" value="<?php echo $row->HouseNo?>" /></td>
                                                     <td><?php echo $row->PCS?>
                                                     <input type="hidden" name="rightpcs[]" id="rightpcs[]" value="<?php echo $row->PCS?>" /></td>
-                                                    <td>
+                                                    <td align="center">
                                                     
-    <button value="<?php echo $row->HouseNo.'/'.$row->CWT.'/'.$row->PCS.'/'.$row->ConsoledCWT.'/'.$row->RemainCWT;?>" id="ceklish" class="ceklish btn btn-mini btn-danger" type="button" onclick="return replaceHouse(this)"><i class="fa fa-times"></i><i class="fa fa-times"></i></button>
+    <button value="<?php echo $row->HouseNo.'/'.$row->CWT.'/'.$row->PCS.'/'.$row->ConsoledCWT.'/'.$row->RemainCWT;?>" id="ceklish" class="ceklish btn btn-mini btn-danger" type="button" onclick="return replaceHouse(this)"><i class="fa fa-times"></i></button>
                                                     
 
                                                     </td>

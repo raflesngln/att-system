@@ -76,12 +76,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="">Master Consol Detail</h3>
+                <h3 id=""><small>Detail Consol</small> Master </h3><span id="labelsmu" class="label label-info arrowed-in-right arrowed text-uppercase"></span>
             </div>
             <div class="smart-form scroll">
 
                     <div class="modal-body">
-                  <h5>List House Consol <span id="labelsmu"></span></h5>    
+                  <h5>List House Consol </h5>    
                         <div id="tabledetail">
                         <table id="tbldet" class="table table-striped table-bordered" cellspacing="0" width="100%">
       <thead>
@@ -93,18 +93,9 @@
           <th style="width:125px;">Amount</th>
         </tr>
       </thead>
-      <tbody>
-      </tbody>
 
-      <tfoot>
-        <tr>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
-        </tr>
-      </tfoot>
+
+
     </table>
 
                         </div>

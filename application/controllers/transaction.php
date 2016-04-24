@@ -981,8 +981,56 @@ function filter_consol(){
 			  LEFT JOIN ms_customer e on e.CustCode=c.Consigne
 			 WHERE a.MasterNo ='$nosmu'"),
         );  
-      $this->load->view('pages/booking/consol/consol_replace',$data);
-	  
+      $this->load->view('pages/booking/consol/consol_replace',$data);	  
+}
+   //     consolidation
+function filter_desti(){
+		$tgl=$this->input->post('tgl');
+		$destination=$this->input->post('destination');
+		$nosmu=$this->input->post('nosmu');
+        $data = array(
+            'title'=>'Consol SMU',
+'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.PCS,a.ConsoledCWT,a.RemainCWT,a.CWT,b.CustName as sender,c.CustName as receiver","outgoing_house a",
+			            "LEFT JOIN ms_customer b on b.CustCode=a.Shipper
+						LEFT JOIN ms_customer c on c.CustCode=a.Consigne
+						WHERE a.HouseStatus ='0' AND a.Consolidation='0' AND a.Destination='$destination' AND LEFT(a.ETD,10)='$tgl'"),
+						 
+'added'=>$this->model_app->getdatapaging("a.MasterNo,c.HouseNo,c.CWT,c.PCS,c.ConsoledCWT,c.RemainCWT,d.CustName as sender,e.CustName as receiver","consol a",
+			 "INNER JOIN outgoing_master b ON a.MasterNo=b.NoSMU 
+			  INNER JOIN outgoing_house c on a.HouseNo=c.HouseNo
+			  LEFT JOIN ms_customer d on d.CustCode=c.Shipper
+			  LEFT JOIN ms_customer e on e.CustCode=c.Consigne
+			 WHERE a.MasterNo ='$nosmu'"),
+        );  
+      $this->load->view('pages/booking/consol/consol_replace',$data);	  
+}
+   //     consolidation
+function filter_date(){
+		$tgl=$this->input->post('tgl');
+		$destination=$this->input->post('destination');
+		
+		if($destination==''){
+			$status="a.HouseStatus ='0' AND a.Consolidation='0' AND LEFT(a.ETD,10)='$tgl'";
+		} else {
+			$status="a.HouseStatus ='0' AND a.Consolidation='0' AND LEFT(a.ETD,10)='$tgl' AND a.Destination='$destination'";
+		}
+		
+		
+        $data = array(
+            'title'=>'Consol SMU',
+'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.PCS,a.ConsoledCWT,a.RemainCWT,a.CWT,b.CustName as sender,c.CustName as receiver","outgoing_house a",
+			            "LEFT JOIN ms_customer b on b.CustCode=a.Shipper
+						LEFT JOIN ms_customer c on c.CustCode=a.Consigne
+						WHERE ".$status." "),
+						 
+'added'=>$this->model_app->getdatapaging("a.MasterNo,c.HouseNo,c.CWT,c.PCS,c.ConsoledCWT,c.RemainCWT,d.CustName as sender,e.CustName as receiver","consol a",
+			 "INNER JOIN outgoing_master b ON a.MasterNo=b.NoSMU 
+			  INNER JOIN outgoing_house c on a.HouseNo=c.HouseNo
+			  LEFT JOIN ms_customer d on d.CustCode=c.Shipper
+			  LEFT JOIN ms_customer e on e.CustCode=c.Consigne
+			 WHERE a.MasterNo ='$nosmu'"),
+        );  
+      $this->load->view('pages/booking/consol/consol_replace',$data);	  
 }
 function getsubMaster(){
 	$tgl=$this->input->post('tgl');
@@ -1111,45 +1159,41 @@ function domestic_outgoing_master(){
 
 //=====================save cargo manifest ==========
  function insert_consol(){	
-	 
+
 	$nosmu=$this->input->post('nosmu');
 	$cwt=$this->input->post('totcwt');
 	$pcs=$this->input->post('totpcs');
 		
 	$delete=$this->model_app->delete_data('consol','MasterNo',$nosmu);
-	//==== INSSERT CHARGES ==============//	
-	$house=$_POST['house'];	
-	$house2=$_POST['house2'];	
 	
-	foreach($house as $key => $val)
-	{
-   		$house =$_POST['house'][$key];
-        $unit =$_POST['unit'][$key];
-		$qty  =$_POST['qty'][$key];
+	//==== INSSERT CONSOL ==============//	
+	$house=$_POST['righthouse'];
+	foreach($house as $key => $val){
+   		$nohouse =$_POST['righthouse'][$key];
+		$cwt=$_POST['rightcwt'][$key];
 		$desc =$_POST['desc'][$key];
-		$totalcharges =$_POST['totalcharges'][$key];
-		
-		$newitem=array(
-		'MasterNo' =>$this->input ->post('nosmu'),
-		'HouseNo'=>$house, 
-		'ConsolDesc'=>'',
-		);	
-		$updatehouse=array(
-		'Consolidation' =>'1'
-		);		
+			$newitem=array(
+			'MasterNo' =>$this->input ->post('nosmu'),
+			'HouseNo'=>$nohouse, 
+			'ConsolDesc'=>'',
+			);	
+			$updatehouse=array(
+			'Consolidation' =>'1',
+			'ConsoledCWT' =>$cwt,
+			);		
 		 $this->model_app->insert('consol',$newitem); 
-		 $this->model_app->update('outgoing_house','HouseNo',$house,$updatehouse);
+		 $this->model_app->update('outgoing_house','HouseNo',$nohouse,$updatehouse);
 	}
-	
-	foreach($house2 as $key => $val)
-	{
-		$nohouse =$_POST['house2'][$key];
-		$replaceconsol=array(
-		'Consolidation' =>'0'
-		);	
-		
-		$this->model_app->update('outgoing_house','HouseNo',$nohouse,$replaceconsol);
-	}
+		//update house if delete from consol,house canceled from master
+		$house2=$_POST['lefthouse'];
+		foreach($house2 as $key => $val){
+			$nohouse2 =$_POST['lefthouse'][$key];
+			$replaceconsol=array(
+			'Consolidation' =>'0',
+			'ConsoledCWT' =>'0'
+			);
+			$this->model_app->update('outgoing_house','HouseNo',$nohouse2,$replaceconsol);
+		}
 	$updatesmu=array(
 		'StatusProses' =>'2',
 		'CWT' =>$cwt,
@@ -1159,55 +1203,6 @@ function domestic_outgoing_master(){
 		
 		redirect('transaction/outgoing_consolidation');
 }
-//=====================save cargo manifest ==========
- function insert_consol2222222222222(){	
-	 $nosmu=$this->input->post('nosmu');
-	 $house=$this->input->post('house');
-	 $cwt=$this->input->post('cwt');
-	 $pcs=$this->input->post('pcs');
-	 
-	 $cekMaster=$this->model_app->getdata('outgoing_master',"WHERE NoSMU='$nosmu'");
-	 if($cekMaster){
-		 foreach($cekMaster as $row){
-			$oldcwt=$row->CWT; 
-			$oldpcs=$row->PCS; 
-		 }
-	 }
-		$newitem=array(
-		'MasterNo' =>$this->input ->post('nosmu'),
-		'HouseNo'=>$this->input ->post('house'), 
-		'ConsolDesc'=>$this->input ->post('nosmu'),
-		);		
-		 $this->model_app->insert('consol',$newitem);
-	//----- SAVE OF OUT GOING Master --------------////
-	$updatehouse=array(
-		'Consolidation' =>'1'
-		);		
-	$updatesmu=array(
-		'StatusProses' =>'2',
-		'CWT' =>$cwt+$oldcwt,
-		'PCS' =>$pcs+$oldpcs
-		);		
-		$this->model_app->update('outgoing_house','HouseNo',$house,$updatehouse);
-		$this->model_app->update('outgoing_master','NoSMU',$nosmu,$updatesmu);
-		
-        $data = array(
-            'title'=>'Consol SMU',
-'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.PCS,a.CWT,b.CustName as sender,c.CustName as receiver","outgoing_house a",
-			            "LEFT JOIN ms_customer b on b.CustCode=a.Shipper
-						LEFT JOIN ms_customer c on c.CustCode=a.Consigne
-						 WHERE a.HouseStatus ='0' AND a.Consolidation='0'"),
-			 'added'=>$this->model_app->getdatapaging("a.MasterNo,c.HouseNo,c.CWT,c.PCS,d.CustName as sender,e.CustName as receiver","consol a",
-			 "INNER JOIN outgoing_master b ON a.MasterNo=b.NoSMU 
-			  INNER JOIN outgoing_house c on a.HouseNo=c.HouseNo
-			  LEFT JOIN ms_customer d on d.CustCode=c.Shipper
-			  LEFT JOIN ms_customer e on e.CustCode=c.Consigne
-			 WHERE a.MasterNo ='$nosmu'"),
-        );  
-      $this->load->view('pages/booking/consol/consol_replace',$data);
-	  
-	}
-
 //=====================save cargo manifest ==========
  function edit_consol(){	
 	 $nosmu=$this->input->post('nosmu');

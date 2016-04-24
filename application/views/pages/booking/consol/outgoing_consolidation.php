@@ -54,15 +54,15 @@
   <div class="col-sm-6">      
       <div class="col-sm-11">
 <div class="form-group">                     
-          <strong><label class="col-sm-4">Status SMU</label></strong>
+          <strong><label class="col-sm-4">Date</label></strong>
           <div class="col-sm-7">
-            <input name="tgl" type="text" class="form-control"  id="tgl" required="required" readonly="readonly" value="<?php echo date('Y-m-d');?>"/>
+            <input name="tgl" type="text" class="form-control"  id="tgl" required="required" readonly="readonly" value="<?php echo date('Y-m-d');?>" onchange="return filterDate()"/>
           </div>
  </div>
 <div class="form-group">                     
           <strong><label class="col-sm-4">Destination</label></strong>
           <div class="col-sm-7">
-           <select name="destination" class="form-control" required="required" id="destination">
+           <select name="destination" class="form-control" required="required" id="destination" onchange="return filterDestination()">
            <option value="">Select Destination </option>
       <?php foreach($desti as $data){
 		  ?>
@@ -433,7 +433,7 @@
 
 <div class="form-group">  
   <span class="span2">House</span>  
-  <span class="span3"><input name="txthouse" type="number" class="form-control" placeholder="" id="txthouse" max="" min="1"/>
+  <span class="span3"><input name="txthouse" type="text" class="form-control" placeholder="" id="txthouse" max="" min="1"/>
   </span>
 
  </div> <div class="clearfix"></div>
@@ -449,7 +449,7 @@
 
 <span class="span2">Available cwt</span>
  <span class="span2">
- <input name="remaintxtcwt" type="text" class="form-control" placeholder="" id="remaintxtcwt" /></span>
+ <input name="remaintxtcwt" type="text" class="form-control" placeholder="" id="remaintxtcwt" readonly="readonly" /></span>
  </div>
                       
    <div class="clearfix"></div>
@@ -511,6 +511,35 @@ $("#status_smu").change(function(){
 			}
 		});
  });
+function filterDate(){
+	var tgl = $("#tgl").val();
+	var destination = $("#destination").val();
+            $.ajax({
+                type: "POST",
+                url : "<?php echo base_url('transaction/filter_date'); ?>",
+				data: "tgl="+tgl+"&destination="+destination,
+                cache:false,
+                success: function(data){
+                    $('#konten').html(data);
+                    //document.frm.add.disabled=false;
+                }
+            });
+}
+function filterDestination(){
+	var tgl = $("#tgl").val();
+	var destination = $("#destination").val();
+	var nosmu = $("#nosmu").val();
+            $.ajax({
+                type: "POST",
+                url : "<?php echo base_url('transaction/filter_desti'); ?>",
+				data: "tgl="+tgl+"&destination="+destination+"&nosmu="+nosmu,
+                cache:false,
+                success: function(data){
+                    $('#konten').html(data);
+                    //document.frm.add.disabled=false;
+                }
+            });
+}
 
 $("#nosmu").change(function(){
 	var tgl = $("#tgl").val();
@@ -704,6 +733,7 @@ function move_consol2(){
 		var totpcs=$(".totpcs").val();
 
 		var house=$("#txthouse").val();
+		var remaincwt=$("#remaintxtcwt").val();
 		var cwt=$("#txtcwt").val();
 		var pcs=$("#txtpcs").val();
 		var consoled=$("#txtconsol").val();
@@ -717,12 +747,15 @@ function move_consol2(){
 		var sisacwt=parseFloat(cwt)- parseFloat(selisih);
 		
 		var new_pcs=parseFloat(totpcs)+ parseFloat(pcs);
-		
+
+if(remaincwt <=0){
+	alert('SMU is Full, Choose another SMU !');
+	return false;
+	}
 if(nosmu ==''){
 	alert('SMU is not selected,Please Select First !');
 } else {
 	
-
 		var lefthouse=document.getElementsByName('lefthouse[]');
         var leftcwt=document.getElementsByName('leftcwt[]');
 		var leftpcs=document.getElementsByName('leftpcs[]');
@@ -762,14 +795,14 @@ if(nosmu ==''){
 				}
 			
 			} 
-alert(zsts);
+
 			if(zsts==2){
 					text='<tr class="gradeX">'
-    + '<td>' + '<input type="text" name="righthouse[]" id="idcharge[]" value="'+ house +'">'+ '<label id="l_pcs">'+ house +'</label>' +'</td>'
+    + '<td>' + '<input type="text" name="righthouse[]" id="idcharge[]" value="'+ house +'"></td>'
 	
-    + '<td align="right">' +  '<input type="text" name="rightcwt[]" id="t[]" value="'+ cwt +'">'+ '<label id="l_pcs">'+ cwt +'</label>' +'</td>'
+    + '<td align="right">' +  '<input type="text" name="rightcwt[]" id="t[]" value="'+ cwt +'" style=" width:80px"></td>'
     
-    + '<td align="right">' + '<input type="text" name="rightpcs[]" id="p[]"  value="'+ pcs +'">'+ '<label id="l_pcs">'+ pcs +'</label>' +'</td>'
+    + '<td align="right">' + '<input type="text" name="rightpcs[]" id="p[]"  value="'+ pcs +'" style=" width:80px"></td>'
 
 	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + input +'" onclick="replaceHouse(this)" type="button">X</button></td>'
 
@@ -791,7 +824,7 @@ alert(zsts);
 function replaceHouse(myid){
 		//var zsts=2;
 		var input = $(myid).val();
-		alert(input);
+		
 		var pecah=input.split('/');
 		var house=pecah[0];
 		var cwt=pecah[1];
@@ -811,7 +844,7 @@ function replaceHouse(myid){
 		var leftremain=document.getElementsByName('leftremain[]');
         for(i=0; i < lefthouse.length; i++)  {  
 		
-		alert(lefthouse[i].value+'='+house)
+	//	alert(lefthouse[i].value+'='+house)
 		  
             if(lefthouse[i].value==house){
 				var zsts=1;
@@ -848,7 +881,7 @@ function replaceHouse(myid){
 				 t = $(myid);
 				 tr = t.parent().parent();
 				 tr.remove();
-        alert(zsts);
+        
     }
 	
 function replace_consol(myid){
