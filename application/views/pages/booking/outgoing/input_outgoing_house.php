@@ -709,7 +709,7 @@ $("#idconsigne").click(function(){
 </div>
 
 <div class="col-sm-8"><p class="text-right">DISKON </p></div>
-<div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="return diskonRp(this);">
+<div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="return diskonRp(this);" onkeypress="return isNumberKey(event)">
 <input type="hidden" name="txtdiskon" id="txtdiskon" class="form-control" value="0">
 </p></div>
 

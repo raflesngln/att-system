@@ -148,11 +148,11 @@ $("#idhouse").autocomplete({
                                                 <tr align="left" style="background:#EBEBEB">
                                                   <th height="69" colspan="2"><div align="left">SMU No</div></th>
                                                   <th width="54"><div align="center">ETD</div></th>
-                                                  <th width="46"><div align="center">Paycode</div></th>
+                                                  <th width="56"><div align="center">Paycode</div></th>
                                                   <th width="58"><div align="center">Service</div></th>
                                                   <th width="48">Origin</th>
-                                                  <th width="48">Destination</th>
-                                                  <th width="53" class="text-center"><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item" style="visibility:hidden"><i class="icon-plus icons"></i> Add items</a>Actions</div></th>
+                                                  <th width="107">Destination</th>
+                                                  <th width="65" class="text-center"><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item" style="visibility:hidden"><i class="icon-plus icons"></i> Add items</a>Actions</div></th>
                                                 </tr>
                                                 </thead>
                                           <tbody>
@@ -170,7 +170,7 @@ $("#idhouse").autocomplete({
         ?>
             
                                             <tr align="right" class="gradeX">
-                                                    <td colspan="2"><div align="left"><a class="dethouse" href="#modaladding" data-toggle="modal" id="dethouse" title="click for detail"><?php echo $items->NoSMU;?></a></div></td>
+                                                    <td colspan="2"><div align="left"><?php echo $items->NoSMU;?></div></td>
                                                     <td><div align="left"><?php echo date("d-m-Y",strtotime($items->ETD)); ?></div></td>
                                                     <td><div align="left"><?php echo $items->PayCode;?></div></td>
                                                     <td><div align="left"><?php echo $items->Service;?></div></td>

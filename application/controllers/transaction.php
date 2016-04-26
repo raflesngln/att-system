@@ -69,6 +69,7 @@ class Transaction extends CI_Controller{
 			 LEFT JOIN ms_customer c on a.Consigne=c.CustCode
 			 LEFT JOIN ms_port d on a.Origin=d.PortCode
 			 LEFT JOIN ms_port e on a.Destination=e.PortCode
+			 WHERE a.Consolidation='0' 
 			 ORDER BY a.HouseNo DESC LIMIT $offset,$limit"),
             'view'=>'pages/booking/outgoing/outgoing_house',
         );  
@@ -943,15 +944,18 @@ function outgoing_consolidation(){
             'title'=>'outgoing_consolidation',
             'scrumb_name'=>'outgoing_consolidation',
             'scrumb'=>'transaction/outgoing_consolidation',
-			'master'=>$this->model_app->getdatapaging("a.NoSMU,a.CWT,a.PCS,a.Destination as portcode,b.PortName as desti","outgoing_master a",
-			 "INNER JOIN ms_port b ON a.Destination=b.PortCode WHERE a.StatusProses='1' OR a.StatusProses='2' GROUP BY b.PortName
+		'houseconsol'=>$this->model_app->getdatapaging("a.HouseNo,a.Consolidation,a.CWT,a.PCS,a.Destination as portcode,b.PortName as desti","outgoing_house a",
+			 "LEFT JOIN ms_port b ON a.Destination=b.PortCode WHERE a.Consolidation <=1 GROUP BY a.HouseNo
 			 "),
-			'desti'=>$this->model_app->getdatapaging("a.NoSMU,a.Destination as portcode,b.PortName as desti","outgoing_master a",
+		'masterconsol'=>$this->model_app->getdatapaging("a.NoSMU,a.CWT,a.PCS,a.Destination as portcode,b.PortName as desti","outgoing_master a",
+			 "LEFT JOIN ms_port b ON a.Destination=b.PortCode WHERE a.StatusProses in(1,2) GROUP BY a.NoSMU
+			 "),
+			'desti'=>$this->model_app->getdatapaging("a.NoSMU,a.Commodity,a.Destination as portcode,b.PortName as desti","outgoing_master a",
 			 "INNER JOIN ms_port b ON a.Destination=b.PortCode 
 			  LEFT JOIN outgoing_house c on a.Destination=c.Destination GROUP BY b.PortName
 			 "),
 			 
-'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.PCS,a.ConsoledCWT,a.RemainCWT,a.CWT,b.CustName as sender,c.CustName as receiver",
+'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.CodeShipper,a.Commodity,a.PCS,a.ConsoledPCS,a.RemainPCS,a.ConsoledCWT,a.RemainCWT,a.CWT,b.CustName as sender,c.CustName as receiver",
 "outgoing_house a",
 			   "LEFT JOIN ms_customer b on b.CustCode=a.Shipper
 			     LEFT JOIN ms_customer c on c.CustCode=a.Consigne
@@ -969,12 +973,12 @@ function filter_consol(){
 		$nosmu=$this->input->post('nosmu');
         $data = array(
             'title'=>'Consol SMU',
-'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.PCS,a.ConsoledCWT,a.RemainCWT,a.CWT,b.CustName as sender,c.CustName as receiver","outgoing_house a",
+'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.CodeShipper,a.Commodity,a.PCS,a.ConsoledPCS,a.RemainPCS,a.ConsoledCWT,a.RemainCWT,a.CWT,b.CustName as sender,c.CustName as receiver","outgoing_house a",
 			            "LEFT JOIN ms_customer b on b.CustCode=a.Shipper
 						LEFT JOIN ms_customer c on c.CustCode=a.Consigne
 						WHERE a.HouseStatus ='0' AND a.Consolidation='0' AND a.Destination='$destination' AND LEFT(a.ETD,10)='$tgl'"),
 						 
-'added'=>$this->model_app->getdatapaging("a.MasterNo,c.HouseNo,c.CWT,c.PCS,c.ConsoledCWT,c.RemainCWT,d.CustName as sender,e.CustName as receiver","consol a",
+'added'=>$this->model_app->getdatapaging("a.MasterNo,c.HouseNo,c.CodeShipper,c.Commodity,a.CWT,a.PCS,c.ConsoledPCS,c.RemainPCS,c.ConsoledCWT,c.RemainCWT,d.CustName as sender,e.CustName as receiver","consol a",
 			 "INNER JOIN outgoing_master b ON a.MasterNo=b.NoSMU 
 			  INNER JOIN outgoing_house c on a.HouseNo=c.HouseNo
 			  LEFT JOIN ms_customer d on d.CustCode=c.Shipper
@@ -990,12 +994,12 @@ function filter_desti(){
 		$nosmu=$this->input->post('nosmu');
         $data = array(
             'title'=>'Consol SMU',
-'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.PCS,a.ConsoledCWT,a.RemainCWT,a.CWT,b.CustName as sender,c.CustName as receiver","outgoing_house a",
+'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.CodeShipper,a.Commodity,a.PCS,a.ConsoledPCS,a.RemainPCS,a.ConsoledCWT,a.RemainCWT,a.CWT,b.CustName as sender,c.CustName as receiver","outgoing_house a",
 			            "LEFT JOIN ms_customer b on b.CustCode=a.Shipper
 						LEFT JOIN ms_customer c on c.CustCode=a.Consigne
 						WHERE a.HouseStatus ='0' AND a.Consolidation='0' AND a.Destination='$destination' AND LEFT(a.ETD,10)='$tgl'"),
 						 
-'added'=>$this->model_app->getdatapaging("a.MasterNo,c.HouseNo,c.CWT,c.PCS,c.ConsoledCWT,c.RemainCWT,d.CustName as sender,e.CustName as receiver","consol a",
+'added'=>$this->model_app->getdatapaging("a.MasterNo,c.Commodity,c.CodeShipper,c.HouseNo,c.CWT,c.PCS,a.ConsoledPCS,a.RemainPCS,c.ConsoledCWT,c.RemainCWT,d.CustName as sender,e.CustName as receiver","consol a",
 			 "INNER JOIN outgoing_master b ON a.MasterNo=b.NoSMU 
 			  INNER JOIN outgoing_house c on a.HouseNo=c.HouseNo
 			  LEFT JOIN ms_customer d on d.CustCode=c.Shipper
@@ -1018,12 +1022,12 @@ function filter_date(){
 		
         $data = array(
             'title'=>'Consol SMU',
-'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.PCS,a.ConsoledCWT,a.RemainCWT,a.CWT,b.CustName as sender,c.CustName as receiver","outgoing_house a",
+'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.CodeShipper,a.Commodity,a.PCS,a.ConsoledPCS,a.RemainPCS,a.ConsoledCWT,a.RemainCWT,a.CWT,b.CustName as sender,c.CustName as receiver","outgoing_house a",
 			            "LEFT JOIN ms_customer b on b.CustCode=a.Shipper
 						LEFT JOIN ms_customer c on c.CustCode=a.Consigne
 						WHERE ".$status." "),
 						 
-'added'=>$this->model_app->getdatapaging("a.MasterNo,c.HouseNo,c.CWT,c.PCS,c.ConsoledCWT,c.RemainCWT,d.CustName as sender,e.CustName as receiver","consol a",
+'added'=>$this->model_app->getdatapaging("a.MasterNo,c.CodeShipper,c.Commodity,c.HouseNo,c.CWT,c.PCS,,c.ConsoledPCS,c.RemainPCS,c.ConsoledCWT,c.RemainCWT,d.CustName as sender,e.CustName as receiver","consol a",
 			 "INNER JOIN outgoing_master b ON a.MasterNo=b.NoSMU 
 			  INNER JOIN outgoing_house c on a.HouseNo=c.HouseNo
 			  LEFT JOIN ms_customer d on d.CustCode=c.Shipper
@@ -1032,12 +1036,45 @@ function filter_date(){
         );  
       $this->load->view('pages/booking/consol/consol_replace',$data);	  
 }
-function getsubMaster(){
+function getStatus(){
+		$tgl=$this->input->post('tgl');
+		$destination=$this->input->post('destination');
+		$status_smu=$this->input->post('status_smu');
+      $result=$this->model_app->getdata('outgoing_master a',
+	  "INNER JOIN ms_port b on a.Destination=b.PortCode  
+	  WHERE a.StatusProses='$status_smu' AND LEFT(a.ETD,10)='$tgl' GROUP BY b.PortCode ASC");
+	  
+	echo'<option value="">Pilih Nomor SMU</option>';
+	if($result)
+	{
+	foreach($result as $data){
+	echo'<option value="'.$data->Destination.'">'.$data->PortName.' - '.$data->PortCode.'</option>';
+		
+		}	
+	}  
+}
+function getsubMasterrrrrrrrr(){
 	$tgl=$this->input->post('tgl');
 	$destination=$this->input->post('destination');
 	$status_smu=$this->input->post('status_smu');
 	
       $result=$this->model_app->getdata('outgoing_master a',"WHERE Destination='$destination' AND StatusProses='$status_smu' AND LEFT(a.ETD,10)='$tgl' ORDER BY a.NoSMU ASC");
+	  
+	echo'<option value="">Pilih Nomor SMU</option>';
+	if($result)
+	{
+	foreach($result as $data){
+	echo'<option value="'.$data->NoSMU.'">'.$data->NoSMU.'</option>';
+		
+		}	
+	}
+}
+function filterSMU(){
+	$tgl=$this->input->post('tgl');
+	$destination=$this->input->post('destination');
+	$status_smu=$this->input->post('status_smu');
+	
+      $result=$this->model_app->getdata('outgoing_master a',"WHERE a.Destination='$destination' AND LEFT(a.ETD,10)='$tgl' ORDER BY a.NoSMU ASC");
 	  
 	echo'<option value="">Pilih Nomor SMU</option>';
 	if($result)
@@ -1112,6 +1149,7 @@ function domestic_outgoing_master(){
             'commodity'=>$this->model_app->getdatapaging("CommCode,CommName","ms_commodity","ORDER BY CommName ASC"),
             'master'=>$this->model_app->getdatapaging("a.NoSMU,a.ETD,a.Service,a.Origin,a.Destination,a.Shipper,a.Consigne,a.PayCode","outgoing_master a",
 			"LEFT join invoice b on a.NoSMU=b.Reff
+			WHERE a.StatusProses <=2
 			ORDER BY a.NoSMU DESC LIMIT $offset,$limit"),
             'view'=>'pages/booking/outgoing_master/outgoing_master',
         );  
@@ -1161,8 +1199,8 @@ function domestic_outgoing_master(){
  function insert_consol(){	
 
 	$nosmu=$this->input->post('nosmu');
-	$cwt=$this->input->post('totcwt');
-	$pcs=$this->input->post('totpcs');
+	$totcwt=$this->input->post('totcwt');
+	$totpcs=$this->input->post('totpcs');
 		
 	$delete=$this->model_app->delete_data('consol','MasterNo',$nosmu);
 	
@@ -1172,32 +1210,62 @@ function domestic_outgoing_master(){
    		$nohouse =$_POST['righthouse'][$key];
 		$cwt=$_POST['rightcwt'][$key];
 		$desc =$_POST['desc'][$key];
+		$cwt =$_POST['rightcwt'][$key];
+		$pcs =$_POST['rightpcs'][$key];
+		$commodity =$_POST['rightcommodity'][$key];
 			$newitem=array(
 			'MasterNo' =>$this->input ->post('nosmu'),
 			'HouseNo'=>$nohouse, 
 			'ConsolDesc'=>'',
+			'CWT'=>$cwt,
+			'PCS'=>$pcs,
 			);	
+			$cekhouse=$this->model_app->getdata('outgoing_house',"WHERE HouseNo='$nohouse'");
+			foreach($cekhouse as $cek){
+				$oldcwt=$cek->CWT;
+				$oldpcs=$cek->PCS;
+				$consolcwt=$cek->ConsoledCWT;
+				$remaincwt=$cek->RemainCWT;
+				$consolpcs=$cek->ConsoledPCS;
+				$remainpcs=$cek->RemainPCS;
+				
+				$makscwt=$cwt >=$oldcwt?$oldcwt:$consolcwt+$cwt;
+				$makspcs=$cwt >=$oldpcs?$oldpcs:$consolpcs+$pcs;
+				$hasilcwt=$remaincwt<=0?'0':$remaincwt-$cwt;
+				$hasilpcs=$remainpcs<=0?'0':$remainpcs-$pcs;
 			$updatehouse=array(
 			'Consolidation' =>'1',
-			'ConsoledCWT' =>$cwt,
-			);		
-		 $this->model_app->insert('consol',$newitem); 
-		 $this->model_app->update('outgoing_house','HouseNo',$nohouse,$updatehouse);
+			'ConsoledCWT' =>$makscwt,
+			'RemainCWT' =>$hasilcwt,
+			'ConsoledPCS' =>$makspcs,
+			'RemainPCS' =>$hasilpcs,
+			);	
+			 $this->model_app->insert('consol',$newitem); 
+			 $this->model_app->update('outgoing_house','HouseNo',$nohouse,$updatehouse);
+		}
 	}
-		//update house if delete from consol,house canceled from master
+	
 		$house2=$_POST['lefthouse'];
 		foreach($house2 as $key => $val){
 			$nohouse2 =$_POST['lefthouse'][$key];
-			$replaceconsol=array(
+			$consolcwt2=$_POST['leftconsoled'][$key];
+			$remaincwt2=$_POST['leftremain'][$key];
+			$consolpcs2=$_POST['leftconsoledpcs'][$key];
+			$remainpcs2=$_POST['leftremainpcs'][$key];
+			$updatehouse2=array(
 			'Consolidation' =>'0',
-			'ConsoledCWT' =>'0'
+			'ConsoledCWT' =>$consolcwt2,
+			'RemainCWT' =>$remaincwt2,
+			'ConsoledPCS' =>$consolpcs2,
+			'RemainPCS' =>$remainpcs2,
 			);
-			$this->model_app->update('outgoing_house','HouseNo',$nohouse2,$replaceconsol);
+			$this->model_app->update('outgoing_house','HouseNo',$nohouse2,$updatehouse2);
 		}
 	$updatesmu=array(
 		'StatusProses' =>'2',
-		'CWT' =>$cwt,
-		'PCS' =>$pcs
+		'CWT' =>$totcwt,
+		'PCS' =>$totpcs,
+		'Commodity' =>$commodity
 		);		
 		$this->model_app->update('outgoing_master','NoSMU',$nosmu,$updatesmu);
 		
@@ -1231,11 +1299,11 @@ function domestic_outgoing_master(){
 		$this->model_app->update('outgoing_master','NoSMU',$nosmu,$updatesmu);	
         $data = array(
             'title'=>'Consol SMU',
-'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.PCS,a.CWT,b.CustName as sender,c.CustName as receiver","outgoing_house a",
+'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.CodeShipper,a.PCS,a.CWT,b.CustName as sender,c.CustName as receiver","outgoing_house a",
 			            "LEFT JOIN ms_customer b on b.CustCode=a.Shipper
 						LEFT JOIN ms_customer c on c.CustCode=a.Consigne
 						 WHERE a.HouseStatus ='0' AND a.Consolidation='0'"),
-			 'added'=>$this->model_app->getdatapaging("a.MasterNo,c.HouseNo,c.CWT,c.PCS,d.CustName as sender,e.CustName as receiver","consol a",
+			 'added'=>$this->model_app->getdatapaging("a.MasterNo,c.HouseNo,c.CodeShipper,c.CWT,c.PCS,d.CustName as sender,e.CustName as receiver","consol a",
 			 "INNER JOIN outgoing_master b ON a.MasterNo=b.NoSMU 
 			  INNER JOIN outgoing_house c on a.HouseNo=c.HouseNo
 			  LEFT JOIN ms_customer d on d.CustCode=c.Shipper
@@ -2077,6 +2145,16 @@ public function ajax_detailSMU()
 	 INNER JOIN ms_customer c on c.CustCode=b.Shipper
 	WHERE a.MasterNo='$kode'");
 	$this->load->view('pages/booking/consol/detail_smu',$data);
+		
+	}
+public function ajax_detailHouse()
+	{
+		$kode=$this->input->post('numb');
+	$data['houses']=$this->model_app->getdatapaging("a.MasterNo,a.HouseNo,a.PCS,a.CWT,c.CustName,b.Amount","consol a",
+	"INNER JOIN outgoing_house b on a.HouseNo=b.HouseNo
+	 INNER JOIN ms_customer c on c.CustCode=b.Shipper
+	WHERE b.HouseNo='$kode'");
+	$this->load->view('pages/booking/consol/detail_house',$data);
 		
 	}
 public function ajax_detailSMUuuuuuuuu()

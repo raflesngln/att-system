@@ -420,7 +420,7 @@ foreach($connote as $row){
     <div class="col-sm-4">
       <label for="codeship">Code Shipper</label></div>
     <div class="col-sm-7">
-      <input type="text" name="codeship" id="codeship" class="autocomplete form-control" value="<?php echo $row->receiver;?>" readonly  />
+      <input type="text" name="codeship" id="codeship" class="autocomplete form-control" value="<?php echo $row->CodeShipper;?>"  />
     </div>
 </div>
 
@@ -447,7 +447,7 @@ foreach($connote as $row){
 <div class="clearfx">&nbsp;</div>
         <strong><label class="col-sm-4">Booking No</label></strong>
           <div class="col-sm-7">
-            <input name="booking" type="text" class="form-control"  id="booking" value="<?php echo $row->BookingNo;?>" readonly />
+            <input name="booking" type="text" class="form-control"  id="booking" value="<?php echo $row->BookingNo;?>"  />
           </div>
 
            <strong><label class="col-sm-4"> ETD</label></strong>
@@ -487,7 +487,7 @@ foreach($connote as $row){
     <div class="col-sm-4">
       <label for="codeship">Code Consignee</label></div>
     <div class="col-sm-7">
-      <input name="codesigne" type="text" class="form-control" value="<?php echo $con->CodeConsigne;?>"  id="codesigne" readonly/>
+      <input name="codesigne" type="text" class="form-control" value="<?php echo $con->CodeConsigne;?>"  id="codesigne" />
     </div>
 </div>
 

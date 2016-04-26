@@ -1,14 +1,14 @@
 
   
-<div class="container-fluid" id="konten">
-  <div class="row" id="contentreplace">
-  <div class="col-sm-11 portlets ui-sortable" id="freecontent" style="box-shadow:2px 3px 8px #CCC; border:1px #CCC solid">
+<div class="container-fluid" id="konten2">
+  <div class="row" id="contentreplace2">
+  <div class="col-sm-11 portlets ui-sortable" id="freecontent2" style="box-shadow:2px 3px 8px #CCC; border:1px #CCC solid">
                     <div class="panel">
                         <!--<div class="panel-header"></div>-->
                         
                                     <div class="form-group">
                                         <div class="table-responsive" id="table_responsive">
-<h2><span class="label label-inverse label-large">List SMU to Consol</span></h2>
+<h2><span class="label label-inverse label-large">List SMU  Consol</span></h2>
                                         <table class="table table-nostriped table-nobordered table-hover" id="tablesmu">
                                               <thead>
                                                 
@@ -25,7 +25,7 @@
                                               <tbody>
  <?php 
  $no=1;
- foreach ($master as $free) {
+ foreach ($masterconsol as $free) {
 	 $cwt=$free->CWT;
 	 $pcs=$free->PCS;
 	 if($cwt <=1){

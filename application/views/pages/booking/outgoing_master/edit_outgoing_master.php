@@ -763,7 +763,7 @@ foreach($master as $row){
 </div>
 
 <div class="col-sm-8"><p class="text-right">DISKON </p></div>
-<div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="return diskonRp(this);" value="<?php echo number_format($row->Discount,0,'.','.');?>">
+<div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="return diskonRp(this);" value="<?php echo number_format($row->Discount,0,'.','.');?>" onkeypress="return isNumberKey(event)">
 <input type="hidden" name="txtdiskon" id="txtdiskon" class="form-control" value="<?php echo $row->Discount;?>">
 </p></div>
 

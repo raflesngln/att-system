@@ -32,15 +32,15 @@ P{ margin-top:-6px;}
 #mytable{
 	width:98%;
 	margin-top:0px;
-	border:0.5px #666 solid;
+	border:none;
 }
 #mytable tr td{
 	padding-left:2px;
 	padding-top:1px;
-	border:1px #000 solid;
+	border:1px #CCC solid;
 }
 footer{display:none;}
-.note{ margin-top:-6px;}
+.note{ margin-top:-2px;}
 .special{margin-top:-18px;}
 .special p{margin-top:-4px;}
 .lbl{font-size:5px; float:left}
@@ -57,18 +57,18 @@ footer{display:none;}
 		$kode=$data->HouseNo;
 
 		 ?>
-<table width="" border="1" id="mytable">
+<table width=""  id="mytable" style="border:1px #CCC solid">
   <tr>
     <td colspan="2" rowspan="2" style="background-color:#E6FFE6"><p style="font-size:15pt; color:#800040; text-align:center">XSYS</p>
       <p align="center" style="font-family:'Comic Sans MS', cursive">Express Network</p>
     </td>
-    <td width="288">
+    <td width="122">
       <div style="margin-top:5px;">
-        <p>ORIGINAL/ASAL</p>
+        <p>ORIGIN/ASAL</p>
         <p><?php echo $data->Origin;?></p>
         </div>
     </td>
-    <td width="411">
+    <td width="144">
      <div style="margin-top:5px;">
     <p>DESTINATION/TUJUAN</p>
       <p><?php echo $data->Destination;?></p>
@@ -79,15 +79,17 @@ footer{display:none;}
       <p>&nbsp;</p></td>
     </tr>
   <tr>
-    <td height="22">PIECES/JUMLAH SATUAN : <?php echo $data->PCS;?>
+    <td height="22">PCS/JUMLAH : <?php echo $data->PCS;?>
       </td>
     <td>WEIGHT/BERAT : <?php echo $data->CWT;?>
       </td>
   </tr>
   <tr>
     <td colspan="2">Account No.</td>
-    <td colspan="2" rowspan="3"><div class="note">By giving us shipment you agree of all itemsof conditions of non Negoitable Connote /Dengan menyerahkan kiriman anda setuju dengan ketentuan dan kondisi pada nota pengiriman ini tanpa syarat, termasuk kondisi dan ketentuan yang tertera pada bagian belakang.menyerahkan kiriman anda setuju dengan kondisi dan ketentuan pada nota ini.</div></td>
-    <td colspan="2">DECLARE VALUE/NILAI KIRIMAN</td>
+    <td colspan="2" rowspan="3">
+    <div class="note">By giving us shipment you agree of all itemsof conditions of non Negoitable Connote /Dengan menyerahkan kiriman anda setuju dengan ketentuan dan kondisi pada nota pengiriman ini tanpa syarat, termasuk kondisi dan ketentuan yang tertera pada bagian belakang.menyerahkan kiriman anda setuju dengan kondisi dan ketentuan pada nota ini.</div>
+    </td>
+    <td colspan="2" style="border-bottom:1px #FFF solid">&nbsp;</td>
     </tr>
   <tr>
    <?php
@@ -95,12 +97,13 @@ footer{display:none;}
 	if($paycode=='CSH-CASH'?$cek1='checked="checked"':$cek1='');
 	if($paycode=='CRD-CREDIT'?$cek2='checked="checked"':$cek2='');
 	?>
-    <td width="75"><span class="lbl" style="font-size:5px">TYPE OF PAYMENT/JENIS PEMABAYARAN</span></td>
-    <td width="142"><span class="lbl" style="font-size:5px">TYPE OF SHIPMENT/JENIS KIRIMAN</span></td>
+    <td width="91"><span class="lbl" style="font-size:5px">TYPE OF PAYMENT/JENIS PEMBAYARAN</span></td>
+    <td width="100"><span class="lbl" style="font-size:5px">TYPE OF SHIPMENT/JENIS KIRIMAN</span></td>
     <td colspan="2" rowspan="3">
     <table  width="95%" border="0" style="border:none; margin-top:-6px; width:100%; margin-left:-1PX">
       <tr>
         <td height="34" colspan="2" style="border-left:none; border-top:none; border-right:none">
+        <label>DECLARE VALUE/NILAI KIRIMAN :<?php echo $data->DeclareValue;?></label><br />
         <label>SERVICE/LAYANAN : <?php echo $data->Service;?></p>
           <label id="charge-header">CHARGES/HARGA(IDR)</label></td>
         </tr>
@@ -114,12 +117,9 @@ footer{display:none;}
         <td width="60" style="text-align:right; border-right:none"><?php echo number_format($row->Total,0,'.',',');?> &nbsp;</td>
         </tr>
       <?php } ?>
-      <tr>
-      <td colspan="2"></td>
-      </tr>
+
   <tr>
-  <td>Discount</td>
-  <td align="right"><?php echo 'Rp   '. number_format($data->Discount,0,',','.').',-';?></td>
+  
   </tr>
 </table></td>
     </tr>
@@ -147,7 +147,7 @@ footer{display:none;}
 	foreach($shipper as $ship){
 	?>
     <p style="margin-top:3px">SHIPPER/PENGIRIM</p>
-    <p><?php echo $ship->custName;?></p>
+    <p><?php echo $ship->CustName;?></p>
       <p>ADDRESS/ALAMAT</p>
       <p><?php echo $ship->Address;?></p>
       <p>PHONE/TELEPHONE/FAX  :<?php echo $ship->Phone;?></p>      
@@ -159,7 +159,7 @@ footer{display:none;}
 	foreach($consigne as $con){
 	?>
       <p style="margin-top:3px">CONSIGNEE/PENERIMA</p>
-      <p><?php echo $con->custName;?></p>
+      <p><?php echo $con->CustName;?></p>
       <p>ADDRESS/ALAMAT</p>
       <p><?php echo $con->Address;?> </p>
       <p> PHONE/TELEPHONE/FAX : <?php echo $con->Phone;?></p>
@@ -171,8 +171,17 @@ footer{display:none;}
     <td colspan="2" style="height:7px"><p class="detsend" style="margin-top:0px;"> SHIPPER SIGNATURE/TANDA TANGAN PENGIRIM :</p>
       </td>
     <td colspan="2"><div style="margin-top:-12px;"> ATTENTION & DEPT/DITUJUKAN & DEPT:</div></td>
-    <td width="140">TOTAL/JUMLAH</td>
-    <td width="170" style="text-align:right"><strong><?php echo 'Rp   '. number_format($data->Amount,0,',','.').',-';?></strong> &nbsp;
+    <td width="93" style="border-right:none;">
+    <label style="border-bottom:1px #CCC dashed; width:100%">Diskon</label>
+    <br style="clear:both" />
+    <label>TOTAL/JUMLAH</label>
+    
+    </td>
+    
+    <td width="115" style="text-align:right; border-left:none">
+    <label style="border-bottom:1px #CCC dashed; width:100%; text-align:right"><?php echo 'Rp   '. number_format($data->Discount,0,',','.').',-';?></label>
+    <br style="clear:both" />
+     <?php echo 'Rp   '. number_format($data->Amount,0,',','.').',-';?>  &nbsp;
       </td>
   </tr>
   <tr>
@@ -201,8 +210,11 @@ footer{display:none;}
       <p>SPECIAL INTRUCTION//INSTRUKSI KHUSUS : </p>
       <p style="margin-top:-9px"><?php echo $data->SpecialIntraction;?></p>
       </div></td>
-    <td>DATE/TANGGAL :<?php echo date("d-m-Y",strtotime($data->CreateDate)); ?></td>
-    <td>TIME/JAM :<?php echo date("h:i:s",strtotime($data->CreateDate)); ?></td>
+    <td>DATE/TANGGAL :
+    <br />
+	<?php echo date("d-m-Y",strtotime($data->CreateDate)); ?></td>
+    <td>TIME/JAM : <br />
+	<?php echo date("h:i:s",strtotime($data->CreateDate)); ?></td>
     </tr>
   <tr>
     <td height="48" colspan="2"><p style="font-size:9pt; margin-top:1px; text-align:center">WE CANNOT DELIVER TO PO.BOX</p>
@@ -221,13 +233,16 @@ footer{display:none;}
 <label>5. Red/Merah:Receiver/ Penerima</label> 
 </em>
 
-    <p style="margin-top:-3px"><strong>PT.Expresindo System Network</strong></p>
-      <p style="margin-top:-9px">perkantoran Galaxy Blok N-27</p>
-      <p style="margin-top:-11px">Outer Ring Road Barat</p>
-      <p style="margin-top:-11px">Cengkareng-Jakarta Barat 11730</p>
-      <p style="margin-top:-11px">Telp :021-55950000</p>
-    <p style="margin-top:-11px">Fax :021-55955899</p>
-    <p style="margin-top:-11px">xsysnet.com</p>
+<div class="lbl-footer">
+    <label> PT.Expresindo System Network </label>
+    <label>&nbsp; perkantoran Galaxy Blok N-27</label>
+    <label>&nbsp; Outer Ring Road Barat</label>
+    <label>&nbsp; Cengkareng-Jakarta Barat 11730</label>
+    <label>&nbsp; Telp :021-55950000</label>
+    <label>&nbsp; Fax :021-55955899</label>
+    <label>&nbsp; xsysnet.com</label>
+    </div>
+    
 </div>
 </div>
 

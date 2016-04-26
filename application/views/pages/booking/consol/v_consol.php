@@ -17,7 +17,13 @@
 											<li>
 												<a data-toggle="tab" href="#profile">
   <i class="green fa fa-building bigger-110"></i>
-										  List SMU/Master
+										  List SMU Consol
+		
+											</a></li>
+											<li>
+												<a data-toggle="tab" href="#boxhouse">
+  <i class="green fa fa-building bigger-110"></i>
+										  List House Consol
 		
 											</a></li>
 
@@ -29,7 +35,10 @@
 											</div>
 
 											<div id="profile" class="tab-pane">
-<p><?php $this->load->view('pages/booking/consol/list_consol');?></p>
+<p><?php $this->load->view('pages/booking/consol/list_smu_consol');?></p>
+											</div>
+<div id="boxhouse" class="tab-pane">
+<p><?php $this->load->view('pages/booking/consol/list_house_consol');?></p>
 											</div>
 										</div>
 									</div>
