@@ -58,10 +58,13 @@
  <script type="text/ecmascript">
  
   $(function() {
-	$("#tgl").datepicker({
+	$("#flightdate1").datepicker({
 		dateFormat:'yy-mm-dd',
 		});
-	$("#tgl2").datepicker({
+	$("#flightdate2").datepicker({
+		dateFormat:'yy-mm-dd',
+		});
+			$("#flightdate3").datepicker({
 		dateFormat:'yy-mm-dd',
 		});
 		
@@ -350,6 +353,13 @@ $("#idconsigne").click(function(){
 <form method="post" action="<?php echo base_url();?>transaction/update_outgoing_master" autocomplete="off" id="myform">
 <?php
 foreach($master as $row){
+	$flight1=explode('/',$row->FlightNumbDate1);
+	$flight2=explode('/',$row->FlightNumbDate2);
+	$flight3=explode('/',$row->FlightNumbDate3);
+	$FlightNumbDate1=$flight1[0];
+	$FlightNumbDate2=$flight2[0];
+	$FlightNumbDate3=$flight3[0];
+	
 ?>
   <div class="row">
                <!--LEFT INPUT-->
@@ -361,7 +371,8 @@ foreach($master as $row){
            
           <label class="col-sm-4">SMU/Master</label> 
           <div class="col-sm-7">
-            <input name="smu" type="text" class="form-control"  id="smu" value="<?php echo $row->NoSMU;?>" readonly/>
+            <input name="smu" type="text" class="form-control"  id="smu" value="<?php echo $row->NoSMU;?>"/>
+            <input name="notrans" type="hidden" class="form-control"  id="notrans" required value="<?php echo $row->Notrans;?>"/>
           </div>
 
 
@@ -372,28 +383,98 @@ foreach($master as $row){
 
            <label class="col-sm-4"> Payment Type</label> 
           <div class="col-sm-7">
-            <input name="paymentype" type="text" class="form-control"  id="paymentype" value="<?php echo $row->PayCode;?>" readonly />
+            <select name="paymentype" class="form-control" required="required" id="paymentype">
+          <option value="<?php echo $row->PayCode;?>"><?php echo $row->PayCode;?></option>
+                   <?php
+                   foreach ($payment_type as $pay) {
+                   ?>
+                     <option value="<?php echo $pay->PayCode.'-'.$pay->PayName;?>"><?php echo $pay->PayName;?></option>
+                     <?php } ?>
+          </select>
           </div>
            <label class="col-sm-4"> AirLineName</label> 
           <div class="col-sm-7">
-            <input name="service" type="text" class="form-control"  id="service" value="<?php echo $row->AirLineName;?>" readonly />
+            <select name="airline" class="form-control" required="required" id="airline">
+          <option value="<?php echo $row->Airlines;?>"><?php echo $row->AirLineName;?></option>
+              <?php
+                   foreach ($airline as $air) {
+                   ?>
+              <option value="<?php echo $air->AirLineCode;?>"><?php echo $air->AirLineName;?></option>
+              <?php } ?>
+            </select>
           </div>
+<div class="form-group"> 
            <label class="col-sm-4"> Service</label> 
           <div class="col-sm-7">
-            <input name="service" type="text" class="form-control"  id="service" value="<?php echo $row->Service;?>" readonly />
-          </div>
+           <select name="service" id="service" class="form-control" required="required">
+          <option value="<?php echo $row->Service;?>"><?php echo $row->Service;?></option>
+          <?php foreach ($service as $sv) {
+          ?>
+          <option value="<?php echo $sv->Name;?>"><?php echo $sv->Name;?></option>
+          <?php } ?>
+          </select>
+          </div><div class="clearfix"></div> 
+ </div>
            <label class="col-sm-4"> Origin</label> 
           <div class="col-sm-7">
-            <input name="origin" type="text" class="form-control"  id="origin" value="<?php echo $row->ori;?>" readonly />
+            <select name="origin" id="origin" class="form-control" required="required">
+          <option value="<?php echo $row->Origin;?>"><?php echo $row->Origin.'-'.$row->ori;?></option>
+          <?php foreach ($city as $ct) {
+          ?>
+          <option value="<?php echo $ct->PortCode;?>"><?php echo $ct->PortCode.' - '.$ct->PortName;?></option>
+          <?php } ?>
+          </select>
           </div>
            <label class="col-sm-4"> Destination</label> 
           <div class="col-sm-7">
-            <input name="desti" type="text" class="form-control"  id="desti" value="<?php echo $row->desti;?>" readonly />
+            <select name="desti" id="desti" class="form-control" required="required">
+         <option value="<?php echo $row->Destination;?>"><?php echo $row->Destination.'-'.$row->desti;?></option>
+          <?php foreach ($city as $ct) {
+          ?>
+          <option value="<?php echo $ct->PortCode;?>"><?php echo $ct->PortName.' - '.$ct->PortCode;?></option>
+          <?php } ?>
+          </select>
           </div>
+<div class="form-group">
+<label class="col-sm-4">  Flight No (1)</label>
+<div class="col-sm-8">
+		<div class="row">
+        <div class="col-sm-5" style="margin-left:12px;"><input name="flightno1" class="form-control" type="text" id="flightno1" value="<?php echo $FlightNumbDate1;?>"></div>
+        
+        <div class="col-sm-5">
+          <input id="flightdate1" type="text" class="form-control" readonly name="flightdate1" value="<?php echo date("Y-m-d") ;?>">
+        </div>
+         </div>
+ </div>
+</div>
+<div class="form-group">
+<label class="col-sm-4">  Flight No (2)</label> 
+<div class="col-sm-8">
+		<div class="row">
+        <div class="col-sm-5" style="margin-left:12px;"><input name="flightno2" class="form-control" type="text" id="flightno2" value="<?php echo $FlightNumbDate2;?>"></div>
+       
+        <div class="col-sm-5">
+          <input id="flightdate2" type="text" class="form-control" readonly name="flightdate2" value="<?php echo date("Y-m-d") ;?>">
+        </div>
+         </div>
+ </div>
+</div>
+<div class="form-group">
+<label class="col-sm-4">  Flight No (3)</label> 
+<div class="col-sm-8">
+		<div class="row">
+        <div class="col-sm-5" style="margin-left:12px;"><input name="flightno3" class="form-control" type="text" id="flightno3" value="<?php echo $FlightNumbDate3;?>"></div>
+       
+        <div class="col-sm-5">
+          <input id="flightdate3" type="text" class="form-control" readonly name="flightdate3" value="<?php echo date("Y-m-d") ;?>">
+        </div>
+         </div>
+ </div>
+</div>
 <div class="col-sm-12"><hr style="border:1px #CCC dashed"></div>
            <label class="col-sm-4"> Shipper</label> 
           <div class="col-sm-7">
-            <input type="text" name="idshipper" id="idshipper" class="form-control" value="<?php echo $row->sender;?>" autocomplete="off" required readonly/>
+            <input type="text" name="idshipper" id="idshipper" class="form-control" value="<?php echo $row->sender;?>" autocomplete="off"/>
             <input name="name1" type="hidden" class="form-control"  id="name1" required value="<?php echo $row->custName;?>"/>
           <input name="idsender" type="hidden" class="form-control"  id="idsender" required value="<?php echo $ship->custCode;?>"/>
           </div>
@@ -419,7 +500,7 @@ foreach($master as $row){
     <div class="col-sm-4">
       <label for="codeship">Code Shipper</label></div>
     <div class="col-sm-7">
-      <input type="text" name="codeship" id="codeship" class="autocomplete form-control" value="<?php echo $row->CodeShipper;?>" readonly  />
+      <input type="text" name="codeship" id="codeship" class="autocomplete form-control" value="<?php echo $row->CodeShipper;?>"  />
     </div>
 </div>
 
@@ -445,7 +526,7 @@ foreach($master as $row){
 <div class="clearfx">&nbsp;</div>
          <label class="col-sm-4">Booking No</label> 
           <div class="col-sm-7">
-            <input name="booking" type="text" class="form-control"  id="booking" value="<?php echo $row->BookingNo;?>" readonly />
+            <input name="booking" type="text" class="form-control"  id="booking" value="<?php echo $row->BookingNo;?>" />
           </div>
 
             <label class="col-sm-4"> ETD</label> 
@@ -466,7 +547,7 @@ foreach($master as $row){
            <label class="col-sm-4"> Consignee</label>
            
             <div class="col-sm-7">
-              <input name="idconsigne" type="text" class="form-control"  id="idconsigne" value="<?php echo $row->receiver;?>" readonly required/>
+              <input name="idconsigne" type="text" class="form-control"  id="idconsigne" value="<?php echo $row->receiver;?>"/>
               <input name="name2" type="hidden" class="form-control"  id="name2" required />
             <input name="idreceivement" type="hidden" class="form-control"  id="idreceivement" required value="<?php echo $con->custCode;?>"/>
           </div> 
@@ -491,7 +572,7 @@ foreach($master as $row){
     <div class="col-sm-4">
       <label for="codeship">Code Consignee</label></div>
     <div class="col-sm-7">
-      <input name="codesigne" type="text" class="form-control" value="<?php echo $row->CodeConsigne;?>"  id="codesigne" readonly/>
+      <input name="codesigne" type="text" class="form-control" value="<?php echo $row->CodeConsigne;?>"  id="codesigne"/>
     </div>
 </div>
 
@@ -633,111 +714,7 @@ foreach($master as $row){
     </div>
   
                                    
-<div class="form-group">
-    <div class="table-responsive" id="table_responsive">
-<h2><span class="label label-large label-pink arrowed-in-right"> COST / CHARGES </span></h2>
-    <table class="table table-hover" id="tblcharges" style="width:95%">
-                                              <thead>
-                                                <tr>
-                                                  <th>Charges</th>
-                                                  <th>Price</th>
-                                                  <th width="75">Qty</th>
-                                                  <th style="width:28%">Desc</th>
-                                                  <th>Total</th>
-                                                  <th class="text-center"><a class="btn  btn-primary btn-round" href="#modaladdCharge" data-toggle="modal" title="Add item" id="addchrg"><i class="icon-plus icons"></i> Add Cost</a></th>
-                                                </tr> </thead>
-                                                
- <?php 
- foreach($airfreight as $fr)
- {
-	  $total1=$fr->Total;
-	  
- ?>
-       <tbody>
-                                                <tr>
-  <td height="26"><span class="col-sm-4">AirFreight
- <input type="hidden" name="idcharge[]" id="idcharge[]" value="1">
-   </span></td>
- 
- <td><input type="text" name="unit[]" id="pricefreight" onChange="return count_freight3(this);" required class="form-control" style=" text-align:right" value="<?php echo $fr->Price; ?>" onkeypress="return isNumberKey(event)"> <span id="label_price" style="text-align:right;color:#1963aa;font-style:italic"><?php echo 'Rp '.number_format($fr->Price,0,'.','.'); ?></span></td>
-                                                  <td><input type="text" name="qty[]" id="qtyfreight" style="text-align:right; width:50px" value="<?php echo $row->CWT; ?>" class="form-control" readonly></td>
-                                                  <td>
 
-      <input type="text" name="desc[]" id="descfreight" style="width:100%" class="form-control" value="<?php echo $fr->ChargeDetail; ?>">                                            
-                                                  </td>
-                                                  <td><input type="hidden" name="totalcharges[]" id="totfreight" style="width:98%;text-align:right" value="<?php echo $total1; ?>" required readonly class="form-control">
-<label id="label_totfreight" style="float:right;color:#1963aa;font-style:italic"><?php echo number_format($total1,0,'.','.'); ?></label>                                                  
-
-                                                  
-                                                  <td class="text-center">&nbsp;</td>
-                                                </tr>
- <?php } ?>                                               
-  <?php 
- foreach($cost_smu as $c_smu)
- {
-	 $total2=$c_smu->Total;
- ?>
-                                                <tr>
-                                                  <th><span class="col-sm-4">SMU
-                                                    <input type="hidden" name="idcharge[]" id="idcharge[]2" value="2">
-                                                  </span></th>
-                                                  <th><input type="text" name="unit[]" id="pricefreight2" style="text-align:right" onChange="return count_freight2(this)" required class="form-control"  value="<?php echo $c_smu->Price; ?>" onkeypress="return isNumberKey(event)"><span id="label_price2" style="text-align:right;color:#1963aa;font-style:italic"><?php echo 'Rp '. number_format($c_smu->Price,0,'.','.'); ?></span></th>
-                                                  <th><input type="text" name="qty[]" id="qtyfreight2" style="text-align:right; width:50px" class="form-control" value="<?php echo $c_smu->Qty; ?>" onChange="return count_freight2(this)" onkeypress="return isNumberKey(event)"></th>
-                                                  <th><input type="text" name="desc[]" id="descfreight2" style="width:100%" class="form-control" value="<?php echo $c_smu->ChargeDetail; ?>"></th>
-                                                  <th><input type="hidden" name="totalcharges[]" id="totfreight2" style="width:98%;text-align:right" readonly required class="form-control" value="<?php echo $total2; ?>">
-<label id="label_totfreight2" style="float:right;color:#1963aa;font-style:italic"><?php echo number_format($total2,0,'.','.'); ?></label>
-</th>
-                                                  <th class="text-center">&nbsp;</th>
-                                                </tr>
- <?php } ?>
-   <?php 
- foreach($chargeoptional as $opsi)
- {
-	 $total3+=$opsi->Total;
- ?>
-                                                <tr>
-                                                  <td width="83"><?php echo $opsi->ChargeName; ?>
-                                                    <input type="hidden" name="idcharge[]" id="idcharge3" value="<?php echo $opsi->ChargeCode; ?>">
-                                                  </td>
-                                                  <td width="190" align="right"><input type="hidden" name="unit[]" id="idcharge4" value="<?php echo $opsi->Price; ?>">                                                    <?php echo number_format($opsi->Price,0,'.','.'); ?>
-   
- </td>
-                                                  <td width="75" align="right"><input type="hidden" name="qty[]" id="idcharge5" value="<?php echo $opsi->Qty; ?>">                                                    <?php echo $opsi->Qty; ?></td>
-                                                  <td width="181" align="left"><?php echo $opsi->ChargeDetail; ?>
-                                                  <input type="hidden" name="desc[]" id="idcharge" value="<?php echo $opsi->ChargeDetail; ?>"></td>
-                                                  <td width="64" align="right"><input type="hidden" name="totalcharges[]" id="idcharge2" value="<?php echo $opsi->Total; ?>">                                                    <?php echo number_format($opsi->Total,0,'.','.'); ?></td>
-                                                  <td class="text-center"><button value="<?php echo $opsi->Total; ?>" id="del_charge" class="del_charge btn btn-mini btn-danger" onClick="hapuscharge(this)" type="button">x</button>
-                                                  
-<button value="<?php echo $opsi->ChargeCode.'/'.$opsi->ChargeName.'/'.$opsi->Price.'/'.$opsi->Qty.'/'.$opsi->ChargeDetail.'/'.$opsi->Total;?>" id="edit_charge" class="edit btn btn-mini btn-primary" onClick="editcharge(this)" type="button"><i class="fa fa-edit"></i></button>
-                                                  </td>
-                                                </tr>
-    <?php } ?>
-                                                
-                                                
-                                               
-                                        
-                                            
-                                              </tbody>
-
-                                               <tfoot> 
-                                                 <tr>
-
-                                                  <td><b>Total</b></td>
-                                                  <td colspan="4"><div align="right">
-   <?php
-   $totalcharge=$total1+$total2+$total3;
-   $grand=$totalcharge-$row->Discount;
-   ?>
-                                                  <input name="total_charge" type="hidden" id="total_charge" value="<?php echo $totalcharge;?>" />
-  <label id="label_charges"><?php echo 'Rp '.number_format($totalcharge,0,'.','.');?></label>                                                                                           
-                                                  
-                                                  </strong></div></td>
-                                                  <td width="47">&nbsp;</td>
-                                                </tr></tfoot>
-                                                
-                                            </table>
-              </div>
-                  </div>
                                      
  
 
@@ -753,27 +730,7 @@ foreach($master as $row){
  
  
 <!-- discoount iinput -->
-<div class="col-sm-12 line" id="line">
 
-
-<div class="col-sm-8"><p class="text-right">TOTAL </p></div>
-<div class="col-sm-2"><p class="text-left"><input type="text" name="t_total" id="t_total" class="form-control txtrp" value="<?php echo number_format($totalcharge,0,'.','.');?>" readonly>
-<input type="hidden" name="txttotal" id="txttotal" value="<?php echo $totalcharge;?>">
-</p>
-</div>
-
-<div class="col-sm-8"><p class="text-right">DISKON </p></div>
-<div class="col-sm-2"><p class="text-left"><input type="text" name="diskon" id="diskon" class="form-control txtrp" onchange="return diskonRp(this);" value="<?php echo number_format($row->Discount,0,'.','.');?>" onkeypress="return isNumberKey(event)">
-<input type="hidden" name="txtdiskon" id="txtdiskon" class="form-control" value="<?php echo $row->Discount;?>">
-</p></div>
-
-<div class="col-sm-8"><p class="text-right">GRAND TOTAL </p></div>
-<div class="col-sm-2"><p class="text-left"><input type="text" name="grandtotal" id="grandtotal" class="form-control txtrp"  readonl="readonly" readonly value="<?php echo number_format($grand,0,'.','.');?>">
-<input type="hidden" name="txtgrandtotal" id="txtgrandtotal" class="form-control" value="<?php echo $grand;?>">
-</p></div>
-
-
-</div>
 
 
 
@@ -800,264 +757,14 @@ foreach($master as $row){
 
 
 
-<div id="modaladd" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add Items</h3>
-            </div>
-            <div class="smart-form scroll">
-                    <div class="modal-body">
-                     
-                   
-<div class="form-group">
-                        <label class="col-sm-3 control-label">No of Pcs </label>
-                        <div class="col-sm-9"><span class="controls">
-                        <input name="pack" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="pack" value="" />
-</span></div>
-            <div class="clearfix"></div>
-            </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Length &nbsp; ( P )</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="panjang" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="panjang" value=""/>
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>
-  <div class="form-group">
-                        <label class="col-sm-3 control-label">Width &nbsp; ( L )</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="lebar" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="lebar" value=""/>
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Height &nbsp; ( T )</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="tinggi" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="tinggi" value="" />
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>                    
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Weight &nbsp; ( T )</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="weight" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="weight" value=""/>
-</span></div>
-                        <div class="clearfix"></div>
-               </div>
-  <div class="modal-footer">
-<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary" id="iditems"> Save</button>
-              
-    </div>
-                    </div>
-            
-            </div>
-        </div>
-    </div>
-    </div>
+
 <!--adding form-->
-<div id="modaladdCharge" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close cancel" data-dismiss="modal" aria-hidden="true" id="cancel2">×</button>
-                <h3 id="titlecharges">Add Charges</h3>
-            </div>
-            <div class="smart-form scroll">
 
-                    <div class="modal-body">
-                     
-                   
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Charges </label>
-                        <div class="col-sm-9"><span class="controls">
-              <select name="charge" class="form-control" required="required" id="charge">
-          
-          <?php foreach ($charge as $crg) {
-          ?>
-            <option value="<?php echo $crg->ChargeCode.'-'.$crg->ChargeName;?>"><?php echo $crg->ChargeName;?></option>
-          <?php } ?>
-              </select> 
-                          </span>
-                          </div>
-                        <div class="clearfix"></div>
-  </div>
-
-  <div class="form-group">
-                        <label class="col-sm-3 control-label">&nbsp;Price</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="txtunit" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="txtunit" />
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Qty &nbsp; </label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="qty" type="number" class="form-control" onkeypress="return isNumberKey(event)" value="1" id="txtqty" />
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>                    
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Description &nbsp;</label>
-                        <div class="col-sm-9"><span class="controls">
-                <textarea name="desc" id="desc" class="form-control"></textarea>
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>
-  <div class="modal-footer">
-<button class="cancel btn btn-danger" data-dismiss="modal" aria-hidden="true" id="cancel"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary" id="savecharges" onClick="savecharges()"> Save</button>
-    </div>
-                    </div>
-            
-           
-            </div>
-        </div>
-    </div>
-    </div>
 
     
 
 <!--ADDING NEW CUSTOMERS MODAL-->
-<div id="modaladdcust" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Add New Customer </h3>
-            </div>
-            <div class="smart-form scroll">
-                <!-- <form method="post" action="<?php //echo site_url('booking/save_customer')?>">  -->
-                    <div class="modal-body">
-                      <div class="form-group">
-                        <label class="col-sm-3 control-label"> Initial <input type="hidden" name="page" id="page" value="incomaster"></label>
-                        <div class="col-sm-8"><span class="controls">
-                          <input name="initial" type="text" class="form-control" placeholder="initial" id="initial" />
-                          
-                        </span></div><label class="col-sm-1 label-confir" id="label-confir"></label>
-                        <div class="clearfix"></div>
-                      </div>
-                      <div class="form-group">
-                        <label class="col-sm-3 control-label">Name</label>
-                        <div class="col-sm-8"><span class="controls">
-                          <input name="namecust" type="text" class="form-control" required id="namecust" />
-                        </span></div>
-                        <label class="col-sm-1 label-confir" id="label-confir2"></label
-                        ><div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Address</label>
-                        <div class="col-sm-9">
-                          <textarea name="address" cols="30" rows="2" class="form-control" id="address"></textarea>
-                        </div>
-                        <div class="clearfix"></div>
-                      </div>
- <div class="form-group">
-                        <label class="col-sm-3 control-label">City</label>
-    <div class="col-sm-9"><span class="controls">
-      <select name="city" id="city" required="required" class="form-control">
-          <option value="">Chosse City</option>
-          <?php
-  foreach($city as $ct){
-      ?>
-          <option value="<?php echo $ct->cyCode;?>"><?php echo $ct->cyName;?></option>
-          <?php } ?>
-</select>
-      </span></div>
-                        <div class="clearfix"></div>
-                      </div>
- <div class="form-group">
-              <label class="col-sm-3 control-label">Phone</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="phone" type="text" class="form-control" required id="phone" onkeypress="return isNumberKey(event)" />
-              </span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Fax</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="fax" type="text" class="form-control" required id="fax" onkeypress="return isNumberKey(event)" />
-              </span></div>
-                        <div class="clearfix"></div>
-                      </div>
- <div class="form-group">
-                        <label class="col-sm-3 control-label">Postal Code</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="postcode" type="text" class="form-control" id="postcode" onkeypress="return isNumberKey(event)" />
-    </span></div>
-                        <div class="clearfix"></div>
-                      </div>
- <div class="form-group">
-   <label class="col-sm-3 control-label">Email</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="email" type="email" class="form-control" placeholder="Email" id="email" />
-              </span></div>
-                        <div class="clearfix"></div>
-                    </div>
- <div class="form-group">
-            <label class="col-sm-3 control-label">Remarks</label>
-                        <span class="col-sm-9">
-                        <textarea name="remarks2" cols="30" rows="2" class="form-control" id="remarks2" required></textarea>
-                        </span>
-                        <div class="col-sm-9"></div>
-                        <div class="clearfix"></div>
-                      </div>
-<hr /> 
 
-<div class="form-group">
-     <em><label class="col-sm-4 control-label">&nbsp;</label> 
-    <label class="col-sm-6 control-label">&nbsp;</label></em>
-
-<div class="col-sm-2"></div>
-
- <div class="col-sm-4"><span class="controls">
-   <label><span> &nbsp; Agent</span>
-      <select name="isagent" id="isagent" class="form-control">
-        <option value="1">&nbsp;Yes&nbsp;</option>
-        <option value="0">&nbsp;No&nbsp;</option>
-      </select>                      
-      </label>
-    </span>
-</div>
-
-<div class="col-sm-4"><span class="controls">
-   <label><span> &nbsp; SHipper</span>
-      <select name="isshipper" id="isshipper" class="form-control">
-        <option value="1">&nbsp;Yes&nbsp;</option>
-        <option value="0">&nbsp;No&nbsp;</option>
-      </select>                      
-      </label>
-    </span>
-</div>
-
-<div class="col-sm-4"><span class="controls">
-   <label><span> &nbsp; CNEE</span>
-      <select name="iscnee" id="iscnee" class="form-control">
-        <option value="1">&nbsp;Yes&nbsp;</option>
-        <option value="0">&nbsp;No&nbsp;</option>
-      </select>                      
-      </label>
-    </span>
-</div>
-    
-<div class="clearfix"></div>
-                      </div>
-<div class="modal-footer">
-<button class="btn btn-danger " data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-<button class="btn btn-primary addcust" id="addcust"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
-</div>
-<div class="clearfx">&nbsp;</div>
-                    </div>
-            
-              <!--  </form>  -->
-            </div>
-        </div>
-    </div>
-    </div>
 <script type="text/javascript">
   
 $("#addcust").click(function(){

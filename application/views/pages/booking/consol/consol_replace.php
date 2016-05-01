@@ -1,5 +1,5 @@
 <div class="row" id="contentreplace">
-                <div class="col-sm-6 portlets ui-sortable" id="freecontent" style="box-shadow:2px 3px 8px #CCC; border:1px #CCC solid">
+                <div class="col-sm-7 portlets ui-sortable" id="freecontent" style="box-shadow:2px 3px 8px #CCC; border:1px #CCC solid">
                     <div class="panel">
                         <!--<div class="panel-header"></div>-->
                         
@@ -81,7 +81,7 @@
 
           </div>
       </div>
-                <div class="col-sm-6 portlets ui-sortable" id="added">
+                <div class="col-sm-5 portlets ui-sortable" id="added">
                     <div class="panel">
                         <!--<div class="panel-header"></div>-->
                         
@@ -93,17 +93,14 @@
                                               <thead>
                                                 
                                                   <tr>
-                                                    <th colspan="9"><span class="span4 label label-large label-inverse" style="text-align:left;padding-top:7px">Remain House in SMU</span></th>
+                                                    <th colspan="6"><span class="span4 label label-large label-inverse" style="text-align:left;padding-top:7px">Remain House in SMU</span></th>
                                                   </tr>
                                                   <tr>
                                                   <th>House</th>
                                                   <th>CSHIP</th>
                                                   <th>CWT</th>
                                                   <th>PCS</th>
-                                                  <th class="text-center">(C)CWT</th>
-                                                  <th class="text-center">(R)CWT</th>
-                                                  <th class="text-center">(C)PCS</th>
-                                                  <th class="text-center">(R)PCS</th>
+                                                  <th class="text-center">..</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                               </thead>
@@ -129,10 +126,10 @@ $totpcs='0';
                                                     <td><input type="text" name="rightshipper[]" id="rightshipper[]" value="<?php echo $row->CodeShipper?>" style="width:40px"/></td>
                                                     <td><input type="text" name="rightcwt[]" id="rightcwt[]" value="<?php echo $row->CWT?>" style="width:40px"/></td>
                                                     <td><input type="text" name="rightpcs[]" id="rightpcs[]" value="<?php echo $row->PCS?>" style="width:40px"/></td>
-                                                    <td align="center"><input type="text" name="rightconsoled[]" id="rightconsoled[]" value="<?php echo $row->ConsoledCWT?>" style="width:40px"/></td>
-                                                    <td align="center"><input type="text" name="remainconsoled[]" id="remainconsoled[]" value="<?php echo $row->RemainCWT?>" style="width:40px"/></td>
-                                                    <td align="center"><input type="text" name="rightconsoledpcs[]" id="rightconsoledpcs[]" value="<?php echo $row->ConsoledPCS?>" style="width:40px"/></td>
-                                                    <td align="center"><input type="text" name="rightremainpcs[]" id="rightremainpcs[]" value="<?php echo $row->RemainPCS?>" style="width:40px"/>
+                                                    <td align="center"><input type="hidden" name="rightconsoled[]" id="rightconsoled[]" value="<?php echo $row->ConsoledCWT?>" style="width:40px"/>
+                                                    <input type="hidden" name="remainconsoled[]" id="remainconsoled[]" value="<?php echo $row->RemainCWT?>" style="width:40px"/>
+                                                    <input type="hidden" name="rightconsoledpcs[]" id="rightconsoledpcs[]" value="<?php echo $row->ConsoledPCS?>" style="width:40px"/>
+                                                    <input type="hidden" name="rightremainpcs[]" id="rightremainpcs[]" value="<?php echo $row->RemainPCS?>" style="width:40px"/>
                                                     <input type="hidden" name="rightcommodity[]" id="rightcommodity[]" value="<?php echo $row->Commodity?>" style="width:40px"/></td>
                                                     <td align="center">
                                                       
@@ -154,9 +151,6 @@ $totpcs='0';
                                                   <td><div align="right">
                                                     <input type="text" class="totpcs" value="<?php echo $totpcs?>" name="totpcs" style="width:40px" />
                 </div></td>
-                                                  <td>&nbsp;</td>
-                                                  <td>&nbsp;</td>
-                                                  <td>&nbsp;</td>
                                                   <td>&nbsp;</td>
                                                   <td>&nbsp;</td>
               </tr>

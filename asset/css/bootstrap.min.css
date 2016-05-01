@@ -3666,7 +3666,7 @@ button.close {
 .modal-body {
     position: relative;
     padding: 15px;
-    background-color: #eee;
+    background-color:white;
     color: rgba(8, 8, 23, 0.68);
   /*  border: 1px #99A9B6 solid; */
 }

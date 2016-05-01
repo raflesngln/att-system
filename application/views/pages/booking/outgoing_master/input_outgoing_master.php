@@ -64,6 +64,16 @@
 	$("#tgl2").datepicker({
 		dateFormat:'yy-mm-dd',
 		});
+	$("#flightdate1").datepicker({
+		dateFormat:'yy-mm-dd',
+		});
+	$("#flightdate2").datepicker({
+		dateFormat:'yy-mm-dd',
+		});			
+	$("#flightdate3").datepicker({
+		dateFormat:'yy-mm-dd',
+		});		
+		
 		
   });
 
@@ -330,7 +340,7 @@ $("#idconsigne").click(function(){
   <body>
 
  <!-- ==========================================================  -->   
-  <div class="row-fluid">
+  <div class="row-fluid" style="">
     <div class="span12">
                   <?php
       if(isset($eror)){?>
@@ -507,7 +517,7 @@ $("#idconsigne").click(function(){
 <div class="form-group">           
           <label class="col-sm-4"> Shipper</label> 
           <div class="col-sm-7">
-            <input type="text" name="idshipper" id="idshipper" class="form-control" placeholder="types customer name" autocomplete="off" />
+            <input type="text" name="idshipper" id="idshipper" class="form-control" placeholder="types customer name" autocomplete="off" required />
           <input name="name1" type="hidden" class="form-control"  id="name1"  value="<?php echo $row->custName;?>"/>
           <input name="idsender" type="hidden" class="form-control"  id="idsender"  value="<?php echo $row->custName;?>"/>
           </div>
@@ -542,7 +552,7 @@ $("#idconsigne").click(function(){
 <div class="form-group form-inline">
            <label class="col-sm-4"> Consignee</label>
             <div class="col-sm-7">
-            <input name="idconsigne" type="text" class="form-control"  id="idconsigne" placeholder="types customer name" autocomplete="off" />
+            <input name="idconsigne" type="text" class="form-control"  id="idconsigne" placeholder="types customer name" autocomplete="off" required />
             <input name="name2" type="hidden" class="form-control"  id="name2"  />
             <input name="idreceivement" type="hidden" class="form-control"  id="idreceivement"  value="<?php echo $row->custName;?>"/>
           </div>
@@ -679,10 +689,10 @@ $("#idconsigne").click(function(){
     </div>
   
                                    
-<div class="form-group">
+<div class="form-group" style="display:none">
     <div class="table-responsive" id="table_responsive">
 <h2><span class="label label-large label-pink arrowed-in-right"> COST / CHARGES </span></h2>
-    <table class="table table-hover" id="tblcharges" style="width:95%">
+    <table class="table table-hover" id="tblcharges" style="width:95%;">
                                               <thead>
                                                 
                                                 <tr>
@@ -765,7 +775,7 @@ $("#idconsigne").click(function(){
  
  
 <!-- discoount iinput -->
-<div class="col-sm-12 line" id="line">
+<div class="col-sm-12 line" id="line" style="display:none">
 
 
 <div class="col-sm-8"><p class="text-right">TOTAL </p></div>
@@ -1447,19 +1457,7 @@ $("#label_charges").html(hasil);
 
 
 
-$('#myform').submit(function(){
-	
-var txtgrandtotal=$("#txtgrandtotal").val();
-var total_charge=$("#total_charge").val();
-if(txtgrandtotal <=0){
-	alert('Total Charge Cannot be null !');
-	$("#txtgrandtotal").val(total_charge);
-	$("#grandtotal").val(toRp(total_charge));
-	$("#txtdiskon").val(0);
-	$("#diskon").val(0);
-	return false;
-}
-});
+
 $('#plane').change(function(){
     	$.getJSON("<?php echo base_url('transaction/getcost'); ?>",
 		{

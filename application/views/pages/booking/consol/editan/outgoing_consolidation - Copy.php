@@ -59,18 +59,7 @@
             <input name="tgl" type="text" class="form-control"  id="tgl" required="required" readonly="readonly" value="<?php echo date('Y-m-d');?>" onchange="return filterDate()"/>
           </div>
  </div>
-<div class="form-group">                     
-          <strong><label class="col-sm-4">Destination</label></strong>
-          <div class="col-sm-7">
-           <select name="destination" class="form-control" required="required" id="destination" onchange="return filterDestination()">
-           <option value="">Select Destination </option>
-      <?php foreach($desti as $data){
-		  ?>
-          <option value="<?php echo $data->portcode;?>"><?php echo $data->desti.' - '.$data->portcode;?></option>
-          <?php } ?>
-          </select>
-          </div>
- </div>
+ 
  <div class="form-group">                     
           <strong><label class="col-sm-4">Status SMU</label></strong>
           <div class="col-sm-7">
@@ -82,6 +71,16 @@
           </select>
           </div>
  </div>
+<div class="form-group">                     
+          <strong><label class="col-sm-4">Destination</label></strong>
+          <div class="col-sm-7">
+           <select name="destination" class="form-control" required="required" id="destination" onchange="return filterDestination()">
+           <option value="">Select Destination </option>
+
+          </select>
+          </div>
+ </div>
+ 
   <div class="form-group">                     
           <strong><label class="col-sm-4"> SMU No</label></strong>
           <div class="col-sm-7">
@@ -148,14 +147,15 @@
                                               <thead>
                                                 
                                                   <tr>
-                                                    <th colspan="6"><span class="span4 label label-large label-inverse" style="text-align:left;padding-top:7px">Free House</span></th>
+                                                    <th colspan="7"><span class="span4 label label-large label-inverse" style="text-align:left;padding-top:7px">Free House</span></th>
                                                   </tr>
                                                   <tr>
                                                   <th>House No</th>
                                                   <th>PCS</th>
                                                   <th>CWT</th>
-                                                  <th>Consoled CWT</th>
-                                                  <th>Remain CWT</th>
+                                                  <th>CCWT</th>
+                                                  <th> RCWT</th>
+                                                  <th class="text-center">.</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                               </thead>
@@ -172,8 +172,9 @@
                                                     <td><?php echo $free->CWT?></td>
                                                     <td><?php echo $free->ConsoledCWT?></td>
                                                     <td><?php echo $free->RemainCWT?></td>
+                                                    <td>&nbsp;</td>
                                                     <td>
-<button class="move_consol btn btn-mini btn-primary" type="button" value="<?php echo $free->HouseNo.'/'.$free->CWT.'/'.$free->PCS.'/'.$free->ConsoledCWT.'/'.$free->RemainCWT;?>" onClick="move_consol(this)"><i class="fa fa-check"></i></button>
+<button class="move_consol btn btn-mini btn-primary" type="button" value="<?php echo $free->HouseNo.'/'.$free->CWT.'/'.$free->PCS.'/'.$free->ConsoledCWT.'/'.$free->RemainCWT.'/'.$free->Commodity;?>" onClick="move_consol(this)"><i class="fa fa-check"></i></button>
  </td>
                                                   </tr>
                 <?php $no++;} ?>  
@@ -185,6 +186,7 @@
                                                   <td>&nbsp;</td>
                                                   <td>&nbsp;</td>
                                                   <td><div align="right"><label id="pcsfree"><?php //echo $t_cwt?></label></div></td>
+                                                  <td>&nbsp;</td>
                                                   <td>&nbsp;</td>
                                                 </tr>
                                              </tfoot>
@@ -237,7 +239,7 @@
                                                     <td>&nbsp;</td>
                                                     <td>&nbsp;</td>
                                                     <td>
-                                                    <button value="<?php echo $row->HouseNo.'/'.$row->CWT.'/'.$row->PCS.'/'.$row->ConsoledCWT.'/'.$row->RemainCWT;?>" id="ceklish" class="ceklish btn btn-mini btn-success" type="button" onclick="return reconsol_house(this)"><i class="icon icon-share-alt icon-on-right white"></i></button>
+                                                    <button value="<?php echo $row->HouseNo.'/'.$row->CWT.'/'.$row->PCS.'/'.$row->ConsoledCWT.'/'.$row->RemainCWT.'/'.$row->Commodity;?>" id="ceklish" class="ceklish btn btn-mini btn-success" type="button" onclick="return reconsol_house(this)"><i class="icon icon-share-alt icon-on-right white"></i></button>
                                                     
 
                                                     </td>
@@ -250,8 +252,12 @@
  <tfoot>
  <tr style="background-color:#F5F5F5" class="addedtable-tr">
                                                   <td>&nbsp;</td>
-                                                  <td><input type="text" class="totcwt" value="0" name="totcwt" style="width:50px" />                                                    <?php echo $t_cwt2?></td>
-                              <td><input type="text" class="totpcs" value="0" name="totpcs" style="width:50px" />                                <?php echo $t_cwt2?></td>
+                                                  <td><?php echo $t_cwt2?>                                                    <div align="right">
+                                                    <input type="text" class="totcwt" value="0" name="totcwt" style="width:50px" />
+                                                  </div></td>
+                              <td><?php echo $t_cwt2?>                                <div align="right">
+                                <input type="text" class="totpcs" value="0" name="totpcs" style="width:50px" />
+                              </div></td>
                               <td>&nbsp;</td>
                               <td>&nbsp;</td>
                                                   <td>&nbsp;</td>
@@ -428,7 +434,7 @@
     
                     <div class="modal-body">
                      
- <h4 style="color:#999">CWT is too large or SMU is full,please input the available space in SMU</h4>   
+ <p style="color:#999">CWT is too large or SMU is full,please input the available space in SMU</p>   
   <div class="clearfix"></div>       
 
 <div class="form-group">  
@@ -445,7 +451,6 @@
   <span class="span2">CWT</span>  
   <span class="span3"><input name="txtcwt" type="text" class="form-control" placeholder="" id="txtcwt" max="" min="1"/>
   </span>
-<label class="span3" id="labelremain">Of remain cwt </label>
 
 <span class="span2">Available cwt</span>
  <span class="span2">
@@ -456,7 +461,7 @@
 <div class="form-group">
 <label class="span2">PCS </label>
    <div class="col-sm-5"><span class="controls">
- <input name="leftpcs[]" type="text" class="form-control" placeholder="" id="txtpcs" />
+ <input name="txtpcs" type="text" class="form-control" placeholder="" id="txtpcs" />
 </span></div>
  
                         <div class="clearfix"></div>
@@ -464,22 +469,55 @@
 <div class="form-group">
 <label class="span2">Consoled </label>
    <div class="col-sm-5"><span class="span8">
-     <input name="leftconsoled[]" type="text" class="form-control" placeholder="" id="txtconsol"/>
-   </span></div>
+     consoled<input name="txtconsol" type="text" class="form-control" placeholder="" id="txtconsol"/>
+     remain<input name="txtremain" type="text" class="form-control" placeholder="" id="txtremain"/>
+   </span>
+     <span class="span8">
+    consolpcs <input name="txtconsolpcs" type="text" class="form-control" placeholder="" id="txtconsolpcs"/>
+     </span><span class="span8">
+    remainpcs <input name="txtremainpcs" type="text" class="form-control" placeholder="" id="txtremainpcs"/>
+     </span>
+<input type="t" name="txtcommodity" id="txtcommodity" />
+   <input type="t" name="txtshipper" id="txtshipper" />
+   </div>
  
                         <div class="clearfix"></div>
                       </div>
-<div class="form-group">
-<label class="span2">Remain </label>
-   <div class="col-sm-5"><span class="controls">
- <input name="leftremain[]" type="text" class="form-control" placeholder="" id="txtremain" />
-</span></div>
- 
-                        <div class="clearfix"></div>
-                      </div>
+
 <div class="modal-footer">
   <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
       <button class="btn btn-primary" id="btninsert" onclick="return move_consol2()"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
+</div>
+                    </div>
+            
+            </div>
+        </div>
+    </div>
+    </div>
+    
+ <div id="modalalert" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h2 align="center">Warning!</h2>
+     
+            </div>
+            <div class="smart-form scroll">
+    
+                    <div class="modal-body">
+                     
+ <p style="color:#999">CWT is too large or SMU is full,please input the available space in SMU</p>   
+  <div class="clearfix"></div><div class="clearfix"></div>
+ 
+ 
+ 
+ <div class="clearfix"></div>
+ <div class="clearfix"></div>
+ <div class="modal-footer">
+   <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
+      <button class="btn btn-primary" id="btnalert"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
 </div>
                     </div>
             
@@ -494,23 +532,50 @@ $("#status_smu").change(function(){
 	var destination = $("#destination").val();
 	var status_smu = $("#status_smu").val();
      $.ajax({
-	url: "<?php echo base_url('transaction/getsubMaster');?>",
+	url: "<?php echo base_url('transaction/getStatus');?>",
 			//dataType: "json",
 			type: "POST",
 			data: "tgl="+tgl+"&destination="+destination+"&status_smu="+status_smu,
 			success: function(data) {
-				$('#nosmu').html(data);
-				
+				$('#destination').html(data);	
+			}
+		});
+ });
+ $("#status_smu").change(function(){
+				var tgl = $("#tgl").val();
+				var destination = $("#destination").val();
+				var status_smu = $("#status_smu").val();
+				$("#nosmu").empty('');
+				$("#nosmu").text('');
 				$('#origin').val('');
 				$('#desti').val('');
 				$('#etd').val('');
 				$('#qty').val('');
 				$('#cwt').val('');
 				$('#limitcwt').val('');
-				$('.addedtable-tr').remove();	
+
+ });
+
+ $("#destination").change(function(){
+    var tgl = $("#tgl").val();
+	var destination = $("#destination").val();
+	var status_smu = $("#status_smu").val();
+     $.ajax({
+	url: "<?php echo base_url('transaction/filterSMU');?>",
+			//dataType: "json",
+			type: "POST",
+			data: "tgl="+tgl+"&destination="+destination+"&status_smu="+status_smu,
+			success: function(data) {
+				$('#nosmu').html(data);	
+				$('#origin').val('');
+				$('#desti').val('');
+				$('#etd').val('');
+				$('#qty').val('');
+				$('#cwt').val('');
+				$('#limitcwt').val('');
 			}
 		});
- });
+ }); 
 function filterDate(){
 	var tgl = $("#tgl").val();
 	var destination = $("#destination").val();
@@ -540,7 +605,22 @@ function filterDestination(){
                 }
             });
 }
-
+$("#nosmuuuuuuu").change(function(){
+	
+		var righthouse=document.getElementsByName('righthouse[]');
+        
+		//for(i=0; i < righthouse.length; i++)  {  
+     if(righthouse.length >=1){
+		 
+		 var answer=confirm('Discar data ?');
+		 if(answer){
+			  return false;
+		 } else {
+			 return false;
+		 }
+	  }
+ });
+ 
 $("#nosmu").change(function(){
 	var tgl = $("#tgl").val();
 	var destination = $("#destination").val();
@@ -642,8 +722,8 @@ function reconsol_house(myid){
 }
 <!-- hapus item dan kurangi total items pack
 function move_consol(myid){
+    	var input = $(myid).val();
 		var nosmu = $("#nosmu").val();	
-		var input = $(myid).val();
 		var totcwt=$(".totcwt").val();
 		var totpcs=$(".totpcs").val();
 
@@ -653,8 +733,12 @@ function move_consol(myid){
 		var pcs=pecah[2];
 		var consoled=pecah[3];
 		var remain=pecah[4];
+		var commodity=pecah[5];
+		var codeshiper=pecah[6];
+		var consolpcs=pecah[7];
+		var remainpcs=pecah[8];
 		
-		var new_cwt=parseFloat(totcwt)+ parseFloat(cwt);
+		var new_cwt=parseFloat(totcwt)+ parseFloat(remain);
 		var limit=$("#limitcwt").val();
 		var selisih=parseFloat(limit)- parseFloat(totcwt);
 		var sisacwt=parseFloat(cwt)- parseFloat(selisih);
@@ -664,18 +748,19 @@ function move_consol(myid){
 if(nosmu ==''){
 	alert('SMU is not selected,Please Select First !');
 } else {
-	
-	if(new_cwt > limit){
+	//jika nilai cwt smu tersisa kurang dari house trpilih,masukkn sebagian saja
+	if(new_cwt > limit ){
 			$("#customcwt").modal('show');
-			
 			$("#remaintxtcwt").val(selisih);
 			$("#txtcwt").val(selisih);
-			$("#labelremain").html('Of <label class="badge badge-warning badge-large white"> '+ cwt+ '</label>');
 			$("#txtpcs").val(pcs);
 			$("#txthouse").val(house);
 			$("#txtconsol").val(consoled);
 			$("#txtremain").val(remain);
-			
+			$("#txtconsolpcs").val(consolpcs);
+			$("#txtremainpcs").val(remainpcs);
+			$("#txtcommodity").val(commodity);
+			$("#txtshipper").val(codeshiper);
 			
 		} else {
 			
@@ -685,39 +770,56 @@ if(nosmu ==''){
 		var rightpcs=document.getElementsByName('rightpcs[]');
 		var rightconsoled=document.getElementsByName('rightconsoled[]');
 		var rightremain=document.getElementsByName('rightremain[]');
+		var rightconsoledpcs=document.getElementsByName('rightconsoledpcs[]');
+		var rightremainpcs=document.getElementsByName('rightremainpcs[]');
         for(i=0; i < righthouse.length; i++)  {  
-		  
+     // jika ditable added sudah ada kode yg sama maka update saja yg dikanan 
             if(righthouse[i].value==house){
 				var zsts=1;
                 rightcwt[i].value=parseFloat(rightcwt[i].value) + parseFloat(cwt);
 				rightpcs[i].value=parseFloat(rightpcs[i].value) + parseFloat(pcs);
 				rightconsoled[i].value=parseFloat(rightconsoled[i].value) - parseFloat(cwt);
 				rightremain[i].value=parseFloat(rightremain[i].value) + parseFloat(cwt);
+				rightconsoledpcs[i].value=parseFloat(rightconsoledpcs[i].value) - parseFloat(pcs);
+				rightremainpcs[i].value=parseFloat(rightremainpcs[i].value) + parseFloat(pcs);
 				i=lefthouse.length+1;
             } else{
 				var zsts=2
 				}
 			
 			} 
-
+		// jika tabel added blm ada house yg sama,lngsung insert
 			if(zsts==2){
-					text='<tr class="gradeX">'
-    + '<td>' + '<input type="hidden" name="righthouse[]" id="idcharge[]" value="'+ house +'">'+ '<label id="l_pcs">'+ house +'</label>' +'</td>'
+				
+		var statusremaincwt=(consoled >=1)? remain :cwt;
+		var statusremainpcs=(consolpcs >=1)? remainpcs :pcs;
+		
+	text='<tr class="gradeX">'
+    + '<td>' + '<input type="text" name="righthouse[]" style="width:50px" value="'+ house +'"></td>'
 	
-    + '<td align="right">' +  '<input type="hidden" name="rightcwt[]" id="t[]" value="'+ cwt +'">'+ '<label id="l_pcs">'+ cwt +'</label>' +'</td>'
+	 + '<td align="right">' + '<input type="text" name="rightshipper[]" style="width:50px"  value="'+ codeshiper +'"></td>'
+	
+    + '<td align="right">' +  '<input type="text" name="rightcwt[]" style="width:50px" value="'+ statusremaincwt +'"></td>'
     
-    + '<td align="right">' + '<input type="hidden" name="rightpcs[]" id="p[]"  value="'+ pcs +'">'+ '<label id="l_pcs">'+ pcs +'</label>' +'</td>'
+    + '<td align="right">' + '<input type="text" name="rightpcs[]" style="width:50px"  value="'+ statusremainpcs +'"></td>'
+	
+    + '<td align="right">' +  '<input type="text" name="rightconsoled[]" style="width:50px" value="'+ remain +'"></td>'
+    
+    + '<td align="right">' + '<input type="text" name="remainconsoled[]" style="width:50px"  value="'+ consoled +'"></td>'
+	
+    + '<td align="right">' +  '<input type="text" name="rightconsoledpcs[]" style="width:50px" value="'+ remainpcs +'"></td>'
+    + '<td align="right">' + '<input type="text" name="rightremainpcs[]" style="width:50px"  value="'+ consolpcs +'"><input type="hidden" name="rightcommodity[]" style="width:50px"  value="'+ commodity +'"></td>'
 
 	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + input +'" onclick="replaceHouse(this)" type="button">X</button></td>'
-
     + '</tr>';
+
 			
 			}
 	
 		$('.tablehas').append(text);
-		var grand=parseFloat(totcwt) + parseFloat(cwt);
+		var grand=parseFloat(totcwt) + parseFloat(statusremaincwt);
 		$(".totcwt").val(grand); 
-		var grand2=parseFloat(totpcs) + parseFloat(pcs);
+		var grand2=parseFloat(totpcs) + parseFloat(statusremainpcs);
 		$(".totpcs").val(grand2);
 		//alert(hasil_pecah);
      t = $(myid);
@@ -731,13 +833,17 @@ function move_consol2(){
 		var nosmu = $("#nosmu").val();	
 		var totcwt=$(".totcwt").val();
 		var totpcs=$(".totpcs").val();
-
+		
 		var house=$("#txthouse").val();
 		var remaincwt=$("#remaintxtcwt").val();
 		var cwt=$("#txtcwt").val();
 		var pcs=$("#txtpcs").val();
 		var consoled=$("#txtconsol").val();
 		var remain=$("#txtremain").val();
+		var consolpcs=$("#txtconsolpcs").val();
+		var remainpcs=$("#txtremainpcs").val();
+		var commodity=$("#txtcommodity").val();
+		var shipper=$("#txtshipper").val();
 		
 	var input=house+'/'+cwt+'/'+pcs+'/'+consoled+'/'+remain;
 		
@@ -761,16 +867,32 @@ if(nosmu ==''){
 		var leftpcs=document.getElementsByName('leftpcs[]');
 		var leftconsoled=document.getElementsByName('leftconsoled[]');
 		var leftremain=document.getElementsByName('leftremain[]');
-		
+		var leftconsoledpcs=document.getElementsByName('leftconsoledpcs[]');
+		var leftremainpcs=document.getElementsByName('leftremainpcs[]');
+		var leftbutton=document.getElementsByName('leftbutton[]');
         for(i=0; i < lefthouse.length; i++)  {
 		    
             if(lefthouse[i].value==house){
+				var vleftcwt =parseFloat(leftremain[i].value) - parseFloat(cwt);
+                leftremain[i].value=leftremain[i].value;
+				leftremain[i].style.color='red';
 				
-                leftcwt[i].value=parseFloat(leftcwt[i].value) - parseFloat(cwt);
-				leftpcs[i].value=parseFloat(leftpcs[i].value) - parseFloat(pcs);
-				leftconsoled[i].value=parseFloat(leftconsoled[i].value) + parseFloat(cwt);
-				leftremain[i].value=parseFloat(leftremain[i].value) - parseFloat(cwt);
-            }
+				var vleftpcs = parseFloat(leftremainpcs[i].value) - parseFloat(pcs);
+				
+				var vleftpcs2 = parseFloat(leftconsoledpcs[i].value) + parseFloat(pcs);
+				leftconsoledpcs[i].value=vleftpcs2;
+				var vleftpcs3 = parseFloat(leftremainpcs[i].value) - parseFloat(pcs);
+				leftremainpcs[i].value=vleftpcs3;				
+				
+				var vleftconsoled=parseFloat(leftconsoled[i].value) + parseFloat(cwt);
+				leftconsoled[i].value=vleftconsoled;
+				
+				var vleftremain = parseFloat(leftremain[i].value) - parseFloat(cwt);
+				leftremain[i].value=vleftremain;
+				
+		leftbutton[i].value=house+'/'+ vleftcwt+'/'+vleftpcs+'/'+vleftconsoled+'/'+vleftremain+'/'+commodity+'/'+shipper+'/'+vleftpcs2+'/'+vleftpcs3;
+            	
+			}
 		}
 	
 	
@@ -778,18 +900,30 @@ if(nosmu ==''){
 	     var righthouse=document.getElementsByName('righthouse[]');
         var rightcwt=document.getElementsByName('rightcwt[]');
 		var rightpcs=document.getElementsByName('rightpcs[]');
-		//var rightconsoled=document.getElementsByName('rightconsoled[]');
-		//var rightremain=document.getElementsByName('rightremain[]');
+		var rightbutton=document.getElementsByName('rightbutton[]');
+		var rightconsoled=document.getElementsByName('rightconsoled[]');
+		var rightremain=document.getElementsByName('remainconsoled[]');
 		
         for(a=0; a < righthouse.length; a++)  { 
-		//alert('jika '+righthouse[a].value+'='+house); 
+		
+		//jika saat konsol ditemukan house yg sama di table added
             if(righthouse[a].value==house){
 				var zsts=1;
-                rightcwt[a].value=parseFloat(rightcwt[a].value) + parseFloat(cwt) ;
-				rightpcs[a].value=parseFloat(rightpcs[a].value) + parseFloat(pcs);
-				//rightconsoled[i].value=parseFloat(rightconsoled[i].value) - parseFloat(cwt);
-				//rightremain[i].value=parseFloat(rightremain[i].value) + parseFloat(cwt);
+                var rightcwt2=parseFloat(rightcwt[a].value) + parseFloat(cwt) ;
+				rightcwt[a].value=rightcwt2;
+
+				 var rightpcs2=parseFloat(rightpcs[a].value) + parseFloat(pcs);
+				rightpcs[a].value=rightpcs2;
+				
+				var rightconsol=parseFloat(rightconsoled[a].value) + parseFloat(cwt);
+				rightconsoled[a].value=rightconsol;
+				var rightremain2=parseFloat(rightremain[a].value) - parseFloat(cwt);
+				rightremain[a].value=rightremain2;
+					
+				rightbutton[a].value=house+'/'+ rightcwt2+'/'+rightpcs2+'/'+rightpcs2+'/'+rightpcs2+'/'+commodity+'/'+shipper+'/'+rightpcs2+'/'+rightpcs2;
+				
 				a=lefthouse.length+1;
+				
             } else{
 				var zsts=2;
 				}
@@ -797,20 +931,38 @@ if(nosmu ==''){
 			} 
 
 			if(zsts==2){
-					text='<tr class="gradeX">'
-    + '<td>' + '<input type="text" name="righthouse[]" id="idcharge[]" value="'+ house +'"></td>'
+	text='<tr class="gradeX">'
+    + '<td>' + '<input type="text" name="righthouse[]" style="width:50px" value="'+ house +'"></td>'
 	
-    + '<td align="right">' +  '<input type="text" name="rightcwt[]" id="t[]" value="'+ cwt +'" style=" width:80px"></td>'
+	 + '<td align="right">' + '<input type="text" name="rightshipper[]" style="width:50px"  value="'+ shipper +'"></td>'
+	
+    + '<td align="right">' +  '<input type="text" name="rightcwt[]" style="width:50px" value="'+ cwt +'"></td>'
     
-    + '<td align="right">' + '<input type="text" name="rightpcs[]" id="p[]"  value="'+ pcs +'" style=" width:80px"></td>'
+    + '<td align="right">' + '<input type="text" name="rightpcs[]" style="width:50px"  value="'+ pcs +'"></td>'
+	
+    + '<td align="right">' +  '<input type="text" name="rightconsoled[]" style="width:50px" value="'+ remain +'"></td>'
+    
+    + '<td align="right">' + '<input type="text" name="remainconsoled[]" style="width:50px"  value="'+ consoled +'"></td>'
+	
+    + '<td align="right">' +  '<input type="text" name="rightconsoledpcs[]" style="width:50px" value="'+ remainpcs +'"></td>'
+    + '<td align="right">' + '<input type="text" name="rightremainpcs[]" style="width:50px"  value="'+ consolpcs +'"><input type="hidden" name="rightcommodity[]" style="width:50px"  value="'+ commodity +'"></td>'
 
-	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + input +'" onclick="replaceHouse(this)" type="button">X</button></td>'
+	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" name="rightbutton[]" value="' + input +'" onclick="replaceHouse(this)" type="button">X</button></td>'
 
     + '</tr>';
 			$('.tablehas').append(text);
+		$("#txthouse").val('');
+		$("#remaintxtcwt").val('');
+		$("#txtcwt").val('');
+		$("#txtpcs").val('');
+		$("#txtconsol").val('');
+		$("#txtremain").val('');
+		$("#txtconsolpcs").val('');
+		$("#txtremainpcs").val('');
+		$("#txtcommodity").val('');
+		$("#txtshipper").val('');
 			}
 				
-
 		var grand=parseFloat(totcwt) + parseFloat(cwt);
 		$(".totcwt").val(grand); 
 		var grand2=parseFloat(totpcs) + parseFloat(pcs);
@@ -820,17 +972,19 @@ if(nosmu ==''){
 		
 	}
 }
-
 function replaceHouse(myid){
 		//var zsts=2;
 		var input = $(myid).val();
-		
 		var pecah=input.split('/');
 		var house=pecah[0];
 		var cwt=pecah[1];
 		var pcs=pecah[2];
 		var consoled=pecah[3];
 		var remain=pecah[4];
+		var commodity=pecah[5];
+		var codeshiper=pecah[6];
+		var consolpcs=pecah[7];
+		var remainpcs=pecah[8];
 		
 		var totcwt=$(".totcwt").val();
 		var totpcs=$(".totpcs").val();
@@ -842,39 +996,138 @@ function replaceHouse(myid){
 		var leftpcs=document.getElementsByName('leftpcs[]');
 		var leftconsoled=document.getElementsByName('leftconsoled[]');
 		var leftremain=document.getElementsByName('leftremain[]');
+		var leftconsoledpcs=document.getElementsByName('leftconsoledpcs[]');
+		var leftremainpcs=document.getElementsByName('leftremainpcs[]');
+		var leftbutton=document.getElementsByName('leftbutton[]');
         for(i=0; i < lefthouse.length; i++)  {  
 		
-	//	alert(lefthouse[i].value+'='+house)
-		  
             if(lefthouse[i].value==house){
 				var zsts=1;
-                leftcwt[i].value=parseFloat(leftcwt[i].value) + parseFloat(cwt);
-				leftpcs[i].value=parseFloat(leftpcs[i].value) + parseFloat(pcs);
-				leftconsoled[i].value=parseFloat(leftconsoled[i].value) - parseFloat(cwt);
-				leftremain[i].value=parseFloat(leftremain[i].value) + parseFloat(cwt);
+                var leftconsoled2=parseFloat(leftconsoled[i].value) - parseFloat(cwt);
+				leftconsoled[i].value=leftconsoled2;
+				
+				var leftremain2=parseFloat(leftremain[i].value) + parseFloat(cwt);
+				leftremain[i].value=leftremain2;
+				leftremain[i].style.color='black';
+				
+				var leftconsolpcs2=parseFloat(leftconsoledpcs[i].value) - parseFloat(pcs);
+				leftconsoledpcs[i].value=leftconsolpcs2;
+				
+				var remainpcs2=parseFloat(leftremainpcs[i].value) + parseFloat(pcs);
+				leftremainpcs[i].value=remainpcs2;
+				
 				i=lefthouse.length+1;
+
+//leftbutton[i].value=house+'/'+cwt+'/'+pcs+'/'+leftconsoled2+'/'+leftremain2+'/'+commodity+'/'+codeshiper+'/'+leftconsolpcs2+'/'+remainpcs2;
+				
             } else{
-				var zsts=2
+				var zsts=2;
 				}
-			
-			} 
-			
-			if(zsts==2){	
+			} 			
+if(zsts==2){	
 		text='<tr class="gradeX">'
-			+ '<td><input type="text" name="lefthouse[]" style=" width:150px"  value="'+ house +'"></td>'
+			+ '<td><input type="text" name="lefthouse[]" style=" width:70px"  value="'+ house +'"></td>'
 			
+		+ '<td align="right"><input type="text" name="leftshipper[]" style=" width:50px" value="'+ codeshiper +'"></td>'
+		
 		+ '<td align="right"><input type="text" name="leftcwt[]" style=" width:50px" value="'+ cwt +'"></td>'
 		
-		+ '<td align="right"><input type="text" name="leftpcs[]" style=" width:50px" value="'+ pcs +'"></td>'
+		+ '<td align="right"><input type="text" name="leftpcs[]" style=" width:40px" value="'+ pcs +'"></td>'
 			
-		+ '<td align="right"><input type="text" name="leftconsoled[]" style=" width:50px" value="'+ consoled +'"></td>'
+		+ '<td align="right"><input type="text" name="leftconsoled[]" style=" width:40px" value="'+ consoled +'"></td>'
 			
-			+ '<td align="right"><input type="text" name="leftremain[]" style=" width:50px" value="'+ remain +'"></td>'
+			+ '<td align="right"><input type="text" name="leftremain[]" style=" width:40px" value="'+ remain +'"></td>'
 		
-			+'<td align="center">' + '<button class="btndel btn-primary btn-mini" value="' + input +'" onclick="move_consol(this)" type="button"><i class="fa fa-check"></i></button></td>'
+		+ '<td align="right"><input type="text" name="leftconsoledpcs[]" style=" width:40px" value="'+ consolpcs +'"></td>'
+			
+			+ '<td align="right"><input type="text" name="leftremainpcs[]" style=" width:40px" value="'+ remainpcs +'"><input type="hidden" name="leftcommodity[]" style=" width:40px" value="'+ commodity +'"></td>'
+		
+			+'<td align="center">' + '<button name="leftbutton[]" class="btndel btn-primary btn-mini" value="' + input +'" onclick="move_consol(this)" type="button"><i class="fa fa-check"></i></button></td>'
 		
 			+ '</tr>';
-				$('.freetable').append(text)
+		$('.freetable').append(text)
+			}				 
+				 $(".totcwt").val(kurangcwt);
+				 $(".totpcs").val(kurangpcs);
+				 t = $(myid);
+				 tr = t.parent().parent();
+				 tr.remove();
+        
+    }
+function replaceHouse2(myid){
+		//var zsts=2;
+		var input = $(myid).val();
+		var pecah=input.split('/');
+		var house=pecah[0];
+		var cwt=pecah[1];
+		var pcs=pecah[2];
+		var consoled=pecah[3];
+		var remain=pecah[4];
+		var commodity=pecah[5];
+		var codeshiper=pecah[6];
+		var consolpcs=pecah[7];
+		var remainpcs=pecah[8];
+		
+		var totcwt=$(".totcwt").val();
+		var totpcs=$(".totpcs").val();
+		var kurangcwt=parseFloat(totcwt) - parseFloat(cwt);
+		var kurangpcs=parseFloat(totpcs) - parseFloat(pcs);
+		
+        var lefthouse=document.getElementsByName('lefthouse[]');
+        var leftcwt=document.getElementsByName('leftcwt[]');
+		var leftpcs=document.getElementsByName('leftpcs[]');
+		var leftconsoled=document.getElementsByName('leftconsoled[]');
+		var leftremain=document.getElementsByName('leftremain[]');
+		var leftconsoledpcs=document.getElementsByName('leftconsoledpcs[]');
+		var leftremainpcs=document.getElementsByName('leftremainpcs[]');
+		var leftbutton=document.getElementsByName('leftbutton[]');
+        for(i=0; i < lefthouse.length; i++)  {  
+		
+            if(lefthouse[i].value==house){
+				var zsts=1;
+                var leftconsoled2=parseFloat(leftconsoled[i].value) - parseFloat(cwt);
+				leftconsoled[i].value=leftconsoled2;
+				
+				var leftremain2=parseFloat(leftremain[i].value) + parseFloat(cwt);
+				leftremain[i].value=leftremain2;
+				leftremain[i].style.color='black';
+				
+				var leftconsolpcs2=parseFloat(leftconsoledpcs[i].value) - parseFloat(pcs);
+				leftconsoledpcs[i].value=leftconsolpcs2;
+				
+				var remainpcs2=parseFloat(leftremainpcs[i].value) + parseFloat(pcs);
+				leftremainpcs[i].value=remainpcs2;
+				
+				i=lefthouse.length+1;
+
+//leftbutton[i].value=house+'/'+cwt+'/'+pcs+'/'+leftconsoled2+'/'+leftremain2+'/'+commodity+'/'+codeshiper+'/'+leftconsolpcs2+'/'+remainpcs2;
+				
+            } else{
+				var zsts=2;
+				}
+			} 			
+if(zsts==2){	
+		text='<tr class="gradeX">'
+			+ '<td><input type="text" name="lefthouse[]" style=" width:70px"  value="'+ house +'"></td>'
+			
+		+ '<td align="right"><input type="text" name="leftshipper[]" style=" width:50px" value="'+ codeshiper +'"></td>'
+		
+		+ '<td align="right"><input type="text" name="leftcwt[]" style=" width:50px" value="'+ cwt +'"></td>'
+		
+		+ '<td align="right"><input type="text" name="leftpcs[]" style=" width:40px" value="'+ pcs +'"></td>'
+			
+		+ '<td align="right"><input type="text" name="leftconsoled[]" style=" width:40px" value="'+ 0 +'"></td>'
+			
+			+ '<td align="right"><input type="text" name="leftremain[]" style=" width:40px" value="'+ cwt +'"></td>'
+		
+		+ '<td align="right"><input type="text" name="leftconsoledpcs[]" style=" width:40px" value="'+ 0 +'"></td>'
+			
+			+ '<td align="right"><input type="text" name="leftremainpcs[]" style=" width:40px" value="'+ pcs +'"><input type="hidden" name="leftcommodity[]" style=" width:40px" value="'+ commodity +'"></td>'
+		
+			+'<td align="center">' + '<button name="leftbutton[]" class="btndel btn-primary btn-mini" value="' + input +'" onclick="move_consol(this)" type="button"><i class="fa fa-check"></i></button></td>'
+		
+			+ '</tr>';
+		$('.freetable').append(text)
 			}				 
 				 $(".totcwt").val(kurangcwt);
 				 $(".totpcs").val(kurangpcs);
@@ -884,6 +1137,7 @@ function replaceHouse(myid){
         
     }
 	
+
 function replace_consol(myid){
 		var input = $(myid).val();	
 		var totcwt=$(".totcwt").val();
@@ -895,6 +1149,7 @@ function replace_consol(myid){
 		var pcs=pecah[2];
 		var consoled=pecah[3];
 		var remain=pecah[4];	
+		var commodity=pecah[4];	
 
 	text='<tr class="gradeX">'
     + '<td>' + '<input type="text" name="lefthouse[]" id="idcharge[]" value="'+ house +'">'+ '<label id="l_pcs">'+ house +'</label>' +'</td>'

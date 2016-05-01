@@ -122,6 +122,26 @@ public function generateCity($table,$kolom,$kd_unik)
         }
         return "JOB".date('Ym').$kd;
     }
+		//    kode house
+    public function getKodeTrans($pt,$status,$kolom,$tabel)
+    {
+		$bulan=date('m');
+        $query = $this->db->query("select MAX(RIGHT($kolom,5)) as kd_max from ".$tabel." WHERE MID($kolom,11,2)='$bulan'");
+        $kd = "";
+        if($query->num_rows()>0)
+        {
+            foreach($query->result() as $k)
+            {
+                $tmp = ((int)$k->kd_max)+1;
+                $kd = sprintf("%05s", $tmp);
+            }
+        }
+        else
+        {
+            $kd = "00001";
+        }
+        return $pt.$status.date('Ymd').$kd;
+    }
 	
 //    kode job
     public function getHouseMasterNo()

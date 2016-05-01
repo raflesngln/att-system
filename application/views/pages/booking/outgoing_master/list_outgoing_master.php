@@ -147,12 +147,13 @@ $("#idhouse").autocomplete({
                                               <thead>
                                                 <tr align="left" style="background:#EBEBEB">
                                                   <th height="69" colspan="2"><div align="left">SMU No</div></th>
-                                                  <th width="54"><div align="center">ETD</div></th>
-                                                  <th width="56"><div align="center">Paycode</div></th>
-                                                  <th width="58"><div align="center">Service</div></th>
-                                                  <th width="48">Origin</th>
-                                                  <th width="107">Destination</th>
-                                                  <th width="65" class="text-center"><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item" style="visibility:hidden"><i class="icon-plus icons"></i> Add items</a>Actions</div></th>
+                                                  <th width="35"><div align="center">ETD</div></th>
+                                                  <th width="40"><div align="center">Flight</div></th>
+                                                  <th width="117"><div align="center">Shipper/Consigne</div></th>
+                                                  <th width="100">Origin / Destination</th>
+                                                  <th width="29">PCS</th>
+                                                  <th width="36">CWT</th>
+                                                  <th width="62" class="text-center"><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item" style="visibility:hidden"><i class="icon-plus icons"></i> Add items</a>Actions</div></th>
                                                 </tr>
                                                 </thead>
                                           <tbody>
@@ -167,20 +168,37 @@ $("#idhouse").autocomplete({
  {
  $no=1;
  foreach($master as $items){
+	$flight1=explode('/',$items->FlightNumbDate1);
+	$flight2=explode('/',$items->FlightNumbDate2);
+	$flight3=explode('/',$items->FlightNumbDate3);
+	$FlightNumbDate1=$flight1[0];
+	$FlightNumbDate2=$flight2[0];
+	$FlightNumbDate3=$flight3[0];
+$noflight=(strlen($FlightNumbDate1) <=0)?'<span class="label label-important white">No Flight <i class="fa fa-exclamation"></i> </span>':$FlightNumbDate1;
+
+	 $statusproses=$items->StatusProses;
+	 if($statusproses ==3){
+		 $status1='<span class="badge badge-success white"><i class="fa fa-check"></i> YES</span>';
+		 
+	 } else {
+		$status1='<span class="badge badge-important white"><i class="fa fa-times"></i> NO</span>';
+	 }
+	 
         ?>
             
                                             <tr align="right" class="gradeX">
                                                     <td colspan="2"><div align="left"><?php echo $items->NoSMU;?></div></td>
                                                     <td><div align="left"><?php echo date("d-m-Y",strtotime($items->ETD)); ?></div></td>
-                                                    <td><div align="left"><?php echo $items->PayCode;?></div></td>
-                                                    <td><div align="left"><?php echo $items->Service;?></div></td>
-                                                    <td><div align="left"><?php echo $items->Origin;?></div></td>
-                                                    <td><div align="left"><?php echo $items->Destination;?></div></td>
+                                                    <td><div align="left"><?php echo $noflight;?></div></td>
+                                                    <td><div align="left"><?php echo $items->sender.' / '.$items->receiver;?></div></td>
+                                                    <td><div align="left"><?php echo $items->ori.' / '.$items->desti;?></div></td>
+                                                    <td><?php echo $items->PCS;?></td>
+                                                    <td><div align="right"><?php echo $items->CWT;?></div></td>
                                                     <td>
                                                    <form action="<?php echo base_url();?>transaction/print_invoice_OM" method="post" target="new" class="text-left">
                                                    <input type="hidden" value="<?php echo $items->NoSMU;?>" name="NoSMU" />
                                                   <button class="btn btn-mini btn-warning"><i class="fa fa-print bigger-120"></i></button>
-                                                                                                      <a href="<?php echo base_url();?>transaction/edit_outgoing_master/<?php echo $items->NoSMU;?>" title="Edit item">
+                                                                   <a onclick="return EditConfirm(<?php echo $statusproses;?>);" href="<?php echo base_url();?>transaction/edit_outgoing_master/<?php echo $items->NoSMU;?>" title="Edit item">
                                                   <button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>
                                                   </a>                                                   
                                                   <a href="<?php echo base_url(); ?>transaction/delete_outgoing_master/<?php echo $items->NoSMU; ?>" onClick="return confirm('Yakin Hapus No. House ( <?php echo $items->NoSMU;?> ) ?? . Ini akan menghapus sekaligus items nya !');" title="Delete item">
@@ -193,7 +211,7 @@ $("#idhouse").autocomplete({
                                                   </tr>
   <?php $no++;} } ?>
                                                 
-                                              <td width="74"></tbody>
+                                              <td width="44"></tbody>
                                             </table>
  <div align="right"> <?php echo $paginator;?></div>
                                       </div>
@@ -381,7 +399,13 @@ $("#btnsort").click(function(){
             });
         });
 
-
+function EditConfirm(myid){
+		var status=myid;
+		if(status =='3'){
+			alert('Cannot Edit SMU was consoled !');
+			return false;
+	}
+}
 		
 		
 </script>

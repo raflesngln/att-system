@@ -15,13 +15,13 @@ class Cargo_release extends CI_Controller {
        $data['title']='list cargo_release';
 		$data['scrumb_name']='Data cargo_release';
 		$data['scrumb']='cargo_release';
-		$data['smu']=$this->model_app->getdatapaging("a.NoSMU,a.PCS,a.CWT,b.PortName as ori,c.PortName as desti","outgoing_master a",
+		$data['airline']=$this->model_app->getdatapaging("*","ms_airline","ORDER BY AirLineName");
+		$data['flight']=$this->model_app->getdatapaging("FlightNumbDate1","outgoing_master","WHERE StatusProses <=2 GROUP BY FlightNumbDate1");
+		$data['smu']=$this->model_app->getdatapaging("a.FlightNumbDate1,a.NoSMU,a.PCS,a.CWT,b.PortName as ori,c.PortName as desti","outgoing_master a",
 			            "LEFT JOIN ms_port b on b.PortCode=a.Origin
-						LEFT JOIN ms_port c on c.PortCode=a.Destination
-						 WHERE a.StatusProses ='2'");
-						 
+						 LEFT JOIN ms_port c on c.PortCode=a.Destination
+						 WHERE a.StatusProses IN(2,3)");
 		$data['view']='pages/booking/cargo/cargo_release';
-		
         $this->load->view('home/home',$data);
 		
 	}

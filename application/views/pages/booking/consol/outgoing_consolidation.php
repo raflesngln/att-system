@@ -136,7 +136,7 @@
    
    <div class="container-fluid" id="konten">
   <div class="row" id="contentreplace">
-  <div class="col-sm-6 portlets ui-sortable" id="freecontent" style="box-shadow:2px 3px 8px #CCC; border:1px #CCC solid">
+  <div class="col-sm-7 portlets ui-sortable" id="freecontent" style="box-shadow:2px 3px 8px #CCC; border:1px #CCC solid">
                     <div class="panel">
                         <!--<div class="panel-header"></div>-->
                         
@@ -199,7 +199,7 @@
 
           </div>
       </div>
-                <div class="col-sm-6 portlets ui-sortable" id="added">
+                <div class="col-sm-5 portlets ui-sortable" id="added">
                     <div class="panel">
                         <!--<div class="panel-header"></div>-->
                         
@@ -211,15 +211,13 @@
                                               <thead>
                                                 
                                                   <tr>
-                                                    <th colspan="6"><span class="span4 label label-large label-inverse" style="text-align:left;padding-top:7px">Remain House in SMU</span></th>
+                                                    <th colspan="4"><span class="span4 label label-large label-inverse" style="text-align:left;padding-top:7px">Remain House in SMU</span></th>
                                                   </tr>
                                                   <tr>
                                                   <th>House No</th>
                                                   <th>CWT</th>
                                                   <th>PCS</th>
                                                   <th class="text-center">Consoled</th>
-                                                  <th class="text-center">Remain</th>
-                                                  <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                               </thead>
                                               <tbody>
@@ -237,12 +235,6 @@
                                                     <td><?php echo $row->CWT?>
                                                     <input type="text" name="pcs[]" id="pcs[]" /></td>
                                                     <td>&nbsp;</td>
-                                                    <td>&nbsp;</td>
-                                                    <td>
-                                                    <button value="<?php echo $row->HouseNo.'/'.$row->CWT.'/'.$row->PCS.'/'.$row->ConsoledCWT.'/'.$row->RemainCWT.'/'.$row->Commodity;?>" id="ceklish" class="ceklish btn btn-mini btn-success" type="button" onclick="return reconsol_house(this)"><i class="icon icon-share-alt icon-on-right white"></i></button>
-                                                    
-
-                                                    </td>
                                                   </tr>
                 <?php $no++;} ?>  
                                                   
@@ -259,8 +251,6 @@
                                 <input type="text" class="totpcs" value="0" name="totpcs" style="width:50px" />
                               </div></td>
                               <td>&nbsp;</td>
-                              <td>&nbsp;</td>
-                                                  <td>&nbsp;</td>
                       </tr>
 </tfoot>   
                                             </table>
@@ -738,7 +728,7 @@ function move_consol(myid){
 		var consolpcs=pecah[7];
 		var remainpcs=pecah[8];
 		
-		var new_cwt=parseFloat(totcwt)+ parseFloat(remain);
+		var new_cwt=parseFloat(totcwt)+ parseFloat(cwt);
 		var limit=$("#limitcwt").val();
 		var selisih=parseFloat(limit)- parseFloat(totcwt);
 		var sisacwt=parseFloat(cwt)- parseFloat(selisih);
@@ -787,7 +777,7 @@ if(nosmu ==''){
 				var zsts=2
 				}
 			
-			} 
+	} 
 		// jika tabel added blm ada house yg sama,lngsung insert
 			if(zsts==2){
 				
@@ -803,14 +793,15 @@ if(nosmu ==''){
     
     + '<td align="right">' + '<input type="text" name="rightpcs[]" style="width:50px"  value="'+ statusremainpcs +'"></td>'
 	
-    + '<td align="right">' +  '<input type="text" name="rightconsoled[]" style="width:50px" value="'+ remain +'"></td>'
+    + '<td align="right">' +  '<input type="hidden" name="rightconsoled[]" style="width:50px" value="'+ remain +'"></td>'
     
-    + '<td align="right">' + '<input type="text" name="remainconsoled[]" style="width:50px"  value="'+ consoled +'"></td>'
+    + '<input type="hidden" name="remainconsoled[]" style="width:50px"  value="'+ consoled +'">'
 	
-    + '<td align="right">' +  '<input type="text" name="rightconsoledpcs[]" style="width:50px" value="'+ remainpcs +'"></td>'
-    + '<td align="right">' + '<input type="text" name="rightremainpcs[]" style="width:50px"  value="'+ consolpcs +'"><input type="hidden" name="rightcommodity[]" style="width:50px"  value="'+ commodity +'"></td>'
+    + '<input type="hidden" name="rightconsoledpcs[]" style="width:50px" value="'+ remainpcs +'">'
+	
+    + '<input type="hidden" name="rightremainpcs[]" style="width:50px"  value="'+ consolpcs +'"><input type="hidden" name="rightcommodity[]" style="width:50px"  value="'+ commodity +'">'
 
-	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + input +'" onclick="replaceHouse(this)" type="button">X</button></td>'
+	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + input +'" onclick="replaceHouse2(this)" type="button">X</button></td>'
     + '</tr>';
 
 			
@@ -942,10 +933,10 @@ if(nosmu ==''){
 	
     + '<td align="right">' +  '<input type="text" name="rightconsoled[]" style="width:50px" value="'+ remain +'"></td>'
     
-    + '<td align="right">' + '<input type="text" name="remainconsoled[]" style="width:50px"  value="'+ consoled +'"></td>'
+    + '<input  type="hidden" name="remainconsoled[]" style="width:50px"  value="'+ consoled +'">'
 	
-    + '<td align="right">' +  '<input type="text" name="rightconsoledpcs[]" style="width:50px" value="'+ remainpcs +'"></td>'
-    + '<td align="right">' + '<input type="text" name="rightremainpcs[]" style="width:50px"  value="'+ consolpcs +'"><input type="hidden" name="rightcommodity[]" style="width:50px"  value="'+ commodity +'"></td>'
+    + '<input type="hidden" name="rightconsoledpcs[]" style="width:50px" value="'+ remainpcs +'">'
+    + '<input type="hidden" name="rightremainpcs[]" style="width:50px"  value="'+ consolpcs +'"><input type="hidden" name="rightcommodity[]" style="width:50px"  value="'+ commodity +'">'
 
 	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" name="rightbutton[]" value="' + input +'" onclick="replaceHouse(this)" type="button">X</button></td>'
 
@@ -1067,18 +1058,22 @@ function replaceHouse2(myid){
 		var codeshiper=pecah[6];
 		var consolpcs=pecah[7];
 		var remainpcs=pecah[8];
-		
+				
 		var totcwt=$(".totcwt").val();
 		var totpcs=$(".totpcs").val();
 		var kurangcwt=parseFloat(totcwt) - parseFloat(cwt);
 		var kurangpcs=parseFloat(totpcs) - parseFloat(pcs);
-		
+
         var lefthouse=document.getElementsByName('lefthouse[]');
+    if(lefthouse.length=='0'){
+		var zsts=2;
+	} else { 
         var leftcwt=document.getElementsByName('leftcwt[]');
 		var leftpcs=document.getElementsByName('leftpcs[]');
 		var leftconsoled=document.getElementsByName('leftconsoled[]');
 		var leftremain=document.getElementsByName('leftremain[]');
 		var leftconsoledpcs=document.getElementsByName('leftconsoledpcs[]');
+		
 		var leftremainpcs=document.getElementsByName('leftremainpcs[]');
 		var leftbutton=document.getElementsByName('leftbutton[]');
         for(i=0; i < lefthouse.length; i++)  {  
@@ -1105,7 +1100,8 @@ function replaceHouse2(myid){
             } else{
 				var zsts=2;
 				}
-			} 			
+			} }
+			 			
 if(zsts==2){	
 		text='<tr class="gradeX">'
 			+ '<td><input type="text" name="lefthouse[]" style=" width:70px"  value="'+ house +'"></td>'

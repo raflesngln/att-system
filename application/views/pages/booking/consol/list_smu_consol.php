@@ -1,8 +1,8 @@
 
   
-<div class="container-fluid" id="konten2">
+<div class="container" id="konten2">
   <div class="row" id="contentreplace2">
-  <div class="col-sm-11 portlets ui-sortable" id="freecontent2" style="box-shadow:2px 3px 8px #CCC; border:1px #CCC solid">
+  <div class="col-sm-12 portlets ui-sortable" id="freecontent2" style="box-shadow:2px 3px 8px #CCC; border:1px #CCC solid">
                     <div class="panel">
                         <!--<div class="panel-header"></div>-->
                         
@@ -19,7 +19,7 @@
                                                   <th width="43">PCS</th>
                                                   <th width="53">CWT</th>
                                                   <th width="61" class="text-center">Status Consol</th>
-                                                  <th width="61" class="text-center">Detail</th>
+                                                  <th width="61" class="text-center"><div align="left">Service Type</div></th>
                                                 </tr>
                                               </thead>
                                               <tbody>
@@ -28,21 +28,26 @@
  foreach ($masterconsol as $free) {
 	 $cwt=$free->CWT;
 	 $pcs=$free->PCS;
+	 $service=($free->Service=='DOOR TO PORT' || $free->Service=='PORT TO PORT')?'<span class="label label-warning white">Direct</span>':'<span class="label label-success white">Consoled</span>';
+	 
 	 if($cwt <=1){
-		 $status1='<span class="badge badge-important white"><i class="fa fa-times"></i> NO</span>';
+		 $status1='<span class="label label-important arrowed-right white"><i class="fa fa-times"></i>NO</span>';
 	 } else {
-		 $status1='<span class="badge badge-success white"><i class="fa fa-check"></i> YES</span>';
+		 $status1='<span class="label label-success arrowed-right white"> <i class="fa fa-check"></i>YES</span>';
 	 }
 	 
   ?>
                                                   <tr>
                                                     <td><?php echo $no?></td>
-                                                    <td><?php echo $free->NoSMU?></td>
+                                                    <td>
+<a href="#" onclick="detailsmu(this);"><?php echo $free->NoSMU?>
+</a>
+</td>
                                                     <td><div align="left"><?php echo substr($free->desti,0,50).'-'.$free->portcode?></div></td>
                                                     <td><div align="center"><?php echo $free->PCS?></div></td>
                                                     <td><div align="center"><?php echo $free->CWT?></div></td>
                                                     <td><div align="center"><?php echo $status1?></div></td>
-                                                    <td><button class="btn btn-mini btn-primary btndet" value="<?php echo $free->NoSMU?>" onclick="detailsmu(this);"><i class="fa fa-eye"></i> Details</button></td>
+                                                    <td><?php echo $service?></td>
                                                   </tr>
                 <?php $no++;} ?>  
                                                   
@@ -70,37 +75,25 @@
 </div>
 
 
-<div id="modaldetailsmu" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="modaldetailsmu" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:99%">
     
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id=""><small>Detail Consol</small> Master </h3><span id="labelsmu" class="label label-info arrowed-in-right arrowed text-uppercase"></span>
+                <h3 id=""><small>Detail Consol</small> Master </h3>
             </div>
             <div class="smart-form scroll">
 
                     <div class="modal-body">
-                  <h5>List House Consol </h5>    
+
+                   
                         <div id="tabledetail">
-                        <table id="tbldet" class="table table-striped table-bordered" cellspacing="0" width="100%">
-      <thead>
-        <tr>
-          <th>House</th>  
-          <th>Shipper</th>
-          <th> PCS</th>
-          <th>CWT</th>
-          <th style="width:125px;">Amount</th>
-        </tr>
-      </thead>
-
-
-
-    </table>
+                     
 
                         </div>
                      
-                      <div class="modal-footer"></div>
+                     
               </div>
             
            
@@ -111,7 +104,7 @@
     
     <script>
 function detailsmu(myid){
-	var smu=$(myid).val();
+	var smu=$(myid).html();
 
              // alert('hai' + idcnote);
 				$.ajax({
@@ -120,7 +113,6 @@ function detailsmu(myid){
                 data: "smu="+smu,
                 success: function(data){
 					$("#modaldetailsmu").modal('show'); 
-					$('#labelsmu').html(smu);
                    $('#tabledetail').html(data);
                 }
             });

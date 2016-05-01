@@ -1,5 +1,5 @@
 <body onLoad="focus_barcode()">
-<form action="<?php echo base_url();?>transaction/save_chargo_manifest" method="post" enctype="multipart/form-data" autocomplete="off" name="formcargo" id="formcargo">
+<form action="<?php echo base_url();?>transaction/save_chargo_manifest" method="post" enctype="multipart/form-data" autocomplete="off" name="formcargo[0]" id="formcargo">
 
   <!--LEFT INPUT-->
   <div class="col-sm-6">      
@@ -23,16 +23,27 @@
           <label class="col-sm-11">Air Lines</label></strong>
           <div class="col-sm-11"><span class="col-sm-7">
             <select name="airlines" id="airlines" class="form-control" required="required">
-              <option value="">Choose Airlines</option>
-
+            <option value="">Select Airlines</option>
+        <?php 
+		foreach($airline as $air){
+		?>
+          <option value="<?php echo $air->AirLineCode;?>"><?php echo $air->AirLineName;?></option>    
+	<?php } ?>
             </select>
           </span></div>
 </div>
- <div class="form-group">
+ <div class="form-group" style="display:none">
           <label class="col-sm-11"> Flight Number</label></strong>
           <div class="col-sm-11"><span class="col-sm-7">
             <select name="flightnumber" id="flightnumber" class="form-control" required="required">
-              <option value="">Choose FlightNumber</option>
+         <option value="">Select Flight Number</option>
+               <?php 
+		foreach($flight as $data){
+			$flightnumb=explode('/',$data->FlightNumbDate1);
+			$flightno=$flightnumb[0];
+		?>
+              <option value="<?php echo $data->FlightNumbDate1;?>"><?php echo $flightno;?></option>
+       <?php } ?>
             </select>
           </span></div>
 </div>
@@ -89,21 +100,26 @@
                         
                                     <div class="form-group">
 <h2><span class="label label-large label-pink arrowed-in-right"><strong>List Connote's</strong></span></h2>
-                                        <div class="table-responsive" id="table_input">
+                                        <div class="table-responsive" id="divflight">
                                         <table class="table table-striped table-bordered table-hover" id="tbllist">
                                               <thead>
                                                 <tr align="left">
+                                                  <th>Flight</th>
                                                   <th><div align="left">No SMU</div></th>
                                                   <th><div align="center">Destination</div></th>
-                                                  <th>Qty</th>
+                                                  <th>PCS</th>
                                                   <th><div align="center">CWT</div></th>
-                                                  <th class="text-center"><div align="center">actions</div></th>
+                                                  <th class="text-center"><div align="center">
+                                                    <input type="checkbox" name="checkall" id="checkall" onClick="return Checkall()" value="Check all">
+                                                  </div></th>
                                                 </tr>
                                           <tbody>
                                               <tbody>
  <?php 
  $no=1;
  foreach ($smu as $row) {
+	 	 $air=explode('/',$row->FlightNumbDate1);
+	 $kode=$air[0];
 	 $cwt=$row->CWT;
 	 $t_cwt+=$cwt;
 	 if($cwt <=0){
@@ -119,6 +135,8 @@
   ?>
 
                                                   <tr align="left" class="gradeX">
+                                                    <td><?php echo $kode; ?>
+                                                    <input name="flight[]" type="hidden" id="flight[]" value="<?php echo $row->Airlines; ?>"></td>
                                                     <td><?php echo $row->NoSMU; ?><input type="hidden" name="smu2[]" value="<?php echo $row->NoSMU; ?>"></td>
                                                     <td><?php echo $row->desti; ?>
                                                     <input name="desti2[]" type="hidden" id="desti2[]" value="<?php echo $row->desti; ?>"></td>
@@ -129,15 +147,16 @@
                                                       <input name="cwt2[]" type="hidden" id="cwt2[]" value="<?php echo $cwt; ?>">
                                                     </div></td>
                                                     <td align="center">
-                                                  <button class="delbtn btn btn-mini btn-primary" type="button" value="<?php echo $row->NoSMU.'/'.$row->desti.'/'.$row->PCS.'/'.$row->CWT; ?>" onClick="move_consol(this)"><i class="fa fa-check"></i></button>
+                    <button style="display:none" class="delbtn btn btn-mini btn-primary" type="button" value="<?php echo $row->NoSMU.'/'.$row->desti.'/'.$row->PCS.'/'.$row->CWT; ?>" onClick="move_consol(this)"><i class="fa fa-check"></i></button>
                                                  
                                          
-                                                  </td>
+                                                  <input type="checkbox" name="checklish[]" id="checklish[]">
+                                                  <label for="checklish[]"></label></td>
                                                   </tr>
                                             <?php $no++;} ?>
                                                
                                                  <tr align="right">
-                                                  <td colspan="2">&nbsp;</td>
+                                                  <td colspan="3">&nbsp;</td>
                                                   <td align="right"><div align="right"></div></td>
                                                   <td>&nbsp;</td>  
                                                   <td>&nbsp;</td>
@@ -241,6 +260,35 @@
 
 <!--adding form-->
 <script type="text/javascript">  
+
+$("#flightnumber").change(function(){
+	var etd=$("#tgl3").val();
+	var flihgtno=$("#flightnumber").val();
+		 $.ajax({
+         type: "POST",
+         url : "<?php echo base_url('transaction/filter_release'); ?>",
+         data: "etd="+etd+"&flihgtno="+flihgtno,
+		 success: function(data){
+		 $('#contenrelease').html(data);
+            }
+          
+	   });
+	
+});
+$("#airlines").change(function(){
+	var airlines=$("#airlines").val();
+		 $.ajax({
+         type: "POST",
+         url : "<?php echo base_url('transaction/filter_flight'); ?>",
+         data: "airlines="+airlines,
+		 success: function(data){
+		 $('#divflight').html(data);
+            }
+          
+	   });
+	
+});
+
 <!-- hapus item dan kurangi total items pack
 function move_consol(myid){
 var input = $(myid).val();
@@ -308,7 +356,27 @@ var input = $(myid).val();
 }
 
 
-
+function Checkall(){
+	var chk=document.getElementsByName('checklish[]');
+	for(i=0;i < chk.length;i++){
+	chk[i].checked="true";	
+	}
+}
+function unCheckall(){
+	var chk=document.getElementsByName('checklish[]');
+	for(i=0;i < chk.length;i++){
+	chk[i].checked="false";	
+	}
+}
+$("#checkall").change(function(){
+	
+	if($(this).is(':checked')){
+		Checkall();
+	} else {
+		unCheckall()
+	}
+	
+});
 function delete_cargo(myid){
 	var id=$(myid).val();
 alert(id);	

@@ -19,7 +19,7 @@
                                                   <th width="43">PCS</th>
                                                   <th width="53">CWT</th>
                                                   <th width="61" class="text-center">Status Consol</th>
-                                                  <th width="61" class="text-center">Detail</th>
+                                                  <th width="61" class="text-center"><div align="left">Service Type</div></th>
                                                 </tr>
                                               </thead>
                                               <tbody>
@@ -27,23 +27,27 @@
  $no=1;
  foreach ($houseconsol as $row) {
 	 $consol=$row->Consolidation;
-	// $pcs=$row->PCS;
+		 $service=($row->Service=='DOOR TO PORT' || $row->Service=='PORT TO PORT')?'<span class="label label-warning white">Direct</span>':'<span class="label label-success white">Consoled</span>';
+		 
 	 if($consol==1){
-		 		 $status2='<span class="badge badge-success white"><i class="fa fa-check"></i> YES</span>';
+		 		 $status2='<span class="label label-success arrowed-right white"><i class="fa fa-check"></i>YES</span>';
 
 	 } else {
-		 $status2='<span class="badge badge-important white"><i class="fa fa-times"></i> NO</span>';
+		 $status2='<span class="label label-important arrowed-right white"><i class="fa fa-times"></i>NO</span>';
 	 }
 	 
   ?>
                                                   <tr>
                                                     <td><?php echo $no?></td>
-                                                    <td><?php echo $row->HouseNo?></td>
+                                                    <td>
+<a href="#" onclick="detailhouse(this);"><?php echo $row->HouseNo?>
+</a>
+</td>
                                                     <td><div align="left"><?php echo substr($row->desti,0,50).'-'.$row->portcode?></div></td>
                                                     <td><div align="center"><?php echo $row->PCS?></div></td>
                                                     <td><div align="center"><?php echo $row->CWT?></div></td>
                                                     <td><div align="center"><?php echo $status2?></div></td>
-                                                    <td><button class="btn btn-mini btn-primary btndet" value="<?php echo $row->HouseNo?>" onclick="detailhouse(this);"><i class="fa fa-eye"></i> Details</button></td>
+                                                    <td><?php echo $service?></td>
                                                   </tr>
                 <?php $no++;} ?>  
                                                   
@@ -73,16 +77,16 @@
 
 <div id="modalhouse" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id=""><small>Detail Consol</small> House </h3><span id="labelhouse" class="label label-info arrowed-in-right arrowed text-uppercase"></span>
+                <h3 id=""><small>Detail Consol</small> House            </h3>
             </div>
             <div class="smart-form scroll">
 
                     <div class="modal-body">
-                  <h5>List House in SMU</h5>    
+                   
                         <div id="tabledetailhouse">
                         <table id="tbldet" class="table table-striped table-bordered" cellspacing="0" width="100%">
       <thead>
@@ -101,7 +105,7 @@
 
                         </div>
                      
-                      <div class="modal-footer"></div>
+                     
               </div>
             
            
@@ -112,7 +116,7 @@
     
     <script>
 function detailhouse(myid){
-	var numb=$(myid).val();
+	var numb=$(myid).html();
 				$.ajax({
                 type: "POST",
                 url : "<?php echo base_url('transaction/ajax_detailHouse'); ?>",

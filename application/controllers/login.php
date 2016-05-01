@@ -28,7 +28,8 @@ class Login extends CI_Controller{
                     'passusr'=>$row->password,
                     'nameusr'=>$row->FullName,
 					'emailusr'=>$row->Email,
-                    'levelusr' => $row->Level,
+                    'company' => $row->Company,
+					'levelusr' => $row->Level,
                     'login_status'=>true,
                 );
                 //set session with value from database
