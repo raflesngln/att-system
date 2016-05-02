@@ -19,7 +19,7 @@
                                                   <th width="43">PCS</th>
                                                   <th width="53">CWT</th>
                                                   <th width="61" class="text-center">Status Consol</th>
-                                                  <th width="61" class="text-center"><div align="left">Service Type</div></th>
+                                                  <th width="61" class="text-center"><div align="left">Shipment Type</div></th>
                                                 </tr>
                                               </thead>
                                               <tbody>
@@ -28,7 +28,7 @@
  foreach ($masterconsol as $free) {
 	 $cwt=$free->CWT;
 	 $pcs=$free->PCS;
-	 $service=($free->Service=='DOOR TO PORT' || $free->Service=='PORT TO PORT')?'<span class="label label-warning white">Direct</span>':'<span class="label label-success white">Consoled</span>';
+	 $service=($free->Service=='DOOR TO PORT' || $free->Service=='PORT TO PORT')?'<span class="label label-warning white">Direct</span>':'<span class="label label-success white">Consolidation</span>';
 	 
 	 if($cwt <=1){
 		 $status1='<span class="label label-important arrowed-right white"><i class="fa fa-times"></i>NO</span>';

@@ -93,7 +93,7 @@
                                               <thead>
                                                 
                                                   <tr>
-                                                    <th colspan="6"><span class="span4 label label-large label-inverse" style="text-align:left;padding-top:7px">Remain House in SMU</span></th>
+                                                    <th colspan="6"><span class="span4 label label-large label-inverse" style="text-align:left;padding-top:7px">Remainccc House in SMU</span></th>
                                                   </tr>
                                                   <tr>
                                                   <th>House</th>
@@ -127,8 +127,7 @@ $totpcs='0';
                                                     <td><input type="text" name="rightcwt[]" id="rightcwt[]" value="<?php echo $row->CWT?>" style="width:40px"/></td>
                                                     <td><input type="text" name="rightpcs[]" id="rightpcs[]" value="<?php echo $row->PCS?>" style="width:40px"/></td>
                                                     <td align="center"><input type="hidden" name="rightconsoled[]" id="rightconsoled[]" value="<?php echo $row->ConsoledCWT?>" style="width:40px"/>
-                                                    <input type="hidden" name="remainconsoled[]" id="remainconsoled[]" value="<?php echo $row->RemainCWT?>" style="width:40px"/>
-                                                    <input type="hidden" name="rightconsoledpcs[]" id="rightconsoledpcs[]" value="<?php echo $row->ConsoledPCS?>" style="width:40px"/>
+                                                      <input type="hidden" name="rightconsoledpcs[]" id="rightconsoledpcs[]" value="<?php echo $row->ConsoledPCS?>" style="width:40px"/>
                                                     <input type="hidden" name="rightremainpcs[]" id="rightremainpcs[]" value="<?php echo $row->RemainPCS?>" style="width:40px"/>
                                                     <input type="hidden" name="rightcommodity[]" id="rightcommodity[]" value="<?php echo $row->Commodity?>" style="width:40px"/></td>
                                                     <td align="center">
@@ -156,6 +155,7 @@ $totpcs='0';
               </tr>
 </tfoot>   
                                             </table>
+                                        <input type="hidden" name="remainconsoled[]" id="remainconsoled[]" value="<?php echo $row->RemainCWT?>" style="width:40px"/>
                                         </div>
                                     </div>
                                     

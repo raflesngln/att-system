@@ -379,7 +379,7 @@ $("#idconsigne").click(function(){
           </div>
            <label class="col-sm-4"> Origin</label> 
           <div class="col-sm-7">
-           <select name="origin" id="origin" class="form-control" required="required">
+           <select name="origin" id="origin" class="form-control" required="required" onChange="return getflight()">
           <option value="">Choose Origin</option>
           <?php foreach ($city as $ct) {
           ?>
@@ -389,7 +389,7 @@ $("#idconsigne").click(function(){
           </div>
            <label class="col-sm-4"> Destination</label> 
           <div class="col-sm-7">
-           <select name="desti" id="desti" class="form-control" required="required">
+           <select name="desti" id="desti" class="form-control" required="required" onChange="return getflight()">
           <option value="">Choose Destination</option>
           <?php foreach ($city as $ct) {
           ?>
@@ -397,9 +397,9 @@ $("#idconsigne").click(function(){
           <?php } ?>
           </select>
           </div>
-            <label class="col-sm-4"> ETD</label> 
+            <label class="col-sm-4"> Departure Date</label> 
           <div class="col-sm-7">
-           <input name="etd" type="text" class="form-control"  id="etd" required value="<?php echo date("Y-m-d") ;?>" readonly/>
+           <input name="etd" type="text" class="form-control"  id="etd" required value="<?php echo date("Y-m-d") ;?>" onChange="return getflight()" readonly/>
           </div>
            <label class="col-sm-4"> Service</label> 
           <div class="col-sm-6">
@@ -413,13 +413,12 @@ $("#idconsigne").click(function(){
           </div>
           
      <!-- HIDDEN MENU -->
-     
-<div style=" display:block " id="divsmu">  
+<div style=" display:none " id="divsmu">  
 <div class="col-sm-12"><hr style="border:1px #CCC dashed"></div> 
 <div class="form-group">
            <label class="col-sm-4">Air Line</label> 
           <div class="col-sm-7">
-          <select name="airline" class="form-control" required="required" id="airline" onChange="return getprefix(this);">
+          <select name="airline" class="form-control"  id="airline" onChange="return getprefix(this)">
           <option value="">Select AirLine</option>
                    <?php
                    foreach ($airline as $air) {
@@ -432,10 +431,10 @@ $("#idconsigne").click(function(){
  <div class="form-group form-inline">
           <label class="col-sm-4">SMU No</label> 
           <div class="col-sm-2">
-        <input name="prefixsmu" type="text" class="form-control"  id="prefixsmu" readonly required />
+        <input name="prefixsmu" type="text" class="form-control"  id="prefixsmu" readonly />
           </div>
           <div class="col-sm-4">
-        <input name="smu" type="text" class="form-control"  id="smu" placeholder="No SMU" required style="width:170px"/>
+        <input name="smu" type="text" class="form-control"  id="smu" placeholder="No SMU" style="width:170px"/>
           </div>
  </div>
  
@@ -444,13 +443,9 @@ $("#idconsigne").click(function(){
 <div class="col-sm-8">
 		<div class="row">
         <div class="col-sm-10" style="margin-left:12px;">
-     <select name="flightno1" class="form-control" required="required" id="flightno1">
-            <option value="">Select AirLine</option>
-            <?php
-                   foreach ($airline as $air) {
-                   ?>
-            <option value="<?php echo $air->AirLineCode;?>"><?php echo $air->AirLineName;?></option>
-            <?php } ?>
+     <select name="flightno1" class="form-control" id="flightno1">
+            
+            
           </select>
         </div>
          </div>
@@ -997,16 +992,14 @@ $("#idconsigne").click(function(){
  <div class="form-group">
    <label class="col-sm-3 control-label">Email</label>
                         <div class="col-sm-9"><span class="controls">
+                          <textarea name="remarks2" cols="30" rows="2" class="form-control" id="remarks2" required></textarea>
                           <input name="email" type="email" class="form-control" placeholder="Email" id="email" />
               </span></div>
                         <div class="clearfix"></div>
                     </div>
  <div class="form-group">
             <label class="col-sm-3 control-label">Remarks</label>
-                        <span class="col-sm-9">
-                        <textarea name="remarks2" cols="30" rows="2" class="form-control" id="remarks2" required></textarea>
-                        </span>
-                        <div class="col-sm-9"></div>
+            <div class="col-sm-9"></div>
                         <div class="clearfix"></div>
                       </div>
 <hr /> 
@@ -1615,32 +1608,28 @@ $('#service').change(function(){
 			$("#smu").val('');
 			$("#prefixsmu").val('');
 			$("#divsmu").css("display","block");
+			$("#airline").attr("required","required");
+			$("#prefixsmu").attr("required","required");
+			$("#smu").attr("required","required");
+			$("#flightno1").attr("required","required");
+			$("#airline").focus();
 			
 			
 		} else {
 			$("#smu").attr("disabled", "disabled"); 
 			$("#smu").val('0');
-			$("#flightno1").val('0');
-			$("#prefixsmu").val('0');
-			$("#airline").val('0');
+			$("#flightno1").val('');
+			$("#prefixsmu").val('');
+			$("#airline").val('');
+			$("#flightno1").val('');
+			$("#airline").removeAttr("required","required");
+			$("#prefixsmu").removeAttr("required","required");
+			$("#smu").removeAttr("required","required");
+			$("#flightno1").removeAttr("required","required");
 			$("#divsmu").css("display","none");
 		}
     });
-function getprefix(myid){
-    var airline = $(myid).val();
-       $.ajax({
-		url: "<?php echo base_url('transaction/getprefix'); ?>",
-			dataType: "json",
-			type: "POST",
-			data: "airline="+airline,
-			success: function(data) {
-			 for (var i =0; i<data.length; i++){
-				$('#prefixsmu').val(data[i].prefixsmu);
-				$("#smu").focus();
-			 }
-			}
-		});
-}	
+
 
 	$('#airline').change(function(){
 		 var airline = $("#airline").val();
@@ -1655,7 +1644,40 @@ function getprefix(myid){
                 }
             });
 	});
-					
+function getprefix(myid){
+    var airline = $(myid).val();
+       $.ajax({
+		url: "<?php echo base_url('transaction/getprefix'); ?>",
+			dataType: "json",
+			type: "POST",
+			data: "airline="+airline,
+			success: function(data) {
+			 for (var i =0; i<data.length; i++){
+				$('#prefixsmu').val(data[i].prefixsmu);
+				$("#smu").focus();
+				getflight();
+			 }
+			}
+		});
+}	
+//$('#etd').change(function(){
+function getflight(){
+		var etd=$('#etd').val();
+		var airline=$('#airline').val();
+		var origin=$('#origin').val();
+		var desti=$('#desti').val();
+		$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('transaction/filter_flightNo2'); ?>",
+				 data: "etd="+etd+"&airline="+airline+"&origin="+origin+"&desti="+desti,
+                cache:false,
+                success: function(data){
+                    $('#flightno1').html(data);
+                    //document.frm.add.disabled=false;
+                }
+            });
+};
+	//});
 </script>
 </body>
 </html>

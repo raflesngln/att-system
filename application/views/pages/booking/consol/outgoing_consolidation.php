@@ -91,11 +91,12 @@
  </div>
           <strong><label class="col-sm-4"> Origin</label></strong>
           <div class="col-sm-7">
-           <input name="origin" type="text" class="form-control"  id="origin" required="required" readonly="readonly"/>
+            <input name="desti" type="text" class="form-control"  id="desti" required="required" readonly="readonly" />
           </div>
-           <strong><label class="col-sm-4"> Destinatioln</label></strong>
+           <strong>
+           <label class="col-sm-4"> Destination</label></strong>
           <div class="col-sm-7">
-           <input name="desti" type="text" class="form-control"  id="desti" required="required" readonly="readonly" />
+            <input name="origin" type="text" class="form-control"  id="origin" required="required" readonly="readonly"/>
           </div>
               
         
@@ -167,14 +168,14 @@
 	 $t_cwt+=$cwt;
   ?>
                                                   <tr>
-                                                    <td><?php echo $free->HouseNo?></td>
-                                                    <td><?php echo $free->PCS?></td>
-                                                    <td><?php echo $free->CWT?></td>
-                                                    <td><?php echo $free->ConsoledCWT?></td>
-                                                    <td><?php echo $free->RemainCWT?></td>
+                                                    <td><?php //echo $free->HouseNo?></td>
+                                                    <td><?php //echo $free->PCS?></td>
+                                                    <td><?php //echo $free->CWT?></td>
+                                                    <td><?php //echo $free->ConsoledCWT?></td>
+                                                    <td><?php //echo $free->RemainCWT?></td>
                                                     <td>&nbsp;</td>
                                                     <td>
-<button class="move_consol btn btn-mini btn-primary" type="button" value="<?php echo $free->HouseNo.'/'.$free->CWT.'/'.$free->PCS.'/'.$free->ConsoledCWT.'/'.$free->RemainCWT.'/'.$free->Commodity;?>" onClick="move_consol(this)"><i class="fa fa-check"></i></button>
+<button style=" display:none" class="move_consol btn btn-mini btn-primary" type="button" value="<?php echo $free->HouseNo.'/'.$free->CWT.'/'.$free->PCS.'/'.$free->ConsoledCWT.'/'.$free->RemainCWT.'/'.$free->Commodity;?>" onClick="move_consol(this)"><i class="fa fa-check"></i></button>
  </td>
                                                   </tr>
                 <?php $no++;} ?>  
@@ -728,7 +729,7 @@ function move_consol(myid){
 		var consolpcs=pecah[7];
 		var remainpcs=pecah[8];
 		
-		var new_cwt=parseFloat(totcwt)+ parseFloat(cwt);
+		var new_cwt=parseFloat(totcwt)+ parseFloat(remain);
 		var limit=$("#limitcwt").val();
 		var selisih=parseFloat(limit)- parseFloat(totcwt);
 		var sisacwt=parseFloat(cwt)- parseFloat(selisih);

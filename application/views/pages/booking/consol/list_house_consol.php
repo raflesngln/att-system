@@ -19,7 +19,7 @@
                                                   <th width="43">PCS</th>
                                                   <th width="53">CWT</th>
                                                   <th width="61" class="text-center">Status Consol</th>
-                                                  <th width="61" class="text-center"><div align="left">Service Type</div></th>
+                                                  <th width="61" class="text-center"><div align="left">Shipment Type</div></th>
                                                 </tr>
                                               </thead>
                                               <tbody>
@@ -27,7 +27,7 @@
  $no=1;
  foreach ($houseconsol as $row) {
 	 $consol=$row->Consolidation;
-		 $service=($row->Service=='DOOR TO PORT' || $row->Service=='PORT TO PORT')?'<span class="label label-warning white">Direct</span>':'<span class="label label-success white">Consoled</span>';
+		 $service=($row->Service=='DOOR TO PORT' || $row->Service=='PORT TO PORT')?'<span class="label label-warning white">Direct</span>':'<span class="label label-success white">Consolidation</span>';
 		 
 	 if($consol==1){
 		 		 $status2='<span class="label label-success arrowed-right white"><i class="fa fa-check"></i>YES</span>';

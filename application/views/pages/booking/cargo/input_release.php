@@ -32,21 +32,7 @@
             </select>
           </span></div>
 </div>
- <div class="form-group" style="display:none">
-          <label class="col-sm-11"> Flight Number</label></strong>
-          <div class="col-sm-11"><span class="col-sm-7">
-            <select name="flightnumber" id="flightnumber" class="form-control" required="required">
-         <option value="">Select Flight Number</option>
-               <?php 
-		foreach($flight as $data){
-			$flightnumb=explode('/',$data->FlightNumbDate1);
-			$flightno=$flightnumb[0];
-		?>
-              <option value="<?php echo $data->FlightNumbDate1;?>"><?php echo $flightno;?></option>
-       <?php } ?>
-            </select>
-          </span></div>
-</div>
+ 
  <div class="form-group">
           <label class="col-sm-11"> Keterangan</label></strong>
           <div class="col-sm-11">
@@ -65,7 +51,7 @@
       </div>             
   </div>
 <!--RIGHT INPUT-->
- <div class="col-sm-5" style="border:1px #CCC solid;box-shadow:2px 3px 8px #CCC; margin-right:5px">
+ <div class="col-sm-5" style="border:1px #CCC solid;box-shadow:2px 3px 8px #CCC; margin-right:5px; display:none">
  
 <table width="200" border="0" class="table table-stripped" id="tblcargo">
   <tr>
@@ -114,7 +100,7 @@
                                                   </div></th>
                                                 </tr>
                                           <tbody>
-                                              <tbody>
+                                          <tbody>
  <?php 
  $no=1;
  foreach ($smu as $row) {
@@ -134,25 +120,6 @@
 	 
   ?>
 
-                                                  <tr align="left" class="gradeX">
-                                                    <td><?php echo $kode; ?>
-                                                    <input name="flight[]" type="hidden" id="flight[]" value="<?php echo $row->Airlines; ?>"></td>
-                                                    <td><?php echo $row->NoSMU; ?><input type="hidden" name="smu2[]" value="<?php echo $row->NoSMU; ?>"></td>
-                                                    <td><?php echo $row->desti; ?>
-                                                    <input name="desti2[]" type="hidden" id="desti2[]" value="<?php echo $row->desti; ?>"></td>
-                                                    <td><div align="right"><?php echo $pcs; ?>
-                                                      <input name="pcs2[]" type="hidden" id="pcs2[]" value="<?php echo $pcs; ?>">
-                                                    </div></td>
-                                                    <td><div align="right"><?php echo $cwt; ?>
-                                                      <input name="cwt2[]" type="hidden" id="cwt2[]" value="<?php echo $cwt; ?>">
-                                                    </div></td>
-                                                    <td align="center">
-                    <button style="display:none" class="delbtn btn btn-mini btn-primary" type="button" value="<?php echo $row->NoSMU.'/'.$row->desti.'/'.$row->PCS.'/'.$row->CWT; ?>" onClick="move_consol(this)"><i class="fa fa-check"></i></button>
-                                                 
-                                         
-                                                  <input type="checkbox" name="checklish[]" id="checklish[]">
-                                                  <label for="checklish[]"></label></td>
-                                                  </tr>
                                             <?php $no++;} ?>
                                                
                                                  <tr align="right">
@@ -162,9 +129,9 @@
                                                   <td>&nbsp;</td>
                                                 </tr>
                                                 
-                                              </tbody>
-                                            </table>
-                                        </div>
+                                          </tbody>
+                                          </table>
+                                      </div>
                                     </div>
   
   <!-- LEFT INPUT  -->
@@ -191,7 +158,7 @@
                                             <a class="btn btn-danger " href="<?php echo base_url();?>transaction/domesctic_outgoing_house" data-toggle="modal" title="Add"><i class="icon-reply bigger-120 icons"></i>Cancel </a>
                                         </div>
                                          <div class="col-md-2">
-                                             <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
+                                             <button class="btn btn-primary" type="submit"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
                                         </div>  </div>     
               </div>
           </div>
@@ -201,63 +168,45 @@
       
       
     <!--adding form-->
-<?php
 
-  //  foreach($list as $row){
-        ?>
-<div id="modaledit<?php echo '123';?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="modalcargo" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Scan Barcode / Insert data</h3>
+                <h3 id=""><small>Detail Cargo</small> Release</h3>
             </div>
-            <div class="smart-form">
+            <div class="smart-form scroll">
+
                     <div class="modal-body">
-                      <div class="clearfix"></div>
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Connote/House Number</label>
-                        <div class="col-sm-12"><span class="controls">
-                        <textarea name="idcnote2" id="idcnote2" class="form-control" placeholder="scann barcode here" style="height:40px"></textarea>
-</span></div>
+                   
+                        <div id="tabledetailhouse">
+                        <table id="tbldet" class="table table-striped table-bordered" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>House</th>  
+          <th>Shipper</th>
+          <th> PCS</th>
+          <th>CWT</th>
+          <th style="width:125px;">Amount</th>
+        </tr>
+      </thead>
 
-<div class="col-sm-12">
-<span class="controls">
-  <button class="btn btn-search btn-small btn-inverse" id="btn-manual" type="button" style="margin-bottom:5px">Manual</button>
-</span> 
-</div>
-            
-            </div>
-<div class="form-group" id="form-manual" style=" display:none; float:left">
-                        <div class="col-sm-12">
-                        <div class="col-sm-9">
-  <input name="idcnote3" type="text" class="form-control"   style=" width:300px" id="idcnote3" placeholder="input connote here !"/>
+
+
+    </table>
+
                         </div>
-  <div class="col-sm-3">
-  <button class="btn btn-primary btn-small" type="button" id="btniditems"><i class="fa fa-download bigger-120 icons">&nbsp;</i> Insert</button>
-                       </div>
-                        </div>
-
-
+                     
+                     
+              </div>
             
-            </div>
-            
-<div id="detailconnote2">        
-
-    </div>                
-                      <div class="modal-footer">
-<h1>&nbsp;</h1>
-                      </div>
-                    </div>
-            
-               
-            </div>
+           
+          </div>
         </div>
     </div>
-</div>
-    <?php // } ?>
-
+    </div>
 <!--adding form-->
 <script type="text/javascript">  
 
@@ -382,6 +331,23 @@ function delete_cargo(myid){
 alert(id);	
 }
 
+function detailCargo(){
+	var flight=$("#detcargo").html();	
+	
+			$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('transaction/detail_cargo'); ?>",
+				 data: "flight="+flight,
+                cache:false,
+                success: function(data){
+					$("#modalcargo").modal('show');
+					
+                    $('#tabledetailhouse').html(data);
+                    //document.frm.add.disabled=false;
+                }
+            });
+	
+}
 </script>
 
 </thead>

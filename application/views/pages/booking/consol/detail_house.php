@@ -59,7 +59,7 @@ foreach($header as $row){
 
 <?php } ?>
 </div>
-<label class="label label-inverse label-lg">List SMU</label>
+<label class="label label-pink label-lg">List SMU</label>
 
 <table id="tbldet" class="table table-striped table-bordered" cellspacing="0" width="100%">
       <thead>

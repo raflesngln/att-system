@@ -17,9 +17,10 @@ class Cargo_release extends CI_Controller {
 		$data['scrumb']='cargo_release';
 		$data['airline']=$this->model_app->getdatapaging("*","ms_airline","ORDER BY AirLineName");
 		$data['flight']=$this->model_app->getdatapaging("FlightNumbDate1","outgoing_master","WHERE StatusProses <=2 GROUP BY FlightNumbDate1");
-		$data['smu']=$this->model_app->getdatapaging("a.FlightNumbDate1,a.NoSMU,a.PCS,a.CWT,b.PortName as ori,c.PortName as desti","outgoing_master a",
+		$data['smu']=$this->model_app->getdatapaging("a.FlightNumbDate1,a.ETD,d.FlightID,d.FlightNo,a.NoSMU,a.PCS,a.CWT,b.PortName as ori,c.PortName as desti","outgoing_master a",
 			            "LEFT JOIN ms_port b on b.PortCode=a.Origin
 						 LEFT JOIN ms_port c on c.PortCode=a.Destination
+						 LEFT JOIN ms_flight d on a.FlightNumbDate1=d.FlightID
 						 WHERE a.StatusProses IN(2,3)");
 		$data['view']='pages/booking/cargo/cargo_release';
         $this->load->view('home/home',$data);
@@ -53,8 +54,7 @@ public function ajax_list()
 			
             'action'=> '<a class="green" href="javascript:void()" title="Edit" onclick="edit_data('."'".$datalist->CargoReleaseCode."'".')"><i class="icon-edit bigger-150"></i></a>&nbsp;&nbsp;
 				    <a class="red" href="javascript:void()" title="Hapus" onclick="delete_data('."'".$datalist->CargoReleaseCode."'".')"><i class="icon-trash bigger-150"></i></a>
-		 <a class="red" href="'.base_url().'transaction/edit_cargo" title="Hapus"><i class="icon-edit bigger-150"></i></a>
-					'
+<a class="green" href="javascript:void()" title="Edit" onclick="edit_data2('."'".$datalist->CargoReleaseCode."'".')"><i class="icon-edit bigger-150"></i></a>					'
             );
 			$data[] = $row;
 		}
@@ -107,10 +107,12 @@ public function ajax_edit()
 	public function ajax_delete()
 	{
 	   $id     = $this->input->post('cid');
-       $nmtabel= $this->input->post('cnmtabel');
+       $nmtabel= $this->input->post('cnmtabel'); $nmtabel2='cargo_items';
        $key    = $this->input->post('ckeytabel');
        
 		$this->Mdata->delete_by_id($id,$nmtabel,$key);
+		$this->Mdata->delete_by_id($id,$nmtabel2,$key);
+		
 		echo json_encode(array("status" => TRUE));
 	}
 	

@@ -119,7 +119,7 @@ function toRp(angka){
 											<li class="active">
 												<a data-toggle="tab" href="#home">
 													<i class="green fa fa-users bigger-110"></i>
-		List Outgoing House
+		List of Open House
 												</a>
 											</li>
 
@@ -131,7 +131,13 @@ function toRp(angka){
 												</a>
 											</li>
 
-
+											<li>
+												<a data-toggle="tab" href="#done">
+  <i class="green fa fa-building bigger-110"></i>
+		List of Closed House
+		
+												</a>
+											</li>
 
 										</ul>
 
@@ -145,6 +151,11 @@ function toRp(angka){
 											<div id="profile" class="tab-pane">
 <p>
   <?php $this->load->view('pages/booking/outgoing/input_outgoing_house');?>
+</p>
+											</div>
+<div id="done" class="tab-pane">
+<p>
+ loerm sipusmaasjajbj
 </p>
 											</div>
 										</div>

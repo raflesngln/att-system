@@ -75,6 +75,37 @@ function edit_data(id)
         }
     });
     }
+function edit_data2(id)
+    {
+      save_method6 = 'update';
+      
+      var nmtabel='tr_cargo_release';
+      var keytabel='CargoReleaseCode';
+        
+      //Ajax Load data from ajax
+      $.ajax({
+        url : "<?php echo site_url('cargo_release/ajax_edit/')?>",
+        type: "POST",
+        data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
+        dataType: "JSON",
+        success: function(data)
+        {
+            
+			 $('[name="CargoReleaseCode"]').val(data.CargoReleaseCode);
+			 $('[name="CargoDetails"]').val(data.CargoDetails);
+            $('[name="cwt"]').val(data.CWT); 
+			
+            $('#modal_form5').modal('show');
+            $('.modal-title5').text('Edit Master');
+			//document.getElementById("CargoReleaseCode").disabled=true;
+            
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+    }
 
     function reload_table3()
     {
@@ -214,4 +245,23 @@ function delete_data(id)
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+    
+    
+    <div class="modal fade" id="modal_form6" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title5">Detail Cargo</h3>
+      </div>
+      <div class="modal-body form">
+        <div class="detailcargo">jjj</div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="btnSave" onclick="save5()" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
     

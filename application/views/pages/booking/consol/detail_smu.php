@@ -22,7 +22,7 @@ foreach($header as $row){
 	</div>
 <div class="form-group">
     <div class="col-sm-5">Flight</div>
-    <div class="col-sm-7">: <?php echo $row->FlightNumbDate1?></div>
+    <div class="col-sm-7">: <?php echo $row->FlightNo;?></div>
 	</div>
 	
 </div>
@@ -48,7 +48,7 @@ foreach($header as $row){
 
 <?php } ?>
 </div>
-<label class="label label-inverse label-lg">List House</label>
+<label class="label label-pink label-lg">List House</label>
 <table id="tbldet" class="table table-responsive table-striped table-bordered" cellspacing="0" width="100%">
       <thead>
         <tr>

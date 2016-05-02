@@ -655,10 +655,13 @@ function cek_cnote(){
    		$smu =$_POST['smu2'][$key];
 		$cwt =$_POST['cwt2'][$key];
 		$pcs =$_POST['pcs2'][$key];
+		$flight2 =$_POST['flight2'][$key];
+		
 		$cwt_total+=$cwt;
 		$pcs_total+=$pcs;
 		$cargo_items=array(
 		'CargoReleaseCode' =>$kode,
+		'FlightNumber' =>$flight2,
 		'smu' =>$smu,
 		'CWT' =>$cwt,
 		'PCS' =>$pcs,
@@ -666,7 +669,7 @@ function cek_cnote(){
 		'CreatedDate'=>date('Y-m-d H:i:s'),
 		);	
 		$updatesmu=array(
-		'StatusProses' =>'3',
+		'StatusProses' =>'4',
 		);		
 		$save=$this->model_app->insert('cargo_items',$cargo_items);	
 		$this->model_app->update('outgoing_master','NoSMU',$smu,$updatesmu);	
@@ -675,7 +678,7 @@ function cek_cnote(){
 	   	//---insert header manifest
 		$insert_cargo=array(
 		'CargoReleaseCode' =>$kode,
-		'FlightNumber' =>$this->input->post('flightnumber'),
+		'AirLine' =>$this->input->post('airlines'),
 		'CargoDetails' =>$this->input->post('details'),
 		'ReleaseDate' =>$this->input->post('tgl3'),
 		'CWT' =>$cwt_total,
@@ -951,7 +954,7 @@ function outgoing_consolidation(){
             'scrumb_name'=>'outgoing_consolidation',
             'scrumb'=>'transaction/outgoing_consolidation',
 		'houseconsol'=>$this->model_app->getdatapaging("a.HouseNo,a.Service,a.Consolidation,a.CWT,a.PCS,a.Destination as portcode,b.PortName as desti","outgoing_house a",
-			 "LEFT JOIN ms_port b ON a.Destination=b.PortCode WHERE a.Consolidation <=1 GROUP BY a.HouseNo
+			 "LEFT JOIN ms_port b ON a.Destination=b.PortCode WHERE a.Consolidation IN(2,3) GROUP BY a.HouseNo
 			 "),
 		'masterconsol'=>$this->model_app->getdatapaging("a.NoSMU,a.Service,a.CWT,a.PCS,a.Destination as portcode,b.PortName as desti","outgoing_master a",
 			 "LEFT JOIN ms_port b ON a.Destination=b.PortCode WHERE a.StatusProses in(1,2,3) GROUP BY a.NoSMU
@@ -965,14 +968,13 @@ function outgoing_consolidation(){
 "outgoing_house a",
 			   "LEFT JOIN ms_customer b on b.CustCode=a.Shipper
 			     LEFT JOIN ms_customer c on c.CustCode=a.Consigne
-				 WHERE a.HouseStatus ='0' AND a.RemainCWT >0 AND LEFT(a.ETD,10)='$tgl' ORDER BY a.CWT DESC"),
+				 WHERE a.HouseStatus ='0' AND a.RemainCWT >0 AND LEFT(a.ETD,10)='$tgl' AND a.Consolidation='0' ORDER BY a.CWT DESC"),
 			//'added'=>$this->model_app->getdata('consol',"WHERE MasterNo ='$nosmu' "),
             'view'=>'pages/booking/consol/v_consol',
         );  
       $this->load->view('home/home',$data);
 	  
 }
-   //     consolidation
 function filter_consol(){
 		$tgl=$this->input->post('tgl');
 		$destination=$this->input->post('destination');
@@ -993,6 +995,28 @@ function filter_consol(){
         );  
       $this->load->view('pages/booking/consol/consol_replace',$data);	  
 }
+   //     consolidation
+function filter_consolllll(){
+		$tgl=$this->input->post('tgl');
+		$destination=$this->input->post('destination');
+		$nosmu=$this->input->post('nosmu');
+        $data = array(
+            'title'=>'Consol SMU',
+'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.CodeShipper,a.Commodity,a.PCS,a.ConsoledPCS,a.RemainPCS,a.ConsoledCWT,a.RemainCWT,a.CWT,b.CustName as sender,c.CustName as receiver","outgoing_house a",
+			            "LEFT JOIN ms_customer b on b.CustCode=a.Shipper
+						LEFT JOIN ms_customer c on c.CustCode=a.Consigne
+						WHERE a.HouseStatus ='0' AND a.RemainCWT >0 AND a.Destination='$destination' AND LEFT(a.ETD,10)='$tgl' a.Consolidation='0'"),
+						 
+'added'=>$this->model_app->getdatapaging("a.MasterNo,c.HouseNo,c.CodeShipper,c.Commodity,a.CWT,a.PCS,c.ConsoledPCS,c.RemainPCS,c.ConsoledCWT,c.RemainCWT,d.CustName as sender,e.CustName as receiver","consol a",
+			 "INNER JOIN outgoing_master b ON a.MasterNo=b.NoSMU 
+			  INNER JOIN outgoing_house c on a.HouseNo=c.HouseNo
+			  LEFT JOIN ms_customer d on d.CustCode=c.Shipper
+			  LEFT JOIN ms_customer e on e.CustCode=c.Consigne
+			 WHERE a.MasterNo ='$nosmu'"),
+        );  
+      $this->load->view('pages/booking/consol/consol_replace',$data);	  
+}
+
    //     consolidation
 function filter_desti(){
 		$tgl=$this->input->post('tgl');
@@ -1046,9 +1070,12 @@ function filter_date(){
 function filter_flight(){
 		$airlines=$this->input->post('airlines');
      $data = array(		 
-            'smu'=>$this->model_app->getdatapaging("*","outgoing_master a",
-			 "INNER JOIN ms_airline b ON a.Airlines=b.AirLineCode
-			 WHERE a.Airlines ='$airlines'"),
+            'smu'=>$this->model_app->getdatapaging("a.ETD,a.Destination,a.Origin,a.FlightNumbDate1,d.FlightID,d.FlightNo,a.NoSMU,a.PCS,a.CWT,b.PortName as ori,c.PortName as desti","outgoing_master a",
+			 "INNER JOIN ms_airline e ON a.Airlines=e.AirLineCode
+			  LEFT JOIN ms_port b on b.PortCode=a.Origin
+			  LEFT JOIN ms_port c on c.PortCode=a.Destination
+			  LEFT JOIN ms_flight d on a.FlightNumbDate1=d.FlightID
+			  WHERE a.StatusProses IN(2,3) AND a.Airlines ='$airlines'"),
         );  
       $this->load->view('pages/booking/cargo/replace_release',$data);	  
 }
@@ -1086,6 +1113,28 @@ function filter_flightNo(){
 		}	
 	}  
 }
+function filter_flightNo2(){
+	$airline=$this->input->post('airline');
+	$origin=$this->input->post('origin');
+	$desti=$this->input->post('desti');
+		$etd=new DateTime($this->input->post('etd'));
+		$hari='a.'.$etd->format('l');
+		
+      $result=$this->model_app->getdata('ms_flight a',
+	  "INNER JOIN ms_airline b on a.AirLine=b.AirLineCode  
+	  WHERE $hari='1' AND AirLine='$airline' AND Origin='$origin' AND Destination='$desti'");
+	  
+	echo'<option value="">Pilih Nomor Flight</option>';
+	if($result)
+	{
+	foreach($result as $data){
+	echo'<option value="'.$data->FlightID.'">'.$data->FlightNo.'</option>';
+		
+		}	
+	}  
+}
+	
+	
 function getsubMasterrrrrrrrr(){
 	$tgl=$this->input->post('tgl');
 	$destination=$this->input->post('destination');
@@ -1117,6 +1166,15 @@ function filterSMU(){
 		
 		}	
 	}
+}
+function detail_cargo(){
+	$flight=$this->input->post('flight');
+	
+    $data['smu']=$this->model_app->getdatapaging("a.NoSMU,a.CWT,a.PCS,b.PortName as desti","outgoing_master a",
+	"LEFT JOIN ms_port b on a.Destination=b.PortCode
+	WHERE LEFT(a.ETD,10)='$tgl' AND a.FlightNumbDate1='$flihgtno' AND a.StatusProses >=2 ORDER BY a.NoSMU ASC");
+	  
+	$this->load->view('pages/booking/cargo/replace_release',$data);
 }
 function filter_release(){
 	$tgl=$this->input->post('etd');
@@ -1317,9 +1375,9 @@ function domestic_outgoing_master(){
 				
 			$updatehouse2=array(
 			'Consolidation' =>'0',
-			'ConsoledCWT' =>$hasilcwtconsol2,
+			'ConsoledCWT' =>$consolcwt2,
 			'RemainCWT' =>$remaincwt2,
-			'ConsoledPCS' =>$hasilpcsconsol2,
+			'ConsoledPCS' =>$consolpcs2,
 			'RemainPCS' =>$remainpcs2,
 			);
 			$this->model_app->update('outgoing_house','HouseNo',$nohouse2,$updatehouse2);
@@ -1558,10 +1616,10 @@ function print_outgoing_master(){
 		 $this->model_app->insert('outgoing_house',$OutHouse);	
 		 
 	//insert sekalian smu jika service PORT
-		if($statusconsol !='0'){
+		if($smu !='0'){
 		$insertsmu=array(
 		'Notrans' =>$kodesmu,
-		'NoSMU' =>$smu,
+		'NoSMU' =>$this->input->post('prefixsmu').$smu,
 		'JobNo' =>$getjob,
 		'BookingNo' =>$this->input->post('booking'),
 		'PayCode' =>$this->input->post('paymentype'),
@@ -1572,8 +1630,8 @@ function print_outgoing_master(){
 		'Shipper' =>$this->input->post('idsender'),
 		'Airlines' =>$this->input->post('airline'),
 		'FlightNumbDate1' =>$this->input->post('flightno1'),
-		'FlightNumbDate2' =>$this->input->post('flightno2'),
-		'FlightNumbDate3' =>$this->input->post('flightno3'),
+		//'FlightNumbDate2' =>$this->input->post('flightno2'),
+		//'FlightNumbDate3' =>$this->input->post('flightno3'),
 		'CodeShipper' =>$this->input->post('codeship'),
 		'Consigne' =>$this->input->post('idreceivement'),
 		'CodeConsigne' =>$this->input->post('codesigne'),
@@ -1594,7 +1652,7 @@ function print_outgoing_master(){
 		'CreatedDate'=>date('Y-m-d H:i:s'),
 		);		
 		$insertconsol=array(
-			'MasterNo' =>$smu,
+			'MasterNo' =>$this->input->post('prefixsmu').$smu,
 			'HouseNo'=>$getHouse, 
 			'ConsolDesc'=>'',
 			'CWT'=>$this->input->post('ori_cwt'),
@@ -1796,10 +1854,12 @@ function print_outgoing_master(){
 		'Commodity' =>$this->input->post('commodity'),
 		'SpecialIntraction' =>$this->input->post('special'),
 		'CWT' =>$this->input->post('ori_cwt'),
+		'RemainCWT' =>$this->input->post('ori_cwt'),
 		'GrossWeight' =>$this->input->post('t_weight'),
 		'grandVolume' =>$this->input->post('t_volume'),
 		'Discount' =>$this->input->post('txtdiskon'),
 		'PCS' =>$this->input->post('t_pacs'),
+		'RemainPCS' =>$this->input->post('t_pacs'),
 		'Amount' =>$this->input->post('txtgrandtotal'),
 		'DeclareValue' =>$this->input->post('declare'),
 		'DescofShipment' =>$this->input->post('description'),
@@ -2069,6 +2129,8 @@ $OutHouse=array(
             exit;
         }
     }  
+	
+
  function SOA(){	
  		$data=array(
 		'title'=>' SOA',
@@ -2206,13 +2268,14 @@ public function ajax_detailSMU()
 	{
 		$kode=$this->input->post('smu');
 	$data=array(
-	'header'=>$this->model_app->getdatapaging("a.NoSMU,a.ETD,a.PayCode,a.Service,b.AirLineName,a.FlightNumbDate1,c.CustName as sender,d.CustName as receiver,e.PortCode as ori,f.PortCode as desti",
+	'header'=>$this->model_app->getdatapaging("a.NoSMU,a.ETD,a.PayCode,a.Service,b.AirLineName,a.FlightNumbDate1,c.CustName as sender,d.CustName as receiver,e.PortCode as ori,f.PortCode as desti,g.FlightNo",
 	"outgoing_master a",
 	"LEFT JOIN ms_airline b on a.Airlines=b.AirLineCode
 	 LEFT JOIN ms_customer c on a.Shipper=c.CustCode
 	 LEFT JOIN ms_customer d on a.Consigne=d.CustCode
 	 LEFT JOIN ms_port e on a.Origin=e.PortCode
 	 LEFT JOIN ms_port f on a.Destination=f.PortCode
+	 LEFT JOIN ms_flight g on a.FlightNumbDate1=g.FlightID
 	WHERE a.NoSMU='$kode'"),
 	
 	'smu'=>$this->model_app->getdatapaging("a.CWT,a.PCS,b.HouseNo,b.BookingNo,c.CustName as shipper,d.CustName as consigne,e.PortCode as ori,f.PortCode as desti","consol a",
