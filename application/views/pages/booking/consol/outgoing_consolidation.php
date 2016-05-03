@@ -126,6 +126,12 @@
            <input name="limitcwt" type="text" class="form-control" readonly="readonly" required="required" id="limitcwt"/>
           </div>
           
+           <strong><label class="col-sm-4">Flight No</label></strong>
+          <div class="col-sm-7">
+           <input name="flightno" type="text" class="form-control" readonly="readonly" required="required" id="flightno"/>
+           <input type="hidden" name="flightid" id="flightid" />
+          </div>
+          
           </div>
                        
             
@@ -644,6 +650,8 @@ function getDetailSMU(myid){
 				$('#qty').val(data[i].PCS);
 				$('#cwt').val(data[i].CWT);
 				$('#limitcwt').val(data[i].limitcwt);
+				$('#flightno').val(data[i].flightno);
+				$('#flightid').val(data[i].FlightID);
 			 }
 			  //$('#test').append(data_table); 
 			}

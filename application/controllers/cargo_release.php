@@ -21,7 +21,7 @@ class Cargo_release extends CI_Controller {
 			            "LEFT JOIN ms_port b on b.PortCode=a.Origin
 						 LEFT JOIN ms_port c on c.PortCode=a.Destination
 						 LEFT JOIN ms_flight d on a.FlightNumbDate1=d.FlightID
-						 WHERE a.StatusProses IN(2,3)");
+						 WHERE a.StatusProses IN(2,3) group by d.FlightNo");
 		$data['view']='pages/booking/cargo/cargo_release';
         $this->load->view('home/home',$data);
 		

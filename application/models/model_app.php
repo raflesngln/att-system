@@ -225,9 +225,14 @@ public function generateCity($table,$kolom,$kd_unik)
 	{
 		 $query = $this->db->query("SELECT *,
 		 (select b.PortName from ms_port b where a.Origin=b.PortCode) as origin,
-		 (select c.PortName from ms_port c where a.Destination=c.PortCode) as destination
+		 (select c.PortName from ms_port c where a.Destination=c.PortCode) as destination,
+		 (select d.FlightNo from ms_flight d where a.FlightNumbDate1=d.FlightID) as flightno,
+		 (select d.FlightID from ms_flight d where a.FlightNumbDate1=d.FlightID) as FlightID
 		from outgoing_master a WHERE a.NoSMU='$nosmu' OR a.NoSMU='$smu'");
 		return $query->result();
+		
+		
+
 	}	
 //=================== select1 ===============================
 

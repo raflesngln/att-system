@@ -19,9 +19,12 @@
             "columns": [
             { "data": "no" },
             { "data": "HouseNo" },
-            { "data": "BookingNo" },
-            { "data": "PayCode" },
-			{ "data": "Service" },
+            { "data": "sender" },
+            { "data": "receiver" },
+			{ "data": "ori" },
+			{ "data": "desti" },
+			{ "data": "pcs" },
+			{ "data": "cwt" },
             { "data": "action" }
             ]
           });  
@@ -113,13 +116,13 @@ function save5()
 
 function delete_person5(id)
     {
-      if(confirm('Are you sure delete this data?'))
-      var nmtabel='ms_bank';
-      var keytabel='BankCode';
+      if(confirm('Are you sure delete this data? '+ id))
+      var nmtabel='outgoing_house';
+      var keytabel='HouseNo';
       {
         // ajax delete data to database
           $.ajax({
-            url : "<?php echo site_url('ms_bank/ajax_delete')?>",
+            url : "<?php echo site_url('Outgoing_house/ajax_delete')?>",
             type: "POST",
             data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
             dataType: "JSON",
@@ -150,10 +153,13 @@ function delete_person5(id)
       <thead>
         <tr>
           <th>no</th>  
-          <th>id</th>
-          <th> Name</th>
-          <th>Description</th>
-          <th>Createdby</th>
+          <th>House</th>
+          <th> Shipper</th>
+          <th>Consigne</th>
+          <th>Origin</th>
+          <th>Destination</th>
+          <th style="width:125px;">PCS</th>
+          <th style="width:125px;">CWT</th>
           <th style="width:125px;">Action</th>
         </tr>
       </thead>
@@ -161,12 +167,15 @@ function delete_person5(id)
       </tbody>
 
       <tfoot>
-        <tr>
+        <tr style="visibility:hidden">
           <th>no</th>
           <th>id</th>
           <th> Name</th>
           <th>Description</th>
-          <th>Createdby</th>
+          <th>Origin</th>
+          <th>Destination</th>
+          <th><span style="width:125px;">PCS</span></th>
+          <th><span style="width:125px;">CWT</span></th>
           <th>Action</th>
         </tr>
       </tfoot>
@@ -206,12 +215,78 @@ function delete_person5(id)
             
           </div>
         </form>
-          </div>
+      </div>
           <div class="modal-footer">
             <button type="button" id="btnSave" onclick="save5()" class="btn btn-primary">Save</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
           </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+    </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  
+  
+  <script type="text/javascript">
+	
+	 $(".dethouse").click(function(){
+          var nomor=$(this).html();
+             // alert('hai' + idcnote);
+				$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('transaction/detail_outgoing_house'); ?>",
+                data: "nomor="+nomor,
+                success: function(data){
+                   $('.detail_outgoing').html(data);
+				   $('.txtdetail').html('<strong> No. House : ' + nomor + '</strong>');
+                }
+            });
+        });
+	
+	 $("#txtsearch").keyup(function(){
+            var txtsearch = $('#txtsearch').val();
+             // alert('hai' + idcnote);
+				$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('transaction/search_outgoing_house'); ?>",
+                data: "txtsearch="+txtsearch,
+                success: function(data){
+                   $('#table_connote').html(data);
+                }
+            });
+        });
+		
+	 $("#btnsearch").click(function(){
+            var txtsearch = $('#txtsearch').val();
+				$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('transaction/search_outgoing_house'); ?>",
+                data: "txtsearch="+txtsearch,
+                success: function(data){
+                   $('#table_connote').html(data);
+                }
+            });
+        });
+	 $("#btnsort").click(function(){
+            var tgl1 = $('#tg1').val();
+			var tgl2 = $('#tg2').val();
+				$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('transaction/periode_outgoing_house');?>",
+       data: "tgl1="+tgl1+"&tgl2="+tgl2,
+                success: function(data){
+                   $('#table_connote').html(data);
+                }
+            });
+        });
+
+function EditConfirm(myid){
+		var status=myid;
+		if(status >= '1'){
+			alert('Cannot Edit house was consoled !');
+			return false;
+	}
+}
+
+
+	
+</script>
     

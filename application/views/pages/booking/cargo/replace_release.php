@@ -19,13 +19,13 @@
 	 
 	 $air=explode('/',$row->FlightNumbDate1);
 	 $kode=$air[0];
-	 $cwt=$row->CWT;
+	 $cwt=$row->cwt;
 	 $t_cwt+=$cwt;
 	 if($cwt <=0){
 		$cwt="<span class='label label-warning'>empty</span>";
 	 }
 	 
-	 $pcs=$row->PCS;
+	 $pcs=$row->pcs;
 	 $t_pcs+=$pcs;
 	 if($pcs <=0){
 		$pcs="<span class='label label-warning'>empty</span>";
@@ -36,7 +36,8 @@
                                                   <tr align="left" class="gradeX">
                                                     <td>
 													
-<a href="#" onclick="detailCargo()" id="detcargo"><?php echo $row->FlightNo; ?></a>
+
+<button class="label label-warning" type="button" value="<?php echo $row->FlightID; ?>" onclick="return detailCargo(this)"><?php echo $row->FlightNo; ?></button>
                                                     <input name="flight2[]" type="hidden" id="flight2[]" value="<?php echo $row->FlightID; ?>" /></td>
                                                     <td><?php echo date('d-m-Y',strtotime($row->ETD)); ?>                                                      <input name="etd2[]" type="hidden" id="etd2[]" value="<?php echo $row->ETD; ?>" /></td>
                                                     <td><?php echo $row->NoSMU; ?><input type="hidden" name="smu2[]" value="<?php echo $row->NoSMU; ?>"></td>

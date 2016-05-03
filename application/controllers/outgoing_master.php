@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Outgoing_house extends CI_Controller {
+class Outgoing_master extends CI_Controller {
 
 	public function __construct()
 	{
@@ -11,8 +11,8 @@ class Outgoing_house extends CI_Controller {
 
 	public function index()
 	{  
-       $data['title']='list ms_bank';
-		$data['scrumb_name']='Data ms_bank';
+       $data['title']='list Master';
+		$data['scrumb_name']='Data master';
 		$data['scrumb']='cdatamaster';
 		
 		$data['view']='pages/customer/bank/ms_bank';
@@ -21,15 +21,15 @@ class Outgoing_house extends CI_Controller {
 
 public function ajax_list()
 	{
-		$nm_tabel='outgoing_house a';
+		$nm_tabel='outgoing_master a';
 		$nm_tabel2='ms_customer b';
 		$kolom1='a.Shipper';
 		$kolom2='b.CustCode';
 		
-        $nm_coloum= array('a.HouseNo','a.Shipper','a.Consigne','a.Origin','a.Destination','a.PCS','a.CWT');
-        $orderby= array('a.HouseNo' => 'desc');
-        $where=  array('a.Consolidation <= '=>'2');
-        $list = $this->Mhouse->get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
+        $nm_coloum= array('a.NoSMU','a.Shipper','a.Consigne','a.Origin','a.Destination','a.PCS','a.CWT');
+        $orderby= array('a.NoSMU' => 'desc');
+        $where=  array('a.Consolidation <= '=>'1');
+        $list = $this->Mhouse->get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
 		$data = array();
 		$no = $_POST['start'];
@@ -38,7 +38,7 @@ public function ajax_list()
 			$no++;
 			$row = array(
             'no' => $no,
-            'HouseNo' => $datalist->HouseNo,
+            'NoSMU' => $datalist->NoSMU,
             'ori' =>$datalist->ori,
 			'desti' =>$datalist->desti,
 			'Service' =>$datalist->Service,
@@ -47,12 +47,12 @@ public function ajax_list()
 			'cwt' =>$datalist->CWT,
 			'pcs' =>$datalist->PCS,
 		
-            'action'=> '<div class="form-inline"> <a onclick="return EditConfirm('.$datalist->Consolidation.')" href="'.base_url().'transaction/edit_outgoing_house/'.$datalist->HouseNo.'" title="Edit item"><button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>
+            'action'=> '<div class="form-inline"> <a onclick="return EditConfirm('.$datalist->Consolidation.')" href="'.base_url().'transaction/edit_outgoing_master/'.$datalist->NoSMU.'" title="Edit item"><button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>
  </a>&nbsp;&nbsp;
-				    <a class="red" href="javascript:void()" title="Hapus" onclick="delete_person5('."'".$datalist->HouseNo."'".')"><i class="icon-trash bigger-150"></i></a>
+				    <a class="red" href="javascript:void()" title="Hapus" onclick="delete_person5('."'".$datalist->NoSMU."'".')"><i class="icon-trash bigger-150"></i></a>
 	
 	 <span> <form action="'.base_url().'connote_print" method="post" target="new" class="text-left">
-                                                   <input type="hidden" value="'.$datalist->HouseNo.'" name=" houseno" />
+                                                   <input type="hidden" value="'.$datalist->NoSMU.'" name=" NoSMU" />
                                                   <button class="btn btn-mini btn-warning " type="submit"><i class="fa fa-print bigger-120"></i></button>
 				
 			</div>
@@ -113,8 +113,6 @@ public function ajax_edit()
        $key    = $this->input->post('ckeytabel');
        
 		$this->Mhouse->delete_by_id($id,$nmtabel,$key);
-		$this->Mhouse->delete_by_id($id,"booking_items","Reff");
-		$this->Mhouse->delete_by_id($id,"booking_charge","Reff");
 		echo json_encode(array("status" => TRUE));
 	}
 }

@@ -175,7 +175,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id=""><small>Detail Cargo</small> Release</h3>
+                <h3 id=""><small>Detail </small> Flight</h3>
             </div>
             <div class="smart-form scroll">
 
@@ -331,8 +331,8 @@ function delete_cargo(myid){
 alert(id);	
 }
 
-function detailCargo(){
-	var flight=$("#detcargo").html();	
+function detailCargo(myid){
+	var flight=$(myid).val();	
 	
 			$.ajax({
                 type: "POST",
