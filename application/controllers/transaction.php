@@ -1221,7 +1221,20 @@ function getprefix(){
 		}
 		echo json_encode($data);
 }
+function geteta(){
+	$flightno=$this->input->post('flightno');
+        $list =$this->model_app->getdata('ms_flight',"WHERE FlightID ='$flightno'");
 
+		$data = array();
+		foreach ($list as $datalist){
+			$row = array(
+            'eta' => date('H:i:s',strtotime($datalist->Time)).' / '.date('H:i:s',strtotime($datalist->ETA)),
+			'time' => date('H:i:s',strtotime($datalist->Time)),
+			);
+			$data[] = $row;		
+		}
+		echo json_encode($data);
+}
      //     consolidation
     function incoming_consolidation(){
         $data = array(
