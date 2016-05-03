@@ -279,7 +279,7 @@ $("#nama").mousedown(function(){
         <label class="col-sm-4 control-label">State</label>
                         <div class="col-sm-7">
        <select name="custState" id="custState" required="required" class="form-control">
-          <option value="">Chosse state</option>
+          <option value="">Choose state</option>
           <?php
 	foreach($state as $st){
 	    ?>
@@ -292,7 +292,7 @@ $("#nama").mousedown(function(){
 <label class="control-label col-sm-4" for="nama">City</label>
       <div class="col-sm-7">
         <select name="custCity" id="custCity" required="required" class="form-control">
-          <option value="">Chosse city</option>
+          <option value="">Choose city</option>
           <?php
 	foreach($city as $ct){
 	    ?>

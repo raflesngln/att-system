@@ -1215,7 +1215,9 @@ function getprefix(){
 		$data = array();
 		foreach ($list as $datalist){
 			$row = array(
-            'prefixsmu' => $datalist->PrefixSMU
+            'prefixsmu' => $datalist->PrefixSMU,
+			'maximal' => $datalist->Maxcwt,
+			
 			);
 			$data[] = $row;		
 		}
@@ -1453,7 +1455,7 @@ function domestic_outgoing_master(){
 		$getjob=$this->model_app->getJobMaster();
 		$getInvoice=$this->model_app->getInvoice();
 		$kodetrans=$this->model_app->getKodeTrans($kodept,'OM','Notrans','outgoing_master');
-		$NoSMU=$this->input ->post('smu');
+		$NoSMU=$this->input ->post('prefixsmu').'-'.$this->input ->post('smu');
 		$etd=$this->input->post('etd');
 		
 	//----- SAVE OF OUT GOING Master --------------////
@@ -1469,9 +1471,9 @@ function domestic_outgoing_master(){
 		'ETD' =>date($etd),
 		'Shipper' =>$this->input->post('idsender'),
 		'Airlines' =>$this->input->post('airline'),
-		'FlightNumbDate1' =>$this->input->post('flightno1').'/'.$this->input->post('flightdate1'),
-		'FlightNumbDate2' =>$this->input->post('flightno2').'/'.$this->input->post('flightdate2'),
-		'FlightNumbDate3' =>$this->input->post('flightno3').'/'.$this->input->post('flightdate3'),
+		'FlightNumbDate1' =>$this->input->post('flightno1'),
+		'FlightNumbDate2' =>$this->input->post('flightno1'),
+		'FlightNumbDate3' =>$this->input->post('flightno1'),
 		'CodeShipper' =>$this->input->post('codeship'),
 		'Consigne' =>$this->input->post('idreceivement'),
 		'CodeConsigne' =>$this->input->post('codesigne'),
@@ -1632,7 +1634,7 @@ function print_outgoing_master(){
 		if($smu !='0'){
 		$insertsmu=array(
 		'Notrans' =>$kodesmu,
-		'NoSMU' =>$this->input->post('prefixsmu').$smu,
+		'NoSMU' =>$this->input->post('prefixsmu').'-'.$smu,
 		'JobNo' =>$getjob,
 		'BookingNo' =>$this->input->post('booking'),
 		'PayCode' =>$this->input->post('paymentype'),

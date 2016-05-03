@@ -44,7 +44,7 @@
                                               <thead>
                                                 <tr>
                                                   <th colspan="8"> <div align="left">
-<a class="btn-normal" href="<?php echo base_url();?>customer/add_customer"  title="Add"><i class="icon-plus icons"></i> Create Customer</a>
+<a class="btn btn-primary" href="<?php echo base_url();?>customer/add_customer"  title="Add"><i class="icon-plus icons"></i> Create Customer</a>
                                                   </div></th>
                                                 </tr>
                                                 <tr>

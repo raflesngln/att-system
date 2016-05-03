@@ -126,7 +126,13 @@ function toRp(angka){
 												</a>
 											</li>
 
-
+										<li>
+												<a data-toggle="tab" href="#closed">
+  <i class="green fa fa-building bigger-110"></i>
+		List Closed SMU
+		
+												</a>
+											</li>
 
 										</ul>
 
@@ -140,6 +146,11 @@ function toRp(angka){
 											<div id="profile" class="tab-pane">
 <p>
   <?php $this->load->view('pages/booking/outgoing_master/input_outgoing_master');?>
+</p>
+											</div>
+<div id="closed" class="tab-pane">
+<p>
+  <?php $this->load->view('pages/booking/consol/list_house_consol');?>
 </p>
 											</div>
 										</div>
