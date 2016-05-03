@@ -1088,7 +1088,7 @@ function getStatus(){
 	  "INNER JOIN ms_port b on a.Destination=b.PortCode  
 	  WHERE a.StatusProses='$status_smu' AND LEFT(a.ETD,10)='$tgl' GROUP BY b.PortCode ASC");
 	  
-	echo'<option value="">Pilih Nomor SMU</option>';
+	echo'<option value="">Choose Destination</option>';
 	if($result)
 	{
 	foreach($result as $data){

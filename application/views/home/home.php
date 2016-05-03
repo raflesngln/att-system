@@ -411,8 +411,8 @@ return true;
 					</div><!--#nav-search-->
 				</div>
 
-				<div class="page" style=" margin:8px 8px 15px 8px;">
-					<div class="row-fluid">
+				<div class="container" >
+					<div class="row">
 						<div class="span12">
 
 							<!--PAGE CONTENT BEGINS-->

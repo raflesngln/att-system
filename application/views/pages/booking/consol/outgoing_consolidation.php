@@ -64,7 +64,7 @@
           <strong><label class="col-sm-4">Status SMU</label></strong>
           <div class="col-sm-7">
            <select name="status_smu" class="form-control" required="required" id="status_smu">
-           <option value="">Select Status </option>
+           <option value="">Choose Status </option>
            
           <option value="1">Empty SMU</option>
 		  <option value="2">Has House</option>
@@ -75,7 +75,7 @@
           <strong><label class="col-sm-4">Destination</label></strong>
           <div class="col-sm-7">
            <select name="destination" class="form-control" required="required" id="destination" onchange="return filterDestination()">
-           <option value="">Select Destination </option>
+           <option value="">Choose Destination </option>
 
           </select>
           </div>

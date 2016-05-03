@@ -1,214 +1,218 @@
-<div class="pull-right col-xs-12">
-
-<div class="col-sm-6 col-xs-12 pull-right">
-<div class="row">
-<div class="col-sm-11 col-xs-12">
-  <label class="label label-grey">Periode House No</label></div>
-<div class="col-sm-5 col-xs-12">First date</div>
-<div class="col-sm-5 col-xs-12">End date</div>
-
-<form method="post" class="in-line inline" action="<?php echo base_url();?>transaction/laporan_outgoing_house">
-<div class="col-sm-4 col-xs-12"><input type="text" class="form-control" name="tg1" id="tg1" readonly="readonly" value="<?php echo date('Y-m-d');?>"></div>
-<div class="col-sm-4 col-xs-12"><input type="text" class="form-control" name="tg2" id="tg2" readonly="readonly" value="<?php echo date('Y-m-d');?>"></div>
-<div class="col-sm-2 col-xs-12">
-  <button class="btn btn-small btn-blue" id="btnsort" type="button"><i class="fa fa-search"></i> Sort</button></div>
-<div class="col-sm-2 col-xs-12">
-  <button class="btn btn-small btn-blue" id="btnprint" type="submit"><i class="fa fa-print"></i> Print View</button></div>
-</form>
-
-<div class="col-sm-11 col-xs-12">
-  <label class="label label-grey">Search by House No</label></div>
-<div class="col-sm-9 col-xs-12 text-right"><input type="text" class="form-control" name="txtsearch" id="txtsearch" placeholder="type house Number"></div>
-<div class="col-sm-3 col-xs-12"><button class="btn btn-small btn-blue" id="btnsearch"><i class="fa fa-search"></i> Search</button></div>
-
-</div>
-
-</div>
-
-
-
-</div>
-
-<div class="container">
-                <div class="col-lg-12 col-xs-12 portlets ui-sortable">
-                    <div class="panel">
-                        <!--<div class="panel-header"></div>-->
-
-                
-                                    <div class="form-group">
-<h2><span class="label label-large label-inverse"><strong>List Outgoing House</strong></span></h2>
-                                        <div class="table-responsive" id="table_connote">
-                                        <table width="" class="table table-striped table-bordered table-hover" id="tblhouse">
-                                              <thead>
-                                                <tr align="left" style="background:#EBEBEB">
-                                                  <th colspan="2"><div align="left">House No</div></th>
-                                                  <th width="54"><div align="center">ETD</div></th>
-                                                  <th width="56"><div align="center">Paycode</div></th>
-                                                  <th width="58"><div align="center">Service</div></th>
-                                                  <th width="48">Origin</th>
-                                                  <th width="77">Destination</th>
-                                                  <th width="51">Shipper</th>
-                                                  <th width="48">Consol ?</th>
-                                                  <th width="87" class="text-center"><div align="center"><a class="btn btn-success btn-addnew btn-mini" href="#modaladd" data-toggle="modal" title="Add item" style="visibility:hidden"><i class="icon-plus icons"></i> Add items</a>Actions</div></th>
-                                                </tr>
-                                                </thead>
-                                          <tbody>
- <?php 
-
- $no=1;
- foreach($connote as $items){
-	 $consol=$items->Consolidation;
-	 if($consol ==1){
-		 $status1='<span class="badge badge-success white"><i class="fa fa-check"></i> YES</span>';
-		 
-	 } else {
-		$status1='<span class="badge badge-important white"><i class="fa fa-times"></i> NO</span>';
-	 }
-        ?>
-            
-                                            <tr align="left" class="gradeX">
-                                                    <td colspan="2"><div align="left"><?php echo $items->HouseNo;?></div></td>
-                                                    <td><div align="left"><?php echo date("d-m-Y",strtotime($items->ETD)); ?></div></td>
-                                                    <td><div align="left"><?php echo $items->PayCode;?></div></td>
-                                                    <td><div align="left"><?php echo $items->Service;?></div></td>
-                                                    <td><div align="left"><?php echo $items->origin;?></div></td>
-                                                    <td><div align="left"><?php echo $items->desti;?></div></td>
-                                                    <td><?php echo $items->shipper;?></td>
-                                                    <td><div align="center"><?php echo $status1;?></div></td>
-                                                    <td>
-                                                   <form action="<?php echo base_url();?>connote_print" method="post" target="new" class="text-left">
-                                                   <input type="hidden" value="<?php echo $items->HouseNo;?>" name=" houseno" />
-                                                  <button class="btn btn-mini btn-warning " type="submit"><i class="fa fa-print bigger-120"></i></button>
-                                                  
- <a onclick="return EditConfirm(<?php echo $consol;?>);" href="<?php echo base_url();?>transaction/edit_outgoing_house/<?php echo $items->HouseNo;?>" title="Edit item"><button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>
- </a> 
-                                                    
- <a href="<?php echo base_url(); ?>transaction/delete_outgoing_house/<?php echo $items->HouseNo; ?>" onClick="return confirm('Yakin Hapus No. House ( <?php echo $items->HouseNo;?> ) ?? . Ini akan menghapus sekaligus items nya !');" title="Delete item"><button class="btn btn-mini btn-danger" type="button" ><i class="fa fa-times bigger-120"></i></button></a>  
-                                                  </form>
-
-                                         
-                                                  </td>
-                                                  </tr>
-  <?php $no++;} ?>
-                                                
-     <td width="66"></td><td width="8"></tbody>
-                                            </table>
- <div align="right"> <?php echo $paginator;?></div>
-                                      </div>
-                                    </div>
+  <script src="<?php echo base_url('assets/datatables/js/jquery.dataTables.min.js')?>"></script>
+  <script src="<?php echo base_url('assets/datatables/js/dataTables.bootstrap.js')?>"></script>
   
-  <!-- LEFT INPUT  -->
-  <!-- END LEFT INPUT -->
-  <!-- RIGHT INPUT  -->
-                                            <div class="col-md-6">
-                                              <div class="row">
-                                                <div class="col-md-12"></div>
-                                              </div>
-                                            </div>
-  <!-- END RIGHT INPUT -->
-  <div class="clearfix"> </div>
+  <script type="text/javascript">
 
-                                    
-  
-                  </div>
-  
-                                    
-                                  <div class="cpl-sm-12"><h2>&nbsp;</h2>
-                  </div>
-          </div>
-         </div>
-         
-         
- <!-- ading form -->
- <div id="modaladding" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:1000; position:absolute">
+    var save_method5; //for save method string
+    var tablebank;
+ 
+ $(document).ready(function() {    
     
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Detail House Number</h3>
-            </div>
-            <div class="smart-form scroll">
-        <!-- <form method="post" action="<?php //echo site_url('temp/save_item')?>">   -->
-                    <div class="modal-body">
-                     
-                   
+          tablebank = $('#tablebank').DataTable({ 
+            "processing": true, //Feature control the processing indicator.
+            "serverSide": true, //Feature control DataTables' server-side processing mode
+            // Load data for the table's content from an Ajax source
+            "ajax": {
+                "url": "<?php echo site_url('ms_bank/ajax_list')?>",
+                "type": "POST"
+            },
+            "columns": [
+            { "data": "no" },
+            { "data": "BankCode" },
+            { "data": "BankName" },
+            { "data": "BankDesc" },
+			{ "data": "FullName" },
+            { "data": "action" }
+            ]
+          });  
+    
+$('#tablebank tbody').on('dblclick', 'tr', function () {
+            var tr = $(this).closest('tr');
+            var row = tablebank.row(tr);
+           // alert(row.data().firstName);
+         });
+});
 
+function add_person5()
+    {
+      save_method5 = 'add';
+      $('#form5')[0].reset(); // reset form on modals
+      $('#modal_form5').modal('show'); // show bootstrap modal
+      $('.modal-title5').text('Add Linebusiness');
+	  document.getElementById("BankCode2").disabled=false;
+    }
 
-
-<div id="detail_outgoing" class="detail_outgoing">detail</div>
-<div class="modal-footer">
-  <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-               <!-- </form>  -->
-</div>
-                    </div>
+function edit_person5(id)
+    {
+      save_method5 = 'update';
+      $('#form5')[0].reset(); // reset form on modals
+        
+      var nmtabel='ms_bank';
+      var keytabel='BankCode';
+        
+      //Ajax Load data from ajax
+      $.ajax({
+        url : "<?php echo site_url('ms_bank/ajax_edit/')?>",
+        type: "POST",
+        data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
+        dataType: "JSON",
+        success: function(data)
+        {
+            $('[name="BankName"]').val(data.BankName);
+			 $('[name="BankCode"]').val(data.BankCode);
+			$('[name="BankCode2"]').val(data.BankCode);
+            $('[name="BankDesc"]').val(data.BankDesc); 
+			
+            $('#modal_form5').modal('show');
+            $('.modal-title5').text('Edit Linebusiness');
+			document.getElementById("BankCode2").disabled=true;
             
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+    }
+
+    function reload_table3()
+    {
+      tablebank.ajax.reload(null,false); //reload datatable ajax 
+    }
+
+function save5()
+    {
+      var url5;
+      if(save_method5 == 'add') 
+      {
+          url5 = "<?php echo site_url('ms_bank/ajax_add')?>";
+      }
+      else
+      {
+        url5 = "<?php echo site_url('ms_bank/ajax_update')?>";
+      }
+
+       // ajax adding data to database
+          $.ajax({
+            url : url5,
+            type: "POST",
+            data: $('#form5').serialize(),
+            dataType: "JSON",
+            success: function(data)
+            {
+               //if success close modal and reload ajax table
+               $('#modal_form5').modal('hide');
+               reload_table3();
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error adding / update data');
+            }
+        });
+    }
+
+function delete_person5(id)
+    {
+      if(confirm('Are you sure delete this data?'))
+      var nmtabel='ms_bank';
+      var keytabel='BankCode';
+      {
+        // ajax delete data to database
+          $.ajax({
+            url : "<?php echo site_url('ms_bank/ajax_delete')?>",
+            type: "POST",
+            data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
+            dataType: "JSON",
+            success: function(data)
+            {
+               //if success reload ajax table
+               $('#modal_form5').modal('hide');
+               reload_table3();
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error adding / update data');
+            }
+        });
+      }
+    }
+
+  </script>
+
+
+
+
+
+
+    <button class="btn-normal" onclick="add_person5()"><i class="fa fa-plus"></i>  </button>
+    <br />
+    <br />
+    <table id="tablebank" class="table table-striped table-bordered" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>no</th>  
+          <th>id</th>
+          <th> Name</th>
+          <th>Description</th>
+          <th>Createdby</th>
+          <th style="width:125px;">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <th>no</th>
+          <th>id</th>
+          <th> Name</th>
+          <th>Description</th>
+          <th>Createdby</th>
+          <th>Action</th>
+        </tr>
+      </tfoot>
+    </table>
+            
+  <!-- Bootstrap modal -->
+  <div class="modal fade" id="modal_form5" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title5">Addrest Form</h3>
+      </div>
+      <div class="modal-body form">
+        <form action="#" id="form5" class="form-horizontal">
+          <input name="BankCode" type="hidden" id="BankCode" value=""/> 
+          <div class="form-body">
+<div class="form-group">
+              <label class="control-label col-md-3"> Bank Code</label>
+              <div class="col-md-9">
+                <input name="BankCode2" type="text" class="form-control nama" id="BankCode2" placeholder="Name" value="" />
+              </div>
             </div>
-        </div>
-    </div>
-    </div>
-         
-<script type="text/javascript">
-	
-	 $(".dethouse").click(function(){
-          var nomor=$(this).html();
-             // alert('hai' + idcnote);
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/detail_outgoing_house'); ?>",
-                data: "nomor="+nomor,
-                success: function(data){
-                   $('.detail_outgoing').html(data);
-				   $('.txtdetail').html('<strong> No. House : ' + nomor + '</strong>');
-                }
-            });
-        });
-	
-	 $("#txtsearch").keyup(function(){
-            var txtsearch = $('#txtsearch').val();
-             // alert('hai' + idcnote);
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/search_outgoing_house'); ?>",
-                data: "txtsearch="+txtsearch,
-                success: function(data){
-                   $('#table_connote').html(data);
-                }
-            });
-        });
-		
-	 $("#btnsearch").click(function(){
-            var txtsearch = $('#txtsearch').val();
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/search_outgoing_house'); ?>",
-                data: "txtsearch="+txtsearch,
-                success: function(data){
-                   $('#table_connote').html(data);
-                }
-            });
-        });
-	 $("#btnsort").click(function(){
-            var tgl1 = $('#tg1').val();
-			var tgl2 = $('#tg2').val();
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/periode_outgoing_house');?>",
-       data: "tgl1="+tgl1+"&tgl2="+tgl2,
-                success: function(data){
-                   $('#table_connote').html(data);
-                }
-            });
-        });
+            <div class="form-group">
+              <label class="control-label col-md-3"> Name</label>
+              <div class="col-md-9">
+                <input name="BankName" type="text" class="form-control nama" id="BankName" placeholder="Name" value="" />
+              </div>
+            </div>
 
-function EditConfirm(myid){
-		var status=myid;
-		if(status =='1'){
-			alert('Cannot Edit house was consoled !');
-			return false;
-	}
-}
-
-
-	
-</script>
+            <div class="form-group">
+              <label class="control-label col-md-3">Address</label>
+              <div class="col-md-9">
+                <textarea name="BankDesc" placeholder="decription"class="form-control" id="BankDesc"></textarea>
+              </div>
+            </div>
+            
+          </div>
+        </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="btnSave" onclick="save5()" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
