@@ -26,12 +26,7 @@
 	List of Closed House
 		
 											</a></li>
-											<li>
-												<a data-toggle="tab" href="#boxhouse2">
-  <i class="green fa fa-building bigger-110"></i>
-										  List House Consol
-		
-											</a></li>
+											
 										</ul>
 
 										<div class="tab-content container">
@@ -44,11 +39,6 @@
 											</div>
 <div id="boxhouse" class="tab-pane">
 <p><?php $this->load->view('pages/booking/consol/list_house_consol');?></p>
-											</div>
-<div id="boxhouse2" class="tab-pane">
-<p>
-  <?php $this->load->view('pages/booking/outgoing/input_outgoing_house');?>
-</p>
 											</div>
 										</div>
 									</div>

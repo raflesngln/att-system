@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Mhouse extends CI_Model {
+class Mdata extends CI_Model {
 
 //	var $table = 'persons';
 //	var $column = array('firstname','lastname','gender','address','dob');
@@ -89,18 +89,12 @@ private function _get_datatables_query2($nm_coloum,$orderby,$where)
 		return $this->db->count_all_results();
 	}
 //-- for 2 choosen ---///////////////////////////////////////////
-	function get_datatables2($nm_tabel,$nm_coloum,$orderby,$where)
-	{	
-		
-		$this->db->select('a.HouseNo,a.ETD,a.Consolidation,a.PayCode,a.Service,b.CustName as shipper,d.PortName as origin,e.PortName as desti', false);
-		$this->db->from( $nm_tabel.' as a');
-		$this->db->join('ms_customer as b', 'a.Shipper = b.CustCode');
-		$this->db->join('ms_customer as c', 'a.Consigne = c.CustCode');
-		$this->db->join('ms_port as d', 'a.Origin = d.PortCode');
-		$this->db->join('ms_port as e', 'a.Destination = e.PortCode');
-		$this->db->where('Consolidation', '1');
+	function get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2)
+	{
+	    $this->db->from($nm_tabel);
+		$this->db->join($nm_tabel2,$kolom1.'='.$kolom2,'LEFT');
 		$this->_get_datatables_query2($nm_coloum,$orderby,$where);
-		if($_POST['length'] != -1)
+        if($_POST['length'] != -1)
 		$this->db->limit($_POST['length'], $_POST['start']);
 		$query = $this->db->get();
 		return $query->result();
@@ -113,10 +107,10 @@ private function _get_datatables_query2($nm_coloum,$orderby,$where)
 		return $this->db->count_all_results();
 	}
 
-	public function count_all2($nm_tabel)
+	public function count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2)
 	{
 		$this->db->from($nm_tabel);
-		//$this->db->join($nm_tabel2,$kolom1=$kolom2);
+		$this->db->join($nm_tabel2,$kolom1=$kolom2);
 		return $this->db->count_all_results();
 	}
 

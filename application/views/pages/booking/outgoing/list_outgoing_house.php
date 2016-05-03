@@ -13,15 +13,15 @@
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
             "ajax": {
-                "url": "<?php echo site_url('ms_bank/ajax_list')?>",
+                "url": "<?php echo site_url('Outgoing_house/ajax_list')?>",
                 "type": "POST"
             },
             "columns": [
             { "data": "no" },
-            { "data": "BankCode" },
-            { "data": "BankName" },
-            { "data": "BankDesc" },
-			{ "data": "FullName" },
+            { "data": "HouseNo" },
+            { "data": "BookingNo" },
+            { "data": "PayCode" },
+			{ "data": "Service" },
             { "data": "action" }
             ]
           });  
@@ -144,9 +144,8 @@ function delete_person5(id)
 
 
 
-    <button class="btn-normal" onclick="add_person5()"><i class="fa fa-plus"></i>  </button>
     <br />
-    <br />
+    ad<br />
     <table id="tablebank" class="table table-striped table-bordered" cellspacing="0" width="100%">
       <thead>
         <tr>
