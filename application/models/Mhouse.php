@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Mdata extends CI_Model {
+class Mhouse extends CI_Model {
 
 //	var $table = 'persons';
 //	var $column = array('firstname','lastname','gender','address','dob');
@@ -91,6 +91,7 @@ private function _get_datatables_query2($nm_coloum,$orderby,$where)
 //-- for 2 choosen ---///////////////////////////////////////////
 	function get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2)
 	{
+		$this->db->select('a.HouseNo,a.ETD,a.Origin,a.Destination,a.Shipper,a.PCS,a.CWT,a.BookingNo,a.Consigne,b.CustName as namaajah', FALSE);
 	    $this->db->from($nm_tabel);
 		$this->db->join($nm_tabel2,$kolom1.'='.$kolom2,'LEFT');
 		$this->_get_datatables_query2($nm_coloum,$orderby,$where);
