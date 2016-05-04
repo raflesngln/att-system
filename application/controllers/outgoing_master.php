@@ -28,7 +28,7 @@ public function ajax_list()
 		
         $nm_coloum= array('a.NoSMU','a.Shipper','a.Consigne','a.Origin','a.Destination','a.PCS','a.CWT');
         $orderby= array('a.NoSMU' => 'desc');
-        $where=  array('a.Consolidation <= '=>'1');
+        $where=  array('a.StatusProses <= '=>'3');
         $list = $this->Mhouse->get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
 		$data = array();
@@ -71,7 +71,55 @@ public function ajax_list()
 		//output to json format
 		echo json_encode($output);
 }
+public function ajax_list2()
+	{
+		$nm_tabel='outgoing_master a';
+		$nm_tabel2='ms_customer b';
+		$kolom1='a.Shipper';
+		$kolom2='b.CustCode';
+		
+        $nm_coloum= array('a.NoSMU','a.Shipper','a.Consigne','a.Origin','a.Destination','a.PCS','a.CWT');
+        $orderby= array('a.NoSMU' => 'desc');
+        $where=  array('a.StatusProses <= '=>'3');
+        $list = $this->Mhouse->get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
+        
+		$data = array();
+		$no = $_POST['start'];
+		
+		foreach ($list as $datalist){
+			$no++;
+			$row = array(
+            'no' => $no,
+            'NoSMU' => $datalist->NoSMU,
+            'ori' =>$datalist->ori,
+			'desti' =>$datalist->desti,
+			'Service' =>$datalist->Service,
+			'sender' =>$datalist->sender,
+			'receiver' =>$datalist->receiver,
+			'cwt' =>$datalist->CWT,
+			'pcs' =>$datalist->PCS,
+		
+            'action'=> '<div class="form-inline">&nbsp;&nbsp;
+<a class="green" href="javascript:void()" title="Edit" onclick="edit_final('."'".$datalist->NoSMU."'".')"><i class="icon-pencil bigger-150"></i></a>
+	
+	 
+				
+			</div>
+			'
+			
+            );
+			$data[] = $row;
+		}
 
+		$output = array(
+						"draw" => $_POST['draw'],
+						"recordsTotal" => $this->Mhouse->count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
+						"recordsFiltered" => $this->Mhouse->count_filtered2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
+						"data" => $data,
+				);
+		//output to json format
+		echo json_encode($output);
+}
 public function ajax_edit()
 	{
 	   	$BankCode     = $this->input->post('cid');
