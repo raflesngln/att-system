@@ -28,7 +28,7 @@
  foreach ($masterconsol as $free) {
 	 $cwt=$free->CWT;
 	 $pcs=$free->PCS;
-	 $service=($free->Service=='DOOR TO PORT' || $free->Service=='PORT TO PORT')?'<span class="label label-warning white">Direct</span>':'<span class="label label-success white">Consolidation</span>';
+	 $service=($free->Service=='DOOR TO PORT' || $free->Service=='PORT TO PORT')?'<span class="label label-warning white">Direct SMU</span>':'<span class="label label-success white">Consolidation</span>';
 	 
 	 if($cwt <=1){
 		 $status1='<span class="label label-important arrowed-right white"><i class="fa fa-times"></i>NO</span>';

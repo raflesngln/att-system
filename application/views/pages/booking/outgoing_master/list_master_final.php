@@ -151,13 +151,16 @@ function delete_person5(id)
 
     <br />
     <br />
+ <div class="row pull-right">
+<div class="col-sm-5">Periode</div>
+</div>
     <table id="table_final" class="table table-striped table-bordered" cellspacing="0" width="100%">
       <thead>
         <tr>
           <th>No</th>  
           <th>SMU</th>
           <th> Shipper</th>
-          <th>Consigne</th>
+          <th>Consignee</th>
           <th>Origin</th>
           <th>Destination</th>
           <th style="width:125px;">PCS</th>
@@ -173,7 +176,7 @@ function delete_person5(id)
           <th>No</th>
           <th>SMU</th>
           <th>Shipper</th>
-          <th>Consigne</th>
+          <th>Consignee</th>
           <th>Origin</th>
           <th>Destination</th>
           <th><span style="width:125px;">PCS</span></th>

@@ -3,7 +3,6 @@
                                                 <tr align="left">
                                                   <th>Flight</th>
                                                   <th>ETD</th>
-                                                  <th><div align="left">No SMU</div></th>
                                                   <th><div align="center">Ori/Desti</div></th>
                                                   <th>PCS</th>
                                                   <th><div align="center">CWT</div></th>
@@ -39,8 +38,7 @@
 
 <button class="label label-inverse" type="button" value="<?php echo $row->FlightID; ?>" onclick="return detailCargo(this)"><?php echo $row->FlightNo; ?></button>
                                                     <input name="flight2[]" type="hidden" id="flight2[]" value="<?php echo $row->FlightID; ?>" /></td>
-                                                    <td><?php echo date('d-m-Y',strtotime($row->ETD)); ?>                                                      <input name="etd2[]" type="hidden" id="etd2[]" value="<?php echo $row->ETD; ?>" /></td>
-                                                    <td><?php echo $row->NoSMU; ?><input type="hidden" name="smu2[]" value="<?php echo $row->NoSMU; ?>"></td>
+                                                    <td><?php echo date('d-m-Y',strtotime($row->ETD)); ?>                                                      <input type="hidden" name="smu2[]" value="<?php echo $row->NoSMU; ?>" />                                                      <input name="etd2[]" type="hidden" id="etd2[]" value="<?php echo $row->ETD; ?>" /></td>
                                                     <td><?php echo $row->ori; ?>
                                                       <input name="ori2[]" type="hidden" id="ori2[]" value="<?php echo $row->Origin; ?>" />
                                                       /<?php echo $row->desti; ?>
@@ -61,7 +59,7 @@
                                             <?php $no++;} ?>
                                                
                                                  <tr align="right">
-                                                  <td colspan="4">&nbsp;</td>
+                                                  <td colspan="3">&nbsp;</td>
                                                   <td align="right"><div align="right"></div></td>
                                                   <td>&nbsp;</td>  
                                                   <td>&nbsp;</td>

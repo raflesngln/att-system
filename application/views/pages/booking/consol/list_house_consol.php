@@ -27,7 +27,7 @@
  $no=1;
  foreach ($houseconsol as $row) {
 	 $consol=$row->Consolidation;
-		 $service=($row->Service=='DOOR TO PORT' || $row->Service=='PORT TO PORT')?'<span class="label label-warning white">Direct</span>':'<span class="label label-success white">Consolidation</span>';
+		 $service=($row->Service=='DOOR TO PORT' || $row->Service=='PORT TO PORT')?'<span class="label label-warning white">Direct House</span>':'<span class="label label-success white">Consolidation</span>';
 		 
 	 if($consol==1){
 		 		 $status2='<span class="label label-success arrowed-right white"><i class="fa fa-check"></i>YES</span>';

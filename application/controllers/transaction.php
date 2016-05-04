@@ -650,16 +650,21 @@ function cek_cnote(){
 	 $kode=$this->model_app->generateNo("tr_cargo_release","CargoReleaseCode","CR-");
 	 	
  	$nosmu=$_POST['smu2'];	
-	foreach($nosmu as $key => $val)
+	$flight=$_POST['flight2'];	
+	//$search=$this->model_app->getdata('outgoing_master',"WHERE FlightNumbDate1='$flight'");
+	foreach($flight as $key => $val)
 	{
-   		$smu =$_POST['smu2'][$key];
-		$cwt =$_POST['cwt2'][$key];
-		$pcs =$_POST['pcs2'][$key];
-		$flight2 =$_POST['flight2'][$key];
+		$flightno=$_POST['flight2'][$key];
+		$search=$this->model_app->getdata('outgoing_master',"WHERE FlightNumbDate1='$flightno'");
+		foreach($search as $row){
+	    $smu =$row->NoSMU;
+		$cwt =$row->CWT;
+		$pcs =$row->PCS;
+		$flight2 =$flightno;
 		
 		$cwt_total+=$cwt;
 		$pcs_total+=$pcs;
-		$cargo_items=array(
+	$cargo_items=array(
 		'CargoReleaseCode' =>$kode,
 		'FlightNumber' =>$flight2,
 		'smu' =>$smu,
@@ -672,17 +677,20 @@ function cek_cnote(){
 		'StatusProses' =>'4',
 		);		
 		$save=$this->model_app->insert('cargo_items',$cargo_items);	
-		$this->model_app->update('outgoing_master','NoSMU',$smu,$updatesmu);	
+		$this->model_app->update('outgoing_master','NoSMU',$smu,$updatesmu);		
+			
+		}
+			
 	}
-
 	   	//---insert header manifest
 		$insert_cargo=array(
 		'CargoReleaseCode' =>$kode,
 		'AirLine' =>$this->input->post('airlines'),
 		'CargoDetails' =>$this->input->post('details'),
 		'ReleaseDate' =>$this->input->post('tgl3'),
-		'CWT' =>$cwt_total,
-		'PCS' =>$pcs_total,
+		'Created' =>$this->input->post('created'),
+		'CarriedBy' =>$this->input->post('carry'),
+		'ReceivedBy' =>$this->input->post('receive'),
 		'CreatedBy' =>$this->session->userdata('idusr'),
 		'CreatedDate'=>date('Y-m-d H:i:s'),
 		);		
@@ -954,7 +962,7 @@ function outgoing_consolidation(){
             'scrumb_name'=>'outgoing_consolidation',
             'scrumb'=>'transaction/outgoing_consolidation',
 		'houseconsol'=>$this->model_app->getdatapaging("a.HouseNo,a.Service,a.Consolidation,a.CWT,a.PCS,a.Destination as portcode,b.PortName as desti","outgoing_house a",
-			 "LEFT JOIN ms_port b ON a.Destination=b.PortCode WHERE a.Consolidation IN(0,1,2,3) GROUP BY a.HouseNo
+			 "LEFT JOIN ms_port b ON a.Destination=b.PortCode WHERE a.Consolidation IN(0,1,2) GROUP BY a.HouseNo
 			 "),
 		'masterconsol'=>$this->model_app->getdatapaging("a.NoSMU,a.Service,a.CWT,a.PCS,a.Destination as portcode,b.PortName as desti","outgoing_master a",
 			 "LEFT JOIN ms_port b ON a.Destination=b.PortCode WHERE a.StatusProses in(1,2,3) GROUP BY a.NoSMU
@@ -1170,7 +1178,7 @@ function filterSMU(){
 function detail_cargo(){
 	$flight=$this->input->post('flight');
 	
-    $data['header']=$this->model_app->getdatapaging("a.MasterNo,a.HouseNo,a.CWT,a.PCS,b.FlightNo,c.Origin,c.Destination,d.CustName as sender,e.CustName as receiver","consol a",
+    $data['header']=$this->model_app->getdatapaging("c.ETD,a.MasterNo,a.HouseNo,a.CWT,a.PCS,b.FlightNo,c.Origin,c.Destination,d.CustName as sender,e.CustName as receiver","consol a",
 	"LEFT JOIN ms_flight b on a.FlightNo=b.FlightID
 	LEFT JOIN outgoing_house c on a.HouseNo=c.HouseNo
 	LEFT JOIN ms_customer d on c.Shipper=d.CustCode

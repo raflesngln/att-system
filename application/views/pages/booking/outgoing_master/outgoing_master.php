@@ -125,14 +125,6 @@ function toRp(angka){
 		
 												</a>
 											</li>
-
-										<li>
-												<a data-toggle="tab" href="#closed">
-  <i class="green fa fa-folder bigger-110"></i>
-		List of Closed SMU
-		
-												</a>
-											</li>
 										<li>
 												<a data-toggle="tab" href="#final">
   <i class="green fa fa-bookmark bigger-110"></i>
@@ -140,6 +132,14 @@ function toRp(angka){
 		
 												</a>
 											</li>
+										<li>
+												<a data-toggle="tab" href="#closed">
+  <i class="green fa fa-folder bigger-110"></i>
+		List of Closed SMU
+		
+												</a>
+											</li>
+
 										</ul>
 
 										<div class="tab-content container">
@@ -156,12 +156,12 @@ function toRp(angka){
 											</div>
 <div id="closed" class="tab-pane">
 <p>
-  <?php $this->load->view('pages/booking/outgoing_master/list_master_closed');?>
+  <?php $this->load->view('pages/booking/outgoing_master/list_master_final');?>
 </p>
 											</div>
 <div id="final" class="tab-pane">
 <p>
-  <?php $this->load->view('pages/booking/outgoing_master/list_master_final');?>
+  <?php $this->load->view('pages/booking/outgoing_master/list_master_closed');?>
 </p>
 											</div>
 										</div>

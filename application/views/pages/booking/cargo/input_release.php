@@ -14,7 +14,7 @@
           </div>
 </div>
  <div class="form-group">
-          <strong><label class="col-sm-11"> Tanggal</label></strong>
+          <strong><label class="col-sm-11"> Date</label></strong>
           <div class="col-sm-11">
             <input name="tgl3" type="text" class="form-control"  id="tgl3" required value="<?php echo date("Y-m-d") ;?>" readonly style="width:180px;"/>
           </div>
@@ -33,12 +33,7 @@
           </span></div>
 </div>
  
- <div class="form-group">
-          <label class="col-sm-11"> Keterangan</label></strong>
-          <div class="col-sm-11">
-            <textarea name="details" id="details" class="form-control"></textarea>
-          </div>
-</div>
+ 
 
           
 
@@ -143,7 +138,34 @@
                                               </div>
                                             </div>
   <!-- END RIGHT INPUT -->
-  <div class="clearfix"> </div>
+<div class="row">
+ <div class="col-sm-8">
+         <div class="form-group">
+         <div class="col-sm-4">Submitted By</div>
+          <div class="col-sm-7">
+            <input name="created" type="text" class="form-control" id="created" size="" value="<?php echo $this->session->userdata('nameusr');?>" readonly>
+          </div>
+         </div>
+         <div class="form-group">
+         <div class="col-sm-4">Carried By</div>
+          <div class="col-sm-7">
+            <input name="carry" type="text" class="form-control" id="carry" required>
+          </div>
+         </div>
+         <div class="form-group">
+         <div class="col-sm-4">Received By</div>
+          <div class="col-sm-7">
+            <input name="receive" type="text" class="form-control" id="receive"  required>
+          </div>
+         </div>
+  <div class="form-group">
+          <label class="col-sm-4"> Remarks</label>
+          <div class="col-sm-7">
+            <textarea name="details" id="details" class="form-control"></textarea>
+          </div>
+</div>
+ </div>  
+</div>
 
                                     
   
@@ -152,6 +174,7 @@
                                     
                                   <div class="cpl-sm-12"><h2>&nbsp;</h2>
 
+  
                                   <div class="row">
                                       <div class="col-md-4"></div>
                                         <div class="col-md-2">
@@ -171,7 +194,7 @@
 
 <div id="modalcargo" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -246,6 +269,9 @@
         </div>
     </div>
     </div>
+    
+
+
 <script type="text/javascript">  
 
 $("#flightnumber").change(function(){
@@ -379,7 +405,6 @@ function detailCargo(myid){
                 cache:false,
                 success: function(data){
 					$("#modalcargo").modal('show');
-					
                     $('#tabledetailhouse').html(data);
                     //document.frm.add.disabled=false;
                 }

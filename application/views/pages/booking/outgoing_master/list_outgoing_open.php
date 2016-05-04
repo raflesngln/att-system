@@ -152,10 +152,10 @@ function delete_person5(id)
     <table id="tablebank" class="table table-striped table-bordered" cellspacing="0" width="100%">
       <thead>
         <tr>
-          <th>no</th>  
-          <th>House</th>
+          <th>No</th>  
+          <th>SMU</th>
           <th> Shipper</th>
-          <th>Consigne</th>
+          <th>Consignee</th>
           <th>Origin</th>
           <th>Destination</th>
           <th style="width:125px;">PCS</th>
@@ -168,10 +168,10 @@ function delete_person5(id)
 
       <tfoot>
         <tr style="visibility:hidden">
-          <th>no</th>
-          <th>id</th>
-          <th> Name</th>
-          <th>Description</th>
+          <th>No</th>
+          <th>SMU</th>
+          <th>Shipper</th>
+          <th>Consignee</th>
           <th>Origin</th>
           <th>Destination</th>
           <th><span style="width:125px;">PCS</span></th>

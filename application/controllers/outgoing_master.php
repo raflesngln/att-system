@@ -80,7 +80,7 @@ public function list_closed()
 		
         $nm_coloum= array('a.NoSMU','a.Shipper','a.Consigne','a.Origin','a.Destination','a.PCS','a.CWT');
         $orderby= array('a.NoSMU' => 'desc');
-        $where=  array('a.StatusProses = '=>'3');
+        $where=  array('a.StatusProses = '=>'4');
         $list = $this->Mhouse->get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
 		$data = array();
@@ -129,7 +129,7 @@ public function list_final()
 		
         $nm_coloum= array('a.NoSMU','a.Shipper','a.Consigne','a.Origin','a.Destination','a.PCS','a.CWT');
         $orderby= array('a.NoSMU' => 'desc');
-        $where=  array('a.StatusProses >= '=>'4');
+        $where=  array('a.StatusProses >= '=>'5');
         $list = $this->Mhouse->get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
 		$data = array();
@@ -199,7 +199,7 @@ public function ajax_edit()
 		$data = array(
 				'Remarks' => $this->input->post('remarks'),
 				'FinalCWT' => $this->input->post('finalcwt'),
-				'StatusProses' =>'4',
+				'StatusProses' =>'5',
 				'ModifiedBy' => $this->session->userdata('idusr'),
 				'ModifiedDate' =>date('Y-m-d'),
 			);
