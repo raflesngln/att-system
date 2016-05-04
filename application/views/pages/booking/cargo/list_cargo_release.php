@@ -19,10 +19,10 @@
             "columns": [
             { "data": "no" },
             { "data": "CargoReleaseCode" },
+            { "data": "AirLineName" },
             { "data": "CargoDetails" },
-            { "data": "CargoDetails" },
+			{ "data": "PCS" },
 			{ "data": "CWT" },
-			{ "data": "ReleaseDate" },
             { "data": "action" }
             ]
           });  
@@ -184,11 +184,11 @@ function delete_data(id)
       <thead>
         <tr>
           <th>no</th>  
-          <th>id</th>
-          <th>Details</th>
-          <th>Flight</th>
+          <th>Cargo No</th>
+          <th>Airline</th>
+          <th>Detail</th>
+          <th>PCS</th>
           <th>CWT</th>
-          <th>Date</th>
           <th style="width:125px;">Action</th>
         </tr>
       </thead>
@@ -198,11 +198,11 @@ function delete_data(id)
       <tfoot>
         <tr>
           <th>no</th>
-          <th>id</th>
-          <th>Details</th>
-          <th>Flight</th>
+          <th>Cargo No</th>
+          <th>Airline</th>
+          <th>Detail</th>
+          <th>PCS</th>
           <th>CWT</th>
-          <th>Date</th>
           <th>Action</th>
         </tr>
       </tfoot>

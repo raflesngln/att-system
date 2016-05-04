@@ -26,7 +26,7 @@ public function ajax_list()
 		$kolom1='a.Shipper';
 		$kolom2='b.CustCode';
 		
-        $nm_coloum= array('a.NoSMU','a.Shipper','a.Consigne','a.Origin','a.Destination','a.PCS','a.CWT');
+        $nm_coloum= array('a.NoSMU','a.NoSMU','a.Shipper','a.Consigne','a.Origin','a.Destination','a.PCS','a.CWT');
         $orderby= array('a.NoSMU' => 'desc');
         $where=  array('a.StatusProses <= '=>'3');
         $list = $this->Mhouse->get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
@@ -71,7 +71,7 @@ public function ajax_list()
 		//output to json format
 		echo json_encode($output);
 }
-public function ajax_list2()
+public function list_closed()
 	{
 		$nm_tabel='outgoing_master a';
 		$nm_tabel2='ms_customer b';
@@ -80,7 +80,56 @@ public function ajax_list2()
 		
         $nm_coloum= array('a.NoSMU','a.Shipper','a.Consigne','a.Origin','a.Destination','a.PCS','a.CWT');
         $orderby= array('a.NoSMU' => 'desc');
-        $where=  array('a.StatusProses <= '=>'3');
+        $where=  array('a.StatusProses = '=>'3');
+        $list = $this->Mhouse->get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
+        
+		$data = array();
+		$no = $_POST['start'];
+		
+		foreach ($list as $datalist){
+			$no++;
+			$row = array(
+            'no' => $no,
+            'NoSMU' => $datalist->NoSMU,
+            'ori' =>$datalist->ori,
+			'desti' =>$datalist->desti,
+			'Service' =>$datalist->Service,
+			'sender' =>$datalist->sender,
+			'receiver' =>$datalist->receiver,
+			'cwt' =>$datalist->CWT,
+			'pcs' =>$datalist->PCS,
+		
+            'action'=> '<div class="form-inline">&nbsp;&nbsp;
+<a class="green" href="javascript:void()" title="Edit" onclick="ajax_edit('."'".$datalist->NoSMU."'".')"><i class="icon-pencil bigger-150"></i></a>
+	
+	 
+				
+			</div>
+			'
+			
+            );
+			$data[] = $row;
+		}
+
+		$output = array(
+						"draw" => $_POST['draw'],
+						"recordsTotal" => $this->Mhouse->count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
+						"recordsFiltered" => $this->Mhouse->count_filtered2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
+						"data" => $data,
+				);
+		//output to json format
+		echo json_encode($output);
+}
+public function list_final()
+	{
+		$nm_tabel='outgoing_master a';
+		$nm_tabel2='ms_customer b';
+		$kolom1='a.Shipper';
+		$kolom2='b.CustCode';
+		
+        $nm_coloum= array('a.NoSMU','a.Shipper','a.Consigne','a.Origin','a.Destination','a.PCS','a.CWT');
+        $orderby= array('a.NoSMU' => 'desc');
+        $where=  array('a.StatusProses >= '=>'4');
         $list = $this->Mhouse->get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
 		$data = array();
@@ -120,18 +169,19 @@ public function ajax_list2()
 		//output to json format
 		echo json_encode($output);
 }
+
 public function ajax_edit()
 	{
-	   	$BankCode     = $this->input->post('cid');
+	   	$NoSMU     = $this->input->post('cid');
         $nmtabel= $this->input->post('cnmtabel');
         $key    = $this->input->post('ckeytabel');
-		$data = $this->Mhouse->get_by_id($BankCode,$nmtabel,$key);
+		$data = $this->Mhouse->get_by_id($NoSMU,$nmtabel,$key);
 		echo json_encode($data);
 	}
 
 	public function ajax_add()
 	{   
-	    $nmtabel='ms_bank';
+	    $nmtabel='outgoing_master';
 		$data = array(
 				'BankName' => $this->input->post('BankName'),
 				'BankCode' => $this->input->post('BankCode2'),
@@ -142,15 +192,18 @@ public function ajax_edit()
 		echo json_encode(array("status" => TRUE));
 	}
 
-	public function ajax_update()
+	public function updateCWT()
 	{
-	    $nmtabel='ms_bank';
-        $key='BankCode';
+	    $nmtabel='outgoing_master';
+        $key='NoSMU';
 		$data = array(
-				'BankName' => $this->input->post('BankName'),
-				'BankDesc' => $this->input->post('BankDesc'),
+				'Remarks' => $this->input->post('remarks'),
+				'FinalCWT' => $this->input->post('finalcwt'),
+				'StatusProses' =>'4',
+				'ModifiedBy' => $this->session->userdata('idusr'),
+				'ModifiedDate' =>date('Y-m-d'),
 			);
-		$this->Mhouse->update(array($key => $this->input->post('BankCode')), $data,$nmtabel);
+		$this->Mhouse->update(array($key => $this->input->post('smuno')), $data,$nmtabel);
 		echo json_encode(array("status" => TRUE));
 	}
 

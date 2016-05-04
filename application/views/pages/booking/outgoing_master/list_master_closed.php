@@ -3,17 +3,17 @@
   
   <script type="text/javascript">
 
-    var save_method5; //for save method string
-    var tablebank;
+    var update_methode; //for save method string
+    var tableclosed;
  
  $(document).ready(function() {    
     
-          tablebank = $('#tablebank').DataTable({ 
+          tableclosed = $('#tableclosed').DataTable({ 
             "processing": true, //Feature control the processing indicator.
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
             "ajax": {
-                "url": "<?php echo site_url('Outgoing_master/ajax_list')?>",
+                "url": "<?php echo site_url('Outgoing_master/list_closed')?>",
                 "type": "POST"
             },
             "columns": [
@@ -29,45 +29,47 @@
             ]
           });  
     
-$('#tablebank tbody').on('dblclick', 'tr', function () {
+$('#tableclosed tbody').on('dblclick', 'tr', function () {
             var tr = $(this).closest('tr');
-            var row = tablebank.row(tr);
+            var row = tableclosed.row(tr);
            // alert(row.data().firstName);
          });
 });
 
 function add_person5()
     {
-      save_method5 = 'add';
-      $('#form5')[0].reset(); // reset form on modals
-      $('#modal_form5').modal('show'); // show bootstrap modal
-      $('.modal-title5').text('Add Linebusiness');
+      update_methode = 'add';
+      $('#myform2')[0].reset(); // reset form on modals
+      $('#modal_master_closed').modal('show'); // show bootstrap modal
+      $('.modal-title').text('Add Linebusiness');
 	  document.getElementById("BankCode2").disabled=false;
     }
 
-function edit_person5(id)
+function ajax_edit(id)
     {
-      save_method5 = 'update';
-      $('#form5')[0].reset(); // reset form on modals
+      update_methode = 'update';
+      $('#myform2')[0].reset(); // reset form on modals
         
-      var nmtabel='ms_bank';
-      var keytabel='BankCode';
+      var nmtabel='outgoing_master';
+      var keytabel='NoSMU';
         
       //Ajax Load data from ajax
       $.ajax({
-        url : "<?php echo site_url('ms_bank/ajax_edit/')?>",
+        url : "<?php echo site_url('Outgoing_master/ajax_edit/')?>",
         type: "POST",
         data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
         dataType: "JSON",
         success: function(data)
         {
-            $('[name="BankName"]').val(data.BankName);
-			 $('[name="BankCode"]').val(data.BankCode);
-			$('[name="BankCode2"]').val(data.BankCode);
-            $('[name="BankDesc"]').val(data.BankDesc); 
+            $('[name="smuno"]').val(data.NoSMU);
+			 $('[name="smu"]').val(data.NoSMU);
+			$('[name="cwt"]').val(data.CWT);
+            $('[name="remarks"]').val(data.Remarks); 
+			$('[name="finalcwt"]').val(data.FinalCWT); 
 			
-            $('#modal_form5').modal('show');
-            $('.modal-title5').text('Edit Linebusiness');
+			
+            $('#modal_master_closed').modal('show');
+            $('.modal-title').text('Edit CWT Final');
 			document.getElementById("BankCode2").disabled=true;
             
         },
@@ -80,31 +82,30 @@ function edit_person5(id)
 
     function reload_table3()
     {
-      tablebank.ajax.reload(null,false); //reload datatable ajax 
+      tableclosed.ajax.reload(null,false); //reload datatable ajax 
     }
 
-function save5()
+function updateCWT()
     {
-      var url5;
-      if(save_method5 == 'add') 
+      var url_action;
+      if(update_methode == 'add') 
       {
-          url5 = "<?php echo site_url('ms_bank/ajax_add')?>";
+          url_action = "<?php echo site_url('outgoing_master/ajax_add')?>";
       }
       else
       {
-        url5 = "<?php echo site_url('ms_bank/ajax_update')?>";
+        url_action = "<?php echo site_url('outgoing_master/updateCWT')?>";
       }
-
        // ajax adding data to database
           $.ajax({
-            url : url5,
+            url : url_action,
             type: "POST",
-            data: $('#form5').serialize(),
+            data: $('#myform2').serialize(),
             dataType: "JSON",
             success: function(data)
             {
                //if success close modal and reload ajax table
-               $('#modal_form5').modal('hide');
+               $('#modal_master_closed').modal('hide');
                reload_table3();
             },
             error: function (jqXHR, textStatus, errorThrown)
@@ -129,7 +130,7 @@ function delete_person5(id)
             success: function(data)
             {
                //if success reload ajax table
-               $('#modal_form5').modal('hide');
+               $('#modal_master_closed').modal('hide');
                reload_table3();
             },
             error: function (jqXHR, textStatus, errorThrown)
@@ -148,12 +149,12 @@ function delete_person5(id)
 
 
     <br />
-    ad<br />
-    <table id="tablebank" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <br />
+    <table id="tableclosed" class="table table-striped table-bordered" cellspacing="0" width="100%">
       <thead>
         <tr>
-          <th>no</th>  
-          <th>House</th>
+          <th>No</th>  
+          <th>SMU</th>
           <th> Shipper</th>
           <th>Consigne</th>
           <th>Origin</th>
@@ -168,10 +169,10 @@ function delete_person5(id)
 
       <tfoot>
         <tr style="visibility:hidden">
-          <th>no</th>
-          <th>id</th>
-          <th> Name</th>
-          <th>Description</th>
+          <th>No</th>
+          <th>SMU</th>
+          <th>Shipper</th>
+          <th>Consigne</th>
           <th>Origin</th>
           <th>Destination</th>
           <th><span style="width:125px;">PCS</span></th>
@@ -182,34 +183,39 @@ function delete_person5(id)
     </table>
             
   <!-- Bootstrap modal -->
-  <div class="modal fade" id="modal_form5" role="dialog">
+  <div class="modal fade" id="modal_master_closed" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title5">Addrest Form</h3>
+        <h3 class="modal-title">Form</h3>
       </div>
       <div class="modal-body form">
-        <form action="#" id="form5" class="form-horizontal">
-          <input name="BankCode" type="hidden" id="BankCode" value=""/> 
+        <form action="#" id="myform2" class="form-horizontal">
+          <input name="smuno" type="hidden" id="smuno" value=""/> 
           <div class="form-body">
 <div class="form-group">
-              <label class="control-label col-md-3"> Bank Code</label>
+              <label class="control-label col-md-3 text-left">SMU</label>
               <div class="col-md-9">
-                <input name="BankCode2" type="text" class="form-control nama" id="BankCode2" placeholder="Name" value="" />
+                <input name="smu" type="text" class="form-control nama" id="smu" placeholder="Name" value="" readonly="readonly" />
               </div>
             </div>
             <div class="form-group">
-              <label class="control-label col-md-3"> Name</label>
+              <label class="control-label col-md-3"> CWT</label>
               <div class="col-md-9">
-                <input name="BankName" type="text" class="form-control nama" id="BankName" placeholder="Name" value="" />
+                <input name="cwt" type="text" class="form-control nama" id="cwt" placeholder="Name" value="" readonly="readonly" />
               </div>
             </div>
-
-            <div class="form-group">
-              <label class="control-label col-md-3">Address</label>
+<div class="form-group">
+              <label class="control-label col-md-3">Final CWT</label>
               <div class="col-md-9">
-                <textarea name="BankDesc" placeholder="decription"class="form-control" id="BankDesc"></textarea>
+                <input name="finalcwt" type="text" class="form-control nama" id="finalcwt" placeholder="Name" value="" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3">Remarks</label>
+              <div class="col-md-9">
+                <textarea name="remarks" placeholder="decription"class="form-control" id="remarks"></textarea>
               </div>
             </div>
             
@@ -217,8 +223,9 @@ function delete_person5(id)
         </form>
       </div>
           <div class="modal-footer">
-            <button type="button" id="btnSave" onclick="save5()" class="btn btn-primary">Save</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <button type="button" id="btnSave" onclick="updateCWT()" class="btn btn-primary">Update</button>
+            
           </div>
     </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

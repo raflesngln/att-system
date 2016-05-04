@@ -65,7 +65,7 @@
 
                                                   <tr align="left" class="gradeX">
                                                     <td><?php echo $row->MasterNo; ?></td>
-                                                    <td><a href="#" id="dethouseinrelease" onclick="return dethouseinrelease(this)"><?php echo $row->HouseNo; ?></a></td>
+                                                    <td><?php echo $row->HouseNo; ?></td>
                                                     <td><div align="right"><?php echo $row->PCS; ?></div></td>
                                                     <td><div align="right"><?php echo $row->CWT; ?></div></td>
                                                   </tr>

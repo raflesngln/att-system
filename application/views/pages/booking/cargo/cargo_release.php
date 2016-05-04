@@ -4,15 +4,15 @@
 										<ul class="nav nav-tabs" id="myTab">
 											<li class="active">
 												<a data-toggle="tab" href="#home">
-													<i class="green fa fa-users bigger-110"></i>
+													<i class="green fa fa-th bigger-110"></i>
 		List Cargo
 												</a>
 											</li>
 
 											<li>
 												<a data-toggle="tab" href="#profile">
-  <i class="green fa fa-building bigger-110"></i>
-		Entry Cargo
+  <i class="green fa fa-plus bigger-110"></i>
+		Create Cargo Release
 		
 												</a>
 											</li>

@@ -13,12 +13,12 @@
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
             "ajax": {
-                "url": "<?php echo site_url('Outgoing_house/ajax_list')?>",
+                "url": "<?php echo site_url('Outgoing_master/ajax_list')?>",
                 "type": "POST"
             },
             "columns": [
             { "data": "no" },
-            { "data": "HouseNo" },
+            { "data": "NoSMU" },
             { "data": "sender" },
             { "data": "receiver" },
 			{ "data": "ori" },
@@ -116,13 +116,13 @@ function save5()
 
 function delete_person5(id)
     {
-      if(confirm('Are you sure delete this data? '+ id))
-      var nmtabel='outgoing_house';
-      var keytabel='HouseNo';
+      if(confirm('Are you sure delete this data?'))
+      var nmtabel='outgoing_master';
+      var keytabel='NoSMU';
       {
         // ajax delete data to database
           $.ajax({
-            url : "<?php echo site_url('Outgoing_house/ajax_delete')?>",
+            url : "<?php echo site_url('outgoing_master/ajax_delete')?>",
             type: "POST",
             data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
             dataType: "JSON",
@@ -152,7 +152,7 @@ function delete_person5(id)
     <table id="tablebank" class="table table-striped table-bordered" cellspacing="0" width="100%">
       <thead>
         <tr>
-          <th>No</th>  
+          <th>no</th>  
           <th>House</th>
           <th> Shipper</th>
           <th>Consigne</th>
@@ -168,10 +168,10 @@ function delete_person5(id)
 
       <tfoot>
         <tr style="visibility:hidden">
-          <th>No</th>
-          <th>House</th>
+          <th>no</th>
+          <th>id</th>
           <th> Name</th>
-          <th>Consigne</th>
+          <th>Description</th>
           <th>Origin</th>
           <th>Destination</th>
           <th><span style="width:125px;">PCS</span></th>
@@ -280,7 +280,7 @@ function delete_person5(id)
 
 function EditConfirm(myid){
 		var status=myid;
-		if(status >= '1'){
+		if(status =='1'){
 			alert('Cannot Edit house was consoled !');
 			return false;
 	}

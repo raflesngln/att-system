@@ -1183,6 +1183,7 @@ function detail_cargo(){
 		  
 	$this->load->view('pages/booking/cargo/detail_release',$data);
 }
+
 function filter_release(){
 	$tgl=$this->input->post('etd');
 	$flihgtno=$this->input->post('flihgtno');

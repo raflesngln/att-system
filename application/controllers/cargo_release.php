@@ -6,7 +6,7 @@ class Cargo_release extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Mdata');
+		$this->load->model('Mcargo');
 		$this->load->model('model_app');
 	}
 
@@ -30,14 +30,14 @@ class Cargo_release extends CI_Controller {
 public function ajax_list()
 	{
 		$nm_tabel='tr_cargo_release a';
-		$nm_tabel2='ms_user b';
-		$kolom1='a.CreatedBy';
-		$kolom2='b.id_user';
+		$nm_tabel2='ms_airline b';
+		$kolom1='a.Airline';
+		$kolom2='b.AirLineCode';
 		
-        $nm_coloum= array('a.CargoReleaseCode','a.CargoReleaseCode','a.CargoDetails','a.ReleaseDate','a.CWT','b.FullName');
+        $nm_coloum= array('a.CargoReleaseCode','a.CargoReleaseCode','a.AirLineName','b.CargoDetails','a.PCS','a.CWT');
         $orderby= array('a.CargoReleaseCode' => 'desc');
         $where=  array();
-        $list = $this->Mdata->get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
+        $list = $this->Mcargo->get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
 		$data = array();
 		$no = $_POST['start'];
@@ -47,10 +47,9 @@ public function ajax_list()
             'no' => $no,
             'CargoReleaseCode' => $datalist->CargoReleaseCode,
             'CargoDetails' => $datalist->CargoDetails,
-            'ReleaseDate' =>$datalist->ReleaseDate,
-			'FullName' =>$datalist->FullName,
+            'AirLineName' =>$datalist->AirLineName,
 			'CWT' =>$datalist->CWT,
-			'CWT' =>$datalist->CWT,
+			'PCS' =>$datalist->PCS,
 			
             'action'=> '<a class="green" href="javascript:void()" title="Edit" onclick="edit_data('."'".$datalist->CargoReleaseCode."'".')"><i class="icon-edit bigger-150"></i></a>&nbsp;&nbsp;
 				    <a class="red" href="javascript:void()" title="Hapus" onclick="delete_data('."'".$datalist->CargoReleaseCode."'".')"><i class="icon-trash bigger-150"></i></a>
@@ -61,8 +60,8 @@ public function ajax_list()
 
 		$output = array(
 						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->Mdata->count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
-						"recordsFiltered" => $this->Mdata->count_filtered2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
+						"recordsTotal" => $this->Mcargo->count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
+						"recordsFiltered" => $this->Mcargo->count_filtered2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
 						"data" => $data,
 				);
 		//output to json format
@@ -74,7 +73,7 @@ public function ajax_edit()
 	   	$CargoReleaseCode     = $this->input->post('cid');
         $nmtabel= $this->input->post('cnmtabel');
         $key    = $this->input->post('ckeytabel');
-		$data = $this->Mdata->get_by_id($CargoReleaseCode,$nmtabel,$key);
+		$data = $this->Mcargo->get_by_id($CargoReleaseCode,$nmtabel,$key);
 		echo json_encode($data);
 	}
 
@@ -88,7 +87,7 @@ public function ajax_edit()
 				'ReleaseDate' => $this->input->post('ReleaseDate'), 
 				'CreatedBy' => $this->session->userdata('idusr'),
 			);
-		$insert = $this->Mdata->save($data,$nmtabel);
+		$insert = $this->Mcargo->save($data,$nmtabel);
 		echo json_encode(array("status" => TRUE));
 	}
 
@@ -100,7 +99,7 @@ public function ajax_edit()
 				'CargoDetails' => $this->input->post('CargoDetails'),
 				'CWT' => $this->input->post('cwt'),
 			);
-		$this->Mdata->update(array($key => $this->input->post('CargoReleaseCode')), $data,$nmtabel);
+		$this->Mcargo->update(array($key => $this->input->post('CargoReleaseCode')), $data,$nmtabel);
 		echo json_encode(array("status" => TRUE));
 	}
 
@@ -110,8 +109,8 @@ public function ajax_edit()
        $nmtabel= $this->input->post('cnmtabel'); $nmtabel2='cargo_items';
        $key    = $this->input->post('ckeytabel');
        
-		$this->Mdata->delete_by_id($id,$nmtabel,$key);
-		$this->Mdata->delete_by_id($id,$nmtabel2,$key);
+		$this->Mcargo->delete_by_id($id,$nmtabel,$key);
+		$this->Mcargo->delete_by_id($id,$nmtabel2,$key);
 		
 		echo json_encode(array("status" => TRUE));
 	}

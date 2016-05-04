@@ -9,20 +9,20 @@
 										<ul class="nav nav-tabs" id="myTab">
 											<li class="active">
 												<a data-toggle="tab" href="#home">
-													<i class="green fa fa-users bigger-110"></i>
+													<i class="green fa fa-plus bigger-110"></i>
 													Create Consol
 												</a>
 											</li>
 
 											<li>
 												<a data-toggle="tab" href="#profile">
-  <i class="green fa fa-building bigger-110"></i>
+  <i class="green fa fa-th bigger-110"></i>
 										  List SMU Consol
 		
 											</a></li>
 											<li>
 												<a data-toggle="tab" href="#boxhouse">
-  <i class="green fa fa-building bigger-110"></i>
+  <i class="green fa fa-th bigger-110"></i>
 										  List House Consol
 		
 											</a></li>
