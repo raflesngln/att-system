@@ -1,5 +1,6 @@
-<body onLoad="focus_barcode()">
-<form action="<?php echo base_url();?>transaction/save_chargo_manifest" method="post" enctype="multipart/form-data" autocomplete="off" name="formcargo[0]" id="formcargo">
+
+        
+<form action="<?php echo base_url();?>transaction/save_chargo_manifest" method="post" enctype="multipart/form-data" autocomplete="off" name="formcargo[0]" id="formcargo" onSubmit="return cek_checked();">
 
   <!--LEFT INPUT-->
   <div class="col-sm-6">      
@@ -91,7 +92,7 @@
                                                   <th>PCS</th>
                                                   <th><div align="center">CWT</div></th>
                                                   <th class="text-center"><div align="center">
-                                                    <input type="checkbox" name="checkall" id="checkall" onClick="return Checkall()" value="Check all">
+                                                    <input type="checkbox" name="checkall22" id="checkall22" onClick="return Checkall()" value="Check all">
                                                   </div></th>
                                                 </tr>
                                           <tbody>
@@ -369,27 +370,7 @@ var input = $(myid).val();
 }
 
 
-function Checkall(){
-	var chk=document.getElementsByName('checklish[]');
-	for(i=0;i < chk.length;i++){
-	chk[i].checked="true";	
-	}
-}
-function unCheckall(){
-	var chk=document.getElementsByName('checklish[]');
-	for(i=0;i < chk.length;i++){
-	chk[i].checked="false";	
-	}
-}
-$("#checkall").change(function(){
-	
-	if($(this).is(':checked')){
-		Checkall();
-	} else {
-		unCheckall()
-	}
-	
-});
+
 function delete_cargo(myid){
 	var id=$(myid).val();
 alert(id);	

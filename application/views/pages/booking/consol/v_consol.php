@@ -19,6 +19,11 @@
   <i class="green fa fa-th bigger-110"></i>
 										  List SMU Consol
 		
+											</a></li>											<li>
+												<a data-toggle="tab" href="#boxdirect">
+  <i class="green fa fa-th bigger-110"></i>
+										  List SMU Direct
+		
 											</a></li>
 											<li>
 												<a data-toggle="tab" href="#boxhouse">
@@ -37,9 +42,13 @@
 											<div id="profile" class="tab-pane">
 <p><?php $this->load->view('pages/booking/consol/list_smu_consol');?></p>
 											</div>
+                                            <div id="boxdirect" class="tab-pane">
+<p><?php $this->load->view('pages/booking/consol/list_smu_direct');?></p>
+											</div>
 <div id="boxhouse" class="tab-pane">
 <p><?php $this->load->view('pages/booking/consol/list_house_consol');?></p>
 											</div>
+
 										</div>
 									</div>
 								</div><!--/span-->

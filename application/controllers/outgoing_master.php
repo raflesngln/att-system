@@ -46,15 +46,11 @@ public function ajax_list()
 			'receiver' =>$datalist->receiver,
 			'cwt' =>$datalist->CWT,
 			'pcs' =>$datalist->PCS,
+			'StatusProses' =>$datalist->StatusProses,
 		
-            'action'=> '<div class="form-inline"> <a onclick="return EditConfirm('.$datalist->Consolidation.')" href="'.base_url().'transaction/edit_outgoing_master/'.$datalist->NoSMU.'" title="Edit item"><button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>
- </a>&nbsp;&nbsp;
-				    <a class="red" href="javascript:void()" title="Hapus" onclick="delete_person5('."'".$datalist->NoSMU."'".')"><i class="icon-trash bigger-150"></i></a>
-	
-	 <span> <form action="'.base_url().'connote_print" method="post" target="new" class="text-left">
-                                                   <input type="hidden" value="'.$datalist->NoSMU.'" name=" NoSMU" />
-                                                  <button class="btn btn-mini btn-warning " type="submit"><i class="fa fa-print bigger-120"></i></button>
-				
+            'action'=> '<div class="form-inline"> <a onclick="return EditConfirm('.$datalist->StatusProses.')" href="'.base_url().'transaction/edit_outgoing_master/'.$datalist->NoSMU.'" title="Edit item"><button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>
+ </a>
+				    <a class="red" href="javascript:void()" title="Hapus" onclick="delete_person5('."'".$datalist->NoSMU."'".')"><button class="btn btn-mini btn-danger" type="button"><i class="icon-trash bigger-150"></i></button></a>			
 			</div>
 			'
 			

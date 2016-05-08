@@ -219,6 +219,13 @@ public function generateCity($table,$kolom,$kd_unik)
 		$this->db->where($kolom,$id);
 		$this->db->delete($table);
 	}	
+//=================== DELETEA ===============================
+
+		function delete_multi_condition($table,$array)
+	{
+		$this->db->where($array);
+		$this->db->delete($table);
+	}	
 //=================== sub query ===============================
 
 		function subsmu($nosmu,$smu)

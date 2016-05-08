@@ -436,6 +436,11 @@ $("#idconsigne").click(function(){
         <div class="form-group">
         <div class="span4">Booking No</div>
         <div class="span7"><input name="booking" type="text" class="form-control"  id="booking"  /></div></div>
+  <div class="form-group">
+        <div class="span4">Max CWT</div>
+        <div class="span7"><input name="limitcwt" type="text" class="form-control"  id="limitcwt"  /></div></div>      
+
+
 <div class="form-group">
         <div class="span4">Shipper</div>
         <div class="span7"><input type="text" name="idshipper" id="idshipper" class="form-control" placeholder="types customer name" autocomplete="off" required/>
@@ -1536,6 +1541,7 @@ function getprefix(myid){
 			success: function(data) {
 			 for (var i =0; i<data.length; i++){
 				$('#prefixsmu').val(data[i].prefixsmu);
+				$('#limitcwt').val(data[i].maximal);
 				$("#smu").focus();
 				getflight();
 			 }

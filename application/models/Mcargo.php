@@ -42,8 +42,10 @@ private function _get_datatables_query2($nm_coloum,$orderby,$where)
 
 	function get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2)
 	{
+		$this->db->select('a.CargoReleaseCode,a.CargoDetails,a.ReleaseDate,b.AirLineName,sum(c.CWT) as jumcwt,sum(c.PCS) as jumpcs');
 	    $this->db->from($nm_tabel);
 		$this->db->join($nm_tabel2,$kolom1.'='.$kolom2,'LEFT');
+		$this->db->join("cargo_items c",'a.CargoReleaseCode=c.CargoReleaseCode','LEFT');
 		$this->_get_datatables_query2($nm_coloum,$orderby,$where);
         if($_POST['length'] != -1)
 		$this->db->limit($_POST['length'], $_POST['start']);

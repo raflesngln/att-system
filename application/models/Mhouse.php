@@ -126,7 +126,7 @@ public function count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2)
 //-- for 3 choosen ---///////////////////////////////////////////
 	function get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2)
 	{
-		$this->db->select('a.NoSMU,a.ETD,a.Origin,a.Destination,a.Shipper,a.Consigne,a.PCS,a.CWT,a.Consolidation,b.CustName as sender,c.CustName as receiver,d.PortName as ori,e.PortName as desti', FALSE);
+		$this->db->select('a.NoSMU,a.ETD,a.Origin,a.Destination,a.Shipper,a.Consigne,a.PCS,a.CWT,a.Consolidation,a.StatusProses,b.CustName as sender,c.CustName as receiver,d.PortName as ori,e.PortName as desti', FALSE);
 	    $this->db->from($nm_tabel);
 		$this->db->join($nm_tabel2,$kolom1.'='.$kolom2,'LEFT');
 		$this->db->join("ms_customer c",'a.Consigne=c.CustCode','LEFT');

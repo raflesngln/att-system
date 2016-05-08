@@ -28,7 +28,7 @@ public function ajax_list()
 		
         $nm_coloum= array('a.HouseNo','a.Shipper','a.Consigne','a.Origin','a.Destination','a.PCS','a.CWT');
         $orderby= array('a.HouseNo' => 'desc');
-        $where=  array('a.Consolidation <= '=>'2');
+        $where=  array('a.Consolidation <= '=>'1');
         $list = $this->Mhouse->get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
 		$data = array();
@@ -47,13 +47,16 @@ public function ajax_list()
 			'cwt' =>$datalist->CWT,
 			'pcs' =>$datalist->PCS,
 		
-            'action'=> '<div class="form-inline"> <a onclick="return EditConfirm('.$datalist->Consolidation.')" href="'.base_url().'transaction/edit_outgoing_house/'.$datalist->HouseNo.'" title="Edit item"><button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>
- </a>&nbsp;&nbsp;
-				    <a class="red" href="javascript:void()" title="Hapus" onclick="delete_person5('."'".$datalist->HouseNo."'".')"><i class="icon-trash bigger-150"></i></a>
-	
-	 <span> <form action="'.base_url().'connote_print" method="post" target="new" class="text-left">
+            'action'=> '<div class="form-inline"> 
+	 <span class="form-inline"> 
+	 <form action="'.base_url().'connote_print" method="post" target="new" class="text-left">
                                                    <input type="hidden" value="'.$datalist->HouseNo.'" name=" houseno" />
                                                   <button class="btn btn-mini btn-warning " type="submit"><i class="fa fa-print bigger-120"></i></button>
+<a onclick="return EditConfirm('.$datalist->Consolidation.')" href="'.base_url().'transaction/edit_outgoing_house/'.$datalist->HouseNo.'" title="Edit item"><button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>
+ </a>
+					<a class="red" href="javascript:void()" title="Hapus" onclick="delete_person5('."'".$datalist->HouseNo."'".')"><button class="btn btn-mini btn-danger" type="button"><i class="icon-trash bigger-150"></i></button></a>
+												  </form>
+												  </span>
 				
 			</div>
 			'
@@ -71,7 +74,7 @@ public function ajax_list()
 		//output to json format
 		echo json_encode($output);
 }
-public function ajax_list2()
+public function list_closed()
 	{
 		$nm_tabel='outgoing_house a';
 		$nm_tabel2='ms_customer b';
@@ -80,7 +83,7 @@ public function ajax_list2()
 		
         $nm_coloum= array('a.HouseNo','a.Shipper','a.Consigne','a.Origin','a.Destination','a.PCS','a.CWT');
         $orderby= array('a.HouseNo' => 'desc');
-        $where=  array('a.Consolidation >= '=>'3');
+        $where=  array('a.Consolidation >= '=>'2');
         $list = $this->Mhouse->get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
 		$data = array();
@@ -100,11 +103,11 @@ public function ajax_list2()
 			'pcs' =>$datalist->PCS,
 		
             'action'=> '<div class="form-inline">
-				    <a class="red" href="javascript:void()" title="Hapus" onclick="delete_person5('."'".$datalist->HouseNo."'".')"><i class="icon-trash bigger-150"></i></a>
-	 <span> <form action="'.base_url().'connote_print" method="post" target="new" class="text-left">
+	<form action="'.base_url().'connote_print" method="post" target="new" class="text-left">
                                                    <input type="hidden" value="'.$datalist->HouseNo.'" name=" houseno" />
                                                   <button class="btn btn-mini btn-warning " type="submit"><i class="fa fa-print bigger-120"></i></button>
 				
+		 <a class="red" href="javascript:void()" title="Hapus" onclick="delete_person5('."'".$datalist->HouseNo."'".')"><button class="btn btn-mini btn-danger" type="button"><i class="icon-trash bigger-150"></i></button></a>
 			</div>
 			'
 			

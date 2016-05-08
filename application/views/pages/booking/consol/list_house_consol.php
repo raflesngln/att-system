@@ -15,6 +15,7 @@
                                                   <tr>
                                                   <th width="24">No.</th>
                                                   <th width="60">House  No</th>
+                                                  <th width="77">ETD</th>
                                                   <th width="77">Destination</th>
                                                   <th width="43">PCS</th>
                                                   <th width="53">CWT</th>
@@ -43,6 +44,7 @@
 <a href="#" onclick="detailhouse(this);"><?php echo $row->HouseNo?>
 </a>
 </td>
+                                                    <td><?php echo date("d-m-Y",strtotime($row->ETD));?></td>
                                                     <td><div align="left"><?php echo substr($row->desti,0,50).'-'.$row->portcode?></div></td>
                                                     <td><div align="center"><?php echo $row->PCS?></div></td>
                                                     <td><div align="center"><?php echo $row->CWT?></div></td>
@@ -52,6 +54,7 @@
                 <?php $no++;} ?>  
                                                   
                                                   <tr style="background-color:#F5F5F5">
+                                                  <td>&nbsp;</td>
                                                   <td>&nbsp;</td>
                                                   <td>&nbsp;</td>
                                                   <td>&nbsp;</td>

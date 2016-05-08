@@ -289,14 +289,6 @@ function delete_person5(id)
             });
         });
 
-function EditConfirm(myid){
-		var status=myid;
-		if(status =='1'){
-			alert('Cannot Edit house was consoled !');
-			return false;
-	}
-}
-
 
 	
 </script>

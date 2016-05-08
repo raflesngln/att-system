@@ -8,8 +8,8 @@
                         
                                     <div class="form-group">
                                         <div class="table-responsive" id="table_responsive">
-<h2><span class="label label-inverse label-large">List SMU  Consol</span></h2>
-                                        <table class="table table-nostriped table-nobordered table-hover" id="tablesmu">
+<h2><span class="label label-inverse label-large">List SMU Direct </span></h2>
+                                        <table class="table table-nostriped table-nobordered table-hover" id="tabledirect">
                                               <thead>
                                                 
                                                   <tr>
@@ -26,7 +26,7 @@
                                               <tbody>
  <?php 
  $no=1;
- foreach ($masterconsol as $free) {
+ foreach ($masterdirect as $free) {
 	 $cwt=$free->CWT;
 	 $pcs=$free->PCS;
 	 
@@ -42,7 +42,7 @@
                                                   <tr>
                                                     <td><?php echo $no?></td>
                                                     <td>
-<a href="#" onclick="detailsmu(this);"><?php echo $free->NoSMU?>
+<a href="#" onclick="detailsmu2(this);"><?php echo $free->NoSMU?>
 </a>
 </td>
                                                     <td><?php echo date("d-m-Y",strtotime($free->ETD));?></td>
@@ -79,7 +79,7 @@
 </div>
 
 
-<div id="modaldetailsmu" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:99%">
+<div id="modaldetaildirect" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:99%">
     
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -92,7 +92,7 @@
                     <div class="modal-body">
 
                    
-                        <div id="tabledetail">
+                        <div id="tabledetaildirect">
                      
 
                         </div>
@@ -107,20 +107,39 @@
     </div>
     
     <script>
-function detailsmu(myid){
+function detailsmu2(myid){
 	var smu=$(myid).html();
-	var status='consol';
-             // alert('hai' + idcnote);
+	var status='direct';
+	
 				$.ajax({
                 type: "POST",
                 url : "<?php echo base_url('transaction/ajax_detailSMU'); ?>",
                 data: "smu="+smu+"&status="+status,
                 success: function(data){
-					$("#modaldetailsmu").modal('show'); 
-                   $('#tabledetail').html(data);
+					$("#modaldetaildirect").modal('show'); 
+                   $('#tabledetaildirect').html(data);
                 }
             });
-	
 }
+function removedirect(myid){
+	var house=$(myid).val();
+     var smu=$("#idmaster").val();
+	 var x=confirm('Are you sure Remove house ?');
+	 if(x==true){
+		 
+				$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('transaction/remove_house_direct'); ?>",
+                data: "house="+house+"&smu="+smu,
+                success: function(data){
+					$("#modaldetaildirect").modal('hide'); 
+                  // $('#tabledetaildirect').html(data);
+                }
+            });
+	 } else {
+	 alert('Action Canceled !');
+	 }
+}
+
 	
 	</script>

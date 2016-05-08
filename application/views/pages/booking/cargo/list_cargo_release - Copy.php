@@ -13,18 +13,16 @@
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
             "ajax": {
-                "url": "<?php echo site_url('Outgoing_master/ajax_list')?>",
+                "url": "<?php echo site_url('cargo_release/ajax_list')?>",
                 "type": "POST"
             },
             "columns": [
             { "data": "no" },
-            { "data": "NoSMU" },
-            { "data": "sender" },
-            { "data": "receiver" },
-			{ "data": "ori" },
-			{ "data": "desti" },
-			{ "data": "pcs" },
-			{ "data": "cwt" },
+            { "data": "CargoReleaseCode" },
+            { "data": "AirLineName" },
+            { "data": "CargoDetails" },
+			{ "data": "PCS" },
+			{ "data": "CWT" },
             { "data": "action" }
             ]
           });  
@@ -42,33 +40,64 @@ function add_person5()
       $('#form5')[0].reset(); // reset form on modals
       $('#modal_form5').modal('show'); // show bootstrap modal
       $('.modal-title5').text('Add Linebusiness');
-	  document.getElementById("BankCode2").disabled=false;
+	  document.getElementById("CargoReleaseCode").disabled=false;
     }
 
-function edit_person5(id)
+function edit_data(id)
     {
       save_method5 = 'update';
       $('#form5')[0].reset(); // reset form on modals
         
-      var nmtabel='ms_bank';
-      var keytabel='BankCode';
+      var nmtabel='tr_cargo_release';
+      var keytabel='CargoReleaseCode';
         
       //Ajax Load data from ajax
       $.ajax({
-        url : "<?php echo site_url('ms_bank/ajax_edit/')?>",
+        url : "<?php echo site_url('cargo_release/ajax_edit/')?>",
         type: "POST",
         data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
         dataType: "JSON",
         success: function(data)
         {
-            $('[name="BankName"]').val(data.BankName);
-			 $('[name="BankCode"]').val(data.BankCode);
-			$('[name="BankCode2"]').val(data.BankCode);
-            $('[name="BankDesc"]').val(data.BankDesc); 
+            
+			 $('[name="CargoReleaseCode"]').val(data.CargoReleaseCode);
+			 $('[name="CargoDetails"]').val(data.CargoDetails);
+            $('[name="cwt"]').val(data.CWT); 
 			
             $('#modal_form5').modal('show');
-            $('.modal-title5').text('Edit Linebusiness');
-			document.getElementById("BankCode2").disabled=true;
+            $('.modal-title5').text('Edit Master');
+			//document.getElementById("CargoReleaseCode").disabled=true;
+            
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+    }
+function edit_data2(id)
+    {
+      save_method6 = 'update';
+      
+      var nmtabel='tr_cargo_release';
+      var keytabel='CargoReleaseCode';
+        
+      //Ajax Load data from ajax
+      $.ajax({
+        url : "<?php echo site_url('cargo_release/ajax_edit/')?>",
+        type: "POST",
+        data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
+        dataType: "JSON",
+        success: function(data)
+        {
+            
+			 $('[name="CargoReleaseCode"]').val(data.CargoReleaseCode);
+			 $('[name="CargoDetails"]').val(data.CargoDetails);
+            $('[name="cwt"]').val(data.CWT); 
+			
+            $('#modal_form5').modal('show');
+            $('.modal-title5').text('Edit Master');
+			//document.getElementById("CargoReleaseCode").disabled=true;
             
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -88,11 +117,11 @@ function save5()
       var url5;
       if(save_method5 == 'add') 
       {
-          url5 = "<?php echo site_url('ms_bank/ajax_add')?>";
+          url5 = "<?php echo site_url('cargo_release/ajax_add')?>";
       }
       else
       {
-        url5 = "<?php echo site_url('ms_bank/ajax_update')?>";
+        url5 = "<?php echo site_url('cargo_release/ajax_update')?>";
       }
 
        // ajax adding data to database
@@ -114,15 +143,16 @@ function save5()
         });
     }
 
-function delete_person5(id)
+function delete_data(id)
     {
       if(confirm('Are you sure delete this data?'))
-      var nmtabel='outgoing_master';
-      var keytabel='NoSMU';
+      var nmtabel='tr_cargo_release';
+      var keytabel='CargoReleaseCode';
+	 
       {
         // ajax delete data to database
           $.ajax({
-            url : "<?php echo site_url('outgoing_master/ajax_delete')?>",
+    url : "<?php echo site_url('cargo_release/ajax_delete')?>",
             type: "POST",
             data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
             dataType: "JSON",
@@ -134,7 +164,7 @@ function delete_person5(id)
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
-                alert('Error adding / update data');
+                alert('Error deleting data');
             }
         });
       }
@@ -149,17 +179,16 @@ function delete_person5(id)
 
     <br />
     <br />
+    
     <table id="tablebank" class="table table-striped table-bordered" cellspacing="0" width="100%">
       <thead>
         <tr>
           <th>No</th>  
-          <th>SMU</th>
-          <th> Shipper</th>
-          <th>Consignee</th>
-          <th>Origin</th>
-          <th>Destination</th>
-          <th style="width:125px;">PCS</th>
-          <th style="width:125px;">CWT</th>
+          <th>Cargo No</th>
+          <th>Airline</th>
+          <th>Detail</th>
+          <th>PCS</th>
+          <th>CWT</th>
           <th style="width:125px;">Action</th>
         </tr>
       </thead>
@@ -167,15 +196,13 @@ function delete_person5(id)
       </tbody>
 
       <tfoot>
-        <tr style="visibility:hidden">
+        <tr>
           <th>No</th>
-          <th>SMU</th>
-          <th>Shipper</th>
-          <th>Consignee</th>
-          <th>Origin</th>
-          <th>Destination</th>
-          <th><span style="width:125px;">PCS</span></th>
-          <th><span style="width:125px;">CWT</span></th>
+          <th>Cargo No</th>
+          <th>Airline</th>
+          <th>Detail</th>
+          <th>PCS</th>
+          <th>CWT</th>
           <th>Action</th>
         </tr>
       </tfoot>
@@ -191,101 +218,50 @@ function delete_person5(id)
       </div>
       <div class="modal-body form">
         <form action="#" id="form5" class="form-horizontal">
-          <input name="BankCode" type="hidden" id="BankCode" value=""/> 
+          <input name="CargoReleaseCode" type="hidden" id="id" value=""/> 
           <div class="form-body">
-<div class="form-group">
-              <label class="control-label col-md-3"> Bank Code</label>
-              <div class="col-md-9">
-                <input name="BankCode2" type="text" class="form-control nama" id="BankCode2" placeholder="Name" value="" />
-              </div>
-            </div>
+
             <div class="form-group">
-              <label class="control-label col-md-3"> Name</label>
+              <label class="control-label col-md-3"> CWT</label>
               <div class="col-md-9">
-                <input name="BankName" type="text" class="form-control nama" id="BankName" placeholder="Name" value="" />
+                <input name="cwt" type="text" class="form-control nama" id="cwt" placeholder="Name" value="" />
               </div>
             </div>
 
             <div class="form-group">
               <label class="control-label col-md-3">Address</label>
               <div class="col-md-9">
-                <textarea name="BankDesc" placeholder="decription"class="form-control" id="BankDesc"></textarea>
+                <textarea name="CargoDetails" placeholder="decription"class="form-control" id="CargoDetails"></textarea>
               </div>
             </div>
             
           </div>
         </form>
-      </div>
+          </div>
           <div class="modal-footer">
             <button type="button" id="btnSave" onclick="save5()" class="btn btn-primary">Save</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
           </div>
-    </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
-  
-  
-  <script type="text/javascript">
-	
-	 $(".dethouse").click(function(){
-          var nomor=$(this).html();
-             // alert('hai' + idcnote);
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/detail_outgoing_house'); ?>",
-                data: "nomor="+nomor,
-                success: function(data){
-                   $('.detail_outgoing').html(data);
-				   $('.txtdetail').html('<strong> No. House : ' + nomor + '</strong>');
-                }
-            });
-        });
-	
-	 $("#txtsearch").keyup(function(){
-            var txtsearch = $('#txtsearch').val();
-             // alert('hai' + idcnote);
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/search_outgoing_house'); ?>",
-                data: "txtsearch="+txtsearch,
-                success: function(data){
-                   $('#table_connote').html(data);
-                }
-            });
-        });
-		
-	 $("#btnsearch").click(function(){
-            var txtsearch = $('#txtsearch').val();
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/search_outgoing_house'); ?>",
-                data: "txtsearch="+txtsearch,
-                success: function(data){
-                   $('#table_connote').html(data);
-                }
-            });
-        });
-	 $("#btnsort").click(function(){
-            var tgl1 = $('#tg1').val();
-			var tgl2 = $('#tg2').val();
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/periode_outgoing_house');?>",
-       data: "tgl1="+tgl1+"&tgl2="+tgl2,
-                success: function(data){
-                   $('#table_connote').html(data);
-                }
-            });
-        });
-
-function EditConfirm(myid){
-		var status=myid;
-		if(status >= '2'){
-			alert('Cannot Edit SMU was consoled !');
-			return false;
-	}
-}
-
-	
-</script>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
+    
+    <div class="modal fade" id="modal_form6" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title5">Detail Cargo</h3>
+      </div>
+      <div class="modal-body form">
+        <div class="detailcargo">jjj</div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="btnSave" onclick="save5()" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
     

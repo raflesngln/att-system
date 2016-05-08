@@ -13,7 +13,7 @@
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
             "ajax": {
-                "url": "<?php echo site_url('Outgoing_house/ajax_list2')?>",
+                "url": "<?php echo site_url('Outgoing_house/list_closed')?>",
                 "type": "POST"
             },
             "columns": [
