@@ -18,7 +18,7 @@ h3{text-align:center; font-size:14px; margin-top:-10px}
 </head>
 
 <body>
-<h2 style="text-align:center">Cargo Manifetst</h2>
+<h2 style="text-align:center">Cargo Release</h2>
 <h3>PT. Expresindo System Network</h3>
        <?php 
  $no=1;
@@ -27,18 +27,18 @@ h3{text-align:center; font-size:14px; margin-top:-10px}
         ?>
 <table width="800" border="0" id="tabel">
   <tr>
-    <td width="29%">No Cargo</td>
-    <td width="26%">:<span class="span7"><?php echo $row->CargoReleaseCode; ?></span></td>
-    <td width="33%"><p style="color:#FFF">.....................................................................</p></td>
-    <td width="33%">Created By</td>
-    <td width="12%">: <?php echo $this->session->userdata('nameusr');?></td>
+    <td width="21%"><strong>No Release</strong></td>
+    <td width="19%">:<span class="span7"><strong><?php echo ' '.$row->CargoReleaseCode; ?></strong></span></td>
+    <td width="38%"><p style="color:#FFF">.....................................................................</p></td>
+    <td width="20%">Created Date</td>
+    <td width="11%">: <?php echo date("d-m-Y / h:i:s",strtotime($row->CreatedDate)); ?></td>
   </tr>
   <tr>
     <td>Date</td>
     <td>: <span class="span7"><?php echo date('d-m-Y',strtotime($row->ReleaseDate)); ?></span></td>
     <td></td>
-    <td>Created Date</td>
-    <td> : <?php echo date("d-m-Y / h:i:s",strtotime($row->CreatedDate)); ?></td>
+    <td>Printed Date</td>
+    <td> : <?php echo date("d-m-Y / h:i:s"); ?></td>
   </tr>
   <tr>
     <td>Airline</td>
@@ -51,15 +51,15 @@ h3{text-align:center; font-size:14px; margin-top:-10px}
     <td>Details</td>
     <td>: <span class="span7"><?php echo $row->CargoDetails; ?></span></td>
     <td>&nbsp;</td>
-    <td>CarriedBy</td>
-    <td>: <span class="span7"><?php echo $row->CarriedBy; ?></span></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
-    <td>ReceivedBy</td>
-    <td>: <span class="span7"><?php echo $row->ReceivedBy; ?></span></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
   </tr>
 </table>
 <?php } ?>
@@ -89,8 +89,8 @@ h3{text-align:center; font-size:14px; margin-top:-10px}
     <td ><?php echo $row->smu; ?></td>
     <td ><?php echo $row->FlightNo; ?></td>
     <td ><?php echo date('d-m-Y',strtotime($row->ETD)); ?></td>
-    <td style="text-align:right">&nbsp; &nbsp; &nbsp;<?php echo $row->PCS; ?></td>
-    <td style="text-align:right">&nbsp; &nbsp; &nbsp;<?php echo $row->CWT; ?></td>
+    <td style="text-align:right; padding-right:5px"><?php echo $row->PCS; ?></td>
+    <td style="text-align:right; padding-right:5px"><?php echo $row->CWT; ?></td>
   </tr>
   <?php $no++; } ?>
   <tr>
@@ -100,5 +100,27 @@ h3{text-align:center; font-size:14px; margin-top:-10px}
   </tr>
 </table>
 
+<br />
+<table width="100%" border="0" id="foottabel">
+  <tr>
+    <td style="width:150px"><div align="center">Created By</div></td>
+    <td style="width:270px; margin-left:30px"><div align="center">Carried By</div></td>
+    <td style="width:270px; margin-left:30px"><div align="center">Received  By</div></td>
+  </tr>
+        <?php 
+ $no=1;
+ foreach($header as $row){
+
+        ?>
+  <tr>
+    <td><p align="center">&nbsp;</p>
+    <p align="center"><u><?php echo $this->session->userdata('nameusr');?></u></p></td>
+    <td><p align="center">&nbsp;</p>
+    <p align="center"><u><?php echo $row->CarriedBy; ?></u></p></td>
+    <td><p align="center">&nbsp;</p>
+    <p align="center"><u><?php echo $row->ReceivedBy; ?></u></p></td>
+  </tr>
+  <?php } ?>
+</table>
 </body>
 </html>

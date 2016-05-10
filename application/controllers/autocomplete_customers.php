@@ -7,7 +7,7 @@ class Autocomplete_customers extends CI_Controller{
             redirect('');
         };
         $this->load->model('model_app');
-        $this->load->model('Mautocomplete');
+        $this->load->model('mautocomplete');
     }   
 
 function index(){  
@@ -18,7 +18,7 @@ function lookup_om(){
      // process posted form data (the requested items)
         $keyword = $this->input->post('term');
         $data['response'] = 'false'; //Set default response
-        $query = $this->Mautocomplete->lookup_om($keyword); //Search DB
+        $query = $this->mautocomplete->lookup_om($keyword); //Search DB
         if( ! empty($query) )
         {
             $data['response'] = 'true'; //Set response
@@ -50,7 +50,7 @@ function lookup_sender(){
      // process posted form data (the requested items)
         $keyword = $this->input->post('term');
         $data['response'] = 'false'; //Set default response
-        $query = $this->Mautocomplete->lookup_sender($keyword); //Search DB
+        $query = $this->mautocomplete->lookup_sender($keyword); //Search DB
         if( ! empty($query) )
         {
             $data['response'] = 'true'; //Set response
@@ -81,7 +81,7 @@ function lookup_cnote(){
   // process posted form data (the requested items code )
         $keyword = $this->input->post('term');
         $data['response'] = 'false'; //Set default response
-        $query = $this->Mautocomplete->lookup_cnote($keyword); //Search DB
+        $query = $this->mautocomplete->lookup_cnote($keyword); //Search DB
         if( ! empty($query) )
         {
             $data['response'] = 'true'; //Set response
@@ -115,7 +115,7 @@ function lookup_receivement(){
         // process posted form data (the requested items like province)
         $keyword = $this->input->post('term');
         $data['response'] = 'false'; //Set default response
-        $query = $this->Mautocomplete->lookup_receivement($keyword); //Search DB
+        $query = $this->mautocomplete->lookup_receivement($keyword); //Search DB
         if( ! empty($query) )
         {
             $data['response'] = 'true'; //Set response
@@ -151,7 +151,7 @@ function lookup_customers(){
 		$tabel='ms_customer';
 		$where='isCnee';$kondisi='1';
 		
-        $query = $this->Mautocomplete->lookup_receive($keyword,$kolom,$tabel,$where,$kondisi); //Search DB
+        $query = $this->mautocomplete->lookup_receive($keyword,$kolom,$tabel,$where,$kondisi); //Search DB
         if( ! empty($query) )
         {
             $data['response'] = 'true'; //Set response
@@ -186,7 +186,7 @@ function lookup_address_type(){
 		$kolom='AddressTypeName';
 		$tabel='ms_address_type';
 		
-        $query = $this->Mautocomplete->lookupall($keyword,$kolom,$tabel); //Search DB
+        $query = $this->mautocomplete->lookupall($keyword,$kolom,$tabel); //Search DB
         if( ! empty($query) )
         {
             $data['response'] = 'true'; //Set response
@@ -218,7 +218,7 @@ function lookup_contact_type(){
 		$kolom='ContactTypeName';
 		$tabel='ms_contact_type';
 		
-        $query = $this->Mautocomplete->lookupall($keyword,$kolom,$tabel); //Search DB
+        $query = $this->mautocomplete->lookupall($keyword,$kolom,$tabel); //Search DB
         if( ! empty($query) )
         {
             $data['response'] = 'true'; //Set response

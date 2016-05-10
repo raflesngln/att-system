@@ -14,7 +14,7 @@ class Staff extends CI_Controller{
 function view_staff(){  
 	 
 	 	$page=$this->uri->segment(3);
-      	$limit=25;
+      	$limit=2;
 		if(!$page):
 		$offset = 0;
 		else:

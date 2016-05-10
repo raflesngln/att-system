@@ -9,7 +9,7 @@ class Ms_outgoing_master extends CI_Controller {
             $this->session->set_flashdata('notif','LOGIN GAGAL USERNAME ATAU PASSWORD ANDA SALAH !');
             redirect('');
         };
-        $this->load->model('Mdata');
+        $this->load->model('mdata');
 		$this->load->model('model_app');
         $this->load->helper('currency_format_helper');
 		date_default_timezone_set("Asia/Jakarta"); 

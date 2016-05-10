@@ -1,6 +1,6 @@
 
         
-<table class="table table-striped table-bordered table-hover" id="tbllist">
+<table class="table table-striped table-bordered table-hover" id="tblrelease">
                                               <thead>
                                                 <tr align="left">
                                                   <th>Flight</th>
@@ -46,6 +46,7 @@
                                                       /<?php echo $row->desti; ?><?php echo $pcs; ?>
 <input name="desti2[]" type="hidden" id="desti2[]" value="<?php echo $row->Destination; ?>"></td>
                                                     <td><div align="right">
+                                                      <?php echo $pcs; ?>
                                                       <input name="pcs2[]" type="hidden" id="pcs2[]" value="<?php echo $pcs; ?>">
                                                     </div></td>
                                                     <td><div align="right"><?php echo $cwt; ?>

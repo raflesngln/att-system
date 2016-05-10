@@ -4,58 +4,60 @@
   <script type="text/javascript">
 
     var save_method5; //for save method string
-    var tablebank;
+    var tableopened;
  
  $(document).ready(function() {    
     
-          tablebank = $('#tablebank').DataTable({ 
+          tableopened = $('#tableopened').DataTable({ 
             "processing": true, //Feature control the processing indicator.
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
             "ajax": {
-                "url": "<?php echo site_url('Outgoing_house/ajax_list')?>",
+                "url": "<?php echo site_url('outgoing_house/ajax_list')?>",
                 "type": "POST"
             },
             "columns": [
-            { "data": "no" },
+            { "data": "no","orderable":false,"visible":true },
             { "data": "HouseNo" },
+			{ "data": "ETD" },
             { "data": "sender" },
-            { "data": "receiver" },
-			{ "data": "ori" },
-			{ "data": "desti" },
-			{ "data": "pcs" },
-			{ "data": "cwt" },
-            { "data": "action" }
+            { "data": "receiver","orderable":false,"visible":true },
+			{ "data": "ori","orderable":false,"visible":true },
+			{ "data": "desti","orderable":false,"visible":true },
+			{ "data": "pcs","orderable":false,"visible":true },
+			{ "data": "cwt","orderable":false,"visible":true },
+			{ "data": "status"},
+            { "data": "action","orderable":false,"visible":true }
             ]
           });  
     
-$('#tablebank tbody').on('dblclick', 'tr', function () {
+$('#tableopened tbody').on('dblclick', 'tr', function () {
             var tr = $(this).closest('tr');
-            var row = tablebank.row(tr);
-           // alert(row.data().firstName);
+            var row = tableopened.row(tr);
+           //alert(row.data().firstName);
          });
 });
 
 function add_person5()
     {
       save_method5 = 'add';
-      $('#form5')[0].reset(); // reset form on modals
-      $('#modal_form5').modal('show'); // show bootstrap modal
-      $('.modal-title5').text('Add Linebusiness');
+      $('#formOpened')[0].reset(); // reset form on modals
+      $('#modal_opened').modal('show'); // show bootstrap modal
+      $('.modal-title_open').text('Add Linebusiness');
 	  document.getElementById("BankCode2").disabled=false;
     }
 
 function edit_person5(id)
     {
       save_method5 = 'update';
-      $('#form5')[0].reset(); // reset form on modals
+      $('#formOpened')[0].reset(); // reset form on modals
         
-      var nmtabel='ms_bank';
+      var nmtabel='outgoing_house';
       var keytabel='BankCode';
         
       //Ajax Load data from ajax
       $.ajax({
-        url : "<?php echo site_url('ms_bank/ajax_edit/')?>",
+        url : "<?php echo site_url('outgoing_house/ajax_edit/')?>",
         type: "POST",
         data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
         dataType: "JSON",
@@ -66,8 +68,8 @@ function edit_person5(id)
 			$('[name="BankCode2"]').val(data.BankCode);
             $('[name="BankDesc"]').val(data.BankDesc); 
 			
-            $('#modal_form5').modal('show');
-            $('.modal-title5').text('Edit Linebusiness');
+            $('#modal_opened').modal('show');
+            $('.modal-title_open').text('Edit Linebusiness');
 			document.getElementById("BankCode2").disabled=true;
             
         },
@@ -78,9 +80,9 @@ function edit_person5(id)
     });
     }
 
-    function reload_table3()
+    function reload_opened()
     {
-      tablebank.ajax.reload(null,false); //reload datatable ajax 
+      tableopened.ajax.reload(null,false); //reload datatable ajax 
     }
 
 function save5()
@@ -88,24 +90,24 @@ function save5()
       var url5;
       if(save_method5 == 'add') 
       {
-          url5 = "<?php echo site_url('ms_bank/ajax_add')?>";
+          url5 = "<?php echo site_url('outgoing_house/ajax_add')?>";
       }
       else
       {
-        url5 = "<?php echo site_url('ms_bank/ajax_update')?>";
+        url5 = "<?php echo site_url('outgoing_house/ajax_update')?>";
       }
 
        // ajax adding data to database
           $.ajax({
             url : url5,
             type: "POST",
-            data: $('#form5').serialize(),
+            data: $('#formOpened').serialize(),
             dataType: "JSON",
             success: function(data)
             {
                //if success close modal and reload ajax table
-               $('#modal_form5').modal('hide');
-               reload_table3();
+               $('#modal_opened').modal('hide');
+               reload_opened();
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -114,7 +116,7 @@ function save5()
         });
     }
 
-function delete_person5(id)
+function delete_opened(id)
     {
       if(confirm('Are you sure delete this data? '+ id))
       var nmtabel='outgoing_house';
@@ -129,8 +131,8 @@ function delete_person5(id)
             success: function(data)
             {
                //if success reload ajax table
-               $('#modal_form5').modal('hide');
-               reload_table3();
+               $('#modal_opened').modal('hide');
+               reload_opened();
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -148,19 +150,21 @@ function delete_person5(id)
 
 
     <br />
-    <br />
-    <table id="tablebank" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <br />																															
+    <table id="tableopened" class="table table-striped table-bordered" cellspacing="0" width="100%">
       <thead>
         <tr>
           <th>No</th>  
           <th>House</th>
+          <th>ETD</th>
           <th> Shipper</th>
           <th>Consigne</th>
           <th>Origin</th>
           <th>Destination</th>
-          <th style="width:125px;">PCS</th>
-          <th style="width:125px;">CWT</th>
-          <th style="width:125px;">Action</th>
+          <th >PCS</th>
+          <th >CWT</th>
+          <th >Status Consol</th>
+          <th >Action</th>
         </tr>
       </thead>
       <tbody>
@@ -170,48 +174,38 @@ function delete_person5(id)
         <tr style="visibility:hidden">
           <th>No</th>
           <th>House</th>
+          <th>ETD</th>
           <th> Name</th>
           <th>Consigne</th>
           <th>Origin</th>
           <th>Destination</th>
-          <th><span style="width:125px;">PCS</span></th>
-          <th><span style="width:125px;">CWT</span></th>
-          <th>Action</th>
+          <th><span style="width:70px; text-align:right">PCS</span></th>
+          <th>CWT</th>
+          <th>Status</th>
+          <th style="width:130px;">Action</th>
         </tr>
       </tfoot>
     </table>
             
   <!-- Bootstrap modal -->
-  <div class="modal fade" id="modal_form5" role="dialog">
+  <div class="modal fade" id="modal_opened" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title5">Addrest Form</h3>
+        <h3 class="modal-title_open">Addrest Form</h3>
       </div>
       <div class="modal-body form">
-        <form action="#" id="form5" class="form-horizontal">
+        <form action="#" id="formOpened" class="form-horizontal">
           <input name="BankCode" type="hidden" id="BankCode" value=""/> 
           <div class="form-body">
-<div class="form-group">
-              <label class="control-label col-md-3"> Bank Code</label>
-              <div class="col-md-9">
-                <input name="BankCode2" type="text" class="form-control nama" id="BankCode2" placeholder="Name" value="" />
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label col-md-3"> Name</label>
-              <div class="col-md-9">
-                <input name="BankName" type="text" class="form-control nama" id="BankName" placeholder="Name" value="" />
-              </div>
-            </div>
 
             <div class="form-group">
-              <label class="control-label col-md-3">Address</label>
-              <div class="col-md-9">
-                <textarea name="BankDesc" placeholder="decription"class="form-control" id="BankDesc"></textarea>
-              </div>
+              <label class="control-label col-md-3"> Name</label>
+              				
             </div>
+
+            
             
           </div>
         </form>

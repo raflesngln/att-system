@@ -8,6 +8,7 @@
         <tr>
           <th width="95">No</th>  
           <th width="152">Cargo No</th>
+          <th width="382">Flight</th>
           <th width="382">Airline</th>
           <th width="231">Detail</th>
           <th width="155">PCS</th>
@@ -27,6 +28,7 @@
         <tr>
           <th><?php echo  $no;?></th>
           <th><a href="#"  onclick="return listcargo(this)"><?php echo $row->CargoReleaseCode; ?></a></th>
+          <th><?php echo $row->FlightNo; ?></th>
           <th><?php echo substr($row->AirLineName,0,200); ?></th>
           <th><?php echo $row->CargoDetails; ?></th>
           <th><?php echo $row->jumpcs; ?></th>

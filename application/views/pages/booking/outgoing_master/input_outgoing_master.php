@@ -258,7 +258,7 @@ $("#idshipper").autocomplete({
       			source: 
         		function(req, add){
           			$.ajax({
-		       url: "<?php echo base_url();?>index.php/Autocomplete_customers/lookup_sender",
+		       url: "<?php echo base_url();?>index.php/autocomplete_customers/lookup_sender",
 		          		dataType: 'json',
 		          		type: 'POST',
 		          		data: req,
@@ -300,7 +300,7 @@ $("#idconsigne").autocomplete({
       			source: 
         		function(req, add){
           			$.ajax({
-		        		url: "<?php echo base_url(); ?>index.php/Autocomplete_customers/lookup_receivement",
+		        		url: "<?php echo base_url(); ?>index.php/autocomplete_customers/lookup_receivement",
 		          		dataType: 'json',
 		          		type: 'POST',
 		          		data: req,

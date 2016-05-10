@@ -449,7 +449,7 @@
   <span class="span3"><input name="txtcwt" type="text" class="form-control" placeholder="" id="txtcwt" max="" min="1"/>
   </span>
 
-<span class="span2">Available cwt</span>
+<span class="span3 text-right">Available CWT</span>
  <span class="span2">
  <input name="remaintxtcwt" type="text" class="form-control" placeholder="" id="remaintxtcwt" readonly="readonly" /></span>
  </div>
@@ -457,26 +457,21 @@
    <div class="clearfix"></div>
 <div class="form-group">
 <label class="span2">PCS </label>
-   <div class="col-sm-5"><span class="controls">
- <input name="txtpcs" type="text" class="form-control" placeholder="" id="txtpcs" />
+   <div class="col-sm-4"><span class="controls">
+ <input name="txtpcs" type="text" class="form-control" placeholder="" id="txtpcs" style=" width:80%" />
 </span></div>
  
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
-<label class="span2">Consoled </label>
-   <div class="col-sm-5"><span class="span8">
-     consoled<input name="txtconsol" type="text" class="form-control" placeholder="" id="txtconsol"/>
-     remain<input name="txtremain" type="text" class="form-control" placeholder="" id="txtremain"/>
+  <div class="col-sm-5"><span class="span8"><input name="txtconsol" type="hidden" class="form-control" placeholder="" id="txtconsol"/><input name="txtremain" type="hidden" class="form-control" placeholder="" id="txtremain"/>
    </span>
-     <span class="span8">
-    consolpcs <input name="txtconsolpcs" type="text" class="form-control" placeholder="" id="txtconsolpcs"/>
-     </span><span class="span8">
-    remainpcs <input name="txtremainpcs" type="text" class="form-control" placeholder="" id="txtremainpcs"/>
+     <span class="span8"><input name="txtconsolpcs" type="hidden" class="form-control" placeholder="" id="txtconsolpcs"/>
+     </span><span class="span8"><input name="txtremainpcs" type="hidden" class="form-control" placeholder="" id="txtremainpcs"/>
      </span>
-<input type="t" name="txtcommodity" id="txtcommodity" />
-   <input type="t" name="txtshipper" id="txtshipper" />
-   </div>
+<input type="hidden" name="txtcommodity" id="txtcommodity" />
+   <input type="hidden" name="txtshipper" id="txtshipper" />
+ </div>
  
                         <div class="clearfix"></div>
                       </div>

@@ -6,7 +6,7 @@ class Ms_contact_type extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Mdata');
+		$this->load->model('mdata');
 	}
 
 	public function index()

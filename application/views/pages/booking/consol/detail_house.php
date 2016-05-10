@@ -5,20 +5,38 @@ foreach($header as $row){
 ?>
 <div class="col-sm-6" >
 	<div class="form-group">
-    <div class="col-sm-5">House No</div>
+    <div class="col-sm-5"><strong>House No</strong></div>
     <div class="col-sm-7"><strong>: <?php echo $row->HouseNo?></strong></div>
-	</div>
-<div class="form-group">
-    <div class="col-sm-5">ETD</div>
-    <div class="col-sm-7">: <?php echo $row->ETD?></div>
 	</div>
 <div class="form-group">
     <div class="col-sm-5">Service</div>
     <div class="col-sm-7">: <?php echo $row->Service?></div>
 	</div>
 <div class="form-group">
-    <div class="col-sm-5">Booking No</div>
-    <div class="col-sm-7">: <?php echo $row->BookingNo?></div>
+    <div class="col-sm-5">ETD</div>
+    <div class="col-sm-7">: <?php echo date('d-m-Y',strtotime($row->ETD))?></div>
+	</div>
+
+	<div class="form-group">
+    <div class="col-sm-5">Shipper</div>
+    <div class="col-sm-7">: <?php echo $row->sender?></div>
+	</div>
+	<div class="form-group">
+    <div class="col-sm-5">Consignee</div>
+    <div class="col-sm-7">: <?php echo $row->receiver?></div>
+	</div>
+
+</div>
+
+<div class="col-sm-6">
+
+	<div class="form-group">
+    <div class="col-sm-5">Origin</div>
+    <div class="col-sm-7">: <?php echo $row->Origin.'-'.$row->ori?></div>
+	</div>
+    <div class="form-group">
+    <div class="col-sm-5">Destination</div>
+    <div class="col-sm-7">: <?php echo $row->Destination.'-'.$row->desti?></div>
 	</div>
 <div class="form-group">
     <div class="col-sm-5">CodeShipper</div>
@@ -28,25 +46,6 @@ foreach($header as $row){
     <div class="col-sm-5">CodeConsigne</div>
     <div class="col-sm-7">: <?php echo $row->CodeConsigne?></div>
 	</div>	
-</div>
-
-<div class="col-sm-6">
-	<div class="form-group">
-    <div class="col-sm-5">Shipper</div>
-    <div class="col-sm-7">: <?php echo $row->sender?></div>
-	</div>
-	<div class="form-group">
-    <div class="col-sm-5">Consignee</div>
-    <div class="col-sm-7">: <?php echo $row->receiver?></div>
-	</div>
-	<div class="form-group">
-    <div class="col-sm-5">Origin</div>
-    <div class="col-sm-7">: <?php echo $row->ori?></div>
-	</div>
-    <div class="form-group">
-    <div class="col-sm-5">Destination</div>
-    <div class="col-sm-7">: <?php echo $row->desti?></div>
-	</div>
     <div class="form-group">
     <div class="col-sm-5">PCS</div>
     <div class="col-sm-7">: <?php echo $row->PCS?></div>
@@ -59,15 +58,14 @@ foreach($header as $row){
 
 <?php } ?>
 </div>
-<label class="label label-pink label-lg">List SMU</label>
+<label class="label label-inverse label-lg">List SMU</label>
 
 <table id="tbldet" class="table table-striped table-bordered" cellspacing="0" width="100%">
       <thead>
         <tr>
           <th width="14%">SMU</th>
-          <th width="25%">Shipper</th>
-          <th width="30%">Consigne</th>
-          <th width="13%">BookingNo</th>
+          <th width="25%">ETD</th>
+          <th width="30%">Flight No</th>
           <th width="10%"> PCS</th>
           <th width="8%">CWT</th>
         </tr>
@@ -85,17 +83,16 @@ foreach($header as $row){
   ?>
         <tr>
           <td><?php echo $row->MasterNo?></td>
-          <td><?php echo $row->CustName?></td>
-          <td><?php echo $row->CustName?></td>
-          <td><?php echo $row->BookingNo?></td>
+          <td><?php echo date('d-m-Y',strtotime($row->ETD));?></td>
+          <td><?php echo $row->FlightNo?></td>
           <td><?php echo $row->PCS?></td>
           <td><?php echo $row->CWT?></td>
         </tr>
 		<?php } ?>
         <tr>
-          <th colspan="4">TOTAL</th>
-          <th><?php echo $totpcs?></th>
-          <th><?php echo $totcwt?></th>
+          <th colspan="3">TOTAL</th>
+          <th><strong><?php echo $totpcs?></strong></th>
+          <th><strong><?php echo $totcwt?></strong></th>
         </tr>
 		
    

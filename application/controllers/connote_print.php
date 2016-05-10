@@ -34,7 +34,11 @@ function barcode_generate($kode)
 	$nohouse=$this->input->post('houseno');
 	        $data = array(
             'title'=>'domesctic_incoming_master',
-			'connote'=>$this->model_app->getdatapaging("*","outgoing_house","WHERE HouseNo ='$nohouse' LIMIT 1"),
+			'connote'=>$this->model_app->getdatapaging("a.*,b.MasterNo,c.PortName as ori,d.PortName as desti","outgoing_house a",
+			"LEFT JOIN consol b on a.HouseNo=b.HouseNo
+			 LEFT JOIN ms_port c on a.Origin=c.PortCode
+			 LEFT JOIN ms_port d on a.Destination=d.PortCode
+			WHERE a.HouseNo ='$nohouse' LIMIT 1"),
 			'shipper'=>$this->model_app->getdatapaging("*","outgoing_house a","INNER JOIN ms_customer b on b.custCode=a.Shipper WHERE a.HouseNo ='$nohouse' LIMIT 1"),
 			'consigne'=>$this->model_app->getdatapaging("*","outgoing_house a","INNER JOIN ms_customer b on b.custCode=a.Consigne WHERE a.HouseNo ='$nohouse' LIMIT 1"),
 			'charges'=>$this->model_app->getdatapaging("*","booking_charge a","INNER JOIN ms_charge b on a.CostID=b.ChargeCode WHERE Reff ='$nohouse'"),

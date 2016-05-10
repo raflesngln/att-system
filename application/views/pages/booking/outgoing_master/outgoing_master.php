@@ -154,12 +154,12 @@ function toRp(angka){
   <?php $this->load->view('pages/booking/outgoing_master/input_outgoing_master');?>
 </p>
 											</div>
-<div id="closed" class="tab-pane">
+<div id="final" class="tab-pane">
 <p>
   <?php $this->load->view('pages/booking/outgoing_master/list_master_final');?>
 </p>
 											</div>
-<div id="final" class="tab-pane">
+<div id="closed" class="tab-pane">
 <p>
   <?php $this->load->view('pages/booking/outgoing_master/list_master_closed');?>
 </p>

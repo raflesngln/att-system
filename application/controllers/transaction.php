@@ -4,8 +4,8 @@ class Transaction extends CI_Controller{
         parent::__construct();
      
         $this->load->model('model_app');
-		$this->load->model('Mdata');
-		$this->load->model('M_outgoing');
+		$this->load->model('mdata');
+		$this->load->model('m_outgoing');
         $this->load->helper('currency_format_helper');
 		date_default_timezone_set("Asia/Jakarta"); 
     }
@@ -1568,7 +1568,7 @@ function print_outgoing_master(){
 		$getHouse=$this->model_app->getHouseNo();
 		$getjob=$this->model_app->getJob();
 		$smu=$this->input->post('smu');
-		$statusconsol=($smu=='0')?'0':2;
+		$statusconsol=($smu=='0')?'0':3;
 		$etd=$this->input->post('etd'); 		
 		$kodesmu=$this->model_app->getKodeTrans($kodept,'OM','Notrans','outgoing_master');
 		$kodetrans=$this->model_app->getKodeTrans($kodept,'OH','Notrans','outgoing_house');
@@ -2392,7 +2392,7 @@ public function ajax_detailHouse()
 	{
 		$kode=$this->input->post('numb');
 	$data=array(
-	'header'=>$this->model_app->getdatapaging("a.BookingNo,a.CWT,a.PCS,a.CodeConsigne,a.CodeShipper,a.HouseNo,a.ETD,a.PayCode,a.Service,c.CustName as sender,d.CustName as receiver,e.PortCode as ori,f.PortCode as desti",
+	'header'=>$this->model_app->getdatapaging("a.Origin,a.Destination,a.BookingNo,a.CWT,a.PCS,a.CodeConsigne,a.CodeShipper,a.HouseNo,a.ETD,a.PayCode,a.Service,c.CustName as sender,d.CustName as receiver,e.PortName as ori,f.PortName as desti",
 	"outgoing_house a",
 	"LEFT JOIN ms_customer c on a.Shipper=c.CustCode
 	 LEFT JOIN ms_customer d on a.Consigne=d.CustCode
@@ -2400,9 +2400,11 @@ public function ajax_detailHouse()
 	 LEFT JOIN ms_port f on a.Destination=f.PortCode
 	WHERE a.HouseNo='$kode'"),
 	
-	'houses'=>$this->model_app->getdatapaging("a.MasterNo,b.BookingNo,a.HouseNo,a.PCS,a.CWT,c.CustName,b.Amount","consol a",
+	'houses'=>$this->model_app->getdatapaging("a.MasterNo,b.BookingNo,a.HouseNo,a.PCS,a.CWT,c.CustName,b.Amount,d.ETD,e.FlightNo","consol a",
 	"INNER JOIN outgoing_house b on a.HouseNo=b.HouseNo
 	 INNER JOIN ms_customer c on c.CustCode=b.Shipper
+	 LEFT JOIN outgoing_master d on d.NoSMU=a.MasterNo
+	 LEFT JOIN ms_flight e on e.FlightID=d.FlightNumbDate1
 	WHERE b.HouseNo='$kode'")
 	);
 

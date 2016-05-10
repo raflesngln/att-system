@@ -6,7 +6,7 @@ class Cargo_release extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Mcargo');
+		$this->load->model('mcargo');
 		$this->load->model('model_app');
 	}
 
@@ -16,11 +16,12 @@ class Cargo_release extends CI_Controller {
 		$data['scrumb_name']='Data cargo_release';
 		$data['scrumb']='cargo_release';
 		$data['airline']=$this->model_app->getdatapaging("*","ms_airline","ORDER BY AirLineName");
-		$data['listcargo']=$this->model_app->getdatapaging("a.CargoReleaseCode,a.CargoDetails,a.ReleaseDate,b.AirLineName,sum(c.CWT) as jumcwt,sum(c.PCS) as jumpcs",
+		$data['listcargo']=$this->model_app->getdatapaging("a.CargoReleaseCode,a.CargoDetails,a.ReleaseDate,b.AirLineName,d.FlightNo,sum(c.CWT) as jumcwt,sum(c.PCS) as jumpcs",
 		"tr_cargo_release a",
 			            "LEFT JOIN ms_airline b on b.AirLineCode=a.Airline
 						 LEFT JOIN cargo_items c on c.CargoReleaseCode=a.CargoReleaseCode
-						 GROUP by c.CargoReleaseCode");
+						 LEFT JOIN ms_flight d on d.FlightID=c.FlightNumber
+						 GROUP by c.CargoReleaseCode ORDER BY a.CargoReleaseCode DESC,b.AirLineName DESC");
 		
 		$data['flight']=$this->model_app->getdatapaging("FlightNumbDate1","outgoing_master","WHERE StatusProses <=2 GROUP BY FlightNumbDate1");
 		$data['smu']=$this->model_app->getdatapaging("a.FlightNumbDate1,a.ETD,d.FlightID,d.FlightNo,a.NoSMU,a.PCS,a.CWT,b.PortName as ori,c.PortName as desti","outgoing_master a",
@@ -41,7 +42,7 @@ public function ajax_list()
 		$kolom2='b.AirLineCode';
 		
         $nm_coloum= array('a.CargoReleaseCode','a.CargoReleaseCode','a.AirLineName','b.CargoDetails','a.PCS','a.CWT');
-        $orderby= array('a.CargoReleaseCode' => 'desc');
+        $orderby= array('a.CargoReleaseCode' => 'ASC');
         $where=  array('a.CreatedBy'=>'2');
         $list = $this->Mcargo->get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         

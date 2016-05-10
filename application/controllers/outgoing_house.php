@@ -6,7 +6,7 @@ class Outgoing_house extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Mhouse');
+		$this->load->model('mhouse');
 	}
 
 	public function index()
@@ -26,10 +26,10 @@ public function ajax_list()
 		$kolom1='a.Shipper';
 		$kolom2='b.CustCode';
 		
-        $nm_coloum= array('a.HouseNo','a.Shipper','a.Consigne','a.Origin','a.Destination','a.PCS','a.CWT');
-        $orderby= array('a.HouseNo' => 'desc');
+        $nm_coloum= array('a.HouseNo','a.Shipper','a.Consigne','a.Origin','a.Destination','a.PCS','a.CWT','a.Consolidation');
+        $orderby= array('HouseNo' => 'DESC');
         $where=  array('a.Consolidation <= '=>'1');
-        $list = $this->Mhouse->get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
+        $list = $this->mhouse->get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
 		$data = array();
 		$no = $_POST['start'];
@@ -46,15 +46,19 @@ public function ajax_list()
 			'receiver' =>$datalist->receiver,
 			'cwt' =>$datalist->CWT,
 			'pcs' =>$datalist->PCS,
-		
-            'action'=> '<div class="form-inline"> 
+			'Service' =>$datalist->Service,
+			'ETD' =>date('d-m-Y',strtotime($datalist->ETD)),
+			
+			'status'=>'<div class="text-left">'.$status=($datalist->RemainCWT =="0")?"<label class='label label-inverse arrowed-right white'>No</label>":"<label class='label label-warning arrowed-right white'>Remain</label>".'</div>',
+            
+			'action'=> '<div class="form-inline text-center"> 
 	 <span class="form-inline"> 
 	 <form action="'.base_url().'connote_print" method="post" target="new" class="text-left">
                                                    <input type="hidden" value="'.$datalist->HouseNo.'" name=" houseno" />
-                                                  <button class="btn btn-mini btn-warning " type="submit"><i class="fa fa-print bigger-120"></i></button>
+                                                  <button class="btn btn-mini btn-success " type="submit"><i class="fa fa-print bigger-120"></i></button>
 <a onclick="return EditConfirm('.$datalist->Consolidation.')" href="'.base_url().'transaction/edit_outgoing_house/'.$datalist->HouseNo.'" title="Edit item"><button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>
  </a>
-					<a class="red" href="javascript:void()" title="Hapus" onclick="delete_person5('."'".$datalist->HouseNo."'".')"><button class="btn btn-mini btn-danger" type="button"><i class="icon-trash bigger-150"></i></button></a>
+					<a style="display:none" class="red" href="javascript:void()" title="Hapus" onclick="delete_opened('."'".$datalist->HouseNo."'".')"><button class="btn btn-mini btn-danger" type="button"><i class="icon-trash bigger-150"></i></button></a>
 												  </form>
 												  </span>
 				
@@ -67,8 +71,8 @@ public function ajax_list()
 
 		$output = array(
 						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->Mhouse->count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
-						"recordsFiltered" => $this->Mhouse->count_filtered2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
+						"recordsTotal" => $this->mhouse->count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
+						"recordsFiltered" => $this->mhouse->count_filtered2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
 						"data" => $data,
 				);
 		//output to json format
@@ -84,7 +88,7 @@ public function list_closed()
         $nm_coloum= array('a.HouseNo','a.Shipper','a.Consigne','a.Origin','a.Destination','a.PCS','a.CWT');
         $orderby= array('a.HouseNo' => 'desc');
         $where=  array('a.Consolidation >= '=>'2');
-        $list = $this->Mhouse->get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
+        $list = $this->mhouse->get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
 		$data = array();
 		$no = $_POST['start'];
@@ -101,13 +105,14 @@ public function list_closed()
 			'receiver' =>$datalist->receiver,
 			'cwt' =>$datalist->CWT,
 			'pcs' =>$datalist->PCS,
+			 
 		
             'action'=> '<div class="form-inline">
 	<form action="'.base_url().'connote_print" method="post" target="new" class="text-left">
                                                    <input type="hidden" value="'.$datalist->HouseNo.'" name=" houseno" />
-                                                  <button class="btn btn-mini btn-warning " type="submit"><i class="fa fa-print bigger-120"></i></button>
+                                                  <button class="btn btn-mini btn-success " type="submit"><i class="fa fa-print bigger-120"></i></button>
 				
-		 <a class="red" href="javascript:void()" title="Hapus" onclick="delete_person5('."'".$datalist->HouseNo."'".')"><button class="btn btn-mini btn-danger" type="button"><i class="icon-trash bigger-150"></i></button></a>
+		 <a style="display:none" class="red" href="javascript:void()" title="Hapus" onclick="delete_person5('."'".$datalist->HouseNo."'".')"><button class="btn btn-mini btn-danger" type="button"><i class="icon-trash bigger-150"></i></button></a>
 			</div>
 			'
 			
@@ -117,8 +122,8 @@ public function list_closed()
 
 		$output = array(
 						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->Mhouse->count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
-						"recordsFiltered" => $this->Mhouse->count_filtered2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
+						"recordsTotal" => $this->mhouse->count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
+						"recordsFiltered" => $this->mhouse->count_filtered2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
 						"data" => $data,
 				);
 		//output to json format
@@ -130,7 +135,7 @@ public function ajax_edit()
 	   	$BankCode     = $this->input->post('cid');
         $nmtabel= $this->input->post('cnmtabel');
         $key    = $this->input->post('ckeytabel');
-		$data = $this->Mhouse->get_by_id($BankCode,$nmtabel,$key);
+		$data = $this->mhouse->get_by_id($BankCode,$nmtabel,$key);
 		echo json_encode($data);
 	}
 
@@ -143,7 +148,7 @@ public function ajax_edit()
 				'BankDesc' => $this->input->post('BankDesc'), 
 				'CreatedBy' => $this->session->userdata('idusr'),
 			);
-		$insert = $this->Mhouse->save($data,$nmtabel);
+		$insert = $this->mhouse->save($data,$nmtabel);
 		echo json_encode(array("status" => TRUE));
 	}
 
@@ -155,7 +160,7 @@ public function ajax_edit()
 				'BankName' => $this->input->post('BankName'),
 				'BankDesc' => $this->input->post('BankDesc'),
 			);
-		$this->Mhouse->update(array($key => $this->input->post('BankCode')), $data,$nmtabel);
+		$this->mhouse->update(array($key => $this->input->post('BankCode')), $data,$nmtabel);
 		echo json_encode(array("status" => TRUE));
 	}
 
@@ -165,9 +170,9 @@ public function ajax_edit()
        $nmtabel= $this->input->post('cnmtabel');
        $key    = $this->input->post('ckeytabel');
        
-		$this->Mhouse->delete_by_id($id,$nmtabel,$key);
-		$this->Mhouse->delete_by_id($id,"booking_items","Reff");
-		$this->Mhouse->delete_by_id($id,"booking_charge","Reff");
+		$this->mhouse->delete_by_id($id,$nmtabel,$key);
+		$this->mhouse->delete_by_id($id,"booking_items","Reff");
+		$this->mhouse->delete_by_id($id,"booking_charge","Reff");
 		echo json_encode(array("status" => TRUE));
 	}
 }

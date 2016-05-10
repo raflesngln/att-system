@@ -13,19 +13,19 @@
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
             "ajax": {
-                "url": "<?php echo site_url('Outgoing_house/list_closed')?>",
+                "url": "<?php echo site_url('outgoing_house/list_closed')?>",
                 "type": "POST"
             },
             "columns": [
-            { "data": "no" },
+            { "data": "no","orderable":false,"visible":true },
             { "data": "HouseNo" },
             { "data": "sender" },
             { "data": "receiver" },
 			{ "data": "ori" },
 			{ "data": "desti" },
-			{ "data": "pcs" },
-			{ "data": "cwt" },
-            { "data": "action" }
+			{ "data": "pcs","orderable":false,"visible":true },
+			{ "data": "cwt","orderable":false,"visible":true },
+            { "data": "action","orderable":false,"visible":true }
             ]
           });  
     
@@ -78,7 +78,7 @@ function edit_person5(id)
     });
     }
 
-    function reload_table3()
+    function reload_closed()
     {
       tableclosed.ajax.reload(null,false); //reload datatable ajax 
     }
@@ -105,7 +105,7 @@ function save5()
             {
                //if success close modal and reload ajax table
                $('#modal_house_closed').modal('hide');
-               reload_table3();
+               reload_closed();
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -122,7 +122,7 @@ function delete_person5(id)
       {
         // ajax delete data to database
           $.ajax({
-            url : "<?php echo site_url('Outgoing_house/ajax_delete')?>",
+            url : "<?php echo site_url('outgoing_house/ajax_delete')?>",
             type: "POST",
             data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
             dataType: "JSON",
@@ -130,7 +130,7 @@ function delete_person5(id)
             {
                //if success reload ajax table
                $('#modal_house_closed').modal('hide');
-               reload_table3();
+               reload_closed();
             },
             error: function (jqXHR, textStatus, errorThrown)
             {

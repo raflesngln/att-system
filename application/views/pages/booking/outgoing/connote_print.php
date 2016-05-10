@@ -26,6 +26,7 @@
 a[href]:after {
    content: initial;
 }
+
 *{font-size:7px;}
 P{ margin-top:-6px;}
 
@@ -55,23 +56,29 @@ footer{display:none;}
 <div id="konten">
     <?php foreach($connote as $data){
 		$kode=$data->HouseNo;
-
+		$service=$data->Service;
+		if($service=='DOOR TO PORT' || $service=='PORT TO PORT'){
+			$smu='SMU : '.$data->MasterNo;
+		} else {
+			$smu='';
+		}
 		 ?>
 <table width=""  id="mytable" style="border:1px #CCC solid">
   <tr>
-    <td colspan="2" rowspan="2" style="background-color:#E6FFE6"><p style="font-size:15pt; color:#800040; text-align:center">XSYS</p>
+    <td colspan="2" rowspan="2" style="background-color:#E6FFE6"><p style="font-size:15pt; color:#800040; text-align:center">PT. ATT CARGO
+</p>
       <p align="center" style="font-family:'Comic Sans MS', cursive">Express Network</p>
     </td>
     <td width="122">
       <div style="margin-top:5px;">
         <p>ORIGIN/ASAL</p>
-        <p><?php echo $data->Origin;?></p>
+        <p><?php echo $data->Origin.' - '.$data->ori;?></p>
         </div>
     </td>
     <td width="144">
      <div style="margin-top:5px;">
     <p>DESTINATION/TUJUAN</p>
-      <p><?php echo $data->Destination;?></p>
+      <p><?php echo $data->Destination.' - '.$data->desti;?></p>
       </div>
       </td>
     <td colspan="2" rowspan="2" style="text-align:center"><img src="index.php/barcode/gambar/<?php echo $kode;?>" height="35" width="150">
@@ -89,7 +96,8 @@ footer{display:none;}
     <td colspan="2" rowspan="3">
     <div class="note">By giving us shipment you agree of all itemsof conditions of non Negoitable Connote /Dengan menyerahkan kiriman anda setuju dengan ketentuan dan kondisi pada nota pengiriman ini tanpa syarat, termasuk kondisi dan ketentuan yang tertera pada bagian belakang.menyerahkan kiriman anda setuju dengan kondisi dan ketentuan pada nota ini.</div>
     </td>
-    <td colspan="2" style="border-bottom:1px #FFF solid">&nbsp;</td>
+    <td colspan="2" style="border-bottom:1px #FFF solid">
+      <div style="font-size:9pt; text-decoration:underline;font-weight:bold"><?php echo $smu;?></div></td>
     </tr>
   <tr>
    <?php
@@ -100,12 +108,13 @@ footer{display:none;}
     <td width="91"><span class="lbl" style="font-size:5px">TYPE OF PAYMENT/JENIS PEMBAYARAN</span></td>
     <td width="100"><span class="lbl" style="font-size:5px">TYPE OF SHIPMENT/JENIS KIRIMAN</span></td>
     <td colspan="2" rowspan="3">
-    <table  width="95%" border="0" style="border:none; margin-top:-6px; width:100%; margin-left:-1PX">
+    <table  width="95%" border="0" style="border:none; margin-top:-50px; width:100%; margin-left:-1PX">
       <tr>
         <td height="34" colspan="2" style="border-left:none; border-top:none; border-right:none">
-        <label>DECLARE VALUE/NILAI KIRIMAN :<?php echo $data->DeclareValue;?></label><br />
-        <label>SERVICE/LAYANAN : <?php echo $data->Service;?></p>
-          <label id="charge-header">CHARGES/HARGA(IDR)</label></td>
+        <span>DECLARE VALUE / NILAI KIRIMAN :<?php echo $data->DeclareValue;?></span><br />
+
+        <span>SERVICE / LAYANAN : <?php echo $data->Service;?></span><br />
+          <span>CHARGES / HARGA(IDR)</span></td>
         </tr>
       <?php foreach($charges as $row){
 		$unit=$row->Unit;
@@ -179,7 +188,7 @@ footer{display:none;}
     </td>
     
     <td width="115" style="text-align:right; border-left:none">
-    <label style="border-bottom:1px #CCC dashed; width:100%; text-align:right"><?php echo 'Rp   '. number_format($data->Discount,0,',','.').',-';?></label>
+    <label style="border-bottom:1px #CCC dashed; width:100%; text-align:right"><?php echo number_format($data->Discount,0,',','.');?></label>
     <br style="clear:both" />
      <?php echo 'Rp   '. number_format($data->Amount,0,',','.').',-';?>  &nbsp;
       </td>
@@ -234,13 +243,12 @@ footer{display:none;}
 </em>
 
 <div class="lbl-footer">
-    <label> PT.Expresindo System Network </label>
-    <label>&nbsp; perkantoran Galaxy Blok N-27</label>
-    <label>&nbsp; Outer Ring Road Barat</label>
-    <label>&nbsp; Cengkareng-Jakarta Barat 11730</label>
-    <label>&nbsp; Telp :021-55950000</label>
-    <label>&nbsp; Fax :021-55955899</label>
-    <label>&nbsp; xsysnet.com</label>
+    <label> PT. ATT CARGO</label>
+    <label>&nbsp; Domestic and International Freight Forwarding / </label>
+    <label>&nbsp; Pergudangan Domestic IF (6/G-1) / </label>
+    <label>&nbsp; Cargo Area Bandara Juanda Surabaya / </label>
+    <label>&nbsp; Telp :031-8688511, 082894057864 ,082894057865 / </label>
+    <label>&nbsp; Fax. : 031-8688512</label>
     </div>
     
 </div>
