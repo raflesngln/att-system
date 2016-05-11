@@ -66,7 +66,7 @@ class Mhouse extends CI_Model {
 //-- for 2 choosen ---///////////////////////////////////////////
 	function get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2)
 	{
-		$this->db->select('a.RemainCWT,a.Service,a.HouseNo,a.ETD,a.Origin,a.Destination,a.Shipper,a.Consigne,a.PCS,a.CWT,a.Consolidation,b.CustName as sender,c.CustName as receiver,d.PortName as ori,e.PortName as desti', FALSE);
+		$this->db->select('a.ConsoledCWT,a.RemainCWT,a.Service,a.HouseNo,a.ETD,a.Origin,a.Destination,a.Shipper,a.Consigne,a.PCS,a.CWT,a.Consolidation,b.CustName as sender,c.CustName as receiver,d.PortName as ori,e.PortName as desti', FALSE);
 	    $this->db->from($nm_tabel);
 		$this->db->join($nm_tabel2,$kolom1.'='.$kolom2,'LEFT');
 		$this->db->join("ms_customer c",'a.Consigne=c.CustCode','LEFT');
@@ -128,7 +128,7 @@ public function count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2)
 //-- for 3 choosen ---///////////////////////////////////////////
 	function get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2)
 	{
-		$this->db->select('a.NoSMU,a.ETD,a.Origin,a.Destination,a.Shipper,a.Consigne,a.PCS,a.CWT,a.Consolidation,a.StatusProses,b.CustName as sender,c.CustName as receiver,d.PortName as ori,e.PortName as desti', FALSE);
+		$this->db->select('a.NoSMU,a.ETD,a.Origin,a.Destination,a.Shipper,a.Consigne,a.PCS,a.CWT,a.FinalCWT,a.Consolidation,a.StatusProses,b.CustName as sender,c.CustName as receiver,d.PortName as ori,e.PortName as desti', FALSE);
 	    $this->db->from($nm_tabel);
 		$this->db->join($nm_tabel2,$kolom1.'='.$kolom2,'LEFT');
 		$this->db->join("ms_customer c",'a.Consigne=c.CustCode','LEFT');
@@ -208,5 +208,74 @@ public function count_all3($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2)
 	{
 		$this->db->where($key, $id);
 		$this->db->delete($nmtabel);
+	}
+
+	//-- for 3 choosen ---///////////////////////////////////////////
+	function get_datatablesconsol($select,$nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2)
+	{
+		$this->db->select($select);
+	    $this->db->from($nm_tabel);
+		$this->db->join($nm_tabel2,$kolom1.'='.$kolom2,'LEFT');
+		$this->_get_datatables_consol($nm_coloum,$orderby,$where);
+        if($_POST['length'] != -1)
+		$this->db->limit($_POST['length'], $_POST['start']);
+		$query = $this->db->get();
+		return $query->result();
+	}
+private function _get_datatables_consol($nm_coloum,$orderby,$where)
+	{	
+		$i = 0;
+		foreach ($nm_coloum as $item) 
+		{
+			if($_POST['search']['value'])
+				($i===0) ? $this->db->like($item, $_POST['search']['value']) : $this->db->or_like($item, $_POST['search']['value']);
+			$column[$i] = $item;
+			$i++;
+		}
+		
+		if(isset($_POST['order']))
+		{
+			$this->db->order_by($column[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+		}
+		else if(isset($orderby))
+		{
+			$order = $orderby;
+			$this->db->order_by(key($order), $order[key($order)]);
+		}
+		
+		if($where != ''){
+        $this->db->where($where); 
+		}
+}
+public function count_consol($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2)
+	{
+		$this->db->from($nm_tabel);
+		$this->db->join($nm_tabel2,$kolom1=$kolom2);
+		return $this->db->count_all_results();
+}
+	function count_filteredconsol($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2)
+	{
+		$this->_get_datatables_consol($nm_coloum,$orderby,$where);
+        $this->db->from($nm_tabel);
+		$this->db->join($nm_tabel2,$kolom1=$kolom2);
+		return $this->db->count_all_results();
+	}
+		//-- for 3 choosen ---///////////////////////////////////////////
+	function get_datatablecargo($select,$nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2)
+	{
+		$this->db->select($select);
+	    $this->db->from($nm_tabel);
+		$this->db->join($nm_tabel2,$kolom1.'='.$kolom2,'LEFT');
+
+		$this->db->join("ms_airline c",'a.Airline=c.AirLineCode','LEFT');
+		$this->db->join("cargo_items d",'a.CargoReleaseCode=d.CargoReleaseCode','LEFT');
+		$this->db->join("ms_flight e",'e.FlightID=d.FlightNumber','LEFT');
+$this->db->group_by('a.CargoReleaseCode');
+		$this->_get_datatables_consol($nm_coloum,$orderby,$where);
+
+        if($_POST['length'] != -1)
+		$this->db->limit($_POST['length'], $_POST['start']);
+		$query = $this->db->get();
+		return $query->result();
 	}
 }

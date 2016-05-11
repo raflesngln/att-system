@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Outgoing_master extends CI_Controller {
+class Consol extends CI_Controller {
 
 	public function __construct()
 	{
@@ -20,17 +20,18 @@ class Outgoing_master extends CI_Controller {
         $this->load->view('home/home',$data);
 	}
 
-public function ajax_list()
+public function list_smu_direct()
 	{
 		$nm_tabel='outgoing_master a';
-		$nm_tabel2='ms_customer b';
-		$kolom1='a.Shipper';
-		$kolom2='b.CustCode';
-		
-        $nm_coloum= array('a.NoSMU','a.NoSMU','a.ETD','b.CustName','c.CustName','d.PortName','e.PortName','a.PCS','a.CWT','a.CWT');
+		$nm_tabel2='ms_port b';
+		$kolom1='a.Destination';
+		$kolom2='b.PortCode';
+		$select='a.ETD,a.NoSMU,a.Service,a.CWT,a.PCS,a.StatusProses,a.Destination as portcode,b.PortName as desti';
+
+        $nm_coloum= array('a.NoSMU','a.NoSMU','a.ETD','a.Destination','a.PCS','a.CWT','a.CWT');
         $orderby= array('a.NoSMU' => 'desc');
-        $where=  array('a.StatusProses <= '=>'3');
-        $list = $this->mhouse->get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
+        $where=  array('a.StatusProses <= '=>'3','right(a.Service,4)'=>'PORT');
+        $list = $this->mhouse->get_datatablesconsol($select,$nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
 		$data = array();
 		$no = $_POST['start'];
@@ -39,14 +40,12 @@ public function ajax_list()
 			$no++;
 			$row = array(
             'no' => $no,
-            'NoSMU' => $datalist->NoSMU,
-            'ori' =>$datalist->ori,
-			'desti' =>$datalist->desti,
+            'NoSMU' =>'<a href="#" onclick="detailsmu2(this);" class="text-pink">'. $datalist->NoSMU.'</a>',
+            'portcode' =>$datalist->portcode,
+			'desti' =>$datalist->portcode.'-'.$datalist->desti,
 			'Service' =>$datalist->Service,
-			'sender' =>$datalist->sender,
-			'receiver' =>$datalist->receiver,
-			'cwt' =>$datalist->CWT,
-			'pcs' =>$datalist->PCS,
+			'CWT' =>$datalist->CWT,
+			'PCS' =>$datalist->PCS,
 			'ETD' =>date('d-m-Y',strtotime($datalist->ETD)),
 			'StatusProses' =>$datalist->StatusProses,
 
@@ -64,24 +63,25 @@ public function ajax_list()
 
 		$output = array(
 						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->mhouse->count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
-						"recordsFiltered" => $this->mhouse->count_filtered2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
+						"recordsTotal" => $this->mhouse->count_consol($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
+						"recordsFiltered" => $this->mhouse->count_filteredconsol($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
 						"data" => $data,
 				);
 		//output to json format
 		echo json_encode($output);
 }
-public function list_final()
+public function list_smu_consol()
 	{
 		$nm_tabel='outgoing_master a';
-		$nm_tabel2='ms_customer b';
-		$kolom1='a.Shipper';
-		$kolom2='b.CustCode';
-		
-        $nm_coloum= array('a.NoSMU','a.NoSMU','a.ETD','b.CustName','c.CustName','d.PortName','e.PortName','a.PCS','a.CWT','a.CWT');
+		$nm_tabel2='ms_port b';
+		$kolom1='a.Destination';
+		$kolom2='b.PortCode';
+		$select='a.ETD,a.NoSMU,a.Service,a.CWT,a.PCS,a.StatusProses,a.Destination as portcode,b.PortName as desti';
+
+        $nm_coloum= array('a.NoSMU','a.NoSMU','a.ETD','a.Destination','a.PCS','a.CWT','a.CWT');
         $orderby= array('a.NoSMU' => 'desc');
-        $where=  array('a.StatusProses = '=>'4');
-        $list = $this->mhouse->get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
+        $where=  array('a.StatusProses <= '=>'3','right(a.Service,4)'=>'DOOR');
+        $list = $this->mhouse->get_datatablesconsol($select,$nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
 		$data = array();
 		$no = $_POST['start'];
@@ -90,18 +90,20 @@ public function list_final()
 			$no++;
 			$row = array(
             'no' => $no,
-            'NoSMU' => $datalist->NoSMU,
-            'ori' =>$datalist->ori,
-			'desti' =>$datalist->desti,
+            'NoSMU' =>'<a href="#" onclick="detailsmu(this);">'. $datalist->NoSMU.'</a>',
+            'portcode' =>$datalist->portcode,
+			'desti' =>$datalist->portcode.'-'.$datalist->desti,
 			'Service' =>$datalist->Service,
-			'sender' =>$datalist->sender,
-			'receiver' =>$datalist->receiver,
-			'cwt' =>$datalist->CWT,
-			'pcs' =>$datalist->PCS,
+			'CWT' =>$datalist->CWT,
+			'PCS' =>$datalist->PCS,
 			'ETD' =>date('d-m-Y',strtotime($datalist->ETD)),
+			'StatusProses' =>$datalist->StatusProses,
+
+			'status'=>'<div class="text-left">'.$status=($datalist->CWT <= "1")?"<label class='label label-inverse arrowed-right white'>No</label>":"<label class='label label-warning arrowed-right white'>Remain</label>".'</div>',
 		
-            'action'=> '<div class="form-inline">&nbsp;&nbsp;
-<a class="green" href="javascript:void()" title="Edit" onclick="editFinal('."'".$datalist->NoSMU."'".')"><i class="icon-pencil bigger-150"></i></a>
+            'action'=> '<div class="form-inline text-center"> <a onclick="return EditConfirm('.$datalist->StatusProses.')" href="'.base_url().'transaction/edit_outgoing_master/'.$datalist->NoSMU.'" title="Edit item"><button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>
+ </a>
+				    <a style="display:none" class="red" href="javascript:void()" title="Hapus" onclick="deleteOpenMaster('."'".$datalist->NoSMU."'".')"><button class="btn btn-mini btn-danger" type="button"><i class="icon-trash bigger-150"></i></button></a>			
 			</div>
 			'
 			
@@ -111,25 +113,25 @@ public function list_final()
 
 		$output = array(
 						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->mhouse->count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
-						"recordsFiltered" => $this->mhouse->count_filtered2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
+						"recordsTotal" => $this->mhouse->count_consol($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
+						"recordsFiltered" => $this->mhouse->count_filteredconsol($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
 						"data" => $data,
 				);
 		//output to json format
 		echo json_encode($output);
 }
-
-public function list_closed()
+public function list_house_consol()
 	{
-		$nm_tabel='outgoing_master a';
-		$nm_tabel2='ms_customer b';
-		$kolom1='a.Shipper';
-		$kolom2='b.CustCode';
-		
-       $nm_coloum= array('a.NoSMU','a.NoSMU','a.ETD','b.CustName','c.CustName','d.PortName','e.PortName','a.PCS','a.CWT','a.CWT');
-        $orderby= array('a.NoSMU' => 'desc');
-        $where=  array('a.StatusProses = '=>'5');
-        $list = $this->mhouse->get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
+		$nm_tabel='outgoing_house a';
+		$nm_tabel2='ms_port b';
+		$kolom1='a.Destination';
+		$kolom2='b.PortCode';
+		$select='a.ETD,a.HouseNo,a.Consolidation,a.Service,a.CWT,a.PCS,a.Destination as portcode,b.PortName as desti';
+
+        $nm_coloum= array('a.HouseNo','a.HouseNo','a.ETD','a.Destination','a.PCS','a.CWT','a.Consolidation','a.Service');
+        $orderby= array('a.HouseNo' => 'desc');
+        $where=  array('a.Consolidation <= '=>'3');
+        $list = $this->mhouse->get_datatablesconsol($select,$nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
 		$data = array();
 		$no = $_POST['start'];
@@ -138,19 +140,20 @@ public function list_closed()
 			$no++;
 			$row = array(
             'no' => $no,
-            'NoSMU' => $datalist->NoSMU,
-            'ori' =>$datalist->ori,
-			'desti' =>$datalist->desti,
-			'Service' =>$datalist->Service,
-			'sender' =>$datalist->sender,
-			'receiver' =>$datalist->receiver,
-			'cwt' =>$datalist->CWT,
-			'pcs' =>$datalist->PCS,
-			'FinalCWT' =>$datalist->FinalCWT,
+            'HouseNo' =>'<a href="#" onclick="detailhouse(this);">'. $datalist->HouseNo.'</a>',
+            'portcode' =>$datalist->portcode,
+			'desti' =>$datalist->portcode.'-'.$datalist->desti,
+			'Service' =>substr($datalist->Service,-4),
+			'CWT' =>$datalist->CWT,
+			'PCS' =>$datalist->PCS,
 			'ETD' =>date('d-m-Y',strtotime($datalist->ETD)),
 		
-            'action'=> '<div class="form-inline">&nbsp;&nbsp;
-<a style="display:none" class="green" href="javascript:void()" title="Edit" onclick="ajax_edit('."'".$datalist->NoSMU."'".')"><i class="icon-pencil bigger-150"></i></a>
+			'status'=>'<div class="text-left">'.$status=($datalist->Consolidation >= "1")?"<label class='label label-warning arrowed-right white'>Remain</label>":"<label class='label label-inverse arrowed-right white'>No</label>".'</div>',
+			'shipment'=>'<div class="text-left">'.$shipment=(substr($datalist->Service,-4)== "PORT")?"<label class='label label-pink arrowed-right white'>Direct House</label>":"<label class='label label-success arrowed-right white'>Consol House</label>".'</div>',
+
+            'action'=> '<div class="form-inline text-center"> <a onclick="return EditConfirm('.$datalist->Consolidation.')" href="'.base_url().'transaction/edit_outgoing_master/'.$datalist->NoSMU.'" title="Edit item"><button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>
+ </a>
+				    <a style="display:none" class="red" href="javascript:void()" title="Hapus" onclick="deleteOpenMaster('."'".$datalist->HouseNo."'".')"><button class="btn btn-mini btn-danger" type="button"><i class="icon-trash bigger-150"></i></button></a>			
 			</div>
 			'
 			
@@ -160,8 +163,8 @@ public function list_closed()
 
 		$output = array(
 						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->mhouse->count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
-						"recordsFiltered" => $this->mhouse->count_filtered2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
+						"recordsTotal" => $this->mhouse->count_consol($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
+						"recordsFiltered" => $this->mhouse->count_filteredconsol($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
 						"data" => $data,
 				);
 		//output to json format

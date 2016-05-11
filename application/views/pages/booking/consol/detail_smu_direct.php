@@ -11,25 +11,13 @@ foreach($header as $row){
     </div>
 	</div>
 <div class="form-group">
-    <div class="col-sm-5">ETD</div>
-    <div class="col-sm-7">: <?php echo $row->ETD?></div>
-	</div>
-<div class="form-group">
     <div class="col-sm-5">Service</div>
     <div class="col-sm-7">: <?php echo $row->Service?></div>
 	</div>
 <div class="form-group">
-    <div class="col-sm-5">Airline</div>
-    <div class="col-sm-7">: <?php echo $row->AirLineName?></div>
+    <div class="col-sm-5">ETD</div>
+    <div class="col-sm-7">: <?php echo $row->ETD?></div>
 	</div>
-<div class="form-group">
-    <div class="col-sm-5">Flight</div>
-    <div class="col-sm-7">: <?php echo $row->FlightNo;?></div>
-	</div>
-	
-</div>
-
-<div class="col-sm-6">
 	<div class="form-group">
     <div class="col-sm-5">Shipper</div>
     <div class="col-sm-7">: <?php echo $row->sender?></div>
@@ -38,6 +26,12 @@ foreach($header as $row){
     <div class="col-sm-5">Consignee</div>
     <div class="col-sm-7">: <?php echo $row->receiver?></div>
 	</div>
+
+	
+</div>
+
+<div class="col-sm-6">
+
 	<div class="form-group">
     <div class="col-sm-5">Origin</div>
     <div class="col-sm-7">: <?php echo $row->ori?></div>
@@ -45,6 +39,14 @@ foreach($header as $row){
     <div class="form-group">
     <div class="col-sm-5">Destination</div>
     <div class="col-sm-7">: <?php echo $row->desti?></div>
+	</div>
+<div class="form-group">
+    <div class="col-sm-5">Airline</div>
+    <div class="col-sm-7">: <?php echo $row->AirLineName?></div>
+	</div>
+<div class="form-group">
+    <div class="col-sm-5">Flight</div>
+    <div class="col-sm-7">: <?php echo $row->FlightNo;?></div>
 	</div>
 </div>
 
@@ -73,7 +75,8 @@ foreach($header as $row){
 
   ?>
         <tr>
-          <td><?php echo $row->HouseNo?></td>
+          <td><a href="#" onclick="detailhousedirect(this);"><?php echo $row->HouseNo?>
+</a></td>
           <td><?php echo $row->shipper?></td>
           <td><?php echo $row->consigne?></td>
           <td><?php echo $row->BookingNo?></td>

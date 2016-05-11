@@ -966,7 +966,7 @@ function outgoing_consolidation(){
             'scrumb_name'=>'outgoing_consolidation',
             'scrumb'=>'transaction/outgoing_consolidation',
 		'houseconsol'=>$this->model_app->getdatapaging("a.ETD,a.HouseNo,a.Service,a.Consolidation,a.CWT,a.PCS,a.Destination as portcode,b.PortName as desti","outgoing_house a",
-			 "LEFT JOIN ms_port b ON a.Destination=b.PortCode WHERE a.Consolidation IN(0,1) GROUP BY a.HouseNo
+			 "LEFT JOIN ms_port b ON a.Destination=b.PortCode WHERE a.Consolidation IN(0,1,2,3) GROUP BY a.HouseNo
 			 "),
 		'masterconsol'=>$this->model_app->getdatapaging("a.ETD,a.NoSMU,a.Service,a.CWT,a.PCS,a.Destination as portcode,b.PortName as desti","outgoing_master a",
 			 "LEFT JOIN ms_port b ON a.Destination=b.PortCode WHERE a.StatusProses in(1,2,3) AND a.Service IN('PORT TO DOOR','DOOR TO DOOR') GROUP BY a.NoSMU
@@ -1392,8 +1392,10 @@ function domestic_outgoing_master(){
 				$makspcs=$cwt >=$oldpcs?$oldpcs:$consolpcs+$pcs;
 				$hasilcwt=$remaincwt<=0?'0':$remaincwt-$cwt;
 				$hasilpcs=$remainpcs<=0?'0':$remainpcs-$pcs;
+			$nomorconsol=($remaincwt-$cwt  <=0)?'2':'1';
+
 			$updatehouse=array(
-			'Consolidation' =>'1',
+			'Consolidation' =>$nomorconsol,
 			'ConsoledCWT' =>$makscwt,
 			'RemainCWT' =>$hasilcwt,
 			'ConsoledPCS' =>$makspcs,
@@ -1407,25 +1409,44 @@ function domestic_outgoing_master(){
 		$house2=$_POST['lefthouse'];
 		foreach($house2 as $key => $val){
 			$nohouse2 =$_POST['lefthouse'][$key];
-			$consolcwt2=$_POST['leftconsoled'][$key];
-			$remaincwt2=$_POST['leftremain'][$key];
-			$consolpcs2=$_POST['leftconsoledpcs'][$key];
-			$remainpcs2=$_POST['leftremainpcs'][$key];
-			
-			$hasilcwtconsol2=$consolcwt2<=0?'0':$consolcwt2;
-			$hasilpcsconsol2=$consolpcs2<=0?'0':$consolpcs2;
-				
+			$leftcwt =$_POST['leftcwt'][$key];
+			$leftconsoled=$_POST['leftconsoled'][$key];
+			$leftremain=$_POST['leftremain'][$key];
+			$leftconsoledpcs=$_POST['leftconsoledpcs'][$key];
+			$leftremainpcs=$_POST['leftremainpcs'][$key];
+			$cekhouse2=$this->model_app->getdata('outgoing_house',"WHERE HouseNo='$nohouse2'");
+			foreach($cekhouse2 as $row){
+				$cekcwt=$row->CWT;
+				$cekconsolcwt=$row->ConsoledCWT;
+				$cekconsolpcs=$row->ConsoledPCS;
+				$cekremaincwt=$row->RemainCWT;
+				$cekremainpcs=$row->RemainPCS;
+
+			if($leftcwt==$cekcwt){
+				$realremaincwt=$leftremain;
+				$realremainpcs=$leftremainpcs;
+				$realconsolcwt=$leftconsoled;
+				$realconsolpcs=$leftconsoledpcs;
+				$nomorconsol2='0';
+			} else {
+				$realremaincwt=$cekremaincwt+$leftremain;
+				$realremainpcs=$cekremainpcs+$leftremainpcs;
+				$realconsolcwt=$cekconsolcwt-$leftremain;
+				$realconsolpcs=$cekconsolpcs-$leftremainpcs;
+				$nomorconsol2='1';
+			}	
 			$updatehouse2=array(
-			//'Consolidation' =>'0',
-			'ConsoledCWT' =>$consolcwt2,
-			'RemainCWT' =>$remaincwt2,
-			'ConsoledPCS' =>$consolpcs2,
-			'RemainPCS' =>$remainpcs2,
+			'Consolidation' =>$nomorconsol2,
+			'ConsoledCWT' =>$realconsolcwt,
+			'ConsoledPCS' =>$realconsolpcs,
+			'RemainCWT' =>$realremaincwt,
+			'RemainPCS' =>$realremainpcs,
 			);
 			$this->model_app->update('outgoing_house','HouseNo',$nohouse2,$updatehouse2);
 		}
+	}
 	$updatesmu=array(
-		'StatusProses' =>'2',
+		'StatusProses' =>2,
 		'CWT' =>$totcwt,
 		'PCS' =>$totpcs,
 		'Commodity' =>$commodity
@@ -1640,10 +1661,10 @@ function print_outgoing_master(){
 		'grandVolume' =>$this->input->post('t_volume'),
 		'Discount' =>$this->input->post('txtdiskon'),
 		'PCS' =>$this->input->post('t_pacs'),
-		'RemainPCS' =>$this->input->post('t_pacs'),
-		'SpecialIntraction' =>$this->input->post('special'),		
+		'ConsoledPCS' =>$this->input->post('t_pacs'),		
 		'CWT' =>$this->input->post('ori_cwt'),
-		'RemainCWT' =>$this->input->post('ori_cwt'),
+		'ConsoledCWT' =>$this->input->post('ori_cwt'),
+		'SpecialIntraction' =>$this->input->post('special'),
 		'DeclareValue' =>$this->input->post('declare'),		
 		'DescofShipment' =>$this->input->post('description'),
 		'Attention' =>$this->input->post('attention'),
@@ -2278,10 +2299,7 @@ function getcost(){
     	exit;
 		
    }
-function barang(){
-	   $data=$this->model_app->getdata('barang',"");
-	   $this->load->view('pages/booking/data_barang',$data);
-   }
+
 function ambil_detail(){	
 	//if(isset($_GET['action']) && $_GET['action'] == "getDetail") {
 	//$kode_brg = $_GET['kode_brg'];
@@ -2314,7 +2332,7 @@ public function ajax_detailSMU()
 		$status_smu=($status=='consol')?'detail_smu':'detail_smu_direct';
 		
 	$data=array(
-	'header'=>$this->model_app->getdatapaging("a.NoSMU,a.ETD,a.PayCode,a.Service,b.AirLineName,a.FlightNumbDate1,c.CustName as sender,d.CustName as receiver,e.PortCode as ori,f.PortCode as desti,g.FlightNo",
+	'header'=>$this->model_app->getdatapaging("a.Origin,a.Destination,a.ETD,a.NoSMU,a.ETD,a.PayCode,a.Service,b.AirLineName,a.FlightNumbDate1,c.CustName as sender,d.CustName as receiver,e.PortName as ori,f.PortName as desti,g.FlightNo",
 	"outgoing_master a",
 	"LEFT JOIN ms_airline b on a.Airlines=b.AirLineCode
 	 LEFT JOIN ms_customer c on a.Shipper=c.CustCode
@@ -2324,7 +2342,7 @@ public function ajax_detailSMU()
 	 LEFT JOIN ms_flight g on a.FlightNumbDate1=g.FlightID
 	WHERE a.NoSMU='$kode'"),
 	
-	'smu'=>$this->model_app->getdatapaging("a.ConsolID,a.CWT,a.PCS,b.HouseNo,b.BookingNo,c.CustName as shipper,d.CustName as consigne,e.PortCode as ori,f.PortCode as desti","consol a",
+	'smu'=>$this->model_app->getdatapaging("b.Origin,b.Destination,b.ETD,a.ConsolID,a.CWT,a.PCS,b.HouseNo,b.BookingNo,c.CustName as shipper,d.CustName as consigne,e.PortName as ori,f.PortName as desti","consol a",
 	"INNER JOIN outgoing_house b on a.HouseNo=b.HouseNo
 	 LEFT JOIN ms_customer c on c.CustCode=b.Shipper
 	 LEFT JOIN ms_customer d on d.CustCode=b.Consigne
@@ -2350,16 +2368,16 @@ public function remove_house_direct(){
 			$remaincwt=$row->RemainCWT;
 			$pcs=$row->PCS;
 			$cwt=$row->CWT;
-			if($consolcwt >=1){
+			if($remaincwt >=1){
 			$RealRemainPCS=$remainpcs + $pcs;
 			$RealRemainCWT=$remaincwt + $cwt;
 			$RealConsolPCS=$consolpcs-$pcs;
 			$RealConsolCWT=$consolcwt-$cwt;
 			} else {
-			$RealRemainPCS=$remainpcs;
-			$RealRemainCWT=$remaincwt;
-			$RealConsolPCS=$consolpcs;
-			$RealConsolCWT=$consolcwt;
+			$RealRemainPCS=$remainpcs + $pcs;
+			$RealRemainCWT=$remaincwt + $cwt;
+			$RealConsolPCS=$consolpcs-$pcs;
+			$RealConsolCWT=$consolcwt-$cwt;
 			}
 			$statusconsol=($consolcwt - $cwt <=0)?'0':'1'; //jika consoled cwt dihouse jdi 0 maka status consolidation=0 agar bisa diedit selain itu brrti house masih terkait dgn SMU lain maka house blm bisa di edit selama consoledcwt or pcs blm kososng
 			$smu_CWT=$row->smu_CWT;

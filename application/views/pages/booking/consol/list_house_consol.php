@@ -1,83 +1,205 @@
-
+  <script src="<?php echo base_url('assets/datatables/js/jquery.dataTables.min.js')?>"></script>
+  <script src="<?php echo base_url('assets/datatables/js/dataTables.bootstrap.js')?>"></script>
   
-<div class="container-fluid" id="konten3">
-  <div class="row" id="contentreplace3">
-  <div class="col-sm-11 portlets ui-sortable" id="freecontent3" style="box-shadow:2px 3px 8px #CCC; border:1px #CCC solid">
-                    <div class="panel">
-                        <!--<div class="panel-header"></div>-->
-                        
-                                    <div class="form-group">
-                                        <div class="table-responsive" id="table_responsive">
-<h2><span class="label label-inverse label-large">List House Consol</span></h2>
-                                        <table class="table table-nostriped table-nobordered table-hover" id="tablehouse">
-                                              <thead>
-                                                
-                                                  <tr>
-                                                  <th width="24">No.</th>
-                                                  <th width="60">House  No</th>
-                                                  <th width="77">ETD</th>
-                                                  <th width="77">Destination</th>
-                                                  <th width="43">PCS</th>
-                                                  <th width="53">CWT</th>
-                                                  <th width="61" class="text-center">Status Consol</th>
-                                                  <th width="61" class="text-center"><div align="left">Shipment Type</div></th>
-                                                </tr>
-                                              </thead>
-                                              <tbody>
- <?php 
- $no=1;
- foreach ($houseconsol as $row) {
-	 $consol=$row->Consolidation;
-		 $service=($row->Service=='DOOR TO PORT' || $row->Service=='PORT TO PORT')?'<span class="label label-warning white">Direct House</span>':'<span class="label label-success white">Consolidation</span>';
-		 
-	 if($consol==1){
-		 		 $status2='<span class="label label-success arrowed-right white"><i class="fa fa-check"></i>YES</span>';
+  <script type="text/javascript">
 
-	 } else {
-		 $status2='<span class="label label-important arrowed-right white"><i class="fa fa-times"></i>NO</span>';
-	 }
-	 
-  ?>
-                                                  <tr>
-                                                    <td><?php echo $no?></td>
-                                                    <td>
-<a href="#" onclick="detailhouse(this);"><?php echo $row->HouseNo?>
-</a>
-</td>
-                                                    <td><?php echo date("d-m-Y",strtotime($row->ETD));?></td>
-                                                    <td><div align="left"><?php echo substr($row->desti,0,50).'-'.$row->portcode?></div></td>
-                                                    <td><div align="center"><?php echo $row->PCS?></div></td>
-                                                    <td><div align="center"><?php echo $row->CWT?></div></td>
-                                                    <td><div align="center"><?php echo $status2?></div></td>
-                                                    <td><?php echo $service?></td>
-                                                  </tr>
-                <?php $no++;} ?>  
-                                                  
-                                                  <tr style="background-color:#F5F5F5">
-                                                  <td>&nbsp;</td>
-                                                  <td>&nbsp;</td>
-                                                  <td>&nbsp;</td>
-                                                  <td>&nbsp;</td>
-                                                  <td>&nbsp;</td>
-                                                  <td><div align="right"></div></td>
-                                                  <td>&nbsp;</td>
-                                                  <td>&nbsp;</td>
-                                                </tr>
-                                              </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    
-                    
+    var update_methode3; //for save method string
+    var housetable;
+ 
+ $(document).ready(function() {    
+    
+          housetable = $('#housetable').DataTable({ 
+            "processing": true, //Feature control the processing indicator.
+            "bInfo": false, 
+			"serverSide": true, //Feature control DataTables' server-side processing mode
+            // Load data for the table's content from an Ajax source
+            "ajax": {
+                "url": "<?php echo site_url('consol/list_house_consol')?>",
+                "type": "POST"
+            },
+            "columns": [
+            { "data": "no" ,"orderable":false,"visible":true},
+            { "data": "HouseNo" },
+			{ "data": "ETD" },
+            { "data": "desti" },
+            { "data": "CWT","orderable":false,"visible":true },
+			{ "data": "CWT","orderable":false,"visible":true },
+			{ "data": "status" },
+			{ "data": "shipment" },
+            ]
+          });  
+    
+$('#housetable tbody').on('dblclick', 'tr', function () {
+            var tr = $(this).closest('tr');
+            var row = housetable.row(tr);
+           // alert(row.data().firstName);
+         });
+});
+
+function add_person5()
+    {
+      update_methode3 = 'add';
+      $('#myformfinal')[0].reset(); // reset form on modals
+      $('#modal_master_final').modal('show'); // show bootstrap modal
+      $('.modal-title').text('Add Linebusiness');
+	  document.getElementById("BankCode2").disabled=false;
+    }
+
+function editFinal(id)
+    {
+      update_methode3 = 'update';
+      $('#myformfinal')[0].reset(); // reset form on modals
+        
+      var nmtabel='outgoing_master';
+      var keytabel='NoSMU';
+        
+      //Ajax Load data from ajax
+      $.ajax({
+        url : "<?php echo site_url('outgoing_master/ajax_edit/')?>",
+        type: "POST",
+        data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
+        dataType: "JSON",
+        success: function(data)
+        {
+            $('[name="smuno"]').val(data.NoSMU);
+			 $('[name="smu"]').val(data.NoSMU);
+			$('[name="cwt"]').val(data.CWT);
+            $('[name="remarks"]').val(data.Remarks); 
+			$('[name="finalcwt"]').val(data.FinalCWT); 
+			
+			
+            $('#modal_master_final').modal('show');
+            $('.modal-title').text('Edit CWT Final');
+			document.getElementById("BankCode2").disabled=true;
+            
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+    }
+
+    function reloadhouse()
+    {
+      housetable.ajax.reload(null,false); //reload datatable ajax 
+    }
+
+function updateCWTsmu()
+    {
+      var url_action;
+      if(update_methode3 == 'add') 
+      {
+          url_action = "<?php echo site_url('outgoing_master/ajax_add')?>";
+      }
+      else
+      {
+        url_action = "<?php echo site_url('outgoing_master/updateCWT')?>";
+      }
+       // ajax adding data to database
+          $.ajax({
+            url : url_action,
+            type: "POST",
+            data: $('#myformfinal').serialize(),
+            dataType: "JSON",
+            success: function(data)
+            {
+               //if success close modal and reload ajax table
+               $('#modal_master_final').modal('hide');
+               reloadFinal();
+			   reloadClosedsmu();
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error adding / update data');
+            }
+        });
+    }
+
+function delete_person5(id)
+    {
+      if(confirm('Are you sure delete this data?'))
+      var nmtabel='outgoing_master';
+      var keytabel='NoSMU';
+      {
+        // ajax delete data to database
+          $.ajax({
+            url : "<?php echo site_url('outgoing_master/ajax_delete')?>",
+            type: "POST",
+            data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
+            dataType: "JSON",
+            success: function(data)
+            {
+               //if success reload ajax table
+               $('#modal_master_final').modal('hide');
+               reloadFinal();
+			   reloadClosedsmu();
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error adding / update data');
+            }
+        });
+      }
+    }
+
+  </script>
 
 
-          </div>
+
+  <br />
+    <br />
+
+    <table id="housetable" class="table table-striped table-bordered" cellspacing="0" width="97%">
+      <thead>
+        <tr>
+          <th>No</th>  
+          <th>HouseNo</th>
+          <th>ETD</th>
+          <th>Destination</th>
+          <th>PCS</th>
+          <th>CWT</th>
+          <th><span class="text-center">Status Consol</span></th>
+          <th>Shipment Type</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+
+      <tfoot>
+        <tr style="visibility:hidden">
+          <th>No</th>
+          <th>HouseNo</th>
+          <th>ETD</th>
+          <th>Destination</th>
+          <th>PCS</th>
+          <th>CWT</th>
+          <th><span class="text-center">Status Consol</span></th>
+          <th>Shipment Type</th>
+        </tr>
+      </tfoot>
+    </table>
+ 
+<div class="modal fade" id="modaldetailsmuinhouse" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">Form Detail SMU</h3>
       </div>
-                
-</div>
-</div>
+      <div class="modal-body form">
+      <div id="tabledetailsmuinhouse">
+                     Detail
 
-
+        </div>
+        
+      </div>
+        
+    </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+      
+ 
 <div id="modalhouse" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
     <div class="modal-dialog modal-lg" role="document">
@@ -117,7 +239,7 @@
     </div>
     </div>
     
-    <script>
+  <script>
 function detailhouse(myid){
 	var numb=$(myid).html();
 				$.ajax({
@@ -132,5 +254,20 @@ function detailhouse(myid){
             });
 	
 }
+	function detailsmuinHouse(myid){
+	var smu=$(myid).html();
+	var status='consol';
+             // alert('hai' + idcnote);
+				$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('transaction/ajax_detailSMU'); ?>",
+                data: "smu="+smu+"&status="+status,
+                success: function(data){
+					$("#modalhouse").modal('hide'); 
+					$("#modaldetailsmuinhouse").modal('show'); 
+                   $('#tabledetailsmuinhouse').html(data);
+                }
+            });
 	
+}
 	</script>

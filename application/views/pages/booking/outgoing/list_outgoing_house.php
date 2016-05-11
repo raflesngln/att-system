@@ -10,6 +10,7 @@
     
           tableopened = $('#tableopened').DataTable({ 
             "processing": true, //Feature control the processing indicator.
+			"bInfo": false,
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
             "ajax": {
@@ -23,9 +24,9 @@
             { "data": "sender" },
             { "data": "receiver","orderable":false,"visible":true },
 			{ "data": "ori","orderable":false,"visible":true },
-			{ "data": "desti","orderable":false,"visible":true },
-			{ "data": "pcs","orderable":false,"visible":true },
-			{ "data": "cwt","orderable":false,"visible":true },
+			{ "data": "desti"},
+			{ "data": "pcs","orderable":false,"visible":true},
+			{ "data": "cwt","orderable":false,"visible":true},
 			{ "data": "status"},
             { "data": "action","orderable":false,"visible":true }
             ]

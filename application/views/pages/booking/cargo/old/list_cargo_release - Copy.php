@@ -3,101 +3,74 @@
   
   <script type="text/javascript">
 
-    var save_method5; //for save method string
-    var tablebank;
+    var update_methode2; //for save method string
+    var tabelcargolist;
  
  $(document).ready(function() {    
     
-          tablebank = $('#tablebank').DataTable({ 
+          tabelcargolist = $('#tabelcargolist').DataTable({ 
             "processing": true, //Feature control the processing indicator.
+			"bInfo": false,
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
             "ajax": {
-                "url": "<?php echo site_url('cargo_release/ajax_list')?>",
+                "url": "<?php echo site_url('cargo_release/listcargo')?>",
                 "type": "POST"
             },
             "columns": [
-            { "data": "no" },
+            { "data": "no" ,"orderable":false,"visible":true},
             { "data": "CargoReleaseCode" },
-            { "data": "AirLineName" },
-            { "data": "CargoDetails" },
-			{ "data": "PCS" },
-			{ "data": "CWT" },
-            { "data": "action" }
+			{ "data": "CargoReleaseCode" },
+            { "data": "CargoReleaseCode" },
+            { "data": "CargoReleaseCode","orderable":false,"visible":true },
+			{ "data": "CargoReleaseCode","orderable":false,"visible":true },
+			{ "data": "AirLineName" },
+
             ]
           });  
     
-$('#tablebank tbody').on('dblclick', 'tr', function () {
+$('#tabelcargolist tbody').on('dblclick', 'tr', function () {
             var tr = $(this).closest('tr');
-            var row = tablebank.row(tr);
+            var row = tabelcargolist.row(tr);
            // alert(row.data().firstName);
          });
 });
 
 function add_person5()
     {
-      save_method5 = 'add';
-      $('#form5')[0].reset(); // reset form on modals
-      $('#modal_form5').modal('show'); // show bootstrap modal
-      $('.modal-title5').text('Add Linebusiness');
-	  document.getElementById("CargoReleaseCode").disabled=false;
+      update_methode2 = 'add';
+      $('#myformfinal')[0].reset(); // reset form on modals
+      $('#modal_master_final').modal('show'); // show bootstrap modal
+      $('.modal-title').text('Add Linebusiness');
+	  document.getElementById("BankCode2").disabled=false;
     }
 
-function edit_data(id)
+function editFinal(id)
     {
-      save_method5 = 'update';
-      $('#form5')[0].reset(); // reset form on modals
+      update_methode2 = 'update';
+      $('#myformfinal')[0].reset(); // reset form on modals
         
-      var nmtabel='tr_cargo_release';
-      var keytabel='CargoReleaseCode';
+      var nmtabel='outgoing_master';
+      var keytabel='NoSMU';
         
       //Ajax Load data from ajax
       $.ajax({
-        url : "<?php echo site_url('cargo_release/ajax_edit/')?>",
+        url : "<?php echo site_url('outgoing_master/ajax_edit/')?>",
         type: "POST",
         data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
         dataType: "JSON",
         success: function(data)
         {
-            
-			 $('[name="CargoReleaseCode"]').val(data.CargoReleaseCode);
-			 $('[name="CargoDetails"]').val(data.CargoDetails);
-            $('[name="cwt"]').val(data.CWT); 
+            $('[name="smuno"]').val(data.NoSMU);
+			 $('[name="smu"]').val(data.NoSMU);
+			$('[name="cwt"]').val(data.CWT);
+            $('[name="remarks"]').val(data.Remarks); 
+			$('[name="finalcwt"]').val(data.FinalCWT); 
 			
-            $('#modal_form5').modal('show');
-            $('.modal-title5').text('Edit Master');
-			//document.getElementById("CargoReleaseCode").disabled=true;
-            
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert('Error get data from ajax');
-        }
-    });
-    }
-function edit_data2(id)
-    {
-      save_method6 = 'update';
-      
-      var nmtabel='tr_cargo_release';
-      var keytabel='CargoReleaseCode';
-        
-      //Ajax Load data from ajax
-      $.ajax({
-        url : "<?php echo site_url('cargo_release/ajax_edit/')?>",
-        type: "POST",
-        data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
-        dataType: "JSON",
-        success: function(data)
-        {
-            
-			 $('[name="CargoReleaseCode"]').val(data.CargoReleaseCode);
-			 $('[name="CargoDetails"]').val(data.CargoDetails);
-            $('[name="cwt"]').val(data.CWT); 
 			
-            $('#modal_form5').modal('show');
-            $('.modal-title5').text('Edit Master');
-			//document.getElementById("CargoReleaseCode").disabled=true;
+            $('#modal_master_final').modal('show');
+            $('.modal-title').text('Edit CWT Final');
+			document.getElementById("BankCode2").disabled=true;
             
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -107,34 +80,34 @@ function edit_data2(id)
     });
     }
 
-    function reload_table3()
+    function reloadsmudirect()
     {
-      tablebank.ajax.reload(null,false); //reload datatable ajax 
+      tabelcargolist.ajax.reload(null,false); //reload datatable ajax 
     }
 
-function save5()
+function updateCWTsmu()
     {
-      var url5;
-      if(save_method5 == 'add') 
+      var url_action;
+      if(update_methode2 == 'add') 
       {
-          url5 = "<?php echo site_url('cargo_release/ajax_add')?>";
+          url_action = "<?php echo site_url('outgoing_master/ajax_add')?>";
       }
       else
       {
-        url5 = "<?php echo site_url('cargo_release/ajax_update')?>";
+        url_action = "<?php echo site_url('outgoing_master/updateCWT')?>";
       }
-
        // ajax adding data to database
           $.ajax({
-            url : url5,
+            url : url_action,
             type: "POST",
-            data: $('#form5').serialize(),
+            data: $('#myformfinal').serialize(),
             dataType: "JSON",
             success: function(data)
             {
                //if success close modal and reload ajax table
-               $('#modal_form5').modal('hide');
-               reload_table3();
+               $('#modal_master_final').modal('hide');
+               reloadFinal();
+			   reloadClosedsmu();
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -143,28 +116,28 @@ function save5()
         });
     }
 
-function delete_data(id)
+function delete_person5(id)
     {
       if(confirm('Are you sure delete this data?'))
-      var nmtabel='tr_cargo_release';
-      var keytabel='CargoReleaseCode';
-	 
+      var nmtabel='outgoing_master';
+      var keytabel='NoSMU';
       {
         // ajax delete data to database
           $.ajax({
-    url : "<?php echo site_url('cargo_release/ajax_delete')?>",
+            url : "<?php echo site_url('outgoing_master/ajax_delete')?>",
             type: "POST",
             data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
             dataType: "JSON",
             success: function(data)
             {
                //if success reload ajax table
-               $('#modal_form5').modal('hide');
-               reload_table3();
+               $('#modal_master_final').modal('hide');
+               reloadFinal();
+			   reloadClosedsmu();
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
-                alert('Error deleting data');
+                alert('Error adding / update data');
             }
         });
       }
@@ -174,40 +147,37 @@ function delete_data(id)
 
 
 
-
-
-
+  <br />
     <br />
-    <br />
-    
-    <table id="tablebank" class="table table-striped table-bordered" cellspacing="0" width="100%">
+
+    <table id="tabelcargolist" class="table table-striped table-bordered" cellspacing="0" width="97%">
       <thead>
         <tr>
           <th>No</th>  
-          <th>Cargo No</th>
-          <th>Airline</th>
-          <th>Detail</th>
+          <th>SMU</th>
+          <th>ETD</th>
+          <th>Destination</th>
           <th>PCS</th>
           <th>CWT</th>
-          <th style="width:125px;">Action</th>
+          <th><span class="text-center">Status Consol</span></th>
         </tr>
       </thead>
       <tbody>
       </tbody>
 
       <tfoot>
-        <tr>
+        <tr style="visibility:hidden">
           <th>No</th>
-          <th>Cargo No</th>
-          <th>Airline</th>
-          <th>Detail</th>
+          <th>SMU</th>
+          <th>ETD</th>
+          <th>Destination</th>
           <th>PCS</th>
           <th>CWT</th>
-          <th>Action</th>
+          <th><span class="text-center">Status Consol</span></th>
         </tr>
       </tfoot>
     </table>
-            
+       
   <!-- Bootstrap modal -->
   <div class="modal fade" id="modal_form5" role="dialog">
   <div class="modal-dialog">
@@ -247,21 +217,36 @@ function delete_data(id)
     </div><!-- /.modal -->
     
     
-    <div class="modal fade" id="modal_form6" role="dialog">
-  <div class="modal-dialog">
+    <div class="modal fade" id="modal_cargo" role="dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h3 class="modal-title5">Detail Cargo</h3>
       </div>
       <div class="modal-body form">
-        <div class="detailcargo">jjj</div>
+        <div class="detailrelease" id="detailrelease">details</div>
           </div>
-          <div class="modal-footer">
-            <button type="button" id="btnSave" onclick="save5()" class="btn btn-primary">Save</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-          </div>
+          <div class="modal-footer"></div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div>
     
+ <script type="text/javascript">
+ function listcargo(myid){
+	var cargocode=$(myid).html();	
+	
+			$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('cargo_release/detail_list_cargo'); ?>",
+				 data: "cargocode="+cargocode,
+                cache:false,
+                success: function(data){
+					$("#modal_cargo").modal('show');
+                    $('#detailrelease').html(data);
+                    //document.frm.add.disabled=false;
+                }
+            });
+	
+}
+ </script>

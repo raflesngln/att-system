@@ -5,24 +5,24 @@ foreach($header as $row){
 ?>
 <div class="col-sm-6" >
 	<div class="form-group">
-    <div class="col-sm-5"><strong>House No</strong></div>
+    <div class="col-sm-4"><strong>House No</strong></div>
     <div class="col-sm-7"><strong>: <?php echo $row->HouseNo?></strong></div>
 	</div>
 <div class="form-group">
-    <div class="col-sm-5">Service</div>
+    <div class="col-sm-4">Service</div>
     <div class="col-sm-7">: <?php echo $row->Service?></div>
 	</div>
 <div class="form-group">
-    <div class="col-sm-5">ETD</div>
+    <div class="col-sm-4">ETD</div>
     <div class="col-sm-7">: <?php echo date('d-m-Y',strtotime($row->ETD))?></div>
 	</div>
 
 	<div class="form-group">
-    <div class="col-sm-5">Shipper</div>
+    <div class="col-sm-4">Shipper</div>
     <div class="col-sm-7">: <?php echo $row->sender?></div>
 	</div>
 	<div class="form-group">
-    <div class="col-sm-5">Consignee</div>
+    <div class="col-sm-4">Consignee</div>
     <div class="col-sm-7">: <?php echo $row->receiver?></div>
 	</div>
 
@@ -31,27 +31,27 @@ foreach($header as $row){
 <div class="col-sm-6">
 
 	<div class="form-group">
-    <div class="col-sm-5">Origin</div>
+    <div class="col-sm-4">Origin</div>
     <div class="col-sm-7">: <?php echo $row->Origin.'-'.$row->ori?></div>
 	</div>
     <div class="form-group">
-    <div class="col-sm-5">Destination</div>
+    <div class="col-sm-4">Destination</div>
     <div class="col-sm-7">: <?php echo $row->Destination.'-'.$row->desti?></div>
 	</div>
 <div class="form-group">
-    <div class="col-sm-5">CodeShipper</div>
+    <div class="col-sm-4">CodeShipper</div>
     <div class="col-sm-7">: <?php echo $row->CodeShipper?></div>
 	</div>
 <div class="form-group">
-    <div class="col-sm-5">CodeConsigne</div>
+    <div class="col-sm-4">CodeConsigne</div>
     <div class="col-sm-7">: <?php echo $row->CodeConsigne?></div>
 	</div>	
     <div class="form-group">
-    <div class="col-sm-5">PCS</div>
+    <div class="col-sm-4">PCS</div>
     <div class="col-sm-7">: <?php echo $row->PCS?></div>
 	</div>
     <div class="form-group">
-    <div class="col-sm-5">CWT</div>
+    <div class="col-sm-4">CWT</div>
     <div class="col-sm-7">: <?php echo $row->CWT?></div>
 	</div>
 </div>

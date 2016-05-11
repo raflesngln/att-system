@@ -10,6 +10,7 @@
     
           tablefinalsmu = $('#tablefinalsmu').DataTable({ 
             "processing": true, //Feature control the processing indicator.
+			"bInfo": false,
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
             "ajax": {
@@ -17,16 +18,16 @@
                 "type": "POST"
             },
             "columns": [
-            { "data": "no" },
+            { "data": "no" ,"orderable":false,"visible":true},
             { "data": "NoSMU" },
 			{ "data": "ETD" },
             { "data": "sender" },
-            { "data": "receiver" },
-			{ "data": "ori" },
+            { "data": "receiver","orderable":false,"visible":true },
+			{ "data": "ori","orderable":false,"visible":true },
 			{ "data": "desti" },
-			{ "data": "pcs" },
-			{ "data": "cwt" },
-            { "data": "action" }
+			{ "data": "pcs","orderable":false,"visible":true },
+			{ "data": "cwt","orderable":false,"visible":true },
+            { "data": "action","orderable":false,"visible":true }
             ]
           });  
     
@@ -169,7 +170,7 @@ function delete_person5(id)
 <div class="col-sm-4"><span>&nbsp;</span><input class="end form-control" name="end2" type="text" id="end2" readonly="readonly" value="<?php echo date('Y-m-d');?>" /></div>
 
 <div class="col-sm-1">
-  <button type="button" onclick="return FilterMasterFinal()" id="btnfilter" class="btn btn-primary btn-"><i class="fa fa-search"> Filter</i></button></div>
+  <button type="button" onclick="return FilterMasterFinal()" id="btnfilter" class="btn btn-primary btn-mini"><i class="fa fa-search"> Filter</i></button></div>
 </div>
 </form>
 </div>

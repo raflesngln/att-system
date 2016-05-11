@@ -26,7 +26,7 @@ public function ajax_list()
 		$kolom1='a.Shipper';
 		$kolom2='b.CustCode';
 		
-        $nm_coloum= array('a.HouseNo','a.Shipper','a.Consigne','a.Origin','a.Destination','a.PCS','a.CWT','a.Consolidation');
+        $nm_coloum= array('a.HouseNo','a.HouseNo','a.ETD','b.CustName','a.Consigne','a.Origin','e.PortName','a.PCS','a.CWT','a.ConsoledCWT');
         $orderby= array('HouseNo' => 'DESC');
         $where=  array('a.Consolidation <= '=>'1');
         $list = $this->mhouse->get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
@@ -49,14 +49,14 @@ public function ajax_list()
 			'Service' =>$datalist->Service,
 			'ETD' =>date('d-m-Y',strtotime($datalist->ETD)),
 			
-			'status'=>'<div class="text-left">'.$status=($datalist->RemainCWT =="0")?"<label class='label label-inverse arrowed-right white'>No</label>":"<label class='label label-warning arrowed-right white'>Remain</label>".'</div>',
+			'status'=>'<div class="text-left">'.$status=($datalist->ConsoledCWT >=1)?"<label class='label label-warning arrowed-right white'>Remain</label>":"<label class='label label-inverse arrowed-right white'>No</label>".'</div>',
             
 			'action'=> '<div class="form-inline text-center"> 
 	 <span class="form-inline"> 
 	 <form action="'.base_url().'connote_print" method="post" target="new" class="text-left">
                                                    <input type="hidden" value="'.$datalist->HouseNo.'" name=" houseno" />
                                                   <button class="btn btn-mini btn-success " type="submit"><i class="fa fa-print bigger-120"></i></button>
-<a onclick="return EditConfirm('.$datalist->Consolidation.')" href="'.base_url().'transaction/edit_outgoing_house/'.$datalist->HouseNo.'" title="Edit item"><button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>
+<a onclick="return EditConfirm('.$datalist->ConsoledCWT.')" href="'.base_url().'transaction/edit_outgoing_house/'.$datalist->HouseNo.'" title="Edit item"><button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>
  </a>
 					<a style="display:none" class="red" href="javascript:void()" title="Hapus" onclick="delete_opened('."'".$datalist->HouseNo."'".')"><button class="btn btn-mini btn-danger" type="button"><i class="icon-trash bigger-150"></i></button></a>
 												  </form>

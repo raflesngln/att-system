@@ -18,6 +18,7 @@
     
           table_closed = $('#table_closed').DataTable({ 
             "processing": true, //Feature control the processing indicator.
+			"bInfo": false,
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
             "ajax": {
@@ -25,16 +26,16 @@
                 "type": "POST"
             },
             "columns": [
-            { "data": "no" },
+            { "data": "no","orderable":false,"visible":true },
             { "data": "NoSMU" },
 			{ "data": "ETD" },
             { "data": "sender" },
-            { "data": "receiver" },
-			{ "data": "ori" },
+            { "data": "receiver","orderable":false,"visible":true },
+			{ "data": "ori","orderable":false,"visible":true },
 			{ "data": "desti" },
-			{ "data": "pcs" },
-			{ "data": "cwt" },
-            { "data": "action" }
+			{ "data": "pcs","orderable":false,"visible":true },
+			{ "data": "cwt","orderable":false,"visible":true },
+			{ "data": "FinalCWT","orderable":false,"visible":true },
             ]
           });  
     
@@ -180,7 +181,8 @@ function delete_person5(id)
 <div class="col-sm-4"><span>&nbsp;</span><input class="end form-control" name="end" type="text" id="end" readonly="readonly" value="<?php echo date('Y-m-d');?>" /></div>
 
 <div class="col-sm-1">
-  <button type="button" onclick="return FilterMasterClosed()" id="btnfilter" class="btn btn-primary btn-"><i class="fa fa-search"> Filter</i></button></div>
+  <button type="button" onclick="return FilterMasterClosed()" id="btnfilter" class="btn btn-primary btn-mini"><i class="fa fa-search"> Filter</i></button>
+  </div>
 </div>
 </form>
 </div>
@@ -201,7 +203,7 @@ function delete_person5(id)
           <th>Destination</th>
           <th style="width:125px;">PCS</th>
           <th style="width:125px;">CWT</th>
-          <th style="width:125px;">Action</th>
+          <th style="width:125px;">Final CWT</th>
         </tr>
       </thead>
       <tbody>
@@ -218,7 +220,7 @@ function delete_person5(id)
           <th>Destination</th>
           <th><span style="width:125px;">PCS</span></th>
           <th><span style="width:125px;">CWT</span></th>
-          <th>Action</th>
+          <th> Final CWT</th>
         </tr>
       </tfoot>
     </table>

@@ -6,7 +6,7 @@ class Cargo_release extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('mcargo');
+		$this->load->model('mhouse');
 		$this->load->model('model_app');
 	}
 
@@ -34,17 +34,61 @@ class Cargo_release extends CI_Controller {
 		
 	}
 
-public function ajax_list()
+public function listcargo()
 	{
 		$nm_tabel='tr_cargo_release a';
 		$nm_tabel2='ms_airline b';
 		$kolom1='a.Airline';
 		$kolom2='b.AirLineCode';
+		$select='a.CargoReleaseCode,a.CargoDetails,a.ReleaseDate,b.AirLineName,e.FlightNo,sum(d.CWT) as jumcwt,sum(d.PCS) as jumpcs';
 		
+        $nm_coloum= array('a.CargoReleaseCode','a.CargoReleaseCode','e.FlightNo','b.AirLineName','a.CargoDetails','d.CWT','d.PCS');
+        $orderby= array('a.CargoReleaseCode' => 'ASC');
+        $where=  array('a.CreatedBy'=>'2');
+        $list = $this->mhouse->get_datatablecargo($select,$nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
+        
+		$data = array();
+		$no = $_POST['start'];
+		foreach ($list as $datalist){
+			$no++;
+			$row = array(
+            'no' => $no,
+            'CargoReleaseCode' =>'<a href="#" onclick="listcargo(this);" class="text-pink">'. $datalist->CargoReleaseCode.'</a>',
+            'CargoDetails' => $datalist->CargoDetails,
+            'CWT' =>$datalist->jumcwt,
+			'PCS' =>$datalist->jumpcs,
+			'FlightNo' =>$datalist->FlightNo,
+			'AirLineName' =>$datalist->AirLineName,
+			
+            'action'=> '<div class="text-center"><a target="new" href="'.base_url().'cargo_release/print_release/'.$datalist->CargoReleaseCode.'" title="Edit item"><i class="fa fa-print fa-2x"></i>
+ </a>	
+			</div>
+					'
+            );
+			$data[] = $row;
+		}
+
+		$output = array(
+						"draw" => $_POST['draw'],
+						"recordsTotal" => $this->mhouse->count_consol($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
+						"recordsFiltered" => $this->mhouse->count_filteredconsol($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
+						"data" => $data,
+				);
+		//output to json format
+		echo json_encode($output);
+}
+public function cargolist()
+	{
+		$nm_tabel='tr_cargo_release a';
+		$nm_tabel2='ms_airline b';
+		$kolom1='a.Airline';
+		$kolom2='b.AirLineCode';
+		$select='a.CargoReleaseCode,a.CargoReleaseCode,b.AirLineName,a.CargoDetails,a.PCS,a.CWT';
+
         $nm_coloum= array('a.CargoReleaseCode','a.CargoReleaseCode','a.AirLineName','b.CargoDetails','a.PCS','a.CWT');
         $orderby= array('a.CargoReleaseCode' => 'ASC');
         $where=  array('a.CreatedBy'=>'2');
-        $list = $this->Mcargo->get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
+        $list = $this->mhouse->get_datatablesconsol($select,$nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
 		$data = array();
 		$no = $_POST['start'];
@@ -67,8 +111,8 @@ public function ajax_list()
 
 		$output = array(
 						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->Mcargo->count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
-						"recordsFiltered" => $this->Mcargo->count_filtered2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
+						"recordsTotal" => $this->mhouse->count_consol($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
+						"recordsFiltered" => $this->mhouse->count_filteredconsol($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
 						"data" => $data,
 				);
 		//output to json format

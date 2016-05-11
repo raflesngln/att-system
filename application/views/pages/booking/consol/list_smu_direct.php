@@ -1,99 +1,230 @@
-
+  <script src="<?php echo base_url('assets/datatables/js/jquery.dataTables.min.js')?>"></script>
+  <script src="<?php echo base_url('assets/datatables/js/dataTables.bootstrap.js')?>"></script>
   
-<div class="container" id="konten2">
-  <div class="row" id="contentreplace2">
-  <div class="col-sm-12 portlets ui-sortable" id="freecontent2" style="box-shadow:2px 3px 8px #CCC; border:1px #CCC solid">
-                    <div class="panel">
-                        <!--<div class="panel-header"></div>-->
-                        
-                                    <div class="form-group">
-                                        <div class="table-responsive" id="table_responsive">
-<h2><span class="label label-inverse label-large">List SMU Direct </span></h2>
-                                        <table class="table table-nostriped table-nobordered table-hover" id="tabledirect">
-                                              <thead>
-                                                
-                                                  <tr>
-                                                  <th width="24">No.</th>
-                                                  <th width="60">SMU No</th>
-                                                  <th width="77">ETD</th>
-                                                  <th width="77">Destination</th>
-                                                  <th width="43">PCS</th>
-                                                  <th width="53">CWT</th>
-                                                  <th width="61" class="text-center">Status Consol</th>
-                                                  <th width="61" class="text-center"><div align="left">Shipment Type</div></th>
-                                                </tr>
-                                              </thead>
-                                              <tbody>
- <?php 
- $no=1;
- foreach ($masterdirect as $free) {
-	 $cwt=$free->CWT;
-	 $pcs=$free->PCS;
-	 
-	 $service=($free->Service=='DOOR TO PORT' || $free->Service=='PORT TO PORT')?'<span class="label label-warning white">Direct SMU</span>':'<span class="label label-success white">Consolidation</span>';
-	 
-	 if($cwt <=1){
-		 $status1='<span class="label label-important arrowed-right white"><i class="fa fa-times"></i>NO</span>';
-	 } else {
-		 $status1='<span class="label label-success arrowed-right white"> <i class="fa fa-check"></i>YES</span>';
-	 }
-	 
-  ?>
-                                                  <tr>
-                                                    <td><?php echo $no?></td>
-                                                    <td>
-<a href="#" onclick="detailsmu2(this);"><?php echo $free->NoSMU?>
-</a>
-</td>
-                                                    <td><?php echo date("d-m-Y",strtotime($free->ETD));?></td>
-                                                    <td><div align="left"><?php echo substr($free->desti,0,50).'-'.$free->portcode?></div></td>
-                                                    <td><div align="center"><?php echo $free->PCS?></div></td>
-                                                    <td><div align="center"><?php echo $free->CWT?></div></td>
-                                                    <td><div align="center"><?php echo $status1?></div></td>
-                                                    <td><?php echo $service?></td>
-                                                  </tr>
-                <?php $no++;} ?>  
-                                                  
-                                                  <tr style="background-color:#F5F5F5">
-                                                  <td>&nbsp;</td>
-                                                  <td>&nbsp;</td>
-                                                  <td>&nbsp;</td>
-                                                  <td>&nbsp;</td>
-                                                  <td>&nbsp;</td>
-                                                  <td><div align="right"></div></td>
-                                                  <td>&nbsp;</td>
-                                                  <td>&nbsp;</td>
-                                                </tr>
-                                              </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    
-                    
+  <script type="text/javascript">
+
+    var update_methode2; //for save method string
+    var smutabeldirect;
+ 
+ $(document).ready(function() {    
+    
+          smutabeldirect = $('#smutabeldirect').DataTable({ 
+            "processing": true, //Feature control the processing indicator.
+			"bInfo": false,
+            "serverSide": true, //Feature control DataTables' server-side processing mode
+            // Load data for the table's content from an Ajax source
+            "ajax": {
+                "url": "<?php echo site_url('consol/list_smu_direct')?>",
+                "type": "POST"
+            },
+            "columns": [
+            { "data": "no" ,"orderable":false,"visible":true},
+            { "data": "NoSMU" },
+			{ "data": "ETD" },
+            { "data": "desti" },
+            { "data": "CWT","orderable":false,"visible":true },
+			{ "data": "CWT","orderable":false,"visible":true },
+			{ "data": "status" },
+
+            ]
+          });  
+    
+$('#smutabeldirect tbody').on('dblclick', 'tr', function () {
+            var tr = $(this).closest('tr');
+            var row = smutabeldirect.row(tr);
+           // alert(row.data().firstName);
+         });
+});
+
+function add_person5()
+    {
+      update_methode2 = 'add';
+      $('#myformfinal')[0].reset(); // reset form on modals
+      $('#modal_master_final').modal('show'); // show bootstrap modal
+      $('.modal-title').text('Add Linebusiness');
+	  document.getElementById("BankCode2").disabled=false;
+    }
+
+function editFinal(id)
+    {
+      update_methode2 = 'update';
+      $('#myformfinal')[0].reset(); // reset form on modals
+        
+      var nmtabel='outgoing_master';
+      var keytabel='NoSMU';
+        
+      //Ajax Load data from ajax
+      $.ajax({
+        url : "<?php echo site_url('outgoing_master/ajax_edit/')?>",
+        type: "POST",
+        data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
+        dataType: "JSON",
+        success: function(data)
+        {
+            $('[name="smuno"]').val(data.NoSMU);
+			 $('[name="smu"]').val(data.NoSMU);
+			$('[name="cwt"]').val(data.CWT);
+            $('[name="remarks"]').val(data.Remarks); 
+			$('[name="finalcwt"]').val(data.FinalCWT); 
+			
+			
+            $('#modal_master_final').modal('show');
+            $('.modal-title').text('Edit CWT Final');
+			document.getElementById("BankCode2").disabled=true;
+            
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+    }
+
+    function reloadsmudirect()
+    {
+      smutabeldirect.ajax.reload(null,false); //reload datatable ajax 
+    }
+
+function updateCWTsmu()
+    {
+      var url_action;
+      if(update_methode2 == 'add') 
+      {
+          url_action = "<?php echo site_url('outgoing_master/ajax_add')?>";
+      }
+      else
+      {
+        url_action = "<?php echo site_url('outgoing_master/updateCWT')?>";
+      }
+       // ajax adding data to database
+          $.ajax({
+            url : url_action,
+            type: "POST",
+            data: $('#myformfinal').serialize(),
+            dataType: "JSON",
+            success: function(data)
+            {
+               //if success close modal and reload ajax table
+               $('#modal_master_final').modal('hide');
+               reloadFinal();
+			   reloadClosedsmu();
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error adding / update data');
+            }
+        });
+    }
+
+function delete_person5(id)
+    {
+      if(confirm('Are you sure delete this data?'))
+      var nmtabel='outgoing_master';
+      var keytabel='NoSMU';
+      {
+        // ajax delete data to database
+          $.ajax({
+            url : "<?php echo site_url('outgoing_master/ajax_delete')?>",
+            type: "POST",
+            data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
+            dataType: "JSON",
+            success: function(data)
+            {
+               //if success reload ajax table
+               $('#modal_master_final').modal('hide');
+               reloadFinal();
+			   reloadClosedsmu();
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error adding / update data');
+            }
+        });
+      }
+    }
+
+  </script>
 
 
-          </div>
+
+  <br />
+    <br />
+
+    <table id="smutabeldirect" class="table table-striped table-bordered" cellspacing="0" width="97%">
+      <thead>
+        <tr>
+          <th>No</th>  
+          <th>SMU</th>
+          <th>ETD</th>
+          <th>Destination</th>
+          <th>PCS</th>
+          <th>CWT</th>
+          <th><span class="text-center">Status Consol</span></th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+
+      <tfoot>
+        <tr style="visibility:hidden">
+          <th>No</th>
+          <th>SMU</th>
+          <th>ETD</th>
+          <th>Destination</th>
+          <th>PCS</th>
+          <th>CWT</th>
+          <th><span class="text-center">Status Consol</span></th>
+        </tr>
+      </tfoot>
+    </table>
+       
+  <!-- Bootstrap modal -->
+  <div class="modal fade" id="modaldetaildirect" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">Form Detail SMU</h3>
       </div>
-                
-</div>
-</div>
+      <div class="modal-body form">
+      <div id="tabledetaildirect">
+                     detail
 
-
-<div id="modaldetaildirect" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:99%">
+        </div>
+        
+      </div>
+          
+    </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  
+ <div id="modalhousedirect" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id=""><small>Detail Consol</small> Master </h3>
+                <h3 id=""><small>Detail Consol</small> House            </h3>
             </div>
             <div class="smart-form scroll">
 
                     <div class="modal-body">
-
                    
-                        <div id="tabledetaildirect">
-                     
+                        <div id="tabledetailhousedirect">
+                        <table id="tbldet" class="table table-striped table-bordered" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>House</th>  
+          <th>Shipper</th>
+          <th> PCS</th>
+          <th>CWT</th>
+          <th style="width:125px;">Amount</th>
+        </tr>
+      </thead>
+
+
+
+    </table>
 
                         </div>
                      
@@ -104,9 +235,8 @@
           </div>
         </div>
     </div>
-    </div>
-    
-    <script>
+    </div> 
+  <script type="text/javascript">
 function detailsmu2(myid){
 	var smu=$(myid).html();
 	var status='direct';
@@ -132,6 +262,7 @@ function removedirect(myid){
                 url : "<?php echo base_url('transaction/remove_house_direct'); ?>",
                 data: "house="+house+"&smu="+smu,
                 success: function(data){
+					reloadsmudirect();
 					$("#modaldetaildirect").modal('hide'); 
                   // $('#tabledetaildirect').html(data);
                 }
@@ -140,6 +271,19 @@ function removedirect(myid){
 	 alert('Action Canceled !');
 	 }
 }
-
+function detailhousedirect(myid){
+	var numb=$(myid).html();
+				$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('transaction/ajax_detailHouse'); ?>",
+                data: "numb="+numb,
+                success: function(data){
+					$("#modalhousedirect").modal('show'); 
+					$('#labelhousedirect').html(numb);
+                   $('#tabledetailhousedirect').html(data);
+                }
+            });
 	
-	</script>
+}
+</script>
+    
