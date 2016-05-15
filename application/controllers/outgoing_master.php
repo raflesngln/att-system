@@ -6,7 +6,11 @@ class Outgoing_master extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('mhouse');
+        if($this->session->userdata('login_status') != TRUE ){
+            $this->session->set_flashdata('notif','LOGIN GAGAL USERNAME ATAU PASSWORD ANDA SALAH !');
+            redirect('');
+        };
+		$this->load->model('m_master_outgoing');
 		 $this->load->model('model_app');
 	}
 
@@ -30,7 +34,7 @@ public function ajax_list()
         $nm_coloum= array('a.NoSMU','a.NoSMU','a.ETD','b.CustName','c.CustName','d.PortName','e.PortName','a.PCS','a.CWT','a.CWT');
         $orderby= array('a.NoSMU' => 'desc');
         $where=  array('a.StatusProses <= '=>'3');
-        $list = $this->mhouse->get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
+        $list = $this->m_master_outgoing->get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
 		$data = array();
 		$no = $_POST['start'];
@@ -39,7 +43,7 @@ public function ajax_list()
 			$no++;
 			$row = array(
             'no' => $no,
-            'NoSMU' => $datalist->NoSMU,
+            'NoSMU' =>'<a href="#" onclick="detailsmuopen(this);">'. $datalist->NoSMU.'</a>',
             'ori' =>$datalist->ori,
 			'desti' =>$datalist->desti,
 			'Service' =>$datalist->Service,
@@ -64,8 +68,8 @@ public function ajax_list()
 
 		$output = array(
 						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->mhouse->count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
-						"recordsFiltered" => $this->mhouse->count_filtered2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
+						"recordsTotal" => $this->m_master_outgoing->count_all3($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
+						"recordsFiltered" => $this->m_master_outgoing->count_filtered3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
 						"data" => $data,
 				);
 		//output to json format
@@ -81,7 +85,7 @@ public function list_final()
         $nm_coloum= array('a.NoSMU','a.NoSMU','a.ETD','b.CustName','c.CustName','d.PortName','e.PortName','a.PCS','a.CWT','a.CWT');
         $orderby= array('a.NoSMU' => 'desc');
         $where=  array('a.StatusProses = '=>'4');
-        $list = $this->mhouse->get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
+        $list = $this->m_master_outgoing->get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
 		$data = array();
 		$no = $_POST['start'];
@@ -90,7 +94,7 @@ public function list_final()
 			$no++;
 			$row = array(
             'no' => $no,
-            'NoSMU' => $datalist->NoSMU,
+            'NoSMU' => '<a href="#" onclick="detailsmufinal(this);">'. $datalist->NoSMU.'</a>',
             'ori' =>$datalist->ori,
 			'desti' =>$datalist->desti,
 			'Service' =>$datalist->Service,
@@ -104,15 +108,14 @@ public function list_final()
 <a class="green" href="javascript:void()" title="Edit" onclick="editFinal('."'".$datalist->NoSMU."'".')"><i class="icon-pencil bigger-150"></i></a>
 			</div>
 			'
-			
             );
 			$data[] = $row;
 		}
 
 		$output = array(
 						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->mhouse->count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
-						"recordsFiltered" => $this->mhouse->count_filtered2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
+						"recordsTotal" => $this->m_master_outgoing->count_all3($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
+						"recordsFiltered" => $this->m_master_outgoing->count_filtered3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
 						"data" => $data,
 				);
 		//output to json format
@@ -126,10 +129,10 @@ public function list_closed()
 		$kolom1='a.Shipper';
 		$kolom2='b.CustCode';
 		
-       $nm_coloum= array('a.NoSMU','a.NoSMU','a.ETD','b.CustName','c.CustName','d.PortName','e.PortName','a.PCS','a.CWT','a.CWT');
+       $nm_coloum= array('a.NoSMU','a.NoSMU','a.ETD','b.CustName','c.CustName','d.PortName','e.PortName','a.PCS','a.CWT','a.FinalCWT');
         $orderby= array('a.NoSMU' => 'desc');
         $where=  array('a.StatusProses = '=>'5');
-        $list = $this->mhouse->get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
+        $list = $this->m_master_outgoing->get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
 		$data = array();
 		$no = $_POST['start'];
@@ -138,7 +141,7 @@ public function list_closed()
 			$no++;
 			$row = array(
             'no' => $no,
-            'NoSMU' => $datalist->NoSMU,
+            'NoSMU' => '<a href="#" onclick="detailsmuclosed(this);">'. $datalist->NoSMU.'</a>',
             'ori' =>$datalist->ori,
 			'desti' =>$datalist->desti,
 			'Service' =>$datalist->Service,
@@ -146,10 +149,9 @@ public function list_closed()
 			'receiver' =>$datalist->receiver,
 			'cwt' =>$datalist->CWT,
 			'pcs' =>$datalist->PCS,
-			'FinalCWT' =>$datalist->FinalCWT,
+			'FinalCWT' =>'<div class="text-left">'.$status=($datalist->FinalCWT > $datalist->CWT)?"<label class='badge badge-important white'>".$datalist->FinalCWT."</label>":"<label class='badge badge-success white'>".$datalist->FinalCWT."</label>".'</div>',
 			'ETD' =>date('d-m-Y',strtotime($datalist->ETD)),
-		
-            'action'=> '<div class="form-inline">&nbsp;&nbsp;
+            'action'=> '<div class="form-inline">
 <a style="display:none" class="green" href="javascript:void()" title="Edit" onclick="ajax_edit('."'".$datalist->NoSMU."'".')"><i class="icon-pencil bigger-150"></i></a>
 			</div>
 			'
@@ -160,20 +162,159 @@ public function list_closed()
 
 		$output = array(
 						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->mhouse->count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
-						"recordsFiltered" => $this->mhouse->count_filtered2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
+						"recordsTotal" => $this->m_master_outgoing->count_all3($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
+						"recordsFiltered" => $this->m_master_outgoing->count_filtered3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
 						"data" => $data,
 				);
 		//output to json format
 		echo json_encode($output);
 }
+public function filterfinalsmu()
+	{
+		$ab=$this->uri->segment(3);
+		$pecah=explode("_", $ab);
+		$date1=$pecah[0];
+		$date2=$pecah[1];
+		$kategori=$pecah[2];
+		$kriteria=$pecah[3];
+		$txtsearch=$pecah[4];
+		
+		if($kriteria=='startwith'){
+		$kondisi=array($kategori.' LIKE'=>$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'4');	
+		} else if($kriteria=='endwith'){
+		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch,'a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'4');	
+		} else if($kriteria=='contains'){
+		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'4');	
+		} else if($kriteria=='notcontains'){
+		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'4');	
+		} else if($kriteria=='equals'){
+		$kondisi=array($kategori =>$txtsearch,'a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'4');	
+		} else if($kriteria=='notequals'){
+		$kondisi=array($kategori.' <> ' =>$txtsearch,'a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'4');	
+		}
+		
+		$nm_tabel='outgoing_master a';
+		$nm_tabel2='ms_customer b';
+		$kolom1='a.Shipper';
+		$kolom2='b.CustCode';
+		
+       $nm_coloum= array('a.NoSMU','a.NoSMU','a.ETD','b.CustName','c.CustName','d.PortName','e.PortName','a.PCS','a.CWT','a.FinalCWT');
+        $orderby= array('a.NoSMU' => 'desc');
+       // $where=  array('a.StatusProses <= '=>$status,'a.PCS >= '=>$final,'c.CustName LIKE'=>$txtsearch.'%');
+        $where=  $kondisi;
+        $list = $this->m_master_outgoing->get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
+        
+		$data = array();
+		$no = $_POST['start'];
+		
+		foreach ($list as $datalist){
+			$no++;
+			$row = array(
+            'no' => $no,
+            'NoSMU' => '<a href="#" onclick="detailsmufinal(this);">'. $datalist->NoSMU.'</a>',
+            'ori' =>$datalist->ori,
+			'desti' =>$datalist->desti,
+			'Service' =>$datalist->Service,
+			'sender' =>$datalist->sender,
+			'receiver' =>$datalist->receiver,
+			'cwt' =>$datalist->CWT,
+			'pcs' =>$datalist->PCS,
+			'FinalCWT' =>'<div class="text-left">'.$status=($datalist->FinalCWT > $datalist->CWT)?"<label class='badge badge-important white'>".$datalist->FinalCWT."</label>":"<label class='badge badge-success white'>".$datalist->FinalCWT."</label>".'</div>',
+			'ETD' =>date('d-m-Y',strtotime($datalist->ETD)),
+             'action'=> '<div class="form-inline">
+<a class="green" href="javascript:void()" title="Edit" onclick="editFinal('."'".$datalist->NoSMU."'".')"><i class="icon-pencil bigger-150"></i></a>
+			</div>
+			'
+			
+            );
+			$data[] = $row;
+		}
 
+		$output = array(
+						"draw" => $_POST['draw'],
+						"recordsTotal" => $this->m_master_outgoing->count_all3($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
+						"recordsFiltered" => $this->m_master_outgoing->count_filtered3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
+						"data" => $data,
+				);
+		//output to json format
+		echo json_encode($output);
+}
+public function filterclosedsmu()
+	{
+		$ab=$this->uri->segment(3);
+		$pecah=explode("_", $ab);
+		$date1=$pecah[0];
+		$date2=$pecah[1];
+		$kategori=$pecah[2];
+		$kriteria=$pecah[3];
+		$txtsearch=$pecah[4];
+		
+		if($kriteria=='startwith'){
+		$kondisi=array($kategori.' LIKE'=>$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'5');	
+		} else if($kriteria=='endwith'){
+		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch,'a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'5');	
+		} else if($kriteria=='contains'){
+		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'5');	
+		} else if($kriteria=='notcontains'){
+		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'5');	
+		} else if($kriteria=='equals'){
+		$kondisi=array($kategori =>$txtsearch,'a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'5');	
+		} else if($kriteria=='notequals'){
+		$kondisi=array($kategori.' <> ' =>$txtsearch,'a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'5');	
+		}
+		
+		$nm_tabel='outgoing_master a';
+		$nm_tabel2='ms_customer b';
+		$kolom1='a.Shipper';
+		$kolom2='b.CustCode';
+		
+       $nm_coloum= array('a.NoSMU','a.NoSMU','a.ETD','b.CustName','c.CustName','d.PortName','e.PortName','a.PCS','a.CWT','a.FinalCWT');
+        $orderby= array('a.NoSMU' => 'desc');
+        //$where=  array('a.StatusProses = '=>'5');
+        $where=  $kondisi;
+        $list = $this->m_master_outgoing->get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
+        
+		$data = array();
+		$no = $_POST['start'];
+		
+		foreach ($list as $datalist){
+			$no++;
+			$row = array(
+            'no' => $no,
+            'NoSMU' => '<a href="#" onclick="detailsmuclosed(this);">'. $datalist->NoSMU.'</a>',
+            'ori' =>$datalist->ori,
+			'desti' =>$datalist->desti,
+			'Service' =>$datalist->Service,
+			'sender' =>$datalist->sender,
+			'receiver' =>$datalist->receiver,
+			'cwt' =>$datalist->CWT,
+			'pcs' =>$datalist->PCS,
+			'FinalCWT' =>'<div class="text-left">'.$status=($datalist->FinalCWT > $datalist->CWT)?"<label class='badge badge-important white'>".$datalist->FinalCWT."</label>":"<label class='badge badge-success white'>".$datalist->FinalCWT."</label>".'</div>',
+			'ETD' =>date('d-m-Y',strtotime($datalist->ETD)),
+            'action'=> '<div class="form-inline">
+<a style="display:none" class="green" href="javascript:void()" title="Edit" onclick="ajax_edit('."'".$datalist->NoSMU."'".')"><i class="icon-pencil bigger-150"></i></a>
+			</div>
+			'
+			
+            );
+			$data[] = $row;
+		}
+
+		$output = array(
+						"draw" => $_POST['draw'],
+						"recordsTotal" => $this->m_master_outgoing->count_all3($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
+						"recordsFiltered" => $this->m_master_outgoing->count_filtered3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
+						"data" => $data,
+				);
+		//output to json format
+		echo json_encode($output);
+}
 public function ajax_edit()
 	{
 	   	$NoSMU     = $this->input->post('cid');
         $nmtabel= $this->input->post('cnmtabel');
         $key    = $this->input->post('ckeytabel');
-		$data = $this->mhouse->get_by_id($NoSMU,$nmtabel,$key);
+		$data = $this->m_master_outgoing->get_by_id($NoSMU,$nmtabel,$key);
 		echo json_encode($data);
 	}
 
@@ -186,7 +327,7 @@ public function ajax_edit()
 				'BankDesc' => $this->input->post('BankDesc'), 
 				'CreatedBy' => $this->session->userdata('idusr'),
 			);
-		$insert = $this->mhouse->save($data,$nmtabel);
+		$insert = $this->m_master_outgoing->save($data,$nmtabel);
 		echo json_encode(array("status" => TRUE));
 	}
 
@@ -201,7 +342,7 @@ public function ajax_edit()
 				'ModifiedBy' => $this->session->userdata('idusr'),
 				'ModifiedDate' =>date('Y-m-d'),
 			);
-		$this->mhouse->update(array($key => $this->input->post('smuno')), $data,$nmtabel);
+		$this->m_master_outgoing->update(array($key => $this->input->post('smuno')), $data,$nmtabel);
 		echo json_encode(array("status" => TRUE));
 	}
 
@@ -211,7 +352,7 @@ public function ajax_edit()
        $nmtabel= $this->input->post('cnmtabel');
        $key    = $this->input->post('ckeytabel');
        
-		$this->mhouse->delete_by_id($id,$nmtabel,$key);
+		$this->m_master_outgoing->delete_by_id($id,$nmtabel,$key);
 		echo json_encode(array("status" => TRUE));
 	}
 	//=========oteher =====================//
@@ -286,8 +427,55 @@ function filter_closed(){
       $this->load->view('pages/booking/outgoing_master/filter_master_closed',$data);	  
 }	
 
+public function ajax_detailSMU()
+	{
+		$kode=$this->input->post('smu');
+		$status=$this->input->post('status');
+		
+	$data=array(
+	'header'=>$this->model_app->getdatapaging("a.Origin,a.Destination,a.ETD,a.NoSMU,a.ETD,a.PayCode,a.Service,b.AirLineName,a.FlightNumbDate1,c.CustName as sender,d.CustName as receiver,e.PortName as ori,f.PortName as desti,g.FlightNo",
+	"outgoing_master a",
+	"LEFT JOIN ms_airline b on a.Airlines=b.AirLineCode
+	 LEFT JOIN ms_customer c on a.Shipper=c.CustCode
+	 LEFT JOIN ms_customer d on a.Consigne=d.CustCode
+	 LEFT JOIN ms_port e on a.Origin=e.PortCode
+	 LEFT JOIN ms_port f on a.Destination=f.PortCode
+	 LEFT JOIN ms_flight g on a.FlightNumbDate1=g.FlightID
+	WHERE a.NoSMU='$kode'"),
+	
+	'smu'=>$this->model_app->getdatapaging("b.Origin,b.Destination,b.ETD,a.ConsolID,a.CWT,a.PCS,b.HouseNo,b.BookingNo,c.CustName as shipper,d.CustName as consigne,e.PortName as ori,f.PortName as desti","consol a",
+	"INNER JOIN outgoing_house b on a.HouseNo=b.HouseNo
+	 LEFT JOIN ms_customer c on c.CustCode=b.Shipper
+	 LEFT JOIN ms_customer d on d.CustCode=b.Consigne
+	 LEFT JOIN ms_port e on e.PortCode=b.Origin
+	 LEFT JOIN ms_port f on f.PortCode=b.Destination
+	WHERE a.MasterNo='$kode'")
+	);
+	$this->load->view('pages/booking/outgoing_master/details/detail_smu',$data);	
+}
+public function ajax_detailHouse()
+	{
+		$kode=$this->input->post('numb');
+	$data=array(
+	'header'=>$this->model_app->getdatapaging("a.Origin,a.Destination,a.BookingNo,a.CWT,a.PCS,a.CodeConsigne,a.CodeShipper,a.HouseNo,a.ETD,a.PayCode,a.Service,c.CustName as sender,d.CustName as receiver,e.PortName as ori,f.PortName as desti",
+	"outgoing_house a",
+	"LEFT JOIN ms_customer c on a.Shipper=c.CustCode
+	 LEFT JOIN ms_customer d on a.Consigne=d.CustCode
+	 LEFT JOIN ms_port e on a.Origin=e.PortCode
+	 LEFT JOIN ms_port f on a.Destination=f.PortCode
+	WHERE a.HouseNo='$kode'"),
+	
+	'houses'=>$this->model_app->getdatapaging("a.MasterNo,b.BookingNo,a.HouseNo,a.PCS,a.CWT,c.CustName,b.Amount,d.ETD,e.FlightNo","consol a",
+	"INNER JOIN outgoing_house b on a.HouseNo=b.HouseNo
+	 INNER JOIN ms_customer c on c.CustCode=b.Shipper
+	 LEFT JOIN outgoing_master d on d.NoSMU=a.MasterNo
+	 LEFT JOIN ms_flight e on e.FlightID=d.FlightNumbDate1
+	WHERE b.HouseNo='$kode'")
+	);
 
-
+	$this->load->view('pages/booking/outgoing_master/details/detail_house',$data);
+		
+	}
 	
 	
 }

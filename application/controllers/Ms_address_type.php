@@ -9,8 +9,7 @@ class Ms_address_type extends CI_Controller {
             $this->session->set_flashdata('notif','LOGIN GAGAL USERNAME ATAU PASSWORD ANDA SALAH !');
             redirect('');
         };
-        $this->load->model('mdata');
-		$this->load->model('model_app');
+        $this->load->model('m_customer');
         $this->load->helper('currency_format_helper');
 		date_default_timezone_set("Asia/Jakarta"); 
     }
@@ -35,7 +34,7 @@ public function ajax_list()
         $nm_coloum= array('a.AddressTypeCode','a.AddressTypeCode','a.AddressTypeName','a.AddressTypeDesc','b.FullName');
         $orderby= array('a.AddressTypeCode' => 'desc');
         $where=  array();
-        $list = $this->Mdata->get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
+        $list = $this->m_customer->get_datatables($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
 		$data = array();
 		$no = $_POST['start'];
@@ -56,8 +55,8 @@ public function ajax_list()
 
 		$output = array(
 						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->Mdata->count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
-						"recordsFiltered" => $this->Mdata->count_filtered2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
+						"recordsTotal" => $this->m_customer->count_all($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
+						"recordsFiltered" => $this->m_customer->count_filtered($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
 						"data" => $data,
 				);
 		//output to json format
@@ -69,7 +68,7 @@ public function ajax_list()
 	   	$AddressTypeCode     = $this->input->post('cid');
         $nmtabel= $this->input->post('cnmtabel');
         $key    = $this->input->post('ckeytabel');
-		$data = $this->Mdata->get_by_id($AddressTypeCode,$nmtabel,$key);
+		$data = $this->m_customer->get_by_id($AddressTypeCode,$nmtabel,$key);
 		echo json_encode($data);
 	}
 
@@ -81,9 +80,8 @@ public function ajax_add()
 				'AddressTypeDesc' => $this->input->post('AddressTypeDesc'),
 				'CreatedBy' => $this->session->userdata('idusr'),
 				'CreatedDate'=>date('Y-m-d H:i:s'),
-
 			);
-		$insert = $this->Mdata->save($data,$nmtabel);
+		$insert = $this->m_customer->save($data,$nmtabel);
 		echo json_encode(array("status" => TRUE));
 
 		
@@ -99,7 +97,7 @@ public function ajax_update()
 				'ModifiedBy'=>$this->session->userdata('idusr'),
 				'ModifiedDate'=>date('Y-m-d H:i:s'),
 			);
-		$this->Mdata->update(array($key => $this->input->post('AddressTypeCode')), $data,$nmtabel);
+		$this->m_customer->update(array($key => $this->input->post('AddressTypeCode')), $data,$nmtabel);
 		echo json_encode(array("status" => TRUE));
 	}
 
@@ -109,7 +107,7 @@ public function ajax_update()
        $nmtabel= $this->input->post('cnmtabel');
        $key    = $this->input->post('ckeytabel');
        
-		$this->Mdata->delete_by_id($id,$nmtabel,$key);
+		$this->m_customer->delete_by_id($id,$nmtabel,$key);
 		echo json_encode(array("status" => TRUE));
 	}
 }

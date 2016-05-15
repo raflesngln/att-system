@@ -198,7 +198,7 @@ footer{display:none;}
       <p class="detsend"><?php echo $data->DescofShipment;?></p></td>
     <td colspan="2" rowspan="2"><div style="margin-top:-38px;">COLLECTED BY X-SYS/DIAMBIL OLEH X-SYS</div></td>
     <td colspan="2">   <label style="color:#F00">PERNYATAN PENGIRIMAN :</label>
-        <p style="color:#F00; font-style:italic">Kami memahami dan menyetujiui bahwa kiriman senilai Rp 1.000.000,- atau lebih harus di asuransikan. Jika tidak di asuransikan, </p>
+        <p style="color:#F00; font-style:italic">Kami memahami dan menyetujui bahwa kiriman senilai Rp 1.000.000,- atau lebih harus di asuransikan. Jika tidak di asuransikan, maka ATT hanya akan menggantikan ganti rugi maksimal 10 x biaya kirim </p>
       </td>
     </tr>
   <tr>

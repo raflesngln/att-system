@@ -2,7 +2,10 @@
 class Transaction extends CI_Controller{
     function __construct(){
         parent::__construct();
-     
+		  if($this->session->userdata('login_status') != TRUE ){
+            $this->session->set_flashdata('notif','You Must Login First !');
+            redirect('');
+        };     
         $this->load->model('model_app');
 		$this->load->model('mdata');
 		$this->load->model('m_outgoing');
@@ -657,7 +660,7 @@ function cek_cnote(){
 	foreach($flight as $key => $val)
 	{
 		$flightno=$_POST['checklish'][$key];
-		$search=$this->model_app->getdata('outgoing_master',"WHERE FlightNumbDate1='$flightno'");
+		$search=$this->model_app->getdata('outgoing_master',"WHERE FlightNumbDate1='$flightno' AND StatusProses in (2,3)");
 		foreach($search as $row){
 	    $smu =$row->NoSMU;
 		$cwt =$row->CWT;
@@ -1193,9 +1196,10 @@ function detail_cargo(){
 	LEFT JOIN ms_customer e on c.Consigne=e.CustCode
 	WHERE a.FlightNo='$flight' ORDER BY a.FlightNo ASC LIMIT 1");
 	
-    $data['house']=$this->model_app->getdatapaging("*","consol a",
+    $data['smu']=$this->model_app->getdatapaging("a.MasterNo,a.PCS,a.CWT,c.StatusProses","consol a",
 	"LEFT JOIN ms_flight b on a.FlightNo=b.FlightID
-	WHERE a.FlightNo='$flight' ORDER BY a.FlightNo ASC");
+	INNER JOIN outgoing_master c on a.MasterNo=c.NoSMU
+	WHERE a.FlightNo='$flight' AND c.StatusProses in(2,3) ORDER BY a.FlightNo ASC");
 		  
 	$this->load->view('pages/booking/cargo/detail_release',$data);
 }
@@ -1229,6 +1233,24 @@ function getDetailMaster(){
 			'limitcwt' =>$datalist->LimitCWT,
 			'flightno' =>$datalist->flightno,
 			'FlightID' =>$datalist->FlightID,
+			);
+			$data[] = $row;		
+		}
+		echo json_encode($data);
+}
+function cekprimary(){
+	
+	$smu=$this->input->post('smu');
+       $list = $this->model_app->getdata('outgoing_master',"WHERE NoSMU ='$smu'");
+        //$list = $this->model_app->subsmu($nosmu,$smu);
+
+		$data = array();
+		foreach ($list as $datalist){
+			
+			$row = array(
+            'NoSMU' => $datalist->NoSMU,
+            'confirmerror' => 'SMU duplicated !',
+            'confirmsuccess' => 'Data oke!',
 			);
 			$data[] = $row;		
 		}
@@ -1661,9 +1683,9 @@ function print_outgoing_master(){
 		'grandVolume' =>$this->input->post('t_volume'),
 		'Discount' =>$this->input->post('txtdiskon'),
 		'PCS' =>$this->input->post('t_pacs'),
-		'ConsoledPCS' =>$this->input->post('t_pacs'),		
+		'RemainPCS' =>$this->input->post('t_pacs'),		
 		'CWT' =>$this->input->post('ori_cwt'),
-		'ConsoledCWT' =>$this->input->post('ori_cwt'),
+		'RemainCWT' =>$this->input->post('ori_cwt'),
 		'SpecialIntraction' =>$this->input->post('special'),
 		'DeclareValue' =>$this->input->post('declare'),		
 		'DescofShipment' =>$this->input->post('description'),

@@ -71,7 +71,7 @@ $no=1;
       ?>
                                                 <tr class="gradeX">
                                                     <td><?php echo $no?></td>
-                                                    <td><?php echo $data->custName?></td>
+                                                    <td><?php echo $data->CustName?></td>
                                                     <td><?php echo $data->Name?></td>
                                                     <td><?php echo $data->ori?></td>
                                                     <td><?php echo $data->dest?></td>
@@ -128,11 +128,11 @@ $no=1;
                         <label class="col-sm-3 control-label"> Customer </label>
                         <div class="col-sm-9"><span class="controls">
 <select name="cust" id="cust" required="required" class="form-control">
-                            <option value="<?php echo $row->custCode;?>"><?php echo $row->custName;?></option>
+                            <option value="<?php echo $row->CustCode;?>"><?php echo $row->CustName;?></option>
                             <?php
   foreach($cust as $ct){
       ?>
-                            <option value="<?php echo $ct->custCode;?>"><?php echo $ct->custName;?></option>
+                            <option value="<?php echo $ct->CustCode;?>"><?php echo $ct->CustName;?></option>
                             <?php } ?>
                           </select>
                         </span>
@@ -250,7 +250,7 @@ $no=1;
                             <?php
   foreach($cust as $ct){
       ?>
-                            <option value="<?php echo $ct->custCode;?>"><?php echo $ct->custName;?></option>
+                            <option value="<?php echo $ct->CustCode;?>"><?php echo $ct->CustName;?></option>
                             <?php } ?>
                           </select>
                         </span></div>
@@ -278,7 +278,7 @@ $no=1;
                             <?php
   foreach($city as $cty){
       ?>
-                            <option value="<?php echo $cty->cyName;?>"><?php echo $cty->cyName;?></option>
+                            <option value="<?php echo $cty->PortCode;?>"><?php echo $cty->PortCode.' - '.$cty->PortName;?></option>
                             <?php } ?>
                           </select>
 </span></div>
@@ -292,7 +292,7 @@ $no=1;
                             <?php
   foreach($city as $cty){
       ?>
-                            <option value="<?php echo $cty->cyName;?>"><?php echo $cty->cyName;?></option>
+                            <option value="<?php echo $cty->PortCode;?>"><?php echo $cty->PortCode.' - '.$cty->PortName;?></option>
                             <?php } ?>
                           </select>
 </span></div>

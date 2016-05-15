@@ -11,6 +11,7 @@
           housetable = $('#housetable').DataTable({ 
             "processing": true, //Feature control the processing indicator.
             "bInfo": false, 
+			"order":[[6,"asc"],[2,"desc"],[1,"asc"]],
 			"serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
             "ajax": {
@@ -157,7 +158,7 @@ function delete_person5(id)
           <th>HouseNo</th>
           <th>ETD</th>
           <th>Destination</th>
-          <th>PCS</th>
+          <th>QTY</th>
           <th>CWT</th>
           <th><span class="text-center">Status Consol</span></th>
           <th>Shipment Type</th>
@@ -172,7 +173,7 @@ function delete_person5(id)
           <th>HouseNo</th>
           <th>ETD</th>
           <th>Destination</th>
-          <th>PCS</th>
+          <th>QTY</th>
           <th>CWT</th>
           <th><span class="text-center">Status Consol</span></th>
           <th>Shipment Type</th>
@@ -184,8 +185,8 @@ function delete_person5(id)
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title">Form Detail SMU</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title">Form Detail SMU</h3>
       </div>
       <div class="modal-body form">
       <div id="tabledetailsmuinhouse">
@@ -218,7 +219,7 @@ function delete_person5(id)
         <tr>
           <th>House</th>  
           <th>Shipper</th>
-          <th> PCS</th>
+          <th> QTY</th>
           <th>CWT</th>
           <th style="width:125px;">Amount</th>
         </tr>

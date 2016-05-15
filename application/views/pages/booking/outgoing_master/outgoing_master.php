@@ -111,17 +111,18 @@ function toRp(angka){
 								<div class="span10">
 									<div class="tabbable">
 										<ul class="nav nav-tabs" id="myTab">
+
 											<li class="active">
 												<a data-toggle="tab" href="#home">
-													<i class="green fa fa-folder-open bigger-110"></i>
-		List Of Open SMU
+													<i class="green fa fa-plus bigger-110"></i>
+		Entry New SMU
 												</a>
 											</li>
 
 											<li>
 												<a data-toggle="tab" href="#profile">
-  <i class="green fa fa-plus bigger-110"></i>
-		Entry New SMU
+  <i class="green fa fa-folder-open bigger-110"></i>
+		List Of Open SMU
 		
 												</a>
 											</li>
@@ -145,13 +146,13 @@ function toRp(angka){
 										<div class="tab-content container">
 											<div id="home" class="tab-pane in active">
 <p>
-  <?php $this->load->view('pages/booking/outgoing_master/list_outgoing_open');?>
+  <?php $this->load->view('pages/booking/outgoing_master/input_outgoing_master');?>
 </p>
 											</div>
 
 											<div id="profile" class="tab-pane">
 <p>
-  <?php $this->load->view('pages/booking/outgoing_master/input_outgoing_master');?>
+  <?php $this->load->view('pages/booking/outgoing_master/list_outgoing_open');?>
 </p>
 											</div>
 <div id="final" class="tab-pane">

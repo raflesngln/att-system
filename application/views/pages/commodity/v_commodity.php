@@ -48,20 +48,15 @@
                                         <table class="table table-striped table-bordered table-hover">
                                               <thead>
                                                 <tr>
-                                                  <th height="21" colspan="12"><div align="left"><a class="btn-addnew" href="#modaladd" data-toggle="modal" title="Add">
+                                                  <th height="21" colspan="6"><div align="left"><a class="btn-addnew" href="#modaladd" data-toggle="modal" title="Add">
                                                     <button class="btn btn-blue"><i class="icon-plus icons"></i>Add commodity</button></a></div></th>
                                                 </tr>
                                                 <tr height="50">
-                                                  <th>No.</th>
-                                                  <th>Code</th>
-                                                  <th>Name</th>
-                                                  <th>Section</th>
-                                                  <th>Remarks</th>
-                                                  <th>CreateBy</th>
-                                                  <th>Create Date</th>
-                                                  <th>Modif by.</th>
-                                                  <th>Modif Date</th>
-                                                  <th colspan="2" class="text-center">Actions</th>
+                                                  <th width="24">No.</th>
+                                                  <th width="124">Code</th>
+                                                  <th width="152">Name</th>
+                                                  <th width="261">Remarks</th>
+                                                  <th width="51" class="text-center">Actions</th>
                                                 </tr>
                                               </thead>
                                               <tbody>
@@ -72,33 +67,26 @@ foreach($list as $data){
 			?>
                                                 <tr class="gradeX">
                                                     <td><?php echo $no?></td>
-                                                    <td><?php echo $data->commCode?></td>
-                                                    <td><?php echo $data->Name?></td>
-                                                    <td><?php echo $data->Section?></td>
-                                                    <td><?php echo $data->Remarks?></td>
-                                                    <td><?php echo $data->CreateBy?></td>
-                                                    <td><?php echo date("d-m-Y / h:m:s",strtotime($data->CreateDate)); ?></td>
-                                                    <td><?php echo $data->ModifiedBy?></td>
-                                                    <td><?php echo date("d-m-Y / h:m:s",strtotime($data->ModifiedDate)); ?></td>
-                                                    <td class="text-center">
-                                                      <a href="#modaledit<?php echo $data->commCode?>" data-toggle="modal" title="Edit">
-                                                      <button class="btn btn-primary btn-small tooltip-info" title="Edit data">
-                                                      <i class="icon-edit icon-1x icon-only"></i>
-                                                      </button>                                          
-                                                      </a>                                              
-                                                    </td>
-                                                           <td>
-                                                  <a href="<?php echo base_url();?>commodity/delete_commodity/<?php echo $data->commCode?>" onClick="return confirm('Yakin Hapus  Data !!');">
-                                               <button class="btn btn-danger btn-small" title="Delete Data">
-                                              	<i class="icon-trash icon-1x icon-only"></i>
-                                              	</button>
-                                                  </a>
-                                       
+                                                    <td><?php echo $data->CommCode?></td>
+                                                    <td><?php echo $data->CommName?></td>
+                                                    <td><?php echo $data->CommDesc?></td>
+                                                    <td>
+                                                      <a href="#modaledit<?php echo $data->CommCode?>" data-toggle="modal" title="Edit">
+                                                        <button class="btn btn-primary btn-small tooltip-info" title="Edit data">
+                                                        <i class="icon-edit icon-1x icon-only"></i>
+                                                        </button>                                          
+                                                      </a>
+                                                      <a href="<?php echo base_url();?>commodity/delete_commodity/<?php echo $data->CommCode?>" onClick="return confirm('Yakin Hapus  Data !!');">
+                                                      <button class="btn btn-danger btn-small" title="Delete Data">
+                                                       <i class="icon-trash icon-1x icon-only"></i>
+                                                      </button>
+                                                      </a>
+                                                      
                                                     </td>
                                                 </tr>
         <?php $no++; } ;?>
                                                 <tr class="gradeX pagin">
-                                                  <th colspan="12" scope="row">
+                                                  <th colspan="6" scope="row">
 												  <?php echo $paginator;?></th>
                                                 </tr>                                
                                                 
@@ -124,7 +112,7 @@ foreach($list as $data){
     foreach($list as $row){
        		
         ?>
-<div id="modaledit<?php echo $row->commCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="modaledit<?php echo $row->CommCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -139,31 +127,23 @@ foreach($list as $data){
                       <div class="form-group">
                         <label class="col-sm-3 control-label"> Code</label>
     <div class="col-sm-9">
-    <input name="code" type="text" class="form-control" id="code" value="<?php echo $row->commCode;?>" maxlength="10" readonly="readonly"/>
+    <input name="code" type="text" class="form-control" id="code" value="<?php echo $row->CommCode;?>" maxlength="10" readonly="readonly"/>
     <span class="controls">
-    <input type="hidden" name="id" id="id" value="<?php echo $row->commCode;?>" />
+    <input type="hidden" name="id" id="id" value="<?php echo $row->CommCode;?>" />
     </span></div>
                         <div class="clearfix"></div>
                       </div>
   <div class="form-group">
                         <label class="col-sm-3 control-label"> Name</label>
     <div class="col-sm-9">
-    <input name="name" type="text" class="form-control" id="name" value="<?php echo $row->Name;?>" />
+    <input name="name" type="text" class="form-control" id="name" value="<?php echo $row->CommName;?>" />
     </div>
                         <div class="clearfix"></div>
                       </div>
-   <div class="form-group">
-                        <label class="col-sm-3 control-label">Section</label>
-    <div class="col-sm-9">
-    <input name="section" type="text" class="form-control" id="section" value="<?php echo $row->Section;?>" />
-    </div>
-                        <div class="clearfix"></div>
-                      </div>
-
   <div class="form-group">
-                        <label class="col-sm-3 control-label">Remarks</label>
+              <label class="col-sm-3 control-label">Remarks</label>
     <div class="col-sm-9">
-      <textarea name="remarks" cols="30" rows="3" class="form-control" id="remarks" required="required"><?php echo $row->Remarks;?></textarea>
+      <textarea name="remarks" cols="30" rows="3" class="form-control" id="remarks" required="required"><?php echo $row->CommDesc;?></textarea>
     </div>
                         <div class="clearfix"></div>
                       </div> 
@@ -215,14 +195,7 @@ foreach($list as $data){
                         <div class="clearfix"></div>
                       </div>
  <div class="form-group">
-                        <label class="col-sm-3 control-label">Section</label>
-                        <div class="col-sm-9"><span class="controls">
-                <input name="section" type="text" class="form-control"  id="section" required="required" />
-            </span></div>
-                        <div class="clearfix"></div>
-                      </div>
-  <div class="form-group">
-                        <label class="col-sm-3 control-label">Remarks</label>
+            <label class="col-sm-3 control-label">Remarks</label>
                         <div class="col-sm-9"><span class="controls">
                         <textarea name="remarks" cols="30" rows="3" class="form-control" id="remarks" required="required"></textarea>
             </span></div>

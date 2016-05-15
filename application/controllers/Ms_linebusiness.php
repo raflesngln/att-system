@@ -6,7 +6,11 @@ class Ms_linebusiness extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('mdata');
+        if($this->session->userdata('login_status') != TRUE ){
+            $this->session->set_flashdata('notif','LOGIN GAGAL USERNAME ATAU PASSWORD ANDA SALAH !');
+            redirect('');
+        };
+		$this->load->model('m_customer');
 	}
 
 	public function index()
@@ -29,7 +33,7 @@ public function ajax_list()
         $nm_coloum= array('a.LineBusinessID','a.LineBusinessID','a.LineBusinesName','a.LineBusinessDesc','b.FullName');
         $orderby= array('a.LineBusinessID' => 'desc');
         $where=  array();
-        $list = $this->Mdata->get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
+        $list = $this->m_customer->get_datatables($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
 		$data = array();
 		$no = $_POST['start'];
@@ -42,16 +46,16 @@ public function ajax_list()
             'LineBusinessDesc' =>$datalist->LineBusinessDesc,
 			'FullName' =>$datalist->FullName,
 			
-            'action'=> '<a class="green" href="javascript:void()" title="Edit" onclick="edit_person3('."'".$datalist->LineBusinessID."'".')"><i class="icon-pencil bigger-150"></i></a>&nbsp;&nbsp;
-				    <a class="red" href="javascript:void()" title="Hapus" onclick="delete_person3('."'".$datalist->LineBusinessID."'".')"><i class="icon-trash bigger-150"></i></a>'
+            'action'=> '<a class="green" href="javascript:void()" title="Edit" onclick="edit_business('."'".$datalist->LineBusinessID."'".')"><i class="icon-pencil bigger-150"></i></a>&nbsp;&nbsp;
+				    <a class="red" href="javascript:void()" title="Hapus" onclick="delete_business('."'".$datalist->LineBusinessID."'".')"><i class="icon-trash bigger-150"></i></a>'
             );
 			$data[] = $row;
 		}
 
 		$output = array(
 						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->Mdata->count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
-						"recordsFiltered" => $this->Mdata->count_filtered2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
+						"recordsTotal" => $this->m_customer->count_all($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
+						"recordsFiltered" => $this->m_customer->count_filtered($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
 						"data" => $data,
 				);
 		//output to json format
@@ -63,7 +67,7 @@ public function ajax_edit()
 	   	$LineBusinessID     = $this->input->post('cid');
         $nmtabel= $this->input->post('cnmtabel');
         $key    = $this->input->post('ckeytabel');
-		$data = $this->Mdata->get_by_id($LineBusinessID,$nmtabel,$key);
+		$data = $this->m_customer->get_by_id($LineBusinessID,$nmtabel,$key);
 		echo json_encode($data);
 	}
 
@@ -74,8 +78,9 @@ public function ajax_edit()
 				'LineBusinesName' => $this->input->post('LineBusinesName'),
 				'LineBusinessDesc' => $this->input->post('LineBusinessDesc'),
 				'CreatedBy' => $this->session->userdata('idusr'),
+				'CreatedDate'=>date('Y-m-d H:i:s'),
 			);
-		$insert = $this->Mdata->save($data,$nmtabel);
+		$insert = $this->m_customer->save($data,$nmtabel);
 		echo json_encode(array("status" => TRUE));
 	}
 
@@ -86,8 +91,10 @@ public function ajax_edit()
 		$data = array(
 				'LineBusinesName' => $this->input->post('LineBusinesName'),
 				'LineBusinessDesc' => $this->input->post('LineBusinessDesc'),
+				'ModifiedBy'=>$this->session->userdata('idusr'),
+				'ModifiedDate'=>date('Y-m-d H:i:s'),
 			);
-		$this->Mdata->update(array($key => $this->input->post('LineBusinessID')), $data,$nmtabel);
+		$this->m_customer->update(array($key => $this->input->post('LineBusinessID')), $data,$nmtabel);
 		echo json_encode(array("status" => TRUE));
 	}
 
@@ -97,7 +104,7 @@ public function ajax_edit()
        $nmtabel= $this->input->post('cnmtabel');
        $key    = $this->input->post('ckeytabel');
        
-		$this->Mdata->delete_by_id($id,$nmtabel,$key);
+		$this->m_customer->delete_by_id($id,$nmtabel,$key);
 		echo json_encode(array("status" => TRUE));
 	}
 }

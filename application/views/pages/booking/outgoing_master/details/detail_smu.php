@@ -72,7 +72,7 @@ foreach($header as $row){
 
   ?>
         <tr>
-          <td><a href="#" onclick="detailhouseconsol(this);"><?php echo $row->HouseNo?>
+          <td><a href="#" onclick="detailhouseopen(this);"><?php echo $row->HouseNo?>
 </a></td>
           <td><?php echo date('d-m-Y',strtotime($row->ETD))?></td>
           <td><?php echo $row->shipper?></td>

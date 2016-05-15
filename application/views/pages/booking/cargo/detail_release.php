@@ -40,7 +40,7 @@
                                               <tbody>
  <?php 
  $no=1;
- foreach ($house as $row) {
+ foreach ($smu as $row) {
 	 
 	 $air=explode('/',$row->FlightNumbDate1);
 	 $kode=$air[0];

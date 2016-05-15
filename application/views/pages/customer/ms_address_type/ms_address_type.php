@@ -157,13 +157,7 @@ function delete_person(id)
     <button class="btn-normal" onclick="add_person()"><i class="fa fa-plus fa-2x"></i> </button>
     <br />
     <br />
-    <form method="post" class="form-inline pull-right" style="margin-right:10px">
-    <h5>Sorting Periode</h5>
-    <input type="text" id="tgl1" name="tgl1" class="form-control" value="<?php echo date('Y-m-d');?>" readonly="readonly" />
-    S/D
-    <input type="text" id="tgl2" name="tgl2" class="form-control" value="<?php echo date('Y-m-d');?>" readonly="readonly"/>
-    <button type="submit" name="btn-periode" class="btn btn-mini btn-primary"><i class="icon icon-exchange"></i> SORT</button>
-    </form>
+    
    
     
     <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">

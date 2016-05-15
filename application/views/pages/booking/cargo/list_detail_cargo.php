@@ -35,7 +35,7 @@
                                                   <th>SMU</th>
                                                   <th>FlightNo</th>
                                                   <th>ETD</th>
-                                                  <th>PCS</th>
+                                                  <th>QTY</th>
                                                   <th><div align="center">CWT</div></th>
                                                 </tr>
                                           <tbody>
@@ -53,7 +53,7 @@
   ?>
 
                                                   <tr align="left" class="gradeX">
-                                                    <td><?php echo $row->smu; ?></td>
+           <td><a href="#" onclick="detailsmucargo(this);"><?php echo $row->smu; ?></a></td>
                                                     <td><?php echo $row->FlightNo; ?></td>
                                                     <td><?php echo date('d-m-Y',strtotime($row->ETD)); ?></td>
                                                     <td><div align="right"><?php echo $row->PCS; ?></div></td>

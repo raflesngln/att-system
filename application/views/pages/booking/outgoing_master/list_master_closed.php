@@ -19,6 +19,7 @@
           table_closed = $('#table_closed').DataTable({ 
             "processing": true, //Feature control the processing indicator.
 			"bInfo": false,
+			"order":[[1,"desc"],[9,"desc"]],
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
             "ajax": {
@@ -55,7 +56,7 @@ function add_person5()
 	  document.getElementById("BankCode2").disabled=false;
     }
 
-function edit_final(id)
+function edit_closed(id)
     {
       save_method5 = 'update';
       $('#form_closed')[0].reset(); // reset form on modals
@@ -158,32 +159,55 @@ function delete_person5(id)
 
 
 
-<div class="row pull-right" style="margin-right:30px">
-
+<div class="row pull-right" style="margin-right:40px">
 <form class="form">
-<div class="row">
-<div class="col-sm-5">
-<select name="status" id="status" class="form-control" onchange="return getStatus(this);">
-<option value="all">All</option>
-<option value="destination">Filter by Destination</option>
-<option value="shipper">Filter by Shipper</option>
-</select>
-</div>
-<div class="col-sm-5">
-<select name="status2" id="status2" class="form-control">
-<option value="all">All</option>
+<div class="row form-inline">
+<input name="start3" type="text" class="start form-control" id="start3" readonly="readonly" value="<?php echo date('Y-m-d');?>" onchange="return getNilai3(this)" />
+ &nbsp; S/D &nbsp; 
+<input class="end form-control" name="end3" type="text" id="end3" readonly="readonly" value="<?php echo date('Y-m-d');?>" onchange="return getNilai3(this)"/>
 
-</select>
 </div><div class="clearfix"></div>
 
-<div class="col-sm-4"><span>&nbsp;</span><input name="start" type="text" class="start form-control" id="start" readonly="readonly" value="<?php echo date('Y-m-d');?>" /></div>
+<div class="row">
+<div class="form-group">
+<div class="col-sm-5">Filter by Category</div>
+<div class="col-sm-6">
+<select name="kategori3" id="kategori3" class="form-control" onchange="return getNilai3(this)">
+<option value="a.NoSMU">SMU</option>
+<option value="b.CustName">Shipper</option>
+<option value="c.CustName">Consigne</option>
+<option value="d.PortName">Origin</option>
+<option value="e.PortName">Destination</option>
+</select>
+</div></div><div class="clearfix"></div>
 
-<div class="col-sm-4"><span>&nbsp;</span><input class="end form-control" name="end" type="text" id="end" readonly="readonly" value="<?php echo date('Y-m-d');?>" /></div>
+<div class="form-group">
+<div class="col-sm-5">Criteria</div>
+<div class="col-sm-6">
+<select name="kriteria3" id="kriteria3" class="form-control" onchange="return getNilai3(this)">
+<option value="equals">Equals</option>
+<option value="notequals">Not Equals</option>
+<option value="startwith">Start With</option>
+<option value="endwith">End With</option>
+<option value="contains">Contains</option>
+<option value="notcontains">Not Contains</option>
+</select>
+</div></div><div class="clearfix"></div>
 
-<div class="col-sm-1">
-  <button type="button" onclick="return FilterMasterClosed()" id="btnfilter" class="btn btn-primary btn-mini"><i class="fa fa-search"> Filter</i></button>
-  </div>
+<div class="form-group">
+
+<label class="col-sm-11"><span class="block input-icon input-icon-right">
+<input name="txtsearch3" type="text" class="form-control" id="txtsearch3" placeholder="Type search" onkeyup="return getNilai3(this)">
+<i class="icon-search"></i></span></label>
+
 </div>
+
+
+                                                        
+</div>
+
+
+<div class="clearfix"></div>
 </form>
 </div>
     <br />
@@ -191,7 +215,7 @@ function delete_person5(id)
  </br>
  <div class="col-sm-12 portlets ui-sortable">
 <div class="table-responsive" id="divfinal">
-    <table id="table_closed" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <table id="table_closed" class="table table-striped table-bordered" cellspacing="0" width="96%" style="margin-left:15px">
       <thead>
         <tr>
           <th>No</th>  
@@ -201,9 +225,9 @@ function delete_person5(id)
           <th>Consignee</th>
           <th>Origin</th>
           <th>Destination</th>
-          <th style="width:125px;">PCS</th>
-          <th style="width:125px;">CWT</th>
-          <th style="width:125px;">Final CWT</th>
+          <th style="width:80px;">QTY</th>
+          <th style="width:80px;">CWT</th>
+          <th style="width:80px;">Final CWT</th>
         </tr>
       </thead>
       <tbody>
@@ -218,48 +242,60 @@ function delete_person5(id)
           <th>Consignee</th>
           <th>Origin</th>
           <th>Destination</th>
-          <th><span style="width:125px;">PCS</span></th>
-          <th><span style="width:125px;">CWT</span></th>
+          <th><span>QTY</span></th>
+          <th><span>CWT</span></th>
           <th> Final CWT</th>
         </tr>
       </tfoot>
     </table>
   </div>   
-  </div>       
-  <!-- Bootstrap modal -->
-  <div class="modal fade" id="modal_closed" role="dialog">
+  </div>    
+  
+   <div class="clearfix"></div>
+  <!-- INFO --><br />
+ <div class="col-sm-12 alert alert-warning green" style="margin-left:-23px;font-style:italic">
+<i class="icon-bullhorn green bigger-150">&raquo;</i>
+<strong> List of Closed SMU </strong>
+<p>List ini untuk menampilkan SMU yang telah dikonsol dan sudah di<strong> RELEASE</strong> dan juga sudah di <strong>Final CWT</strong></p>
+<li>List Closed SMU menampilkan semua SMU yg telah selesai dalam tahap Proses</li>
+
+
+</div>
+ <!-- end info -->   
+ <!-- Bootstrap modal -->
+  <div class="modal fade" id="modal_master_closed" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title5">Form</h3>
+        <h3 class="modal-title">Form</h3>
       </div>
       <div class="modal-body form">
-        <form action="#" id="form_closed" class="form-horizontal">
-          <input name="smuno2" type="hidden" id="smuno2" value=""/> 
+        <form action="#" id="myformclosed" class="form-horizontal">
+          <input name="smuno" type="hidden" id="smuno" value=""/> 
           <div class="form-body">
 <div class="form-group">
               <label class="control-label col-md-3 text-left">SMU</label>
               <div class="col-md-9">
-                <input name="smu2" type="text" class="form-control nama" id="smu2" placeholder="Name" value="" readonly="readonly" />
+                <input name="smu" type="text" class="form-control nama" id="smu" placeholder="Name" value="" readonly="readonly" />
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-md-3"> CWT</label>
               <div class="col-md-9">
-                <input name="cwt2" type="text" class="form-control nama" id="cwt2" placeholder="Name" value="" readonly="readonly" />
+                <input name="cwt" type="text" class="form-control nama" id="cwt" placeholder="Name" value="" readonly="readonly" />
               </div>
             </div>
 <div class="form-group">
               <label class="control-label col-md-3">Final CWT</label>
               <div class="col-md-9">
-                <input name="finalcwt2" type="text" class="form-control nama" id="finalcwt2" placeholder="Name" value="" />
+                <input name="finalcwt" type="text" class="form-control nama" id="finalcwt" placeholder="Name" value="" />
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-md-3">Remarks</label>
               <div class="col-md-9">
-                <textarea name="remarks2" placeholder="decription"class="form-control" id="remarks2"></textarea>
+                <textarea name="remarks" placeholder="decription"class="form-control" id="remarks"></textarea>
               </div>
             </div>
             
@@ -268,12 +304,72 @@ function delete_person5(id)
       </div>
           <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-            
+            <button type="button" id="btnSave" onclick="updateCWTsmu()" class="btn btn-primary">Update</button>
             
           </div>
     </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+  
+ <!-- Bootstrap modal -->
+  <div class="modal fade" id="modaldetailsmuclosed" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title">Form Detail SMU</h3>
+      </div>
+      <div class="modal-body form">
+      <div id="tabledetailclosed">
+                     Detail
+
+        </div>
+        
+      </div>
+        
+    </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  
+ <div id="modalhouseclosed" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id=""><small>Detail Consol</small> House            </h3>
+            </div>
+            <div class="smart-form scroll">
+
+                    <div class="modal-body">
+                   
+                        <div id="tabledetailhouseclosed">
+                        <table id="tbldet" class="table table-striped table-bordered" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>House</th>  
+          <th>Shipper</th>
+          <th>QTY</th>
+          <th>CWT</th>
+          <th style="width:125px;">Amount</th>
+        </tr>
+      </thead>
+
+
+
+    </table>
+
+                        </div>
+                     
+                     
+              </div>
+            
+           
+          </div>
+        </div>
+    </div>
+    </div>
+  <!-- /.modal --> 
   
   
   <script type="text/javascript">
@@ -292,24 +388,24 @@ function delete_person5(id)
             });
         });
 	
-	 $("#txtsearch").keyup(function(){
-            var txtsearch = $('#txtsearch').val();
+	 $("#txtsearch333").keyup(function(){
+            var txtsearch3 = $('#txtsearch3').val();
              // alert('hai' + idcnote);
 				$.ajax({
                 type: "POST",
                 url : "<?php echo base_url('transaction/search_outgoing_house'); ?>",
-                data: "txtsearch="+txtsearch,
+                data: "txtsearch3="+txtsearch3,
                 success: function(data){
                    $('#table_connote').html(data);
                 }
             });
         });
 $("#btnsearch").click(function(){
-            var txtsearch = $('#txtsearch').val();
+            var txtsearch3 = $('#txtsearch3').val();
 				$.ajax({
                 type: "POST",
                 url : "<?php echo base_url('transaction/search_outgoing_house'); ?>",
-                data: "txtsearch="+txtsearch,
+                data: "txtsearch3="+txtsearch3,
                 success: function(data){
                    $('#table_connote').html(data);
                 }
@@ -359,5 +455,68 @@ $("#status").change(function(e) {
        });
 	}
 });	
+function detailsmuclosed(myid){
+	var smu=$(myid).html();
+	var status='consol';
+             // alert('hai' + idcnote);
+				$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('outgoing_master/ajax_detailSMU'); ?>",
+                data: "smu="+smu+"&status="+status,
+                success: function(data){
+					$("#modaldetailsmuclosed").modal('show'); 
+                   $('#tabledetailclosed').html(data);
+                }
+            });
+	
+}
+function detailhouseclosed(myid){
+	var numb=$(myid).html();
+				$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('outgoing_master/ajax_detailHouse'); ?>",
+                data: "numb="+numb,
+                success: function(data){
+					$("#modalhouseclosed").modal('show'); 
+					$('#labelhouseclosed').html(numb);
+                   $('#tabledetailhouseclosed').html(data);
+                }
+            });
+	
+}
+function getNilai3(inputan){
+	var tg1=$("#start3").val();
+	var tg2=$("#end3").val();
+	var pisah1=tg1.split('-');
+	var pisah2=tg2.split('-');
+	var obj_tgl=new Date();
+	
+	var tgl1_leave=obj_tgl.setFullYear(pisah1[0],pisah1[1],pisah1[2]);
+	var tgl2_leave=obj_tgl.setFullYear(pisah2[0],pisah2[1],pisah2[2]);
+	var hasil=(tgl2_leave-tgl1_leave)/(60*60*24*1000);
+	
+	if(hasil >=30 || hasil < 0){
+		
+		alert('Jumlah Rentang waktu Pencarian Maksimal 7 Hari !');
+		return false;
+	} else {
+		
+	var start3=$("#start3").val();
+	var end3=$("#end3").val();
+	var kategori3=$("#kategori3").val();
+	var kriteria3=$("#kriteria3").val();
+	var txtsearch3=$("#txtsearch3").val();
+	
+	var inputan=start3+"_"+end3+"_"+kategori3+"_"+kriteria3+"_"+txtsearch3;
+
+	if(txtsearch3 !=''){
+table_closed.ajax.url('<?php echo site_url()?>outgoing_master/filterclosedsmu/'+inputan).load();
+	} else {
+table_closed.ajax.url('<?php echo site_url()?>outgoing_master/list_closed').load();		
+	}
+}
+
+	
+}
 </script>
     

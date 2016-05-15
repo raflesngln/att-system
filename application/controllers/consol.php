@@ -6,6 +6,10 @@ class Consol extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+        if($this->session->userdata('login_status') != TRUE ){
+            $this->session->set_flashdata('notif','LOGIN GAGAL USERNAME ATAU PASSWORD ANDA SALAH !');
+            redirect('');
+        };
 		$this->load->model('mhouse');
 		 $this->load->model('model_app');
 	}
@@ -126,7 +130,7 @@ public function list_house_consol()
 		$nm_tabel2='ms_port b';
 		$kolom1='a.Destination';
 		$kolom2='b.PortCode';
-		$select='a.ETD,a.HouseNo,a.Consolidation,a.Service,a.CWT,a.PCS,a.Destination as portcode,b.PortName as desti';
+		$select='a.ConsoledCWT,a.ETD,a.HouseNo,a.Consolidation,a.Service,a.CWT,a.PCS,a.Destination as portcode,b.PortName as desti';
 
         $nm_coloum= array('a.HouseNo','a.HouseNo','a.ETD','a.Destination','a.PCS','a.CWT','a.Consolidation','a.Service');
         $orderby= array('a.HouseNo' => 'desc');
@@ -140,7 +144,7 @@ public function list_house_consol()
 			$no++;
 			$row = array(
             'no' => $no,
-            'HouseNo' =>'<a href="#" onclick="detailhouse(this);">'. $datalist->HouseNo.'</a>',
+            'HouseNo' =>'<a href="#" onclick="detailhouse(this);">'.$datalist->HouseNo.'</a>',
             'portcode' =>$datalist->portcode,
 			'desti' =>$datalist->portcode.'-'.$datalist->desti,
 			'Service' =>substr($datalist->Service,-4),
@@ -148,7 +152,7 @@ public function list_house_consol()
 			'PCS' =>$datalist->PCS,
 			'ETD' =>date('d-m-Y',strtotime($datalist->ETD)),
 		
-			'status'=>'<div class="text-left">'.$status=($datalist->Consolidation >= "1")?"<label class='label label-warning arrowed-right white'>Remain</label>":"<label class='label label-inverse arrowed-right white'>No</label>".'</div>',
+			'status'=>'<div class="text-left">'.$status=($datalist->ConsoledCWT >= "1")?"<label class='label label-warning arrowed-right white'>Remain</label>":"<label class='label label-inverse arrowed-right white'>No</label>".'</div>',
 			'shipment'=>'<div class="text-left">'.$shipment=(substr($datalist->Service,-4)== "PORT")?"<label class='label label-pink arrowed-right white'>Direct House</label>":"<label class='label label-success arrowed-right white'>Consol House</label>".'</div>',
 
             'action'=> '<div class="form-inline text-center"> <a onclick="return EditConfirm('.$datalist->Consolidation.')" href="'.base_url().'transaction/edit_outgoing_master/'.$datalist->NoSMU.'" title="Edit item"><button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>

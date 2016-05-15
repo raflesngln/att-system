@@ -357,7 +357,7 @@ $("#idconsigne").click(function(){
       
 
 <br style="clear:both">
-<form method="post" action="<?php echo base_url();?>transaction/confirm_outgoing_master" autocomplete="off" id="myform">
+<form method="post" action="<?php echo base_url();?>transaction/confirm_outgoing_master" autocomplete="off" id="myform" onsubmit="return validasiform()" name="myform">
   <div class="row">
                <!--LEFT INPUT-->
   <div class="col-sm-6">      
@@ -443,11 +443,20 @@ $("#idconsigne").click(function(){
           <label class="col-sm-4">SMU No</label> 
           <div class="col-sm-2">
         <input name="prefixsmu" type="text" class="form-control"  id="prefixsmu" readonly />
+        <input type="hidden" name="smuconfirm" id="smuconfirm">
           </div>
           <div class="col-sm-4">
-        <input name="smu" type="text" class="form-control"  id="smu" placeholder="No SMU" style="width:170px"/>
+        <input name="smu" type="text" class="form-control"  id="smu" placeholder="No SMU" style="width:170px" onBlur="return cekprimary()"/>
+  
           </div>
  </div>
+ <div class="form-group" style="display:none" id="divalert">
+ <div class="col-sm-12 text-center">
+ <h3 id="cekid" class="label label-important"></h3>
+ </div>
+ </div><div class="clearfix"></div>
+ 
+ </br>
  
  <div class="form-group">
 <label class="col-sm-4">Flight Number</label>
@@ -1560,7 +1569,46 @@ function getflight(){
             });
 };
 	//});
-					
+
+function cekprimary(){
+    var lastsmu=$('#smu').val();
+    var prefixsmu=$('#prefixsmu').val();
+    var smu=prefixsmu +'-'+lastsmu;
+       $.ajax({
+    url: "<?php echo base_url('transaction/cekprimary'); ?>",
+      dataType: "json",
+      type: "POST",
+      data: "smu="+smu,
+      success: function(data) {
+       for (var i =0; i<data.length; i++){
+        
+        var cek=data[i].NoSMU; 
+        if(cek==smu){
+        //$("#divalert").css("display", "block");
+       // $('#cekid').html(data[i].confirmerror);
+        $('#smuconfirm').val(data[i].NoSMU);
+       // alert('error');
+        return false;
+        } else{
+          $('#booking').val('noooo');
+        }
+        //console.log(data);
+       }
+      }
+    });
+}				
+function validasiform(){
+    var lastsmu=$('#smu').val();
+    var prefixsmu=$('#prefixsmu').val();
+    var smu=prefixsmu +'-'+lastsmu;
+    var smuconfirm=$('#smuconfirm').val();
+    if (smu==smuconfirm) {
+
+      alert('SMU Number Duplicated,Try another !');
+      return false;
+    }
+ 
+}   
 </script>
 </body>
 </html>

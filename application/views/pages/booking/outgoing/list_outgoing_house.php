@@ -1,6 +1,10 @@
   <script src="<?php echo base_url('assets/datatables/js/jquery.dataTables.min.js')?>"></script>
   <script src="<?php echo base_url('assets/datatables/js/dataTables.bootstrap.js')?>"></script>
-  
+ <link href="g" 
+ 
+ <link rel="stylesheet" href="<?php echo base_url();?>'assets/datatables/css/jquery.dataTables.min.css">
+ 
+
   <script type="text/javascript">
 
     var save_method5; //for save method string
@@ -11,17 +15,18 @@
           tableopened = $('#tableopened').DataTable({ 
             "processing": true, //Feature control the processing indicator.
 			"bInfo": false,
+			"order":[[9,"desc"],[3,"desc"],[1,"asc"]],
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
             "ajax": {
                 "url": "<?php echo site_url('outgoing_house/ajax_list')?>",
-                "type": "POST"
+                "type": "POST",
             },
             "columns": [
             { "data": "no","orderable":false,"visible":true },
             { "data": "HouseNo" },
 			{ "data": "ETD" },
-            { "data": "sender" },
+            { "data": "sender"},
             { "data": "receiver","orderable":false,"visible":true },
 			{ "data": "ori","orderable":false,"visible":true },
 			{ "data": "desti"},
@@ -162,7 +167,7 @@ function delete_opened(id)
           <th>Consigne</th>
           <th>Origin</th>
           <th>Destination</th>
-          <th >PCS</th>
+          <th >QTY</th>
           <th >CWT</th>
           <th >Status Consol</th>
           <th >Action</th>
@@ -180,46 +185,90 @@ function delete_opened(id)
           <th>Consigne</th>
           <th>Origin</th>
           <th>Destination</th>
-          <th><span style="width:70px; text-align:right">PCS</span></th>
+          <th>QTY</th>
           <th>CWT</th>
-          <th>Status</th>
+          <th>Status Consol</th>
           <th style="width:130px;">Action</th>
         </tr>
       </tfoot>
     </table>
-            
-  <!-- Bootstrap modal -->
-  <div class="modal fade" id="modal_opened" role="dialog">
-  <div class="modal-dialog">
+ <!-- INFO -->
+ <div class="col-sm-12 alert alert-warning green" style="margin-left:-23px;font-style:italic">
+<i class="icon-bullhorn green bigger-150">&raquo;</i>
+<strong> List of Open House </strong>
+<p>List ini untuk menampilkan House-House yang belum di proses atau sedang diproses.</p>
+<li>House yg telah/sedang dikonsol tidak bisa diedit lagi sebelum dikeluarkan dari SMU yg dikonsolkan.</li>
+<li>Status Consol <label class="label label-inverse arrowed-right white">No</label>&raquo;  Menunjukkan house <strong>BELUM</strong> diproses sama sekali</li>
+<li>Status Consol <label class="label label-warning arrowed-right white">Remain</label> &raquo; Menujukan House yg <strong>SEDANG</strong> diproses tp masih belum semua CWT atau QTY habis di Consol</li>
+
+</div>
+ <!-- end info -->
+ 
+
+<!-- MODAL -->
+   <!-- Bootstrap modal -->
+ <div class="modal fade" id="modaldetailsmuinhouse" role="dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title_open">Addrest Form</h3>
+        <h3 class="modal-title">Form Detail SMU</h3>
       </div>
       <div class="modal-body form">
-        <form action="#" id="formOpened" class="form-horizontal">
-          <input name="BankCode" type="hidden" id="BankCode" value=""/> 
-          <div class="form-body">
+      <div id="tabledetailsmuinhouse">
+                     Detail
 
-            <div class="form-group">
-              <label class="control-label col-md-3"> Name</label>
-              				
-            </div>
-
-            
-            
-          </div>
-        </form>
+        </div>
+        
       </div>
-          <div class="modal-footer">
-            <button type="button" id="btnSave" onclick="save5()" class="btn btn-primary">Save</button>
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-          </div>
+        
     </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
-  
-  
+  </div>
+      
+ 
+<div id="modalhouse" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id=""><small>Detail Consol</small> House            </h3>
+            </div>
+            <div class="smart-form scroll">
+
+                    <div class="modal-body">
+                   
+                        <div id="tabledetailhouse">
+                        <table id="tbldet" class="table table-striped table-bordered" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>House</th>  
+          <th>Shipper</th>
+          <th> QTY</th>
+          <th>CWT</th>
+          <th style="width:125px;">Amount</th>
+        </tr>
+      </thead>
+
+
+
+    </table>
+
+                        </div>
+                     
+                     
+              </div>
+            
+           
+          </div>
+        </div>
+    </div>
+    </div>
+
+
+<!-- end of MODAL -->
+ 
   <script type="text/javascript">
 	
 	 $(".dethouse").click(function(){
@@ -282,6 +331,35 @@ function EditConfirm(myid){
 }
 
 
+function detailhouse(myid){
+	var numb=$(myid).html();
+				$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('outgoing_house/ajax_detailHouse'); ?>",
+                data: "numb="+numb,
+                success: function(data){
+					$("#modalhouse").modal('show'); 
+					$('#labelhouse').html(numb);
+                   $('#tabledetailhouse').html(data);
+                }
+            });
 	
+}
+	function detailsmuinHouse(myid){
+	var smu=$(myid).html();
+	var status='consol';
+             // alert('hai' + idcnote);
+				$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('outgoing_house/ajax_detailSMU'); ?>",
+                data: "smu="+smu+"&status="+status,
+                success: function(data){
+					$("#modalhouse").modal('hide'); 
+					$("#modaldetailsmuinhouse").modal('show'); 
+                   $('#tabledetailsmuinhouse').html(data);
+                }
+            });
+	
+}
 </script>
     

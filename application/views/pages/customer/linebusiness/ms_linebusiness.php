@@ -33,7 +33,7 @@
          });
 });
 
-function add_person3()
+function add_business()
     {
       save_method3 = 'add';
       $('#form3')[0].reset(); // reset form on modals
@@ -41,7 +41,7 @@ function add_person3()
       $('.modal-title3').text('Add Linebusiness'); // Set Title to Bootstrap modal title
     }
 
-function edit_person3(id)
+function edit_business(id)
     {
       save_method3 = 'update';
       $('#form3')[0].reset(); // reset form on modals
@@ -72,12 +72,12 @@ function edit_person3(id)
     });
     }
 
-    function reload_table3()
+    function reload_table_linebusiness()
     {
       tablebisnis.ajax.reload(null,false); //reload datatable ajax 
     }
 
-function save3()
+function save_business()
     {
       var url3;
       if(save_method3 == 'add') 
@@ -99,7 +99,7 @@ function save3()
             {
                //if success close modal and reload ajax table
                $('#modal_form3').modal('hide');
-               reload_table3();
+               reload_table_linebusiness();
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -108,7 +108,7 @@ function save3()
         });
     }
 
-function delete_person3(id)
+function delete_business(id)
     {
       if(confirm('Are you sure delete this data?'))
       var nmtabel='ms_linebusiness';
@@ -124,7 +124,7 @@ function delete_person3(id)
             {
                //if success reload ajax table
                $('#modal_form3').modal('hide');
-               reload_table3();
+               reload_table_linebusiness();
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -141,7 +141,7 @@ function delete_person3(id)
 
 
 
-    <button class="btn-normal" onclick="add_person3()"><i class="fa fa-plus"></i> </button>
+    <button class="btn-normal" onclick="add_business()"><i class="fa fa-plus"></i> </button>
     <br />
     <br />
     <table id="tablebisnis" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -199,7 +199,7 @@ function delete_person3(id)
         </form>
           </div>
           <div class="modal-footer">
-            <button type="button" id="btnSave" onclick="save3()" class="btn btn-primary">Save</button>
+            <button type="button" id="btnSave" onclick="save_business()" class="btn btn-primary">Save</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
           </div>
         </div><!-- /.modal-content -->

@@ -11,6 +11,7 @@
           tableopenmaster = $('#tableopenmaster').DataTable({ 
             "processing": true, //Feature control the processing indicator.
 			"bInfo": false,
+			"order":[[9,"desc"],[3,"desc"],[1,"asc"]],
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
             "ajax": {
@@ -162,10 +163,10 @@ function deleteOpenMaster(id)
           <th>Consignee</th>
           <th>Origin</th>
           <th>Destination</th>
-          <th style="width:80px;">PCS</th>
+          <th style="width:80px;"><span style="width:125px;">QTY</span></th>
           <th style="width:80px;">CWT</th>
           <th style="width:90px;">Status Consol</th>
-          <th style="width:125px;">Action</th>
+          <th style="width:80px;">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -180,15 +181,85 @@ function deleteOpenMaster(id)
           <th>Consignee</th>
           <th>Origin</th>
           <th>Destination</th>
-          <th><span style="width:80px;">PCS</span></th>
+          <th><span style="width:80px;">QTY</span></th>
           <th><span style="width:80px;">CWT</span></th>
           <th>Status Consol</th>
           <th>Action</th>
         </tr>
       </tfoot>
     </table>
+  <!-- INFO -->
+ <div class="col-sm-12 alert alert-warning green" style="margin-left:-23px;font-style:italic">
+<i class="icon-bullhorn green bigger-150">&raquo;</i>
+<strong> List of Open SMU </strong>
+<p>List ini untuk menampilkan SMU yang belum di <strong>Proses</strong> atau <strong>Sedang diProses</strong> tapi belum di <strong>RELEASE</strong>.Tahap selanjutnya setelah dikonsol maka SMU akan di RELEASE</p>
+<li>SMU yg telah/sedang dikonsol tidak bisa diedit  sebelum semua HOUSE yg telah masuk kedlam SMU  dikeluarkan terlebih dulu.</li>
+<li>Status Consol <label class="label label-inverse arrowed-right white">No</label>
+&raquo;  Menunjukkan SMU <strong>BELUM</strong> diproses sama sekali</li>
+<li>Status Consol <label class="label label-warning arrowed-right white">Remain</label> 
+&raquo; Menunjukan SMU yg <strong>SEDANG</strong> diproses tp belum di RELESE</li>
+
+</div>
+ <!-- end info -->           
+ 
+   <!-- Bootstrap modal -->
+  <div class="modal fade" id="modaldetailsmuopen" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title">Form Detail SMU</h3>
+      </div>
+      <div class="modal-body form">
+      <div id="tabledetailopen">
+                     Detail
+
+        </div>
+        
+      </div>
+        
+    </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  
+ <div id="modalhouseopen" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id=""><small>Detail Consol</small> House            </h3>
+            </div>
+            <div class="smart-form scroll">
+
+                    <div class="modal-body">
+                   
+                        <div id="tabledetailhouseopen">
+                        <table id="tbldet" class="table table-striped table-bordered" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>House</th>  
+          <th>Shipper</th>
+          <th>QTY</th>
+          <th>CWT</th>
+          <th style="width:125px;">Amount</th>
+        </tr>
+      </thead>
+
+
+
+    </table>
+
+                        </div>
+                     
+                     
+              </div>
             
-  <!-- Bootstrap modal -->
+           
+          </div>
+        </div>
+    </div>
+    </div>
   <!-- /.modal -->
   
   
@@ -252,7 +323,35 @@ function EditConfirm(myid){
 			return false;
 	}
 }
-
+function detailsmuopen(myid){
+	var smu=$(myid).html();
+	var status='consol';
+             // alert('hai' + idcnote);
+				$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('outgoing_master/ajax_detailSMU'); ?>",
+                data: "smu="+smu+"&status="+status,
+                success: function(data){
+					$("#modaldetailsmuopen").modal('show'); 
+                   $('#tabledetailopen').html(data);
+                }
+            });
 	
+}
+function detailhouseopen(myid){
+	var numb=$(myid).html();
+				$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('outgoing_master/ajax_detailHouse'); ?>",
+                data: "numb="+numb,
+                success: function(data){
+					$("#modalhouseopen").modal('show'); 
+					$('#labelhouseopen').html(numb);
+                   $('#tabledetailhouseopen').html(data);
+                }
+            });
+	
+}
+
 </script>
     

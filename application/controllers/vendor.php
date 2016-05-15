@@ -24,16 +24,11 @@ endif;
 		$data['scrumb_name']='Data vendor';
 		$data['scrumb']='vendor/view_vendor';
 		$data['city']=$this->model_app->getdata('ms_city',"");
-		$data['list']=$this->model_app->getdatapaging('a.venCode,a.venInitial,a.venName,a.Address,a.Phone,
-		a.Fax,a.PostalCode,a.isAgent,a.isAirlines,a.isShippingLines,a.isTrucking,a.isWarehouse,a.Email,
-		a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,a.TermsPayment,a.isActive,a.NPWP,a.NPWPAddress,a.Remarks,
-		a.createBy,a.CreateDate,a.ModifiedDate,b.cyCode,b.cyName',
-		"ms_vendor a","inner join ms_city b on a.cyCode=b.cyCode order by b.cyName ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('a.venCode,a.venInitial,a.venName,a.Address,a.cyCode,a.Phone,
-		a.Fax,a.PostalCode,a.isAgent,a.isAirlines,a.isShippingLines,a.isTrucking,a.isWarehouse,a.Email,
-		a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,a.TermsPayment,a.isActive,a.NPWP,a.NPWPAddress,a.Remarks,
-		a.createBy,a.CreateDate,a.ModifiedDate,b.cyCode,b.cyName',
-		"ms_vendor a","inner join ms_city b on a.cyCode=b.cyCode order by b.cyName");
+		$data['list']=$this->model_app->getdatapaging('*',
+		"ms_vendor a","inner join ms_city b on a.CityCode=b.CityCode order by b.CityCode ASC LIMIT $offset,$limit");
+		
+		$tot_hal = $this->model_app->hitung_isi_tabel('*',
+		"ms_vendor a","inner join ms_city b on a.CityCode=b.CityCode order by b.CityCode");
         					//create for pagination		
 			$config['base_url'] = base_url() . 'vendor/view_vendor/';
         	$config['total_rows'] = $tot_hal->num_rows();
@@ -73,7 +68,7 @@ $this->form_validation->set_rules('initial','initial','required|trim|xss_clean')
 		'venInitial' =>strtoupper($this->input->post('initial')),
 		'venName'=>$this->input->post('name'),
 		'Address'=>$this->input->post('address'),
-		'cyCode'=>$this->input->post('city'),
+		'CityCode'=>$this->input->post('city'),
 		'Phone'=>$this->input->post('phone'),
 		'Fax'=>$this->input->post('fax'),
 		'PostalCode'=>$this->input->post('postcode'),
@@ -115,13 +110,13 @@ $this->form_validation->set_rules('initial','initial','required|trim|xss_clean')
 		$data['list']=$this->model_app->getdatapaging('a.venCode,a.venInitial,a.venName,a.Address,a.Phone,
 		a.Fax,a.PostalCode,a.isAgent,a.isAirlines,a.isShippingLines,a.isTrucking,a.isWarehouse,a.Email,
 		a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,a.TermsPayment,a.isActive,a.NPWP,a.NPWPAddress,a.Remarks,
-		a.createBy,a.CreateDate,a.ModifiedDate,b.cyCode,b.cyName',
-		"ms_vendor a","inner join ms_city b on a.cyCode=b.cyCode order by b.cyName ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('a.venCode,a.venInitial,a.venName,a.Address,a.cyCode,a.Phone,
+		a.createBy,a.CreateDate,a.ModifiedDate,b.CityCode,b.CityCode',
+		"ms_vendor a","inner join ms_city b on a.CityCode=b.CityCode order by b.CityCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('a.venCode,a.venInitial,a.venName,a.Address,a.CityCode,a.Phone,
 		a.Fax,a.PostalCode,a.isAgent,a.isAirlines,a.isShippingLines,a.isTrucking,a.isWarehouse,a.Email,
 		a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,a.TermsPayment,a.isActive,a.NPWP,a.NPWPAddress,a.Remarks,
-		a.createBy,a.CreateDate,a.ModifiedDate,b.cyCode,b.cyName',
-		"ms_vendor a","inner join ms_city b on a.cyCode=b.cyCode order by b.cyName");
+		a.createBy,a.CreateDate,a.ModifiedDate,b.CityCode,b.CityCode',
+		"ms_vendor a","inner join ms_city b on a.CityCode=b.CityCode order by b.CityCode");
         					//create for pagination		
 			$config['base_url'] = base_url() . 'vendor/view_vendor/';
         	$config['total_rows'] = $tot_hal->num_rows();
@@ -155,7 +150,7 @@ $this->form_validation->set_rules('initial','initial','required|trim|xss_clean')
 		'venInitial' =>strtoupper($this->input->post('initial')),
 		'venName'=>$this->input->post('name'),
 		'Address'=>$this->input->post('address'),
-		'cyCode'=>$this->input->post('city'),
+		'CityCode'=>$this->input->post('city'),
 		'Phone'=>$this->input->post('phone'),
 		'Fax'=>$this->input->post('fax'),
 		'PostalCode'=>$this->input->post('postcode'),
@@ -210,17 +205,17 @@ function search_vendor(){
 $data['list']=$this->model_app->getdatapaging('a.venCode,a.venInitial,a.venName,a.Address,a.Phone,
 		a.Fax,a.PostalCode,a.isAgent,a.isAirlines,a.isShippingLines,a.isTrucking,a.isWarehouse,a.Email,
 		a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,a.TermsPayment,a.isActive,a.NPWP,a.NPWPAddress,a.Remarks,
-		a.createBy,a.CreateDate,a.ModifiedDate,b.cyCode,b.cyName',
-		"ms_vendor a","inner join ms_city b on a.cyCode=b.cyCode 
+		a.createBy,a.CreateDate,a.ModifiedDate,b.CityCode,b.CityCode',
+		"ms_vendor a","inner join ms_city b on a.CityCode=b.CityCode 
 		WHERE a.venName LIKE '$cari%'
-		order by b.cyName ASC LIMIT $offset,$limit");
-$tot_hal = $this->model_app->hitung_isi_tabel('a.venCode,a.venInitial,a.venName,a.Address,a.cyCode,a.Phone,
+		order by b.CityCode ASC LIMIT $offset,$limit");
+$tot_hal = $this->model_app->hitung_isi_tabel('a.venCode,a.venInitial,a.venName,a.Address,a.CityCode,a.Phone,
 		a.Fax,a.PostalCode,a.isAgent,a.isAirlines,a.isShippingLines,a.isTrucking,a.isWarehouse,a.Email,
 		a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,a.TermsPayment,a.isActive,a.NPWP,a.NPWPAddress,a.Remarks,
-		a.createBy,a.CreateDate,a.ModifiedDate,b.cyCode,b.cyName',
-		"ms_vendor a","inner join ms_city b on a.cyCode=b.cyCode 
+		a.createBy,a.CreateDate,a.ModifiedDate,b.CityCode,b.CityCode',
+		"ms_vendor a","inner join ms_city b on a.CityCode=b.CityCode 
 		WHERE a.venName LIKE '$cari%'
-		order by b.cyName");
+		order by b.CityCode");
 		    		//create for pagination		
 			$config['base_url'] = base_url() . 'search/search_vendor/';
         	$config['total_rows'] = $tot_hal->num_rows();
@@ -248,17 +243,17 @@ $tot_hal = $this->model_app->hitung_isi_tabel('a.venCode,a.venInitial,a.venName,
 $data['list']=$this->model_app->getdatapaging('a.venCode,a.venInitial,a.venName,a.Address,a.Phone,
 		a.Fax,a.PostalCode,a.isAgent,a.isAirlines,a.isShippingLines,a.isTrucking,a.isWarehouse,a.Email,
 		a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,a.TermsPayment,a.isActive,a.NPWP,a.NPWPAddress,a.Remarks,
-		a.createBy,a.CreateDate,a.ModifiedDate,b.cyCode,b.cyName',
-		"ms_vendor a","inner join ms_city b on a.cyCode=b.cyCode 
+		a.createBy,a.CreateDate,a.ModifiedDate,b.CityCode,b.CityCode',
+		"ms_vendor a","inner join ms_city b on a.CityCode=b.CityCode 
 		WHERE a.venName LIKE '$cari%'
-		order by b.cyName ASC LIMIT $offset,$limit");
-$tot_hal = $this->model_app->hitung_isi_tabel('a.venCode,a.venInitial,a.venName,a.Address,a.cyCode,a.Phone,
+		order by b.CityCode ASC LIMIT $offset,$limit");
+$tot_hal = $this->model_app->hitung_isi_tabel('a.venCode,a.venInitial,a.venName,a.Address,a.CityCode,a.Phone,
 		a.Fax,a.PostalCode,a.isAgent,a.isAirlines,a.isShippingLines,a.isTrucking,a.isWarehouse,a.Email,
 		a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,a.TermsPayment,a.isActive,a.NPWP,a.NPWPAddress,a.Remarks,
-		a.createBy,a.CreateDate,a.ModifiedDate,b.cyCode,b.cyName',
-		"ms_vendor a","inner join ms_city b on a.cyCode=b.cyCode 
+		a.createBy,a.CreateDate,a.ModifiedDate,b.CityCode,b.CityCode',
+		"ms_vendor a","inner join ms_city b on a.CityCode=b.CityCode 
 		WHERE a.venName LIKE '$cari%'
-		order by b.cyName");
+		order by b.CityCode");
 
 	//create for pagination		
 			$config['base_url'] = base_url() . 'search/search_vendor/';

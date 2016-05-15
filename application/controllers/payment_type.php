@@ -22,8 +22,8 @@ function view_payment_type(){
         $data['title']='list payment_type';
 		$data['scrumb_name']='Data payment_type';
 		$data['scrumb']='payment_type/view_payment_type';
-		$data['list']=$this->model_app->getdata('ms_payment_type',"order by payCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_payment_type a',"order by payCode ASC");
+		$data['list']=$this->model_app->getdata('ms_payment_type',"order by PayCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_payment_type a',"order by PayCode ASC");
         	//create for pagination		
 			$config['base_url'] = base_url() . 'payment_type/view_payment_type/';
         	$config['total_rows'] = $tot_hal->num_rows();
@@ -52,7 +52,7 @@ $this->form_validation->set_rules('code','code','required|trim|xss_clean');
 		else
 	{
 		$code=$this->input->post('code');
-		$cari=$this->model_app->getdata('ms_payment_type',"WHERE payCode='$code'");
+		$cari=$this->model_app->getdata('ms_payment_type',"WHERE PayCode='$code'");
 		if($cari){ ?>
 		<script type="text/javascript">
 		alert('Data with This Code  has already exist  !. try another ');
@@ -63,10 +63,10 @@ $this->form_validation->set_rules('code','code','required|trim|xss_clean');
 		$message="New Data has been Saved with code ( ".$code." )";
 		$clas='success';
 		$newdata=array(
-		'payCode'=>strtoupper($this->input->post('code')),
-		'payName'=>$this->input->post('name'),
-		'CreateBy'=>$this->session->userdata('nameusr'),
-		'CreateDate'=>date('Y-m-d H:i:s'),
+		'PayCode'=>strtoupper($this->input->post('code')),
+		'PayName'=>$this->input->post('name'),
+		'CreatedBy'=>$this->session->userdata('nameusr'),
+		'CreatedDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
 		);	
@@ -84,8 +84,8 @@ $this->form_validation->set_rules('code','code','required|trim|xss_clean');
 		$data['message']=$message;
 		$data['clas']=$clas;
 		$data['scrumb']='payment_type/view_payment_type';
-		$data['list']=$this->model_app->getdata('ms_payment_type',"order by payCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_payment_type a',"order by payCode ASC");
+		$data['list']=$this->model_app->getdata('ms_payment_type',"order by PayCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_payment_type a',"order by PayCode ASC");
         	//create for pagination		
 			$config['base_url'] = base_url() . 'payment_type/view_payment_type/';
         	$config['total_rows'] = $tot_hal->num_rows();
@@ -116,11 +116,11 @@ $this->form_validation->set_rules('name','name','required|trim|xss_clean');
 		else
 	{
 	$update=array(
-		'payName'=>$this->input->post('name'),
+		'PayName'=>$this->input->post('name'),
 		'ModifiedBy'=>$this->session->userdata('nameusr'),
 		'ModifiedDate'=>date('Y-m-d H:i:s'),
 		);	
-		$this->model_app->update('ms_payment_type','payCode',$code,$update);
+		$this->model_app->update('ms_payment_type','PayCode',$code,$update);
 	  redirect('payment_type/view_payment_type');
 		}	
 }
@@ -130,7 +130,7 @@ function delete_payment_type(){
 	$kode=$this->uri->segment(3);
 	 if($this->session->userdata('login_status') == TRUE )
  	{
-		     $this->model_app->delete_data('ms_payment_type','payCode',$kode);
+		     $this->model_app->delete_data('ms_payment_type','PayCode',$kode);
 			redirect('payment_type/view_payment_type');
 	}
 	else
@@ -160,8 +160,8 @@ function search_payment_type(){
         $data['title']='list payment_type';
 		$data['scrumb_name']='Data payment_type';
 		$data['scrumb']='payment_type/view_payment_type';
-		$data['list']=$this->model_app->getdata('ms_payment_type',"where payName like '%$cari%' OR Section like '%$cari%' order by payCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_payment_type a',"where payName like '%$cari%' OR Section like '%$cari%' order by payCode ASC");
+		$data['list']=$this->model_app->getdata('ms_payment_type',"where PayName like '%$cari%' OR Section like '%$cari%' order by PayCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_payment_type a',"where PayName like '%$cari%' OR Section like '%$cari%' order by PayCode ASC");
         					//create for pagination		
 			$config['base_url'] = base_url() . 'payment_type/view_payment_type/';
         	$config['total_rows'] = $tot_hal->num_rows();
@@ -190,8 +190,8 @@ function search_payment_type_ajax(){
 		$offset = $page;
 		endif;
 		
-		$data['list']=$this->model_app->getdata('ms_payment_type',"where payName like '$cari%' OR payCode like '$cari%' order by payCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_payment_type a',"where payName like '$cari%' OR payCode like '$cari%' order by payCode ASC");
+		$data['list']=$this->model_app->getdata('ms_payment_type',"where PayName like '$cari%' OR PayCode like '$cari%' order by PayCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_payment_type a',"where PayName like '$cari%' OR PayCode like '$cari%' order by PayCode ASC");
 	//create for pagination		
 			$config['base_url'] = base_url() . 'payment_type/view_payment_type/';
         	$config['total_rows'] = $tot_hal->num_rows();

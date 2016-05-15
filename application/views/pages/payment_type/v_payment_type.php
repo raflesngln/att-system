@@ -52,10 +52,10 @@
                                                     <button class="btn btn-blue"><i class="icon-plus icons"></i>Add payment_type</button></a></div></th>
                                                 </tr>
                                                 <tr height="50">
-                                                  <th>No.</th>
-                                                  <th>Code</th>
-                                                  <th>Name</th>
-                                                  <th colspan="2" class="text-center">Actions</th>
+                                                  <th width="24">No.</th>
+                                                  <th width="147">Code</th>
+                                                  <th width="465">Name</th>
+                                                  <th width="89" colspan="2" class="text-center">Actions</th>
                                                 </tr>
                                               </thead>
                                               <tbody>
@@ -66,15 +66,15 @@ foreach($list as $data){
 			?>
                                                 <tr class="gradeX">
                                                     <td><?php echo $no?></td>
-                                                    <td><?php echo $data->payCode?></td>
-                                                    <td><?php echo $data->payName?></td>
+                                                    <td><?php echo $data->PayCode?></td>
+                                                    <td><?php echo $data->PayName?></td>
                                                     <td class="text-center">
-                                                      <a href="#modaledit<?php echo $data->payCode?>" data-toggle="modal" title="Edit">
+                                                      <a href="#modaledit<?php echo $data->PayCode?>" data-toggle="modal" title="Edit">
                                                       <button class="btn btn-primary btn-small tooltip-info" title="Edit data">
                                                       <i class="icon-edit icon-1x icon-only"></i>
                                                       </button>                                          
                                                       </a>   
-                                                     <a href="<?php echo base_url();?>payment_type/delete_payment_type/<?php echo $data->payCode?>" onClick="return confirm('Yakin Hapus  Data !!');">
+                                                     <a href="<?php echo base_url();?>payment_type/delete_payment_type/<?php echo $data->PayCode?>" onClick="return confirm('Yakin Hapus  Data !!');">
                                                <button class="btn btn-danger btn-small" title="Delete Data">
                                                 <i class="icon-trash icon-1x icon-only"></i>
                                                 </button>
@@ -110,7 +110,7 @@ foreach($list as $data){
     foreach($list as $row){
        		
         ?>
-<div id="modaledit<?php echo $row->payCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="modaledit<?php echo $row->PayCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -125,16 +125,16 @@ foreach($list as $data){
                       <div class="form-group">
                         <label class="col-sm-3 control-label"> Code</label>
     <div class="col-sm-9">
-    <input name="code" type="text" class="form-control" id="code" value="<?php echo $row->payCode;?>" maxlength="3" readonly="readonly"/>
+    <input name="code" type="text" class="form-control" id="code" value="<?php echo $row->PayCode;?>" maxlength="3" readonly="readonly"/>
     <span class="controls">
-    <input type="hidden" name="id" id="id" value="<?php echo $row->payCode;?>" />
+    <input type="hidden" name="id" id="id" value="<?php echo $row->PayCode;?>" />
     </span></div>
                         <div class="clearfix"></div>
                       </div>
   <div class="form-group">
                         <label class="col-sm-3 control-label"> Name</label>
     <div class="col-sm-9">
-    <input name="name" type="text" class="form-control" id="name" value="<?php echo $row->payName;?>" />
+    <input name="name" type="text" class="form-control" id="name" value="<?php echo $row->PayName;?>" />
     </div>
                         <div class="clearfix"></div>
                       </div>

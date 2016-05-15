@@ -3,12 +3,12 @@
         <tr>
           <th width="44">No</th>  
           <th width="128">SMU</th>
-          <th width="109">ETssD</th>
+          <th width="109">ETD</th>
           <th width="144"> Shipper</th>
           <th width="167">Consignee</th>
           <th width="119">Origin</th>
           <th width="221">Destination</th>
-          <th width="125" style="width:80px;">PCS</th>
+          <th width="125" style="width:80px;">QTY</th>
           <th width="132" style="width:80px;">CWT</th>
           <th width="132" style="width:80px;">Action</th>
         </tr>
@@ -30,7 +30,7 @@
         <tr>
        
           <td><?=$no;?></td>
-          <td><?php echo $row->NoSMU;?></td>
+          <td><a href="#" onclick="detailsmufinal(this);"><?php echo $row->NoSMU;?></a></td>
           <td><?php echo date('d-m-Y',strtotime($row->ETD));?></td>
           <td><?php echo $row->sender;?></td>
           <td><?php echo $row->receiver;?></td>

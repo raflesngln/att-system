@@ -6,6 +6,10 @@ class C_Soa extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		  if($this->session->userdata('login_status') != TRUE ){
+            $this->session->set_flashdata('notif','You Must Login First !');
+            redirect('');
+        };
 		$this->load->model('mdata');
 		$this->load->model('model_app');
 	}

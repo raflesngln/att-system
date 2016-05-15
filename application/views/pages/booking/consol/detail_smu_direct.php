@@ -60,7 +60,7 @@ foreach($header as $row){
           <th width="22%">Shipper</th>
           <th width="27%">Consigne</th>
           <th width="16%">BookingNo</th>
-          <th width="10%"> PCS</th>
+          <th width="10%">QTY</th>
           <th width="11%">CWT</th>
           <th width="11%">Action</th>
         </tr>

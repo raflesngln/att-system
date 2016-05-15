@@ -66,21 +66,21 @@ endif;
 		$data['scrumb']='master/view_disc';
 		$data['cust']=$this->model_app->getdata('ms_customer',"");
 		$data['service']=$this->model_app->getdata('ms_service',"");
-		$data['city']=$this->model_app->getdata('ms_city',"");
+		$data['city']=$this->model_app->getdata('ms_port',"");
 		$data['vendor']=$this->model_app->getdata('ms_vendor',"");	
 		
 		$data['list']=$this->model_app->getdatapaging('a.discCode,a.ori,a.dest,a.DiscPersen,a.DiscRupiah,
-		a.isACtive,a.Remarks,a.createBy,a.CreateDate,a.ModifiedBy,a.ModifiedDate,b.custCode,b.custName,c.svCode,c.Name,d.cyCode,d.cyName,
+		a.isACtive,a.Remarks,b.CustCode,b.CustName,c.svCode,c.Name,d.CityCode,d.CityName,
 		e.venCode,e.venName',"ms_disc a","
-		inner join ms_customer b on a.custCode=b.custCode
+		inner join ms_customer b on a.CustCode=b.CustCode
 		inner join ms_service c on a.svCode=c.svCode
-		left join ms_city d on a.cyCode=d.cyCode
+		left join ms_city d on a.CityCode=d.CityCode
 		inner join ms_vendor e on a.venCode=e.venCode
 		order by a.discCode ASC LIMIT $offset,$limit");
 		
 		$tot_hal = $this->model_app->hitung_isi_tabel('a.discCode,a.Ori,a.Dest,a.DiscPersen,a.DiscRupiah,
-		a.isACtive,a.Remarks,a.createBy,a.CreateDate,a.ModifiedBy,a.ModifiedDate,b.custCode,b.custName,c.svCode,c.Name,d.cyCode,d.cyName,
-		e.venCode,e.venName',"ms_disc a","inner join ms_customer b on a.custCode=b.custCode inner join ms_service c on a.svCode=c.svCode left join ms_city d on a.cyCode=d.cyCode
+		a.isACtive,a.Remarks,b.CustCode,b.CustName,c.svCode,c.Name,d.CityCode,d.CityName,
+		e.venCode,e.venName',"ms_disc a","inner join ms_customer b on a.CustCode=b.CustCode inner join ms_service c on a.svCode=c.svCode left join ms_city d on a.CityCode=d.CityCode
 		inner join ms_vendor e on a.venCode=e.venCode order by a.discCode");
         					//create for pagination		
 			$config['base_url'] = base_url() . 'master/view_disc/';
@@ -205,9 +205,9 @@ $this->form_validation->set_rules('cust','cust','required|trim|xss_clean');
 		else
 	{
 		$data=array(
-		'custCode'=>$this->input->post('cust'),
+		'CustCode'=>$this->input->post('cust'),
 		'svCode'=>$this->input->post('service'),
-		'cyCode'=>$this->input->post('city'),
+		'CityCode'=>$this->input->post('city'),
 		'ori'=>$this->input->post('ori'),
 		'dest'=>$this->input->post('dest'),
 		'venCode'=>$this->input->post('vendor'),
@@ -239,7 +239,7 @@ $this->form_validation->set_rules('service','service','required|trim|xss_clean')
 		else
 		{
 		$update=array(
-		'custCode'=>$this->input->post('cust'),
+		'CustCode'=>$this->input->post('cust'),
 		'svCode'=>$this->input->post('service'),
 		'Ori'=>$this->input->post('ori'),
 		'Dest'=>$this->input->post('dest'),

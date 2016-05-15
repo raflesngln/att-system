@@ -156,11 +156,11 @@ $no=1;
                         <label class="col-sm-3 control-label">City</label>
     <div class="col-sm-9"><span class="controls">
       <select name="city" id="city" required="required" class="form-control">
-          <option value="<?php echo $row->cyCode ;?>"><?php echo $row->cyName ;?></option>
+          <option value="<?php echo $row->CityCode ;?>"><?php echo $row->CityName ;?></option>
           <?php
 	foreach($city as $ct){
 	    ?>
-          <option value="<?php echo $ct->cyCode;?>"><?php echo $ct->cyName;?></option>
+          <option value="<?php echo $ct->CityCode;?>"><?php echo $ct->CityName;?></option>
           <?php } ?>
 </select>
       </span></div>
@@ -378,7 +378,7 @@ $no=1;
           <option value="">Chosse City</option>
           <?php
 	           foreach($city as $ct){ ?>
-          <option value="<?php echo $ct->cyCode;?>"><?php echo $ct->cyName;?></option>
+          <option value="<?php echo $ct->CityCode;?>"><?php echo $ct->CityName;?></option>
                <?php } ?>
           </select>
           </span></div>

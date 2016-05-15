@@ -158,7 +158,7 @@
                                                   </tr>
                                                   <tr>
                                                   <th>House No</th>
-                                                  <th>PCS</th>
+                                                  <th>QTY</th>
                                                   <th>CWT</th>
                                                   <th>CCWT</th>
                                                   <th> RCWT</th>
@@ -223,7 +223,7 @@
                                                   <tr>
                                                   <th>House No</th>
                                                   <th>CWT</th>
-                                                  <th>PCS</th>
+                                                  <th>QTY</th>
                                                   <th class="text-center">Consoled</th>
                                                 </tr>
                                               </thead>

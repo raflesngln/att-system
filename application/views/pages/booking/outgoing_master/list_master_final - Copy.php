@@ -168,11 +168,11 @@ function delete_person5(id)
 <div class="col-sm-5">Filter by Category</div>
 <div class="col-sm-6">
 <select name="kategori" id="kategori" class="form-control" onchange="return getNilai(this)">
-<option value="a.NoSMU">SMU</option>
-<option value="b.CustName">Shipper</option>
-<option value="c.CustName">Consigne</option>
-<option value="d.PortName">Origin</option>
-<option value="e.PortName">Destination</option>
+<option value="smu">SMU</option>
+<option value="shipper">Shipper</option>
+<option value="consigne">Consigne</option>
+<option value="origin">Origin</option>
+<option value="destination">Destination</option>
 </select>
 </div></div><div class="clearfix"></div>
 
@@ -215,7 +215,15 @@ function delete_person5(id)
           <th>SMU</th>
           <th>ETD</th>
           <th> Shipper</th>
-          <th>Consignee<p>&nbsp;</p></th>
+          <th>Consignee<p><input type="text" class="form-control" name="txtsignee" /> <div class="btn-group">
+<button data-toggle="dropdown" class="btn btn-info btn-mini dropdown-toggle">Inverse mini
+<span class="caret"></span></button><ul class="dropdown-menu dropdown-inverse"><li>
+<a href="#">Action</a></li><li>
+<a href="#">Another action</a></li>
+<li><a href="#">Something else here</a></li>
+<li class="divider"></li>
+<li><a href="#">Separated link</a></li>
+</ul></div></p></th>
           <th>Origin</th>
           <th>Destination</th>
           <th style="width:80px;">QTY</th>
@@ -475,67 +483,20 @@ function detailhousefinal(myid){
                 }
             });
 }
-function getNilaiiiiiiiii(inputan){
-	
-	var start2=$("#start2").val();
-	var end2=$("#end2").val();
-	var kategori=$("#kategori").val();
-	var kriteria=$("#kriteria").val();
-	var txtsearch=$("#txtsearch").val();
-	
-	var inputan=start2+"_"+end2+"_"+kategori+"_"+kriteria+"_"+txtsearch;
-	
-	var a='5';
-	var b='1';
-	var c=$("#txtsearch").val();
-	var ab=a+"_"+b+"_"+c;
-
-	if(txtsearch !=''){
-tablefinalsmu.ajax.url('<?php echo site_url()?>outgoing_master/filterfinalsmu/'+inputan).load();
-	} else {
-tablefinalsmu.ajax.url('<?php echo site_url()?>outgoing_master/list_final').load();		
-	}
-}
-
-
 function getNilai(inputan){
-	var tg1=$("#start2").val();
-	var tg2=$("#end2").val();
-	var pisah1=tg1.split('-');
-	var pisah2=tg2.split('-');
-	var obj_tgl=new Date();
-	
-	var tgl1_leave=obj_tgl.setFullYear(pisah1[0],pisah1[1],pisah1[2]);
-	var tgl2_leave=obj_tgl.setFullYear(pisah2[0],pisah2[1],pisah2[2]);
-	var hasil=(tgl2_leave-tgl1_leave)/(60*60*24*1000);
-	
-	if(hasil >=30 || hasil < 0){
-		
-		alert('Jumlah Rentang waktu Pencarian Maksimal 7 Hari !');
-		return false;
-	} else {
-		
-	var start2=$("#start2").val();
-	var end2=$("#end2").val();
-	var kategori=$("#kategori").val();
-	var kriteria=$("#kriteria").val();
-	var txtsearch=$("#txtsearch").val();
-	
-	var inputan=start2+"_"+end2+"_"+kategori+"_"+kriteria+"_"+txtsearch;
-	
+	var aa=$(inputan).val();
 	var a='5';
 	var b='1';
 	var c=$("#txtsearch").val();
-	var ab=a+"_"+b+"_"+c;
-
-	if(txtsearch !=''){
-tablefinalsmu.ajax.url('<?php echo site_url()?>outgoing_master/filterfinalsmu/'+inputan).load();
+	var ab=a+"."+b+"."+c;
+	//var kategori=$("#kategori").val();
+	//var kriteria=$("#kriteria").val();
+	//alert(ab);
+	if(c !=''){
+tablefinalsmu.ajax.url('<?php echo site_url()?>outgoing_master/filterfinalsmu/'+ab).load();
 	} else {
 tablefinalsmu.ajax.url('<?php echo site_url()?>outgoing_master/list_final').load();		
 	}
-}
-
-	
 }
 </script>
     

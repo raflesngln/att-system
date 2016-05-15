@@ -10,17 +10,17 @@
                                               <thead>
                                                 
                                                   <tr>
-                                                    <th colspan="9"><span class="span4 label label-large label-inverse" style="text-align:left;padding-top:7px">Free Housee</span></th>
+                                                    <th colspan="9"><span class="span4 label label-large label-inverse" style="text-align:left;padding-top:7px">Free HouseWWe</span></th>
                                                   </tr>
                                                   <tr>
                                                   <th width="150">House</th>
                                                   <th width="111">CSHIP</th>
                                                   <th width="111">CWT</th>
-                                                  <th width="68">PCS</th>
+                                                  <th width="68">QTY</th>
                                                   <th width="88"> (C)CWT</th>
                                                   <th width="110">(R)CWT</th>
-                                                  <th width="87" class="text-center">(C)PCS</th>
-                                                  <th width="87" class="text-center">(R)PCS</th>
+                                                  <th width="87" class="text-center">(C)QTY</th>
+                                                  <th width="87" class="text-center">(R)QTY</th>
                                                   <th width="87" class="text-center"><div align="center">Action</div></th>
                                                 </tr>
                                               </thead>
@@ -99,7 +99,7 @@
                                                   <th>House</th>
                                                   <th>CSHIP</th>
                                                   <th>CWT</th>
-                                                  <th>PCS</th>
+                                                  <th>QTY</th>
                                                   <th class="text-center">..</th>
                                                   <th class="text-center"><div align="center">Action</div></th>
                                                 </tr>

@@ -5,6 +5,7 @@ class Connote_print extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
+
         $this->load->library('pdf_barcode/fpdf');
         $this->load->library('pdf_barcode/PDF_Code128');
 		$this->load->model('model_app');

@@ -24,8 +24,8 @@ function view_commodity(){
         $data['title']='list commodity';
 		$data['scrumb_name']='Data commodity';
 		$data['scrumb']='commodity/view_commodity';
-		$data['list']=$this->model_app->getdata('ms_commodity',"order by commCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_commodity a',"order by commCode ASC");
+		$data['list']=$this->model_app->getdata('ms_commodity',"order by CommCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_commodity a',"order by CommCode ASC");
         	//create for pagination		
 			$config['base_url'] = base_url() . 'commodity/view_commodity/';
         	$config['total_rows'] = $tot_hal->num_rows();
@@ -52,7 +52,7 @@ $this->form_validation->set_rules('code','code','required|trim|xss_clean');
 		else
 	{
 		$code=$this->input->post('code');
-		$cari=$this->model_app->getdata('ms_commodity',"where commCode='$code'");
+		$cari=$this->model_app->getdata('ms_commodity',"where CommCode='$code'");
 		if($cari){ ?>
 		<script type="text/javascript">
 		alert('Data with This Code  has already exist !. try another service');
@@ -62,12 +62,11 @@ $this->form_validation->set_rules('code','code','required|trim|xss_clean');
 		$message="New Data has been Saved with code ( ".$code." )";
 		$clas='success';
 		$newdata=array(
-		'commCode'=>strtoupper($this->input->post('code')),
-		'Name'=>$this->input->post('name'),
-		'Section'=>$this->input->post('section'),
-		'Remarks'=>$this->input->post('remarks'),
-		'CreateBy'=>$this->session->userdata('nameusr'),
-		'CreateDate'=>date('Y-m-d H:i:s'),
+		'CommCode'=>strtoupper($this->input->post('code')),
+		'CommName'=>$this->input->post('name'),
+		'CommDesc'=>$this->input->post('remarks'),
+		'CreatedBy'=>$this->session->userdata('nameusr'),
+		'CreatedDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy'=>'',
 		'ModifiedDate'=>'',
 		);		
@@ -86,8 +85,8 @@ $this->form_validation->set_rules('code','code','required|trim|xss_clean');
 		$data['scrumb']='commodity/view_commodity';
 		$data['message']=$message;
 		$data['clas']=$clas;
-		$data['list']=$this->model_app->getdata('ms_commodity',"order by commCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_commodity a',"order by commCode ASC");
+		$data['list']=$this->model_app->getdata('ms_commodity',"order by CommCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_commodity a',"order by CommCode ASC");
         	//create for pagination		
 			$config['base_url'] = base_url() . 'commodity/view_commodity/';
         	$config['total_rows'] = $tot_hal->num_rows();
@@ -118,14 +117,13 @@ $this->form_validation->set_rules('name','name','required|trim|xss_clean');
 		else
 	{
 	$update=array(
-		'commCode'=>strtoupper($this->input->post('code')),
-		'Name'=>$this->input->post('name'),
-		'Section'=>$this->input->post('section'),
-		'Remarks'=>$this->input->post('remarks'),
+		'CommCode'=>strtoupper($this->input->post('code')),
+		'CommName'=>$this->input->post('name'),
+		'CommDesc'=>$this->input->post('remarks'),
 		'ModifiedBy'=>$this->session->userdata('nameusr'),
 		'ModifiedDate'=>date('Y-m-d H:i:s'),
 		);	
-		$this->model_app->update('ms_commodity','commCode',$code,$update);
+		$this->model_app->update('ms_commodity','CommCode',$code,$update);
 	  redirect('commodity/view_commodity');
 		}	
 }
@@ -135,7 +133,7 @@ function delete_commodity(){
 	$kode=$this->uri->segment(3);
 	 if($this->session->userdata('login_status') == TRUE )
  	{
-		     $this->model_app->delete_data('ms_commodity','commCode',$kode);
+		     $this->model_app->delete_data('ms_commodity','CommCode',$kode);
 			redirect('commodity/view_commodity');
 	}
 	else
@@ -165,8 +163,8 @@ function search_commodity(){
         $data['title']='list commodity';
 		$data['scrumb_name']='Data commodity';
 		$data['scrumb']='commodity/view_commodity';
-		$data['list']=$this->model_app->getdata('ms_commodity',"where Name like '%$cari%' OR commCode like '%$cari%' order by commCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_commodity a',"where Name like '%$cari%' OR commCode like '%$cari%' order by commCode ASC");
+		$data['list']=$this->model_app->getdata('ms_commodity',"where Name like '%$cari%' OR CommCode like '%$cari%' order by CommCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_commodity a',"where Name like '%$cari%' OR CommCode like '%$cari%' order by CommCode ASC");
         					//create for pagination		
 			$config['base_url'] = base_url() . 'commodity/view_commodity/';
         	$config['total_rows'] = $tot_hal->num_rows();
@@ -195,8 +193,8 @@ function search_commodity_ajax(){
 		$offset = $page;
 		endif;
 		
-		$data['list']=$this->model_app->getdata('ms_commodity',"where Name like '$cari%' OR commCode like '$cari%' order by commCode ASC LIMIT $offset,$limit");
-		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_commodity a',"where Name like '$cari%' OR commCode like '$cari%' order by commCode ASC");
+		$data['list']=$this->model_app->getdata('ms_commodity',"where Name like '$cari%' OR CommCode like '$cari%' order by CommCode ASC LIMIT $offset,$limit");
+		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_commodity a',"where Name like '$cari%' OR CommCode like '$cari%' order by CommCode ASC");
 	//create for pagination		
 			$config['base_url'] = base_url() . 'commodity/view_commodity/';
         	$config['total_rows'] = $tot_hal->num_rows();

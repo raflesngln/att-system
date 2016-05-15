@@ -282,7 +282,7 @@ return true;
 					<li> <a href="#" class="dropdown-toggle"> <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span class="menu-text"> Internal Master </span> <b class="arrow icon-angle-down"></b> </a>
                       <ul class="submenu">
                         <li> <a href="<?php echo base_url();?>master/view_user"> <i class="icon-double-angle-right"></i><i class="fa fa-users"></i> &nbsp; User </a> </li>
-                        <li> <a href="<?php echo base_url();?>staff/view_staff"> <i class="icon-double-angle-right"></i><i class="fa fa-male"></i> &nbsp;&nbsp; Staff </a> </li>
+                        <li> <a href="<?php echo base_url();?>ms_staff"> <i class="icon-double-angle-right"></i><i class="fa fa-male"></i> &nbsp;&nbsp; Staff </a> </li>
                         <li> <a href="<?php echo base_url();?>master/view_disc"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-star-half-full"></i> &nbsp; Discount</a></li>
                         <li> <a href="<?php echo base_url();?>service/view_service"> <i class="icon-double-angle-right"></i><i class="fa fa-coffee"></i> &nbsp; Service</a></li>
  						<li> <a href="<?php echo base_url();?>commodity/view_commodity"> <i class="icon-double-angle-right"></i><i class="fa fa-diamond"></i> &nbsp; Commodity</a></li>

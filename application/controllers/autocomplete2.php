@@ -10,11 +10,6 @@ class Autocomplete2 extends CI_Controller{
         $this->load->helper('currency_format_helper');
         $nm="rafles nainggolan";
     }	
-
-function index(){  
-
-echo "haiiiii";
-}
 	 //--VIEW MASTER USER
 function view_user(){  
 	 
