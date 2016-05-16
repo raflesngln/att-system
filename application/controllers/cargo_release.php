@@ -81,6 +81,73 @@ public function listcargo()
 		//output to json format
 		echo json_encode($output);
 }
+public function listcargofilter()
+	{
+		$ab=$this->uri->segment(3);
+		$pecah=explode("_", $ab);
+		$date1=$pecah[0];
+		$date2=$pecah[1];
+		$kategori=$pecah[2];
+		$kriteria=$pecah[3];
+		$txtsearch=$pecah[4];
+		
+		if($kriteria=='startwith'){
+		$kondisi=array($kategori.' LIKE'=>$txtsearch.'%','a.ReleaseDate < '=>$date2,'a.ReleaseDate >'=>$date1);	
+		} else if($kriteria=='endwith'){
+		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch,'a.ReleaseDate < '=>$date2,'a.ReleaseDate >'=>$date1);	
+		} else if($kriteria=='contains'){
+		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch.'%','a.ReleaseDate < '=>$date2,'a.ReleaseDate >'=>$date1);	
+		} else if($kriteria=='notcontains'){
+		$kondisi=array($kategori.' NOT LIKE'=>'%'.$txtsearch.'%','a.ReleaseDate < '=>$date2,'a.ReleaseDate >'=>$date1);	
+		} else if($kriteria=='equals'){
+		$kondisi=array($kategori =>$txtsearch,'a.ReleaseDate < '=>$date2,'a.ReleaseDate >'=>$date1);	
+		} else if($kriteria=='notequals'){
+		$kondisi=array($kategori.' <> ' =>$txtsearch,'a.ReleaseDate < '=>$date2,'a.ReleaseDate >'=>$date1);	
+		}
+		
+		$nm_tabel='tr_cargo_release a';
+		$nm_tabel2='ms_airline b';
+		$kolom1='a.Airline';
+		$kolom2='b.AirLineCode';
+		$select='a.CargoReleaseCode,a.CargoDetails,a.ReleaseDate,b.AirLineName,e.FlightNo,sum(d.CWT) as jumcwt,sum(d.PCS) as jumpcs';
+		
+        $nm_coloum= array('a.CargoReleaseCode','a.CargoReleaseCode','e.FlightNo','b.AirLineName','a.CargoDetails','d.CWT','d.PCS');
+        $orderby= array('a.CargoReleaseCode' => 'ASC');
+        //$where=  array('a.CreatedBy'=>'2');
+		$where=  $kondisi;
+        $list = $this->mhouse->get_datatablecargo($select,$nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
+        
+		$data = array();
+		$no = $_POST['start'];
+		foreach ($list as $datalist){
+			$no++;
+			$row = array(
+            'no' => $no,
+            'CargoReleaseCode' =>'<a href="#" onclick="listcargo(this);" class="text-pink">'. $datalist->CargoReleaseCode.'</a>',
+            'CargoDetails' => $datalist->CargoDetails,
+            'CWT' =>$datalist->jumcwt,
+			'PCS' =>$datalist->jumpcs,
+			'FlightNo' =>$datalist->FlightNo,
+			'AirLineName' =>$datalist->AirLineName,
+			
+            'action'=> '<div class="text-center"><a target="new" href="'.base_url().'cargo_release/print_release/'.$datalist->CargoReleaseCode.'" title="Edit item"><i class="fa fa-print fa-2x"></i>
+ </a>	
+			</div>
+					'
+            );
+			$data[] = $row;
+		}
+
+		$output = array(
+						"draw" => $_POST['draw'],
+						"recordsTotal" => $this->mhouse->count_consol($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
+						"recordsFiltered" => $this->mhouse->count_filteredconsol($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
+						"data" => $data,
+				);
+		//output to json format
+		echo json_encode($output);
+}
+
 public function cargolist()
 	{
 		$nm_tabel='tr_cargo_release a';

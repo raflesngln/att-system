@@ -186,7 +186,7 @@ public function filterfinalsmu()
 		} else if($kriteria=='contains'){
 		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'4');	
 		} else if($kriteria=='notcontains'){
-		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'4');	
+		$kondisi=array($kategori.' NOT LIKE'=>'%'.$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'4');	
 		} else if($kriteria=='equals'){
 		$kondisi=array($kategori =>$txtsearch,'a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'4');	
 		} else if($kriteria=='notequals'){
@@ -256,7 +256,7 @@ public function filterclosedsmu()
 		} else if($kriteria=='contains'){
 		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'5');	
 		} else if($kriteria=='notcontains'){
-		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'5');	
+		$kondisi=array($kategori.' NOT LIKE'=>'%'.$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'5');	
 		} else if($kriteria=='equals'){
 		$kondisi=array($kategori =>$txtsearch,'a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'5');	
 		} else if($kriteria=='notequals'){
@@ -345,7 +345,20 @@ public function ajax_edit()
 		$this->m_master_outgoing->update(array($key => $this->input->post('smuno')), $data,$nmtabel);
 		echo json_encode(array("status" => TRUE));
 	}
-
+	public function updateCWTfinal()
+	{
+	    $nmtabel='outgoing_master';
+        $key='NoSMU';
+		$data = array(
+				'Remarks' => $this->input->post('remarks'),
+				'FinalCWT' => $this->input->post('finalcwt'),
+				'StatusProses' =>'5',
+				'ModifiedBy' => $this->session->userdata('idusr'),
+				'ModifiedDate' =>date('Y-m-d'),
+			);
+		$this->m_master_outgoing->update(array($key => $this->input->post('smuno')), $data,$nmtabel);
+		echo json_encode(array("status" => TRUE));
+	}
 	public function ajax_delete()
 	{
 	   $id     = $this->input->post('cid');
@@ -433,7 +446,7 @@ public function ajax_detailSMU()
 		$status=$this->input->post('status');
 		
 	$data=array(
-	'header'=>$this->model_app->getdatapaging("a.Origin,a.Destination,a.ETD,a.NoSMU,a.ETD,a.PayCode,a.Service,b.AirLineName,a.FlightNumbDate1,c.CustName as sender,d.CustName as receiver,e.PortName as ori,f.PortName as desti,g.FlightNo",
+	'header'=>$this->model_app->getdatapaging("a.Origin,a.Destination,a.ETD,a.StatusProses,a.NoSMU,a.ETD,a.PayCode,a.Service,b.AirLineName,a.FlightNumbDate1,a.FinalCWT,a.Remarks,c.CustName as sender,d.CustName as receiver,e.PortName as ori,f.PortName as desti,g.FlightNo",
 	"outgoing_master a",
 	"LEFT JOIN ms_airline b on a.Airlines=b.AirLineCode
 	 LEFT JOIN ms_customer c on a.Shipper=c.CustCode

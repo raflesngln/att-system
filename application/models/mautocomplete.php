@@ -19,6 +19,14 @@ class Mautocomplete extends CI_Model{
         $query = $this->db->get();    
         return $query->result();
     }
+	function lookup_stok_smu($keyword,$airline){
+       $this->db->select('*')->from('stock_smu');
+        $this->db->like('NoSMU',$keyword,'after');
+		$this->db->where('isActive','1');
+		$this->db->where('AirLineCode',$airline);
+        $query = $this->db->get();    
+        return $query->result();
+    }
 	function lookup_cnote($keyword){
        $this->db->select('*')->from('outgoing_connote');
        $this->db->like('Origin',$keyword,'after');

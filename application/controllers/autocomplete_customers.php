@@ -76,7 +76,33 @@ function lookup_sender(){
      $this->load->view('autocomplete/index',$data); //Load html view of search results
         }
     }
-	
+function lookup_stok_smu(){ 
+        $keyword = $this->input->post('term');
+		$airline = $this->input->post('airline');
+        $data['response'] = 'false'; //Set default response
+        $query = $this->mautocomplete->lookup_stok_smu($keyword,$airline); //Search DB
+        if( ! empty($query) )
+        {
+            $data['response'] = 'true'; //Set response
+            $data['message'] = array(); //Create an array
+            foreach( $query as $row )
+            {
+              $data['message'][] = array( 
+                    'id'=>$row->AirLineCode,
+                     'value' =>$row->NoSMU,
+					 'sm' =>$row->NoSMU,
+                  );  //Add a row to array
+            }
+        }
+        if('IS_AJAX')
+        {
+          echo json_encode($data); //echo json string if ajax request  
+        }
+        else
+        {
+     $this->load->view('autocomplete/index',$data); //Load html view of search results
+        }
+    }
 function lookup_cnote(){ 
   // process posted form data (the requested items code )
         $keyword = $this->input->post('term');

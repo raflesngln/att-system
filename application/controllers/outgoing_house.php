@@ -150,7 +150,7 @@ public function filter_list_closed()
 		} else if($kriteria=='contains'){
 		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.Consolidation >= '=>'2');	
 		} else if($kriteria=='notcontains'){
-		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.Consolidation >= '=>'2');	
+		$kondisi=array($kategori.' NOT LIKE'=>'%'.$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.Consolidation >= '=>'2');	
 		} else if($kriteria=='equals'){
 		$kondisi=array($kategori =>$txtsearch,'a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses >= '=>'5');	
 		} else if($kriteria=='notequals'){

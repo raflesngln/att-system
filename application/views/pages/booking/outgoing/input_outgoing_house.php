@@ -29,11 +29,14 @@
       .ui-menu .ui-menu-item {
         margin:0;
         padding: 0;
-        zoom: 1;
+        zoom: 1.5;
         float: left;
         clear: left;
         width: 100%;
         font-size:80%;
+		background-color:#069;
+		border-bottom:1px #FFF solid;
+		color:#FFF;
       }
       .ui-menu .ui-menu-item a {
         text-decoration:none;
@@ -239,7 +242,7 @@ function deliveryRp(input){
 </script>	    
 
 <script type="text/javascript">
-	    $(this).ready( function() {
+$(this).ready( function() {
 $("#idshipper").autocomplete({
       			minLength: 1,
       			source: 
@@ -319,6 +322,37 @@ $("#idconsigne").click(function(){
 					$("#phone2").val('');
 					$("#address2").val('');	
 	});
+$("#smu").autocomplete({
+      			minLength: 1,
+      			source: 
+        		function(req, add){
+          			$.ajax({
+		       url: "<?php echo base_url();?>index.php/autocomplete_customers/lookup_stok_smu",
+		          		dataType: 'json',
+		          		type: 'POST',
+		          		data: {
+							term:req.term,
+							airline:$("#airline").val()
+							},
+					beforeSend: function(){
+          //$('#contenshipper').html(' data loading loading loanding');
+					 $(".fa-pulse").show();
+         			 },
+		          		success:    
+		            	function(data){
+		              		if(data.response =="true"){
+		                 		add(data.message);
+								 $(".fa-pulse").hide();
+		              		}
+		            	},
+              		});
+         		},
+         	select: 
+         		function(event, ui) {
+            	
+					$("#booking").val(ui.item.sm);		
+         		},		
+    		});
 });
 
 	    </script>      
@@ -384,7 +418,7 @@ $("#idconsigne").click(function(){
           </select></div>
     </div>
 <!-- HIDDEN MENU -->
-<div style=" display:none " id="divsmu">  
+<div style=" display:none" id="divsmu">  
 <div class="col-sm-12"><hr style="border:1px #CCC dashed"></div> 
 <div class="form-group">
            <label class="span4">Air Line</label> 
@@ -407,7 +441,10 @@ $("#idconsigne").click(function(){
           <input type="hidden" name="smuconfirm" id="smuconfirm" />
           </span></div>
           <div class="span4">
-        <input name="smu" type="text" class="form-control"  id="smu" placeholder="No SMU" style="width:170px" onBlur="return cekprimary()"/>
+        <input name="smu" type="text" class="form-control"  id="smu" placeholder="No SMU" style="width:170px; display:block" onblur="return cekprimary()"/>
+          <select name="stoksmu" id="stoksmu" class="form-control" style="display:none">
+          <option value="">Select SMU</option>
+          </select>
           </div>
  </div>
  
@@ -1536,10 +1573,13 @@ $('#service').change(function(){
                 cache:false,
                 success: function(data){
                     $('#flightno1').html(data);
+					console.log(data);
+					//getSMU();
                     //document.frm.add.disabled=false;
                 }
             });
 	});
+
 function getprefix(myid){
     var airline = $(myid).val();
        $.ajax({
@@ -1551,6 +1591,7 @@ function getprefix(myid){
 			 for (var i =0; i<data.length; i++){
 				$('#prefixsmu').val(data[i].prefixsmu);
 				$('#limitcwt').val(data[i].maximal);
+				$("#smu").val('');
 				$("#smu").focus();
 				getflight();
 			 }

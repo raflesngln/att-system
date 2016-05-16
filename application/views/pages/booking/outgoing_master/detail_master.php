@@ -3,7 +3,7 @@
                                               <thead>
                                                 <tr align="left" style="background:#EBEBEB">
                                                   <th colspan="2"><div align="left">date</div></th>
-                                                  <th width="108">No Pack</th>
+                                                  <th width="108">No Packs</th>
                                                   <th width="56"><div align="center">Length</div></th>
                                                   <th width="53"><div align="center">Width</div></th>
                                                   <th width="57"><div align="center">Height</div></th>

@@ -1,16 +1,27 @@
 	  <script src="<?php echo base_url('assets/datatables/js/jquery.dataTables.min.js')?>"></script>
       <script src="<?php echo base_url('assets/datatables/js/dataTables.bootstrap.js')?>"></script>
-      
+ 
+  <link rel="stylesheet" href="<?php echo base_url();?>'assets/datatables/css/jquery.dataTables.min.css">
+       
       <script type="text/javascript">
-    
+  
         var update_methode2; //for save method string
         var tabelcargolist;
      
      $(document).ready(function() {    
-        
+   $(function() {
+	$("#start2").datepicker({
+		dateFormat:'yy-mm-dd',
+		});
+	$("#end2").datepicker({
+		dateFormat:'yy-mm-dd',
+		});
+	
+  });       
               tabelcargolist = $('#tabelcargolist').DataTable({ 
                 "processing": true, //Feature control the processing indicator.
                 "bInfo": false,
+				"bFilter":false,
                 "serverSide": true, //Feature control DataTables' server-side processing mode
                 // Load data for the table's content from an Ajax source
                 "ajax": {
@@ -146,7 +157,55 @@
     
       </script>
     
-    
+ <div class="row pull-right" style="margin-right:40px">
+<form class="form">
+<div class="row form-inline">
+<input name="start2" type="text" class="start form-control" id="start2" readonly="readonly" value="<?php echo date('Y-m-d');?>" onchange="return getNilai(this)" />
+ &nbsp; S/D &nbsp; 
+<input class="end form-control" name="end2" type="text" id="end2" readonly="readonly" value="<?php echo date('Y-m-d');?>" onchange="return getNilai(this)"/>
+
+</div><div class="clearfix"></div>
+
+<div class="row">
+<div class="form-group">
+<div class="col-sm-5">Filter by Category</div>
+<div class="col-sm-6">
+<select name="kategori" id="kategori" class="form-control" onchange="return getNilai(this)">
+<option value="a.CargoReleaseCode">Cargo</option>
+<option value="e.FlightNo">Flight</option>
+<option value="b.AirLineName">Air Lines</option>
+</select>
+</div></div><div class="clearfix"></div>
+
+<div class="form-group">
+<div class="col-sm-5">Criteria</div>
+<div class="col-sm-6">
+<select name="kriteria" id="kriteria" class="form-control" onchange="return getNilai(this)">
+<option value="equals">Equals</option>
+<option value="notequals">Not Equals</option>
+<option value="startwith">Start With</option>
+<option value="endwith">End With</option>
+<option value="contains">Contains</option>
+<option value="notcontains">Not Contains</option>
+</select>
+</div></div><div class="clearfix"></div>
+
+<div class="form-group">
+
+<label class="col-sm-11"><span class="block input-icon input-icon-right">
+<input name="txtsearch" type="text" class="form-control" id="txtsearch" placeholder="Type search" onkeyup="return getNilai(this)">
+<i class="icon-search"></i></span></label>
+
+</div>
+
+
+                                                        
+</div>
+
+
+<div class="clearfix"></div>
+</form>
+</div>   
     
       <br />
         <br />
@@ -388,5 +447,38 @@ function detailhouseconsol(myid){
             });
 	
 }
+function getNilai(inputan){
+	var tg1=$("#start2").val();
+	var tg2=$("#end2").val();
+	var pisah1=tg1.split('-');
+	var pisah2=tg2.split('-');
+	var obj_tgl=new Date();
+	
+	var tgl1_leave=obj_tgl.setFullYear(pisah1[0],pisah1[1],pisah1[2]);
+	var tgl2_leave=obj_tgl.setFullYear(pisah2[0],pisah2[1],pisah2[2]);
+	var hasil=(tgl2_leave-tgl1_leave)/(60*60*24*1000);
+	
+	if(hasil >=30 || hasil < 0){
+		
+		alert('Jumlah Rentang waktu Pencarian Maksimal 7 Hari !');
+		return false;
+	} else {
+		
+	var start2=$("#start2").val();
+	var end2=$("#end2").val();
+	var kategori=$("#kategori").val();
+	var kriteria=$("#kriteria").val();
+	var txtsearch=$("#txtsearch").val();
+	
+	var inputan=start2+"_"+end2+"_"+kategori+"_"+kriteria+"_"+txtsearch;
 
+	if(txtsearch !=''){
+tabelcargolist.ajax.url('<?php echo site_url()?>cargo_release/listcargofilter/'+inputan).load();
+	} else {
+tabelcargolist.ajax.url('<?php echo site_url()?>cargo_release/listcargo').load();		
+	}
+}
+
+	
+}
      </script>

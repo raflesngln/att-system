@@ -19,7 +19,7 @@ h3{text-align:center; font-size:14px; margin-top:-10px}
 
 <body>
 <h2 style="text-align:center">Cargo Release</h2>
-<h3>PT. Expresindo System Network</h3>
+<h3>PT. ATT Cargo</h3>
        <?php 
  $no=1;
  foreach($header as $row){

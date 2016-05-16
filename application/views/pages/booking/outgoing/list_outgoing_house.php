@@ -1,6 +1,6 @@
   <script src="<?php echo base_url('assets/datatables/js/jquery.dataTables.min.js')?>"></script>
   <script src="<?php echo base_url('assets/datatables/js/dataTables.bootstrap.js')?>"></script>
- <link href="g" 
+
  
  <link rel="stylesheet" href="<?php echo base_url();?>'assets/datatables/css/jquery.dataTables.min.css">
  

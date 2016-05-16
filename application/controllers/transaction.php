@@ -1132,6 +1132,28 @@ function filter_flightNo(){
 		}	
 	}  
 }
+function getStokSMU(){
+		$airline=$this->input->post('airline');
+		
+      $result=$this->model_app->getdata('stock_smu a',
+	  "INNER JOIN ms_airline b on a.AirLineCode=b.AirLineCode  
+	  WHERE a.AirLineCode='$airline'");
+	  
+	//echo'<option value="">Pilih Nomor SMU</option>';
+	if($result)
+	{
+	foreach($result as $data){
+	//echo'<option value="'.$data->NoSMU.'">'.$data->NoSMU.'</option>';
+	
+	$dt=array(
+	   'aa'=>$data->NoSMU,
+	   'bb'=>$data->AirLineCode
+	);
+		$mydata[]=$dt;
+		}
+		
+	}  echo json_encode($mydata);
+}
 function filter_flightNo2(){
 	$airline=$this->input->post('airline');
 	$origin=$this->input->post('origin');
@@ -1606,7 +1628,7 @@ function print_outgoing_master(){
 		}	
 }
 // Save outgoing house
- function confirm_outgoing_house(){
+function confirm_outgoing_house(){
 	  	$kodept=$this->session->userdata('company');
 		$getHouse=$this->model_app->getHouseNo();
 		$getjob=$this->model_app->getJob();
@@ -1736,6 +1758,9 @@ function print_outgoing_master(){
 		'CreatedBy' =>$this->session->userdata('idusr'),
 		'CreatedDate'=>date('Y-m-d H:i:s'),
 		);		
+		$updatestoksmu=array(
+			'isActive'=>'0',
+		);		
 		$insertconsol=array(
 			'MasterNo' =>$this->input->post('prefixsmu').'-'.$smu,
 			'FlightNo' =>$this->input ->post('flightno1'),
@@ -1746,6 +1771,8 @@ function print_outgoing_master(){
 			);	
 			$this->model_app->insert('consol',$insertconsol);
 			$this->model_app->insert('outgoing_master',$insertsmu);
+			$this->model_app->update('stock_smu','NoSMU',$smu,$updatestoksmu);
+		
 		}
 		 redirect('transaction/domestic_outgoing_house');
 //==============  print view in HTML   =======================//

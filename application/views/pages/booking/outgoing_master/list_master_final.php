@@ -12,6 +12,7 @@
             "processing": true, //Feature control the processing indicator.
 			"bInfo": false,
 			"order":[[1,"desc"],[9,"desc"]],
+			"bFilter":false,
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
             "ajax": {
@@ -215,7 +216,7 @@ function delete_person5(id)
           <th>SMU</th>
           <th>ETD</th>
           <th> Shipper</th>
-          <th>Consignee<p>&nbsp;</p></th>
+          <th>Consignee</th>
           <th>Origin</th>
           <th>Destination</th>
           <th style="width:80px;">QTY</th>

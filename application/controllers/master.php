@@ -72,10 +72,10 @@ endif;
 		$data['list']=$this->model_app->getdatapaging('a.discCode,a.ori,a.dest,a.DiscPersen,a.DiscRupiah,
 		a.isACtive,a.Remarks,b.CustCode,b.CustName,c.svCode,c.Name,d.CityCode,d.CityName,
 		e.venCode,e.venName',"ms_disc a","
-		inner join ms_customer b on a.CustCode=b.CustCode
-		inner join ms_service c on a.svCode=c.svCode
-		left join ms_city d on a.CityCode=d.CityCode
-		inner join ms_vendor e on a.venCode=e.venCode
+		LEFT join ms_customer b on a.CustCode=b.CustCode
+		LEFT join ms_service c on a.svCode=c.svCode
+		LEFT join ms_city d on a.CityCode=d.CityCode
+		LEFT join ms_vendor e on a.venCode=e.venCode
 		order by a.discCode ASC LIMIT $offset,$limit");
 		
 		$tot_hal = $this->model_app->hitung_isi_tabel('a.discCode,a.Ori,a.Dest,a.DiscPersen,a.DiscRupiah,

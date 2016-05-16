@@ -19,6 +19,7 @@
           tableclosed = $('#tableclosed').DataTable({ 
             "processing": true, //Feature control the processing indicator.
 			"bInfo": false,
+			"bFilter":false,
 			"order":[[0,"desc"],[1,"asc"]],
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source

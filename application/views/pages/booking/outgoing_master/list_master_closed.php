@@ -19,6 +19,7 @@
           table_closed = $('#table_closed').DataTable({ 
             "processing": true, //Feature control the processing indicator.
 			"bInfo": false,
+			"bFilter":false,
 			"order":[[1,"desc"],[9,"desc"]],
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
@@ -212,10 +213,7 @@ function delete_person5(id)
 </div>
     <br />
     <br />
- </br>
- <div class="col-sm-12 portlets ui-sortable">
-<div class="table-responsive" id="divfinal">
-    <table id="table_closed" class="table table-striped table-bordered" cellspacing="0" width="96%" style="margin-left:15px">
+    <table id="table_closed" class="table table-striped table-bordered" cellspacing="0" width="98%">
       <thead>
         <tr>
           <th>No</th>  
@@ -248,8 +246,7 @@ function delete_person5(id)
         </tr>
       </tfoot>
     </table>
-  </div>   
-  </div>    
+  
   
    <div class="clearfix"></div>
   <!-- INFO --><br />

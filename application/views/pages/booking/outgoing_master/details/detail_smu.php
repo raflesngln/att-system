@@ -46,9 +46,26 @@ foreach($header as $row){
     <div class="col-sm-5">Flight</div>
     <div class="col-sm-7">: <?php echo $row->FlightNo;?></div>
 	</div>
+    
+<div class="form-group">
+    <div class="col-sm-5">Final CWT</div>
+    <div class="col-sm-7">: <?php echo $row->FinalCWT;?></div>
+	</div>
 </div>
 
-<?php } ?>
+<?php
+$statusproses=$row->StatusProses;
+if($statusproses=='5'){
+?>
+<div class="col-sm-6">
+	<div class="form-group">
+    <div class="col-sm-12"><strong>Remarks :</strong></div>
+    
+    <div class="col-sm-12"><textarea name="remark" rows="4" readonly="readonly" class="form-control"><?php echo $row->Remarks;?></textarea></div>
+	</div>
+
+</div>
+<?php } } ?>
 </div>
 <label class="label label-inverse label-lg">List House</label>
 <table id="tbldet" class="table table-responsive table-striped table-bordered" cellspacing="0" width="100%">

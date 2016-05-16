@@ -189,7 +189,7 @@ function delete_staff(id)
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
         <h3 class="modal-title5">Staff Form</h3>
       </div>
       <div class="modal-body form">
