@@ -11,12 +11,13 @@ class Cargo_release extends CI_Controller {
             redirect('');
         };
 		$this->load->model('mhouse');
+		$this->load->model('mcargo');
 		$this->load->model('model_app');
 	}
 
 	public function index()
 	{  
-       $data['title']='list cargo_release';
+       $data['title']='Cargo_release';
 		$data['scrumb_name']='Data cargo_release';
 		$data['scrumb']='cargo_release';
 		$data['airline']=$this->model_app->getdatapaging("*","ms_airline","ORDER BY AirLineName");
@@ -46,8 +47,8 @@ public function listcargo()
 		$kolom2='b.AirLineCode';
 		$select='a.CargoReleaseCode,a.CargoDetails,a.ReleaseDate,b.AirLineName,e.FlightNo,sum(d.CWT) as jumcwt,sum(d.PCS) as jumpcs';
 		
-        $nm_coloum= array('a.CargoReleaseCode','a.CargoReleaseCode','e.FlightNo','b.AirLineName','a.CargoDetails','d.CWT','d.PCS');
-        $orderby= array('a.CargoReleaseCode' => 'ASC');
+        $nm_coloum= array('a.CargoReleaseCode','a.CargoReleaseCode','b.AirLineName','a.CargoDetails','d.CWT','d.PCS');
+        $orderby= array('a.CargoReleaseCode' => 'desc');
         $where=  array('a.CreatedBy'=>'2');
         $list = $this->mhouse->get_datatablecargo($select,$nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
@@ -104,14 +105,13 @@ public function listcargofilter()
 		} else if($kriteria=='notequals'){
 		$kondisi=array($kategori.' <> ' =>$txtsearch,'a.ReleaseDate < '=>$date2,'a.ReleaseDate >'=>$date1);	
 		}
-		
 		$nm_tabel='tr_cargo_release a';
 		$nm_tabel2='ms_airline b';
 		$kolom1='a.Airline';
 		$kolom2='b.AirLineCode';
 		$select='a.CargoReleaseCode,a.CargoDetails,a.ReleaseDate,b.AirLineName,e.FlightNo,sum(d.CWT) as jumcwt,sum(d.PCS) as jumpcs';
-		
-        $nm_coloum= array('a.CargoReleaseCode','a.CargoReleaseCode','e.FlightNo','b.AirLineName','a.CargoDetails','d.CWT','d.PCS');
+				
+        $nm_coloum= array('a.CargoReleaseCode','a.CargoReleaseCode','b.AirLineName','a.CargoDetails','d.CWT','d.PCS');
         $orderby= array('a.CargoReleaseCode' => 'ASC');
         //$where=  array('a.CreatedBy'=>'2');
 		$where=  $kondisi;
@@ -148,95 +148,7 @@ public function listcargofilter()
 		echo json_encode($output);
 }
 
-public function cargolist()
-	{
-		$nm_tabel='tr_cargo_release a';
-		$nm_tabel2='ms_airline b';
-		$kolom1='a.Airline';
-		$kolom2='b.AirLineCode';
-		$select='a.CargoReleaseCode,a.CargoReleaseCode,b.AirLineName,a.CargoDetails,a.PCS,a.CWT';
 
-        $nm_coloum= array('a.CargoReleaseCode','a.CargoReleaseCode','a.AirLineName','b.CargoDetails','a.PCS','a.CWT');
-        $orderby= array('a.CargoReleaseCode' => 'ASC');
-        $where=  array('a.CreatedBy'=>'2');
-        $list = $this->mhouse->get_datatablesconsol($select,$nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
-        
-		$data = array();
-		$no = $_POST['start'];
-		foreach ($list as $datalist){
-			$no++;
-			$row = array(
-            'no' => $no,
-            'CargoReleaseCode' => $datalist->CargoReleaseCode,
-            'CargoDetails' => $datalist->CargoDetails,
-            'AirLineName' =>$datalist->AirLineName,
-			'CWT' =>$datalist->jumcwt,
-			'PCS' =>$datalist->jumpcs,
-			
-            'action'=> '<a class="green" href="javascript:void()" title="Edit" onclick="edit_data('."'".$datalist->CargoReleaseCode."'".')"><i class="icon-edit bigger-150"></i></a>&nbsp;&nbsp;
-				    <a class="red" href="javascript:void()" title="Hapus" onclick="delete_data('."'".$datalist->CargoReleaseCode."'".')"><i class="icon-trash bigger-150"></i></a>
-<a class="green" href="javascript:void()" title="Edit" onclick="edit_data2('."'".$datalist->CargoReleaseCode."'".')"><i class="icon-edit bigger-150"></i></a>					'
-            );
-			$data[] = $row;
-		}
-
-		$output = array(
-						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->mhouse->count_consol($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
-						"recordsFiltered" => $this->mhouse->count_filteredconsol($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
-						"data" => $data,
-				);
-		//output to json format
-		echo json_encode($output);
-}
-
-public function ajax_edit()
-	{
-	   	$CargoReleaseCode     = $this->input->post('cid');
-        $nmtabel= $this->input->post('cnmtabel');
-        $key    = $this->input->post('ckeytabel');
-		$data = $this->Mcargo->get_by_id($CargoReleaseCode,$nmtabel,$key);
-		echo json_encode($data);
-	}
-
-	public function ajax_add()
-	{   
-	    $nmtabel='tr_cargo_release';
-		$kode=$this->model_app->generateNo($nmtabel,"CargoReleaseCode","CR-");
-		$data = array(
-				'CargoDetails' => $this->input->post('CargoDetails'),
-				'CargoReleaseCode' => $kode,
-				'ReleaseDate' => $this->input->post('ReleaseDate'), 
-				'CreatedBy' => $this->session->userdata('idusr'),
-			);
-		$insert = $this->Mcargo->save($data,$nmtabel);
-		echo json_encode(array("status" => TRUE));
-	}
-
-	public function ajax_update()
-	{
-	    $nmtabel='tr_cargo_release';
-        $key='CargoReleaseCode';
-		$data = array(
-				'CargoDetails' => $this->input->post('CargoDetails'),
-				'CWT' => $this->input->post('cwt'),
-			);
-		$this->Mcargo->update(array($key => $this->input->post('CargoReleaseCode')), $data,$nmtabel);
-		echo json_encode(array("status" => TRUE));
-	}
-
-	public function ajax_delete()
-	{
-	   $id     = $this->input->post('cid');
-       $nmtabel= $this->input->post('cnmtabel'); $nmtabel2='cargo_items';
-       $key    = $this->input->post('ckeytabel');
-       
-		$this->Mcargo->delete_by_id($id,$nmtabel,$key);
-		$this->Mcargo->delete_by_id($id,$nmtabel2,$key);
-		
-		echo json_encode(array("status" => TRUE));
-	}
-	
 //============================== NO DATATABLES===============================================//
 function detail_list_cargo(){
 	$cargocode=$this->input->post('cargocode');
@@ -284,6 +196,49 @@ function print_release(){
 			exit;
 		}	
 }
+public function get_smu()
+	{
+		//$airlines=$this->input->post('airlines');
+		$nm_tabel='outgoing_master a';
+		$nm_tabel2='ms_port b';
+		$kolom1='a.Origin';
+		$kolom2='b.PortCode';
+		$select='a.ETD,a.Destination,a.Origin,a.FlightNumbDate1,d.FlightID,d.FlightNo,a.NoSMU,sum(a.PCS) as pcs,sum(a.CWT) cwt,b.PortName as ori,c.PortName as desti';
+		
+        $nm_coloum= array('d.FlightNo','d.FlightNo','a.ETD','b.PortName.','c.PortName','a.PCS','a.CWT');
+        $orderby= array('d.FlightNo' => 'ASC');
+        $where=  array('a.StatusProses >='=>'2','a.StatusProses <='=>'3','a.Airlines'=>'1');
+		//$where=  array();
+        $list = $this->mcargo->get_datatables_smu($select,$nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
+		$data = array();
+		$no = $_POST['start'];
+		foreach ($list as $datalist){
+			$no++;
+			$row = array(
+            'no' => $no,
+            'FlightNo' =>'<button class="label label-inverse" type="button" value="'.$datalist->FlightID.'" onclick="return detailCargo(this)">'.$datalist->FlightNo.'</button>',
+            'ETD' => $datalist->ETD,
+            'ori' =>$datalist->ori,
+			'desti' =>$datalist->desti,
+			'PCS' =>$datalist->pcs,
+			'CWT' =>$datalist->cwt,
+			
+            'action'=> '<div id="cek"><input type="checkbox" name="checklish[]" id="checklish[]" class="ceklis" value="'.$datalist->FlightID.'"></div>
+			'
+            );
+			$data[] = $row;
+		}
+
+		$output = array(
+						"draw" => $_POST['draw'],
+						"recordsTotal" => $this->mcargo->count_all_smu($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
+						"recordsFiltered" => $this->mcargo->count_filtered_smu($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
+						"data" => $data,
+				);
+		//output to json format
+		echo json_encode($output);
+}
+
 public function ajax_detailSMU()
 	{
 		$kode=$this->input->post('smu');

@@ -19,15 +19,14 @@ body.stop-scrolling {
 .sweet-alert {
   background-color: white;
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  width: 478px;
+  width:auto;
+  height:auto;
   padding: 17px;
   border-radius: 5px;
   text-align: center;
   position: fixed;
-  left: 50%;
-  top: 50%;
-  margin-left: -256px;
-  margin-top: -200px;
+  left: 35%;
+  top: 30%;
   overflow: hidden;
   display: none;
   z-index: 99999; }
@@ -210,7 +209,7 @@ body.stop-scrolling {
   .sweet-alert[data-has-cancel-button=false] button {
     box-shadow: none !important; }
   .sweet-alert[data-has-confirm-button=false][data-has-cancel-button=false] {
-    padding-bottom: 40px; }
+    padding-bottom: 20px; }
   .sweet-alert .sa-icon {
     width: 80px;
     height: 80px;

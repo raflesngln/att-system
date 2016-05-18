@@ -1,6 +1,8 @@
   <script src="<?php echo base_url('assets/datatables/js/jquery.dataTables.min.js')?>"></script>
   <script src="<?php echo base_url('assets/datatables/js/dataTables.bootstrap.js')?>"></script>
+  <link href="<?php echo base_url();?>assets/datatables/css/dataTables.bootstrap.css" rel="stylesheet" />
   
+
   <script type="text/javascript">
   $(function() {
 	$("#start2").datepicker({
@@ -21,6 +23,7 @@
 			"bInfo": false,
 			"bFilter":false,
 			"order":[[0,"desc"],[1,"asc"]],
+		     
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
             "ajax": {
@@ -34,10 +37,10 @@
             { "data": "receiver" },
 			{ "data": "ori" },
 			{ "data": "desti" },
-			{ "data": "pcs","orderable":false,"visible":true },
-			{ "data": "cwt","orderable":false,"visible":true },
+			{ "data": "pcs"},
+			{ "data": "cwt"},
             { "data": "action","orderable":false,"visible":true }
-            ]
+            ],
           });  
     
 $('#tableclosed tbody').on('dblclick', 'tr', function () {
@@ -156,7 +159,10 @@ function delete_person5(id)
 <div class="row pull-right" style="margin-right:40px">
 <form class="form">
 <div class="row form-inline">
-<input name="start2" type="text" class="start form-control" id="start2" readonly="readonly" value="<?php echo date('Y-m-d');?>" onchange="return getNilai(this)" />
+<?php
+$kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-7,date("Y")));
+?>
+<input name="start2" type="text" class="start form-control" id="start2" readonly="readonly" value="<?php echo $kurangtanggal;?>" onchange="return getNilai(this)" style="width:32%" />
  &nbsp; S/D &nbsp; 
 <input class="end form-control" name="end2" type="text" id="end2" readonly="readonly" value="<?php echo date('Y-m-d');?>" onchange="return getNilai(this)"/>
 
@@ -167,9 +173,9 @@ function delete_person5(id)
 <div class="col-sm-5">Filter by Category</div>
 <div class="col-sm-6">
 <select name="kategori" id="kategori" class="form-control" onchange="return getNilai(this)">
-<option value="a.NoSMU">SMU</option>
 <option value="b.CustName">Shipper</option>
 <option value="c.CustName">Consigne</option>
+<option value="a.HouseNo">House No</option>
 <option value="d.PortName">Origin</option>
 <option value="e.PortName">Destination</option>
 </select>
@@ -179,10 +185,10 @@ function delete_person5(id)
 <div class="col-sm-5">Criteria</div>
 <div class="col-sm-6">
 <select name="kriteria" id="kriteria" class="form-control" onchange="return getNilai(this)">
-<option value="equals">Equals</option>
-<option value="notequals">Not Equals</option>
 <option value="startwith">Start With</option>
 <option value="endwith">End With</option>
+<option value="equals">Equals</option>
+<option value="notequals">Not Equals</option>
 <option value="contains">Contains</option>
 <option value="notcontains">Not Contains</option>
 </select>
@@ -206,7 +212,7 @@ function delete_person5(id)
 </div>
     <br />
     <br />
-    <table id="tableclosed" class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <table id="tableclosed" class="table table-striped table-" cellspacing="0" width="100%">
       <thead>
         <tr>
           <th>No</th>  
@@ -215,9 +221,9 @@ function delete_person5(id)
           <th>Consigne</th>
           <th>Origin</th>
           <th>Destination</th>
-          <th style="width:125px;">QTY</th>
-          <th style="width:125px;">CWT</th>
-          <th style="width:125px;">Action</th>
+          <th style="width:50px;">QTY</th>
+          <th style="width:50px;">CWT</th>
+          <th style="width:50px;">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -231,8 +237,8 @@ function delete_person5(id)
           <th>Consigne</th>
           <th>Origin</th>
           <th>Destination</th>
-          <th><span style="width:125px;">QTY</span></th>
-          <th><span style="width:125px;">CWT</span></th>
+          <th>QTY</th>
+          <th>CWT</th>
           <th>Action</th>
         </tr>
       </tfoot>
@@ -376,12 +382,20 @@ function EditConfirm(myid){
 
 
 function detailhouseclosed(myid){
+	swal({
+		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
+		text:'<p>Loading Content.......</p>',
+		showConfirmButton:false,
+		//type:"success",
+		html:true
+		});
 	var numb=$(myid).html();
 				$.ajax({
                 type: "POST",
                 url : "<?php echo base_url('outgoing_house/ajax_detailHouse'); ?>",
                 data: "numb="+numb,
                 success: function(data){
+					swal.close();
 					$("#modalhouseclosed").modal('show'); 
 					$('#labelhouseclosed').html(numb);
                    $('#tabledetailhouseclosed').html(data);
@@ -390,6 +404,13 @@ function detailhouseclosed(myid){
 	
 }
 function detailsmuclosed(myid){
+	swal({
+		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
+		text:'<p>Loading Content.......</p>',
+		showConfirmButton:false,
+		//type:"success",
+		html:true
+		});
 	var smu=$(myid).html();
 	var status='consol';
              // alert('hai' + idcnote);
@@ -398,6 +419,7 @@ function detailsmuclosed(myid){
                 url : "<?php echo base_url('outgoing_house/ajax_detailSMU'); ?>",
                 data: "smu="+smu+"&status="+status,
                 success: function(data){
+					swal.close();
 					$("#modalhouseclosed").modal('hide'); 
 					$("#modaldetailsmuclosed").modal('show'); 
                    $('#tabledetailsmuclosed').html(data);
@@ -417,7 +439,7 @@ function getNilai(inputan){
 	var tgl2_leave=obj_tgl.setFullYear(pisah2[0],pisah2[1],pisah2[2]);
 	var hasil=(tgl2_leave-tgl1_leave)/(60*60*24*1000);
 	
-	if(hasil >=30 || hasil < 0){
+	if(hasil >=8 || hasil < 0){
 		
 		alert('Jumlah Rentang waktu Pencarian Maksimal 7 Hari !');
 		return false;
@@ -430,11 +452,6 @@ function getNilai(inputan){
 	var txtsearch=$("#txtsearch").val();
 	
 	var inputan=start2+"_"+end2+"_"+kategori+"_"+kriteria+"_"+txtsearch;
-	
-	var a='5';
-	var b='1';
-	var c=$("#txtsearch").val();
-	var ab=a+"_"+b+"_"+c;
 
 	if(txtsearch !=''){
 tableclosed.ajax.url('<?php echo site_url()?>outgoing_house/filter_list_closed/'+inputan).load();

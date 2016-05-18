@@ -158,8 +158,8 @@ function delete_person5(id)
           <th>HouseNo</th>
           <th>ETD</th>
           <th>Destination</th>
-          <th>QTY</th>
-          <th>CWT</th>
+          <th style="width:50px;">QTY</th>
+          <th style="width:50px;">CWT</th>
           <th><span class="text-center">Status Consol</span></th>
           <th>Shipment Type</th>
         </tr>
@@ -242,12 +242,20 @@ function delete_person5(id)
     
   <script>
 function detailhouse(myid){
+	swal({
+		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
+		text:'<p>Loading Content.......</p>',
+		showConfirmButton:false,
+		//type:"success",
+		html:true
+		});
 	var numb=$(myid).html();
 				$.ajax({
                 type: "POST",
                 url : "<?php echo base_url('transaction/ajax_detailHouse'); ?>",
                 data: "numb="+numb,
                 success: function(data){
+					swal.close();
 					$("#modalhouse").modal('show'); 
 					$('#labelhouse').html(numb);
                    $('#tabledetailhouse').html(data);
@@ -256,6 +264,13 @@ function detailhouse(myid){
 	
 }
 	function detailsmuinHouse(myid){
+	swal({
+		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
+		text:'<p>Loading Content.......</p>',
+		showConfirmButton:false,
+		//type:"success",
+		html:true
+		});
 	var smu=$(myid).html();
 	var status='consol';
              // alert('hai' + idcnote);
@@ -264,6 +279,7 @@ function detailhouse(myid){
                 url : "<?php echo base_url('transaction/ajax_detailSMU'); ?>",
                 data: "smu="+smu+"&status="+status,
                 success: function(data){
+					swal.close();
 					$("#modalhouse").modal('hide'); 
 					$("#modaldetailsmuinhouse").modal('show'); 
                    $('#tabledetailsmuinhouse').html(data);

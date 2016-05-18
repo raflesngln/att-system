@@ -24,11 +24,11 @@
             { "data": "NoSMU" },
 			{ "data": "ETD" },
             { "data": "sender" },
-            { "data": "receiver","orderable":false,"visible":true },
-			{ "data": "ori","orderable":false,"visible":true },
-			{ "data": "desti" },
-			{ "data": "pcs","orderable":false,"visible":true },
-			{ "data": "cwt","orderable":false,"visible":true },
+            { "data": "receiver"},
+			{ "data": "ori"},
+			{ "data": "desti"},
+			{ "data": "pcs"},
+			{ "data": "cwt"},
             { "data": "action","orderable":false,"visible":true }
             ]
           });  
@@ -51,6 +51,13 @@ function add_person5()
 
 function editFinal(id)
     {
+	swal({
+		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
+		text:'<p>Loading Content.......</p>',
+		showConfirmButton:false,
+		//type:"success",
+		html:true
+		});
       update_methode = 'update';
       $('#myformfinal')[0].reset(); // reset form on modals
         
@@ -65,17 +72,16 @@ function editFinal(id)
         dataType: "JSON",
         success: function(data)
         {
+			swal.close();
             $('[name="smuno"]').val(data.NoSMU);
 			 $('[name="smu"]').val(data.NoSMU);
 			$('[name="cwt"]').val(data.CWT);
             $('[name="remarks"]').val(data.Remarks); 
 			$('[name="finalcwt"]').val(data.FinalCWT); 
-			
-			
             $('#modal_master_final').modal('show');
             $('.modal-title').text('Edit CWT Final');
 			document.getElementById("BankCode2").disabled=true;
-            
+           
         },
         error: function (jqXHR, textStatus, errorThrown)
         {
@@ -114,6 +120,13 @@ function updateCWTsmu(){
                $('#modal_master_final').modal('hide');
                reloadFinal();
 			   reloadClosedsmu();
+			  	swal({
+				title:'Final CWT Update',
+				text:'<p>Action succes !</p>',
+				showConfirmButton:true,
+				type:"success",
+				html:true
+				});
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -121,8 +134,14 @@ function updateCWTsmu(){
             }
         });
 	} else {
-	alert('Action Processing Cancelled !');	
-	$('#modal_master_final').modal('hide');
+		swal({
+		title:'Canceled !',
+		text:'<p>Action canceled</p>',
+		showConfirmButton:true,
+		type:"warning",
+		html:true
+		});
+		$('#modal_master_final').modal('hide');
 	}
 }
 
@@ -158,7 +177,10 @@ function delete_person5(id)
 <div class="row pull-right" style="margin-right:40px">
 <form class="form">
 <div class="row form-inline">
-<input name="start2" type="text" class="start form-control" id="start2" readonly="readonly" value="<?php echo date('Y-m-d');?>" onchange="return getNilai(this)" />
+<?php
+$kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-7,date("Y")));
+?>
+<input name="start2" type="text" class="start form-control" id="start2" readonly="readonly" value="<?php echo $kurangtanggal;?>" onchange="return getNilai(this)" />
  &nbsp; S/D &nbsp; 
 <input class="end form-control" name="end2" type="text" id="end2" readonly="readonly" value="<?php echo date('Y-m-d');?>" onchange="return getNilai(this)"/>
 
@@ -169,9 +191,9 @@ function delete_person5(id)
 <div class="col-sm-5">Filter by Category</div>
 <div class="col-sm-6">
 <select name="kategori" id="kategori" class="form-control" onchange="return getNilai(this)">
-<option value="a.NoSMU">SMU</option>
 <option value="b.CustName">Shipper</option>
 <option value="c.CustName">Consigne</option>
+<option value="a.NoSMU">SMU</option>
 <option value="d.PortName">Origin</option>
 <option value="e.PortName">Destination</option>
 </select>
@@ -181,10 +203,10 @@ function delete_person5(id)
 <div class="col-sm-5">Criteria</div>
 <div class="col-sm-6">
 <select name="kriteria" id="kriteria" class="form-control" onchange="return getNilai(this)">
-<option value="equals">Equals</option>
-<option value="notequals">Not Equals</option>
 <option value="startwith">Start With</option>
 <option value="endwith">End With</option>
+<option value="equals">Equals</option>
+<option value="notequals">Not Equals</option>
 <option value="contains">Contains</option>
 <option value="notcontains">Not Contains</option>
 </select>
@@ -219,9 +241,9 @@ function delete_person5(id)
           <th>Consignee</th>
           <th>Origin</th>
           <th>Destination</th>
-          <th style="width:80px;">QTY</th>
-          <th style="width:80px;">CWT</th>
-          <th style="width:80px;">Action</th>
+          <th style="width:50px;">QTY</th>
+          <th style="width:50px;">CWT</th>
+          <th style="width:50px;">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -378,78 +400,17 @@ function delete_person5(id)
                 }
             });
         });
-	
-	 $("#txtsearchmmmm").keyup(function(){
-            var txtsearch = $('#txtsearch').val();
-             // alert('hai' + idcnote);
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/search_outgoing_house'); ?>",
-                data: "txtsearch="+txtsearch,
-                success: function(data){
-                   $('#table_connote').html(data);
-                }
-            });
-        });
-		
-	 $("#btnsearch").click(function(){
-            var txtsearch = $('#txtsearch').val();
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/search_outgoing_house'); ?>",
-                data: "txtsearch="+txtsearch,
-                success: function(data){
-                   $('#table_connote').html(data);
-                }
-            });
-        });
-	 $("#btnsort").click(function(){
-            var tgl1 = $('#tg1').val();
-			var tgl2 = $('#tg2').val();
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/periode_outgoing_house');?>",
-       data: "tgl1="+tgl1+"&tgl2="+tgl2,
-                success: function(data){
-                   $('#table_connote').html(data);
-                }
-            });
-        });
 
 
-//$("#btnfilter").click(function(e) {
-function FilterMasterFinal(){
-    var status=$("#status3").val();
-	var status2=$("#status4").val();
-	var start=$("#start2").val();
-	var end=$("#end2").val();
-	$.ajax({
-    type: "POST",
-    url : "<?php echo base_url('outgoing_master/filter_final'); ?>",
-    data: "status="+status+"&status2="+status2+"&start="+start+"&end="+end,
-     success: function(data){
-     $('#divclosed').html(data);
-         }
-    });
-}
- function filterkategori(){
-    var filter=$("#status3").val();
-	if(filter=='all'){
-		//$("#status2 option").remove();
-		document.getElementById("status3").selectedIndex = "0";
-	} else {
-			$.ajax({
-            type: "POST",
-            url : "<?php echo base_url('outgoing_master/getStatus'); ?>",
-           data: "filter="+filter,
-           success: function(data){
-           $('#status4').html(data);
-            }
-       });
-	}
-}
 function detailsmufinal(myid){
 	var smu=$(myid).html();
+	swal({
+		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
+		text:'<p>Loading Content.......</p>',
+		showConfirmButton:false,
+		//type:"success",
+		html:true
+		});
 	var status='consol';
              // alert('hai' + idcnote);
 				$.ajax({
@@ -459,6 +420,7 @@ function detailsmufinal(myid){
                 success: function(data){
 					$("#modaldetailsmufinal").modal('show'); 
                    $('#tabledetailfinal').html(data);
+				   swal.close();
                 }
             });
 	
@@ -476,29 +438,6 @@ function detailhousefinal(myid){
                 }
             });
 }
-function getNilaiiiiiiiii(inputan){
-	
-	var start2=$("#start2").val();
-	var end2=$("#end2").val();
-	var kategori=$("#kategori").val();
-	var kriteria=$("#kriteria").val();
-	var txtsearch=$("#txtsearch").val();
-	
-	var inputan=start2+"_"+end2+"_"+kategori+"_"+kriteria+"_"+txtsearch;
-	
-	var a='5';
-	var b='1';
-	var c=$("#txtsearch").val();
-	var ab=a+"_"+b+"_"+c;
-
-	if(txtsearch !=''){
-tablefinalsmu.ajax.url('<?php echo site_url()?>outgoing_master/filterfinalsmu/'+inputan).load();
-	} else {
-tablefinalsmu.ajax.url('<?php echo site_url()?>outgoing_master/list_final').load();		
-	}
-}
-
-
 function getNilai(inputan){
 	var tg1=$("#start2").val();
 	var tg2=$("#end2").val();
@@ -510,7 +449,7 @@ function getNilai(inputan){
 	var tgl2_leave=obj_tgl.setFullYear(pisah2[0],pisah2[1],pisah2[2]);
 	var hasil=(tgl2_leave-tgl1_leave)/(60*60*24*1000);
 	
-	if(hasil >=30 || hasil < 0){
+	if(hasil >=8 || hasil < 0){
 		
 		alert('Jumlah Rentang waktu Pencarian Maksimal 7 Hari !');
 		return false;
@@ -523,11 +462,6 @@ function getNilai(inputan){
 	var txtsearch=$("#txtsearch").val();
 	
 	var inputan=start2+"_"+end2+"_"+kategori+"_"+kriteria+"_"+txtsearch;
-	
-	var a='5';
-	var b='1';
-	var c=$("#txtsearch").val();
-	var ab=a+"_"+b+"_"+c;
 
 	if(txtsearch !=''){
 tablefinalsmu.ajax.url('<?php echo site_url()?>outgoing_master/filterfinalsmu/'+inputan).load();
@@ -535,8 +469,7 @@ tablefinalsmu.ajax.url('<?php echo site_url()?>outgoing_master/filterfinalsmu/'+
 tablefinalsmu.ajax.url('<?php echo site_url()?>outgoing_master/list_final').load();		
 	}
 }
-
-	
 }
+
 </script>
     

@@ -73,8 +73,7 @@ class Mhouse extends CI_Model {
 		$this->db->join("ms_port d",'a.Origin=d.PortCode','LEFT');
 		$this->db->join("ms_port e",'a.Destination=e.PortCode','LEFT');	
 		$this->_get_datatables_query2($nm_coloum,$orderby,$where);
-					$order = $orderby;
-			$this->db->order_by(key($order), $order[key($order)]);
+	
 			
         if($_POST['length'] != -1)
 		$this->db->limit($_POST['length'], $_POST['start']);
@@ -94,7 +93,13 @@ private function _get_datatables_query2($nm_coloum,$orderby,$where)
 		
 		if(isset($_POST['order']))
 		{
-			$this->db->order_by($column[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+				$n=0;
+            $sort=$_POST['order'];
+            foreach($sort as $i =>$val){
+             $this->db->order_by($column[$_POST['order'][$n]['column']], $_POST['order'][$n]['dir']);   
+             $n++;
+            }
+			//$this->db->order_by($column[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
 		}
 		else if(isset($orderby))
 		{
@@ -273,9 +278,8 @@ public function count_consol($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2)
 		$this->db->join("ms_airline c",'a.Airline=c.AirLineCode','LEFT');
 		$this->db->join("cargo_items d",'a.CargoReleaseCode=d.CargoReleaseCode','LEFT');
 		$this->db->join("ms_flight e",'e.FlightID=d.FlightNumber','LEFT');
-$this->db->group_by('a.CargoReleaseCode');
+		$this->db->group_by('a.CargoReleaseCode');
 		$this->_get_datatables_consol($nm_coloum,$orderby,$where);
-
         if($_POST['length'] != -1)
 		$this->db->limit($_POST['length'], $_POST['start']);
 		$query = $this->db->get();

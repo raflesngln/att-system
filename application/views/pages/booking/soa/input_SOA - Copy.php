@@ -1,37 +1,4 @@
 
- <style>
- .btn-search{ height:32px; margin-left:-10px;}
-
-  input{
-  border:1px #B5B5B5 solid;
-  margin-bottom:5px;
-  margin-top: 3px;
- }
-   .select,.combo{
-  border:1px #B5B5B5 solid;
-  margin-bottom:5px;
-  margin-top: 3px;
- }
- #etd1,#etd2{font-size:12px;}
- 
- </style>
-       <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
-  <script src="<?php echo base_url();?>asset/jquery_ui/external/jquery/jquery.js"></script>
-  <script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
-  <script>
-  $(function() {
-    $("#soadate").datepicker({
-		dateFormat:'yy-mm-dd',
-		});
-$("#etd1").datepicker({
-		dateFormat:'yy-mm-dd',
-		});
-$("#etd2").datepicker({
-		dateFormat:'yy-mm-dd',
-		});
-
-  });
-  </script>
 
    <div class="container-fluid">
     <div class="span12">
@@ -88,7 +55,8 @@ $("#etd2").datepicker({
     <div class="col-sm-3">
            <input name="etd2" type="text" class="form-control"  id="etd2" required="required" readonly="readonly" value="<?php echo date("Y-m-d") ;?>" />
        </div>
-          
+
+<div class="clearfix"></div>          
  <strong><label class="col-sm-4"> Currency</label></strong>
           <div class="col-sm-7">
             <select name="currency" id="currency" class="form-control">
@@ -133,7 +101,7 @@ $("#etd2").datepicker({
   <tr>
     <td>1</td>
     <td><?php echo $row->JobNo;?></td>
-    <td><?php echo $row->HouseNo;?></td>
+    <td><?php echo $row->HouseNo;?><input type="hidden" name="house" /></td>
     <td><?php echo $row->CreateDate;?></td>
     <td><?php echo substr($row->ori,0,15).' - ';?><?php echo substr($row->desti,0,15);?></td>
     <td><?php echo $row->GrossWeight;?></td>

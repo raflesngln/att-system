@@ -22,6 +22,7 @@
                 "processing": true, //Feature control the processing indicator.
                 "bInfo": false,
 				"bFilter":false,
+				"order":[[1,"desc"],[1,"asc"]],
                 "serverSide": true, //Feature control DataTables' server-side processing mode
                 // Load data for the table's content from an Ajax source
                 "ajax": {
@@ -31,11 +32,10 @@
                 "columns": [
                 { "data": "no" ,"orderable":false,"visible":true},
                 { "data": "CargoReleaseCode" },
-                { "data": "FlightNo" },
                 { "data": "AirLineName" },
-                { "data": "CargoDetails","orderable":false,"visible":true },
+                { "data": "CargoDetails"},
                 { "data": "PCS","orderable":false,"visible":true },
-                { "data": "CWT","orderable":false,"visible":true  },
+                { "data": "CWT","orderable":false,"visible":true},
                 { "data": "action","orderable":false,"visible":true  },
     
                 ]
@@ -160,7 +160,10 @@
  <div class="row pull-right" style="margin-right:40px">
 <form class="form">
 <div class="row form-inline">
-<input name="start2" type="text" class="start form-control" id="start2" readonly="readonly" value="<?php echo date('Y-m-d');?>" onchange="return getNilai(this)" />
+<?php
+$kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-7,date("Y")));
+?>
+<input name="start2" type="text" class="start form-control" id="start2" readonly="readonly" value="<?php echo $kurangtanggal;?>" onchange="return getNilai(this)" />
  &nbsp; S/D &nbsp; 
 <input class="end form-control" name="end2" type="text" id="end2" readonly="readonly" value="<?php echo date('Y-m-d');?>" onchange="return getNilai(this)"/>
 
@@ -171,9 +174,8 @@
 <div class="col-sm-5">Filter by Category</div>
 <div class="col-sm-6">
 <select name="kategori" id="kategori" class="form-control" onchange="return getNilai(this)">
-<option value="a.CargoReleaseCode">Cargo</option>
-<option value="e.FlightNo">Flight</option>
 <option value="b.AirLineName">Air Lines</option>
+<option value="a.CargoReleaseCode">Cargo No</option>
 </select>
 </div></div><div class="clearfix"></div>
 
@@ -181,10 +183,10 @@
 <div class="col-sm-5">Criteria</div>
 <div class="col-sm-6">
 <select name="kriteria" id="kriteria" class="form-control" onchange="return getNilai(this)">
-<option value="equals">Equals</option>
-<option value="notequals">Not Equals</option>
 <option value="startwith">Start With</option>
 <option value="endwith">End With</option>
+<option value="equals">Equals</option>
+<option value="notequals">Not Equals</option>
 <option value="contains">Contains</option>
 <option value="notcontains">Not Contains</option>
 </select>
@@ -215,7 +217,6 @@
             <tr>
               <th>No</th>  
               <th>Cargo No</th>
-              <th>Flight</th>
               <th>Airline</th>
               <th>Detail</th>
               <th>PCS</th>
@@ -230,7 +231,6 @@
             <tr style="visibility:hidden">
               <th>No</th>
               <th>Cargo No</th>
-              <th>Flight</th>
               <th>Airline</th>
               <th>Detail</th>
               <th>PCS</th>
@@ -403,6 +403,13 @@
   <!-- /.modal -->        
      <script type="text/javascript">
      function listcargo(myid){
+	swal({
+		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
+		text:'<p>Loading Content.......</p>',
+		showConfirmButton:false,
+		//type:"success",
+		html:true
+		});
         var cargocode=$(myid).html();	
         
                 $.ajax({
@@ -411,6 +418,7 @@
                      data: "cargocode="+cargocode,
                     cache:false,
                     success: function(data){
+						swal.close();
                         $("#modal_cargo").modal('show');
                         $('#detailrelease').html(data);
                         //document.frm.add.disabled=false;
@@ -419,6 +427,13 @@
         
     }
 function detailsmucargo(myid){
+	swal({
+		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
+		text:'<p>Loading Content.......</p>',
+		showConfirmButton:false,
+		//type:"success",
+		html:true
+		});
 	var smu=$(myid).html();
 	var status='consol';
              // alert('hai' + idcnote);
@@ -427,6 +442,7 @@ function detailsmucargo(myid){
                 url : "<?php echo base_url('cargo_release/ajax_detailSMU'); ?>",
                 data: "smu="+smu+"&status="+status,
                 success: function(data){
+					swal.close();
 					$("#modaldetailsmucargo").modal('show'); 
                    $('#tabledetailcargo').html(data);
                 }
@@ -434,12 +450,20 @@ function detailsmucargo(myid){
 	
 }
 function detailhouseconsol(myid){
+	swal({
+		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
+		text:'<p>Loading Content.......</p>',
+		showConfirmButton:false,
+		//type:"success",
+		html:true
+		});
 	var numb=$(myid).html();
 				$.ajax({
                 type: "POST",
                 url : "<?php echo base_url('cargo_release/ajax_detailHouse'); ?>",
                 data: "numb="+numb,
                 success: function(data){
+					swal.close();
 					$("#modalhousecargo").modal('show'); 
 					$('#labelhousecargo').html(numb);
                    $('#tabledetailhousecargo').html(data);
@@ -458,7 +482,7 @@ function getNilai(inputan){
 	var tgl2_leave=obj_tgl.setFullYear(pisah2[0],pisah2[1],pisah2[2]);
 	var hasil=(tgl2_leave-tgl1_leave)/(60*60*24*1000);
 	
-	if(hasil >=30 || hasil < 0){
+	if(hasil >=8 || hasil < 0){
 		
 		alert('Jumlah Rentang waktu Pencarian Maksimal 7 Hari !');
 		return false;

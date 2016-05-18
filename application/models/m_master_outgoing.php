@@ -39,7 +39,13 @@ private function _get_datatables_query3($nm_coloum,$orderby,$where)
 		
 		if(isset($_POST['order']))
 		{
-			$this->db->order_by($column[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+							$n=0;
+            $sort=$_POST['order'];
+            foreach($sort as $i =>$val){
+             $this->db->order_by($column[$_POST['order'][$n]['column']], $_POST['order'][$n]['dir']);   
+             $n++;
+            }
+			//$this->db->order_by($column[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
 		}
 		else if(isset($orderby))
 		{

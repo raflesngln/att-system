@@ -89,7 +89,7 @@ public function list_closed()
 		$kolom1='a.Shipper';
 		$kolom2='b.CustCode';
 		
-        $nm_coloum= array('a.HouseNo','a.Shipper','a.Consigne','a.Origin','a.Destination','a.PCS','a.CWT');
+        $nm_coloum= array('a.HouseNo','a.HouseNo','b.CustName','c.CustName','d.PortName','e.PortName','a.PCS','a.CWT');
         $orderby= array('a.HouseNo' => 'ASC');
         $where=  array('a.Consolidation >= '=>'2');
         $list = $this->mhouse->get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
@@ -110,7 +110,6 @@ public function list_closed()
 			'cwt' =>$datalist->CWT,
 			'pcs' =>$datalist->PCS,
 			 
-		
             'action'=> '<div class="form-inline">
 	<form action="'.base_url().'connote_print" method="post" target="new" class="text-left">
                                                    <input type="hidden" value="'.$datalist->HouseNo.'" name=" houseno" />
@@ -142,7 +141,7 @@ public function filter_list_closed()
 		$kategori=$pecah[2];
 		$kriteria=$pecah[3];
 		$txtsearch=$pecah[4];
-		
+
 		if($kriteria=='startwith'){
 		$kondisi=array($kategori.' LIKE'=>$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.Consolidation >= '=>'2');	
 		} else if($kriteria=='endwith'){
@@ -152,17 +151,16 @@ public function filter_list_closed()
 		} else if($kriteria=='notcontains'){
 		$kondisi=array($kategori.' NOT LIKE'=>'%'.$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.Consolidation >= '=>'2');	
 		} else if($kriteria=='equals'){
-		$kondisi=array($kategori =>$txtsearch,'a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses >= '=>'5');	
+		$kondisi=array($kategori =>$txtsearch,'a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.Consolidation >= '=>'2');	
 		} else if($kriteria=='notequals'){
 		$kondisi=array($kategori.' <> ' =>$txtsearch,'a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.Consolidation >= '=>'2');	
 		}
-		
 		$nm_tabel='outgoing_house a';
 		$nm_tabel2='ms_customer b';
 		$kolom1='a.Shipper';
 		$kolom2='b.CustCode';
 		
-        $nm_coloum= array('a.HouseNo','a.Shipper','a.Consigne','a.Origin','a.Destination','a.PCS','a.CWT');
+		$nm_coloum= array('a.HouseNo','a.HouseNo','b.CustName','c.CustName','d.PortName','e.PortName','a.PCS','a.CWT');
         $orderby= array('a.HouseNo' => 'ASC');
        $where=  $kondisi;
         $list = $this->mhouse->get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
@@ -182,7 +180,6 @@ public function filter_list_closed()
 			'receiver' =>$datalist->receiver,
 			'cwt' =>$datalist->CWT,
 			'pcs' =>$datalist->PCS,
-			 
 		
             'action'=> '<div class="form-inline">
 	<form action="'.base_url().'connote_print" method="post" target="new" class="text-left">

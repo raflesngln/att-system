@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 		<meta charset="utf-8" />
-		<title>Track & Trace Sistem -<?php echo isset($title)?$title:'';?></title>
+		<title>Domestic System - <?php echo isset($title)?$title:'';?></title>
 
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      
+     
 <!-- font from w3schools -->  
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
@@ -26,7 +26,11 @@
 		<link href="<?php echo base_url();?>asset/css/bootstrap-responsive.min.css" rel="stylesheet" />
 	
         <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/themes/base/jquery.ui.all.css">
-
+ <!-- SWEET ALERT-->
+  <link rel="stylesheet" href="sweetalert/example/example.css">
+  <script src="<?php echo base_url();?>asset/sweetalert/dist/sweetalert-dev.js"></script>
+  <link rel="stylesheet" href="<?php echo base_url();?>asset/sweetalert/dist/sweetalert.css">
+     <!-- sweet alert -->
 		<!--[if IE 7]>
 		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
 		<![endif]-->
@@ -354,9 +358,10 @@ return true;
 	  </li>
 	  <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-mail-forward bigger-140" aria-hidden="true"></i> <span class="menu-text">&nbsp;Outgoing </span> <b class="arrow icon-angle-down"></b> </a>
         <ul class="submenu">
+
+<li> <a href="<?php echo base_url();?>transaction/domestic_outgoing_house"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Outgoing-House</a></li>
          <li> <a href="<?php echo base_url();?>transaction/domestic_outgoing_master"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-file-archive-o bigger-120"></i> &nbsp;Outgoing-Master</a></li>
 
- 		<li> <a href="<?php echo base_url();?>transaction/domestic_outgoing_house"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Outgoing-House</a></li>
 		<li> <a href="<?php echo base_url();?>transaction/outgoing_consolidation"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-clone bigger-120"></i> &nbsp;Consolidation</a></li>
 
 <li> <a href="<?php echo base_url();?>cargo_release"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Cargo Release</a></li>
@@ -432,9 +437,9 @@ return true;
 	</div><!--/.main-content-->
 		</div><!--/.main-container-->
 
-		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-small btn-inverse">
+<!--		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-small btn-inverse">
 			<i class="icon-double-angle-up icon-only bigger-110"></i>
-		</a>
+		</a>-->
 
 		<!--basic scripts-->
 

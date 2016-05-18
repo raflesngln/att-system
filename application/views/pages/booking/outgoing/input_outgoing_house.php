@@ -480,7 +480,9 @@ $("#smu").autocomplete({
 
 <!--RIGHT COLOMN -->
 <div class="col-sm-6">
+
 <div class="row">
+<label class="label label-inverse text-left">Cust details</label>
         <div class="form-group">
         <div class="span4">Booking No</div>
         <div class="span7"><input name="booking" type="text" class="form-control"  id="booking"  /></div></div>
@@ -532,7 +534,7 @@ $("#smu").autocomplete({
 <!-- table container -->
 <div class="panel">
 <div class="form-group">
-<h2><span class="label label-large label-pink arrowed-in-right"> List Item's </span></h2>
+<h2><span class="label label-large label-inverse "> List Item's </span></h2>
                                         <div class="table-responsive" id="table_responsive">
                                         <table class="table table-striped table-bordered table-hover" id="tblitems" style="width:95%">
                                               <thead>
@@ -610,7 +612,7 @@ $("#smu").autocomplete({
 <div class="panel">
 <div class="form-group">
     <div class="table-responsive" id="table_responsive">
-<h2><span class="label label-large label-pink arrowed-in-right"> COST / CHARGES </span></h2>
+<h2><span class="label label-large label-inverse "> COST / CHARGES </span></h2>
     <table class="table table-hover" id="tblcharges" style="width:95%">
                                               
                                                 <thead>
@@ -1054,7 +1056,7 @@ function saveitem(){
 	var total_weight=parseFloat(t_weight) + parseFloat(weight);
 	var format_weight=total_weight.toFixed(2);
 	
-if (panjang == '' || lebar == '' || pcs == ''){
+if (panjang == '' || lebar == '' || pcs == '' || weight == '' || tinggi == ''){
 	alert('Mohon isi data dengan lengkap');	
 	}
 	else
@@ -1107,13 +1109,23 @@ if (panjang == '' || lebar == '' || pcs == ''){
 
 		if(koma >= 50){
 			var maks=parseFloat(bulat) + 1;
-            $('#qtyfreight').val(maks);
-			$('#ori_cwt').val(maks);
+			if(maks < 10){
+            $('#qtyfreight').val('10');
+			$('#ori_cwt').val('10');
+			} else {
+			$('#qtyfreight').val(maks);
+			$('#ori_cwt').val(maks);	
+			}
 			
 		} else {
 			var maks=parseFloat(bulat);
-			var qty=$('#qtyfreight').val(maks);
-			$('#ori_cwt').val(maks);
+			if(maks < 10){
+			$('#qtyfreight').val('10');
+			$('#ori_cwt').val('10');
+			} else {
+			$('#qtyfreight').val(maks);
+			$('#ori_cwt').val(maks);	
+			}
 		} 
 
 		var new_price=$("#pricefreight").val();
@@ -1440,7 +1452,7 @@ function savecharges(){
 	var idcharge=pecah[0];
 	var nmcharge=pecah[1];
 			
-if (txtunit == '' || txtqty == ''){
+if (charge == '' || txtunit == '' || txtqty == ''){
 	alert('Mohon isi data dengan lengkap');	
 	}
 	else

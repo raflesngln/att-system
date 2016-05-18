@@ -290,12 +290,20 @@ $("#flightnumber").change(function(){
 	
 });
 $("#airlines").change(function(){
+			swal({
+		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
+		text:'<p>Loading Content.......</p>',
+		showConfirmButton:false,
+		//type:"success",
+		html:true
+		});
 	var airlines=$("#airlines").val();
 		 $.ajax({
          type: "POST",
          url : "<?php echo base_url('transaction/filter_flight'); ?>",
          data: "airlines="+airlines,
 		 success: function(data){
+			 swal.close();
 		 $('#divflight').html(data);
             }
           
@@ -303,80 +311,15 @@ $("#airlines").change(function(){
 	
 });
 
-<!-- hapus item dan kurangi total items pack
-function move_consol(myid){
-var input = $(myid).val();
-
-		var pecah=input.split('/');
-		var smu=pecah[0];
-		var desti=pecah[1];
-		var pcs=pecah[2];
-		var cwt=pecah[3];
-		
-	if(cwt<=0){
-	alert('SMU is Empty, Please Consol house to SMU/Master before !');	
-	} else {
-
-	text='<tr class="gradeX">'
-    + '<td>' + '<input type="hidden" name="smu[]" id="idcharge[]" value="'+ smu +'">'+ '<label id="l_pcs">'+ smu +'</label>' +'</td>'
-	
-    + '<td align="left">' +  '<input type="hidden" name="desti[]" id="l[]" value="'+ desti +'">'+ '<label id="l_pcs">'+ desti +'</label>' +'</td>'
-	
-    + '<td align="right">' +  '<input type="hidden" name="pcs[]" id="t[]" value="'+ pcs +'">'+ '<label id="l_pcs">'+ pcs +'</label>' +'</td>'
-    
-    + '<td align="right">' + '<input type="hidden" name="cwt[]" id="p[]"  value="'+ cwt +'">'+ '<label id="l_pcs">'+ cwt +'</label>' +'</td>'
-
-	+'<td align="center">' + '<button class="btndel btn-danger btn-mini" value="' + input +'" onclick="replace_consol(this)" type="button">X</button></td>'
-
-    + '</tr>';
-	
-		$('#tblcargo').append(text);
-		
-//alert(hasil_pecah);
-     t = $(myid);
-     tr = t.parent().parent();
-     tr.remove();
-	}
-}
-
-function replace_consol(myid){
-var input = $(myid).val();
-
-		var pecah=input.split('/');
-		var smu=pecah[0];
-		var desti=pecah[1];
-		var pcs=pecah[2];
-		var cwt=pecah[3];
-
-	text='<tr class="gradeX">'
-    + '<td>' + '<input type="hidden" name="smu2[]" id="idcharge[]" value="'+ smu +'">'+ '<label id="l_pcs">'+ smu +'</label>' +'</td>'
-	
-    + '<td align="left">' +  '<input type="hidden" name="desti2[]" id="l[]" value="'+ desti +'">'+ '<label id="l_pcs">'+ desti +'</label>' +'</td>'
-	
-    + '<td align="right">' +  '<input type="hidden" name="pcs2]" id="t[]" value="'+ pcs +'">'+ '<label id="l_pcs">'+ pcs +'</label>' +'</td>'
-    
-    + '<td align="right">' + '<input type="hidden" name="cwt2[]" id="p[]"  value="'+ cwt +'">'+ '<label id="l_pcs">'+ cwt +'</label>' +'</td>'
-
-	+'<td align="center">' + '<button class="btndel btn-primary btn-mini" value="' + input +'" onclick="move_consol(this)" type="button"><i class="fa fa-check"></i></button></td>'
-
-    + '</tr>';
-	
-		$('#tbllist').append(text);
-		
-//alert(hasil_pecah);
-     t = $(myid);
-     tr = t.parent().parent();
-     tr.remove();
-}
-
-
-
-function delete_cargo(myid){
-	var id=$(myid).val();
-alert(id);	
-}
 
 function detailCargo(myid){
+		swal({
+		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
+		text:'<p>Loading Content.......</p>',
+		showConfirmButton:false,
+		//type:"success",
+		html:true
+		});
 	var flight=$(myid).val();	
 	
 			$.ajax({
@@ -385,6 +328,7 @@ function detailCargo(myid){
 				 data: "flight="+flight,
                 cache:false,
                 success: function(data){
+					swal.close();
 					$("#modalcargo").modal('show');
                     $('#tabledetailhouse').html(data);
                     //document.frm.add.disabled=false;

@@ -12,6 +12,7 @@
 <script type='text/javascript' src='<?php echo base_url();?>asset/jquery_ui/jquery.autocomplete.js'></script>
 <script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
 
+  <link href="<?php echo base_url();?>assets/datatables/css/dataTables.bootstrap.css" rel="stylesheet" />
 		
 	    <style>
 	    	/* Autocomplete
@@ -112,7 +113,7 @@ function toRp(angka){
 </script>
 	</head>
 	<body>
-<div class="row-fluid" style=" border:1px #CCC solid;box-shadow:2px 6px 29px #CCC; padding-bottom:20px>
+<div class="row-fluid">
 								<div class="span10">
 									<div class="tabbable">
 										<ul class="nav nav-tabs" id="myTab">

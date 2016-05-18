@@ -2,7 +2,7 @@
  .btn-search{ height:32px; margin-left:-10px;}
  </style>
   <script type="text/javascript" src="<?php echo base_url();?>asset/js/jquery.js"></script>
-
+  <link href="<?php echo base_url();?>assets/datatables/css/dataTables.bootstrap.css" rel="stylesheet" />
 <div class="row-fluid">
 								<div class="span10">
 									<div class="tabbable">

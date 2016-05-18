@@ -163,7 +163,10 @@ function delete_person5(id)
 <div class="row pull-right" style="margin-right:40px">
 <form class="form">
 <div class="row form-inline">
-<input name="start3" type="text" class="start form-control" id="start3" readonly="readonly" value="<?php echo date('Y-m-d');?>" onchange="return getNilai3(this)" />
+<?php
+$kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-7,date("Y")));
+?>
+<input name="start3" type="text" class="start form-control" id="start3" readonly="readonly" value="<?php echo $kurangtanggal;?>" onchange="return getNilai3(this)" />
  &nbsp; S/D &nbsp; 
 <input class="end form-control" name="end3" type="text" id="end3" readonly="readonly" value="<?php echo date('Y-m-d');?>" onchange="return getNilai3(this)"/>
 
@@ -174,9 +177,9 @@ function delete_person5(id)
 <div class="col-sm-5">Filter by Category</div>
 <div class="col-sm-6">
 <select name="kategori3" id="kategori3" class="form-control" onchange="return getNilai3(this)">
-<option value="a.NoSMU">SMU</option>
 <option value="b.CustName">Shipper</option>
 <option value="c.CustName">Consigne</option>
+<option value="a.NoSMU">SMU</option>
 <option value="d.PortName">Origin</option>
 <option value="e.PortName">Destination</option>
 </select>
@@ -186,10 +189,10 @@ function delete_person5(id)
 <div class="col-sm-5">Criteria</div>
 <div class="col-sm-6">
 <select name="kriteria3" id="kriteria3" class="form-control" onchange="return getNilai3(this)">
-<option value="equals">Equals</option>
-<option value="notequals">Not Equals</option>
 <option value="startwith">Start With</option>
 <option value="endwith">End With</option>
+<option value="equals">Equals</option>
+<option value="notequals">Not Equals</option>
 <option value="contains">Contains</option>
 <option value="notcontains">Not Contains</option>
 </select>
@@ -223,9 +226,9 @@ function delete_person5(id)
           <th>Consignee</th>
           <th>Origin</th>
           <th>Destination</th>
-          <th style="width:80px;">QTY</th>
-          <th style="width:80px;">CWT</th>
-          <th style="width:80px;">Final CWT</th>
+          <th style="width:50px;">QTY</th>
+          <th style="width:50px;">CWT</th>
+          <th style="width:50px;">Final CWT</th>
         </tr>
       </thead>
       <tbody>
@@ -453,6 +456,13 @@ $("#status").change(function(e) {
 	}
 });	
 function detailsmuclosed(myid){
+	swal({
+		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
+		text:'<p>Loading Content.......</p>',
+		showConfirmButton:false,
+		//type:"success",
+		html:true
+		});
 	var smu=$(myid).html();
 	var status='consol';
              // alert('hai' + idcnote);
@@ -463,6 +473,7 @@ function detailsmuclosed(myid){
                 success: function(data){
 					$("#modaldetailsmuclosed").modal('show'); 
                    $('#tabledetailclosed').html(data);
+				   swal.close();
                 }
             });
 	
@@ -492,7 +503,7 @@ function getNilai3(inputan){
 	var tgl2_leave=obj_tgl.setFullYear(pisah2[0],pisah2[1],pisah2[2]);
 	var hasil=(tgl2_leave-tgl1_leave)/(60*60*24*1000);
 	
-	if(hasil >=30 || hasil < 0){
+	if(hasil >=8 || hasil < 0){
 		
 		alert('Jumlah Rentang waktu Pencarian Maksimal 7 Hari !');
 		return false;

@@ -188,7 +188,7 @@ function delete_opened(id)
           <th>QTY</th>
           <th>CWT</th>
           <th>Status Consol</th>
-          <th style="width:130px;">Action</th>
+          <th style="width:90px;">Action</th>
         </tr>
       </tfoot>
     </table>
@@ -332,12 +332,20 @@ function EditConfirm(myid){
 
 
 function detailhouse(myid){
+		swal({
+		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
+		text:'<p>Loading Content.......</p>',
+		showConfirmButton:false,
+		//type:"success",
+		html:true
+		});
 	var numb=$(myid).html();
 				$.ajax({
                 type: "POST",
                 url : "<?php echo base_url('outgoing_house/ajax_detailHouse'); ?>",
                 data: "numb="+numb,
                 success: function(data){
+					swal.close();
 					$("#modalhouse").modal('show'); 
 					$('#labelhouse').html(numb);
                    $('#tabledetailhouse').html(data);
@@ -346,6 +354,13 @@ function detailhouse(myid){
 	
 }
 	function detailsmuinHouse(myid){
+	swal({
+		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
+		text:'<p>Loading Content.......</p>',
+		showConfirmButton:false,
+		//type:"success",
+		html:true
+		});
 	var smu=$(myid).html();
 	var status='consol';
              // alert('hai' + idcnote);
@@ -354,6 +369,7 @@ function detailhouse(myid){
                 url : "<?php echo base_url('outgoing_house/ajax_detailSMU'); ?>",
                 data: "smu="+smu+"&status="+status,
                 success: function(data){
+					swal.close();
 					$("#modalhouse").modal('hide'); 
 					$("#modaldetailsmuinhouse").modal('show'); 
                    $('#tabledetailsmuinhouse').html(data);

@@ -163,10 +163,10 @@ function deleteOpenMaster(id)
           <th>Consignee</th>
           <th>Origin</th>
           <th>Destination</th>
-          <th style="width:80px;"><span style="width:125px;">QTY</span></th>
-          <th style="width:80px;">CWT</th>
+          <th style="width:50px;"><span style="width:125px;">QTY</span></th>
+          <th style="width:50px;">CWT</th>
           <th style="width:90px;">Status Consol</th>
-          <th style="width:80px;">Action</th>
+          <th style="width:50px;">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -181,8 +181,8 @@ function deleteOpenMaster(id)
           <th>Consignee</th>
           <th>Origin</th>
           <th>Destination</th>
-          <th><span style="width:80px;">QTY</span></th>
-          <th><span style="width:80px;">CWT</span></th>
+          <th>QTY</th>
+          <th>CWT</th>
           <th>Status Consol</th>
           <th>Action</th>
         </tr>
@@ -319,11 +319,25 @@ function deleteOpenMaster(id)
 function EditConfirm(myid){
 		var status=myid;
 		if(status >= '2'){
-			alert('Cannot Edit SMU was consoled !');
+		swal({
+		title:'SMU was consoled !',
+		text:'<p>Please Reconsol to Edit again</p>',
+		showConfirmButton:true,
+		type:"error",
+		html:true
+		});
+			//alert('Cannot Edit SMU was consoled !');
 			return false;
 	}
 }
 function detailsmuopen(myid){
+	swal({
+		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
+		text:'<p>Loading Content.......</p>',
+		showConfirmButton:false,
+		//type:"success",
+		html:true
+		});
 	var smu=$(myid).html();
 	var status='consol';
              // alert('hai' + idcnote);
@@ -334,11 +348,19 @@ function detailsmuopen(myid){
                 success: function(data){
 					$("#modaldetailsmuopen").modal('show'); 
                    $('#tabledetailopen').html(data);
+				   swal.close();
                 }
             });
 	
 }
 function detailhouseopen(myid){
+	swal({
+		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
+		text:'<p>Loading Content.......</p>',
+		showConfirmButton:false,
+		//type:"success",
+		html:true
+		});
 	var numb=$(myid).html();
 				$.ajax({
                 type: "POST",
@@ -348,6 +370,7 @@ function detailhouseopen(myid){
 					$("#modalhouseopen").modal('show'); 
 					$('#labelhouseopen').html(numb);
                    $('#tabledetailhouseopen').html(data);
+				   swal.close();
                 }
             });
 	

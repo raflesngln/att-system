@@ -52,7 +52,7 @@ class Transaction extends CI_Controller{
 		endif;
 		
         $data = array(
-            'title'=>'domesctic-outgoing-house',
+            'title'=>'outgoing_house',
             'scrumb_name'=>'Domesctic outgoing house',
             'scrumb'=>'transaction/domestic_outgoing_house',
            'payment_type'=>$this->model_app->getdatapaging("PayCode,PayName","ms_payment_type","ORDER BY PayCode ASC"),
@@ -1330,7 +1330,7 @@ function domestic_outgoing_master(){
 		$offset = $page;
 		endif;
         $data = array(
-            'title'=>'domesctic-outgoing-master',
+            'title'=>'outgoing_master',
             'scrumb_name'=>'Domesctic outgoing master',
             'scrumb'=>'transaction/domestic_outgoing_master',
             'payment_type'=>$this->model_app->getdatapaging("PayCode,PayName","ms_payment_type","ORDER BY PayCode ASC"),

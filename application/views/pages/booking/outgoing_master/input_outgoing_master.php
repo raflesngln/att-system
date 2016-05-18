@@ -32,11 +32,14 @@
       .ui-menu .ui-menu-item {
         margin:0;
         padding: 0;
-        zoom: 1;
+        zoom: 1.5;
         float: left;
         clear: left;
         width: 100%;
         font-size:80%;
+		background-color:#069;
+		border-bottom:1px #CCC solid;
+		color:#FFF;
       }
       .ui-menu .ui-menu-item a {
         text-decoration:none;
@@ -293,6 +296,38 @@ $("#idshipper").click(function(){
 					$("#phone1").val('');
 					$("#address1").val(''); 	
 });
+$("#smu").autocomplete({
+      			minLength: 1,
+      			source: 
+        		function(req, add){
+          			$.ajax({
+		       url: "<?php echo base_url();?>index.php/autocomplete_customers/lookup_stok_smu",
+		          		dataType: 'json',
+		          		type: 'POST',
+		          		data: {
+							term:req.term,
+							airline:$("#airline").val()
+							},
+					beforeSend: function(){
+          //$('#contenshipper').html(' data loading loading loanding');
+					 $(".fa-pulse").show();
+         			 },
+		          		success:    
+		            	function(data){
+		              		if(data.response =="true"){
+		                 		add(data.message);
+								 $(".fa-pulse").hide();
+		              		}
+		            	},
+              		});
+         		},
+         	select: 
+         		function(event, ui) {
+            	
+					$("#booking").val(ui.item.sm);		
+         		},		
+    		});
+
 //for shipper
 $("#idconsigne").autocomplete({
 
@@ -362,7 +397,7 @@ $("#idconsigne").click(function(){
                <!--LEFT INPUT-->
   <div class="col-sm-6">      
       <div class="col-sm-11">
-<label class="col-sm-12"> <span class=" span3 label label-large label-pink arrowed-in-right">Sender</span></label> 
+<label class="label label-inverse">Description</label> 
 <div class="clearfx">&nbsp;</div>         
            <label class="col-sm-4"> JOB No</label> 
           <div class="col-sm-7">
@@ -482,7 +517,7 @@ $("#idconsigne").click(function(){
 
 <div class="col-sm-13" id="contenshipper">
 <!-- CONTENT AJAX VIEW HERE -->
-<i class="fa fa-spinner fa-pulse fa-2x" style="display:none"></i>
+
 </div>
 
 <!-- detail for sender -->    
@@ -498,7 +533,7 @@ $("#idconsigne").click(function(){
                 <!--RIGHT INPUT-->
       <div class="col-sm-6">
         <div class="col-sm-12">
-<label class="col-sm-12"> <span class="span3 label label-large label-pink arrowed-in-right">Receivement</span></label> 
+<label class="label label-inverse">Cust details</label> 
 <div class="clearfx">&nbsp;</div>
          <label class="col-sm-4">Booking No</label> 
           <div class="col-sm-7">
@@ -598,7 +633,7 @@ $("#idconsigne").click(function(){
                         <!--<div class="panel-header"></div>-->
                         
                                     <div class="form-group">
-<h2><span class="label label-large label-pink arrowed-in-right"> List Item's </span></h2>
+<h2><span class="label label-large label-inverse "> List Item's </span></h2>
                                         <div class="table-responsive" id="table_responsive">
                                         <table class="table table-striped table-bordered table-hover" id="tblitems" style="width:95%">
                                               <thead>

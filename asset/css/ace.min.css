@@ -3768,7 +3768,7 @@ th,td,.table-bordered {
 .table thead tr th {
     border-color: #D1D7DC;
     font-weight: bold;
-    color: #172EA9;
+    color: #777;
 }
 .table thead tr th [class*="icon-"]:first-child {
     margin-right: 2px}
@@ -3843,7 +3843,7 @@ th .lbl: only-child,td .lbl: only-child {
     margin-bottom: 0}
 .dataTable th[class*=sort] {
     cursor: pointer}
-.dataTable th[class*=sort]:after {
+/*.dataTable th[class*=sort]:after {
     content: "\f0dc";
     display: inline-block;
     color: #555;
@@ -3852,15 +3852,15 @@ th .lbl: only-child,td .lbl: only-child {
     font-weight: normal;
     float: right;
     margin-right: 4px;
-    position: relative}
+    position: relative}*/
 .dataTable th[class*=sorting_] {
-    color: #307ecc}
+    color: #1725E0}
 .dataTable th.sorting_desc:after {
     content: "\f0dd";
     top: -6px}
 .dataTable th.sorting_asc:after {
     content: "\f0de";
-    top: 4px}
+    top: 4pxf
 .dataTable th.sorting_disabled {
     cursor: inherit}
 .dataTable th.sorting_disabled:after {
