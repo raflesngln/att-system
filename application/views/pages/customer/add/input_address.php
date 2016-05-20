@@ -79,15 +79,14 @@ $no=1;
               <label for="usrname"><span></span> Type</label>
               </span>
               <span class="col-sm-7">
- <span class="input-icon input-icon-right">
- <input name="addresstype" type="text" class="form-control" id="addresstype"/>
-<div id="dropdown_list_address">
-<li>satu</li>
-<li>dua</li>
-</div>
-<i class="icon-caret-down bigger-220" id="iconcaret" onclick="return dropdown_address()"></i>
-</span> 
-              </span>
+ <select name="addresstype" id="addresstype" class="form-control">
+                            <?php
+	foreach($address as $row){
+	    ?>
+                            <option value="<?php echo $row->AddressTypeCode.'-'.$row->AddressTypeName;?>"><?php echo $row->AddressTypeName;?></option>
+                            <?php } ?>
+                          </select>
+</span>
  <span class="col-sm-">
 <button id="addmodaltype" class="addcust btn btn-mini btn-primary" type="button" onclick="return add_address_type()"><i class="fa fa-plus"></i></button>
 </span>
@@ -113,7 +112,7 @@ $no=1;
             <span class="col-sm-4">
             <label for="psw"><span></span> Country</label></span>
               <span class="col-sm-8">
-<select name="country" id="country" required="required" class="form-control">
+<select name="country" id="country" class="form-control">
                             <option value="">choose country</option>
                             <?php
 	foreach($country as $ct){
@@ -126,7 +125,7 @@ $no=1;
             <span class="col-sm-4">
             <label for="psw"><span></span> State</label></span>
               <span class="col-sm-8">
-              <select name="state" id="state" required="required" class="form-control">
+              <select name="state" id="state"  class="form-control">
           <option value="">Chosse state</option>
           <?php
 	foreach($state as $st){
@@ -140,7 +139,7 @@ $no=1;
             <label for="usrname"><span></span> City</label>
               </span>
               <span class="col-sm-8">
-              <select name="city2" id="city2" required="required" class="form-control">
+              <select name="city2" id="city2" class="form-control">
           <option value="">Chosse city</option>
           <?php
 	foreach($city as $ct){
@@ -155,7 +154,7 @@ $no=1;
             <span class="col-sm-4">
             <label for="psw"><span></span> Postal Cose</label></span>
               <span class="col-sm-8">
-              <input name="PostalCode" type="text" class="form-control" id="PostalCode" /></span>
+              <input name="PostalCode" type="text" class="form-control" id="PostalCode"  onkeypress="return isNumberKey(event)"/></span>
             </div>
 
  </div>        
@@ -233,7 +232,12 @@ function hapus3(myid){
 }
 
 
-
+$("#addresstype").change(function(){
+	var addr=$("#addresstype").val();
+		var pecah=addr.split('-');
+		var pecah1=pecah[0];
+	$('#hidden_address_type').val(pecah1);
+});
 $("#btn_add_address").click(function(){
 	var addresstype=$('#addresstype').val();   
 	var hidden_address_type=$('#hidden_address_type').val();
@@ -256,7 +260,7 @@ $("#btn_add_address").click(function(){
 	var idCity=pecah3[0];
 	var nmCity=pecah3[1]; 
 			
-if (addresstype == '' || hidden_address_type == ''){
+if (addresstype == ''){
 	alert('Nama dan type contact tidak boleh kosong');	
 	}
 	else
@@ -299,10 +303,9 @@ function add_address()
     {
       
       //$('#form_add_address')[0].reset(); // reset form on modals
-      $("#modal_address").modal('show');
-     
-	  
+      $("#modal_address").modal('show');	  
 }
+
 function add_address_type()
     {
       save_method = 'add';

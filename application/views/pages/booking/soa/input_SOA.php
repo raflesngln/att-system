@@ -1,162 +1,26 @@
-  <script src="<?php echo base_url('assets/datatables/js/jquery.dataTables.min.js')?>"></script>
-  <script src="<?php echo base_url('assets/datatables/js/dataTables.bootstrap.js')?>"></script>
-  <link href="<?php echo base_url();?>assets/datatables/css/dataTables.bootstrap.css" rel="stylesheet" />
-  
 
-  <script type="text/javascript">
-  $(function() {
-	$("#start2").datepicker({
-		dateFormat:'yy-mm-dd',
-		});
-	$("#end2").datepicker({
-		dateFormat:'yy-mm-dd',
-		});
-	
-  });
-    var save_method5; //for save method string
-    var tableclosed;
- 
- $(document).ready(function() {    
-    
-          tableclosed = $('#tableclosed').DataTable({ 
-            "processing": true, //Feature control the processing indicator.
-			"bInfo": false,
-			"bFilter":false,
-			"order":[[0,"desc"],[1,"asc"]],
-		     
-            "serverSide": true, //Feature control DataTables' server-side processing mode
-            // Load data for the table's content from an Ajax source
-            "ajax": {
-                "url": "<?php echo site_url('outgoing_house/list_closed')?>",
-                "type": "POST"
-            },
-            "columns": [
-            { "data": "no","orderable":false,"visible":true },
-            { "data": "HouseNo" },
-            { "data": "sender" },
-            { "data": "receiver" },
-			{ "data": "ori" },
-			{ "data": "desti" },
-			{ "data": "pcs"},
-			{ "data": "cwt"},
-            { "data": "action","orderable":false,"visible":true }
-            ],
-          });  
-    
-$('#tableclosed tbody').on('dblclick', 'tr', function () {
-            var tr = $(this).closest('tr');
-            var row = tableclosed.row(tr);
-           // alert(row.data().firstName);
-         });
-});
 
-function add_person5()
-    {
-      save_method5 = 'add';
-      $('#form_house_closed')[0].reset(); // reset form on modals
-      $('#modal_house_closed').modal('show'); // show bootstrap modal
-      $('.modal-title5').text('Add Linebusiness');
-	  document.getElementById("BankCode2").disabled=false;
-    }
+   <div class="container-fluid">
+    <div class="span12">
+                  <?php
+			if(isset($eror)){?>
+            <label class="alert alert-error col-sm-12">
+			<button type="button" class="close" data-dismiss="alert">
+			<i class="icon-remove"></i>	</button>							
+			<?php echo isset($eror)?$eror:'';?>
+			<br />
+			</label>
+            <?php }?>   
+      <div class="header col-md-11">
 
-function edit_person5(id)
-    {
-      save_method5 = 'update';
-      $('#form_house_closed')[0].reset(); // reset form on modals
-        
-      var nmtabel='ms_bank';
-      var keytabel='BankCode';
-        
-      //Ajax Load data from ajax
-      $.ajax({
-        url : "<?php echo site_url('ms_bank/ajax_edit/')?>",
-        type: "POST",
-        data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
-        dataType: "JSON",
-        success: function(data)
-        {
-            $('[name="BankName"]').val(data.BankName);
-			 $('[name="BankCode"]').val(data.BankCode);
-			$('[name="BankCode2"]').val(data.BankCode);
-            $('[name="BankDesc"]').val(data.BankDesc); 
-			
-            $('#modal_house_closed').modal('show');
-            $('.modal-title5').text('Edit Linebusiness');
-			document.getElementById("BankCode2").disabled=true;
-            
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert('Error get data from ajax');
-        }
-    });
-    }
+                <h3><i class="icon icon-credit-card bigger-150"></i> &nbsp;Statement Of Account</h3>
+      </div>
+      
 
-    function reload_closed()
-    {
-      tableclosed.ajax.reload(null,false); //reload datatable ajax 
-    }
-
-function save5()
-    {
-      var url5;
-      if(save_method5 == 'add') 
-      {
-          url5 = "<?php echo site_url('ms_bank/ajax_add')?>";
-      }
-      else
-      {
-        url5 = "<?php echo site_url('ms_bank/ajax_update')?>";
-      }
-
-       // ajax adding data to database
-          $.ajax({
-            url : url5,
-            type: "POST",
-            data: $('#form_house_closed').serialize(),
-            dataType: "JSON",
-            success: function(data)
-            {
-               //if success close modal and reload ajax table
-               $('#modal_house_closed').modal('hide');
-               reload_closed();
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error adding / update data');
-            }
-        });
-    }
-
-function delete_person5(id)
-    {
-      if(confirm('Are you sure delete this data? '+ id))
-      var nmtabel='outgoing_house';
-      var keytabel='HouseNo';
-      {
-        // ajax delete data to database
-          $.ajax({
-            url : "<?php echo site_url('outgoing_house/ajax_delete')?>",
-            type: "POST",
-            data:({cid:id,cnmtabel:nmtabel,ckeytabel:keytabel}),
-            dataType: "JSON",
-            success: function(data)
-            {
-               //if success reload ajax table
-               $('#modal_house_closed').modal('hide');
-               reload_closed();
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error adding / update data');
-            }
-        });
-      }
-    }
-
-  </script>
-
-<div class="row">
+<br style="clear:both">
+<form method="post" action="<?php echo base_url();?>transaction/print_SOA" target="new">
+<div class="container">
+  <div class="row">
                <!--LEFT INPUT-->
   <div class="col-sm-6">      
       <div class="col-sm-11">
@@ -208,242 +72,250 @@ function delete_person5(id)
             
       </div>
    </div>
-    <br />
-    <br />
-    <table id="tableclosed" class="table table-striped table-" cellspacing="0" width="100%">
-      <thead>
-        <tr>
-          <th>No</th>  
-          <th>House</th>
-          <th> Shipper</th>
-          <th>Consigne</th>
-          <th>Origin</th>
-          <th>Destination</th>
-          <th style="width:50px;">QTY</th>
-          <th style="width:50px;">CWT</th>
-          <th style="width:50px;">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-
-      <tfoot>
-        <tr style="visibility:hidden">
-          <th>No</th>
-          <th>House</th>
-          <th>Shipper</th>
-          <th>Consigne</th>
-          <th>Origin</th>
-          <th>Destination</th>
-          <th>QTY</th>
-          <th>CWT</th>
-          <th>Action</th>
-        </tr>
-      </tfoot>
-    </table>
-  <!-- INFO -->
- <div class="col-sm-12 alert alert-warning green" style="margin-left:-23px; font-style:italic">
-<i class="icon-bullhorn green bigger-150">&raquo;</i>
-<strong> List of Closed House </strong>
-<p>List ini untuk menampilkan House-House yang Telah selesai diproses atau di konsol.</p>
-<li>List house yg belum masuk kedalam daftar <strong>RELEASE</strong> masih bisa consol ulang dengan mengeluarkanya atau hapus dari daftar SMU yg dikonsolkan</li>
-
-
 </div>
- <!-- end info -->
-            
- <!-- MODAL -->
-   <!-- Bootstrap modal -->
- <div class="modal fade" id="modaldetailsmuclosed" role="dialog">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title">Form Detail SMU</h3>
-      </div>
-      <div class="modal-body form">
-      <div id="tabledetailsmuclosed">
-                     Detail
-
-        </div>
-        
-      </div>
-        
-    </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div>
-      
- 
-<div id="modalhouseclosed" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<br style="clear:both;margin-bottom:40px;">
+            <div class="row">
+                <div class="col-sm-12 portlets ui-sortable">
+                    <div class="panel">
+                        <!--<div class="panel-header"></div>-->
+                        
+                                    <div class="form-group">
+                                        <div class="table-responsive" id="table_soa">
+   <table width="100%" border="1" class="table table-striped table-bordered table-hover">
+  <tr>
+    <td>No</td>
+    <td>Job</td>
+    <td>House</td>
+    <td>Date</td>
+    <td>Origin-Desti</td>
+    <td>Weight</td>
+    <td>Qty</td>
+    <td><div align="center">Amount</div></td>
+    <td>Action</td>
+    </tr>
+   <?php
+   foreach($list as $row){
+	$amount=$row->Amount;
+	$t_amount+=$amount;   
+   ?>
+  <tr>
+    <td>1</td>
+    <td><?php echo $row->JobNo;?></td>
+    <td><?php echo $row->HouseNo;?><input type="hidden" name="house" /></td>
+    <td><?php echo $row->CreateDate;?></td>
+    <td><?php echo substr($row->ori,0,15).' - ';?><?php echo substr($row->desti,0,15);?></td>
+    <td><?php echo $row->GrossWeight;?></td>
+    <td><?php echo $row->PCS;?></td>
+    <td><div align="right"><?php echo number_format($row->Amount,0,'.','.');?></div></td>
+    <td>&nbsp;</td>
+    </tr>
     
-    <div class="modal-dialog modal-lg" role="document">
+    <?php } ?>
+  <tr style="background-color:#EBEBEB">
+    <td colspan="6"><div align="right"><label style="color:#06C">TOTAL</label></div></td>
+    <td>&nbsp;</td>
+    <td><div align="right"><label style="color:#06C">Rp. <?php echo number_format($t_amount,0,'.','.');?></label></div></td>
+    <td>&nbsp;</td>
+    </tr>
+</table>
+
+                                        </div>
+                                    </div>
+                                  <div class="cpl-sm-12"><h2>&nbsp;</h2>
+                                  <div class="row">
+                                      <div class="col-md-4"></div>
+                                        <div class="col-md-2">
+                                            <a class="btn btn-danger btn-addnew" href="<?php echo base_url();?>transaction/domesctic_outgoing_house" data-toggle="modal" title="Add"><i class="icon-reply bigger-120 icons"></i>Cancel </a>
+                                        </div>
+                                         <div class="col-md-2">
+                                             <button class="btn btn-primary"><i class="icon-refresh bigger-160 icons">&nbsp;</i> Process SOA</button>
+                                        </div>  </div>     
+              </div>
+          </div>
+      </div>
+</div>
+      </form>
+  </div>
+   </div>
+  
+
+<!-----edit data------->
+<?php
+
+    foreach($list as $row){
+		$isagen=$row->isAgent;
+		$isaktif=$row->isAktive;
+		$isCnee=$row->isCnee;
+		$isShipper=$row->isShipper;
+		if($isagen==1){ $status1='YES';}else{$status1='NO';}
+		if($isShipper==1){ $status2='YES';}else{$status2='NO';}
+		if($isCnee==1){ $status3='YES';}else{$status3='NO';}
+		if($isaktif==1){ $status4='YES';}else{$status4='NO';}
+        ?>
+<div id="modaledit<?php echo $row->discCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id=""><small>Detail Consol</small> House            </h3>
+                <h3 id="myModalLabel">Edit Data</h3>
             </div>
-            <div class="smart-form scroll">
-
+            <div class="smart-form">
+                <form method="post" action="<?php echo site_url('master/update_disc')?>">
                     <div class="modal-body">
-                   
-                        <div id="tabledetailhouseclosed">
-                        <table id="tbldet" class="table table-striped table-bordered" cellspacing="0" width="100%">
-      <thead>
-        <tr>
-          <th>House</th>  
-          <th>Shipper</th>
-          <th> QTY</th>
-          <th>CWT</th>
-          <th style="width:125px;">Amount</th>
-        </tr>
-      </thead>
-
-
-
-    </table>
-
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label"> Customer </label>
+                        <div class="col-sm-9"><span class="controls">
+<select name="cust" id="cust" required="required" class="form-control">
+                            <option value="<?php echo $row->custCode;?>"><?php echo $row->custName;?></option>
+                            <?php
+	foreach($cust as $ct){
+	    ?>
+                            <option value="<?php echo $ct->custCode;?>"><?php echo $ct->custName;?></option>
+                            <?php } ?>
+                          </select>
+                        </span>
+                          <input type="hidden" name="id" id="id" value="<?php echo $row->discCode;?>" />
                         </div>
-                     
-                     
-              </div>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label">Service</label>
+                        <div class="col-sm-9"><span class="controls">
+<select name="service" id="service" required="required" class="form-control">
+                            <option value="<?php echo $row->svCode;?>"><?php echo $row->Name;?></option>
+                            <?php
+	foreach($service as $sv){
+	    ?>
+                            <option value="<?php echo $sv->svCode;?>"><?php echo $sv->Name;?></option>
+                            <?php } ?>
+                          </select>
+                        </span></div>
+                        <div class="clearfix"></div>
+                      </div>
+<div class="form-group">
+                        <label class="col-sm-3 control-label">Origin</label>
+                        <div class="col-sm-9"><span class="controls">
+<select name="ori" id="ori" required="required" class="form-control">
+                            <option value="<?php echo $row->Ori;?>"><?php echo $row->Ori;?></option>
+                            <?php
+	foreach($city as $cty){
+	    ?>
+                            <option value="<?php echo $cty->cyName;?>"><?php echo $cty->cyName;?></option>
+                            <?php } ?>
+                          </select>
+</span></div>
+                        <div class="clearfix"></div>
+                      </div>
+<div class="form-group">
+                        <label class="col-sm-3 control-label">Destination</label>
+                        <div class="col-sm-9"><span class="controls">
+<select name="dest" id="dest" required="required" class="form-control">
+                            <option value="<?php echo $row->Dest;?>"><?php echo $row->Dest;?></option>
+                            <?php
+	foreach($city as $cty){
+	    ?>
+                            <option value="<?php echo $cty->cyName;?>"><?php echo $cty->cyName;?></option>
+                            <?php } ?>
+                          </select>
+</span></div>
+                        <div class="clearfix"></div>
+                      </div>
+<div class="form-group">
+              <label class="col-sm-3 control-label">Vendor</label>
+                        <div class="col-sm-9"><span class="controls">
+<select name="vendor" id="vendor" required="required" class="form-control">
+                            <option value="<?php echo $row->venCode;?>"><?php echo $row->venName;?></option>
+                            <?php
+	foreach($vendor as $vd){
+	    ?>
+                            <option value="<?php echo $vd->venCode;?>"><?php echo $vd->venName;?></option>
+                            <?php } ?>
+                          </select>
+</span></div>
+                        <div class="clearfix"></div>
+                      </div>
+<div class="form-group">
+                        <label class="col-sm-3 control-label">Disc %</label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" value="<?php echo $row->DiscPersen;?>" />
+</span></div>
+                        <div class="clearfix"></div>
+                      </div>
+ <div class="form-group">
+                        <label class="col-sm-3 control-label">Disc Rp</label>
+                        <div class="col-sm-9"><span class="controls">
+                          <input name="rp" type="text" class="form-control" placeholder="" id="rp" value="<?php echo $row->DiscRupiah;?>" />
+    </span></div>
+                        <div class="clearfix"></div>
+                      </div>
+  
+  <div class="form-group">
+<label class="col-sm-3 control-label">Remarks</label>
+                        <div class="col-sm-9">
+                          <textarea name="remarks" cols="30" rows="2" class="form-control" id="remarks" required="required"><?php echo $row->Remarks;?></textarea>
+</div>
+                        <div class="clearfix"></div>
+                    </div>
+  <div class="modal-footer">
+<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
+                        <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
+    </div>
+                    </div>
             
-           
-          </div>
+                </form>
+            </div>
         </div>
     </div>
     </div>
+<?php } ?>
+<!--adding form-->
 
-
-<!-- end of MODAL -->
-  
-  
-  <script type="text/javascript">
+<script type="text/javascript">			
+	$(window).load(function(){
+		$("#loading").fadeOut("slow");
+	})
 	
-	 $(".dethouse").click(function(){
-          var nomor=$(this).html();
-             // alert('hai' + idcnote);
-				$.ajax({
+$("#customers").change(function(){
+            var idcust = $("#customers").val();
+			var etd1 = $("#etd1").val();
+			var etd2 = $("#etd2").val();
+          $.ajax({
                 type: "POST",
-                url : "<?php echo base_url('transaction/detail_outgoing_house'); ?>",
-                data: "nomor="+nomor,
+                url : "<?php echo base_url('transaction/filter_soa'); ?>",
+ 				data: "idcust="+idcust+"&etd1="+etd1+"&etd2="+etd2,
+
                 success: function(data){
-                   $('.detail_outgoing').html(data);
-				   $('.txtdetail').html('<strong> No. House : ' + nomor + '</strong>');
+                    $('#table_soa').html(data);
                 }
             });
         });
-	
-	 $("#txtsearch").keyup(function(){
-            var txtsearch = $('#txtsearch').val();
-             // alert('hai' + idcnote);
-				$.ajax({
+	 $("#etd1").change(function(){
+            var idcust = $("#customers").val();
+			var etd1 = $("#etd1").val();
+			var etd2 = $("#etd2").val();
+          $.ajax({
                 type: "POST",
-                url : "<?php echo base_url('transaction/search_outgoing_house'); ?>",
-                data: "txtsearch="+txtsearch,
+                url : "<?php echo base_url('transaction/filter_soa'); ?>",
+ 				data: "idcust="+idcust+"&etd1="+etd1+"&etd2="+etd2,
+
                 success: function(data){
-                   $('#table_connote').html(data);
+                    $('#table_soa').html(data);
                 }
             });
         });
-		
-	 $("#btnsearch").click(function(){
-            var txtsearch = $('#txtsearch').val();
-				$.ajax({
+	 $("#etd2").change(function(){
+            var idcust = $("#customers").val();
+			var etd1 = $("#etd1").val();
+			var etd2 = $("#etd2").val();
+          $.ajax({
                 type: "POST",
-                url : "<?php echo base_url('transaction/search_outgoing_house'); ?>",
-                data: "txtsearch="+txtsearch,
+                url : "<?php echo base_url('transaction/filter_soa'); ?>",
+ 				data: "idcust="+idcust+"&etd1="+etd1+"&etd2="+etd2,
+
                 success: function(data){
-                   $('#table_connote').html(data);
+                    $('#table_soa').html(data);
                 }
             });
         });
-	 $("#btnsort").click(function(){
-            var tgl1 = $('#tg1').val();
-			var tgl2 = $('#tg2').val();
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/periode_outgoing_house');?>",
-       data: "tgl1="+tgl1+"&tgl2="+tgl2,
-                success: function(data){
-                   $('#table_connote').html(data);
-                }
-            });
-        });
-
-function EditConfirm(myid){
-		var status=myid;
-		if(status >= '1'){
-			alert('Cannot Edit house was consoled !');
-			return false;
-	}
-}
-
-
-function detailhouseclosed(myid){
-	var numb=$(myid).html();
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('outgoing_house/ajax_detailHouse'); ?>",
-                data: "numb="+numb,
-                success: function(data){
-					$("#modalhouseclosed").modal('show'); 
-					$('#labelhouseclosed').html(numb);
-                   $('#tabledetailhouseclosed').html(data);
-                }
-            });
-	
-}
-function detailsmuclosed(myid){
-	var smu=$(myid).html();
-	var status='consol';
-             // alert('hai' + idcnote);
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('outgoing_house/ajax_detailSMU'); ?>",
-                data: "smu="+smu+"&status="+status,
-                success: function(data){
-					$("#modalhouseclosed").modal('hide'); 
-					$("#modaldetailsmuclosed").modal('show'); 
-                   $('#tabledetailsmuclosed').html(data);
-                }
-            });
-	
-}
-
-function getNilai(inputan){
-	var tg1=$("#start2").val();
-	var tg2=$("#end2").val();
-	var pisah1=tg1.split('-');
-	var pisah2=tg2.split('-');
-	var obj_tgl=new Date();
-	
-	var tgl1_leave=obj_tgl.setFullYear(pisah1[0],pisah1[1],pisah1[2]);
-	var tgl2_leave=obj_tgl.setFullYear(pisah2[0],pisah2[1],pisah2[2]);
-	var hasil=(tgl2_leave-tgl1_leave)/(60*60*24*1000);
-	
-	if(hasil >=8 || hasil < 0){
-		
-		alert('Jumlah Rentang waktu Pencarian Maksimal 7 Hari !');
-		return false;
-	} else {
-		
-	var start2=$("#start2").val();
-	var end2=$("#end2").val();
-	var kategori=$("#kategori").val();
-	var kriteria=$("#kriteria").val();
-	var txtsearch=$("#txtsearch").val();
-	
-	var inputan=start2+"_"+end2+"_"+kategori+"_"+kriteria+"_"+txtsearch;
-
-	if(txtsearch !=''){
-tableclosed.ajax.url('<?php echo site_url()?>outgoing_house/filter_list_closed/'+inputan).load();
-	} else {
-tableclosed.ajax.url('<?php echo site_url()?>outgoing_house/list_closed').load();		
-	}
-}
-
-	
-}
-	
 </script>
-    

@@ -143,17 +143,17 @@ public function filter_list_closed()
 		$txtsearch=$pecah[4];
 
 		if($kriteria=='startwith'){
-		$kondisi=array($kategori.' LIKE'=>$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.Consolidation >= '=>'2');	
+		$kondisi=array($kategori.' LIKE'=>$txtsearch.'%','a.ETD <= '=>$date2,'a.ETD >='=>$date1,'a.Consolidation >= '=>'2');	
 		} else if($kriteria=='endwith'){
-		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch,'a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.Consolidation >= '=>'2');	
+		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch,'a.ETD <= '=>$date2,'a.ETD >='=>$date1,'a.Consolidation >= '=>'2');	
 		} else if($kriteria=='contains'){
-		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.Consolidation >= '=>'2');	
+		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch.'%','a.ETD <= '=>$date2,'a.ETD >='=>$date1,'a.Consolidation >= '=>'2');	
 		} else if($kriteria=='notcontains'){
-		$kondisi=array($kategori.' NOT LIKE'=>'%'.$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.Consolidation >= '=>'2');	
+		$kondisi=array($kategori.' NOT LIKE'=>'%'.$txtsearch.'%','a.ETD <= '=>$date2,'a.ETD >='=>$date1,'a.Consolidation >= '=>'2');	
 		} else if($kriteria=='equals'){
-		$kondisi=array($kategori =>$txtsearch,'a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.Consolidation >= '=>'2');	
+		$kondisi=array($kategori =>$txtsearch,'a.ETD <= '=>$date2,'a.ETD >='=>$date1,'a.Consolidation >= '=>'2');	
 		} else if($kriteria=='notequals'){
-		$kondisi=array($kategori.' <> ' =>$txtsearch,'a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.Consolidation >= '=>'2');	
+		$kondisi=array($kategori.' <> ' =>$txtsearch,'a.ETD <= '=>$date2,'a.ETD >='=>$date1,'a.Consolidation >= '=>'2');	
 		}
 		$nm_tabel='outgoing_house a';
 		$nm_tabel2='ms_customer b';

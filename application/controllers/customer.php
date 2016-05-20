@@ -357,7 +357,38 @@ $this->form_validation->set_rules('initial','initial','required|trim|xss_clean')
 	  redirect('customer/view_customer');
 		}	
 }
-
+function getCountry(){
+		$tgl=$this->input->post('tgl');
+		$destination=$this->input->post('destination');
+		$status_smu=$this->input->post('status_smu');
+      $result=$this->model_app->getdata('outgoing_master a',
+	  "INNER JOIN ms_port b on a.Destination=b.PortCode  
+	  WHERE a.StatusProses='$status_smu' AND LEFT(a.ETD,10)='$tgl' GROUP BY b.PortCode ASC");
+	  
+	echo'<option value="">Choose Destination</option>';
+	if($result)
+	{
+	foreach($result as $data){
+	echo'<option value="'.$data->Destination.'">'.$data->PortName.' - '.$data->PortCode.'</option>';
+		
+		}	
+	}  
+}
+function getState(){
+	$custCountry=$this->input->post('custCountry');
+	
+      $result=$this->model_app->getdata('ms_city a',
+	  "INNER JOIN ms_country b on a.Country=b.CountryCode  
+	  WHERE a.Country='$custCountry' ORDER BY a.CityName");
+	foreach($result as $row){
+	$data=array(
+	'StateCode'=>$row->StateCode,
+	'StateName'=>$row->StateName,
+	);
+	 $out[]=$data;
+	} 
+	echo json_encode($output);
+}
 //------------delete data----------------------------------
 function delete_customer(){
 	$kode=$this->uri->segment(3);

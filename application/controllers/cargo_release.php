@@ -93,17 +93,17 @@ public function listcargofilter()
 		$txtsearch=$pecah[4];
 		
 		if($kriteria=='startwith'){
-		$kondisi=array($kategori.' LIKE'=>$txtsearch.'%','a.ReleaseDate < '=>$date2,'a.ReleaseDate >'=>$date1);	
+		$kondisi=array($kategori.' LIKE'=>$txtsearch.'%','a.ReleaseDate <= '=>$date2,'a.ReleaseDate >='=>$date1);	
 		} else if($kriteria=='endwith'){
-		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch,'a.ReleaseDate < '=>$date2,'a.ReleaseDate >'=>$date1);	
+		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch,'a.ReleaseDate <= '=>$date2,'a.ReleaseDate >='=>$date1);	
 		} else if($kriteria=='contains'){
-		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch.'%','a.ReleaseDate < '=>$date2,'a.ReleaseDate >'=>$date1);	
+		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch.'%','a.ReleaseDate <= '=>$date2,'a.ReleaseDate >='=>$date1);	
 		} else if($kriteria=='notcontains'){
-		$kondisi=array($kategori.' NOT LIKE'=>'%'.$txtsearch.'%','a.ReleaseDate < '=>$date2,'a.ReleaseDate >'=>$date1);	
+		$kondisi=array($kategori.' NOT LIKE'=>'%'.$txtsearch.'%','a.ReleaseDate <= '=>$date2,'a.ReleaseDate >='=>$date1);	
 		} else if($kriteria=='equals'){
-		$kondisi=array($kategori =>$txtsearch,'a.ReleaseDate < '=>$date2,'a.ReleaseDate >'=>$date1);	
+		$kondisi=array($kategori =>$txtsearch,'a.ReleaseDate <= '=>$date2,'a.ReleaseDate >='=>$date1);	
 		} else if($kriteria=='notequals'){
-		$kondisi=array($kategori.' <> ' =>$txtsearch,'a.ReleaseDate < '=>$date2,'a.ReleaseDate >'=>$date1);	
+		$kondisi=array($kategori.' <> ' =>$txtsearch,'a.ReleaseDate <= '=>$date2,'a.ReleaseDate >='=>$date1);	
 		}
 		$nm_tabel='tr_cargo_release a';
 		$nm_tabel2='ms_airline b';

@@ -1,9 +1,3 @@
-  <script src="<?php echo base_url('assets/datatables/js/jquery.dataTables.min.js')?>"></script>
-  <script src="<?php echo base_url('assets/datatables/js/dataTables.bootstrap.js')?>"></script>
-  
-<link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
-  <script type='text/javascript' src='<?php echo base_url();?>asset/js/jquery.min.js'></script>
-<script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
 
 
   <script type="text/javascript">
@@ -27,6 +21,8 @@
           table = $('#table').DataTable({ 
             "processing": true, //Feature control the processing indicator.
             "serverSide": true, //Feature control DataTables' server-side processing mode
+				"bInfo": false,
+			"order":[[1,"desc"],[1,"asc"]],
             // Load data for the table's content from an Ajax source
             "ajax": {
                 "url": "<?php echo site_url('ms_address_type/ajax_list')?>",

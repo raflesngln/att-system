@@ -67,6 +67,8 @@
 
 <script type="text/javascript">
 	    $(document).ready( function() {
+			load_country();
+			
 $("#nama").autocomplete({
       			minLength: 1,
       			source: 
@@ -108,7 +110,7 @@ $("#nama").autocomplete({
          		},		
 
     		});
-$("#addresstype").autocomplete({
+$("#addresstypeeeee").autocomplete({
       			minLength: 1,
       			source: 
         		function(req, add){
@@ -211,7 +213,7 @@ $("#nama").mousedown(function(){
 <div class="form-group">
 <label class="control-label col-sm-4" for="nama">Name</label>
       <div class="col-sm-7">          
-        <input name="nama" type="text" class="form-control" id="nama" placeholder="Input Name">
+        <input name="nama" type="text" class="form-control" id="nama" placeholder="Input Name" required="required">
 <i class="fa fa-spinner fa-pulse fa-2x" style="display:none">..</i>
 <input type="hidden" name="idcustomer" value="<?php //echo $kd_unik;?>" />
 </div>
@@ -227,7 +229,7 @@ $("#nama").mousedown(function(){
 <div class="form-group">
 <label class="control-label col-sm-4" for="nama">Phone</label>
       <div class="col-sm-7">          
-        <input name="phone" type="text" class="form-control" id="phone" placeholder="phone">
+        <input name="phone" type="text" class="form-control" id="phone" placeholder="phone" required>
 </div>
 </div>
 
@@ -264,13 +266,8 @@ $("#nama").mousedown(function(){
 <div class="form-group">
         <label class="col-sm-4 control-label">Country</label>
            <div class="col-sm-7">               
-                          <select name="custCountry" id="custCountry" required="required" class="form-control">
-                            <option value="">choose country</option>
-                            <?php
-	foreach($country as $ct){
-	    ?>
-                            <option value="<?php echo $ct->CountryCode;?>"><?php echo $ct->CountryName;?></option>
-                            <?php } ?>
+                          <select name="custCountry" id="custCountry" required="required" class="form-control" onchange="return load_state()">
+                            
                           </select>
         </div>
       </div>
@@ -278,26 +275,16 @@ $("#nama").mousedown(function(){
 <div class="form-group">
         <label class="col-sm-4 control-label">State</label>
                         <div class="col-sm-7">
-       <select name="custState" id="custState" required="required" class="form-control">
-          <option value="">Choose state</option>
-          <?php
-	foreach($state as $st){
-	    ?>
-          <option value="<?php echo $st->StateCode;?>"><?php echo $st->StateName;?></option>
-          <?php } ?>
+       <select name="custState" id="custState" required="required" class="form-control" onchange="return load_city()">
+        
 </select></div>
       </div>
 
 <div class="form-group">
 <label class="control-label col-sm-4" for="nama">City</label>
       <div class="col-sm-7">
-        <select name="custCity" id="custCity" required="required" class="form-control">
-          <option value="">Choose city</option>
-          <?php
-	foreach($city as $ct){
-	    ?>
-          <option value="<?php echo $ct->CityCode;?>"><?php echo $ct->CityName;?></option>
-          <?php } ?>
+        <select name="custCity" id="custCity" class="form-control">
+
         </select>
       </div>
 </div>
@@ -305,14 +292,14 @@ $("#nama").mousedown(function(){
 <div class="form-group">
 <label class="control-label col-sm-4" for="nama">Postal Code</label>
       <div class="col-sm-7">          
-        <input name="custPostal" type="text" class="form-control" id="custPostal" placeholder="fax">
+        <input name="custPostal" type="text" class="form-control" id="custPostal" placeholder="postal code">
 </div>
 </div>
 
 <div class="form-group">
 <label class="control-label col-sm-4" for="nama">Full Address</label>
       <div class="col-sm-7">          
-        <textarea name="address" class="form-control" id="address" placeholder="address"></textarea>
+        <textarea required name="address" class="form-control" id="address" placeholder="address"></textarea>
 </div>
 </div>
 
@@ -323,6 +310,23 @@ $("#nama").mousedown(function(){
       </div>
 </div>
 
+                        <label class="col-sm-4 control-label">  Status</label>
+                        <div class="col-sm-8" style="z-index:-1">
+                          <p>
+                            <label>
+                              <input type="checkbox" name="isCnee" value="1" id="isCnee" class="ace-checkbox-2" checked="checked" />
+                            <span class="lbl-check">Is Cnee</span></label>
+                            <br />
+                            <label>
+                              <input type="checkbox" name="isShipper" value="1" id="isShipper" class="ace-checkbox-2" checked="checked"/>
+                             <span class="lbl-check"> Is Shipper</span></label>
+                            <br />
+                            <label>
+                              <input type="checkbox" name="isAgent" value="1" id="isAgent" class="ace-checkbox-2"/>
+                             <span class="lbl-check"> Is Agent</span></label>
+                            <br />
+                          </p>
+    </div>
 </div>
 <br /><br />
 
@@ -414,8 +418,95 @@ $("#nama").mousedown(function(){
 
 </div>
 <script>
-$("#addresstype").click(function(){
+$("#addresstypeee").click(function(){
 	$(this).val('');
 	$("#hidden_address_type").val('');
 });
+
+ function load_combo(){
+ var custCountry = $("#custCountry").val();
+       $.ajax({
+           url : "<?php echo site_url('customer/getState')?>",
+		  // data: "house="+house+"&nosmu="+nosmu+"&cwt="+cwt,
+		data: "custCountry="+custCountry,
+		type:"POST",
+           dataType: "json",
+           success: function(data){
+                    $("#custState").empty();
+                   // $($id).append("<option value=''>no value.....</option>");
+                     for (var i =0; i<data.length; i++){
+                   var option = "<option value='"+data[i].CountryCode+"'>"+data[i].CountryName+"</option>";
+                          $("#custState").append(option);
+                       }
+  
+               }
+       }); 
+    }
+ $("#custState").change(function(){
+    var custCountry = $("#custCountry").val();
+	//var destination = $("#destination").val();
+     $.ajax({
+	url: "<?php echo base_url('transaction/getCountry');?>",
+			//dataType: "json",
+			type: "POST",
+			data: "tgl="+tgl+"&destination="+destination+"&status_smu="+status_smu,
+			success: function(data) {
+				$('#destination').html(data);	
+			}
+		});
+ });
+ 
+function load_country(){
+       $.ajax({
+           url : "<?php echo site_url('c_region/getCountry')?>",
+           dataType: "json",
+           success: function(data){
+               $("#custCountry").empty();
+              $("#custCountry").append("<option value=''>Select Country.....</option>");
+                     for (var i =0; i<data.length; i++){
+                   var option = "<option value='"+data[i].CountryCode+"'>"+data[i].CountryName+"</option>";
+                          $("#custCountry").append(option);
+						  //load_state();
+                       }
+  
+               }
+       }); 
+    }
+function load_state(){
+	var country=$("#custCountry").val();
+       $.ajax({
+		   type: "POST",
+           url : "<?php echo site_url('c_region/getState')?>",
+		   data: "country="+country,
+           dataType: "json",
+           success: function(data){
+                    $("#custState").empty();
+                   $("#custState").append("<option value=''>Select State.....</option>");
+                     for (var i =0; i<data.length; i++){
+                   var option = "<option value='"+data[i].StateCode+"'>"+data[i].StateName+"</option>";
+                          $("#custState").append(option);
+                       }
+  
+               }
+       }); 
+    }
+function load_city(){
+	var country=$("#custCountry").val();
+	var state=$("#custState").val();
+       $.ajax({
+		   type: "POST",
+           url : "<?php echo site_url('c_region/getCity')?>",
+		    data: "country="+country+"&state="+state,
+           dataType: "json",
+           success: function(data){
+                    $("#custCity").empty();
+                   // $($id).append("<option value=''>no value.....</option>");
+                     for (var i =0; i<data.length; i++){
+                   var option = "<option value='"+data[i].CityCode+"'>"+data[i].CityName+"</option>";
+                          $("#custCity").append(option);
+                       }
+  
+               }
+       }); 
+    }
 </script>

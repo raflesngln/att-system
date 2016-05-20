@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="sweetalert/example/example.css">
   <script src="<?php echo base_url();?>asset/sweetalert/dist/sweetalert-dev.js"></script>
   <link rel="stylesheet" href="<?php echo base_url();?>asset/sweetalert/dist/sweetalert.css">
+    <link href="<?php echo base_url();?>assets/datatables/css/dataTables.bootstrap.css" rel="stylesheet" />
      <!-- sweet alert -->
 		<!--[if IE 7]>
 		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
@@ -43,8 +44,9 @@
 <link rel="stylesheet" href="<?php echo base_url();?>asset/css/ace.min.css"/>
 <link rel="stylesheet" href="<?php echo base_url();?>asset/css/ace-responsive.min.css"/>
 <link rel="stylesheet" href="<?php echo base_url();?>asset/css/ace-skins.min.css" />
-
-
+  <script src="<?php echo base_url('assets/datatables/js/jquery.dataTables.min.js')?>"></script>
+  <script src="<?php echo base_url('assets/datatables/js/dataTables.bootstrap.js')?>"></script>
+<script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
   
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <style>

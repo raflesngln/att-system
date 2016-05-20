@@ -79,13 +79,16 @@ $no=1;
               <label for="usrname"><span></span> Type</label>
               </span>
               <span class="col-sm-7">
- <span class="input-icon input-icon-right">
- <input name="contacttype" type="text" class="form-control" id="contacttype"/>
-<div id="dropdown_list_address">
-<li>satu</li>
-<li>dua</li>
-</div>
-<i class="icon-caret-down bigger-220" id="iconcaret" onclick="return dropdown_address()"></i>
+
+ <select name="contacttype" id="contacttype" class="form-control">
+                            <?php
+	foreach($contact as $row){
+	    ?>
+                            <option value="<?php echo $row->ContactTypeCode.'-'.$row->ContactTypeName;?>"><?php echo $row->ContactTypeName;?></option>
+                            <?php } ?>
+                          </select>
+                         
+
 </span> 
               </span>
  <span class="col-sm-">
@@ -101,7 +104,7 @@ $no=1;
 <div class="form-group">
             <span class="col-sm-4">
             <label for="psw"><span></span> Phone</label></span><span class="col-sm-8">
-              <input name="phone2" type="text" class="form-control" id="phone2" />
+              <input name="phone2" type="text" class="form-control" id="phone2" onkeypress="return isNumberKey(event)" />
               </span></div>  
               
 <div class="form-group">
@@ -109,7 +112,7 @@ $no=1;
               <label for="usrname"><span></span> Ext</label>
               </span>
               <span class="col-sm-8">
-              <input name="ext2" type="text" class="form-control" id="ext2"  />
+              <input name="ext2" type="text" class="form-control" id="ext2" onkeypress="return isNumberKey(event)" />
               </span>
             </div>          
  </div>   
@@ -121,13 +124,13 @@ $no=1;
             <span class="col-sm-4">
             <label for="psw"><span></span> Fax</label></span>
               <span class="col-sm-8">
-              <input name="fax2" type="text" class="form-control" id="fax2"/></span>
+              <input name="fax2" type="text" class="form-control" id="fax2" onkeypress="return isNumberKey(event)"/></span>
             </div>
  <div class="form-group">
             <span class="col-sm-4">
             <label for="psw"><span></span> Mobile Phone</label></span>
               <span class="col-sm-8">
-              <input name="hp2" type="text" class="form-control" id="hp2"  /></span>
+              <input name="hp2" type="text" class="form-control" id="hp2" onkeypress="return isNumberKey(event)"  /></span>
             </div>
 <div class="form-group">
             <span class="col-sm-4">
@@ -216,7 +219,12 @@ function hapus(myid){
 		 tr = t.parent().parent();
 		 tr.remove();
 }
-
+$("#contacttype").change(function(){
+	var addr=$("#contacttype").val();
+		var pecah=addr.split('-');
+		var pecah1=pecah[0];
+	$('#hidden_contact_type').val(pecah1);
+});
 $("#btn_add_contact").click(function(){
 	var contacttype=$('#contacttype').val();   
 	var hidden_contact_type=$('#hidden_contact_type').val();

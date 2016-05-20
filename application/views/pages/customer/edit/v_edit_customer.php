@@ -174,14 +174,14 @@ foreach($detailCustomer as $row){
 <div class="form-group">
 <label class="control-label col-sm-4" for="nama">Name</label>
       <div class="col-sm-7">          
-        <input name="nama" type="text" class="form-control" id="nama" value="<?php echo $row->custName;?>">
+        <input name="nama" type="text" class="form-control" id="nama" value="<?php echo $row->CustName;?>">
 <i class="fa fa-spinner fa-pulse fa-2x" style="display:none">..</i></div>
 </div>
 
 <div class="form-group">
 <label class="control-label col-sm-4" for="nama">Initial</label>
       <div class="col-sm-7">          
-        <input name="initial" type="text" class="form-control" id="initial" value="<?php echo $row->custInitial;?>" >
+        <input name="initial" type="text" class="form-control" id="initial" value="<?php echo $row->CustInitial;?>" >
 </div>
 </div>
 
@@ -231,7 +231,7 @@ foreach($detailCustomer as $row){
                             <?php
 	foreach($country as $ct){
 	    ?>
-                            <option value="<?php echo $ct->couCode;?>"><?php echo $ct->couName;?></option>
+                            <option value="<?php echo $ct->CountryCode;?>"><?php echo $ct->CountryName;?></option>
                             <?php } ?>
                           </select>
         </div>
@@ -246,7 +246,7 @@ foreach($detailCustomer as $row){
           <?php
 	foreach($state as $st){
 	    ?>
-          <option value="<?php echo $st->stCode;?>"><?php echo $st->stName;?></option>
+          <option value="<?php echo $st->StateCode;?>"><?php echo $st->StateName;?></option>
           <?php } ?>
 </select></div>
       </div>
@@ -260,7 +260,7 @@ foreach($detailCustomer as $row){
           <?php
 	foreach($city as $ct){
 	    ?>
-          <option value="<?php echo $ct->cyCode;?>"><?php echo $ct->cyName;?></option>
+          <option value="<?php echo $ct->CityCode;?>"><?php echo $ct->CityName;?></option>
           <?php } ?>
         </select>
       </div>

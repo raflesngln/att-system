@@ -53,23 +53,7 @@
                         <div class="clearfix"></div>
                       </div>
 <div class="form-group">
-                        <label class="col-sm-4 control-label">  Status</label>
-                        <div class="col-sm-8">
-                          <p>
-                            <label>
-                              <input type="checkbox" name="isCnee" value="1" id="isCnee" class="ace-checkbox-2" />
-                            <span class="lbl-check">isCnee</span></label>
-                            <br />
-                            <label>
-                              <input type="checkbox" name="isShipper" value="1" id="isShipper" class="ace-checkbox-2"/>
-                             <span class="lbl-check"> isShipper</span></label>
-                            <br />
-                            <label>
-                              <input type="checkbox" name="isAgent" value="1" id="isAgent" class="ace-checkbox-2"/>
-                             <span class="lbl-check"> Is Agent</span></label>
-                            <br />
-                          </p>
-    </div>
+
                         <div class="clearfix"></div>
   </div>
 

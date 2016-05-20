@@ -2,11 +2,11 @@
 
   <script type="text/javascript">
     var save_method5; //for save method string
-    var tablestate;
+    var tablecountry;
  
  $(document).ready(function() {    
     load_combo();
-          tablestate = $('#tablestate').DataTable({ 
+          tablecountry = $('#tablecountry').DataTable({ 
             "processing": true, //Feature control the processing indicator.
 			"bInfo": false,
 			"order":[[1,"desc"],[1,"asc"]],
@@ -27,20 +27,20 @@
 
 });
 
-function add_state()
+function add_country()
     {
       save_method5 = 'add';
 	  load_combo();
-      $('#form_state')[0].reset(); // reset form on modals
-      $('#modal_state').modal('show'); // show bootstrap modal
-      $('.modal-title_state').text('Add State');
+      $('#form_country')[0].reset(); // reset form on modals
+      $('#modal_country').modal('show'); // show bootstrap modal
+      $('.modal-title_country').text('Add State');
 	  document.getElementById("StateCode2").disabled=false;
     }
 
 function edit_state(id)
     {
       save_method5 = 'update';
-      $('#form_state')[0].reset(); // reset form on modals
+      $('#form_country')[0].reset(); // reset form on modals
         
       var nmtabel='ms_state';
       var keytabel='StateCode';
@@ -59,8 +59,8 @@ function edit_state(id)
 			$('[name="StateCode2"]').val(data.StateCode);
             $('[name="Remarks"]').val(data.Remarks); 
 			$('[name="Country"]').val(data.Country); 
-            $('#modal_state').modal('show');
-            $('.modal-title_state').text('Edit State');
+            $('#modal_country').modal('show');
+            $('.modal-title_country').text('Edit State');
 			document.getElementById("StateCode2").disabled=true;
             
         },
@@ -71,9 +71,9 @@ function edit_state(id)
     });
     }
 
-    function reload_state()
+    function reload_country()
     {
-      tablestate.ajax.reload(null,false); //reload datatable ajax 
+      tablecountry.ajax.reload(null,false); //reload datatable ajax 
     }
 
 function save_state()
@@ -81,10 +81,7 @@ function save_state()
       var url5;
 	  var StateCode=$("#StateCode").val();
 	  var StateName=$("#StateName").val();
-	  if(StateCode =="" || StateName ==""){
-		  swal("Warning !"," State code dan Name tidak boleh kosong","error");
-	  } else {
-	  
+	  if(StateCode !='' || StateName !=''){
       if(save_method5 == 'add') 
       {
           url5 = "<?php echo site_url('C_region/state_add')?>";
@@ -98,20 +95,22 @@ function save_state()
           $.ajax({
             url : url5,
             type: "POST",
-            data: $('#form_state').serialize(),
+            data: $('#form_country').serialize(),
             dataType: "JSON",
             success: function(data)
             {
                //if success close modal and reload ajax table
 			swal("Update successfull"," Succes Save/Update data","success");
-               $('#modal_state').modal('hide');
-               reload_state();
+               $('#modal_country').modal('hide');
+               reload_country();
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
                 alert('Error adding / update data');
             }
         });
+	  } else {
+		  swal("Warning !"," State code dan Name tidak boleh kosong","error");
 	  }
     }
 
@@ -131,8 +130,8 @@ function delete_state(id)
             {
                //if success reload ajax table
 			 swal("Deleted data"," Succes delete data","warning");
-               $('#modal_state').modal('hide');
-               reload_state();
+               $('#modal_country').modal('hide');
+               reload_country();
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -145,10 +144,10 @@ function delete_state(id)
   </script>
 
 <h1 class="page-header"><i class="fa fa-flag green"></i> Master State</h1>
-   <button class="btn-normal" onclick="add_state()"><i class="fa fa-plus fa-2x"></i> </button>
+   <button class="btn-normal" onclick="add_country()"><i class="fa fa-plus fa-2x"></i> </button>
    
     <br />	<br />																															
-    <table id="tablestate" class="table table-striped table-bordered" cellspacing="0" width="97%">
+    <table id="tablecountry" class="table table-striped table-bordered" cellspacing="0" width="97%">
       <thead>
         <tr>
           <th style="width:2%">No</th>  
@@ -176,16 +175,16 @@ function delete_state(id)
  
 
  <!-- Bootstrap modal -->
-  <div class="modal fade" id="modal_state" role="dialog">
+  <div class="modal fade" id="modal_country" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title_state">Add State</h3>
+        <h3 class="modal-title_country">Add State</h3>
       </div>
       <div class="modal-body form">
-        <form action="#" id="form_state" class="form-horizontal">
-          <input name="StateCode2" type="hidden" id="StateCode2" value=""/> 
+        <form action="#" id="form_country" class="form-horizontal">
+          <input name="StateCode" type="hidden" id="StateCode" value=""/> 
           <div class="form-body">
             <div class="form-group">
               <label class="control-label col-md-3"> Country</label>

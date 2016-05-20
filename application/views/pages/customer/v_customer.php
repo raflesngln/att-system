@@ -1,8 +1,3 @@
- <style>
- .btn-search{ height:32px; margin-left:-10px;}
- </style>
-  <script type="text/javascript" src="<?php echo base_url();?>asset/js/jquery.js"></script>
-
 <div class="row-fluid">
 								<div class="span10">
 									<div class="tabbable">

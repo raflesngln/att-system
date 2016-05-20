@@ -58,13 +58,13 @@ class Transaction extends CI_Controller{
            'payment_type'=>$this->model_app->getdatapaging("PayCode,PayName","ms_payment_type","ORDER BY PayCode ASC"),
             'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
 			'airline'=>$this->model_app->getdata('ms_airline',""),
+			'citycust'=>$this->model_app->getdata('ms_city',""),
             'shipper'=>$this->model_app->getdata('ms_customer',"WHERE IsShipper ='1' ORDER BY CustCode Desc"),
             'cnee'=>$this->model_app->getdata('ms_customer',"WHERE IsCnee ='1' ORDER BY CustCode Desc"),
             'city'=>$this->model_app->getdatapaging("PortCode,PortName","ms_port","GROUP BY PortCode"),
             'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
 			'chargeoptional'=>$this->model_app->getdatapaging("ChargeCode,ChargeName,ChargeDetails","ms_charge","WHERE DefaultCharge='0' ORDER BY ChargeName"),
 			'chargedefault'=>$this->model_app->getdatapaging("ChargeCode,ChargeName,ChargeDetails","ms_charge","WHERE DefaultCharge='1' ORDER BY ChargeName"),
-            //'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
             'commodity'=>$this->model_app->getdatapaging("CommCode,CommName","ms_commodity","ORDER BY CommName ASC"),
             'connote'=>$this->model_app->getdatapaging("a.HouseNo,a.ETD,a.Consolidation,a.PayCode,a.Service,b.CustName as shipper,d.PortName as origin,e.PortName as desti",
 			"outgoing_house a",
@@ -102,6 +102,18 @@ class Transaction extends CI_Controller{
 
         $this->load->view('home/home',$data);
     }
+    function getChargeOptional(){
+      $result=$this->model_app->getdatapaging("ChargeCode,ChargeName,ChargeDetails","ms_charge","WHERE DefaultCharge='0' ORDER BY ChargeName");
+	foreach($result as $list){
+		$row = array(
+				'ChargeCode' =>$list->ChargeCode,
+				'ChargeName' =>$list->ChargeName,
+				
+			);
+			$data[] = $row;
+		} 
+		echo json_encode($data);
+	}
 	
   function cek_house_invoice(){
      $nomor=$this->input->post('idhouse');
@@ -1116,6 +1128,7 @@ function getStatus(){
 		}	
 	}  
 }
+
 function filter_flightNo(){
 		$airline=$this->input->post('airline');
 		
@@ -1774,34 +1787,38 @@ function confirm_outgoing_house(){
 			$this->model_app->update('stock_smu','NoSMU',$smu,$updatestoksmu);
 		
 		}
-		 redirect('transaction/domestic_outgoing_house');
+		 //redirect('transaction/domestic_outgoing_house');
 //==============  print view in HTML   =======================//
-/*        $data = array(
+            $data = array(
             'title'=>'domestic_outgoing_house',
             'scrumb_name'=>'domestic_outgoing_house',
 			'houseno'=>$getHouse,
 			'jobno'=>$getjob, 
             'scrumb'=>'transaction/domestic_outgoing_house',
-            'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
+/*            'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
             'shipper'=>$this->model_app->getdata('ms_customer',"WHERE IsShipper ='1' ORDER BY CustCode Desc"),
             'cnee'=>$this->model_app->getdata('ms_customer',"WHERE IsCnee ='1' ORDER BY CustCode Desc"),
-            'city'=>$this->model_app->getdatapaging("PortCode,PortName","ms_port","GROUP BY PortName"),
-           // 'tmpcharge'=>$this->model_app->getdatapaging("*","temp_charges","ORDER BY tempChargeId"),
-            'commodity'=>$this->model_app->getdatapaging("CommCode,CommName","ms_commodity","ORDER BY CommName ASC"),
-			'outgoing_connote'=>$this->model_app->getdatapaging("*","outgoing_house","ORDER BY HouseNo ASC"),
-			
+            'city'=>$this->model_app->getdatapaging("PortCode,PortName","ms_port","GROUP BY PortName"),*/
+            'commodity'=>$this->model_app->getdatapaging("CommCode,CommName","ms_commodity","ORDER BY CommName ASC"),			
+			 'house'=>$this->model_app->getdatapaging("a.*,b.PortName as ori,c.PortName as desti,d.CustName as pengirim,d.Phone as ph1,d.Address as add1,e.CustName as penerima,e.Phone as ph2,e.Address as add2,f.CommName",
+			 "outgoing_house a",
+			 "INNER JOIN ms_port b on a.Origin=b.PortCode
+			 INNER JOIN ms_port c on a.Destination=c.PortCode
+			 INNER JOIN ms_customer d on a.Shipper=d.CustCode
+			 INNER JOIN ms_customer e on a.Consigne=e.CustCode
+			 LEFT JOIN ms_commodity f on a.Commodity=f.CommCode
+			 WHERE a.HouseNo='$getHouse' ORDER BY a.HouseNo LIMIT 1"),
+			 
 			'connote'=>$this->model_app->getdatapaging("*","outgoing_house","where HouseNo='$getHouse' ORDER BY HouseNo ASC"),
 			'items'=>$this->model_app->getdatapaging("*","booking_items","where Reff='$getHouse' ORDER BY IdItems ASC"),
-			'charges'=>$this->model_app->getdatapaging("*","booking_charge a","inner join ms_charge b on a.Reff=b.ChargeCode where a.Reff='$getHouse' ORDER BY a.Reff ASC"),
-			
-			
+			'charges'=>$this->model_app->getdatapaging("*","booking_charge a","inner join ms_charge b on a.CostID=b.ChargeCode where a.Reff='$getHouse' ORDER BY a.Reff ASC"),
             'view'=>'pages/booking/outgoing/confirm_outgoing_house',
         );  
         ob_start();
    
  			$this->load->view('home/home',$data);
 			
-			*/
+		
     
     }  
 //     DATA TO PDF
@@ -2291,7 +2308,7 @@ function print_SOA(){
 	
 	$data['view']='pages/booking/soa/report_SOA';
 	//$this->load->view('pages/booking/soa/report_SOA',$data);
-	$this->load->view('home/home',$data);
+	$this->load->view('pages/booking/soa/report_SOA',$data);
 }
 function print_SOAaaaaaa(){
 	

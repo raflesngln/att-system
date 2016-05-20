@@ -1,5 +1,3 @@
-  <script src="<?php echo base_url('assets/datatables/js/jquery.dataTables.min.js')?>"></script>
-  <script src="<?php echo base_url('assets/datatables/js/dataTables.bootstrap.js')?>"></script>
   
   <script type="text/javascript">
     var save_method4; //for save method string

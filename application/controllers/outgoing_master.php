@@ -180,17 +180,17 @@ public function filterfinalsmu()
 		$txtsearch=$pecah[4];
 		
 		if($kriteria=='startwith'){
-		$kondisi=array($kategori.' LIKE'=>$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'4');	
+		$kondisi=array($kategori.' LIKE'=>$txtsearch.'%','a.ETD <= '=>$date2,'a.ETD >='=>$date1,'a.StatusProses = '=>'4');	
 		} else if($kriteria=='endwith'){
-		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch,'a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'4');	
+		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch,'a.ETD <= '=>$date2,'a.ETD >='=>$date1,'a.StatusProses = '=>'4');	
 		} else if($kriteria=='contains'){
-		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'4');	
+		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch.'%','a.ETD <= '=>$date2,'a.ETD >='=>$date1,'a.StatusProses = '=>'4');	
 		} else if($kriteria=='notcontains'){
-		$kondisi=array($kategori.' NOT LIKE'=>'%'.$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'4');	
+		$kondisi=array($kategori.' NOT LIKE'=>'%'.$txtsearch.'%','a.ETD <= '=>$date2,'a.ETD >='=>$date1,'a.StatusProses = '=>'4');	
 		} else if($kriteria=='equals'){
-		$kondisi=array($kategori =>$txtsearch,'a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'4');	
+		$kondisi=array($kategori =>$txtsearch,'a.ETD <= '=>$date2,'a.ETD >='=>$date1,'a.StatusProses = '=>'4');	
 		} else if($kriteria=='notequals'){
-		$kondisi=array($kategori.' <> ' =>$txtsearch,'a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'4');	
+		$kondisi=array($kategori.' <> ' =>$txtsearch,'a.ETD <= '=>$date2,'a.ETD >='=>$date1,'a.StatusProses = '=>'4');	
 		}
 		
 		$nm_tabel='outgoing_master a';
@@ -250,17 +250,17 @@ public function filterclosedsmu()
 		$txtsearch=$pecah[4];
 		
 		if($kriteria=='startwith'){
-		$kondisi=array($kategori.' LIKE'=>$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'5');	
+		$kondisi=array($kategori.' LIKE'=>$txtsearch.'%','a.ETD <= '=>$date2,'a.ETD >='=>$date1,'a.StatusProses = '=>'5');	
 		} else if($kriteria=='endwith'){
-		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch,'a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'5');	
+		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch,'a.ETD <= '=>$date2,'a.ETD >='=>$date1,'a.StatusProses = '=>'5');	
 		} else if($kriteria=='contains'){
-		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'5');	
+		$kondisi=array($kategori.' LIKE'=>'%'.$txtsearch.'%','a.ETD <= '=>$date2,'a.ETD >='=>$date1,'a.StatusProses = '=>'5');	
 		} else if($kriteria=='notcontains'){
-		$kondisi=array($kategori.' NOT LIKE'=>'%'.$txtsearch.'%','a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'5');	
+		$kondisi=array($kategori.' NOT LIKE'=>'%'.$txtsearch.'%','a.ETD <= '=>$date2,'a.ETD >='=>$date1,'a.StatusProses = '=>'5');	
 		} else if($kriteria=='equals'){
-		$kondisi=array($kategori =>$txtsearch,'a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'5');	
+		$kondisi=array($kategori =>$txtsearch,'a.ETD <= '=>$date2,'a.ETD >='=>$date1,'a.StatusProses = '=>'5');	
 		} else if($kriteria=='notequals'){
-		$kondisi=array($kategori.' <> ' =>$txtsearch,'a.ETD < '=>$date2,'a.ETD >'=>$date1,'a.StatusProses = '=>'5');	
+		$kondisi=array($kategori.' <> ' =>$txtsearch,'a.ETD <= '=>$date2,'a.ETD >='=>$date1,'a.StatusProses = '=>'5');	
 		}
 		
 		$nm_tabel='outgoing_master a';

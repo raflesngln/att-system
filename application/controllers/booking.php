@@ -305,6 +305,7 @@ $this->form_validation->set_rules('name','name','required|trim|xss_clean');
 	 //===========add customer====================
 function save_customer2()
 {	
+$no_customer=$this->model_app->generateNo("ms_customer","CustCode","CST");
 
 $initial =$this->input->post('initial');
 $name =$this->input->post('namecust');
@@ -319,19 +320,20 @@ $fax =$this->input->post('fax');
 $email =$this->input->post('email');
 
 		$data=array(
-		'custName' =>$name,
-		'custInitial' =>$initial,
+		'CustCode'=>$no_customer,
+		'CustName' =>$name,
+		'CustInitial' =>$initial,
 		'Address'=>$address,
-		'cyCode' =>$city,
+		'City' =>$city,
 		'Phone' =>$phone,
 		'Fax' =>$fax,
 		'PostalCode' =>$postcode,
-		'isAgent' =>$isagent,
-		'isShipper' =>$isshipper,
-		'isCnee' =>$iscnee,
+		'IsAgent' =>$isagent,
+		'IsShipper' =>$isshipper,
+		'IsCnee' =>$iscnee,
 		'Email' =>$email,
-		'CreateBy' =>$this->session->userdata('nameusr'),
-		'CreateDate' =>date('Y-m-d: h:i:s'),
+		'CreatedBy' =>$this->session->userdata('nameusr'),
+		'CreatedDate' =>date('Y-m-d: h:i:s'),
 		'ModifiedBy' =>'',
 		'ModifiedDate' =>'',	
 		);		

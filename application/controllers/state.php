@@ -25,6 +25,7 @@ function view_state(){
 		$data['scrumb_name']='Data state';
 		$data['scrumb']='state/view_state';
 		$data['list']=$this->model_app->getdata('ms_state',"order by StateCode ASC LIMIT $offset,$limit");
+		$data['country']=$this->model_app->getdata('ms_country',"order by CountryName");
 		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_state',"order by StateCode ASC");
         					//create for pagination		
 			$config['base_url'] = base_url() . 'state/view_state/';
@@ -65,6 +66,7 @@ $this->form_validation->set_rules('StateCode','StateCode','required|trim|xss_cle
 		$newdata=array(
 		'StateCode' =>strtoupper($this->input->post('StateCode')),
 		'StateName'=>strtoupper($this->input->post('StateName')),
+		'Country'=>$this->input->post('tCountry'),
 		'CreatedBy'=>$this->session->userdata('nameusr'),
 		'CreatedDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy'=>'',

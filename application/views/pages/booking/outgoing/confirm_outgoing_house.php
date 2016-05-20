@@ -23,23 +23,14 @@
 
   
 
-   <div class="row-fluid" style="border:2px #999 solid">
+   <div class="container" style="border:1px #CCC solid; width:97%; margin-left:-1%; margin-top:10px">
   <form method="post" action="<?php echo base_url();?>Connote_print" target="new">
-    <div class="container">
-      <?php
-      if(isset($eror)){?>
-            <label class="alert alert-error col-sm-12">
-      <button type="button" class="close" data-dismiss="alert">
-      <i class="icon-remove"></i> </button>             
-      <?php echo isset($eror)?$eror:'';?>
-      <br />
-      </label>
-            <?php }?>   
-      <div class="header col-md-11">
-	<h3><i class="fa fa-ok"></i> <i class="fa fa-check bigger180"></i>&nbsp;Detail House</h3>
-            </div>
    
+ <h3><i class="fa fa-ok"></i> <i class="fa fa-check bigger180"></i>&nbsp;Detail House</h3>
    
+<?php
+foreach($house as $row){
+?> 
     <div class="col-sm-12">
     <div class="row">
     <!-- LEFT FORM-->
@@ -47,54 +38,54 @@
       <div class="form-group">       
         <strong><label class="col-sm-4"> JOB No</label></strong>
           <div class="col-sm-7">
-           : <?php echo $jobno;?>
-         <input type="hidden" name="job" value="<?php echo $_POST['job'];?>" /> </div>
+           : <?php echo $row->Notrans;?>
+         <input type="hidden" name="job" value="<?php echo $row->Notrans;?>" /> </div>
  </div><div class="clearfix"></div>
 <div class="form-group">       
           <strong><label class="col-sm-4"> House No</label></strong>
           <div class="col-sm-7">
-           : <?php echo $houseno;?>
-           <input name="house" type="hidden" id="house" value="<?php echo $houseno;?>" />
-           <input name="houseno" type="hidden" id="houseno" value="<?php echo $houseno;?>" />
+           : <?php echo $row->HouseNo;?>
+           <input name="house" type="hidden" id="house" value="<?php echo $row->HouseNo;?>" />
+           <input name="houseno" type="hidden" id="houseno" value="<?php echo $row->HouseNo;?>" />
           </div>
  </div><div class="clearfix"></div>
 <div class="form-group"> <strong>
   <label class="col-sm-4"> Payment Type</label>
 </strong>
-<div class="col-sm-7">: <?php echo $_POST['paymentype'];?>
-  <input type="hidden" name="paymentype" value="<?php echo $_POST['paymentype'];?>" />
+<div class="col-sm-7">: <?php echo $row->PayCode;?>
+  <input type="hidden" name="paymentype" value="<?php echo $row->PayCode;?>" />
 </div>
  </div><div class="clearfix"></div>
  <div class="form-group"><strong><span class="col-sm-4">Service</span></strong>
-   <div class="col-sm-7">: <?php echo $_POST['service'];?>
-     <input name="service" type="hidden" id="service" value="<?php echo $_POST['service'];?>" />
+   <div class="col-sm-7">: <?php echo $row->Service;?>
+     <input name="service" type="hidden" id="service" value="<?php echo $row->Service;?>" />
    </div>
  </div><div class="clearfix"></div>
  <div class="form-group"><strong><span class="col-sm-4">Origin</span></strong>
-   <div class="col-sm-7">: <?php echo $_POST['origin'];?>
-     <input name="origin" type="hidden" id="origin" value="<?php echo $_POST['origin'];?>" />
+   <div class="col-sm-7">: <?php echo $row->ori;?>
+     <input name="origin" type="hidden" id="origin" value="<?php echo $row->ori;?>" />
    </div>
  </div><div class="clearfix"></div>
 <div class="form-group"><strong><span class="col-sm-4">Destination</span></strong>
-  <div class="col-sm-7">: <?php echo $_POST['desti'];?>
-    <input name="desti" type="hidden" id="desti" value="<?php echo $_POST['desti'];?>" />
+  <div class="col-sm-7">: <?php echo $row->desti;?>
+    <input name="desti" type="hidden" id="desti" value="<?php echo $row->desti;?>" />
   </div>
  </div><div class="clearfix"></div>
  <div class="col-sm-12"><p>&nbsp;</p></div>
  
  <div class="form-group"><strong><span class="col-sm-4">Shipper</span></strong>
-   <div class="col-sm-7">: <?php echo $_POST['name1'];?>
-     <input name="name1" type="hidden" id="name1" value="<?php echo $_POST['name1'];?>" />
+   <div class="col-sm-7">: <?php echo $row->pengirim;?>
+     <input name="name1" type="hidden" id="name1" value=" <?php echo $row->pengirim;?>" />
    </div>
  </div><div class="clearfix"></div>
  <div class="form-group"><strong><span class="col-sm-4">Phone</span></strong>
-   <div class="col-sm-7">: <?php echo $_POST['phone1'];?>
-     <input name="phone1" type="hidden" id="phone1" value="<?php echo $_POST['phone1'];?>" />
+   <div class="col-sm-7">: <?php echo $row->ph1;?>
+     <input name="phone1" type="hidden" id="phone1" value="<?php echo $row->ph1;?>" />
    </div>
  </div><div class="clearfix"></div>
  <div class="form-group"><strong><span class="col-sm-4">Address</span></strong>
-   <div class="col-sm-7">: <?php echo $_POST['address1'];?>
-     <input name="address1" type="hidden" id="address1" value="<?php echo $_POST['address1'];?>" />
+   <div class="col-sm-7">: <?php echo $row->add1;?>
+     <input name="address1" type="hidden" id="address1" value="<?php echo $row->add1;?>" />
    </div>
  </div><div class="clearfix"></div>  
     </div>
@@ -103,14 +94,14 @@
     <div class="col-md-6">
       <div class="form-group"> 
         <strong><label class="col-sm-4">Booking No</label></strong>
-        <div class="col-sm-7">: <?php echo $_POST['booking'];?>
-          <input name="booking" type="hidden" id="booking" value="<?php echo $_POST['booking'];?>" />
+        <div class="col-sm-7">: <?php echo $row->BookingNo;?>
+          <input name="booking" type="hidden" id="booking" value="<?php echo $row->BookingNo;?>" />
         </div>
 </div><div class="clearfix"></div>
 <div class="form-group"> 
           <strong><label class="col-sm-4"> ETD</label></strong>
-          <div class="col-sm-7">: <?php echo $_POST['etd'];?>
-            <input name="etd" type="hidden" id="etd" value="<?php echo $_POST['etd'];?>" />
+          <div class="col-sm-7">: <?php echo $row->ETD;?>
+            <input name="etd" type="hidden" id="etd" value="<?php echo $row->ETD;?>" />
           </div>
 </div><div class="clearfix"></div>
 
@@ -120,24 +111,24 @@
     <div class="form-group"> 
         <strong>
         <label class="col-sm-4">Consignee</label></strong>
-        <div class="col-sm-7">: <?php echo $_POST['name2'];?>
-          <input name="name2" type="hidden" id="name2" value="<?php echo $_POST['name2'];?>" />
+        <div class="col-sm-7">: <?php echo $row->penerima;?>
+          <input name="name2" type="hidden" id="name2" value="<?php echo $row->penerima;?>" />
         </div>
 </div><div class="clearfix"></div>
 
     <div class="form-group"> 
         <strong>
         <label class="col-sm-4">Phone</label></strong>
-        <div class="col-sm-7">: <?php echo $_POST['phone2'];?>
-          <input name="phone2" type="hidden" id="name11" value="<?php echo $_POST['phone2'];?>" />
+        <div class="col-sm-7">: <?php echo $row->ph2;?>
+          <input name="phone2" type="hidden" id="name11" value="<?php echo $row->ph2;?>" />
         </div>
 </div><div class="clearfix"></div>
 
     <div class="form-group"> 
         <strong>
         <label class="col-sm-4">Address</label></strong>
-        <div class="col-sm-7">: <?php echo $_POST['address2'];?>
-          <input name="address2" type="hidden" id="name12" value="<?php echo $_POST['address2'];?>" />
+        <div class="col-sm-7">: <?php echo $row->add2;?>
+          <input name="address2" type="hidden" id="name12" value="<?php echo $row->add2;?>" />
         </div>
 </div><div class="clearfix"></div>
 
@@ -148,7 +139,7 @@
     </div>
     </div>
     
-
+<?php } ?>
       
 <br style="clear:both" />
 <div class="col-sm-11">         
@@ -210,30 +201,26 @@
 </div>
 </div>
  <div class="col-md-6">
- 
- <?php
- foreach($connote as $con)
- {
-	?> 
+
    <div class="form-group">       
      <strong><label class="col-sm-5">Commodity</label></strong>
           <div class="col-sm-7">
-          : <?php echo $con->Commodity;?>
-          <input name="commodity" type="hidden" id="name3" value="<?php echo $con->Commodity;?>" />
+          : <?php echo $row->CommName;?>
+          <input name="commodity" type="hidden" id="name3" value="<?php echo $row->CommName;?>" />
           </div>
  </div><div class="clearfix"></div>
 <div class="form-group">       
           <strong><label class="col-sm-5">Gross Weight</label></strong>
           <div class="col-sm-7">
-          : <?php echo $con->GrossWeight;?>
-          <input name="grossweight" type="hidden" id="name4" value="<?php echo $con->GrossWeight;?>" />
+          : <?php echo $row->GrossWeight;?>
+          <input name="grossweight" type="hidden" id="name4" value="<?php echo $row->GrossWeight;?>" />
           </div>
  </div><div class="clearfix"></div>
 <div class="form-group"> <strong>
   <label class="col-sm-5">pecial Instructions </label>
 </strong>
-<div class="col-sm-7">: <?php echo $con->SpecialIntraction;?>
-  <input name="special" type="hidden" id="name5" value="<?php echo $con->SpecialIntraction;?>" />
+<div class="col-sm-7">: <?php echo $row->SpecialIntraction;?>
+  <input name="special" type="hidden" id="name5" value="<?php echo $row->SpecialIntraction;?>" />
 </div>
  </div><div class="clearfix"></div>
 
@@ -244,22 +231,22 @@
      <div class="form-group">       
        <strong><label class="col-sm-5">CWT</label></strong>
           <div class="col-sm-7">
-           : <?php echo $con->CWT;?>
-           <input name="cwt" type="hidden" id="name6" value="<?php echo $con->CWT;?>" />
+           : <?php echo $row->CWT;?>
+           <input name="cwt" type="hidden" id="name6" value="<?php echo $row->CWT;?>" />
           </div>
  </div><div class="clearfix"></div>
 <div class="form-group">       
           <strong><label class="col-sm-5"> Declare Value</label></strong>
           <div class="col-sm-7">
-           : <?php echo $con->DeclareValue;?>
-           <input name="declare" type="hidden" id="name7" value="<?php echo $con->DeclareValue;?>" />
+           : <?php echo $row->DeclareValue;?>
+           <input name="declare" type="hidden" id="name7" value="<?php echo $row->DeclareValue;?>" />
           </div>
  </div><div class="clearfix"></div>
 <div class="form-group"> <strong>
   <label class="col-sm-5"> Description of Shipment</label>
 </strong>
-<div class="col-sm-7">: <?php echo $con->DescofShipment;?>
-  <input name="description" type="hidden" id="name8" value="<?php echo $con->DescofShipment;?>" />
+<div class="col-sm-7">: <?php echo $row->DescofShipment;?>
+  <input name="description" type="hidden" id="name8" value="<?php echo $row->DescofShipment;?>" />
 </div>
  </div><div class="clearfix"></div>
 
@@ -267,7 +254,7 @@
    <!-- END OF RIGHT FORM -->
        
     </div>
-	<?php } ?>
+	
     </div>
    
 <br style="clear:both">
@@ -279,20 +266,21 @@
     <div class="table-responsive" id="table_responsive">
     <table class="table table-striped table-bordered table-hover">
                                               <thead>
+                                              <tr>
                                                   <th width="24">No.</th>
                                                   <th width="56">Charges</th>
                                                   <th width="61">Desc</th>
-                                                  <th width="49">Unit</th>
+                                                  <th width="49">Price</th>
                                                   <th width="44">Qty</th>
                                                   <th width="62">Total</th>
                                                   </tr>
                                                 </thead>
-                                              </thead>
+                                              
                                               <tbody>
    <?php 
 $i=1;
 foreach($charges as $chr){
-$unit=$chr->Unit;
+$unit=$chr->Price;
 $qty=$chr->Qty;
 $kali=$unit*$qty;
 
@@ -303,11 +291,11 @@ $total_charges+=$kali;
                                                   <td><?=$i;?></td>
                                                   <td><?php echo $chr->ChargeName;?>
                                                     <input name="idcharge[]" type="hidden" id="idcharge[]" value="<?php echo $chr->ChargeName;?>" /></td>
-                                                  <td><?php echo $chr->Description;?>
-                                                    <input name="desc[]" type="hidden" id="desc[]" value="<?php echo $chr->Description;?>" /></td>
+                                                  <td><?php echo $chr->ChargeDetail;?>
+                                                    <input name="desc[]" type="hidden" id="desc[]" value="<?php echo $chr->ChargeDetail;?>" /></td>
                                                   <td><div align="right">
-                                                    <input name="unit[]" type="hidden" id="unit[]" value="<?php echo $chr->Unit;?>" />
-                                                    <?php echo number_format($chr->Unit,2,',','.');?>                                                  </div></td>
+                                                    <input name="unit[]" type="hidden" id="unit[]" value="<?php echo $chr->Price;?>" />
+                                                    <?php echo number_format($chr->Price,2,',','.');?>                                                  </div></td>
                                                   <td><div align="right">
                                                     <input name="qty[]" type="hidden" id="qty[]" value="<?php echo $chr->Qty;?>" />
                                                     <?php echo $chr->Qty;?></div></td>
@@ -316,7 +304,7 @@ $total_charges+=$kali;
 <?php echo number_format($kali,2,'.',',');?></div></td>
                                                 </tr>
 <?php $no++; } ?>
-                                                <thead>
+                                                
                                                  <tr>
                                                   <td colspan="3"><b>Total</b></td>
                                                   <td colspan="3"><div align="right"><strong>
@@ -324,7 +312,7 @@ $total_charges+=$kali;
 												  <input type="hidden" name="total_charge" value="<?php echo $total_charges;?>" />
                                                   </strong></div></td>
                                                   </tr>
-                                                </thead>
+                                               
                                               </tbody>
                                             </table>
 </div>

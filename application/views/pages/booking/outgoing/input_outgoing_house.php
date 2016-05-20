@@ -5,16 +5,16 @@
 <script type='text/javascript' src='<?php echo base_url();?>asset/jquery_ui/jquery.autocomplete.js'></script>
 <script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
 
-<!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/base/jquery-ui.css" type="text/css" media="all" />
--->
+ <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/base/jquery-ui.css" type="text/css" media="all" />
+
     
       <style>
         /* Autocomplete
       ----------------------------------*/
-     /* .ui-autocomplete { position: absolute; cursor: default; } 
-      .ui-autocomplete-loading { background: white url('http://jquery-ui.googlecode.com/svn/tags/1.8.2/themes/flick/images/ui-anim_basic_16x16.gif') right center no-repeat; }*/
-      /* workarounds */
-      * html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
+      .ui-autocomplete { position: absolute; cursor: default; } 
+      .ui-autocomplete-loading { background: white url('http://jquery-ui.googlecode.com/svn/tags/1.8.2/themes/flick/images/ui-anim_basic_16x16.gif') right center no-repeat; }
+      /* workarounds 
+      * html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 
       /* Menu
       ----------------------------------*/
       .ui-menu {
@@ -55,7 +55,12 @@
 
 </style>
 <script type="text/ecmascript">
- 
+ $(document).ready(function() {
+    load_combo_charge();
+});
+$("#idshipper").blur(function() {
+    $(".fa-pulse").hide();
+});
   $(function() {
 	$("#etd").datepicker({
 		dateFormat:'yy-mm-dd',
@@ -484,47 +489,54 @@ $("#smu").autocomplete({
 <div class="row">
 <label class="label label-inverse text-left">Cust details</label>
         <div class="form-group">
-        <div class="span4">Booking No</div>
-        <div class="span7"><input name="booking" type="text" class="form-control"  id="booking"  /></div></div>
+        <div class="col-sm-4">Booking No</div>
+        <div class="col-sm-7"><input name="booking" type="text" class="form-control"  id="booking"  /></div></div>
         
 
+<div class="form-group">
+<div class="col-sm-4">Shipper<input name="name1" type="hidden" class="form-control"  id="name1" required value="<?php echo $row->custName;?>"/><input name="idsender" type="hidden" class="form-control"  id="idsender" required/></div>
 
+<div class="col-sm-5"><input type="text" name="idshipper" id="idshipper" class="form-control" placeholder="types customer name" autocomplete="off" required/></div>
+<div class="col-sm-2"><button type="button" class="btn btn-mini btn-primary" title="add new customers" onclick="return add_customer()"><i class="fa fa-plus"> New</i></button></div>
+
+</div>
+
+               
 <div class="form-group">
-        <div class="span4">Shipper</div>
-        <div class="span7"><input type="text" name="idshipper" id="idshipper" class="form-control" placeholder="types customer name" autocomplete="off" required/>
-          <span class="col-sm-7">
-          <input name="name1" type="hidden" class="form-control"  id="name1" required value="<?php echo $row->custName;?>"/>
-          </span><span class="col-sm-7">
-          <input name="idsender" type="hidden" class="form-control"  id="idsender" required/>
-          </span></div></div>
+        <div class="col-sm-4">Phone</div>
+        <div class="col-sm-7"><input type="text" name="phone1" id="phone1" class="autocomplete form-control" readonly="readonly" required="required"/></div></div>
 <div class="form-group">
-        <div class="span4">Phone</div>
-        <div class="span7"><input type="text" name="phone1" id="phone1" class="autocomplete form-control" readonly/></div></div>
+        <div class="col-sm-4">Address</div>
+        <div class="col-sm-7"><textarea name="address1" class="autocomplete form-control" id="address1" readonly></textarea></div></div>
 <div class="form-group">
-        <div class="span4">Address</div>
-        <div class="span7"><textarea name="address1" class="autocomplete form-control" id="address1" readonly></textarea></div></div>
-<div class="form-group">
-        <div class="span4">Code Shipper</div>
-        <div class="span7"><input type="text" name="codeship" id="codeship" class="autocomplete form-control" /></div></div>
+        <div class="col-sm-4">Code Shipper</div>
+        <div class="col-sm-7"><input type="text" name="codeship" id="codeship" class="autocomplete form-control" /></div></div>
 <div class="col-sm-11"><hr style="border:1px #CCC dashed"></div>
 
+
+
+
 <div class="form-group">
-        <div class="span4">Consigne</div>
-        <div class="span7"><input name="idconsigne" type="text" class="form-control"  id="idconsigne" placeholder="types customer name" autocomplete="off" required/>
-          <span class="col-sm-7">
-          <input name="name2" type="hidden" class="form-control"  id="name2" required />
-          </span><span class="col-sm-7">
-          <input name="idreceivement" type="hidden" class="form-control"  id="idreceivement" required/>
-          </span></div></div>
+<div class="col-sm-4">Shipper<input name="idreceivement" type="hidden" class="form-control"  id="idreceivement" required/><input name="name2" type="hidden" class="form-control"  id="name2" required />
+<i class="fa fa-spinner fa-pulse" style="display:none"></i>
+</div>
+
+<div class="col-sm-5"><input name="idconsigne" type="text" class="form-control"  id="idconsigne" placeholder="types customer name" autocomplete="off" required/></div>
+
+<div class="col-sm-2"><button type="button" class="btn btn-mini btn-primary" title="add new customers" onclick="return add_customer()"><i class="fa fa-plus"> New</i></button></div>
+
+</div>
+
+          
 <div class="form-group">
-        <div class="span4">Phone</div>
-        <div class="span7"><input name="phone2" type="text" class="form-control" readonly  id="phone2"/></div></div>
+        <div class="col-sm-4">Phone</div>
+        <div class="col-sm-7"><input name="phone2" type="text" class="form-control" readonly  id="phone2" required="required"/></div></div>
 <div class="form-group">
-        <div class="span4">Address</div>
-        <div class="span7"><textarea name="address2" class="autocomplete form-control" id="address2" readonly></textarea></div></div>
+        <div class="col-sm-4">Address</div>
+        <div class="col-sm-7"><textarea name="address2" class="autocomplete form-control" id="address2" readonly></textarea></div></div>
 <div class="form-group">
-        <div class="span4">Code Consignee</div>
-        <div class="span7"><input name="codesigne" type="text" class="form-control"  id="codesigne"/></div></div>
+        <div class="col-sm-4">Code Consignee</div>
+        <div class="col-sm-7"><input name="codesigne" type="text" class="form-control"  id="codesigne"/></div></div>
         
 </div>
 </div>
@@ -809,11 +821,7 @@ $("#smu").autocomplete({
                         <label class="col-sm-3 control-label">Charges </label>
                         <div class="col-sm-9"><span class="controls">
               <select name="charge" class="form-control" required="required" id="charge">
-          <option value="">Choose Charges</option>
-          <?php foreach ($chargeoptional as $crg) {
-          ?>
-            <option value="<?php echo $crg->ChargeCode.'-'.$crg->ChargeName;?>"><?php echo $crg->ChargeName;?></option>
-          <?php } ?>
+          
               </select> 
                           </span>
                           </div>
@@ -872,7 +880,7 @@ $("#smu").autocomplete({
                           <input name="initial" type="text" class="form-control" placeholder="initial" id="initial" />
                           
                         </span></div><label class="col-sm-1 label-confir" id="label-confir"></label>
-                        <div class="clearfix"></div>
+                       
                       </div>
                       <div class="form-group">
                         <label class="col-sm-3 control-label">Name</label>
@@ -880,14 +888,14 @@ $("#smu").autocomplete({
                           <input name="namecust" type="text" class="form-control" required id="namecust" />
                         </span></div>
                         <label class="col-sm-1 label-confir" id="label-confir2"></label
-                        ><div class="clearfix"></div>
+                        >
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Address</label>
                         <div class="col-sm-9">
                           <textarea name="address" cols="30" rows="2" class="form-control" id="address"></textarea>
                         </div>
-                        <div class="clearfix"></div>
+                       
                       </div>
  <div class="form-group">
                         <label class="col-sm-3 control-label">City</label>
@@ -895,49 +903,49 @@ $("#smu").autocomplete({
       <select name="city" id="city" required="required" class="form-control">
           <option value="">Chosse City</option>
           <?php
-  foreach($city as $ct){
+  foreach($citycust as $ct){
       ?>
-          <option value="<?php echo $ct->cyCode;?>"><?php echo $ct->cyName;?></option>
+          <option value="<?php echo $ct->CityCode;?>"><?php echo $ct->CityName;?></option>
           <?php } ?>
 </select>
       </span></div>
-                        <div class="clearfix"></div>
+                        
                       </div>
  <div class="form-group">
               <label class="col-sm-3 control-label">Phone</label>
                         <div class="col-sm-9"><span class="controls">
                           <input name="phone" type="text" class="form-control" required id="phone" onkeypress="return isNumberKey(event)" />
               </span></div>
-                        <div class="clearfix"></div>
+                        
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Fax</label>
                         <div class="col-sm-9"><span class="controls">
                           <input name="fax" type="text" class="form-control" required id="fax" onkeypress="return isNumberKey(event)" />
               </span></div>
-                        <div class="clearfix"></div>
+                        
                       </div>
  <div class="form-group">
                         <label class="col-sm-3 control-label">Postal Code</label>
                         <div class="col-sm-9"><span class="controls">
                           <input name="postcode" type="text" class="form-control" id="postcode" onkeypress="return isNumberKey(event)" />
     </span></div>
-                        <div class="clearfix"></div>
                       </div>
  <div class="form-group">
    <label class="col-sm-3 control-label">Email</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <textarea name="remarks2" cols="30" rows="2" class="form-control" id="remarks2" required></textarea>
+                        <div class="col-sm-9">
                           <input name="email" type="email" class="form-control" placeholder="Email" id="email" />
-              </span></div>
-                        <div class="clearfix"></div>
+                        </div>
+                        
                     </div>
  <div class="form-group">
             <label class="col-sm-3 control-label">Remarks</label>
-            <div class="col-sm-9"></div>
-                        <div class="clearfix"></div>
+            <div class="col-sm-9"><span class="controls">
+            <textarea name="remarks2" cols="30" rows="2" class="form-control" id="remarks2" required="required"></textarea>
+            </span></div>
+                       
                       </div>
-<hr /> 
+
 
 <div class="form-group">
      <em><label class="col-sm-4 control-label">&nbsp;</label> 
@@ -1004,12 +1012,13 @@ $("#addcust").click(function(){
 		var isagent=$("#isagent").val();
 		var isshipper=$("#isshipper").val();
 		var iscnee=$("#iscnee").val();
-	if (initial == '' || namecust =='')
+	if (initial == '' || namecust =='' || phone =='')
         { 
-		alert('Mohon isi data dengan lengkap');
-		$("#initial").css("border-color","red");
-		$("#label-confir").css({"background-color": "white", "color": "red"});
-		$("#label-confir").html('<i class="fa fa-times"></i>');
+		//alert('Mohon isi data dengan lengkap');
+		swal("Mohon isi data dengan lengkap","Data penting harus di isi dengan lengkap","error");
+		//$("#initial").css("border-color","red");
+		//$("#label-confir").css({"background-color": "white", "color": "red"});
+		//$("#label-confir").html('<i class="fa fa-times"></i>');
         }
     else
         {	
@@ -1018,7 +1027,8 @@ $("#addcust").click(function(){
         url : "<?php echo base_url('booking/save_customer2'); ?>",
  data: "namecust="+namecust+"&initial="+initial+"&address="+address+"&city="+city+"&phone="+phone+"&fax="+fax+"&postcode="+postcode+"&email="+email+"&remarks2="+remarks2+"&isagent="+isagent+"&isshipper="+isshipper+"&iscnee="+iscnee,
          success: function(data){
-            alert('Customer with name ' +namecust +' Success Saved');
+		swal("Success saved ("+ namecust+" )","Customer has saved","success");
+            //alert('Customer with name ' +namecust +' Success Saved');
 			// clear input if success
 			$("#initial").val('');
 			$("#namecust").val('');
@@ -1244,9 +1254,11 @@ function editcharge(myid){
 	var total=pecah[5];
 	
 	$("#modaladdCharge").modal('show');	
-	text='<option value="'+ code +'">'+ name +'</option>';
-
-	$('#charge').append(text);
+//	text='<option value="'+ code +'">'+ name +'</option>';
+//	
+//	//$('#charge').empty();
+//	$('#charge').append(text);
+	
 	$('#txtqty').val(qty);
 	$('#txtunit').val(price);
 	$('#desc').val(deskripsi);
@@ -1458,7 +1470,7 @@ if (charge == '' || txtunit == '' || txtqty == ''){
 	else
 	{
 	text='<tr class="gradeX">'
-    + '<td>' + '<input type="hidden" name="idcharge[]" id="idcharge[]" value="'+ idcharge +'">'+ '<label id="l_pcs">'+ nmcharge +'</label>' +'</td>'
+    + '<td>' + '<input type="hidden" name="idcharge[]" id="idcharge[]" value="'+ idcharge +'">'+ '<label id="l_pcs">'+ idcharge +'</label>' +'</td>'
 	
     + '<td align="right">' +  '<input type="hidden" name="unit[]" id="l[]" value="'+ txtunit +'">'+ '<label id="l_pcs">'+ toRp(txtunit) +'</label>' +'</td>'
 	
@@ -1522,7 +1534,8 @@ $('#myform').submit(function(){
 	var txtgrandtotal=$("#txtgrandtotal").val();
 	var total_charge=$("#total_charge").val();
 if(txtgrandtotal <=0 || ori_cwt <=0){
-	alert('Discount to much or CWT Null !');
+	
+	swal("Warning !","Total tidak bisa Lebih kecil dari nol atatu List Items tidak boleh kosong !","error");
 	$("#txtgrandtotal").val(total_charge);
 	$("#grandtotal").val(toRp(total_charge));
 	$("#txtdiskon").val(0);
@@ -1672,14 +1685,42 @@ function cekprimary(){
 }				
 function validasiform(){
     var lastsmu=$('#smu').val();
+	var ph1=$("#phone2").val();
+	var ph2=$("#phone1").val();
     var prefixsmu=$('#prefixsmu').val();
     var smu=prefixsmu +'-'+lastsmu;
     var smuconfirm=$('#smuconfirm').val();
     if (smu==smuconfirm) {
-
-      alert('SMU Number Duplicated,Try another !');
+		swal("Warning !","SMU Number Sudah ada,coba dengan nomor lain !","error");
+     // alert('SMU Number Duplicated,Try another !');
       return false;
     }
+	if (ph1=="" || ph2=="") {
+		swal("Warning !","Shipper and Consigne tidak boleh kosong !","error");
+		//alert('Shipper and Consigne Cannot be empty !');
+      return false;
+	}
  
 }
+
+function add_customer(){
+	$('#modaladdcust').modal('show');
+}
+function load_combo_charge(){
+       $.ajax({
+           url : "<?php echo site_url('transaction/getChargeOptional')?>",
+           dataType: "json",
+           success: function(data){
+               $("#charge").empty();
+               //$("#Country").append("<option value=''>Select Country.....</option>");
+                     for (var i =0; i<data.length; i++){
+                   var option = "<option value='"+data[i].ChargeCode+"-"+data[i].ChargeName+"'>"+data[i].ChargeName+"</option>";
+                          $("#charge").append(option);
+						  //load_state();
+                       }
+  
+               }
+       }); 
+    }
+
 </script>
