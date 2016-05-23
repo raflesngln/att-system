@@ -2279,13 +2279,15 @@ $OutHouse=array(
 		$etd1=$this->input->post('etd1');
 		$etd2=$this->input->post('etd2');
 		
-		$data['list']=$this->model_app->getdatapaging("a.*,b.CustName as sender,b.Address as address1,b.Phone as phone1,c.Phone as phone2,c.Address as address2,c.CustName as receiver,d.PortName as ori,e.PortName as desti",
+		$data['list']=$this->model_app->getdatapaging("a.*,b.CustName as sender,b.Address as address1,b.Phone as phone1,c.Phone as phone2,c.Address as address2,c.CustName as receiver,d.PortName as ori,e.PortName as desti,f.MasterNo as NoSMU",
 	 "outgoing_house a", 
 	 "LEFT JOIN ms_customer b on a.Shipper=b.CustCode
 	 LEFT JOIN ms_customer c on a.Consigne=c.CustCode
 	 LEFT JOIN ms_port d on a.Origin=d.PortCode
 	 LEFT JOIN ms_port e on a.Destination=e.PortCode
+	 LEFT JOIN consol f on a.HouseNo=f.HouseNo
 	WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust'
+	GROUP BY f.HouseNo
 		");	 
         $this->load->view('pages/booking/soa/tabel_SOA',$data);
 }	

@@ -86,7 +86,7 @@
   <tr>
     <td>No</td>
     <td>Job</td>
-    <td>House</td>
+    <td>Houssse</td>
     <td>Date</td>
     <td>Origin-Desti</td>
     <td>Qty</td>
@@ -102,7 +102,7 @@
   <tr>
     <td>1</td>
     <td><?php echo $row->JobNo;?></td>
-    <td><?php echo $row->HouseNo;?><input type="hidden" name="house" /></td>
+    <td><?php echo $row->nosmu;?><input type="hidden" name="house" /></td>
     <td><?php echo $row->CreateDate;?></td>
     <td><?php echo substr($row->ori,0,15).' - ';?><?php echo substr($row->desti,0,15);?></td>
     <td><?php echo $row->PCS;?></td>

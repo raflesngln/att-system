@@ -5,8 +5,8 @@
     <td>House</td>
     <td>Date</td>
     <td>Origin-Desti</td>
-    <td>Weight</td>
     <td>Qty</td>
+    <td>CWT</td>
     <td><div align="center">Amount</div></td>
     <td>Action</td>
     </tr>
@@ -18,14 +18,14 @@
   <tr>
     <td>1</td>
     <td><?php echo $row->JobNo;?></td>
-    <td><?php echo $row->HouseNo;?></td>
+    <td><?php echo $row->NoSMU;?></td>
     <td><?php echo $row->CreateDate;?></td>
     <td><?php echo substr($row->ori,0,15).' - ';?><?php echo substr($row->desti,0,15);?></td>
-    <td><?php echo $row->GrossWeight;?></td>
     <td><?php echo $row->PCS;?></td>
+    <td><?php echo $row->CWT;?></td>
     <td><div align="right"><?php echo number_format($row->Amount,0,'.','.');?></div></td>
     <td>&nbsp;</td>
-    </tr>
+  </tr>
     
     <?php } ?>
   <tr style="background-color:#EBEBEB">

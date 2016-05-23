@@ -384,18 +384,35 @@ public function insert($table,$data) {
         }
         return $kd;
     }
+
+    function get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2)
+    {
+        $this->db->select('a.NoSMU,a.ETD,a.Origin,a.Destination,a.Shipper,a.Consigne,a.PCS,a.CWT,a.FinalCWT,a.Consolidation,a.StatusProses,b.CustName as sender,c.CustName as receiver,d.PortName as ori,e.PortName as desti', FALSE);
+        $this->db->from($nm_tabel);
+        $this->db->join($nm_tabel2,$kolom1.'='.$kolom2,'LEFT');
+        $this->db->join("ms_customer c",'a.Shipper=c.CustCode','LEFT');
+        $this->db->join("ms_port d",'a.Origin=d.PortCode','LEFT');
+        $this->db->join("ms_port e",'a.Destination=e.PortCode','LEFT');
+        $this->_get_datatables_query3($nm_coloum,$orderby,$where);
+        if($_POST['length'] != -1)
+        $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
 //////////////////////////////////////
 	//=====================get data all============================
     public function soadetail($shipper)
     {
-        $query = $this->db->query("SELECT a.*, (SELECT SUM(total) FROM booking_charge b WHERE b.reff=a.reff AND b.costid='1') AS airfreight
+        $query = $this->db->query("SELECT a.*,d.MasterNo as nosmu, (SELECT SUM(total) FROM booking_charge b WHERE b.reff=a.reff AND b.costid='1') AS airfreight
 , (SELECT SUM(total) FROM booking_charge b WHERE b.reff=a.reff AND b.costid='2') AS smu
 , (SELECT SUM(total) FROM booking_charge b WHERE b.reff=a.reff AND b.costid='3') AS quarantine
 , (SELECT SUM(total) FROM booking_charge b WHERE b.reff=a.reff AND b.costid='4') AS delivery
 , (SELECT SUM(total) FROM booking_charge b WHERE b.reff=a.reff AND b.costid NOT IN ('1','2','3','4')) AS other,
 c.*
 FROM booking_charge a
-LEFT JOIN outgoing_house c ON a.Reff=c.HouseNo WHERE c.Shipper='$shipper'
+LEFT JOIN outgoing_house c ON a.Reff=c.HouseNo 
+LEFT JOIN consol d on c.HouseNo=d.HouseNo
+WHERE c.Shipper='$shipper'
  GROUP BY a.reff");
 		 
 		return $query->result();

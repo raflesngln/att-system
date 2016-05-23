@@ -13,7 +13,7 @@
 		<link href="<?php echo base_url();?>asset/css/bootstrap-responsive.min.css" rel="stylesheet" />
 <style>
 *{
-	font-size:12px;
+	font-size:10px;
 }
 .mytable tr td{ 
 border-bottom:1px #999 solid;
@@ -31,7 +31,7 @@ p{ margin-top:-8px}
 </head>
 
 <body>
-<div class="container" style="border:1px #CCC solid; box-shadow:2px 2px 8px #CCC; background-color:#; width:100%" id="box">
+<div class="container" style="border:1px #CCC solid; box-shadow:2px 2px 8px #CCC; background-color:#FFF; width:98%; margin-top:8px" id="box">
  
 <h1 style=" text-align:center;font-size:12px">PT. ATT CARGO</h1>
 <p style="text-align:center;margin-top:-11px;font-size:10px">Domestic and International Freight Forwarding</p>
@@ -47,8 +47,8 @@ p{ margin-top:-8px}
    ?>
 <table width="98%" border="0">
   <tr>
-    <td width="34%" style="font-size:10px">Customers</td>
-    <td width="66%" style="font-size:10px"><?php echo $cust->CustName;?></td>
+    <td width="15%" style="font-size:10px">Customers</td>
+    <td width="85%" style="font-size:10px"><?php echo $cust->CustName;?></td>
   </tr>
   <tr>
     <td style="font-size:10px">Date</td>
@@ -67,22 +67,22 @@ p{ margin-top:-8px}
 
 
 <div class="col-sm-12">
-<table width="99%" border="0" class="table table-striped table-bordered" id="mytable">
+<table width="99%" class="table table-striped table-bordered" id="mytable" style="border:1px #CCC solid">
   <tr style="background-color:#f2f2f2;">
-    <td width="41">No</td>
-    <td width="94" style="width:30px;font-size:10px">Date Job</td>
-    <td width="113" style="width:70px;font-size:10px">SMU</td>
-    <td width="113" style="width:70px;font-size:10px">Job</td>
-    <td width="208" style="width:130px;font-size:10px">Note</td>
-    <td width="208" style="width:130px;font-size:10px">Origin-Desti</td>
-    <td width="46" style="width:20px;font-size:10px">QTY</td>
-    <td width="45" style="width:20px;font-size:10px">CWT</td>
-    <td width="56" style="width:20px;font-size:10px">Air Freight</td>
-    <td width="45" style="width:20px;font-size:10px">Adm SMU</td>
-    <td width="86" style="width:20px;font-size:10px">Quarantine</td>
-    <td width="73" style="width:20px;font-size:10px">Dellivery</td>
-    <td width="54" style="width:20px;font-size:10px">Others</td>
-    <td width="51" style="width:20px;font-size:10px">Total</td>
+    <td style="width:7px;font-size:10px">No</td>
+    <td style="width:50px;font-size:10px">Date Job</td>
+    <td style="width:70px;font-size:10px">SMU</td>
+    <td  style="width:70px;font-size:10px">Job</td>
+    <td style="width:130px;font-size:10px">Note</td>
+    <td style="width:90px;font-size:10px">Origin-Desti</td>
+    <td style="width:20px;font-size:10px"><div align="center">QTY</div></td>
+    <td style="width:20px;font-size:10px"><div align="center">CWT</div></td>
+    <td style="width:20px;font-size:10px"><div align="center">Air Freight</div></td>
+    <td style="width:20px;font-size:10px"><div align="center">Adm SMU</div></td>
+    <td style="width:20px;font-size:10px"><div align="center">Quarantine</div></td>
+    <td style="width:20px;font-size:10px"><div align="center">Dellivery</div></td>
+    <td style="width:20px;font-size:10px"><div align="center">Others</div></td>
+    <td style="width:20px;font-size:10px"><div align="center">Total</div></td>
     </tr>
    <?php
    $no=1;
@@ -98,18 +98,18 @@ p{ margin-top:-8px}
   <tr>
     <td style="font-size:10px"><?php echo $no;?></td>
     <td style="font-size:10px"><?php echo date("d-m-Y",strtotime($row->ETD)); ?></td>
-    <td style="font-size:10px"><?php echo $row->HouseNo;?></td>
+    <td style="font-size:10px"><?php echo $row->nosmu;?></td>
     <td style="font-size:10px"><?php echo $row->JobNo;?></td>
     <td style="font-size:10px"><?php echo $row->DescofShipment;?></td>
     <td style="font-size:10px"><?php echo substr($row->Origin,0,15).' - ';?><?php echo substr($row->Destination,0,15);?></td>
-    <td style="font-size:10px"><?php echo number_format($row->PCS,0,'.','.');?></td>
-    <td style="font-size:10px"><?php echo number_format($row->CWT,0,'.','.');?></td>
-    <td style="font-size:10px"><?php echo $row->airfreight;?></td>
-    <td style="font-size:10px"><?php echo number_format($row->smu,0,'.','.');?></td>
-    <td style="font-size:10px"><?php echo number_format($row->quarantine,0,'.','.');?></td>
-    <td style="font-size:10px"><?php echo number_format($row->delivery,0,'.','.');?></td>
-    <td style="font-size:10px"><?php echo number_format($row->delivery,0,'.','.');?></td>
-    <td style="font-size:10px"><?php echo number_format($subtotal,0,'.',',');?></td>
+    <td style="font-size:10px"><div align="right"><?php echo number_format($row->PCS,0,'.','.');?></div></td>
+    <td style="font-size:10px"><div align="right"><?php echo number_format($row->CWT,0,'.','.');?></div></td>
+    <td style="font-size:10px"><div align="right"><?php echo number_format($row->airfreight,0,'.','.');?></div></td>
+    <td style="font-size:10px"><div align="right"><?php echo number_format($row->smu,0,'.','.');?></div></td>
+    <td style="font-size:10px"><div align="right"><?php echo number_format($row->quarantine,0,'.','.');?></div></td>
+    <td style="font-size:10px"><div align="right"><?php echo number_format($row->delivery,0,'.','.');?></div></td>
+    <td style="font-size:10px"><div align="right"><?php echo number_format($row->delivery,0,'.','.');?></div></td>
+    <td align="right" style="font-size:10px"><?php echo number_format($subtotal,0,'.',',');?></td>
     </tr>
     <?php $no++; } ?>
   <tr>
@@ -141,8 +141,8 @@ p{ margin-top:-8px}
 
 </div>
 
-<div class="col-sm-12 text center" style="margin-top:10px">
-<a href="javascript:printDiv('box');"><button class="btn btn-primary btn-mini"><i class="fa fa-print"></i> Print</button></a>
+<div class="col-sm-12 text center" style="margin-top:10px; text-align:center">
+<a href="javascript:printDiv('box');"><button class="btn btn-primary btn-app"><i class="fa fa-print fa-2x"></i> PRINT REPORT</button></a>
 </div>
 
 <textarea id="printing-css" style="display:none;">.no-print{display:none}</textarea>
