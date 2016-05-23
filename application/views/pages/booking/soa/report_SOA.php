@@ -70,8 +70,9 @@ p{ margin-top:-8px}
 <table width="99%" class="table table-striped table-bordered" id="mytable" style="border:1px #CCC solid">
   <tr style="background-color:#f2f2f2;">
     <td style="width:7px;font-size:10px">No</td>
-    <td style="width:50px;font-size:10px">Date Job</td>
+    <td style="width:60px;font-size:10px">Date Job</td>
     <td style="width:70px;font-size:10px">SMU</td>
+    <td  style="width:70px;font-size:10px">House</td>
     <td  style="width:70px;font-size:10px">Job</td>
     <td style="width:130px;font-size:10px">Note</td>
     <td style="width:90px;font-size:10px">Origin-Desti</td>
@@ -99,6 +100,7 @@ p{ margin-top:-8px}
     <td style="font-size:10px"><?php echo $no;?></td>
     <td style="font-size:10px"><?php echo date("d-m-Y",strtotime($row->ETD)); ?></td>
     <td style="font-size:10px"><?php echo $row->nosmu;?></td>
+    <td style="font-size:10px"><?php echo $row->HouseNo;?></td>
     <td style="font-size:10px"><?php echo $row->JobNo;?></td>
     <td style="font-size:10px"><?php echo $row->DescofShipment;?></td>
     <td style="font-size:10px"><?php echo substr($row->Origin,0,15).' - ';?><?php echo substr($row->Destination,0,15);?></td>
@@ -113,7 +115,7 @@ p{ margin-top:-8px}
     </tr>
     <?php $no++; } ?>
   <tr>
-    <td colspan="6" style="font-size:10px">&nbsp;</td>
+    <td colspan="7" style="font-size:10px">&nbsp;</td>
     <td style="font-size:10px">&nbsp;</td>
     <td style="font-size:10px">&nbsp;</td>
     <td style="font-size:10px">&nbsp;</td>
@@ -130,7 +132,7 @@ p{ margin-top:-8px}
 </div>
 
 <div class="clearfix"></div>
-<h6>Pembayaran Secara Full Amount ke Rekenign Dibawah ini :</h6>
+<p>Pembayaran Secara Full Amount ke Rekenign Dibawah ini :</p>
 
 <p style="font-size:9px">Currency         : IDR</p>
 <p style="font-size:9px">Bank Name        : Bank Central Asia (BCA)</p>
@@ -142,7 +144,7 @@ p{ margin-top:-8px}
 </div>
 
 <div class="col-sm-12 text center" style="margin-top:10px; text-align:center">
-<a href="javascript:printDiv('box');"><button class="btn btn-primary btn-app"><i class="fa fa-print fa-2x"></i> PRINT REPORT</button></a>
+<a href="javascript:printDiv('box');"><button class="btn btn-primary btn-app"><i class="fa fa-print fa-2x"></i> PRINT SOA</button></a>
 </div>
 
 <textarea id="printing-css" style="display:none;">.no-print{display:none}</textarea>

@@ -371,7 +371,7 @@ return true;
 		<li> <a href="<?php echo base_url();?>transaction/outgoing_consolidation"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-clone bigger-120"></i> &nbsp;Consolidation</a></li>
 
 <li> <a href="<?php echo base_url();?>cargo_release"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Cargo Release</a></li>
- <li> <a href="<?php echo base_url();?>transaction/soa"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;SOA</a></li>
+ <li> <a href="<?php echo base_url();?>transaction/soa"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> Payment & SOA</a></li>
 
 
 		

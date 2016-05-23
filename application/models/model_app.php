@@ -412,7 +412,7 @@ c.*
 FROM booking_charge a
 LEFT JOIN outgoing_house c ON a.Reff=c.HouseNo 
 LEFT JOIN consol d on c.HouseNo=d.HouseNo
-WHERE c.Shipper='$shipper'
+WHERE c.Shipper='$shipper' AND c.PayCode='CRD-CREDIT'
  GROUP BY a.reff");
 		 
 		return $query->result();

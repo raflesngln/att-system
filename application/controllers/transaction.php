@@ -2286,7 +2286,7 @@ $OutHouse=array(
 	 LEFT JOIN ms_port d on a.Origin=d.PortCode
 	 LEFT JOIN ms_port e on a.Destination=e.PortCode
 	 LEFT JOIN consol f on a.HouseNo=f.HouseNo
-	WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust'
+	WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust' AND PayCode='CRD-CREDIT'
 	GROUP BY f.HouseNo
 		");	 
         $this->load->view('pages/booking/soa/tabel_SOA',$data);
