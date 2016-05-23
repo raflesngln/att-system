@@ -25,10 +25,11 @@
   <div class="col-sm-6">      
       <div class="col-sm-11">
                        
-          <strong><label class="col-sm-4"> SOA No</label></strong>
+<!--          <strong><label class="col-sm-4"> SOA No</label></strong>
           <div class="col-sm-7">
            <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly" />
-          </div>
+          </div>-->
+          
           <strong><label class="col-sm-4"> SOA Date</label></strong>
           <div class="col-sm-7">
            <input name="soadate" type="text" class="form-control"  id="soadate" required="required" readonly="readonly" value="<?php echo date("Y-m-d") ;?>"/>
@@ -38,7 +39,7 @@
               
           <strong><label class="col-sm-4"> Customers</label></strong>
           <div class="col-sm-7">
-           <select name="customers" id="customers" class="form-control" required="required">
+           <select name="customers" id="customers" class="form-control" required="required" onchange="return filter_soa()">
           <option value="">Choose Customer</option>
           <?php foreach ($customer as $cust) {
           ?>
@@ -49,11 +50,11 @@
 <strong>
 <label class="col-sm-4"> E.T.D Periode</label></strong>
           <div class="col-sm-3">
-           <input name="etd1" type="text" class="form-control"  id="etd1" required="required" readonly="readonly" value="<?php echo date("Y-m-d") ;?>"/>
+           <input name="etd1" type="text" class="form-control"  id="etd1" required="required" readonly="readonly" value="<?php echo date("Y-m-d") ;?>" onchange="return filter_soa()"/>
           </div>
      <div class="col-sm-1"><p style="margin-top:10px">/</p></div>
     <div class="col-sm-3">
-           <input name="etd2" type="text" class="form-control"  id="etd2" required="required" readonly="readonly" value="<?php echo date("Y-m-d") ;?>" />
+           <input name="etd2" type="text" class="form-control"  id="etd2" required="required" readonly="readonly" value="<?php echo date("Y-m-d") ;?>" onchange="return filter_soa()"/>
        </div>
 
 <div class="clearfix"></div>          
@@ -88,8 +89,8 @@
     <td>House</td>
     <td>Date</td>
     <td>Origin-Desti</td>
-    <td>Weight</td>
     <td>Qty</td>
+    <td>CWT</td>
     <td><div align="center">Amount</div></td>
     <td>Action</td>
     </tr>
@@ -104,8 +105,8 @@
     <td><?php echo $row->HouseNo;?><input type="hidden" name="house" /></td>
     <td><?php echo $row->CreateDate;?></td>
     <td><?php echo substr($row->ori,0,15).' - ';?><?php echo substr($row->desti,0,15);?></td>
-    <td><?php echo $row->GrossWeight;?></td>
     <td><?php echo $row->PCS;?></td>
+    <td><?php echo $row->CWT;?></td>
     <td><div align="right"><?php echo number_format($row->Amount,0,'.','.');?></div></td>
     <td>&nbsp;</td>
     </tr>
@@ -276,7 +277,7 @@
 		$("#loading").fadeOut("slow");
 	})
 	
-$("#customers").change(function(){
+function filter_soa(){
             var idcust = $("#customers").val();
 			var etd1 = $("#etd1").val();
 			var etd2 = $("#etd2").val();
@@ -289,33 +290,8 @@ $("#customers").change(function(){
                     $('#table_soa').html(data);
                 }
             });
-        });
-	 $("#etd1").change(function(){
-            var idcust = $("#customers").val();
-			var etd1 = $("#etd1").val();
-			var etd2 = $("#etd2").val();
-          $.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/filter_soa'); ?>",
- 				data: "idcust="+idcust+"&etd1="+etd1+"&etd2="+etd2,
+}
 
-                success: function(data){
-                    $('#table_soa').html(data);
-                }
-            });
-        });
-	 $("#etd2").change(function(){
-            var idcust = $("#customers").val();
-			var etd1 = $("#etd1").val();
-			var etd2 = $("#etd2").val();
-          $.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/filter_soa'); ?>",
- 				data: "idcust="+idcust+"&etd1="+etd1+"&etd2="+etd2,
 
-                success: function(data){
-                    $('#table_soa').html(data);
-                }
-            });
-        });
+
 </script>

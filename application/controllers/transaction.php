@@ -2300,15 +2300,17 @@ function print_SOA(){
             $data['scrumb']='transaction/soa';
 			
 		$currency=$this->input->post('currency');
-	   $data['list']=$this->model_app->soadetail($idcust);
-     
-	 
-	  $data['cust']=$this->model_app->getdatapaging("*","outgoing_house a",
-	  "INNER JOIN ms_customer b on b.CustCode=a.Shipper
-				WHERE a.Shipper='$idcust' LIMIT 1");
+		$data=array(
+		'etd1'=>$etd1,
+		'etd2'=>$etd2,
+	    'list'=>$this->model_app->soadetail($idcust),
+	    'cust'=>$this->model_app->getdatapaging("*","outgoing_house a",
+	            "INNER JOIN ms_customer b on b.CustCode=a.Shipper
+				WHERE a.Shipper='$idcust' LIMIT 1"),
+				);
 	
-	$data['view']='pages/booking/soa/report_SOA';
-	//$this->load->view('pages/booking/soa/report_SOA',$data);
+/*	$data['view']='pages/booking/soa/report_SOA';
+	$this->load->view('pages/booking/soa/report_SOA',$data);*/
 	$this->load->view('pages/booking/soa/report_SOA',$data);
 }
 function print_SOAaaaaaa(){

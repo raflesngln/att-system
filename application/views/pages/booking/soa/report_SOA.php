@@ -47,16 +47,8 @@ p{ margin-top:-8px}
    ?>
 <table width="98%" border="0">
   <tr>
-    <td width="34%" style="font-size:10px">SOA No</td>
+    <td width="34%" style="font-size:10px">Customers</td>
     <td width="66%" style="font-size:10px"><?php echo $cust->CustName;?></td>
-  </tr>
-  <tr>
-    <td style="font-size:10px">SOA No</td>
-    <td style="font-size:10px"><?php echo $cust->CustName;?></td>
-  </tr>
-  <tr>
-    <td style="font-size:10px">Customers</td>
-    <td style="font-size:10px"><?php echo $cust->CustName;?></td>
   </tr>
   <tr>
     <td style="font-size:10px">Date</td>
@@ -83,7 +75,7 @@ p{ margin-top:-8px}
     <td width="113" style="width:70px;font-size:10px">Job</td>
     <td width="208" style="width:130px;font-size:10px">Note</td>
     <td width="208" style="width:130px;font-size:10px">Origin-Desti</td>
-    <td width="46" style="width:20px;font-size:10px">Collie</td>
+    <td width="46" style="width:20px;font-size:10px">QTY</td>
     <td width="45" style="width:20px;font-size:10px">CWT</td>
     <td width="56" style="width:20px;font-size:10px">Air Freight</td>
     <td width="45" style="width:20px;font-size:10px">Adm SMU</td>
