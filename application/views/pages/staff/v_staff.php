@@ -90,6 +90,11 @@ function edit_staff(id)
 function save_staff()
     {
       var url5;
+	  var empName=$("#empName").val();
+	  var Phone=$("#Phone").val();
+	  if(empInitial=="" || Phone==""){
+		  swal("Warning !","Name and phone cannot be empty !. please input correctly","error");
+	  } else {
       if(save_method5 == 'add') 
       {
           url5 = "<?php echo site_url('ms_staff/ajax_add')?>";
@@ -108,6 +113,7 @@ function save_staff()
             success: function(data)
             {
                //if success close modal and reload ajax table
+			   swal("Saved Succesfull ","Staff has saved to database ( "+empName+" )" ,"success");
                $('#modal_form_staff').modal('hide');
                reload_table3();
             },
@@ -116,6 +122,7 @@ function save_staff()
                 alert('Error adding / update data');
             }
         });
+	  }
     }
 
 function delete_staff(id)
@@ -133,6 +140,7 @@ function delete_staff(id)
             success: function(data)
             {
                //if success reload ajax table
+			   swal("Warning !"," staff has been deleted from database","warning");
                $('#modal_form_staff').modal('hide');
                reload_table3();
             },

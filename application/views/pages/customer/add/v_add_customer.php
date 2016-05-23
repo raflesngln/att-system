@@ -186,11 +186,11 @@ $("#contacttype").autocomplete({
     		});
 
 $("#nama").mousedown(function(){
-					$("#nama").val('');
-					$("#initial").val('');
-					$("#phone").val(''); 
-					$("#email").val('');
-					$("#remarks").val('');	
+//					$("#nama").val('');
+//					$("#initial").val('');
+//					$("#phone").val(''); 
+//					$("#email").val('');
+//					$("#remarks").val('');	
 
 					$("#initial").css("color","black");
 					$("#phone").css("color","black");
@@ -211,7 +211,7 @@ $("#nama").mousedown(function(){
 
 <div class="col-sm-6">
 <div class="form-group">
-<label class="control-label col-sm-4" for="nama">Name</label>
+<label class="control-label col-sm-4" for="nama">Name<sup class="must"> *</sup></label>
       <div class="col-sm-7">          
         <input name="nama" type="text" class="form-control" id="nama" placeholder="Input Name" required="required">
 <i class="fa fa-spinner fa-pulse fa-2x" style="display:none">..</i>
@@ -220,14 +220,14 @@ $("#nama").mousedown(function(){
 </div>
 
 <div class="form-group">
-<label class="control-label col-sm-4" for="nama">Initial</label>
+<label class="control-label col-sm-4" for="nama">Initial<sup class="must"> *</sup></label>
       <div class="col-sm-7">          
-        <input name="initial" type="text" class="form-control" id="initial" placeholder="initial">
+        <input name="initial" type="text" class="form-control" id="initial" placeholder="initial" required>
 </div>
 </div>
 
 <div class="form-group">
-<label class="control-label col-sm-4" for="nama">Phone</label>
+<label class="control-label col-sm-4" for="nama">Phone<sup class="must"> *</sup></label>
       <div class="col-sm-7">          
         <input name="phone" type="text" class="form-control" id="phone" placeholder="phone" required>
 </div>
@@ -264,7 +264,7 @@ $("#nama").mousedown(function(){
 <div class="col-sm-6">
 
 <div class="form-group">
-        <label class="col-sm-4 control-label">Country</label>
+        <label class="col-sm-4 control-label">Country<sup class="must"> *</sup></label>
            <div class="col-sm-7">               
                           <select name="custCountry" id="custCountry" required="required" class="form-control" onchange="return load_state()">
                             
@@ -273,31 +273,31 @@ $("#nama").mousedown(function(){
       </div>
 
 <div class="form-group">
-        <label class="col-sm-4 control-label">State</label>
+        <label class="col-sm-4 control-label">State<sup class="must"> *</sup></label>
                         <div class="col-sm-7">
-       <select name="custState" id="custState" required="required" class="form-control" onchange="return load_city()">
+       <select name="custState" id="custState" required="required" class="form-control" onchange="return load_city()" >
         
 </select></div>
       </div>
 
 <div class="form-group">
-<label class="control-label col-sm-4" for="nama">City</label>
+<label class="control-label col-sm-4" for="nama">City<sup class="must"> *</sup></label>
       <div class="col-sm-7">
-        <select name="custCity" id="custCity" class="form-control">
+        <select name="custCity" id="custCity" class="form-control" required>
 
         </select>
       </div>
 </div>
 
 <div class="form-group">
-<label class="control-label col-sm-4" for="nama">Postal Code</label>
+<label class="control-label col-sm-4" for="nama">Postal Code<sup class="must"> *</sup></label>
       <div class="col-sm-7">          
-        <input name="custPostal" type="text" class="form-control" id="custPostal" placeholder="postal code">
+        <input name="custPostal" type="text" class="form-control" id="custPostal" placeholder="postal code" required>
 </div>
 </div>
 
 <div class="form-group">
-<label class="control-label col-sm-4" for="nama">Full Address</label>
+<label class="control-label col-sm-4" for="nama">Full Address<sup class="must"> *</sup></label>
       <div class="col-sm-7">          
         <textarea required name="address" class="form-control" id="address" placeholder="address"></textarea>
 </div>

@@ -113,7 +113,7 @@ $no=1;
             <span class="col-sm-4">
             <label for="psw"><span></span> Country</label></span>
               <span class="col-sm-8">
-<select name="country" id="country" required="required" class="form-control">
+<select name="country" id="country"  class="form-control">
                             <option value="">choose country</option>
                             <?php
 	foreach($country as $ct){
@@ -126,7 +126,7 @@ $no=1;
             <span class="col-sm-4">
             <label for="psw"><span></span> State</label></span>
               <span class="col-sm-8">
-              <select name="state" id="state" required="required" class="form-control">
+              <select name="state" id="state"  class="form-control">
           <option value="">Chosse state</option>
           <?php
 	foreach($state as $st){
@@ -140,7 +140,7 @@ $no=1;
             <label for="usrname"><span></span> City</label>
               </span>
               <span class="col-sm-8">
-              <select name="city2" id="city2" required="required" class="form-control">
+              <select name="city2" id="city2"  class="form-control">
           <option value="">Chosse city</option>
           <?php
 	foreach($city as $ct){

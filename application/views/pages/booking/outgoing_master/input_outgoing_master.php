@@ -406,7 +406,7 @@ $("#idconsigne").click(function(){
 
 
 
-           <label class="col-sm-4"> Payment </label> 
+           <label class="col-sm-4"> Payment<sup class="must"> *</sup> </label> 
           <div class="col-sm-7">
           <select name="paymentype" class="form-control" required="required" id="paymentype">
           <option value="">Select Payment  Type</option>
@@ -418,7 +418,7 @@ $("#idconsigne").click(function(){
           </select>
           </div>
          
-           <label class="col-sm-4"> Origin</label> 
+           <label class="col-sm-4"> Origin<sup class="must"> *</sup></label> 
           <div class="col-sm-7">
             <select name="origin" id="origin" class="form-control" required="required" onChange="return getflight()">
               <option value="">Choose Origin</option>
@@ -428,7 +428,7 @@ $("#idconsigne").click(function(){
               <?php } ?>
             </select>
           </div>
-           <label class="col-sm-4"> Destination</label> 
+           <label class="col-sm-4"> Destination<sup class="must"> *</sup></label> 
           <div class="col-sm-7">
             <select name="desti" id="desti" class="form-control" required="required" onChange="return getflight()">
               <option value="">Choose Destination</option>
@@ -445,7 +445,7 @@ $("#idconsigne").click(function(){
           </div>
        </div>
 <div class="form-group"> 
-           <label class="col-sm-4"> Service</label> 
+           <label class="col-sm-4"> Service<sup class="must"> *</sup></label> 
           <div class="col-sm-7">
             <select name="service" id="service" class="form-control" required="required">
               <option value="">Service</option>
@@ -461,7 +461,7 @@ $("#idconsigne").click(function(){
 <div style=" display:block " id="divsmu">  
 <div class="col-sm-12"><hr style="border:1px #CCC dashed"></div> 
 <div class="form-group">
-           <label class="col-sm-4">Air Line</label> 
+           <label class="col-sm-4">Air Line<sup class="must"> *</sup></label> 
           <div class="col-sm-7">
           <select name="airline" class="form-control"  id="airline" onChange="return getprefix(this)">
           <option value="">Select AirLine</option>
@@ -475,7 +475,7 @@ $("#idconsigne").click(function(){
 </div>      
  
  <div class="form-group form-inline">
-          <label class="col-sm-4">SMU No</label> 
+          <label class="col-sm-4">SMU No<sup class="must"> *</sup></label> 
           <div class="col-sm-2">
         <input name="prefixsmu" type="text" class="form-control"  id="prefixsmu" readonly />
         <input type="hidden" name="smuconfirm" id="smuconfirm">
@@ -551,13 +551,11 @@ $("#idconsigne").click(function(){
 <div class="col-sm-12"><h1>&nbsp;</h1></div>
 <div class="col-sm-12"><h6>&nbsp;</h6></div>
 -->
-<div class="form-group">           
-          <label class="col-sm-4"> Shipper</label> 
-          <div class="col-sm-7">
-            <input type="text" name="idshipper" id="idshipper" class="form-control" placeholder="types customer name" autocomplete="off" required />
-          <input name="name1" type="hidden" class="form-control"  id="name1"  value="<?php echo $row->custName;?>"/>
-          <input name="idsender" type="hidden" class="form-control"  id="idsender"  value="<?php echo $row->custName;?>"/>
-          </div>
+<div class="form-group">
+<div class="col-sm-4">Shipper<sup class="must"> *</sup><input name="name1" type="hidden" class="form-control"  id="name1" required value="<?php echo $row->custName;?>"/><input name="idsender" type="hidden" class="form-control"  id="idsender" required/></div>
+
+<div class="col-sm-5"><input type="text" name="idshipper" id="idshipper" class="form-control" placeholder="types customer name" autocomplete="off" required/></div>
+<div class="col-sm-2"><button type="button" class="btn btn-mini btn-primary" title="add new customers" onclick="return add_customer()"><i class="fa fa-plus"> New</i></button></div>
 
 </div> 
 
@@ -584,14 +582,16 @@ $("#idconsigne").click(function(){
 </div>
 <div class="col-sm-12">
 <hr style="border:1px #CCC dashed"></div>
-<div class="form-group form-inline">
-           <label class="col-sm-4"> Consignee</label>
-            <div class="col-sm-7">
-            <input name="idconsigne" type="text" class="form-control"  id="idconsigne" placeholder="types customer name" autocomplete="off" required />
-            <input name="name2" type="hidden" class="form-control"  id="name2"  />
-            <input name="idreceivement" type="hidden" class="form-control"  id="idreceivement"  value="<?php echo $row->custName;?>"/>
-          </div>
- </div>
+<div class="form-group">
+<div class="col-sm-4">Consignee<sup class="must"> *</sup><input name="idreceivement" type="hidden" class="form-control"  id="idreceivement" required/><input name="name2" type="hidden" class="form-control"  id="name2" required />
+<i class="fa fa-spinner fa-pulse" style="display:none"></i>
+</div>
+
+<div class="col-sm-5"><input name="idconsigne" type="text" class="form-control"  id="idconsigne" placeholder="types customer name" autocomplete="off" required/></div>
+
+<div class="col-sm-2"><button type="button" class="btn btn-mini btn-primary" title="add new customers" onclick="return add_customer()"><i class="fa fa-plus"> New</i></button></div>
+
+</div>
           
 
 <div class="form-group">      
@@ -994,79 +994,77 @@ $("#idconsigne").click(function(){
                 <!-- <form method="post" action="<?php //echo site_url('booking/save_customer')?>">  -->
                     <div class="modal-body">
                       <div class="form-group">
-                        <label class="col-sm-3 control-label"> Initial <input type="hidden" name="page" id="page" value="incomaster"></label>
+                        <label class="col-sm-3 control-label"> Initial<sup class="must"> *</sup><input type="hidden" name="page" id="page" value="incomaster"></label>
                         <div class="col-sm-8"><span class="controls">
                           <input name="initial" type="text" class="form-control" placeholder="initial" id="initial" />
                           
                         </span></div><label class="col-sm-1 label-confir" id="label-confir"></label>
-                        <div class="clearfix"></div>
+                       
                       </div>
                       <div class="form-group">
-                        <label class="col-sm-3 control-label">Name</label>
+                        <label class="col-sm-3 control-label">Name<sup class="must"> *</sup></label>
                         <div class="col-sm-8"><span class="controls">
                           <input name="namecust" type="text" class="form-control" required id="namecust" />
                         </span></div>
                         <label class="col-sm-1 label-confir" id="label-confir2"></label
-                        ><div class="clearfix"></div>
+                        >
                       </div>
 <div class="form-group">
-                        <label class="col-sm-3 control-label">Address</label>
+                        <label class="col-sm-3 control-label">Address <sup class="must"> *</sup></label>
                         <div class="col-sm-9">
                           <textarea name="address" cols="30" rows="2" class="form-control" id="address"></textarea>
                         </div>
-                        <div class="clearfix"></div>
+                       
                       </div>
  <div class="form-group">
-                        <label class="col-sm-3 control-label">City</label>
+                        <label class="col-sm-3 control-label">City<sup class="must"> *</sup></label>
     <div class="col-sm-9"><span class="controls">
       <select name="city" id="city" required="required" class="form-control">
           <option value="">Chosse City</option>
           <?php
-  foreach($city as $ct){
+  foreach($citycust as $ct){
       ?>
-          <option value="<?php echo $ct->cyCode;?>"><?php echo $ct->cyName;?></option>
+          <option value="<?php echo $ct->CityCode;?>"><?php echo $ct->CityName;?></option>
           <?php } ?>
 </select>
       </span></div>
-                        <div class="clearfix"></div>
+                        
                       </div>
  <div class="form-group">
-              <label class="col-sm-3 control-label">Phone</label>
+              <label class="col-sm-3 control-label">Phone<sup class="must"> *</sup></label>
                         <div class="col-sm-9"><span class="controls">
                           <input name="phone" type="text" class="form-control" required id="phone" onkeypress="return isNumberKey(event)" />
               </span></div>
-                        <div class="clearfix"></div>
+                        
                       </div>
 <div class="form-group">
                         <label class="col-sm-3 control-label">Fax</label>
                         <div class="col-sm-9"><span class="controls">
                           <input name="fax" type="text" class="form-control" required id="fax" onkeypress="return isNumberKey(event)" />
               </span></div>
-                        <div class="clearfix"></div>
+                        
                       </div>
  <div class="form-group">
                         <label class="col-sm-3 control-label">Postal Code</label>
                         <div class="col-sm-9"><span class="controls">
                           <input name="postcode" type="text" class="form-control" id="postcode" onkeypress="return isNumberKey(event)" />
     </span></div>
-                        <div class="clearfix"></div>
                       </div>
  <div class="form-group">
    <label class="col-sm-3 control-label">Email</label>
-                        <div class="col-sm-9"><span class="controls">
+                        <div class="col-sm-9">
                           <input name="email" type="email" class="form-control" placeholder="Email" id="email" />
-              </span></div>
-                        <div class="clearfix"></div>
+                        </div>
+                        
                     </div>
  <div class="form-group">
             <label class="col-sm-3 control-label">Remarks</label>
-                        <span class="col-sm-9">
-                        <textarea name="remarks2" cols="30" rows="2" class="form-control" id="remarks2" required></textarea>
-                        </span>
-                        <div class="col-sm-9"></div>
-                        <div class="clearfix"></div>
+            <div class="col-sm-9"><span class="controls">
+            <textarea name="remarks2" cols="30" rows="2" class="form-control" id="remarks2" required="required"></textarea>
+            </span></div>
+                       
                       </div>
-<hr /> 
+
 
 <div class="form-group">
      <em><label class="col-sm-4 control-label">&nbsp;</label> 
@@ -1133,12 +1131,9 @@ $("#addcust").click(function(){
 		var isagent=$("#isagent").val();
 		var isshipper=$("#isshipper").val();
 		var iscnee=$("#iscnee").val();
-	if (initial == '' || namecust =='')
+	if (initial == '' || namecust =='' || phone =='' || address =='' || city =='')
         { 
-		alert('Mohon isi data dengan lengkap');
-		$("#initial").css("border-color","red");
-		$("#label-confir").css({"background-color": "white", "color": "red"});
-		$("#label-confir").html('<i class="fa fa-times"></i>');
+		swal("Mohon isi data dengan lengkap","Data penting harus di isi dengan lengkap","error");
         }
     else
         {	
@@ -1147,7 +1142,7 @@ $("#addcust").click(function(){
         url : "<?php echo base_url('booking/save_customer2'); ?>",
  data: "namecust="+namecust+"&initial="+initial+"&address="+address+"&city="+city+"&phone="+phone+"&fax="+fax+"&postcode="+postcode+"&email="+email+"&remarks2="+remarks2+"&isagent="+isagent+"&isshipper="+isshipper+"&iscnee="+iscnee,
          success: function(data){
-            alert('Customer with name ' +namecust +' Success Saved');
+            swal("Success saved ("+ namecust+" )","Customer has saved","success");
 			// clear input if success
 			$("#initial").val('');
 			$("#namecust").val('');
@@ -1634,16 +1629,42 @@ function cekprimary(){
 }				
 function validasiform(){
     var lastsmu=$('#smu').val();
+	var ph1=$("#phone2").val();
+	var ph2=$("#phone1").val();
     var prefixsmu=$('#prefixsmu').val();
     var smu=prefixsmu +'-'+lastsmu;
     var smuconfirm=$('#smuconfirm').val();
     if (smu==smuconfirm) {
-
-      alert('SMU Number Duplicated,Try another !');
+		swal("Warning !","SMU Number Sudah ada,coba dengan nomor lain !","error");
+     // alert('SMU Number Duplicated,Try another !');
       return false;
     }
- 
-}   
+	if (ph1=="" || ph2=="") {
+		swal("Warning !","Shipper and Consigne tidak boleh kosong !","error");
+		//alert('Shipper and Consigne Cannot be empty !');
+      return false;
+	}
+}
+
+function add_customer(){
+	$('#modaladdcust').modal('show');
+}
+function load_combo_charge(){
+       $.ajax({
+           url : "<?php echo site_url('transaction/getChargeOptional')?>",
+           dataType: "json",
+           success: function(data){
+               $("#charge").empty();
+               //$("#Country").append("<option value=''>Select Country.....</option>");
+                     for (var i =0; i<data.length; i++){
+                   var option = "<option value='"+data[i].ChargeCode+"-"+data[i].ChargeName+"'>"+data[i].ChargeName+"</option>";
+                          $("#charge").append(option);
+						  //load_state();
+                       }
+  
+               }
+       }); 
+    }   
 </script>
 </body>
 </html>

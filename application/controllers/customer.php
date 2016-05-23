@@ -59,9 +59,9 @@ function edit_customer(){
 						
 		$data['detailCustomer']=$this->model_app->getdatapaging('*',
 		'ms_customer a',
-		"INNER JOIN ms_country b on a.Country=b.CountryCode
-		INNER JOIN ms_state c on a.State=c.StateCode
-		INNER JOIN ms_city d on a.City=d.CityCode
+		"LEFT JOIN ms_country b on a.Country=b.CountryCode
+		LEFT JOIN ms_state c on a.State=c.StateCode
+		LEFT JOIN ms_city d on a.City=d.CityCode
 		WHERE a.CustCode='$kode'");
 		
 		$data['view']='pages/customer/edit/v_edit_customer';

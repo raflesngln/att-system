@@ -52,7 +52,11 @@
 <style>
 	.bigger{color:#040AF7;
 	}
-
+.must{
+	color:red;
+	font-size:x-small;
+	font-weight:bold;
+}
 </style>
 
 <script type="text/javascript">

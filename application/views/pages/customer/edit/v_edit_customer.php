@@ -143,11 +143,11 @@ $("#contacttype").autocomplete({
     		});
 
 $("#nama").mousedown(function(){
-					$("#nama").val('');
-					$("#initial").val('');
-					$("#phone").val(''); 
-					$("#email").val('');
-					$("#remarks").val('');	
+//					$("#nama").val('');
+//					$("#initial").val('');
+//					$("#phone").val(''); 
+//					$("#email").val('');
+//					$("#remarks").val('');	
 
 					$("#initial").css("color","black");
 					$("#phone").css("color","black");

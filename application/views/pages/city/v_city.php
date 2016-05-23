@@ -38,7 +38,7 @@ function city_add()
 	  load_country();
       $('#form_city')[0].reset(); // reset form on modals
       $('#modal_city').modal('show'); // show bootstrap modal
-      $('.modal-title_city').text('Add State');
+      $('.modal-title_city').text('Add City');
 	  document.getElementById("CityCode2").disabled=false;
     }
 
@@ -66,7 +66,7 @@ function city_edit(id)
 			$('[name="Country"]').val(data.Country); 
 			$('[name="State"]').val(data.State); 
             $('#modal_city').modal('show');
-            $('.modal-title_city').text('Edit State');
+            $('.modal-title_city').text('Edit SCitytate');
 			
         },
         error: function (jqXHR, textStatus, errorThrown)
