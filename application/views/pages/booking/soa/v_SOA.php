@@ -120,14 +120,14 @@ function toRp(angka){
 											<li class="active">
 												<a data-toggle="tab" href="#home">
 													<i class="green fa fa-users bigger-110"></i>
-		Input Payment
+		Create SOA
 												</a>
 											</li>
 
 											<li>
 												<a data-toggle="tab" href="#profile">
   <i class="green fa fa-building bigger-110"></i>
-		Create SOA
+		List SOA
 		
 												</a>
 											</li>
@@ -139,13 +139,13 @@ function toRp(angka){
 										<div class="tab-content container">
 											<div id="home" class="tab-pane in active">
 <p>
- <?php $this->load->view('pages/booking/soa/input_payment');?>
+ <?php $this->load->view('pages/booking/soa/input_SOA');?>
 </p>
 											</div>
 
 											<div id="profile" class="tab-pane">
 <p>
-  <?php $this->load->view('pages/booking/soa/input_SOA');?>
+  <?php $this->load->view('pages/booking/soa/list_SOA');?>
 </p>
 											</div>
 										</div>

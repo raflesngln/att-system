@@ -97,7 +97,9 @@ footer{display:none;}
     <div class="note">By giving us shipment you agree of all itemsof conditions of non Negoitable Connote /Dengan menyerahkan kiriman anda setuju dengan ketentuan dan kondisi pada nota pengiriman ini tanpa syarat, termasuk kondisi dan ketentuan yang tertera pada bagian belakang.menyerahkan kiriman anda setuju dengan kondisi dan ketentuan pada nota ini.</div>
     </td>
     <td colspan="2" style="border-bottom:1px #FFF solid">
-      <div style="font-size:9pt; text-decoration:underline;font-weight:bold"><?php echo $smu;?></div></td>
+      <div style="font-size:9pt; margin-bottom:3px;text-decoration:underline;font-weight:bold"><?php echo $smu;?></div>
+      <br style="clear:both" />
+      </td>
     </tr>
   <tr>
    <?php

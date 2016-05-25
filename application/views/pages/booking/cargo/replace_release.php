@@ -76,7 +76,7 @@ $("#checkall").click(function(e) {
 function cek_checked(){
 	var chk= $(".ceklis:checked");
 	if(chk.length <=0){
-	alert('Please Select The Flight Number, Cannot be Empty !');
+	swal("Warning !","Please Select ( Check ) The Flight Number, Cannot be Empty !","error");
 	return false;
 	}
 	

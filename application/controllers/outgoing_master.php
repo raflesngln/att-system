@@ -171,8 +171,8 @@ public function list_closed()
 }
 public function filterfinalsmu()
 	{
-		$ab=$this->uri->segment(3);
-		$pecah=explode("_", $ab);
+		$inputan=$this->uri->segment(3);
+		$pecah=explode("_", $inputan);
 		$date1=$pecah[0];
 		$date2=$pecah[1];
 		$kategori=$pecah[2];
@@ -241,8 +241,8 @@ public function filterfinalsmu()
 }
 public function filterclosedsmu()
 	{
-		$ab=$this->uri->segment(3);
-		$pecah=explode("_", $ab);
+		$inputan=$this->uri->segment(3);
+		$pecah=explode("_", $inputan);
 		$date1=$pecah[0];
 		$date2=$pecah[1];
 		$kategori=$pecah[2];
@@ -485,9 +485,7 @@ public function ajax_detailHouse()
 	 LEFT JOIN ms_flight e on e.FlightID=d.FlightNumbDate1
 	WHERE b.HouseNo='$kode'")
 	);
-
 	$this->load->view('pages/booking/outgoing_master/details/detail_house',$data);
-		
 	}
 	
 	

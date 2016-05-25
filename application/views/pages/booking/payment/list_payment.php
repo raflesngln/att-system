@@ -29,13 +29,15 @@
             },
             "columns": [
             { "data": "no","orderable":false,"visible":true },
-            { "data": "House" },
-			{ "data": "JurnalNo" },
+            { "data": "JurnalNo" },
+			{ "data": "House" },
             { "data": "PayDate" },
-            { "data": "Currency","orderable":false,"visible":true },
-			{ "data": "CustName","orderable":false,"visible":true },
+            { "data": "CustName"},
+			{ "data": "Currency"},
+			{ "data": "Amount"},
 			{ "data": "PaymentValue" },
-			{ "data": "Remarks","orderable":false,"visible":true },
+			{ "data": "Balance"},
+			{ "data": "status" },
             ]
           });  
     
@@ -162,11 +164,11 @@ function delete_person5(id)
 <form class="form">
 <div class="row form-inline">
 <?php
-$kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-7,date("Y")));
+$kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
 ?>
-<input name="start3" type="text" class="start form-control" id="start3" readonly="readonly" value="<?php echo $kurangtanggal;?>" onchange="return getNilai3(this)" />
+<input name="start3" type="text" class="start form-control" id="start3" readonly="readonly" value="<?php echo $kurangtanggal;?>" onchange="return getFilter(this)" />
  &nbsp; S/D &nbsp; 
-<input class="end form-control" name="end3" type="text" id="end3" readonly="readonly" value="<?php echo date('Y-m-d');?>" onchange="return getNilai3(this)"/>
+<input class="end form-control" name="end3" type="text" id="end3" readonly="readonly" value="<?php echo date('Y-m-d');?>" onchange="return getFilter(this)"/>
 
 </div><div class="clearfix"></div>
 
@@ -174,16 +176,17 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-7,date("Y")));
 <div class="form-group">
 <div class="col-sm-5">Filter by Category</div>
 <div class="col-sm-6">
-<select name="kategori3" id="kategori3" class="form-control" onchange="return getNilai3(this)">
+<select name="kategori" id="kategori" class="form-control" onchange="return getFilter(this)">
 <option value="c.CustName">Customer</option>
 <option value="b.House">House</option>
+<option value="a.JurnalNo">JurnalNo</option>
 </select>
 </div></div><div class="clearfix"></div>
 
 <div class="form-group">
 <div class="col-sm-5">Criteria</div>
 <div class="col-sm-6">
-<select name="kriteria3" id="kriteria3" class="form-control" onchange="return getNilai3(this)">
+<select name="kriteria" id="kriteria" class="form-control" onchange="return getFilter(this)">
 <option value="startwith">Start With</option>
 <option value="endwith">End With</option>
 <option value="equals">Equals</option>
@@ -196,7 +199,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-7,date("Y")));
 <div class="form-group">
 
 <label class="col-sm-11"><span class="block input-icon input-icon-right">
-<input name="txtsearch3" type="text" class="form-control" id="txtsearch3" placeholder="Type search" onkeyup="return getNilai3(this)">
+<input name="txtsearch" type="text" class="form-control" id="txtsearch" placeholder="Type search" onkeyup="return getFilter(this)">
 <i class="icon-search"></i></span></label>
 
 </div>
@@ -214,14 +217,16 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-7,date("Y")));
     <table id="list_tabel" class="table table-striped table-bordered" cellspacing="0" width="98%">
       <thead>
         <tr>
-          <th>No</th>
-          <th>House</th>  
-          <th>Jurnal</th>
-          <th>Date</th>
-          <th> Currency</th>
-          <th>Customers</th>
-          <th>Pay Total</th>
-          <th>Remarks</th>
+          <th width="2%" >No</th>
+          <th width="11%" >No. Jurnal</th>  
+          <th width="11%" >House</th>
+          <th width="11%" >Date</th>
+          <th width="39%" >Customers</th>
+          <th width="9%" >Currency</th>
+          <th width="9%" >Amount</th>
+          <th width="9%" >Pay</th>
+          <th width="14%">Balance</th>
+          <th width="14%">Status</th>
         </tr>
       </thead>
       <tbody>
@@ -230,13 +235,15 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-7,date("Y")));
       <tfoot>
         <tr style="visibility:hidden">
           <th>No</th>
+          <th>No. Jurnal</th>
           <th>House</th>
-          <th>Jurnal</th>
           <th>Date</th>
-          <th>Currency</th>
           <th>Customers</th>
-          <th>Pay Total</th>
-          <th>Remarks</th>
+          <th>Currency</th>
+          <th>Amount</th>
+          <th>Pay</th>
+          <th>Balance</th>
+          <th>Status</th>
         </tr>
       </tfoot>
     </table>
@@ -246,9 +253,8 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-7,date("Y")));
   <!-- INFO --><br />
  <div class="col-sm-12 alert alert-warning green" style="margin-left:-23px;font-style:italic">
 <i class="icon-bullhorn green bigger-150">&raquo;</i>
-<strong> List of Closed SMU </strong>
-<p>List ini untuk menampilkan SMU yang telah dikonsol dan sudah di<strong> RELEASE</strong> dan juga sudah di <strong>Final CWT</strong></p>
-<li>List Closed SMU menampilkan semua SMU yg telah selesai dalam tahap Proses</li>
+<strong> List of Payment </strong>
+<p>List untuk menampilkan history pembayaran terhadap house</p>
 
 
 </div>
@@ -303,15 +309,15 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-7,date("Y")));
   </div><!-- /.modal -->
   
  <!-- Bootstrap modal -->
-  <div class="modal fade" id="modaldetailsmuclosed" role="dialog">
+  <div class="modal fade" id="modaldetailpayment" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 class="modal-title">Form Detail SMU</h3>
+                <h3 class="modal-title"> Detail Payment</h3>
       </div>
       <div class="modal-body form">
-      <div id="tabledetailclosed">
+      <div id="tabledetailpayment">
                      Detail
 
         </div>
@@ -378,112 +384,27 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-7,date("Y")));
                 }
             });
         });
-	
-	 $("#txtsearch333").keyup(function(){
-            var txtsearch3 = $('#txtsearch3').val();
-             // alert('hai' + idcnote);
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/search_outgoing_house'); ?>",
-                data: "txtsearch3="+txtsearch3,
-                success: function(data){
-                   $('#table_connote').html(data);
-                }
-            });
-        });
-$("#btnsearch").click(function(){
-            var txtsearch3 = $('#txtsearch3').val();
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/search_outgoing_house'); ?>",
-                data: "txtsearch3="+txtsearch3,
-                success: function(data){
-                   $('#table_connote').html(data);
-                }
-            });
-  });
-	 $("#btnsort").click(function(){
-            var tgl1 = $('#tg1').val();
-			var tgl2 = $('#tg2').val();
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('transaction/periode_outgoing_house');?>",
-       data: "tgl1="+tgl1+"&tgl2="+tgl2,
-                success: function(data){
-                   $('#table_connote').html(data);
-                }
-            });
-        });
-
-//$("#btnfilter").click(function(e) {
-function FilterMasterClosed(){
-    var status=$("#status").val();
-	var status2=$("#status2").val();
-	var start=$("#start").val();
-	var end=$("#end").val();
-	$.ajax({
-    type: "POST",
-    url : "<?php echo base_url('payment/filter_closed'); ?>",
-    data: "status="+status+"&status2="+status2+"&start="+start+"&end="+end,
-     success: function(data){
-     $('#divfinal').html(data);
-         }
-    });
-}
-$("#status").change(function(e) {
-    var filter=$("#status").val();
-	if(filter=='all'){
-		//$("#status2 option").remove();
-		document.getElementById("status2").selectedIndex = "0";
-	} else {
-			$.ajax({
-            type: "POST",
-            url : "<?php echo base_url('payment/getStatus'); ?>",
-           data: "filter="+filter,
-           success: function(data){
-           $('#status2').html(data);
-            }
-       });
-	}
-});	
-function detailsmuclosed(myid){
+function detailPayment(myid){
 	swal({
 		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
 		text:'<p>Loading Content.......</p>',
 		showConfirmButton:false,
-		//type:"success",
 		html:true
 		});
-	var smu=$(myid).html();
-	var status='consol';
-             // alert('hai' + idcnote);
-				$.ajax({
-                type: "POST",
-                url : "<?php echo base_url('payment/ajax_detailSMU'); ?>",
-                data: "smu="+smu+"&status="+status,
-                success: function(data){
-					$("#modaldetailsmuclosed").modal('show'); 
-                   $('#tabledetailclosed').html(data);
-				   swal.close();
-                }
-            });
-	
-}
-function detailhouseclosed(myid){
 	var numb=$(myid).html();
 				$.ajax({
                 type: "POST",
-                url : "<?php echo base_url('payment/ajax_detailHouse'); ?>",
+                url : "<?php echo base_url('payment/ajax_detailPayment'); ?>",
                 data: "numb="+numb,
                 success: function(data){
-					$("#modalhouseclosed").modal('show'); 
-					$('#labelhouseclosed').html(numb);
-                   $('#tabledetailhouseclosed').html(data);
+					swal.close();
+					$("#modaldetailpayment").modal('show'); 
+                   $('#tabledetailpayment').html(data);
                 }
             });
 	
 }
-function getNilai3(inputan){
+function getFilter(inputan){
 	var tg1=$("#start3").val();
 	var tg2=$("#end3").val();
 	var pisah1=tg1.split('-');
@@ -494,24 +415,24 @@ function getNilai3(inputan){
 	var tgl2_leave=obj_tgl.setFullYear(pisah2[0],pisah2[1],pisah2[2]);
 	var hasil=(tgl2_leave-tgl1_leave)/(60*60*24*1000);
 	
-	if(hasil >=8 || hasil < 0){
+	if(hasil >=32 || hasil < 0){
 		
-		alert('Jumlah Rentang waktu Pencarian Maksimal 7 Hari !');
+		alert('Jumlah Rentang waktu Pencarian Maksimal 30 Hari !');
 		return false;
 	} else {
 		
 	var start3=$("#start3").val();
 	var end3=$("#end3").val();
-	var kategori3=$("#kategori3").val();
-	var kriteria3=$("#kriteria3").val();
-	var txtsearch3=$("#txtsearch3").val();
+	var kategori=$("#kategori").val();
+	var kriteria=$("#kriteria").val();
+	var txtsearch=$("#txtsearch").val();
 	
-	var inputan=start3+"_"+end3+"_"+kategori3+"_"+kriteria3+"_"+txtsearch3;
-
-	if(txtsearch3 !=''){
-list_tabel.ajax.url('<?php echo site_url()?>payment/filterclosedsmu/'+inputan).load();
+	var inputan=start3+"_"+end3+"_"+kategori+"_"+kriteria+"_"+txtsearch;
+	
+	if(txtsearch !=''){
+list_tabel.ajax.url('<?php echo site_url()?>payment/filter_payment/'+inputan).load();
 	} else {
-list_tabel.ajax.url('<?php echo site_url()?>payment/list_closed').load();		
+list_tabel.ajax.url('<?php echo site_url()?>payment/list_payment').load();		
 	}
 }
 

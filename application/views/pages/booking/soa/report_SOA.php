@@ -67,7 +67,7 @@ p{ margin-top:-8px}
 
 
 <div class="col-sm-12">
-<table width="99%" class="table table-striped table-bordered" id="mytable" style="border:1px #CCC solid">
+<table width="100%" class="table table-striped table-bordered" id="mytable" style="border:1px #CCC solid">
   <tr style="background-color:#f2f2f2;">
     <td style="width:7px;font-size:10px">No</td>
     <td style="width:60px;font-size:10px">Date Job</td>
@@ -95,6 +95,7 @@ p{ margin-top:-8px}
 	$other=$row->other;
 	
 	$subtotal=$airfreight+$quarantine+$smu+$delivery+$other;   
+	$grandtotal+=$subtotal;
    ?>
   <tr>
     <td style="font-size:10px"><?php echo $no;?></td>
@@ -115,7 +116,7 @@ p{ margin-top:-8px}
     </tr>
     <?php $no++; } ?>
   <tr>
-    <td colspan="7" style="font-size:10px">&nbsp;</td>
+    <td colspan="7" style="font-size:10px"><div align="right">TOTAL</div></td>
     <td style="font-size:10px">&nbsp;</td>
     <td style="font-size:10px">&nbsp;</td>
     <td style="font-size:10px">&nbsp;</td>
@@ -123,7 +124,8 @@ p{ margin-top:-8px}
     <td style="font-size:10px">&nbsp;</td>
     <td style="font-size:10px">&nbsp;</td>
     <td style="font-size:10px">&nbsp;</td>
-    <td style="font-size:10px">&nbsp;</td>
+    <td style="font-size:10px">
+      <div align="right"><strong><?php echo number_format($grandtotal,0,'.',',');?></strong></div></td>
   </tr>
     
 
@@ -132,7 +134,7 @@ p{ margin-top:-8px}
 </div>
 
 <div class="clearfix"></div>
-<p>Pembayaran Secara Full Amount ke Rekenign Dibawah ini :</p>
+<p>Pembayaran Secara Full Amount ke Rekening Dibawah ini :</p>
 
 <p style="font-size:9px">Currency         : IDR</p>
 <p style="font-size:9px">Bank Name        : Bank Central Asia (BCA)</p>

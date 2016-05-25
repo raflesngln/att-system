@@ -1,38 +1,32 @@
   <script>
   $(function() {
-	$("#etd1").datepicker({
+	$("#periode1").datepicker({
 		dateFormat:'yy-mm-dd',
 		});
-	$("#etd2").datepicker({
+	$("#periode2").datepicker({
 		dateFormat:'yy-mm-dd',
 		});
-	$("#tgl2").datepicker({
-		dateFormat:'yy-mm-dd',
-		});
-	$("#tgl3").datepicker({
-		dateFormat:'yy-mm-dd',
-		});
-	
+
 
   });
   
   </script>
 
    <div class="container-fluid">
-    <div class="span12">
+    <div class="row-fluid">
   
       <div class="header col-md-11">
 
-     <h3><i class="fa fa-money bigger-100"></i> Input Payment</h3>
+     <h3><i class="fa fa-money bigger-120"></i> Input Cash / Bank in</h3>
       </div>
       
 
 <br style="clear:both">
-<form method="post" action="<?php echo base_url();?>transaction/print_SOA" target="new">
+<form method="post" action="<?php echo base_url();?>transaction/process_payment" id="formpayment" onsubmit="return konfirmasi()">
 <div class="container">
   <div class="row">
                <!--LEFT INPUT-->
-  <div class="col-sm-7">      
+  <div class="col-sm-8">      
       <div class="col-sm-11">
                        
 <!--          <label class="col-sm-4"> SOA No</label>
@@ -40,36 +34,38 @@
            <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly" />
           </div>-->
 <div class="form-group"> 
-          <label class="col-sm-4"> No Jurnal</label>
+          <label class="col-sm-3"> No Jurnal</label>
           <div class="col-sm-7">
            <input name="jurnalno" type="text" class="form-control"  id="jurnalno" required readonly/>
           </div>
 </div>
 <div class="form-group"> 
-          <label class="col-sm-4"> Date</label>
+          <label class="col-sm-3"> Date</label>
           <div class="col-sm-7">
            <input name="paymentdate" type="text" class="form-control"  id="paymentdate" required readonly value="<?php echo date("Y-m-d") ;?>"/>
           </div>
 </div>
 <div class="form-group"> 
-          <label class="col-sm-4"> Currency</label>
+          <label class="col-sm-3"> Currency</label>
           <div class="col-sm-7">
             <select name="paymentcurrency" id="paymentcurrency" class="form-control">
               <option value="IDR">IDR</option>
               <option value="USD">USD</option>
             </select>
           </div>
-</div>          
+</div>
 <div class="form-group"> 
-          <label class="col-sm-4"> Ex.Rate</label>
+          <label class="col-sm-3"> Ex.Rate</label>
           <div class="col-sm-7">
            <input name="rate" type="text" class="form-control"  id="rate" required readonly/>
           </div>
 </div>
+          
+
  <div class="form-group">             
-          <label class="col-sm-4"> Customers</label>
+          <label class="col-sm-3"> Customers</label>
           <div class="col-sm-7">
-           <select name="paymentcustomers" id="paymentcustomers" class="form-control" required="required" onchange="return filter_soa()">
+           <select name="paymentcustomers" id="paymentcustomers" class="form-control" required="required" onchange="return filter_payment()">
           <option value="">Choose Customer</option>
           <?php foreach ($customer as $cust) {
           ?>
@@ -79,27 +75,32 @@
           </div>
 </div>
 <div class="form-group">
- <label class="col-sm-4"> E.T.D Periode</label></strong>
+ <label class="col-sm-3"> E.T.D Periode</label></strong>
           <div class="col-sm-3">
-           <input name="periode1" type="text" class="form-control"  id="periode1" required readonly value="<?php echo date("Y-m-d") ;?>" onchange="return filter_soa()"/>
+<?php
+$kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
+?>
+           <input name="periode1" type="text" class="form-control"  id="periode1" required readonly value="<?php echo $kurangtanggal ;?>" onchange="return filter_payment()"/>
           </div>
      <div class="col-sm-1"><p style="margin-top:10px">/</p></div>
     <div class="col-sm-3">
-           <input name="periode2" type="text" class="form-control"  id="periode2" required readonly value="<?php echo date("Y-m-d") ;?>" onchange="return filter_soa()"/>
+           <input name="periode2" type="text" class="form-control"  id="periode2" readonly value="<?php echo date("Y-m-d") ;?>" onchange="return filter_payment()"/>
        </div>
 </div>
-<div class="clearfix"></div>  
+<div class="clearfix"></div> 
+ 
 <div class="form-group"> 
-          <label class="col-sm-4"> Total Payment</label>
+          <label class="col-sm-3"> Total Payment</label>
           <div class="col-sm-7">
-            <input name="payment" type="text" class="form-control"  id="payment" required="required"/>
+            <input name="payment" type="text" class="form-control"  id="payment" required="required" onkeypress="return isNumberKey(event)" onkeyup="return ubahRP(this)"/>
+         <label id="labelpay"></label>
           </div>
 </div>
 
 <div class="form-group"> 
-          <label class="col-sm-4"> Remarks</label>
+          <label class="col-sm-3"> Remarks</label>
           <div class="col-sm-7">
-            <textarea name="payment" rows="5" required="required" class="form-control" id="payment"></textarea>
+            <textarea name="remarks" rows="5"  class="form-control" id="remarks"></textarea>
           </div>
 </div>
 
@@ -122,40 +123,50 @@
                                     <div class="form-group">
                                         <div class="table-responsive" id="table_payment">
    <table width="100%" border="1" class="table table-striped table-bordered table-hover">
+<thead>
   <tr>
-    <td width="6%" height="32">No</td>
-    <td width="9%">SMU</td>
+    <td width="3%" height="32">No</td>
+    <td width="8%">SMU</td>
     <td width="10%">House</td>
-    <td width="13%">ETD</td>
-    <td width="14%">Origin-Desti</td>
+    <td width="11%">ETD</td>
+    <td width="9%">Origin-Dest.</td>
     <td width="7%">Qty</td>
-    <td width="10%">CWT</td>
-    <td width="13%"><div align="center">Payment</div></td>
-    <td width="12%">Remarks</td>
+    <td width="8%">CWT</td>
+    <td width="9%">Amount</td>
+    <td width="9%">Balance</td>
     </tr>
+    </thead>
    <?php
    foreach($list as $row){
 	$amount=$row->Amount;
-	$t_amount+=$amount;   
+	$t_amount+=$amount;  
+		$RemainAmount=$row->RemainAmount;
+	$t_RemainAmount+=$RemainAmount;   
    ?>
   <tr>
     <td>1</td>
-    <td><?php echo $row->nosmu;?></td>
-    <td><?php echo $row->HouseNo;?><input type="hidden" name="house" /></td>
-    <td><?php echo $row->ETD;?></td>
-    <td><?php echo substr($row->ori,0,15).' - ';?><?php echo substr($row->desti,0,15);?></td>
-    <td><?php echo $row->PCS;?></td>
-    <td><?php echo $row->CWT;?></td>
+    <td><?php echo $row->NoSMU;?></td>
+    <td><?php echo $row->HouseNo;?><input name="nomorhouse[]" type="hidden" id="nomorhouse[]" value="<?php echo $row->HouseNo;?>" /></td>
+    <td><?php echo date('d-m-Y',strtotime($row->ETD));?></td>
+    <td><?php echo substr($row->Origin,0,15).' - ';?><?php echo substr($row->Destination,0,15);?></td>
+    <td>
+    <div align="right"><?php echo $row->PCS;?></div></td>
+    <td>
+      <div align="right"><?php echo $row->CWT;?></div>
+    <div align="right"></div></td>
     <td><div align="right"><?php echo number_format($row->Amount,0,'.','.');?></div></td>
-    <td>&nbsp;</td>
+    <td><div align="right"><?php echo number_format($row->RemainAmount,0,'.','.');?></div>      <label for="pay[]"></label></td>
     </tr>
     
     <?php } ?>
   <tr style="background-color:#EBEBEB">
-    <td colspan="6"><div align="right"><label style="color:#06C">TOTAL</label></div></td>
-    <td>&nbsp;</td>
-    <td><div align="right"><label style="color:#06C">Rp. <?php echo number_format($t_amount,0,'.','.');?></label></div></td>
-    <td>&nbsp;</td>
+    <td colspan="7"><div align="right"><label style="color:#06C">TOTAL Rp </label></div></td>
+    <td><div align="right">
+      <label style="color:#06C"><?php echo number_format($t_amount,0,'.','.');?></label>
+    </div></td>
+    <td><div align="right">
+      <label style="color:#06C"><?php echo number_format($t_RemainAmount,0,'.','.');?></label>
+    </div></td>
     </tr>
 </table>
 
@@ -170,7 +181,7 @@
                                             <a class="btn btn-danger btn-addnew" href="<?php echo base_url();?>transaction/domesctic_outgoing_house" data-toggle="modal" title="Add"><i class="icon-reply bigger-120 icons"></i>Cancel </a>
                                         </div>
                                          <div class="col-md-2">
-                                             <button class="btn btn-primary"><i class="icon-refresh bigger-160 icons">&nbsp;</i> Process SOA</button>
+                                             <button class="btn btn-primary"><i class="icon-refresh bigger-160 icons">&nbsp;</i> Process Payment</button>
                                         </div>  </div>     
               </div>
           </div>
@@ -314,8 +325,27 @@
 <!--adding form-->
 
 <script type="text/javascript">	
+function toRp(angka){
+  //var angka =document.getElementById("rp").value;
+    var rev     = parseFloat(angka, 10).toString().split('').reverse().join('');
+    var rev2    = '';
+    for(var i = 0; i < rev.length; i++){
+        rev2  += rev[i];
+        if((i + 1) % 3 === 0 && i !== (rev.length - 1)){
+            rev2 += '.';
+        }
+    }
+   // return 'Rp' + rev2.split('').reverse().join('') + ',00';
+    return rev2.split('').reverse().join('');
+}
+
+function ubahRP(myid){
+	var payment=$("#payment").val();
+	$("#labelpay").html('Rp. '+toRp(payment));
 	
-function filter_soa(){
+}
+
+function filter_payment(){
 	swal({
 		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
 		text:'<p>Loading Content.......</p>',
@@ -324,21 +354,47 @@ function filter_soa(){
 		html:true
 		});
 		
-            var idcust = $("#customers").val();
-			var etd1 = $("#etd1").val();
-			var etd2 = $("#etd2").val();
+            var idcust = $("#paymentcustomers").val();
+			var etd1 = $("#periode1").val();
+			var etd2 = $("#periode2").val();
           $.ajax({
                 type: "POST",
-                url : "<?php echo base_url('transaction/filter_soa'); ?>",
+                url : "<?php echo base_url('transaction/filter_payment'); ?>",
  				data: "idcust="+idcust+"&etd1="+etd1+"&etd2="+etd2,
 
                 success: function(data){
 					swal.close();
-                    $('#table_soa').html(data);
+                    $('#table_payment').html(data);
                 }
             });
 }
 
-
+function konfirmasi(){
+    var a=confirm("Are You Sure To Processing Data ?");
+	if(a===true){
+		swal({
+		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
+		text:'<p>Loading Content.......</p>',
+		showConfirmButton:false,
+		//type:"success",
+		html:true
+		});
+		swal.close();
+	} else {
+	
+	swal("Warning !","Confirmation was Canceled","warning");	
+	return false;
+	}
+	
+}
+$("#paymentcurrency").change(function() {
+    var currency=$("#paymentcurrency").val();
+	if(currency=="IDR"){
+		document.getElementById("rate").readOnly=true;
+	} else {
+		document.getElementById("rate").readOnly=false;
+		$("#rate").focus();
+	}
+});
 
 </script>

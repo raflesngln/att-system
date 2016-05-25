@@ -2,10 +2,10 @@
 class Transaction extends CI_Controller{
     function __construct(){
         parent::__construct();
-		  if($this->session->userdata('login_status') != TRUE ){
+/*		  if($this->session->userdata('login_status') != TRUE ){
             $this->session->set_flashdata('notif','You Must Login First !');
             redirect('');
-        };     
+        };*/     
         $this->load->model('model_app');
 		$this->load->model('mdata');
 		$this->load->model('m_outgoing');
@@ -1729,6 +1729,7 @@ function confirm_outgoing_house(){
 		'Discount'=>$this->input->post('txtdiskon'),
 		'Consolidation'=>$statusconsol,
 		'Amount' =>$this->input->post('txtgrandtotal'),
+		'RemainAmount' =>$this->input->post('txtgrandtotal'),
 		'CreateBy' =>$this->session->userdata('idusr'),
 		'CreateDate'=>date('Y-m-d H:i:s'),
 		'ModifiedBy' =>'',
@@ -2260,17 +2261,88 @@ $OutHouse=array(
             exit;
         }
     }  
+ function Payment(){	
+ 		$data=array(
+		'title'=>' Payment',
+		'scrumb_name'=>' Payment',
+		'scrumb'=>'transaction/Payment',
+		'customer'=>$this->model_app->getdata('ms_customer a',
+		"INNER JOIN outgoing_house b on a.CustCode=b.Shipper WHERE b.PayCode='CRD-CREDIT' AND b.PaymentStatus='0' GROUP BY a.CustCode"),
+		
+		'view'=>'pages/booking/payment/v_payment',
+		);
+	$this->load->view('home/home',$data);
+ }
+ 
+ function process_payment(){
+   $kode=$this->model_app->generateNo("payment_house","JurnalNo","PYM");
+   
+	 $customer=$this->input->post('paymentcustomers');	
+	 $jumlah=$this->input->post('payment');	
+   $cari=$this->model_app->getdatapaging("HouseNo,CWT,PCS,Amount,RemainAmount","outgoing_house", "WHERE Shipper='$customer' AND PaymentStatus='0' ORDER BY HouseNo asc");	 
 	
+	foreach($cari as $row){
+    	$house=$row->HouseNo;
+	   $amount=$row->RemainAmount;
 
- function SOA(){	
+ 	 if ($jumlah >0) { 
+		$jumlah=$jumlah-$amount;
+		$simpan=0;
+		$paymentstatus='1';
+		$bayar=$amount;
+		$balance=$bayar;
+	 }
+	 if($jumlah <=0){
+ 		$jumlah=$jumlah;
+		$simpan=$jumlah;
+		$paymentstatus='0';
+		$bayar=$amount-abs($jumlah);
+		$balance=$amount-$bayar;
+		
+	}
+       // echo 'noor house '.$bayar.'  (  '.$amount.')#jumlah sisa '.abs($jumlah).' dan update ke db => '.abs($simpan).'('.$paymentstatus.')<br>';
+	 	$insertpayment_detail=array(
+		'PaymentDate' =>date('Y-m-d H:i:s'),
+		'JurnalNo' =>$kode,
+		'House' =>$house,
+		'Balance' =>$balance,
+		'PaymentValue' =>$bayar,
+		'CreatedBy' =>$this->session->userdata('idusr'),
+		'CreatedDate'=>date('Y-m-d H:i:s'),
+		);	
+		$updatehouse=array(
+		'RemainAmount'=>abs($simpan),
+		'PaymentStatus'=>$paymentstatus
+		);
+		$savedetail=$this->model_app->insert('payment_house_detail',$insertpayment_detail);	
+		$update=$this->model_app->update('outgoing_house','HouseNo',$house,$updatehouse);
+	}
+	 	$insertpayment=array(
+		'JurnalNo' =>$kode,
+		'PayDate' =>date('Y-m-d H:i:s'),
+		'Rate' =>$this->input->post('rate'),
+		'Currency' =>$this->input->post('paymentcurrency'),
+		'Customer' =>$this->input->post('paymentcustomers'),
+		'TotalPayment' =>$this->input->post('payment'),
+		'Remarks' =>$this->input->post('remarks'),
+		'CreatedBy' =>$this->session->userdata('idusr'),
+		'CreatedDate'=>date('Y-m-d H:i:s'),
+		);	
+		$savepayment=$this->model_app->insert('payment_house',$insertpayment);	
+		
+	redirect('transaction/Payment');
+
+}
+ 
+  function SOA(){	
  		$data=array(
 		'title'=>' SOA',
 		'scrumb_name'=>' SOA',
 		'scrumb'=>'transaction/soa',
 		'customer'=>$this->model_app->getdata('ms_customer a',
-		"INNER JOIN outgoing_house b on a.CustCode=b.Shipper WHERE b.PayCode='CRD-CREDIT' GROUP BY a.CustCode"),
+		"INNER JOIN outgoing_house b on a.CustCode=b.Shipper WHERE b.PayCode='CRD-CREDIT' AND b.PaymentStatus='0' GROUP BY a.CustCode"),
 		
-		'view'=>'pages/booking/soa/SOA',
+		'view'=>'pages/booking/soa/input_SOA',
 		);
 	$this->load->view('home/home',$data);
  }
@@ -2285,11 +2357,28 @@ $OutHouse=array(
 	 LEFT JOIN ms_customer c on a.Consigne=c.CustCode
 	 LEFT JOIN ms_port d on a.Origin=d.PortCode
 	 LEFT JOIN ms_port e on a.Destination=e.PortCode
-	 LEFT JOIN consol f on a.HouseNo=f.HouseNo
-	WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust' AND PayCode='CRD-CREDIT'
+	 INNER JOIN consol f on a.HouseNo=f.HouseNo
+	WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust' AND a.PayCode='CRD-CREDIT' AND a.PaymentStatus='0'
 	GROUP BY f.HouseNo
 		");	 
         $this->load->view('pages/booking/soa/tabel_SOA',$data);
+}
+ function filter_payment(){
+        $idcust=$this->input->post('idcust');
+		$etd1=$this->input->post('etd1');
+		$etd2=$this->input->post('etd2');
+		
+		$data['list']=$this->model_app->getdatapaging("a.*,b.CustName as sender,b.Address as address1,b.Phone as phone1,c.Phone as phone2,c.Address as address2,c.CustName as receiver,d.PortName as ori,e.PortName as desti,f.MasterNo as NoSMU",
+	 "outgoing_house a", 
+	 "LEFT JOIN ms_customer b on a.Shipper=b.CustCode
+	 LEFT JOIN ms_customer c on a.Consigne=c.CustCode
+	 LEFT JOIN ms_port d on a.Origin=d.PortCode
+	 LEFT JOIN ms_port e on a.Destination=e.PortCode
+	 INNER JOIN consol f on a.HouseNo=f.HouseNo
+	WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust' AND a.PayCode='CRD-CREDIT' AND a.PaymentStatus='0' 
+	GROUP BY f.HouseNo asc
+		");	 
+        $this->load->view('pages/booking/payment/replace_payment',$data);
 }	
 //   DATA TO PDF 
 function print_SOA(){

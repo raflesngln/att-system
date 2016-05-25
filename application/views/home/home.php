@@ -4,9 +4,9 @@
 		<meta charset="utf-8" />
 		<title>Domestic System - <?php echo isset($title)?$title:'';?></title>
 
-		<meta name="description" content="" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-     
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="<?php echo base_url();?>asset/images/favicon.ico">
 <!-- font from w3schools -->  
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
@@ -371,7 +371,7 @@ return true;
 		<li> <a href="<?php echo base_url();?>transaction/outgoing_consolidation"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-clone bigger-120"></i> &nbsp;Consolidation</a></li>
 
 <li> <a href="<?php echo base_url();?>cargo_release"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Cargo Release</a></li>
- <li> <a href="<?php echo base_url();?>transaction/soa"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> Payment & SOA</a></li>
+ <li> <a href="<?php echo base_url();?>transaction/soa"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> SOA</a></li>
 
 
 		
@@ -379,9 +379,10 @@ return true;
         
         </ul>
 	  </li>
- <li> <label class="label label-large label-purple">&nbsp; SALES / COST   &nbsp;</label></li>
-       <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-dollar bigger-150" aria-hidden="true"></i> <span class="menu-text">&nbsp;Cost </span> <b class="arrow icon-angle-down"></b> </a>
+ <li> <label class="label label-large label-purple"> FINANCE</label></li>
+       <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-dollar bigger-150" aria-hidden="true"></i> <span class="menu-text">&nbsp;Finance </span> <b class="arrow icon-angle-down"></b> </a>
         <ul class="submenu">
+         <li><a href="<?php echo base_url();?>transaction/Payment"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-arrow-circle-o-left bigger-140"></i> Cash / Bank in </a> </li>
          <li><a href="<?php echo base_url();?>Payment/payment_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-arrow-circle-o-left bigger-140"></i> &nbsp; Payment Request </a> </li>
          <li> <a href="<?php echo base_url();?>Payment/settlement_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-info-circle  bigger-140"></i> &nbsp; Sentlement Req</a></li>
 		 </ul>

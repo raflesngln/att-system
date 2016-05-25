@@ -5,6 +5,8 @@
 <script type='text/javascript' src='<?php echo base_url();?>asset/jquery_ui/jquery.autocomplete.js'></script>
 <script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
 
+<script src="<?php echo base_url();?>asset/validation_js/jquery.validate.min.js"></script>
+
  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/base/jquery-ui.css" type="text/css" media="all" />
 
     
@@ -53,14 +55,164 @@
 	  .txtrp{text-align:right;}
 #t_freight,#t_quarantine,#other2,#delivery2,#adm2{ text-align:right;}
 
+/* CSS FOR VALIDATION STYLE*/
+
+#modaladdcust input {
+width: 55%;
+float: left;
+font-family:Arial, Helvetica, sans-serif;
+font-size:11px;
+}
+#modaladdcust .form-group {
+padding:5px 0;
+clear:both;
+width:700px;
+}
+#modaladdcust label.error {
+margin-left:4px;
+margin-right:5px;
+width:250px;
+display:block;
+float:left;
+font-size:x-small;
+color:red;
+font-style:italic;
+padding-left:15px;
+background: url(<?php echo base_url();?>asset/validation_js/error.png) no-repeat;
+}
+#modaladdcust label.valid {
+width:0px;
+margin-right:5px;
+display: inline-block;
+text-indent:0px;
+font-size:x-small;
+color:#0000ff;
+font-style:italic;
+background: url(<?php echo base_url();?>asset/validation_js/check.png) center no-repeat;
+}
+
+#myform label.error {
+margin-left:4px;
+width:250px;
+display:block;
+float:left;
+font-size:x-small;
+color:red;
+font-style:italic;
+padding-left:15px;
+background: url(<?php echo base_url();?>asset/validation_js/error.png) no-repeat;
+}
+#myform label.valid {
+width:0px;
+display: inline-block;
+text-indent:0px;
+font-size:x-small;
+color:#0000ff;
+font-style:italic;
+background: url(<?php echo base_url();?>asset/validation_js/check.png) center no-repeat;
+}
 </style>
 <script type="text/ecmascript">
  $(document).ready(function() {
     load_combo_charge();
+	
+$("#formaddcust").validate({
+    rules:{ initial:"required",
+            namecust:{required:true,minlength: 3},      
+            address:{required:true,minlength: 10},   
+            city:"required",      
+            phone:"required",
+          },
+    messages:{ 
+            initial:{required:'initial harus di isi'},
+            namecust:{
+                required:'nama harus di isi'},
+            address: {
+                required :'address harus di isi',
+                minlength:'min 10 karakter',
+				},
+            city: {
+                required:'city harus di isi'},
+            phone: {
+                required:'phone harus di isi'},
+            },
+     success: function(label) {
+        label.text(' Ok  ').addClass('valid');}
+    });
+$('#myform').validate({
+    rules:{ paymentype:"required",
+            origin:"required",      
+            desti:"required", 
+            service:"required",      
+            phone1:"required",
+			phone2:"required",
+          },
+    messages:{ 
+            initial:{required:'initial harus di isi'},
+            paymentype:{
+                required:'paymentype harus di isi'},
+            origin: {
+                required :'origin harus di isi',
+				},
+            desti: {
+                required:'destination harus di isi'},
+            service: {
+                required:'service harus di isi'},
+            phone1: {
+                required:'phone harus di isi'},
+            phone2: {
+                required:'phone harus di isi'},
+            },
+     success: function(label) {
+        label.text('  ok  ').addClass('valid');}
+ });
+ 
+$("#formaddcust").submit(function(){
+		var initial=$("#initial").val();
+		var namecust=$("#namecust").val();
+		var address=$("#address").val();
+		var city=$("#city").val();
+		var phone=$("#phone").val();
+		var fax=$("#fax").val();
+		var postcode=$("#postcode").val();
+		var email=$("#email").val();
+		var remarks2=$("#remarks2").val();
+		var isagent=$("#isagent").val();
+		var isshipper=$("#isshipper").val();
+		var iscnee=$("#iscnee").val();
+    if (initial =='' || namecust=='' || address=='' || city=='' || phone=='') {
+        swal("Warning !","Mohon lengkapi data dengan benar dan sesuai","error");
+    } else {
+    	  $.ajax({
+        type: "POST",
+        url : "<?php echo base_url('booking/save_customer2'); ?>",
+ data: "namecust="+namecust+"&initial="+initial+"&address="+address+"&city="+city+"&phone="+phone+"&fax="+fax+"&postcode="+postcode+"&email="+email+"&remarks2="+remarks2+"&isagent="+isagent+"&isshipper="+isshipper+"&iscnee="+iscnee,
+         success: function(data){
+		swal("Success saved ("+ namecust+" )","Customer has saved","success");
+            //alert('Customer with name ' +namecust +' Success Saved');
+			// clear input if success
+			$("#initial").val('');
+			$("#namecust").val('');
+			$("#address").val('');
+			$("#phone").val('');
+			$("#fax").val('');
+			$("#postcode").val('');
+			$("#email").val('');
+			$("#remarks2").val('');
+			}
+        });	
+			$("#modaladdcust label.valid").html('');
+			$("#modaladdcust label.error").html('');
+			$("#label-confir").html('');
+			$("#modaladdcust").modal('hide');
+			$('#formaddcust')[0].reset();//reset form
+    }
 });
-$("#idshipper").blur(function() {
-    $(".fa-pulse").hide();
+
 });
+
+
+
   $(function() {
 	$("#etd").datepicker({
 		dateFormat:'yy-mm-dd',
@@ -107,7 +259,7 @@ function toRp(angka){
 	var diskon=$("#txtdiskon").val();
 	var grand=parseFloat(nilai) - parseFloat(diskon);
 	
-	$("#label_price").html('Rp '+ toRp(price));
+	$("#label_price").html('&nbsp;&nbsp;&nbsp;Rp '+ toRp(price));
 	$("#total_charge").val(nilai);
 	$("#label_charges").html(toRp(nilai));
 	$("#t_total").val(toRp(nilai));
@@ -864,15 +1016,15 @@ $("#smu").autocomplete({
     
 
 <!--ADDING NEW CUSTOMERS MODAL-->
-<div id="modaladdcust" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+<div id="modaladdcust" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="padding-bottom:45px">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h3 id="myModalLabel">Add New Customer </h3>
             </div>
             <div class="smart-form scroll">
-                <!-- <form method="post" action="<?php //echo site_url('booking/save_customer')?>">  -->
+                 <form method="post" action="javascript:void(0)" name="formaddcust" id="formaddcust">  
                     <div class="modal-body">
                       <div class="form-group">
                         <label class="col-sm-3 control-label"> Initial<sup class="must"> *</sup><input type="hidden" name="page" id="page" value="incomaster"></label>
@@ -921,7 +1073,7 @@ $("#smu").autocomplete({
 <div class="form-group">
                         <label class="col-sm-3 control-label">Fax</label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="fax" type="text" class="form-control" required id="fax" onkeypress="return isNumberKey(event)" />
+                          <input name="fax" type="text" class="form-control"  id="fax" onkeypress="return isNumberKey(event)" />
               </span></div>
                         
                       </div>
@@ -941,7 +1093,7 @@ $("#smu").autocomplete({
  <div class="form-group">
             <label class="col-sm-3 control-label">Remarks</label>
             <div class="col-sm-9"><span class="controls">
-            <textarea name="remarks2" cols="30" rows="2" class="form-control" id="remarks2" required="required"></textarea>
+            <textarea name="remarks2" rows="2" class="form-control" id="remarks2" style="width:55%"></textarea>
             </span></div>
                        
                       </div>
@@ -992,60 +1144,12 @@ $("#smu").autocomplete({
 <div class="clearfx">&nbsp;</div>
                     </div>
             
-              <!--  </form>  -->
+                </form>  
             </div>
         </div>
     </div>
     </div>
 <script type="text/javascript">
-  
-$("#addcust").click(function(){
-		var initial=$("#initial").val();
-		var namecust=$("#namecust").val();
-		var address=$("#address").val();
-		var city=$("#city").val();
-		var phone=$("#phone").val();
-		var fax=$("#fax").val();
-		var postcode=$("#postcode").val();
-		var email=$("#email").val();
-		var remarks2=$("#remarks2").val();
-		var isagent=$("#isagent").val();
-		var isshipper=$("#isshipper").val();
-		var iscnee=$("#iscnee").val();
-	if (initial == '' || namecust =='' || phone =='' || address =='' || city =='')
-        { 
-		//alert('Mohon isi data dengan lengkap');
-		swal("Mohon isi data dengan lengkap","Data penting harus di isi dengan lengkap","error");
-		//$("#initial").css("border-color","red");
-		//$("#label-confir").css({"background-color": "white", "color": "red"});
-		//$("#label-confir").html('<i class="fa fa-times"></i>');
-        }
-    else
-        {	
-	  $.ajax({
-        type: "POST",
-        url : "<?php echo base_url('booking/save_customer2'); ?>",
- data: "namecust="+namecust+"&initial="+initial+"&address="+address+"&city="+city+"&phone="+phone+"&fax="+fax+"&postcode="+postcode+"&email="+email+"&remarks2="+remarks2+"&isagent="+isagent+"&isshipper="+isshipper+"&iscnee="+iscnee,
-         success: function(data){
-		swal("Success saved ("+ namecust+" )","Customer has saved","success");
-            //alert('Customer with name ' +namecust +' Success Saved');
-			// clear input if success
-			$("#initial").val('');
-			$("#namecust").val('');
-			$("#address").val('');
-			$("#phone").val('');
-			$("#fax").val('');
-			$("#postcode").val('');
-			$("#email").val('');
-			$("#remarks2").val('');
-			}
-        });	
-			$("#initial").css("border-color","#D9DFE2");
-			$("#label-confir").html('');
-			$("#modaladdcust").modal('hide');
-		}
-			
-   });
 	
 //$("#iditems").click(function(){
 function saveitem(){ 
@@ -1525,24 +1629,6 @@ $("#label_charges").html(hasil);
      tr = t.parent().parent();
      tr.remove();
 }
-
-
-
-
-$('#myform').submit(function(){
-	var ori_cwt=$("#ori_cwt").val();
-	var txtgrandtotal=$("#txtgrandtotal").val();
-	var total_charge=$("#total_charge").val();
-if(txtgrandtotal <=0 || ori_cwt <=0){
-	
-	swal("Warning !","Total tidak bisa Lebih kecil dari nol atatu List Items tidak boleh kosong !","error");
-	$("#txtgrandtotal").val(total_charge);
-	$("#grandtotal").val(toRp(total_charge));
-	$("#txtdiskon").val(0);
-	$("#diskon").val(0);
-	return false;
-}
-});
 $('#plane').change(function(){
     	$.getJSON("<?php echo base_url('transaction/getcost'); ?>",
 		{

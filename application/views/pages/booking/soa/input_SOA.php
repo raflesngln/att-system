@@ -19,7 +19,7 @@
   </script>
 
    <div class="container-fluid">
-    <div class="span12">
+    <div class="row-fluid">
   
       <div class="header col-md-11">
 
@@ -40,14 +40,17 @@
            <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly" />
           </div>-->
           
-          <strong><label class="col-sm-4"> SOA Date</label></strong>
+          <strong><label class="col-sm-3"> SOA Date</label></strong>
           <div class="col-sm-7">
-           <input name="soadate" type="text" class="form-control"  id="soadate" required readonly value="<?php echo date("Y-m-d") ;?>"/>
+<?php
+$kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-7,date("Y")));
+?>
+           <input name="soadate" type="text" class="form-control"  id="soadate" required readonly value="<?php echo $kurangtanggal ;?>"/>
           </div>
            
            
               
-          <strong><label class="col-sm-4"> Customers</label></strong>
+          <strong><label class="col-sm-3"> Customers</label></strong>
           <div class="col-sm-7">
            <select name="customers" id="customers" class="form-control" required="required" onchange="return filter_soa()">
           <option value="">Choose Customer</option>
@@ -57,18 +60,23 @@
           <?php } ?>
           </select>
           </div>
-<strong>
-<label class="col-sm-4"> E.T.D Periode</label></strong>
-          <div class="col-sm-3">
-           <input name="etd1" type="text" class="form-control"  id="etd1" required readonly value="<?php echo date("Y-m-d") ;?>" onchange="return filter_soa()"/>
+
+<div class="form-group">
+<label class="col-sm-3"> E.T.D Periode</label>
+          <div class="col-sm-4">
+<?php
+$kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
+?>
+           <input name="etd1" type="text" class="form-control"  id="etd1" required readonly value="<?php echo $kurangtanggal ;?>" onchange="return filter_soa()" />
           </div>
-     <div class="col-sm-1"><p style="margin-top:10px">/</p></div>
-    <div class="col-sm-3">
+    <span class="col-sm-1">/</span>
+    <div class="col-sm-4">
            <input name="etd2" type="text" class="form-control"  id="etd2" required readonly value="<?php echo date("Y-m-d") ;?>" onchange="return filter_soa()"/>
        </div>
+</div>
 
 <div class="clearfix"></div>          
- <strong><label class="col-sm-4"> Currency</label></strong>
+ <strong><label class="col-sm-3"> Currency</label></strong>
           <div class="col-sm-7">
             <select name="currency" id="currency" class="form-control">
               <option value="IDR">IDR</option>
@@ -93,42 +101,44 @@
                                     <div class="form-group">
                                         <div class="table-responsive" id="table_soa">
    <table width="100%" border="1" class="table table-striped table-bordered table-hover">
+ <thead>
   <tr>
-    <td width="6%" height="32">No</td>
-    <td width="6%">Job</td>
-    <td width="9%">SMU</td>
-    <td width="10%">House</td>
-    <td width="13%">Date</td>
-    <td width="14%">Origin-Desti</td>
-    <td width="7%">Qty</td>
-    <td width="10%">CWT</td>
-    <td width="13%"><div align="center">Amount</div></td>
-    <td width="12%">Action</td>
+    <td width="6%">No</td>
+    <td width="8%">Date</td>
+    <td width="8%">SMU</td>
+    <td width="8%">House</td>
+    <td width="16%">Origin-Desti</td>
+    <td width="5%">Qty</td>
+    <td width="5%">CWT</td>
+    <td width="10%"><div align="center">Amount</div></td>
+    <td width="10%">Balance</td>
     </tr>
+    </thead>
    <?php
    foreach($list as $row){
 	$amount=$row->Amount;
-	$t_amount+=$amount;   
+	$t_amount+=$amount;  
+	$RemainAmount=$row->RemainAmount;
+	$t_RemainAmount+=$RemainAmount;   
    ?>
   <tr>
     <td>1</td>
-    <td><?php echo $row->JobNo;?></td>
-    <td><?php echo $row->nosmu;?></td>
-    <td><?php echo $row->HouseNo;?><input type="hidden" name="house" /></td>
-    <td><?php echo $row->CreateDate;?></td>
+    <td><?php echo date('d-m-Y',strtotime($row->CreateDate));?></td>
+    <td><?php echo $row->NoSMU;?></td>
+    <td><?php echo $row->HouseNo;?></td>
     <td><?php echo substr($row->ori,0,15).' - ';?><?php echo substr($row->desti,0,15);?></td>
-    <td><?php echo $row->PCS;?></td>
-    <td><?php echo $row->CWT;?></td>
+    <td><div align="right"><?php echo $row->PCS;?></div></td>
+    <td><div align="right"><?php echo $row->CWT;?></div></td>
     <td><div align="right"><?php echo number_format($row->Amount,0,'.','.');?></div></td>
-    <td>&nbsp;</td>
-    </tr>
+    <td><div align="right"><?php echo number_format($row->RemainAmount,0,'.','.');?></div></td>
+  </tr>
     
     <?php } ?>
   <tr style="background-color:#EBEBEB">
-    <td colspan="7"><div align="right"><label style="color:#06C">TOTAL</label></div></td>
+    <td colspan="6"><div align="right"><label style="color:#06C">TOTAL</label></div></td>
     <td>&nbsp;</td>
     <td><div align="right"><label style="color:#06C">Rp. <?php echo number_format($t_amount,0,'.','.');?></label></div></td>
-    <td>&nbsp;</td>
+    <td><div align="right"><label style="color:#06C">Rp. <?php echo number_format($t_RemainAmount,0,'.','.');?></label></div></td>
     </tr>
 </table>
 
@@ -137,11 +147,9 @@
                                   <div class="cpl-sm-12"><h2>&nbsp;</h2>
                                   <div class="row">
                                       <div class="col-md-4"></div>
-                                        <div class="col-md-2">
-                                            <a class="btn btn-danger btn-addnew" href="<?php echo base_url();?>transaction/domesctic_outgoing_house" data-toggle="modal" title="Add"><i class="icon-reply bigger-120 icons"></i>Cancel </a>
-                                        </div>
-                                         <div class="col-md-2">
-                                             <button class="btn btn-primary"><i class="icon-refresh bigger-160 icons">&nbsp;</i> Process SOA</button>
+                                        
+                                         <div class="col-md-4">
+                                             <button class="btn btn-primary"><i class="icon-print bigger-160 icons">&nbsp;</i> Print SOA</button>
                                         </div>  </div>     
               </div>
           </div>

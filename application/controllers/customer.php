@@ -221,6 +221,53 @@ function edit_customer(){
 	redirect('customer/view_customer');
         //$this->load->view('pages/customer/add/save',$data);
 }
+/*	 //===========add customer====================
+function save_customer_option()
+{	
+$namecust =$this->input->post('namecust');
+$address =$this->input->post('address');
+$this->form_validation->set_rules('namecust','namecust','required|trim|xss_clean');
+
+	 if ($this->form_validation->run() == FALSE)
+	{
+		redirect('Booking/domesctic_incoming_master');
+	}
+		else
+	{
+		$data=array(
+		'custInitial' =>$this->input->post('initial'),
+		'custName' =>$name,
+		'Address'=>$this->input->post('address'),
+		'cyCode' =>$this->input->post('city'),
+		'Phone' =>$this->input->post('phone'),
+		'Fax' =>$this->input->post('fax'),
+		'PostalCode' =>$this->input->post('postcode'),
+		'isAgent' =>$this->input->post('agen'),
+		'isShipper' =>$this->input->post('shipper'),
+		'isCnee' =>$this->input->post('cnee'),
+		'Email' =>$this->input->post('email'),
+		'PIC01' =>$this->input->post('pic01'),
+		'PIC02' =>$this->input->post('pic02'),
+		'HPPIC01' =>$this->input->post('hppic01'),
+		'HPPIC02' =>$this->input->post('hppic02'),
+		'CreditLimit' =>$this->input->post('credit'),
+		'TermsPayment' =>$this->input->post('payment'),
+		'Deposit' =>$this->input->post('deposit'),
+		'empCode' =>$this->input->post('empcode'),
+		'NPWP' =>$this->input->post('npwp'),
+		'NPWPAddress' =>$this->input->post('npwpaddress'),
+		'Remarks' =>$this->input->post('remarks'),
+		'CreatedBy' =>$this->session->userdata('nameusr'),
+		'CreatedDate' =>date('Y-m-d: h:i:s'),
+		'ModifiedBy' =>'',
+		'ModifiedDate' =>'',	
+		);		
+		 $this->model_app->insert('ms_customer',$data);	
+
+
+		 
+	 }
+}*/
 //--SAVE--------
 function save_customerrrrrrrrrrrrrrrrr()
 {	
