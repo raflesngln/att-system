@@ -515,6 +515,15 @@ $("#smu").autocomplete({
 	    </script>      
 
 <div class="container">
+
+<div class="container">
+<div class="info-box">
+     <div class="col-sm-3 col-xs-4"><i class="fa fa-sticky-note-o"></i></div>
+     <div class="col-sm-9 col-xs-8">Create House</div>
+</div>
+</div>
+
+
 <form method="post" action="<?php echo base_url();?>transaction/confirm_outgoing_house" autocomplete="off" id="myform" onsubmit="return validasiform()" name="myform">
 
 <div class="row">

@@ -57,6 +57,31 @@
 	font-size:x-small;
 	font-weight:bold;
 }
+.info-box{
+	width:300px;
+	height:70px;
+	border:none;
+	color:#FFF;
+	margin-bottom:20px;
+}
+.info-box .col-sm-3{
+	height:100%;
+	font-size:36pt;
+	text-align:center;
+    background:linear-gradient(90deg, rgb(66, 152, 104), #409766);
+}
+.info-box .col-sm-9{
+	background-color:green;
+	font-size:large;
+	text-align:left;
+	padding-top:5%;
+	height:100%;
+	background: -webkit-linear-gradient(-30deg, #56AF78, #47A96C);
+    background: -o-linear-gradient(-30deg, #56AF78, #47A96C);
+    background: -moz-linear-gradient(-30deg, #56AF78, #47A96C); 
+    background:linear-gradient(-30deg, #56AF78, #47A96C);
+}
+
 </style>
 
 <script type="text/javascript">

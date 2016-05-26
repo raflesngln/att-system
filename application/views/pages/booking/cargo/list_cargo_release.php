@@ -156,8 +156,18 @@
         }
     
       </script>
-    
- <div class="row pull-right" style="margin-right:40px">
+<div class="row">
+<div class="col-sm-6">
+<div class="container">
+<div class="info-box">
+     <div class="col-sm-3 col-xs-4"><i class="fa fa-th-list"></i></div>
+     <div class="col-sm-9 col-xs-8">List of Cargo Release</div>
+</div>
+</div>
+</div>
+
+
+<div class="col-sm-5 pull-right" style="margin-right:40px">
 <form class="form">
 <div class="row form-inline">
 <?php
@@ -208,6 +218,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-7,date("Y")));
 <div class="clearfix"></div>
 </form>
 </div>   
+</div>
     
       <br />
         <br />

@@ -60,7 +60,7 @@ foreach($header as $row){
  $no=1;
  foreach ($list as $row) {
 	 $totpay+=$row->PaymentValue;
-	 $status=($row->PaymentStatus ==1)?'<label class="label label-success arrowed-right">Lunas</label>':'<label class="label label-warning arrowed-right">Remain</label>';;
+	 $status=($row->PaymentStatus ==1)?'<label class="label label-info arrowed-right">Settled</label>':'<label class="label label-warning arrowed-right">Not Settled</label>';;
 
   ?>
         <tr>
@@ -76,8 +76,8 @@ foreach($header as $row){
 		<?php $no++; } ?>
         
         <tr>
-          <th colspan="4">TOTAL</th>
-          <th><div align="right"><?php echo 'Rp '. number_format($totpay,0,'.','.')?></div></th>
+          <th colspan="4">&nbsp;</th>
+          <th><div align="right"></div></th>
           <th>&nbsp;</th>
         </tr>
 		

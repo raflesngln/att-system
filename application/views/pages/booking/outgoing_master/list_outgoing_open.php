@@ -147,6 +147,13 @@ function deleteOpenMaster(id)
   </script>
 
 
+<div class="container">
+<div class="info-box">
+     <div class="col-sm-3 col-xs-4"><i class="fa fa-th-list"></i></div>
+     <div class="col-sm-9 col-xs-8">List of Open Master</div>
+</div>
+</div>
+
 
 
 

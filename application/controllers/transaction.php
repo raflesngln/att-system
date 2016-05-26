@@ -2276,10 +2276,18 @@ $OutHouse=array(
  
  function process_payment(){
    $kode=$this->model_app->generateNo("payment_house","JurnalNo","PYM");
-   
-	 $customer=$this->input->post('paymentcustomers');	
-	 $jumlah=$this->input->post('payment');	
-   $cari=$this->model_app->getdatapaging("HouseNo,CWT,PCS,Amount,RemainAmount","outgoing_house", "WHERE Shipper='$customer' AND PaymentStatus='0' ORDER BY HouseNo asc");	 
+ 
+	if(isset($_POST['checklish']))
+	{	
+	$customer=$this->input->post('paymentcustomers');	
+	$jumlah=$this->input->post('payment');		
+	$nomorhouse=$_POST['checklish'];	
+	//$search=$this->model_app->getdata('outgoing_master',"WHERE FlightNumbDate1='$flight'");
+	foreach($nomorhouse as $key => $val)
+	{
+		$housecek=$_POST['checklish'][$key];	
+
+   $cari=$this->model_app->getdatapaging("HouseNo,CWT,PCS,Amount,RemainAmount","outgoing_house", "WHERE Shipper='$customer' AND HouseNo='$housecek' AND PaymentStatus='0' ORDER BY HouseNo asc");	 
 	
 	foreach($cari as $row){
     	$house=$row->HouseNo;
@@ -2316,7 +2324,9 @@ $OutHouse=array(
 		);
 		$savedetail=$this->model_app->insert('payment_house_detail',$insertpayment_detail);	
 		$update=$this->model_app->update('outgoing_house','HouseNo',$house,$updatehouse);
+		} 
 	}
+		//insert header payment
 	 	$insertpayment=array(
 		'JurnalNo' =>$kode,
 		'PayDate' =>date('Y-m-d H:i:s'),
@@ -2331,7 +2341,7 @@ $OutHouse=array(
 		$savepayment=$this->model_app->insert('payment_house',$insertpayment);	
 		
 	redirect('transaction/Payment');
-
+	}
 }
  
   function SOA(){	
@@ -2358,7 +2368,7 @@ $OutHouse=array(
 	 LEFT JOIN ms_port d on a.Origin=d.PortCode
 	 LEFT JOIN ms_port e on a.Destination=e.PortCode
 	 INNER JOIN consol f on a.HouseNo=f.HouseNo
-	WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust' AND a.PayCode='CRD-CREDIT' AND a.PaymentStatus='0'
+	WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust' AND a.PayCode='CRD-CREDIT' AND a.PaymentStatus='0' AND a.RemainAmount >'0'
 	GROUP BY f.HouseNo
 		");	 
         $this->load->view('pages/booking/soa/tabel_SOA',$data);
@@ -2375,7 +2385,7 @@ $OutHouse=array(
 	 LEFT JOIN ms_port d on a.Origin=d.PortCode
 	 LEFT JOIN ms_port e on a.Destination=e.PortCode
 	 INNER JOIN consol f on a.HouseNo=f.HouseNo
-	WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust' AND a.PayCode='CRD-CREDIT' AND a.PaymentStatus='0' 
+	WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust' AND a.PayCode='CRD-CREDIT' AND a.PaymentStatus='0' AND a.RemainAmount >'0' 
 	GROUP BY f.HouseNo asc
 		");	 
         $this->load->view('pages/booking/payment/replace_payment',$data);
@@ -2397,7 +2407,7 @@ function print_SOA(){
 	    'list'=>$this->model_app->soadetail($idcust),
 	    'cust'=>$this->model_app->getdatapaging("*","outgoing_house a",
 	            "INNER JOIN ms_customer b on b.CustCode=a.Shipper
-				WHERE a.Shipper='$idcust' LIMIT 1"),
+				WHERE a.RemainAmount > 0 AND a.Shipper='$idcust' LIMIT 1"),
 				);
 	
 /*	$data['view']='pages/booking/soa/report_SOA';

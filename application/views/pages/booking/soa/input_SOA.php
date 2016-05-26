@@ -20,12 +20,13 @@
 
    <div class="container-fluid">
     <div class="row-fluid">
-  
-      <div class="header col-md-11">
-
-     <h3><i class="icon icon-credit-card bigger-150"></i> Statement Of Account</h3>
-      </div>
-      
+  <br />
+ <div class="container">
+<div class="info-box">
+     <div class="col-sm-3 col-xs-4"><i class="fa fa-copy"></i></div>
+     <div class="col-sm-9 col-xs-8">Statement Of Account</div>
+</div>
+</div>    
 
 <br style="clear:both">
 <form method="post" action="<?php echo base_url();?>transaction/print_SOA" target="new">

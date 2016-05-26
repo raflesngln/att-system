@@ -15,10 +15,12 @@
    <div class="container-fluid">
     <div class="row-fluid">
   
-      <div class="header col-md-11">
-
-     <h3><i class="fa fa-money bigger-120"></i> Input Cash / Bank in</h3>
-      </div>
+<div class="container">
+<div class="info-box">
+     <div class="col-sm-3 col-xs-4"><i class="fa fa-bar-chart"></i></div>
+     <div class="col-sm-9 col-xs-8">Input Cash / Bank in</div>
+</div>
+</div>
       
 
 <br style="clear:both">
@@ -122,10 +124,13 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
                         
                                     <div class="form-group">
                                         <div class="table-responsive" id="table_payment">
+ 
+
    <table width="100%" border="1" class="table table-striped table-bordered table-hover">
 <thead>
   <tr>
     <td width="3%" height="32">No</td>
+    <td width="8%">Account</td>
     <td width="8%">SMU</td>
     <td width="10%">House</td>
     <td width="11%">ETD</td>
@@ -134,6 +139,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
     <td width="8%">CWT</td>
     <td width="9%">Amount</td>
     <td width="9%">Balance</td>
+    <td width="9%">&nbsp;</td>
     </tr>
     </thead>
    <?php
@@ -145,6 +151,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
    ?>
   <tr>
     <td>1</td>
+    <td>Account</td>
     <td><?php echo $row->NoSMU;?></td>
     <td><?php echo $row->HouseNo;?><input name="nomorhouse[]" type="hidden" id="nomorhouse[]" value="<?php echo $row->HouseNo;?>" /></td>
     <td><?php echo date('d-m-Y',strtotime($row->ETD));?></td>
@@ -156,19 +163,11 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
     <div align="right"></div></td>
     <td><div align="right"><?php echo number_format($row->Amount,0,'.','.');?></div></td>
     <td><div align="right"><?php echo number_format($row->RemainAmount,0,'.','.');?></div>      <label for="pay[]"></label></td>
+    <td>&nbsp;</td>
     </tr>
     
     <?php } ?>
-  <tr style="background-color:#EBEBEB">
-    <td colspan="7"><div align="right"><label style="color:#06C">TOTAL Rp </label></div></td>
-    <td><div align="right">
-      <label style="color:#06C"><?php echo number_format($t_amount,0,'.','.');?></label>
-    </div></td>
-    <td><div align="right">
-      <label style="color:#06C"><?php echo number_format($t_RemainAmount,0,'.','.');?></label>
-    </div></td>
-    </tr>
-</table>
+  </table>
 
                                         </div>
                                     </div>
@@ -372,21 +371,25 @@ function filter_payment(){
 function konfirmasi(){
     var a=confirm("Are You Sure To Processing Data ?");
 	if(a===true){
-		swal({
-		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
-		text:'<p>Loading Content.......</p>',
-		showConfirmButton:false,
-		//type:"success",
-		html:true
-		});
-		swal.close();
+
+	var chk= $(".ceklis:checked");
+	if(chk.length <=0){
+	swal("Warning !","Please Select ( Check ) house, Cannot be Empty !","error");
+	return false;
 	} else {
+	  swal.close();	
+	}
+		} else {
 	
 	swal("Warning !","Confirmation was Canceled","warning");	
 	return false;
 	}
 	
 }
+
+
+	
+onSubmit="return cek_checked();"
 $("#paymentcurrency").change(function() {
     var currency=$("#paymentcurrency").val();
 	if(currency=="IDR"){

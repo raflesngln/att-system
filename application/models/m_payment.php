@@ -18,7 +18,9 @@ function get_datatables($select,$nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,
 		$this->db->join($nm_tabel2,$kolom1.'='.$kolom2,'LEFT');
 		$this->db->join("ms_customer c",'a.Customer=c.CustCode','LEFT');
 		$this->db->join("outgoing_house d",'b.House=d.HouseNo','LEFT');
+		$this->db->join("consol e",'b.House=e.HouseNo','LEFT');
 		$this->_get_datatables_query($nm_coloum,$orderby,$where);
+		$this->db->group_by(array("b.House"));
         if($_POST['length'] != -1)
 		$this->db->limit($_POST['length'], $_POST['start']);
 		$query = $this->db->get();
@@ -60,6 +62,7 @@ public function count_all($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2)
 		$this->db->join($nm_tabel2,$kolom1=$kolom2);
 		$this->db->join("ms_customer c",'a.Customer=c.CustCode','LEFT');
 		$this->db->join("outgoing_house d",'b.House=d.HouseNo','LEFT');
+		$this->db->join("consol e",'b.House=e.HouseNo','LEFT');
 		return $this->db->count_all_results();
 }
 	function count_filtered($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2)
@@ -69,6 +72,7 @@ public function count_all($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2)
 		$this->db->join($nm_tabel2,$kolom1=$kolom2);
 		$this->db->join("ms_customer c",'a.Customer=c.CustCode','LEFT');
 		$this->db->join("outgoing_house d",'b.House=d.HouseNo','LEFT');
+		$this->db->join("consol e",'b.House=e.HouseNo','LEFT');
 		return $this->db->count_all_results();
 	}
 

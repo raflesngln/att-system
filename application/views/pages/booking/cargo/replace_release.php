@@ -7,7 +7,7 @@
                                                   <th>PCS</th>
                                                   <th><div align="center">CWT</div></th>
                                                   <th class="text-center"><div align="center">
-                                                    <input type="checkbox" name="checkall" id="checkall" onClick="return Checkall()" value="Check all"> &nbsp;
+                                                    <input type="checkbox" name="checkall" id="checkall" onClick="return Checkall()" checked="checked" value="Check all"> &nbsp;
                                                   </div></th>
                                                 </tr>
                                           <tbody>
@@ -53,7 +53,7 @@
                     <button style="display:none" class="delbtn btn btn-mini btn-primary" type="button" value="<?php echo $row->NoSMU.'/'.$row->desti.'/'.$row->PCS.'/'.$row->CWT; ?>" onClick="move_consol(this)"><i class="fa fa-check"></i></button>
                                                  
                                          
-                                                <div id="cek"><input type="checkbox" name="checklish[]" id="checklish[]" class="ceklis" value="<?php echo $row->FlightID; ?>"></div>
+                                                <div id="cek"><input type="checkbox" name="checklish[]" id="checklish[]" class="ceklis" value="<?php echo $row->FlightID; ?>" checked="checked"></div>
                                                   <label for="checklish[]"></label></td>
                                                   </tr>
                                             <?php $no++;} ?>

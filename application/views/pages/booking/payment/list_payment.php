@@ -1,6 +1,7 @@
   <script src="<?php echo base_url('assets/datatables/js/jquery.dataTables.min.js')?>"></script>
   <script src="<?php echo base_url('assets/datatables/js/dataTables.bootstrap.js')?>"></script>
   
+
   <script type="text/javascript">
   $(function() {
 	$(".start").datepicker({
@@ -20,7 +21,8 @@
             "processing": true, //Feature control the processing indicator.
 			"bInfo": false,
 			"bFilter":false,
-			"order":[[1,"desc"],[1,"desc"]],
+	
+			"order":[[9,"asc"],[9,"asc"]],
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
             "ajax": {
@@ -29,7 +31,8 @@
             },
             "columns": [
             { "data": "no","orderable":false,"visible":true },
-            { "data": "JurnalNo" },
+            { "data": "JurnalNo","orderable":false,"visible":false },
+			{ "data": "MasterNo" },
 			{ "data": "House" },
             { "data": "PayDate" },
             { "data": "CustName"},
@@ -156,11 +159,18 @@ function delete_person5(id)
 
   </script>
 
+<div class="row">
+<div class="col-sm-6">
+<div class="container">
+<div class="info-box">
+     <div class="col-sm-3 col-xs-4"><i class="fa fa-th-list"></i></div>
+     <div class="col-sm-9 col-xs-8">List of Payment House</div>
+</div>
+</div>
+</div>
 
 
-
-
-<div class="row pull-right" style="margin-right:40px">
+<div class="col-sm-5 pull-right" style="margin-right:5px">
 <form class="form">
 <div class="row form-inline">
 <?php
@@ -179,6 +189,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
 <select name="kategori" id="kategori" class="form-control" onchange="return getFilter(this)">
 <option value="c.CustName">Customer</option>
 <option value="b.House">House</option>
+<option value="e.MasterNo">Master </option>
 <option value="a.JurnalNo">JurnalNo</option>
 </select>
 </div></div><div class="clearfix"></div>
@@ -212,13 +223,17 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
 <div class="clearfix"></div>
 </form>
 </div>
+</div>
+
     <br />
-    <br />
-    <table id="list_tabel" class="table table-striped table-bordered" cellspacing="0" width="98%">
+  <div class="clearfix"></div>
+
+    <table id="list_tabel" class="table table-responsive table-striped table-bordered" cellspacing="0" width="98%">
       <thead>
         <tr>
           <th width="2%" >No</th>
-          <th width="11%" >No. Jurnal</th>  
+          <th width="11%" >No. Jurnal</th>
+          <th width="11%" >MasterNo</th>  
           <th width="11%" >House</th>
           <th width="11%" >Date</th>
           <th width="39%" >Customers</th>
@@ -236,6 +251,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
         <tr style="visibility:hidden">
           <th>No</th>
           <th>No. Jurnal</th>
+          <th>MasterNo</th>
           <th>House</th>
           <th>Date</th>
           <th>Customers</th>
@@ -247,8 +263,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
         </tr>
       </tfoot>
     </table>
-  
-  
+
    <div class="clearfix"></div>
   <!-- INFO --><br />
  <div class="col-sm-12 alert alert-warning green" style="margin-left:-23px;font-style:italic">
@@ -328,62 +343,48 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
   
- <div id="modalhouseclosed" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
+ <div class="modal fade" id="modalpaymenthouse" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id=""><small>Detail Consol</small> House            </h3>
-            </div>
-            <div class="smart-form scroll">
+                <h3 class="modal-title"> Detail Payment House</h3>
+      </div>
+      <div class="modal-body form">
+      <div id="tablepaymenthouse">
+                     Detail
 
-                    <div class="modal-body">
-                   
-                        <div id="tabledetailhouseclosed">
-                        <table id="tbldet" class="table table-striped table-bordered" cellspacing="0" width="100%">
-      <thead>
-        <tr>
-          <th>House</th>  
-          <th>Shipper</th>
-          <th>QTY</th>
-          <th>CWT</th>
-          <th style="width:125px;">Amount</th>
-        </tr>
-      </thead>
-
-
-
-    </table>
-
-                        </div>
-                     
-                     
-              </div>
-            
-           
-          </div>
         </div>
-    </div>
-    </div>
+        
+      </div>
+        
+    </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
   <!-- /.modal --> 
   
   
   <script type="text/javascript">
 	
-	 $(".dethouse").click(function(){
-          var nomor=$(this).html();
-             // alert('hai' + idcnote);
+function detailHousePayment(myid){
+	swal({
+		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
+		text:'<p>Loading Content.......</p>',
+		showConfirmButton:false,
+		html:true
+		});
+	var house=$(myid).html();
 				$.ajax({
                 type: "POST",
-                url : "<?php echo base_url('transaction/detail_outgoing_house'); ?>",
-                data: "nomor="+nomor,
+                url : "<?php echo base_url('payment/ajax_detailHousePayment'); ?>",
+                data: "house="+house,
                 success: function(data){
-                   $('.detail_outgoing').html(data);
-				   $('.txtdetail').html('<strong> No. House : ' + nomor + '</strong>');
+					swal.close();
+					$("#modalpaymenthouse").modal('show'); 
+                   $('#tablepaymenthouse').html(data);
                 }
             });
-        });
+}
 function detailPayment(myid){
 	swal({
 		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
@@ -399,10 +400,11 @@ function detailPayment(myid){
                 success: function(data){
 					swal.close();
 					$("#modaldetailpayment").modal('show'); 
+					$("#modalpaymenthouse").css("z-index","1");
+					$("#modaldetailpayment").css("z-index","100");
                    $('#tabledetailpayment').html(data);
                 }
             });
-	
 }
 function getFilter(inputan){
 	var tg1=$("#start3").val();

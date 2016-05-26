@@ -2,12 +2,16 @@
         
 <form action="<?php echo base_url();?>transaction/save_chargo_manifest" method="post" enctype="multipart/form-data" autocomplete="off" name="formcargo[0]" id="formcargo" onSubmit="return cek_checked();">
 
+<div class="container">
+<div class="info-box">
+     <div class="col-sm-3 col-xs-4"><i class="fa fa-paste"></i></div>
+     <div class="col-sm-9 col-xs-8">Create Release</div>
+</div>
+</div>
+
   <!--LEFT INPUT-->
   <div class="col-sm-6">      
-      <div class="col-sm-11">
-<label class="col-sm-12"><h2><i class="fa fa-plus bigger-110"></i> Create Release</h2></label> 
-<div class="clearfx">&nbsp;</div>         
- 
+  
  <div class="form-group">
         <label class="col-sm-11"> No Cargo Release</label></strong>
           <div class="col-sm-11">
@@ -34,18 +38,9 @@
           </span></div>
 </div>
  
- 
-
-          
-
-<!-- end of sender -->
-
-<div class="col-sm-12" id="contenshipper">
-<!-- CONTENT AJAX VIEW HERE -->
 
 </div>
-      </div>             
-  </div>
+      
 <!--RIGHT INPUT-->
  <div class="col-sm-5" style="border:1px #CCC solid;box-shadow:2px 3px 8px #CCC; margin-right:5px; display:none">
  
@@ -70,8 +65,7 @@
  
  </div>  
    
-<!--RIGHT INPUT-->  
-  <!--RIGHT INPUT--><br style="clear:both;margin-bottom:40px;">
+
                                 
            
  

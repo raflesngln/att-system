@@ -15,9 +15,9 @@ public function list_payment()
 		$nm_tabel2='payment_house_detail b';
 		$kolom1='a.JurnalNo';
 		$kolom2='b.JurnalNo';
-		$select='a.JurnalNo,a.PayDate,a.Currency,b.PaymentValue,a.Remarks,b.House,b.PaymentDate,b.Balance,c.CustName,d.Amount,d.RemainAmount,d.PaymentStatus';
+		$select='a.JurnalNo,a.PayDate,a.Currency,sum(b.PaymentValue) as PaymentValue,a.Remarks,b.House,b.PaymentDate,min(b.Balance) as Balance,c.CustName,d.Amount,d.RemainAmount,d.PaymentStatus,e.MasterNo';
 		
-       $nm_coloum= array('a.JurnalNo','a.JurnalNo','b.House','b.PaymentDate','c.CustName','a.Currency','d.Amount','b.PaymentValue','b.Balance','d.PaymentStatus');
+       $nm_coloum= array('a.JurnalNo','a.JurnalNo','e.MasterNo','b.House','b.PaymentDate','c.CustName','a.Currency','d.Amount','b.PaymentValue','b.Balance','d.PaymentStatus');
         $orderby= array('b.PaymentDate' => 'desc');
         $where=  array();
         $list = $this->m_payment->get_datatables($select,$nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
@@ -29,18 +29,19 @@ public function list_payment()
 			$no++;
 			$row = array(
             'no' => $no,
-            'House' =>$datalist->House,
+			'MasterNo' =>$datalist->MasterNo,
+            'House' =>'<a href="#" onclick="detailHousePayment(this);">'. $datalist->House.'</a>',
             'JurnalNo' => '<a href="#" onclick="detailPayment(this);">'. $datalist->JurnalNo.'</a>',
 			'PayDate' =>date('d-m-Y',strtotime($datalist->PayDate)),
 			'Currency' =>$datalist->Currency,
 			'CustName' =>$datalist->CustName,
-			'Balance' =>$balance=($datalist->Balance==$datalist->Amount)?'0':'<div align="right">'.number_format($datalist->Balance,0,'.','.').'</div>',
+			'Balance' =>$balance=($datalist->Balance==$datalist->Amount)?'<div align="right">0</div>':'<div align="right">'.number_format($datalist->Balance,0,'.','.').'</div>',
 			'PaymentValue' =>'<label style="float:right">'.number_format($datalist->PaymentValue,0,'.','.').'</label>',
 			'Remarks' =>$datalist->Remarks,
 			'Amount' =>'<label style="float:right">'.number_format($datalist->Amount,0,'.','.').'</label>',
 			'RemainAmount' =>'<label style="float:right">'.number_format($datalist->RemainAmount,0,'.','.').'</label>',
 			
-			'status' =>'<div class="text-left">'.$status=($datalist->PaymentStatus ==1)?"<label class='label label-success arrowed-right white'>Lunas</label>":"<label class='label label-warning arrowed-right white'>Remain</label></div>",
+			'status' =>'<div class="text-left">'.$status=($datalist->RemainAmount =='0')?"<label class='label label-info arrowed-right white'>Settled</label>":"<label class='label label-warning arrowed-right white'>Not Settled</label></div>",
             );
 			$data[] = $row;
 		}
@@ -82,9 +83,9 @@ public function filter_payment()
 		$nm_tabel2='payment_house_detail b';
 		$kolom1='a.JurnalNo';
 		$kolom2='b.JurnalNo';
-		$select='a.JurnalNo,a.PayDate,a.Currency,b.PaymentValue,a.Remarks,b.House,b.Balance,c.CustName,d.Amount,d.RemainAmount,d.PaymentStatus';
+		$select='a.JurnalNo,a.PayDate,a.Currency,sum(b.PaymentValue) as PaymentValue,a.Remarks,b.House,b.PaymentDate,min(b.Balance) as Balance,c.CustName,d.Amount,d.RemainAmount,d.PaymentStatus,e.MasterNo';
 		
-       $nm_coloum= array('a.JurnalNo','a.JurnalNo','b.House','b.PaymentDate','c.CustName','a.Currency','d.Amount','b.PaymentValue','b.Balance','d.PaymentStatus');
+       $nm_coloum= array('a.JurnalNo','a.JurnalNo','e.MasterNo','b.House','b.PaymentDate','c.CustName','a.Currency','d.Amount','b.PaymentValue','b.Balance','d.PaymentStatus');
         $orderby= array('b.PaymentDate' => 'desc');
        $where=  $kondisi;
         $list = $this->m_payment->get_datatables($select,$nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
@@ -96,6 +97,7 @@ public function filter_payment()
 			$no++;
 			$row = array(
             'no' => $no,
+			'MasterNo' =>$datalist->MasterNo,
             'House' => $datalist->House,
             'JurnalNo' =>'<a href="#" onclick="detailPayment(this);">'. $datalist->JurnalNo.'</a>',
 			'PayDate' =>date('d-m-Y',strtotime($datalist->PayDate)),
@@ -107,7 +109,7 @@ public function filter_payment()
 			'Amount' =>'<label style="float:right">'.number_format($datalist->Amount,0,'.','.').'</label>',
 			'RemainAmount' =>'<label style="float:right">'.number_format($datalist->RemainAmount,0,'.','.').'</label>',
 			
-			'status' =>'<div class="text-left">'.$status=($datalist->PaymentStatus ==1)?"<label class='label label-success arrowed-right white'>Lunas</label>":"<label class='label label-warning arrowed-right white'>Remain</label></div>",
+			'status' =>'<div class="text-left">'.$status=($datalist->PaymentStatus ==1)?"<label class='label label-info arrowed-right white'>Settled</label>":"<label class='label label-warning arrowed-right white'>Not Settled</label></div>",
             );
 			$data[] = $row;
 		}
@@ -187,6 +189,28 @@ public function ajax_detailPayment()
 	);
 	$this->load->view('pages/booking/payment/details/detail_payment',$data);	
 }
+//ajax for detail or history of payment House
+public function ajax_detailHousePayment()
+	{
+	$house=$this->input->post('house');
+	$data=array(
+	'header'=>$this->model_app->getdatapaging("a.*,b.CustName as sender,c.CustName as receive",
+	"outgoing_house a",
+	"LEFT JOIN ms_customer b on b.CustCode=a.Shipper
+	LEFT JOIN ms_customer c on c.CustCode=a.Consigne
+	 WHERE a.HouseNo='$house' LIMIT 1"),
+	
+	'list'=>$this->model_app->getdatapaging("a.iddetail,a.Balance,a.JurnalNo,a.PaymentDate,a.PaymentValue,a.House,d.Amount,d.RemainAmount,d.PaymentStatus",
+	"payment_house_detail a",
+	"INNER JOIN payment_house b on a.JurnalNo=b.JurnalNo
+	 LEFT JOIN ms_customer c on b.Customer=c.CustCode
+	 LEFT JOIN outgoing_house d on a.House=d.HouseNo
+	WHERE a.House='$house' ORDER BY a.iddetail asc")
+	);
+	$this->load->view('pages/booking/payment/details/detail_payment_house',$data);	
+}
+
+
 
 //     DATA TO paymrnt request
     function payment_request(){

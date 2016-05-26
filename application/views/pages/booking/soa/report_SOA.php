@@ -69,21 +69,23 @@ p{ margin-top:-8px}
 <div class="col-sm-12">
 <table width="100%" class="table table-striped table-bordered" id="mytable" style="border:1px #CCC solid">
   <tr style="background-color:#f2f2f2;">
-    <td style="width:7px;font-size:10px">No</td>
-    <td style="width:60px;font-size:10px">Date Job</td>
-    <td style="width:70px;font-size:10px">SMU</td>
-    <td  style="width:70px;font-size:10px">House</td>
-    <td  style="width:70px;font-size:10px">Job</td>
-    <td style="width:130px;font-size:10px">Note</td>
-    <td style="width:90px;font-size:10px">Origin-Desti</td>
-    <td style="width:20px;font-size:10px"><div align="center">QTY</div></td>
-    <td style="width:20px;font-size:10px"><div align="center">CWT</div></td>
-    <td style="width:20px;font-size:10px"><div align="center">Air Freight</div></td>
-    <td style="width:20px;font-size:10px"><div align="center">Adm SMU</div></td>
-    <td style="width:20px;font-size:10px"><div align="center">Quarantine</div></td>
-    <td style="width:20px;font-size:10px"><div align="center">Dellivery</div></td>
-    <td style="width:20px;font-size:10px"><div align="center">Others</div></td>
-    <td style="width:20px;font-size:10px"><div align="center">Total</div></td>
+    <td width="26" style="width:7px;font-size:10px">No</td>
+    <td width="90" style="width:60px;font-size:10px">Date Job</td>
+    <td width="104" style="width:70px;font-size:10px">SMU</td>
+    <td width="104"  style="width:70px;font-size:10px">House</td>
+    <td width="104"  style="width:70px;font-size:10px">Job</td>
+    <td width="193" style="width:130px;font-size:10px">Note</td>
+    <td width="107" style="width:90px;font-size:10px">Origin-Desti</td>
+    <td width="59" style="width:20px;font-size:10px"><div align="center">QTY</div></td>
+    <td width="37" style="width:20px;font-size:10px"><div align="center">CWT</div></td>
+    <td width="44" style="width:20px;font-size:10px"><div align="center">Air Freight</div></td>
+    <td width="35" style="width:20px;font-size:10px"><div align="center">Adm SMU</div></td>
+    <td width="65" style="width:20px;font-size:10px"><div align="center">Quarantine</div></td>
+    <td width="56" style="width:20px;font-size:10px"><div align="center">Dellivery</div></td>
+    <td width="40" style="width:20px;font-size:10px"><div align="center">Others</div></td>
+    <td width="50" style="width:20px;font-size:10px">Amount</td>
+    <td width="53" style="width:20px;font-size:10px">Paid</td>
+    <td width="55" style="width:20px;font-size:10px"><div align="center">Remain</div></td>
     </tr>
    <?php
    $no=1;
@@ -95,7 +97,8 @@ p{ margin-top:-8px}
 	$other=$row->other;
 	
 	$subtotal=$airfreight+$quarantine+$smu+$delivery+$other;   
-	$grandtotal+=$subtotal;
+	$pay=$subtotal-($row->RemainAmount);
+	$grandtotal+=$row->RemainAmount;
    ?>
   <tr>
     <td style="font-size:10px"><?php echo $no;?></td>
@@ -113,10 +116,14 @@ p{ margin-top:-8px}
     <td style="font-size:10px"><div align="right"><?php echo number_format($row->delivery,0,'.','.');?></div></td>
     <td style="font-size:10px"><div align="right"><?php echo number_format($row->delivery,0,'.','.');?></div></td>
     <td align="right" style="font-size:10px"><?php echo number_format($subtotal,0,'.',',');?></td>
+    <td align="right" style="font-size:10px"><?php echo number_format($pay,0,'.',',');?></td>
+    <td align="right" style="font-size:10px"><?php echo number_format($row->RemainAmount,0,'.',',');?></td>
     </tr>
     <?php $no++; } ?>
   <tr>
     <td colspan="7" style="font-size:10px"><div align="right">TOTAL</div></td>
+    <td style="font-size:10px">&nbsp;</td>
+    <td style="font-size:10px">&nbsp;</td>
     <td style="font-size:10px">&nbsp;</td>
     <td style="font-size:10px">&nbsp;</td>
     <td style="font-size:10px">&nbsp;</td>

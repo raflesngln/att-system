@@ -31,19 +31,15 @@
 
    <div class="row-fluid">
     <div class="span12">
-                  <?php
-			if(isset($eror)){?>
-            <label class="alert alert-error col-sm-12">
-			<button type="button" class="close" data-dismiss="alert">
-			<i class="icon-remove"></i>	</button>							
-			<?php echo isset($eror)?$eror:'';?>
-			<br />
-			</label>
-            <?php }?>   
-      <div class="header col-md-11">
+ 
+<div class="container">
+<div class="info-box">
+     <div class="col-sm-3 col-xs-4"><i class="fa fa-clone"></i></div>
+     <div class="col-sm-9 col-xs-8">Create Consolidation</div>
+</div>
+</div>
 
-                <h3><i class="fa fa-clone bigger-230"></i> &nbsp;Outgoing-Consolidation</h3>
-            </div>
+
       
 
 <br style="clear:both">

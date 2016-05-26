@@ -376,19 +376,15 @@ $("#idconsigne").click(function(){
  <!-- ==========================================================  -->   
   <div class="row-fluid" style="">
     <div class="span12">
-                  <?php
-      if(isset($eror)){?>
-            <label class="alert alert-error col-sm-12">
-      <button type="button" class="close" data-dismiss="alert">
-      <i class="icon-remove"></i> </button>             
-      <?php echo isset($eror)?$eror:'';?>
-      <br />
-      </label>
-            <?php }?>   
-      <div class="header col-md-11">
-<p class="text-center konfirm" id="konfirm">&nbsp;</p>
-                <h4><i class="fa fa-plus-square bigger-120"></i> &nbsp;  Outgoing Master:: Entry Data</h4>
-            </div>
+ 
+
+<div class="container">
+<div class="info-box">
+     <div class="col-sm-3 col-xs-4"><i class="fa fa-sticky-note-o"></i></div>
+     <div class="col-sm-9 col-xs-8">Create Master</div>
+</div>
+</div>
+
       
 
 <br style="clear:both">
@@ -1060,7 +1056,7 @@ $("#idconsigne").click(function(){
  <div class="form-group">
             <label class="col-sm-3 control-label">Remarks</label>
             <div class="col-sm-9"><span class="controls">
-            <textarea name="remarks2" cols="30" rows="2" class="form-control" id="remarks2" required="required"></textarea>
+            <textarea name="remarks2" cols="30" rows="2" class="form-control" id="remarks2" required></textarea>
             </span></div>
                        
                       </div>
