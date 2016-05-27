@@ -98,7 +98,7 @@ public function filter_payment()
 			$row = array(
             'no' => $no,
 			'MasterNo' =>$datalist->MasterNo,
-            'House' => $datalist->House,
+            'House' =>'<a href="#" onclick="detailHousePayment(this);">'. $datalist->House.'</a>',
             'JurnalNo' =>'<a href="#" onclick="detailPayment(this);">'. $datalist->JurnalNo.'</a>',
 			'PayDate' =>date('d-m-Y',strtotime($datalist->PayDate)),
 			'Currency' =>$datalist->Currency,

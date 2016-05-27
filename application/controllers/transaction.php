@@ -2183,6 +2183,8 @@ function print_save_invoice_OM(){
         $p  =$_POST['p'][$key];
 		$l  =$_POST['l'][$key];	
 		$t  =$_POST['t'][$key];	
+
+
 		$v  =$_POST['v'][$key];	
 	$newitem=array(
 		'HouseNo' =>$this->input->post('house'),
@@ -2277,38 +2279,33 @@ $OutHouse=array(
  function process_payment(){
    $kode=$this->model_app->generateNo("payment_house","JurnalNo","PYM");
  
-	if(isset($_POST['checklish']))
-	{	
 	$customer=$this->input->post('paymentcustomers');	
 	$jumlah=$this->input->post('payment');		
-	$nomorhouse=$_POST['checklish'];	
-	//$search=$this->model_app->getdata('outgoing_master',"WHERE FlightNumbDate1='$flight'");
+	$nomorhouse=$_POST['checklish'];
 	foreach($nomorhouse as $key => $val)
 	{
 		$housecek=$_POST['checklish'][$key];	
 
    $cari=$this->model_app->getdatapaging("HouseNo,CWT,PCS,Amount,RemainAmount","outgoing_house", "WHERE Shipper='$customer' AND HouseNo='$housecek' AND PaymentStatus='0' ORDER BY HouseNo asc");	 
-	
-	foreach($cari as $row){
+		
+foreach($cari as $row){
     	$house=$row->HouseNo;
 	   $amount=$row->RemainAmount;
 
  	 if ($jumlah >0) { 
+	 	if($jumlah >$amount){
+			$simpan=0;
+			$bayar=$amount;
+			$balance=0;
+			$paymentstatus='1';
+		} else {
+			$simpan=$amount-$jumlah;	
+			$bayar=$jumlah;
+			$balance=$amount-$jumlah;
+			$paymentstatus='0';
+		}
 		$jumlah=$jumlah-$amount;
-		$simpan=0;
-		$paymentstatus='1';
-		$bayar=$amount;
-		$balance=$bayar;
-	 }
-	 if($jumlah <=0){
- 		$jumlah=$jumlah;
-		$simpan=$jumlah;
-		$paymentstatus='0';
-		$bayar=$amount-abs($jumlah);
-		$balance=$amount-$bayar;
-		
-	}
-       // echo 'noor house '.$bayar.'  (  '.$amount.')#jumlah sisa '.abs($jumlah).' dan update ke db => '.abs($simpan).'('.$paymentstatus.')<br>';
+		//echo $amount.' => '.$simpan.' Buat bayar '.$bayar.'<br>';
 	 	$insertpayment_detail=array(
 		'PaymentDate' =>date('Y-m-d H:i:s'),
 		'JurnalNo' =>$kode,
@@ -2319,12 +2316,13 @@ $OutHouse=array(
 		'CreatedDate'=>date('Y-m-d H:i:s'),
 		);	
 		$updatehouse=array(
-		'RemainAmount'=>abs($simpan),
+		'RemainAmount'=>$balance,
 		'PaymentStatus'=>$paymentstatus
 		);
 		$savedetail=$this->model_app->insert('payment_house_detail',$insertpayment_detail);	
 		$update=$this->model_app->update('outgoing_house','HouseNo',$house,$updatehouse);
-		} 
+			} 
+		}
 	}
 		//insert header payment
 	 	$insertpayment=array(
@@ -2341,7 +2339,7 @@ $OutHouse=array(
 		$savepayment=$this->model_app->insert('payment_house',$insertpayment);	
 		
 	redirect('transaction/Payment');
-	}
+		
 }
  
   function SOA(){	

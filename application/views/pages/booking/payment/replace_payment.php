@@ -1,9 +1,12 @@
- <div class="col-sm-3">
+ <div class="col-sm-4">
+ <label class="col-sm-2" for="accountheader">Acount</label>
+ <div class="col-sm-10">
  <select name="accountheader[]" id="accountheader[]" class="form-control">
       <option value="">Select account</option>
       <option value="">Cash in Bank BCA</option>
       <option value="">Cash in Bank Mandiri</option>
     </select>
+ </div>
  </div>
 <table width="100%" border="1" class="table table-striped table-bordered table-hover">
 <thead>
@@ -17,6 +20,7 @@
     <td width="6%">Qty</td>
     <td width="7%">CWT</td>
     <td width="9%">Amount</td>
+    <td width="9%">Pay</td>
     <td width="9%">Balance</td>
     <td width="4%"><div align="center">
                                                     <input type="checkbox" name="checkall" id="checkall" onClick="return Checkall()" checked="checked" value="Check all"> &nbsp;
@@ -48,6 +52,8 @@
       <div align="right"><?php echo $row->CWT;?></div>
     <div align="right"></div></td>
     <td><div align="right"><?php echo number_format($row->Amount,0,'.','.');?></div></td>
+    <td><input type="text" name="bayar" id="bayar" />
+    </td>
     <td><div align="right"><?php echo number_format($row->RemainAmount,0,'.','.');?></div>      <label for="pay[]"></label></td>
     <td><div id="cek" style="text-align:center"><input type="checkbox" name="checklish[]" id="checklish[]" checked="checked" class="ceklis" value="<?php echo $row->HouseNo; ?>"></div></td>
     </tr>
@@ -58,6 +64,7 @@
     <td><div align="right">
       <label style="color:#06C"><?php echo number_format($t_amount,0,'.','.');?></label>
     </div></td>
+    <td>&nbsp;</td>
     <td><div align="right">
       <label style="color:#06C"><?php echo number_format($t_RemainAmount,0,'.','.');?></label>
     </div></td>

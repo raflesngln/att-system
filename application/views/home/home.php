@@ -410,6 +410,8 @@ return true;
          <li><a href="<?php echo base_url();?>transaction/Payment"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-arrow-circle-o-left bigger-140"></i> Cash / Bank in </a> </li>
          <li><a href="<?php echo base_url();?>Payment/payment_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-arrow-circle-o-left bigger-140"></i> &nbsp; Payment Request </a> </li>
          <li> <a href="<?php echo base_url();?>Payment/settlement_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-info-circle  bigger-140"></i> &nbsp; Sentlement Req</a></li>
+
+         <li><a href="<?php echo base_url();?>transaction/Payment"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-line-chart bigger-140"></i> Report </a> </li>
 		 </ul>
 	  </li>
 	  
