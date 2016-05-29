@@ -28,13 +28,7 @@
 <div class="container">
   <div class="row">
                <!--LEFT INPUT-->
-  <div class="col-sm-8">      
-      <div class="col-sm-11">
-                       
-<!--          <label class="col-sm-4"> SOA No</label>
-          <div class="col-sm-7">
-           <input name="name" type="text" class="form-control"  id="name" required="required" readonly="readonly" />
-          </div>-->
+  <div class="col-sm-6">      
 <div class="form-group"> 
           <label class="col-sm-3"> No Jurnal</label>
           <div class="col-sm-7">
@@ -47,22 +41,7 @@
            <input name="paymentdate" type="text" class="form-control"  id="paymentdate" required readonly value="<?php echo date("Y-m-d") ;?>"/>
           </div>
 </div>
-<div class="form-group"> 
-          <label class="col-sm-3"> Currency</label>
-          <div class="col-sm-7">
-            <select name="paymentcurrency" id="paymentcurrency" class="form-control">
-              <option value="IDR">IDR</option>
-              <option value="USD">USD</option>
-            </select>
-          </div>
-</div>
-<div class="form-group"> 
-          <label class="col-sm-3"> Ex.Rate</label>
-          <div class="col-sm-7">
-           <input name="rate" type="text" class="form-control"  id="rate" required readonly/>
-          </div>
-</div>
-          
+   
 
  <div class="form-group">             
           <label class="col-sm-3"> Customers</label>
@@ -92,10 +71,53 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
 <div class="clearfix"></div> 
  
 <div class="form-group"> 
-          <label class="col-sm-3"> Total Payment</label>
+          <label class="col-sm-3"> Total Paymssnt</label>
           <div class="col-sm-7">
-            <input name="payment" type="text" class="form-control"  id="payment" required="required" onkeypress="return isNumberKey(event)" onkeyup="return ubahRP(this)"/>
-         <label id="labelpay"></label>
+            <input name="payment" type="text" class="form-control"  id="payment" required="required" onkeyup="return countBalance()" onkeypress="return isNumberKey(event)" />
+         
+          </div>
+          <label class="col-sm-12 text-center" id="labelpay"></label>
+</div>
+
+
+
+<div class="clearfix"></div>    
+
+          
+      </div>             
+      
+ 
+<!-- RIGHT SIDE -->
+   <div class="col-sm-6">      
+
+<div class="form-group"> 
+          <label class="col-sm-3"> Currency</label>
+          <div class="col-sm-7">
+            <select name="paymentcurrency" id="paymentcurrency" class="form-control">
+              <option value="IDR">IDR</option>
+              <option value="USD">USD</option>
+            </select>
+          </div>
+</div>
+<div class="form-group"> 
+          <label class="col-sm-3"> Ex.Rate</label>
+          <div class="col-sm-7">
+           <input name="rate" type="text" class="form-control"  id="rate" required readonly/>
+          </div>
+</div>
+       
+<div class="clearfix"></div> 
+ 
+
+<div class="form-group"> 
+          <label class="col-sm-3"> Account</label>
+          <div class="col-sm-7">
+            <select name="accountheader[]" id="accountheader[]" class="form-control">
+      <option value="">Select account</option>
+      <option value="">Cash in Bank BCA</option>
+      <option value="">Cash in Bank Mandiri</option>
+    </select>
+        
           </div>
 </div>
 
@@ -106,14 +128,12 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
           </div>
 </div>
 
+
 <div class="clearfix"></div>    
 
           
-      </div>             
-      
-                       
-            
-      </div>
+      </div>                
+<!-- END OF RIGHT -->       
    </div>
 </div>
 <br style="clear:both;margin-bottom:40px;">
@@ -153,7 +173,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
     <td>1</td>
     <td>Account</td>
     <td><?php echo $row->NoSMU;?></td>
-    <td><?php echo $row->HouseNo;?><input name="nomorhouse[]" type="hidden" id="nomorhouse[]" value="<?php echo $row->HouseNo;?>" /></td>
+    <td><?php echo $row->HouseNo;?></td>
     <td><?php echo date('d-m-Y',strtotime($row->ETD));?></td>
     <td><?php echo substr($row->Origin,0,15).' - ';?><?php echo substr($row->Destination,0,15);?></td>
     <td>
@@ -387,9 +407,6 @@ function konfirmasi(){
 	
 }
 
-
-	
-onSubmit="return cek_checked();"
 $("#paymentcurrency").change(function() {
     var currency=$("#paymentcurrency").val();
 	if(currency=="IDR"){
@@ -400,4 +417,61 @@ $("#paymentcurrency").change(function() {
 	}
 });
 
+function hitung_bayar(){
+	var payment=$("#payment").val();
+	
+  var nomorhouse=document.getElementsByName('lastbalance[]').checked=true;
+  var balance=document.getElementsByName('balance[]');
+        for(i=0; i < nomorhouse.length; i++)  {  
+
+		alert(nomorhouse[i].value+ ' dan sisa adalah  '+ balance[i].value);
+		console.log(nomorhouse[i].value+ ' dan sisa adalah  '+ balance[i].value);
+	}
+}
+
+
+function countBalance() {
+    var payment=document.getElementById("payment").value;
+    var lastbalance =document.getElementsByName('lastbalance[]');
+     var paid =document.getElementsByName('paid[]');
+    var newbalance =document.getElementsByName('newbalance[]');
+   
+ var i;
+    for (i = 0; i < lastbalance.length; i++) {
+   paid[i].value='';
+    newbalance[i].value='';
+     
+    if (lastbalance[i].checked) {
+		
+        if(parseFloat(payment) >0) {
+
+           if(parseFloat(payment) > parseFloat(lastbalance[i].value)){
+                var simpan=0;
+                var bayar=parseFloat(lastbalance[i].value);
+                var sisa=0;
+                var status='1';
+             } else {
+                var simpan=parseFloat(lastbalance[i].value)-parseFloat(payment);
+                var bayar=parseFloat(payment);
+                var sisa=parseFloat(lastbalance[i].value)-parseFloat(payment);
+                var status='0';
+              }
+              var payment=parseFloat(payment)-parseFloat(lastbalance[i].value);
+
+              //alert(' lastbalance db ='+lastbalance[i].value+' / buat simpan udate= '+simpan+' / jumlah bayar= '+bayar);
+               
+               paid[i].value=bayar;
+               newbalance[i].value=simpan;
+              
+              //console.log(lastbalance[i].value+'\n');
+         }
+            
+
+        }
+        
+    }
+  ubahRP();
+   
+}
+			
 </script>

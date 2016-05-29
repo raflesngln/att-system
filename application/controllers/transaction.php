@@ -2275,20 +2275,19 @@ $OutHouse=array(
 		);
 	$this->load->view('home/home',$data);
  }
- 
  function process_payment(){
    $kode=$this->model_app->generateNo("payment_house","JurnalNo","PYM");
  
 	$customer=$this->input->post('paymentcustomers');	
 	$jumlah=$this->input->post('payment');		
-	$nomorhouse=$_POST['checklish'];
-	foreach($nomorhouse as $key => $val)
+	
+	$lastbalance=$this->input->post('lastbalance');
+	foreach($lastbalance as $key => $val)
 	{
-		$housecek=$_POST['checklish'][$key];	
-
+		$housecek=$_POST['nomorhouse'][$key];	
    $cari=$this->model_app->getdatapaging("HouseNo,CWT,PCS,Amount,RemainAmount","outgoing_house", "WHERE Shipper='$customer' AND HouseNo='$housecek' AND PaymentStatus='0' ORDER BY HouseNo asc");	 
 		
-foreach($cari as $row){
+	foreach($cari as $row){
     	$house=$row->HouseNo;
 	   $amount=$row->RemainAmount;
 
@@ -2339,6 +2338,35 @@ foreach($cari as $row){
 		$savepayment=$this->model_app->insert('payment_house',$insertpayment);	
 		
 	redirect('transaction/Payment');
+		
+}
+ function process_paymentttt(){
+	 $kode=$this->model_app->generateNo("payment_house","JurnalNo","PYM");
+	 
+	 $lastbalance=$this->input->post('lastbalance');
+	$paid=$_POST['paid'];
+	foreach($lastbalance as $key => $val)
+	{
+		
+		echo $_POST['nomorhouse'][$key].'<br>';	
+				//insert detail n update house;
+	 	$insertpayment_detail=array(
+		'PaymentDate' =>date('Y-m-d H:i:s'),
+		'JurnalNo' =>$kode,
+		'House' =>$house,
+		'Balance' =>$balance,
+		'PaymentValue' =>$bayar,
+		'CreatedBy' =>$this->session->userdata('idusr'),
+		'CreatedDate'=>date('Y-m-d H:i:s'),
+		);	
+		$updatehouse=array(
+		'RemainAmount'=>$balance,
+		'PaymentStatus'=>$paymentstatus
+		);
+		$savedetail=$this->model_app->insert('payment_house_detail',$insertpayment_detail);	
+		$update=$this->model_app->update('outgoing_house','HouseNo',$house,$updatehouse);
+
+	}
 		
 }
  

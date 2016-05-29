@@ -55,6 +55,54 @@ public function list_payment()
 		//output to json format
 		echo json_encode($output);
 }
+public function list_income()
+	{
+		$nm_tabel='payment_house a';
+		$nm_tabel2='payment_house_detail b';
+		$kolom1='a.JurnalNo';
+		$kolom2='b.JurnalNo';
+		$select='a.JurnalNo,a.PayDate,a.Currency,a.Remarks,a.TotalPayment,a.Rate,b.PaymentDate,c.CustName,d.Amount,d.RemainAmount,d.PaymentStatus,e.MasterNo';
+		
+       $nm_coloum= array('a.JurnalNo','a.JurnalNo','e.MasterNo','b.House','b.PaymentDate','c.CustName','a.Currency','a.TotalPayment');
+        $orderby= array('b.PaymentDate' => 'desc');
+        $where=  array();
+        $list = $this->m_payment->get_datatables_income($select,$nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
+        
+		$data = array();
+		$no = $_POST['start'];
+		
+		foreach ($list as $datalist){
+			$no++;
+			$row = array(
+            'no' => $no,
+			'MasterNo' =>$datalist->MasterNo,
+            'House' =>'<a href="#" onclick="detailHousePayment(this);">'. $datalist->House.'</a>',
+            'JurnalNo' => '<a href="#" onclick="detailPayment2(this);">'. $datalist->JurnalNo.'</a>',
+			'PayDate' =>date('d-m-Y',strtotime($datalist->PayDate)),
+			'Currency' =>$datalist->Currency,
+			'Rate' =>$datalist->Rate,
+			'CustName' =>$datalist->CustName,
+			'Balance' =>$balance=($datalist->Balance==$datalist->Amount)?'<div align="right">0</div>':'<div align="right">'.number_format($datalist->Balance,0,'.','.').'</div>',
+			'PaymentValue' =>'<label style="float:right">'.number_format($datalist->PaymentValue,0,'.','.').'</label>',
+			'Remarks' =>$datalist->Remarks,
+			'TotalPayment' =>'<label style="float:right">'.number_format($datalist->TotalPayment,0,'.','.').'</label>',
+			'RemainAmount' =>'<label style="float:right">'.number_format($datalist->RemainAmount,0,'.','.').'</label>',
+			
+			'status' =>'<div class="text-left">'.$status=($datalist->RemainAmount =='0')?"<label class='label label-info arrowed-right white'>Settled</label>":"<label class='label label-warning arrowed-right white'>Not Settled</label></div>",
+            );
+			$data[] = $row;
+		}
+
+		$output = array(
+						"draw" => $_POST['draw'],
+						"recordsTotal" => $this->m_payment->count_all_income($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2),
+						"recordsFiltered" => $this->m_payment->count_filtered_income($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2),
+						"data" => $data,
+				);
+		//output to json format
+		echo json_encode($output);
+}
+
 public function filter_payment()
 	{
 		$inputan=$this->uri->segment(3);

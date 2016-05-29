@@ -132,7 +132,13 @@ function toRp(angka){
 												</a>
 											</li>
 
-
+											<li>
+												<a data-toggle="tab" href="#transaksi">
+  <i class="green fa fa-list bigger-110"></i>
+		List Income
+		
+												</a>
+											</li>
 
 										</ul>
 
@@ -146,6 +152,11 @@ function toRp(angka){
 											<div id="profile" class="tab-pane">
 <p>
   <?php $this->load->view('pages/booking/payment/list_payment');?>
+</p>
+											</div>
+ <div id="transaksi" class="tab-pane">
+<p>
+  <?php $this->load->view('pages/booking/payment/list_income');?>
 </p>
 											</div>
 										</div>
