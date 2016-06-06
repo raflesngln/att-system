@@ -2145,7 +2145,7 @@ function print_save_invoice_OM(){
 }
 //     DATA TO PDF 
   function print_outgoing_house(){
-//==============  Save charges and items inevery table refer to SMU number =======================//
+//==============  Save charges and items inevery table refer to SMU number ======//
 	$nohouse=$this->input->post('house');
         $data = array(
             'title'=>'domestic_incoming_master',
@@ -2269,7 +2269,7 @@ $OutHouse=array(
 		'scrumb_name'=>' Payment',
 		'scrumb'=>'transaction/Payment',
 		'customer'=>$this->model_app->getdata('ms_customer a',
-		"INNER JOIN outgoing_house b on a.CustCode=b.Shipper WHERE b.PayCode='CRD-CREDIT' AND b.PaymentStatus='0' GROUP BY a.CustCode"),
+		"INNER JOIN outgoing_house b on a.CustCode=b.Shipper WHERE b.PaymentStatus='0' AND b.RemainAmount >0 GROUP BY a.CustCode"),
 		
 		'view'=>'pages/booking/payment/v_payment',
 		);
@@ -2411,7 +2411,7 @@ $OutHouse=array(
 	 LEFT JOIN ms_port d on a.Origin=d.PortCode
 	 LEFT JOIN ms_port e on a.Destination=e.PortCode
 	 INNER JOIN consol f on a.HouseNo=f.HouseNo
-	WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust' AND a.PayCode='CRD-CREDIT' AND a.PaymentStatus='0' AND a.RemainAmount >'0' 
+	WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust' AND a.PaymentStatus='0' AND a.RemainAmount >'0' 
 	GROUP BY f.HouseNo asc
 		");	 
         $this->load->view('pages/booking/payment/replace_payment',$data);

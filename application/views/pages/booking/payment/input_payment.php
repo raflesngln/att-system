@@ -44,7 +44,7 @@
    
 
  <div class="form-group">             
-          <label class="col-sm-3"> Customers</label>
+          <label class="col-sm-3"> Customers<sup class="must"> *</sup></label>
           <div class="col-sm-7">
            <select name="paymentcustomers" id="paymentcustomers" class="form-control" required="required" onchange="return filter_payment()">
           <option value="">Choose Customer</option>
@@ -56,7 +56,7 @@
           </div>
 </div>
 <div class="form-group">
- <label class="col-sm-3"> E.T.D Periode</label></strong>
+ <label class="col-sm-3"> E.T.D Periode<sup class="must"> *</sup></label></strong>
           <div class="col-sm-3">
 <?php
 $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
@@ -71,9 +71,9 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
 <div class="clearfix"></div> 
  
 <div class="form-group"> 
-          <label class="col-sm-3"> Total Paymssnt</label>
+          <label class="col-sm-3"> Total Payment<sup class="must"> *</sup></label>
           <div class="col-sm-7">
-            <input name="payment" type="text" class="form-control"  id="payment" required="required" onkeyup="return countBalance()" onkeypress="return isNumberKey(event)" />
+            <input name="payment" type="text" class="form-control"  id="payment" required="required" onkeyup="return countBalance()" onkeypress="return isNumberKey(event)" value="0" />
          
           </div>
           <label class="col-sm-12 text-center" id="labelpay"></label>
@@ -91,7 +91,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
    <div class="col-sm-6">      
 
 <div class="form-group"> 
-          <label class="col-sm-3"> Currency</label>
+          <label class="col-sm-3"> Currency<sup class="must"> *</sup></label>
           <div class="col-sm-7">
             <select name="paymentcurrency" id="paymentcurrency" class="form-control">
               <option value="IDR">IDR</option>
@@ -110,9 +110,9 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
  
 
 <div class="form-group"> 
-          <label class="col-sm-3"> Account</label>
+          <label class="col-sm-3"> Account<sup class="must"> *</sup></label>
           <div class="col-sm-7">
-            <select name="accountheader[]" id="accountheader[]" class="form-control">
+            <select name="accountheader[]" id="accountheader[]" class="form-control" required="required">
       <option value="">Select account</option>
       <option value="">Cash in Bank BCA</option>
       <option value="">Cash in Bank Mandiri</option>
@@ -360,7 +360,11 @@ function toRp(angka){
 
 function ubahRP(myid){
 	var payment=$("#payment").val();
+	if(payment==''){	
+	$("#labelpay").html('Rp. 0');
+	} else {
 	$("#labelpay").html('Rp. '+toRp(payment));
+	}
 	
 }
 
@@ -384,18 +388,22 @@ function filter_payment(){
                 success: function(data){
 					swal.close();
                     $('#table_payment').html(data);
+					countBalance();
                 }
             });
 }
 
 function konfirmasi(){
+	var payment=document.getElementById("payment").value;
     var a=confirm("Are You Sure To Processing Data ?");
 	if(a===true){
 
 	var chk= $(".ceklis:checked");
-	if(chk.length <=0){
-	swal("Warning !","Please Select ( Check ) house, Cannot be Empty !","error");
+	if(chk.length <=0 || payment <=0){
+	swal("Warning !","Please Select ( Check ) house and Payment value grather than 0 ","error");
+	$("#payment").focus();
 	return false;
+	
 	} else {
 	  swal.close();	
 	}
@@ -460,7 +468,7 @@ function countBalance() {
 
               //alert(' lastbalance db ='+lastbalance[i].value+' / buat simpan udate= '+simpan+' / jumlah bayar= '+bayar);
                
-               paid[i].value=bayar;
+               paid[i].value=toRp(bayar);
                newbalance[i].value=simpan;
               
               //console.log(lastbalance[i].value+'\n');

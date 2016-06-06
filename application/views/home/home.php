@@ -397,7 +397,7 @@ return true;
 
 <li> <a href="<?php echo base_url();?>cargo_release"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Cargo Release</a></li>
  <li> <a href="<?php echo base_url();?>transaction/soa"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> SOA</a></li>
-
+         <li><a href="<?php echo base_url();?>outgoing_report"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-line-chart bigger-140"></i> Report </a> </li>
 
 		
 
@@ -411,7 +411,7 @@ return true;
          <li><a href="<?php echo base_url();?>Payment/payment_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-arrow-circle-o-left bigger-140"></i> &nbsp; Payment Request </a> </li>
          <li> <a href="<?php echo base_url();?>Payment/settlement_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-info-circle  bigger-140"></i> &nbsp; Sentlement Req</a></li>
 
-         <li><a href="<?php echo base_url();?>transaction/Payment"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-line-chart bigger-140"></i> Report </a> </li>
+         <li><a href="<?php echo base_url();?>Payment_report"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-line-chart bigger-140"></i> Report </a> </li>
 		 </ul>
 	  </li>
 	  

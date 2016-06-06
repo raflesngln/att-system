@@ -103,6 +103,7 @@ public function list_closed()
             'no' => $no,
             'HouseNo' =>'<a href="#" onclick="detailhouseclosed(this);">'.$datalist->HouseNo.'</a>',
             'ori' =>$datalist->ori,
+			'ETD' =>date('d-m-Y',strtotime($datalist->ETD)),
 			'desti' =>$datalist->desti,
 			'Service' =>$datalist->Service,
 			'sender' =>$datalist->sender,
@@ -180,6 +181,7 @@ public function filter_list_closed()
 			'receiver' =>$datalist->receiver,
 			'cwt' =>$datalist->CWT,
 			'pcs' =>$datalist->PCS,
+			'ETD' =>date('d-m-Y',strtotime($datalist->ETD)),
 		
             'action'=> '<div class="form-inline">
 	<form action="'.base_url().'connote_print" method="post" target="new" class="text-left">

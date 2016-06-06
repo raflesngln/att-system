@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Mhouse extends CI_Model {
+class M_report_outgoing extends CI_Model {
 
 //	var $table = 'persons';
 //	var $column = array('firstname','lastname','gender','address','dob');
@@ -66,7 +66,7 @@ class Mhouse extends CI_Model {
 //-- for 2 choosen ---///////////////////////////////////////////
 	function get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2)
 	{
-		$this->db->select('a.ConsoledCWT,a.PayCode,a.ConsoledCWT,a.RemainCWT,a.Service,a.HouseNo,a.Amount,a.ETD,a.Origin,a.Destination,a.Shipper,a.Consigne,a.PCS,a.CWT,a.Consolidation,b.CustName as sender,c.CustName as receiver,d.PortName as ori,e.PortName as desti', FALSE);
+		$this->db->select('a.ConsoledCWT,a.ConsoledCWT,a.RemainCWT,a.Service,a.HouseNo,a.Amount,a.ETD,a.Origin,a.Destination,a.Shipper,a.Consigne,a.PCS,a.CWT,a.Consolidation,b.CustName as sender,c.CustName as receiver,d.PortName as ori,e.PortName as desti', FALSE);
 	    $this->db->from($nm_tabel);
 		$this->db->join($nm_tabel2,$kolom1.'='.$kolom2,'LEFT');
 		$this->db->join("ms_customer c",'a.Consigne=c.CustCode','LEFT');
@@ -133,8 +133,8 @@ public function count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2)
 		return $this->db->count_all_results();
 	}
 
-//-- for 3 choosen ---///////////////////////////////////////////
-	function get_datatables3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2)
+//-------------master report---------------------------------//
+	function get_datatables_master($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2)
 	{
 		$this->db->select('a.NoSMU,a.ETD,a.Origin,a.Destination,a.Shipper,a.Consigne,a.PCS,a.CWT,a.FinalCWT,a.Consolidation,a.StatusProses,b.CustName as sender,c.CustName as receiver,d.PortName as ori,e.PortName as desti', FALSE);
 	    $this->db->from($nm_tabel);
@@ -148,7 +148,8 @@ public function count_all2($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2)
 		$query = $this->db->get();
 		return $query->result();
 	}
-private function _get_datatables_query3($nm_coloum,$orderby,$where)
+	
+private function _get_datatables_master($nm_coloum,$orderby,$where)
 	{	
 		$i = 0;
 		foreach ($nm_coloum as $item) 
@@ -173,7 +174,7 @@ private function _get_datatables_query3($nm_coloum,$orderby,$where)
         $this->db->where($where); 
 		}
 }
-public function count_all3($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2)
+public function count_all_master($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2)
 	{
 		$this->db->from($nm_tabel);
 		$this->db->join($nm_tabel2,$kolom1=$kolom2);
@@ -182,9 +183,9 @@ public function count_all3($nm_tabel,$nm_coloum,$nm_tabel2,$kolom1,$kolom2)
 		$this->db->join("ms_port e",'a.Destination=e.PortCode','LEFT');
 		return $this->db->count_all_results();
 }
-	function count_filtered3($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2)
+	function count_filtered_master($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2)
 	{
-		$this->_get_datatables_query2($nm_coloum,$orderby,$where);
+		$this->_get_datatables_master($nm_coloum,$orderby,$where);
         $this->db->from($nm_tabel);
 		$this->db->join($nm_tabel2,$kolom1=$kolom2);
 		$this->db->join("ms_customer c",'a.Consigne=c.CustCode','LEFT');

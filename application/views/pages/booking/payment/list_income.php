@@ -22,7 +22,7 @@
 			"bInfo": false,
 			"bFilter":false,
 	
-			"order":[[2,"asc"],[2,"asc"]],
+			"order":[[1,"desc"],[1,"desc"]],
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
             "ajax": {
@@ -173,9 +173,9 @@ function delete_person5(id)
 <?php
 $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
 ?>
-<input name="start4" type="text" class="start form-control" id="start4" readonly="readonly" value="<?php echo $kurangtanggal;?>" onchange="return getFilter(this)" />
+<input name="start4" type="text" class="start form-control" id="start4" readonly="readonly" value="<?php echo $kurangtanggal;?>" onchange="return getFilter2(this)" />
  &nbsp; S/D &nbsp; 
-<input class="end form-control" name="end4" type="text" id="end4" readonly="readonly" value="<?php echo date('Y-m-d');?>" onchange="return getFilter(this)"/>
+<input class="end form-control" name="end4" type="text" id="end4" readonly="readonly" value="<?php echo date('Y-m-d');?>" onchange="return getFilter2(this)"/>
 
 </div><div class="clearfix"></div>
 
@@ -183,10 +183,8 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
 <div class="form-group">
 <div class="col-sm-5">Filter by Category</div>
 <div class="col-sm-6">
-<select name="kategori2" id="kategori2" class="form-control" onchange="return getFilter(this)">
+<select name="kategori2" id="kategori2" class="form-control" onchange="return getFilter2(this)">
 <option value="c.CustName">Customer</option>
-<option value="b.House">House</option>
-<option value="e.MasterNo">Master </option>
 <option value="a.JurnalNo">JurnalNo</option>
 </select>
 </div></div><div class="clearfix"></div>
@@ -194,7 +192,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
 <div class="form-group">
 <div class="col-sm-5">Criteria</div>
 <div class="col-sm-6">
-<select name="kriteria2" id="kriteria22" class="form-control" onchange="return getFilter(this)">
+<select name="kriteria2" id="kriteria2" class="form-control" onchange="return getFilter2(this)">
 <option value="startwith">Start With</option>
 <option value="endwith">End With</option>
 <option value="equals">Equals</option>
@@ -207,7 +205,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
 <div class="form-group">
 
 <label class="col-sm-11"><span class="block input-icon input-icon-right">
-<input name="txtsearch22" type="text" class="form-control" id="txtsearch2" placeholder="Type search" onkeyup="return getFilter(this)">
+<input name="txtsearch22" type="text" class="form-control" id="txtsearch2" placeholder="Type search" onkeyup="return getFilter2(this)">
 <i class="icon-search"></i></span></label>
 
 </div>
@@ -318,10 +316,10 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
     <div class="modal-content">
       <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 class="modal-title"> Detail Payment</h3>
+                <h3 class="modal-title"> Detail Paydment</h3>
       </div>
       <div class="modal-body form">
-      <div id="tabledetailpayment">
+      <div id="tabledetailincome">
                      Detail
 
         </div>
@@ -389,11 +387,11 @@ function detailPayment2(myid){
                 success: function(data){
 					swal.close();
 					$("#modaldetailtransaksi").modal('show'); 
-					$("#modaldetailtrans").css("z-index","1");
-					$("#modaldetailtransaksi").css("z-index","100");
-                   $('#tabledetailpayment').html(data);
+					//$("#modaldetailtrans").css("z-index","1");
+					//$("#modaldetailtransaksi").css("z-index","100");
+                   $('#tabledetailincome').html(data);
                 }
-            });
+       });
 }
 function getFilter2(inputan){
 	var tg1=$("#start4").val();
@@ -421,9 +419,9 @@ function getFilter2(inputan){
 	var inputan=start4+"_"+end4+"_"+kategori2+"_"+kriteria2+"_"+txtsearch2;
 	
 	if(txtsearch2 !=''){
-list_transaksi.ajax.url('<?php echo site_url()?>payment/filter_payment/'+inputan).load();
+list_transaksi.ajax.url('<?php echo site_url()?>payment/filter_income/'+inputan).load();
 	} else {
-list_transaksi.ajax.url('<?php echo site_url()?>payment/list_payment').load();		
+list_transaksi.ajax.url('<?php echo site_url()?>payment/list_income').load();		
 	}
 }
 

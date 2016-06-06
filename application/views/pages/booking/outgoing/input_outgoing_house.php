@@ -139,33 +139,6 @@ $("#formaddcust").validate({
      success: function(label) {
         label.text(' Ok  ').addClass('valid');}
     });
-$('#myform').validate({
-    rules:{ paymentype:"required",
-            origin:"required",      
-            desti:"required", 
-            service:"required",      
-            phone1:"required",
-			phone2:"required",
-          },
-    messages:{ 
-            initial:{required:'initial harus di isi'},
-            paymentype:{
-                required:'paymentype harus di isi'},
-            origin: {
-                required :'origin harus di isi',
-				},
-            desti: {
-                required:'destination harus di isi'},
-            service: {
-                required:'service harus di isi'},
-            phone1: {
-                required:'phone harus di isi'},
-            phone2: {
-                required:'phone harus di isi'},
-            },
-     success: function(label) {
-        label.text('  ok  ').addClass('valid');}
- });
  
 $("#formaddcust").submit(function(){
 		var initial=$("#initial").val();
@@ -1235,9 +1208,11 @@ if (panjang == '' || lebar == '' || pcs == '' || weight == '' || tinggi == ''){
 			if(maks < 10){
             $('#qtyfreight').val('10');
 			$('#ori_cwt').val('10');
+			$('#cwt').val('10');
 			} else {
 			$('#qtyfreight').val(maks);
-			$('#ori_cwt').val(maks);	
+			$('#ori_cwt').val(maks);
+			$('#cwt').val(maks);	
 			}
 			
 		} else {
@@ -1245,9 +1220,11 @@ if (panjang == '' || lebar == '' || pcs == '' || weight == '' || tinggi == ''){
 			if(maks < 10){
 			$('#qtyfreight').val('10');
 			$('#ori_cwt').val('10');
+			$('#cwt').val('10');
 			} else {
 			$('#qtyfreight').val(maks);
 			$('#ori_cwt').val(maks);	
+			$('#cwt').val(maks);
 			}
 		} 
 
