@@ -21,8 +21,7 @@ function view_vendor(){
 		$offset = $page;
 endif;
         $data['title']='list vendor';
-		$data['scrumb_name']='Data vendor';
-		$data['scrumb']='vendor/view_vendor';
+		$data['link']='<a href="'.base_url().'vendor/view_vendor">Data vendor</a>';
 		$data['city']=$this->model_app->getdata('ms_city',"");
 		$data['list']=$this->model_app->getdatapaging('*',
 		"ms_vendor a","inner join ms_city b on a.CityCode=b.CityCode order by b.CityCode ASC LIMIT $offset,$limit");
@@ -102,8 +101,7 @@ $this->form_validation->set_rules('initial','initial','required|trim|xss_clean')
 		$offset = $page;
 		endif;
         $data['title']='list vendor';
-		$data['scrumb_name']='Data vendor';
-		$data['scrumb']='vendor/view_vendor';
+		$data['link']='<a href="'.base_url().'vendor/view_vendor">Data vendor</a>';
 		$data['message']=$message;
 		$data['clas']=$clas;
 		$data['city']=$this->model_app->getdata('ms_city',"");
@@ -199,8 +197,7 @@ function search_vendor(){
 		$offset = $page;
 		endif;	
         $data['title']='list vendor';
-		$data['scrumb_name']='Data vendor';
-		$data['scrumb']='master/view_vendor';
+		$data['link']='<a href="'.base_url().'master/view_vendor">Data vendor</a>';
 		$data['city']=$this->model_app->getdata('ms_city',"");
 $data['list']=$this->model_app->getdatapaging('a.venCode,a.venInitial,a.venName,a.Address,a.Phone,
 		a.Fax,a.PostalCode,a.isAgent,a.isAirlines,a.isShippingLines,a.isTrucking,a.isWarehouse,a.Email,

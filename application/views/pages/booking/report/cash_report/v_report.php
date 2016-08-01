@@ -144,7 +144,7 @@ function toRp(angka){
 
 											<div id="profile" class="tab-pane">
 <p>
-  <?php $this->load->view('pages/booking/report/cash_report/daily_payment');?>
+ lorem ipsum doldor sit amet
 </p>
 											</div>
  

@@ -265,13 +265,7 @@ function detailsmu2(myid){
             });
 }
 function removedirect(myid){
-	swal({
-		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
-		text:'<p>Loading Content.......</p>',
-		showConfirmButton:false,
-		//type:"success",
-		html:true
-		});
+
 	var house=$(myid).val();
      var smu=$("#idmaster").val();
 	 var x=confirm('Are you sure Remove house ?');
@@ -289,7 +283,8 @@ function removedirect(myid){
                 }
             });
 	 } else {
-	 alert('Action Canceled !');
+	 swal("Confirmation  Cancel !","Deleted House Canceled","warning");
+	 $("#modaldetaildirect").modal('hide');
 	 }
 }
 function detailhousedirect(myid){

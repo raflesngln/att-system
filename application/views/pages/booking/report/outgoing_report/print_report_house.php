@@ -62,7 +62,7 @@ p{ margin-top:-8px;}
   <tr style="background:#EBEBEB" >
     <td  style="border-top:2px #999 solid;width:18px">No</td>
     <td style="border-top:2px #999 solid; width:80px; ">House No</td>
-     <td style="border-top:2px #999 solid; width:70px; ">ETD</td>
+     <td style="border-top:2px #999 solid; width:70px; height:25px ">ETD</td>
     <td  style="border-top:2px #999 solid; width:100px;" >Shipper - Consignee</td>
     <td  style="border-top:2px #999 solid; width:100px; ">Origin/Destination</td>
     <td  style="border-top:2px #999 solid; width:50px; ">QTY</td>

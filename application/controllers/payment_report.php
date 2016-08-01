@@ -12,9 +12,9 @@ class Payment_report extends CI_Controller{
 	//   data outgoing_report
  function index(){
         $data = array(
-            'title'=>'Payment Report',
-			'scrumb_name'=>'Payment_report ',
-			'scrumb'=>'Payment_report',
+            'title'=>'ayment Report',
+			'scrumb_name'=>'payment_report ',
+			'scrumb'=>'payment_report',
 			'user'=>$this->model_app->getdatapaging("*",
 			"ms_user a",
 			"Group by a.id_user ORDER BY a.UserName"),
@@ -24,15 +24,19 @@ class Payment_report extends CI_Controller{
     }
 public function daily_cash()
 	{
+		//filter view by 7 days last
+		$date1 = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-7,date("Y")));
+		$date2=date('Y-m-d');
+		
 		$nm_tabel='payment_house a';
 		$nm_tabel2='payment_house_detail b';
 		$kolom1='a.JurnalNo';
 		$kolom2='b.JurnalNo';
-		$select='a.JurnalNo,a.PayDate,a.Currency,a.Remarks,a.TotalPayment,b.PaymentValue,a.Rate,b.PaymentDate,c.CustName,d.Amount,d.RemainAmount,d.PaymentStatus,e.MasterNo,e.HouseNo';
+		$select='a.JurnalNo,a.PayDate,a.Currency,a.Remarks,a.TotalPayment,b.PaymentValue,a.Rate,b.PaymentDate,c.CustName,d.PCS,d.CWT,d.Origin,d.Destination,d.PayCode,d.Amount,d.RemainAmount,d.PaymentStatus,e.MasterNo,e.HouseNo';
 		
        $nm_coloum= array('a.JurnalNo','a.JurnalNo','e.MasterNo','b.House','b.PaymentDate','c.CustName','a.Currency','a.TotalPayment');
         $orderby= array('b.PaymentDate' => 'desc');
-        $where=  array();
+        $where= array('LEFT(b.PaymentDate,10) <= '=>$date2,'LEFT(b.PaymentDate,10) >='=>$date1);
         $list = $this->m_payment->get_datatables_daily_cash($select,$nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
         
 		$data = array();
@@ -47,11 +51,15 @@ public function daily_cash()
             'JurnalNo' => '<a href="#" onclick="detailPayment2(this);">'. $datalist->JurnalNo.'</a>',
 			'PayDate' =>date('d-m-Y',strtotime($datalist->PayDate)),
 			'Currency' =>$datalist->Currency,
-			'Rate' =>$datalist->Rate,
+			'PCS' =>$datalist->PCS,
+			'CWT' =>$datalist->CWT,
+			'PayCode' =>$datalist->PayCode,
 			'CustName' =>$datalist->CustName,
 			'Balance' =>$balance=($datalist->Balance==$datalist->Amount)?'<div align="right">0</div>':'<div align="right">'.number_format($datalist->Balance,0,'.','.').'</div>',
 			'PaymentValue' =>'<label style="float:right">'.number_format($datalist->PaymentValue,0,'.','.').'</label>',
 			'Remarks' =>$datalist->Remarks,
+			'Amount' =>'<label style="float:right">'.number_format($datalist->Amount,0,'.','.').'</label>',
+			'ori_desti' =>$datalist->Origin.' - '.$datalist->Destination,
 			'PaymentValue'=>'<label style="float:right">'.number_format($datalist->PaymentValue,0,'.','.').'</label>',
 			'TotalPayment' =>'<label style="float:right">'.number_format($datalist->TotalPayment,0,'.','.').'</label>',
 			'RemainAmount' =>'<label style="float:right">'.number_format($datalist->RemainAmount,0,'.','.').'</label>',
@@ -106,7 +114,7 @@ public function filter_daily_cash()
 		$nm_tabel2='payment_house_detail b';
 		$kolom1='a.JurnalNo';
 		$kolom2='b.JurnalNo';
-		$select='a.JurnalNo,a.PayDate,a.Currency,a.Remarks,a.TotalPayment,b.PaymentValue,a.Rate,b.PaymentDate,c.CustName,d.Amount,d.RemainAmount,d.PaymentStatus,e.MasterNo,e.HouseNo';
+		$select='a.JurnalNo,a.PayDate,a.Currency,a.Remarks,a.TotalPayment,b.PaymentValue,a.Rate,b.PaymentDate,c.CustName,d.PCS,d.CWT,d.Origin,d.Destination,d.PayCode,d.Amount,d.RemainAmount,d.PaymentStatus,e.MasterNo,e.HouseNo';
 		
        $nm_coloum= array('a.JurnalNo','a.JurnalNo','e.MasterNo','b.House','b.PaymentDate','c.CustName','a.Currency','a.TotalPayment');
         $orderby= array('b.PaymentDate' => 'desc');
@@ -125,11 +133,15 @@ public function filter_daily_cash()
             'JurnalNo' => '<a href="#" onclick="detailPayment2(this);">'. $datalist->JurnalNo.'</a>',
 			'PayDate' =>date('d-m-Y',strtotime($datalist->PayDate)),
 			'Currency' =>$datalist->Currency,
-			'Rate' =>$datalist->Rate,
+			'PayCode' =>$datalist->PayCode,
 			'CustName' =>$datalist->CustName,
+			'PCS' =>$datalist->PCS,
+			'CWT' =>$datalist->CWT,
 			'Balance' =>$balance=($datalist->Balance==$datalist->Amount)?'<div align="right">0</div>':'<div align="right">'.number_format($datalist->Balance,0,'.','.').'</div>',
 			'PaymentValue' =>'<label style="float:right">'.number_format($datalist->PaymentValue,0,'.','.').'</label>',
 			'Remarks' =>$datalist->Remarks,
+			'Amount' =>'<label style="float:right">'.number_format($datalist->Amount,0,'.','.').'</label>',
+			'ori_desti' =>$datalist->Origin.' - '.$datalist->Destination,
 			'PaymentValue'=>'<label style="float:right">'.number_format($datalist->PaymentValue,0,'.','.').'</label>',
 			'TotalPayment' =>'<label style="float:right">'.number_format($datalist->TotalPayment,0,'.','.').'</label>',
 			'RemainAmount' =>'<label style="float:right">'.number_format($datalist->RemainAmount,0,'.','.').'</label>',
@@ -210,7 +222,7 @@ function print_daily_cash(){
         $this->load->library('html2pdf');
         try
         {
-            $html2pdf = new HTML2PDF('P', 'A4', 'fr');
+            $html2pdf = new HTML2PDF('P', 'A4', 'fr','100%');
             $html2pdf->pdf->SetDisplayMode('fullpage');
             $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
             $html2pdf->Output('daily_cash_report.pdf');

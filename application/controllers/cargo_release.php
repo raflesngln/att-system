@@ -18,8 +18,7 @@ class Cargo_release extends CI_Controller {
 	public function index()
 	{  
        $data['title']='Cargo_release';
-		$data['scrumb_name']='Data cargo_release';
-		$data['scrumb']='cargo_release';
+		$data['link']='<a href="'.base_url().'Cargo_release">Cargo Release</a>';
 		$data['airline']=$this->model_app->getdatapaging("*","ms_airline","ORDER BY AirLineName");
 		$data['listcargo']=$this->model_app->getdatapaging("a.CargoReleaseCode,a.CargoDetails,a.ReleaseDate,b.AirLineName,d.FlightNo,sum(c.CWT) as jumcwt,sum(c.PCS) as jumpcs",
 		"tr_cargo_release a",

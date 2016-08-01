@@ -15,8 +15,7 @@ class Outgoing_report extends CI_Controller{
  function index(){
         $data = array(
             'title'=>'Outgoing Report',
-			'scrumb_name'=>'outgoing_report ',
-			'scrumb'=>'outgoing_report',
+			'link'=>'<a href="'.base_url().'outgoing_report">outgoing_report</a>',
 			'user'=>$this->model_app->getdatapaging("*",
 			"ms_user a",
 			"Group by a.id_user ORDER BY a.UserName"),
@@ -334,10 +333,10 @@ function print_report_house(){
 	}
 	
 
-			$query=$this->model_app->getdatapaging("a.*,b.CustName as sender,b.CustName as receiver,d.UserName",
+			$query=$this->model_app->getdatapaging("a.*,b.CustName as sender,c.CustName as receiver,d.UserName",
 			"outgoing_house a",
 			"LEFT JOIN ms_customer b on a.Shipper=b.CustCode
-			LEFT JOIN ms_customer c on a.Consigne=b.CustCode
+			LEFT JOIN ms_customer c on a.Consigne=c.CustCode
 			LEFT JOIN ms_user d on a.CreateBy=d.id_user
 			WHERE $where ");
 			

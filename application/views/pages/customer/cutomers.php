@@ -71,7 +71,8 @@ $no=1;
                                                     <td><?php echo $data->Phone?></td>
                                                     <td><?php echo $data->Email?></td>
                                                     <td><?php echo $data->CreditLimit?></td>
-                                                    <td><?php echo $data->Deposit?></td>
+                                                    <td>
+                                                    <div align="right"><?php echo number_format($data->Deposit,0,'.','.')?></div></td>
                                                     <td class="text-center"><div align="center">
                                                     
 <a class="btn-action" href="<?php echo base_url();?>customer/edit_customer/<?php echo $data->CustCode?>" title="Edit">

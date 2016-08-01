@@ -16,12 +16,65 @@ class Outgoing_master extends CI_Controller {
 
 	public function index()
 	{  
-       $data['title']='list Master';
-		$data['scrumb_name']='Data master';
-		$data['scrumb']='cdatamaster';
-		
-		$data['view']='pages/customer/bank/ms_bank';
-        $this->load->view('home/home',$data);
+ $idusr=$this->session->userdata('idusr');
+		$page=$this->uri->segment(3);
+      	$limit=20;
+		if(!$page):
+		$offset = 0;
+		else:
+		$offset = $page;
+		endif;
+        $data = array(
+            'title'=>'outgoing_master',
+            'link'=>'<a href="'.base_url().'outgoing_master">outgoing master</a>',
+            'payment_type'=>$this->model_app->getdatapaging("PayCode,PayName","ms_payment_type","ORDER BY PayCode ASC"),
+            'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
+            'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
+            'cnee'=>$this->model_app->getdata('ms_customer',"WHERE isCnee ='1' ORDER BY custCode Desc"),
+            'city'=>$this->model_app->getdatapaging("PortCode,PortName","ms_port","GROUP BY PortCode"),
+			'citycust'=>$this->model_app->getdata('ms_city',""),
+            'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
+			'airline'=>$this->model_app->getdatapaging("*","ms_airline","ORDER BY AirLineName"),
+           // 'charges'=>$this->model_app->getdatapaging("chargeCode,Description","ms_charges","ORDER BY chargeCode"),
+		'chargeoptional'=>$this->model_app->getdatapaging("ChargeCode,ChargeName,ChargeDetails","ms_charge","WHERE DefaultCharge='0' ORDER BY ChargeName"),
+		'chargedefault'=>$this->model_app->getdatapaging("ChargeCode,ChargeName,ChargeDetails","ms_charge","WHERE DefaultCharge='1' ORDER BY ChargeName"),
+     'commodity'=>$this->model_app->getdatapaging("CommCode,CommName","ms_commodity","ORDER BY CommName ASC"),
+            'commodity'=>$this->model_app->getdatapaging("CommCode,CommName","ms_commodity","ORDER BY CommName ASC"),
+        'master'=>$this->model_app->getdatapaging("a.NoSMU,a.StatusProses,a.FlightNumbDate1,a.PCS,a.CWT,a.ETD,a.Service,c.PortName as ori,d.PortName as desti,e.CustName as sender,f.CustName as receiver,a.PayCode","outgoing_master a",
+			"LEFT join invoice b on a.NoSMU=b.Reff
+			LEFT join ms_port c on a.Origin=c.PortCode
+			LEFT join ms_port d on a.Destination=d.PortCode
+			LEFT join ms_customer e on a.Shipper=e.CustCode
+			LEFT join ms_customer f on a.Consigne=f.CustCode
+			WHERE a.StatusProses IN(1,2,3)
+			ORDER BY a.NoSMU DESC LIMIT $offset,$limit"),
+            'view'=>'pages/booking/outgoing_master/outgoing_master',
+        );  
+			$tot_hal = $this->model_app->hitung_isi_tabel("*","outgoing_master","ORDER BY NoSMU DESC");
+        	//create for pagination		
+			$config['base_url'] = base_url() . 'transaction/domestic_outgoing_master/';
+        	$config['total_rows'] = $tot_hal->num_rows();
+        	$config['per_page'] = $limit;
+			$config['uri_segment'] = 3;
+	    	$config['first_link'] = '&laquo;';
+			$config['last_link'] = '&raquo;';
+			$config['next_link'] = 'Next';
+			$config['prev_link'] = 'Prev';
+	        //STYLE PAGIN FOR BOOTSTRAP
+		$config['full_tag_open'] = "<ul class='pagination'>";
+		$config['full_tag_close'] ="</ul>";
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
+		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
+		$config['next_tag_open'] = "<li>";
+		$config['next_tagl_close'] = "</li>";
+		$config['prev_tag_open'] = "<li>";
+		$config['prev_tagl_close'] = "</li>";
+      	$this->pagination->initialize($config);
+		$data["paginator"] =$this->pagination->create_links();
+       $this->load->view('home/home',$data);
+
 	}
 
 public function ajax_list()

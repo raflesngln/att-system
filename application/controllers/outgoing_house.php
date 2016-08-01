@@ -13,14 +13,67 @@ class Outgoing_house extends CI_Controller {
 		$this->load->model('mhouse');
 	}
 
-	public function index()
+public function index()
 	{  
-       $data['title']='list ms_bank';
-		$data['scrumb_name']='Data ms_bank';
-		$data['scrumb']='cdatamaster';
+       $idusr=$this->session->userdata('idusr');
+		$page=$this->uri->segment(3);
+      	$limit=20;
+		if(!$page):
+		$offset = 0;
+		else:
+		$offset = $page;
+		endif;
 		
-		$data['view']='pages/customer/bank/ms_bank';
+        $data = array(
+            'title'=>'outgoing_house',
+            'link'=>'<a href="'.base_url().'outgoing_house">outgoing house</a>',
+           'payment_type'=>$this->model_app->getdatapaging("PayCode,PayName","ms_payment_type","ORDER BY PayCode ASC"),
+            'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
+			'airline'=>$this->model_app->getdata('ms_airline',""),
+			'citycust'=>$this->model_app->getdata('ms_city',""),
+            'shipper'=>$this->model_app->getdata('ms_customer',"WHERE IsShipper ='1' ORDER BY CustCode Desc"),
+            'cnee'=>$this->model_app->getdata('ms_customer',"WHERE IsCnee ='1' ORDER BY CustCode Desc"),
+            'city'=>$this->model_app->getdatapaging("PortCode,PortName","ms_port","GROUP BY PortCode"),
+            'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
+			'chargeoptional'=>$this->model_app->getdatapaging("ChargeCode,ChargeName,ChargeDetails","ms_charge","WHERE DefaultCharge='0' ORDER BY ChargeName"),
+			'chargedefault'=>$this->model_app->getdatapaging("ChargeCode,ChargeName,ChargeDetails","ms_charge","WHERE DefaultCharge='1' ORDER BY ChargeName"),
+            'commodity'=>$this->model_app->getdatapaging("CommCode,CommName","ms_commodity","ORDER BY CommName ASC"),
+            'connote'=>$this->model_app->getdatapaging("a.HouseNo,a.ETD,a.Consolidation,a.PayCode,a.Service,b.CustName as shipper,d.PortName as origin,e.PortName as desti",
+			"outgoing_house a",
+			"INNER JOIN ms_customer b on a.Shipper=b.CustCode
+			 LEFT JOIN ms_customer c on a.Consigne=c.CustCode
+			 LEFT JOIN ms_port d on a.Origin=d.PortCode
+			 LEFT JOIN ms_port e on a.Destination=e.PortCode
+			 WHERE a.Consolidation in(0,1) 
+			 ORDER BY a.HouseNo DESC LIMIT $offset,$limit"),
+            'view'=>'pages/booking/outgoing/outgoing_house',
+        );  
+			$tot_hal = $this->model_app->hitung_isi_tabel("*","outgoing_house","ORDER BY HouseNo DESC");
+        	//create for pagination		
+			$config['base_url'] = base_url() . 'transaction/domestic_outgoing_house/';
+        	$config['total_rows'] = $tot_hal->num_rows();
+        	$config['per_page'] = $limit;
+			$config['uri_segment'] = 3;
+	    	$config['first_link'] = '&laquo;';
+			$config['last_link'] = '&raquo;';
+			$config['next_link'] = 'Next';
+			$config['prev_link'] = 'Prev';
+	//STYLE PAGIN FOR BOOTSTRAP
+		$config['full_tag_open'] = "<ul class='pagination'>";
+		$config['full_tag_close'] ="</ul>";
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$config['cur_tag_open'] = "<li class='disabled'><li class='active'><a href='#'>";
+		$config['cur_tag_close'] = "<span class='sr-only'></span></a></li>";
+		$config['next_tag_open'] = "<li>";
+		$config['next_tagl_close'] = "</li>";
+		$config['prev_tag_open'] = "<li>";
+		$config['prev_tagl_close'] = "</li>";
+      	$this->pagination->initialize($config);
+		$data["paginator"] =$this->pagination->create_links();
+
         $this->load->view('home/home',$data);
+
 	}
 
 public function ajax_list()

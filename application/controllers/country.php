@@ -22,8 +22,7 @@ function view_country(){
 		$offset = $page;
 		endif;
         $data['title']='list Country';
-		$data['scrumb_name']='Data Country';
-		$data['scrumb']='country/view_country';
+		$data['link']='<a href="'.base_url().'country/view_country">Data Country</a>';
 		$data['list']=$this->model_app->getdata('ms_country',"order by CountryCode ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_country',"order by CountryCode ASC");
         					//create for pagination		
@@ -136,8 +135,7 @@ function search_country(){
 		endif;	
 		
         $data['title']='list country';
-		$data['scrumb_name']='Data country';
-		$data['scrumb']='country/view_country';
+		$data['link']='<a href="'.base_url().'country/view_country">Data country</a>';
 		$data['list']=$this->model_app->getdata('ms_country',"where CountryCode like '%$cari%' OR CountryCode like '%$cari%' order by CountryCode ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_country a',"where CountryCode like '%$cari%' OR CountryCode like '%$cari%' order by CountryCode ASC");
         					//create for pagination		

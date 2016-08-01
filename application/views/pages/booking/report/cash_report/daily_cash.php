@@ -10,6 +10,9 @@
 
  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/base/jquery-ui.css" type="text/css" media="all" />
  
+ <style>
+ #tableclosed th, #tableclosed td,#tableclosed a,#tableclosed label{ font-size:11px;}
+ </style>
  
   <script type="text/javascript">
   $(function() {
@@ -65,7 +68,7 @@
             "serverSide": true, //Feature control DataTables' server-side processing mode
             // Load data for the table's content from an Ajax source
             "ajax": {
-                "url": "<?php echo site_url('Payment_report/daily_cash')?>",
+                "url": "<?php echo site_url('payment_report/daily_cash')?>",
                 "type": "POST"
             },
             "columns": [
@@ -75,9 +78,11 @@
 			{ "data": "MasterNo" },
             { "data": "PayDate" },
 			{ "data": "CustName"},
-			{ "data": "Currency"},
-			
-			
+			{ "data": "ori_desti"},
+			{ "data": "PCS"},
+			{ "data": "CWT"},
+			{ "data": "PayCode"},
+			{ "data": "Amount"},
 			{ "data": "PaymentValue" },
             ]
           });  
@@ -197,15 +202,15 @@ function delete_person5(id)
 <div class="col-sm-6">
 <div class="container">
 <div class="info-box">
-     <div class="col-sm-3 col-xs-4"><i class="fa fa-bar-chart"></i></div>
-     <div class="col-sm-9 col-xs-8"> House Report</div>
+     <div class="col-sm-3 col-xs-4"><i class="fa fa-calendar"></i></div>
+     <div class="col-sm-9 col-xs-8"> Daily Cash Report</div>
 </div>
 </div>
 </div>
 
 
 <div class="col-sm-5 pull-right" style="margin-right:40px">
-<form class="form" method="post" action="<?php echo base_url();?>Payment_report/print_daily_cash" target="new">
+<form class="form" method="post" action="<?php echo base_url();?>payment_report/print_daily_cash" target="new">
 <div class="row form-inline">
 <?php
 $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-7,date("Y")));
@@ -265,12 +270,16 @@ foreach($user as $row){
         <tr>
           <th width="2%" >No</th>
           <th width="11%" >No. Jurnal</th>
-          <th width="11%" >House</th>
-          <th width="11%" >SMU</th>
+          <th width="10%" >House</th>
+          <th width="9%" >SMU</th>
           <th width="11%" >Date</th>
-          <th width="22%" >Customers</th>
-          <th width="9%" >Currency</th>
+          <th width="17%" >Customers</th>
+          <th width="8%" >Origin/Dest.</th>
+          <th width="3%" >QTY</th>
+          <th width="3%" >CWT</th>
+          <th width="9%" >Transc Type</th>
           <th width="9%" >Amount</th>
+          <th width="9%" >Received</th>
         </tr>
       </thead>
       <tbody>
@@ -284,8 +293,12 @@ foreach($user as $row){
           <th>SMU</th>
           <th>Date</th>
           <th>Customers</th>
-          <th>Currency</th>
+          <th width="9%" >Origin/Dest.</th>
+          <th>QTY</th>
+          <th>CWT</th>
+          <th>Transc Type</th>
           <th>Amount</th>
+          <th>Received</th>
         </tr>
       </tfoot>
     </table>
@@ -293,23 +306,23 @@ foreach($user as $row){
  <div class="col-sm-12 alert alert-warning green" style="margin-left:-23px; font-style:italic">
 <i class="icon-bullhorn green bigger-150">&raquo;</i>
 <strong> Report House </strong>
-<p>List untuk  menampilkan report house Cash dan credit</li>
+<p>List/Report untuk  menampilkan Penerimaan cash baik pembayaran piutnag dan tunai</li>
 
 
 </div>
  <!-- end info -->
             
  <!-- MODAL -->
-   <!-- Bootstrap modal -->
-<div class="modal fade" id="modaldetailsmuclosed" role="dialog">
+ <!-- Bootstrap modal -->
+  <div class="modal fade" id="modaldetailtransaksi" role="dialog">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title">Form Detail SMU</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title"> Detail Paydment</h3>
       </div>
       <div class="modal-body form">
-      <div id="tabledetailsmuclosed">
+      <div id="tabledetailincome">
                      Detail
 
         </div>
@@ -317,48 +330,29 @@ foreach($user as $row){
       </div>
         
     </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div>
-      
- 
-<div id="modalhouseclosed" class="modal fade responsive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  
+ <div class="modal fade" id="modaldetailtrans" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id=""><small>Detail Consol</small> House            </h3>
-            </div>
-            <div class="smart-form scroll">
+                <h3 class="modal-title"> Detail Payment House</h3>
+      </div>
+      <div class="modal-body form">
+      <div id="tablepaymenthouse">
+                     Detail
 
-                    <div class="modal-body">
-                   
-                        <div id="tabledetailhouseclosed">
-                        <table id="tbldet" class="table table-striped table-bordered" cellspacing="0" width="100%">
-      <thead>
-        <tr>
-          <th>House</th>  
-          <th>Shipper</th>
-          <th> QTY</th>
-          <th>CWT</th>
-          <th style="width:125px;">Amount</th>
-        </tr>
-      </thead>
-
-
-
-    </table>
-
-                        </div>
-                     
-                     
-              </div>
-            
-           
-          </div>
         </div>
-    </div>
-</div>
+        
+      </div>
+        
+    </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal --> 
+  
 
 
 <!-- end of MODAL -->
@@ -472,6 +466,27 @@ function detailsmuclosed(myid){
             });
 	
 }
+function detailPayment2(myid){
+	swal({
+		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
+		text:'<p>Loading Content.......</p>',
+		showConfirmButton:false,
+		html:true
+		});
+	var numb=$(myid).html();
+				$.ajax({
+                type: "POST",
+                url : "<?php echo base_url('payment/ajax_detailPayment'); ?>",
+                data: "numb="+numb,
+                success: function(data){
+					swal.close();
+					$("#modaldetailtransaksi").modal('show'); 
+					//$("#modaldetailtrans").css("z-index","1");
+					//$("#modaldetailtransaksi").css("z-index","100");
+                   $('#tabledetailincome').html(data);
+                }
+       });
+}
 
 function filterList(){
 	var tg1=$("#start2").val();
@@ -498,7 +513,7 @@ function filterList(){
 	
 	var inputan=start2+"_"+end2+"_"+methode+"_"+user+"_"+txtsearch;
 
-tableclosed.ajax.url('<?php echo site_url()?>Payment_report/filter_daily_cash/'+inputan).load();
+tableclosed.ajax.url('<?php echo site_url()?>payment_report/filter_daily_cash/'+inputan).load();
 	
 }
 

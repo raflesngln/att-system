@@ -2,10 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Documento sin título</title>
+<link rel="shortcut icon" href="<?php echo base_url();?>asset/images/favicon.ico">
+<title>report daily cash</title>
 <style>
 *{
-	font-size:10px;
+	font-size:9px;
 }
 
 .mytable tr td{ border-bottom:1px #999 solid; border-right:1px #999 solid; width:99%;
@@ -26,8 +27,6 @@ p{ margin-top:-8px;}
 <p style="margin-left:60px"> Phone : (031) 8688511 , 72597371</p>
        <?php 
 	   ob_start();
- $no=1;
- foreach($header as $row){
 
         ?>
 <h1 style="text-align:center; margin-top:-44px; text-decoration:underline"><?php echo $tittle;?></h1>
@@ -55,21 +54,23 @@ p{ margin-top:-8px;}
     <td height="48" colspan="2">&nbsp;</td>
   </tr>
 </table>
-<?php } ?>
 
 
-<table border="0" class="mytable" style="width:90%">
+
+<table border="0" class="mytable" style="width:95%">
   <tr style="background:#EBEBEB" >
-    <td  style="border-top:2px #999 solid;width:18px">No</td>
-    <td style="border-top:2px #999 solid; width:80px; ">House No</td>
-    <td style="border-top:2px #999 solid; width:70px; ">SMU</td>
-     <td style="border-top:2px #999 solid; width:70px; ">ETD</td>
+    <td height="37"  style="border-top:2px #999 solid; padding-left:9px">No</td>
+    <td style="border-top:2px #999 solid; width:60px;">No Jurnal</td>
+    <td style="border-top:2px #999 solid; width:60px; height:25px">House No</td>
+    <td style="border-top:2px #999 solid; width:40px; ">SMU</td>
+     <td style="border-top:2px #999 solid; width:50px; ">Date</td>
     <td  style="border-top:2px #999 solid; width:100px;" >Customer</td>
-    <td  style="border-top:2px #999 solid; width:100px; ">Origin/Destination</td>
-    <td  style="border-top:2px #999 solid; width:50px; ">QTY</td>
-    <td width="50" style="border-top:2px #999 solid; width:50px; ">CWT</td>
-    <td  style="border-top:2px #999 solid; width:70px">Transc. type</td>
-    <td  style="border-top:2px #999 solid;  width:60px">Paid </td>
+    <td  style="border-top:2px #999 solid; width:70px; ">Origin/Destination</td>
+    <td  style="border-top:2px #999 solid; width:30px; ">QTY</td>
+    <td width="50" style="border-top:2px #999 solid; width:20px; ">CWT</td>
+    <td  style="border-top:2px #999 solid; width:50px">Transc. type</td>
+    <td  style="border-top:2px #999 solid;  width:60px">Amount</td>
+    <td  style="border-top:2px #999 solid;  width:60px">Received </td>
   </tr>
    <?php 
  $no=1;
@@ -78,20 +79,23 @@ $amount=$items->PaymentValue;
 $total+=$amount;
        ?>
   <tr>
-    <td height="26" ><?php echo $no;?></td>
+    <td height="21" ><?php echo $no;?></td>
+    <td style="text-align:left"><?php echo $items->JurnalNo  ;?></td>
     <td style="text-align:left"><?php echo $items->HouseNo  ;?></td>
     <td style="text-align:left"><?php echo $items->MasterNo  ;?></td>
     <td style="text-align:left"><?php echo date('d-m-Y',strtotime($items->ETD))  ;?></td>
     <td style="text-align:left"><?php echo $items->sender  ;?></td>
     <td style="text-align:left"><?php echo $items->Origin.' - '. $items->Destination  ;?></td>
-    <td style="text-align:right"><?php echo $items->PCS  ;?></td>
-    <td style="text-align:right"><?php echo $items->CWT  ;?></td>
+    <td style="text-align:center"><?php echo $items->PCS  ;?></td>
+    <td style="text-align:right"><?php echo number_format($items->CWT,0,'.','.');?></td>
     <td style="text-align:left"><?php echo substr($items->PayCode,4);?></td>
+    <td style="text-align:right"><?php echo number_format($items->Amount,0,'.','.'); ?></td>
     <td style="text-align:right"><?php echo number_format($items->PaymentValue,0,'.','.'); ?></td>
   </tr>
   <?php $no++; } ?>
   <tr>
-    <td height="18" colspan="9"><div align="center"><label style="margin-right:20px; margin-top:9px; font-weight:bold">TOTAL &nbsp;</label></div></td>
+    <td height="18" colspan="10"><div align="center"><label style="margin-right:20px; margin-top:9px; font-weight:bold">TOTAL &nbsp;</label></div></td>
+    <td style="text-align:right">&nbsp;</td>
     <td style="text-align:right"><label style="font-size:13px; font-weight:bold">Rp. <?php echo number_format($total,0,'.','.'); ?></label></td>
   </tr>
 </table>

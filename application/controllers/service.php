@@ -22,8 +22,7 @@ function view_service(){
 		$offset = $page;
 endif;
         $data['title']='list Service';
-		$data['scrumb_name']='Data Service';
-		$data['scrumb']='service/view_service';
+		$data['link']='<a href="'.base_url().'service/view_service">Data Service</a>';
 		$data['list']=$this->model_app->getdata('ms_service',"order by svCode ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_service',"order by svCode ASC");
         					//create for pagination		

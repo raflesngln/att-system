@@ -22,8 +22,7 @@ function view_commodity(){
 		$offset = $page;
 		endif;
         $data['title']='list commodity';
-		$data['scrumb_name']='Data commodity';
-		$data['scrumb']='commodity/view_commodity';
+		$data['link']='<a href="'.base_url().'commodity/view_commodity">Data commodity</a>';
 		$data['list']=$this->model_app->getdata('ms_commodity',"order by CommCode ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_commodity a',"order by CommCode ASC");
         	//create for pagination		
@@ -81,8 +80,7 @@ $this->form_validation->set_rules('code','code','required|trim|xss_clean');
 		$offset = $page;
 		endif;
         $data['title']='list commodity';
-		$data['scrumb_name']='Data commodity';
-		$data['scrumb']='commodity/view_commodity';
+		$data['link']='<a href="'.base_url().'commodity/view_commodity">Data commodity</a>';
 		$data['message']=$message;
 		$data['clas']=$clas;
 		$data['list']=$this->model_app->getdata('ms_commodity',"order by CommCode ASC LIMIT $offset,$limit");
@@ -161,8 +159,7 @@ function search_commodity(){
 		endif;	
 		
         $data['title']='list commodity';
-		$data['scrumb_name']='Data commodity';
-		$data['scrumb']='commodity/view_commodity';
+		$data['link']='<a href="'.base_url().'commodity/view_commodity">Data commodity</a>';
 		$data['list']=$this->model_app->getdata('ms_commodity',"where Name like '%$cari%' OR CommCode like '%$cari%' order by CommCode ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_commodity a',"where Name like '%$cari%' OR CommCode like '%$cari%' order by CommCode ASC");
         					//create for pagination		

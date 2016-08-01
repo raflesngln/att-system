@@ -310,8 +310,9 @@ $("#nama").mousedown(function(){
       </div>
 </div>
 
-                        <label class="col-sm-4 control-label">  Status</label>
-                        <div class="col-sm-8" style="z-index:-1">
+
+<label class="col-sm-4 control-label">  Status</label>
+                        <div class="col-sm-8" style="z-index:10">
                           <p>
                             <label>
                               <input type="checkbox" name="isCnee" value="1" id="isCnee" class="ace-checkbox-2" checked="checked" />
@@ -324,9 +325,10 @@ $("#nama").mousedown(function(){
                             <label>
                               <input type="checkbox" name="isAgent" value="1" id="isAgent" class="ace-checkbox-2"/>
                              <span class="lbl-check"> Is Agent</span></label>
-                            <br />
                           </p>
-    </div>
+                          <p><br />
+                          </p>
+      </div>
 </div>
 <br /><br />
 

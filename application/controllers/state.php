@@ -22,8 +22,7 @@ function view_state(){
 		$offset = $page;
 		endif;
         $data['title']='list state';
-		$data['scrumb_name']='Data state';
-		$data['scrumb']='state/view_state';
+		$data['link']='<a href="'.base_url().'state/view_state">Data state</a>';
 		$data['list']=$this->model_app->getdata('ms_state',"order by StateCode ASC LIMIT $offset,$limit");
 		$data['country']=$this->model_app->getdata('ms_country',"order by CountryName");
 		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_state',"order by StateCode ASC");
@@ -83,8 +82,7 @@ $this->form_validation->set_rules('StateCode','StateCode','required|trim|xss_cle
 		$offset = $page;
 		endif;
         $data['title']='list state';
-		$data['scrumb_name']='Data state';
-		$data['scrumb']='state/view_state';
+		$data['link']='<a href="'.base_url().'state/view_state">Data state</a>';
 		$data['message']=$message;
 		$data['clas']=$clas;
 		$data['list']=$this->model_app->getdata('ms_state',"order by StateCode ASC LIMIT $offset,$limit");
@@ -153,8 +151,7 @@ function search_state(){
 		$offset = $page;
 		endif;	
         $data['title']='list State';
-		$data['scrumb_name']='Data State';
-		$data['scrumb']='state/view_state';
+		$data['link']='<a href="'.base_url().'state/view_state">Data State</a>';
 		$data['list']=$this->model_app->getdata('ms_state',"WHERE StateName LIKE '$cari%' order by StateName ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_state',"WHERE StateName LIKE '$cari%' order by StateName ASC");
 		    					//create for pagination		

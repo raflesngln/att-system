@@ -153,7 +153,7 @@ p{ margin-top:-8px}
 </div>
 
 <div class="col-sm-12 text center" style="margin-top:10px; text-align:center">
-<a href="javascript:printDiv('box');"><button class="btn btn-primary btn-app"><i class="fa fa-print fa-2x"></i> PRINT SOA</button></a>
+<a href="javascript:printDiv('box');"><button class="btn btn-primary btn-app"><i class="fa fa-print "></i> PRINT SOA</button></a>
 </div>
 
 <textarea id="printing-css" style="display:none;">.no-print{display:none}</textarea>

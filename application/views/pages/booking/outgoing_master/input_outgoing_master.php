@@ -8,8 +8,9 @@
 <script type='text/javascript' src='<?php echo base_url();?>asset/jquery_ui/jquery.autocomplete.js'></script>
 <script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
 
-<!-- <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/base/jquery-ui.css" type="text/css" media="all" />
--->
+ <!-- for select2 combo search mode -->
+ <link href="<?php echo base_url();?>asset/select2/css/select2.css" rel="stylesheet" />
+<script src="<?php echo base_url();?>asset/select2/js/select2.min.js"></script>
     
       <style>
         /* Autocomplete
@@ -416,7 +417,7 @@ $("#idconsigne").click(function(){
          
            <label class="col-sm-4"> Origin<sup class="must"> *</sup></label> 
           <div class="col-sm-7">
-            <select name="origin" id="origin" class="form-control" required="required" onChange="return getflight()">
+            <select name="origin" id="origin" class="form-control select2" required="required" onChange="return getflight()">
               <option value="">Choose Origin</option>
               <?php foreach ($city as $ct) {
           ?>
@@ -426,7 +427,7 @@ $("#idconsigne").click(function(){
           </div>
            <label class="col-sm-4"> Destination<sup class="must"> *</sup></label> 
           <div class="col-sm-7">
-            <select name="desti" id="desti" class="form-control" required="required" onChange="return getflight()">
+            <select name="desti" id="desti" class="form-control select2" required="required" onChange="return getflight()">
               <option value="">Choose Destination</option>
               <?php foreach ($city as $ct) {
           ?>

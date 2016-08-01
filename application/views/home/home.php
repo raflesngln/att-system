@@ -50,6 +50,13 @@
   
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <style>
+.select2{
+	width:99%;
+	line-height:35px;
+	margin-top:3px;
+	margin-bottom:3px;
+}
+
 	.bigger{color:#040AF7;
 	}
 .must{
@@ -321,7 +328,8 @@ return true;
                         <li> <a href="<?php echo base_url();?>master/view_disc"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-star-half-full"></i> &nbsp; Discount</a></li>
                         <li> <a href="<?php echo base_url();?>service/view_service"> <i class="icon-double-angle-right"></i><i class="fa fa-coffee"></i> &nbsp; Service</a></li>
  						<li> <a href="<?php echo base_url();?>commodity/view_commodity"> <i class="icon-double-angle-right"></i><i class="fa fa-diamond"></i> &nbsp; Commodity</a></li>
-						<li> <a href="<?php echo base_url();?>charges/view_charges"> <i class="fa fa-hourglass-start bigger160"></i>&nbsp; Charges</a></li>
+						<li> <a href="<?php echo base_url();?>charge"> <i class="fa fa-hourglass-start bigger160"></i>&nbsp; Charge</a></li>
+ 				
 						<li> <a href="<?php echo base_url();?>currency/view_currency"> <i class="fa fa-dollar bigger160"></i>&nbsp; Curcrency</a></li>
 						<li> <a href="<?php echo base_url();?>payment_type/view_payment_type"> <i class="fa fa-credit-card bigger160"></i>&nbsp; Payment Type</a></li>
                       </ul>
@@ -358,13 +366,13 @@ return true;
 				  </li>
 					<li> <a href="#" class="dropdown-toggle"> <span class="glyphicon glyphicon-link" aria-hidden="true"></span> <span class="menu-text"> Relation Port </span> <b class="arrow icon-angle-down"></b> </a>
                       <ul class="submenu">
-                        <li> <a href="<?php echo base_url();?>ms_organitation/view_organitation"> <i class="icon-double-angle-right"></i> </i>
-		<i class="fa fa-opencart"></i> &nbsp; Organitation </a> </li>
-                        <li> <a href="<?php echo base_url();?>ms_port/view_port"> <i class="icon-double-angle-right"></i> </i>
-		<i class="fa fa-opencart"></i> &nbsp; Port </a> </li>
+                        <li> <a href="<?php echo base_url();?>ms_organitation/view_organitation">
+		<i class="fa fa-universal-access"></i> &nbsp; Organitation </a> </li>
+                        <li> <a href="<?php echo base_url();?>ms_port/view_port">
+		<i class="fa fa-crosshairs"></i> &nbsp; Port </a> </li>
         
-                        <li> <a href="<?php echo base_url();?>customer/view_customer"> <i class="icon-double-angle-right"></i> </i>
-		<i class="fa fa-opencart"></i> &nbsp; Customers </a> </li>
+                        <li> <a href="<?php echo base_url();?>customer/view_customer">  </i>
+		<i class="fa fa-street-view"></i> &nbsp; Customers </a> </li>
                           <li> <a href="<?php echo base_url();?>vendor/view_vendor"> <i class="icon-double-angle-right"></i> </i>
 		<i class="fa fa-cubes"></i> &nbsp; Vendor</a></li>
                       </ul>
@@ -380,20 +388,20 @@ return true;
          <li> <a href="<?php echo base_url();?>transaction/booking_list"> <i class="icon-double-angle-right"></i> </i><i class="icon icon-file-text bigger-120"></i> &nbsp; Booking List</a></li>
 		 </ul>
 	  </li>
-	  <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-mail-reply bigger-140" aria-hidden="true"></i> <span class="menu-text">&nbsp;Incoming </span> <b class="arrow icon-angle-down"></b> </a>
+	  <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-download bigger-140" aria-hidden="true"></i> <span class="menu-text">&nbsp;Incoming </span> <b class="arrow icon-angle-down"></b> </a>
         <ul class="submenu">
-          <li> <a href="<?php echo base_url();?>transaction/domestic_incoming_master"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-file-archive-o bigger-120"></i> &nbsp;Incoming-Master</a></li>
- 		<li> <a href="<?php echo base_url();?>transaction/domestic_incoming_house"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Incoming-House</a></li>
+         
+ 		<li> <a href="<?php echo base_url();?>incoming_house"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Incoming-House</a></li>
  		<li> <a href="<?php echo base_url();?>transaction/incoming_consolidation"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-clone bigger-120"></i> &nbsp;Consolidation</a></li>
         </ul>
 	  </li>
-	  <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-mail-forward bigger-140" aria-hidden="true"></i> <span class="menu-text">&nbsp;Outgoing </span> <b class="arrow icon-angle-down"></b> </a>
+	  <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-upload bigger-140" aria-hidden="true"></i> <span class="menu-text">&nbsp;Outgoing </span> <b class="arrow icon-angle-down"></b> </a>
         <ul class="submenu">
 
-<li> <a href="<?php echo base_url();?>transaction/domestic_outgoing_house"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Outgoing-House</a></li>
-         <li> <a href="<?php echo base_url();?>transaction/domestic_outgoing_master"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-file-archive-o bigger-120"></i> &nbsp;Outgoing-Master</a></li>
+<li> <a href="<?php echo base_url();?>outgoing_house"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Outgoing-House</a></li>
+         <li> <a href="<?php echo base_url();?>outgoing_master"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-file-archive-o bigger-120"></i> &nbsp;Outgoing-Master</a></li>
 
-		<li> <a href="<?php echo base_url();?>transaction/outgoing_consolidation"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-clone bigger-120"></i> &nbsp;Consolidation</a></li>
+		<li> <a href="<?php echo base_url();?>consol"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-clone bigger-120"></i> &nbsp;Consolidation</a></li>
 
 <li> <a href="<?php echo base_url();?>cargo_release"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> &nbsp;Cargo Release</a></li>
  <li> <a href="<?php echo base_url();?>transaction/soa"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-calendar-check-o bigger-120"></i> SOA</a></li>
@@ -407,11 +415,13 @@ return true;
  <li> <label class="label label-large label-purple"> FINANCE</label></li>
        <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-dollar bigger-150" aria-hidden="true"></i> <span class="menu-text">&nbsp;Finance </span> <b class="arrow icon-angle-down"></b> </a>
         <ul class="submenu">
-         <li><a href="<?php echo base_url();?>transaction/Payment"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-arrow-circle-o-left bigger-140"></i> Cash / Bank in </a> </li>
-         <li><a href="<?php echo base_url();?>Payment/payment_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-arrow-circle-o-left bigger-140"></i> &nbsp; Payment Request </a> </li>
-         <li> <a href="<?php echo base_url();?>Payment/settlement_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-info-circle  bigger-140"></i> &nbsp; Sentlement Req</a></li>
+         <li><a href="<?php echo base_url();?>payment"> <i class="fa fa-archive bigger-140"></i> Cash / Bank in </a> </li>
+         <li><a href="<?php echo base_url();?>payment/deposito"> <i class="fa fa-money bigger-140"></i> </i> &nbsp; Deposito </a> </li>
+         <li><a href="<?php echo base_url();?>payment/journal"> <i class="fa fa-book bigger-140"></i> </i> &nbsp; Journal </a> </li>
+         <li><a href="<?php echo base_url();?>payment/payment_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-arrow-circle-o-left bigger-140"></i> &nbsp; Payment Request </a> </li>
+         <li> <a href="<?php echo base_url();?>payment/settlement_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-info-circle  bigger-140"></i> &nbsp; Sentlement Req</a></li>
 
-         <li><a href="<?php echo base_url();?>Payment_report"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-line-chart bigger-140"></i> Report </a> </li>
+         <li><a href="<?php echo base_url();?>payment_report"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-line-chart bigger-140"></i> Report </a> </li>
 		 </ul>
 	  </li>
 	  
@@ -435,14 +445,7 @@ return true;
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-						
-							<a href="<?php echo base_url();?><?php echo $scrumb;?>"><?php echo isset($scrumb_name)?$scrumb_name:'';?></a>
-
-							<span class="divider">
-								<i class="icon-angle-right arrow-icon"></i>
-							</span>
-						
-						<?php echo isset($scrumb_name)?$scrumb_name:'';?>
+<?php echo $link;?>
 					</ul><!--.breadcrumb-->
 
 					<div class="nav-search" id="nav-search">
@@ -450,8 +453,8 @@ return true;
 					</div><!--#nav-search-->
 				</div>
 
-				<div class="container" >
-					<div class="row">
+				<div class="container">
+					<div class="row" >
 						<div class="span12">
 
 							<!--PAGE CONTENT BEGINS-->
@@ -513,6 +516,11 @@ return true;
 		<script src="<?php echo base_url();?>asset/js/ace-elements.min.js" type="text/javascript"></script>
 		<script src="<?php echo base_url();?>asset/js/ace.min.js"></script>
 
-		<!--inline scripts related to this page-->
+
+		<!--For select/combo search methode-->
+        <script>
+		//for select input 		
+$(".select2").select2();
+		</script>
 	</body>
 </html>

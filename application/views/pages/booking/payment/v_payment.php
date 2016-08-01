@@ -127,7 +127,7 @@ function toRp(angka){
 											<li>
 												<a data-toggle="tab" href="#profile">
   <i class="green fa fa-list bigger-110"></i>
-		List Payment
+		Payment by House
 		
 												</a>
 											</li>
@@ -135,7 +135,7 @@ function toRp(angka){
 											<li>
 												<a data-toggle="tab" href="#transaksi">
   <i class="green fa fa-list bigger-110"></i>
-		List Income
+		List Payment
 		
 												</a>
 											</li>

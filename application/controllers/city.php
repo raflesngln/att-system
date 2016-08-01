@@ -21,8 +21,7 @@ function view_city(){
 		$offset = $page;
 		endif;
 		$data['title']='list City';
-		$data['scrumb_name']='Data City';
-		$data['scrumb']='city/view_city';
+		$data['link']='<a href="'.base_url().'city/view_city">Data City</a>';
 		$data['country']=$this->model_app->getdata('ms_country',"");
 		$data['state']=$this->model_app->getdata('ms_state',"");
 		$data['list']=$this->model_app->getdatapaging("a.CityCode,a.CityIATACode,a.CityName,a.State,b.CountryCode,b.CountryName,c.StateCode,c.StateName",

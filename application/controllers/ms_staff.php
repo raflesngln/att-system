@@ -16,9 +16,7 @@ class Ms_staff extends CI_Controller {
 	public function index()
 	{  
        $data['title']='list Staff';
-		$data['scrumb_name']='Data ms_staff';
-	   $data['scrumb']='ms_staff';
-		
+		$data['link']='<a href="'.base_url().'ms_staff">Data ms_staff</a>';
 		$data['view']='pages/staff/v_staff';
         $this->load->view('home/home',$data);
 	}

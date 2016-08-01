@@ -16,12 +16,35 @@ class Consol extends CI_Controller {
 
 	public function index()
 	{  
-       $data['title']='list Master';
-		$data['scrumb_name']='Data master';
-		$data['scrumb']='cdatamaster';
-		
-		$data['view']='pages/customer/bank/ms_bank';
-        $this->load->view('home/home',$data);
+$nosmu=$this->input->post('nosmu');
+		$tgl=date('Y-m-d');
+        $data = array(
+            'title'=>'outgoing_consolidation',
+           'link'=>'<a href="'.base_url().'consol">Outgoing Consolidation</a>',
+		'houseconsol'=>$this->model_app->getdatapaging("a.ETD,a.HouseNo,a.Service,a.Consolidation,a.CWT,a.PCS,a.Destination as portcode,b.PortName as desti","outgoing_house a",
+			 "LEFT JOIN ms_port b ON a.Destination=b.PortCode WHERE a.Consolidation IN(0,1,2,3) GROUP BY a.HouseNo
+			 "),
+		'masterconsol'=>$this->model_app->getdatapaging("a.ETD,a.NoSMU,a.Service,a.CWT,a.PCS,a.Destination as portcode,b.PortName as desti","outgoing_master a",
+			 "LEFT JOIN ms_port b ON a.Destination=b.PortCode WHERE a.StatusProses in(1,2,3) AND a.Service IN('PORT TO DOOR','DOOR TO DOOR') GROUP BY a.NoSMU
+			 "),
+		'masterdirect'=>$this->model_app->getdatapaging("a.ETD,a.NoSMU,a.Service,a.CWT,a.PCS,a.Destination as portcode,b.PortName as desti","outgoing_master a",
+			 "LEFT JOIN ms_port b ON a.Destination=b.PortCode WHERE a.StatusProses in(1,2,3) AND a.Service IN('DOOR TO PORT','PORT TO PORT') GROUP BY a.NoSMU
+			 "),
+			'desti'=>$this->model_app->getdatapaging("a.NoSMU,a.Commodity,a.Destination as portcode,b.PortName as desti","outgoing_master a",
+			 "INNER JOIN ms_port b ON a.Destination=b.PortCode 
+			  LEFT JOIN outgoing_house c on a.Destination=c.Destination GROUP BY b.PortName
+			 "),
+			 
+'freehouse'=>$this->model_app->getdatapaging("a.HouseNo,a.CodeShipper,a.Commodity,a.PCS,a.ConsoledPCS,a.RemainPCS,a.ConsoledCWT,a.RemainCWT,a.CWT,b.CustName as sender,c.CustName as receiver",
+"outgoing_house a",
+			   "LEFT JOIN ms_customer b on b.CustCode=a.Shipper
+			     LEFT JOIN ms_customer c on c.CustCode=a.Consigne
+				 WHERE a.HouseStatus ='0' AND a.RemainCWT >0 AND LEFT(a.ETD,10)='$tgl' AND a.Consolidation='0' ORDER BY a.CWT DESC"),
+			//'added'=>$this->model_app->getdata('consol',"WHERE MasterNo ='$nosmu' "),
+            'view'=>'pages/booking/consol/v_consol',
+        );  
+      $this->load->view('home/home',$data);
+
 	}
 
 public function list_smu_direct()

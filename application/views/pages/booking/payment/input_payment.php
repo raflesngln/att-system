@@ -1,3 +1,13 @@
+ <style>
+ .select2{
+	 padding-bottom:3px;
+	 padding-top:2px;
+ }
+ </style>
+ 
+ <link href="<?php echo base_url();?>asset/select2/css/select2.min.css" rel="stylesheet" />
+<script src="<?php echo base_url();?>asset/select2/js/select2.min.js"></script>
+        
   <script>
   $(function() {
 	$("#periode1").datepicker({
@@ -24,7 +34,7 @@
       
 
 <br style="clear:both">
-<form method="post" action="<?php echo base_url();?>transaction/process_payment" id="formpayment" onsubmit="return konfirmasi()">
+<form method="post" action="<?php echo base_url();?>payment/process_payment" id="myform" onsubmit="return konfirmasi()" class="myform"  name="myform" target="new">
 <div class="container">
   <div class="row">
                <!--LEFT INPUT-->
@@ -46,7 +56,7 @@
  <div class="form-group">             
           <label class="col-sm-3"> Customers<sup class="must"> *</sup></label>
           <div class="col-sm-7">
-           <select name="paymentcustomers" id="paymentcustomers" class="form-control" required="required" onchange="return filter_payment()">
+           <select name="paymentcustomers" id="paymentcustomers" class="form-control select2" required="required" onchange="return filter_payment()">
           <option value="">Choose Customer</option>
           <?php foreach ($customer as $cust) {
           ?>
@@ -76,7 +86,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
             <input name="payment" type="text" class="form-control"  id="payment" required="required" onkeyup="return countBalance()" onkeypress="return isNumberKey(event)" value="0" />
          
           </div>
-          <label class="col-sm-12 text-center" id="labelpay"></label>
+ <label class="col-sm-12 text-center" id="labelpay"></label>
 </div>
 
 
@@ -112,10 +122,13 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
 <div class="form-group"> 
           <label class="col-sm-3"> Account<sup class="must"> *</sup></label>
           <div class="col-sm-7">
-            <select name="accountheader[]" id="accountheader[]" class="form-control" required="required">
+            <select name="accountheader" id="accountheader" class="form-control select2" required="required">
       <option value="">Select account</option>
-      <option value="">Cash in Bank BCA</option>
-      <option value="">Cash in Bank Mandiri</option>
+          <?php foreach ($account_header as $acc) {
+          ?>
+          <option value="<?php echo $acc->kdac;?>"><?php echo $acc->nmac.' ('.$acc->kdac.')';?></option>
+          <?php } ?>
+          </select>
     </select>
         
           </div>
@@ -192,15 +205,13 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
                                         </div>
                                     </div>
                      
-<div class="cpl-sm-12"><h2>&nbsp;</h2>
+<div class="cpl-sm-12">
                                 
                                   <div class="row">
                                       <div class="col-md-4"></div>
-                                        <div class="col-md-2">
-                                            <a class="btn btn-danger btn-addnew" href="<?php echo base_url();?>transaction/domesctic_outgoing_house" data-toggle="modal" title="Add"><i class="icon-reply bigger-120 icons"></i>Cancel </a>
-                                        </div>
+                                       
                                          <div class="col-md-2">
-                                             <button class="btn btn-primary"><i class="icon-refresh bigger-160 icons">&nbsp;</i> Process Payment</button>
+           <button style="display:none" id="btnProcess" class="btn btn-primary"><i class="icon-refresh bigger-160 icons">&nbsp;</i> Process Payment</button>
                                         </div>  </div>     
               </div>
           </div>
@@ -344,6 +355,12 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
 <!--adding form-->
 
 <script type="text/javascript">	
+$("#myform").submit(function(e) {
+    reloadIncome();
+	 reloadPayment();
+});
+
+
 function toRp(angka){
   //var angka =document.getElementById("rp").value;
     var rev     = parseFloat(angka, 10).toString().split('').reverse().join('');
@@ -387,6 +404,8 @@ function filter_payment(){
 
                 success: function(data){
 					swal.close();
+					$("#table_payment").show();
+					$("#btnProcess").show();
                     $('#table_payment').html(data);
 					countBalance();
                 }
@@ -394,6 +413,7 @@ function filter_payment(){
 }
 
 function konfirmasi(){
+	 
 	var payment=document.getElementById("payment").value;
     var a=confirm("Are You Sure To Processing Data ?");
 	if(a===true){
@@ -403,9 +423,11 @@ function konfirmasi(){
 	swal("Warning !","Please Select ( Check ) house and Payment value grather than 0 ","error");
 	$("#payment").focus();
 	return false;
-	
 	} else {
 	  swal.close();	
+	 $("#table_payment").hide();
+	 $("#btnProcess").hide();
+	 
 	}
 		} else {
 	
@@ -481,5 +503,8 @@ function countBalance() {
   ubahRP();
    
 }
-			
+
+//for select input 		
+$(".select2").select2();
+	
 </script>

@@ -20,8 +20,7 @@ function view_currency(){
 		$offset = $page;
 		endif;
         $data['title']='list currency';
-		$data['scrumb_name']='Data currency';
-		$data['scrumb']='currency/view_currency';
+		$data['link']='<a href="'.base_url().'currency/view_currency">Data currency</a>';
 		$data['list']=$this->model_app->getdata('ms_currency',"order by currCode ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_currency a',"order by currCode ASC");
         	//create for pagination		
@@ -80,10 +79,9 @@ $this->form_validation->set_rules('code','code','required|trim|xss_clean');
 		$offset = $page;
 		endif;
         $data['title']='list currency';
-		$data['scrumb_name']='Data currency';
+		$data['link']='<a href="'.base_url().'currency/view_currency">Data currency</a>';
 		$data['message']=$message;
 		$data['clas']=$clas;
-		$data['scrumb']='currency/view_currency';
 		$data['list']=$this->model_app->getdata('ms_currency',"order by currCode ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_currency a',"order by currCode ASC");
         	//create for pagination		

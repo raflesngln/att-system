@@ -21,8 +21,7 @@ function view_organitation(){
 		$offset = $page;
 		endif;
 		$data['title']='list organitation';
-		$data['scrumb_name']='Data organitation';
-		$data['scrumb']='ms_organitation/view_organitation';
+		$data['link']='<a href="'.base_url().'ms_organitation/view_organitation">Data organitation</a>';
 		$data['list']=$this->model_app->getdatapaging("*",
 		"ms_organitation a",
 		"order by a.OrgCode ASC LIMIT $offset,$limit");
@@ -138,8 +137,7 @@ function search_city(){
 		$offset = $page;
 		endif;	
 	    $data['title']='list City';
-		$data['scrumb_name']='Data City';
-		$data['scrumb']='master/view_city';
+		$data['link']='<a href="'.base_url().'master/view_city">Data City</a>';
 		$data['country']=$this->model_app->getdata('ms_country',"");
 		$data['state']=$this->model_app->getdata('ms_state',"");
 $data['list']=$this->model_app->getdatapaging("a.OrgCode,a.OrgName,a.State,b.CountryCode,b.CountryName,c.StateCode,c.StateName",

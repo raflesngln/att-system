@@ -20,8 +20,7 @@ function view_payment_type(){
 		$offset = $page;
 		endif;
         $data['title']='list payment_type';
-		$data['scrumb_name']='Data payment_type';
-		$data['scrumb']='payment_type/view_payment_type';
+		$data['link']='<a href="'.base_url().'payment_type/view_payment_type">Data payment_type</a>';
 		$data['list']=$this->model_app->getdata('ms_payment_type',"order by PayCode ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_payment_type a',"order by PayCode ASC");
         	//create for pagination		
@@ -80,10 +79,9 @@ $this->form_validation->set_rules('code','code','required|trim|xss_clean');
 		$offset = $page;
 		endif;
         $data['title']='list payment_type';
-		$data['scrumb_name']='Data payment_type';
+		$data['link']='<a href="'.base_url().'payment_type/view_payment_type">Data payment_type</a>';
 		$data['message']=$message;
 		$data['clas']=$clas;
-		$data['scrumb']='payment_type/view_payment_type';
 		$data['list']=$this->model_app->getdata('ms_payment_type',"order by PayCode ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_payment_type a',"order by PayCode ASC");
         	//create for pagination		
@@ -158,8 +156,7 @@ function search_payment_type(){
 		endif;	
 		
         $data['title']='list payment_type';
-		$data['scrumb_name']='Data payment_type';
-		$data['scrumb']='payment_type/view_payment_type';
+		$data['link']='<a href="'.base_url().'payment_type/view_payment_type">Data payment_type</a>';
 		$data['list']=$this->model_app->getdata('ms_payment_type',"where PayName like '%$cari%' OR Section like '%$cari%' order by PayCode ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_payment_type a',"where PayName like '%$cari%' OR Section like '%$cari%' order by PayCode ASC");
         					//create for pagination		

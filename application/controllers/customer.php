@@ -15,8 +15,7 @@ function add_customer(){
 		 
 		//$data['kd_unik']=$this->model_app->generateNo("ms_customer","CustCode","CUST");
 		$data['title']='add_customer';
-		$data['scrumb_name']='add Customer';
-		$data['scrumb']='customer/add_customer';
+		$data['link']='<a href="'.base_url().'customer/view_customer">Customers &nbsp; / &nbsp; <a href="'.base_url().'customer/add_customer"> Add Customer</a>';
 		$data['country']=$this->model_app->getdata('ms_country',"");
 		$data['state']=$this->model_app->getdata('ms_state',"");
 		$data['city']=$this->model_app->getdata('ms_city',"");
@@ -38,8 +37,7 @@ function edit_customer(){
 		 $kode=$this->uri->segment(3);
 		 
 		 $data['title']='edit_customer';
-		$data['scrumb_name']='edit Customer';
-		$data['scrumb']='customer/edit_customer';
+		$data['link']='<a href="'.base_url().'customer/edit_customer">edit Customer</a>';
 		$data['country']=$this->model_app->getdata('ms_country',"");
 		$data['state']=$this->model_app->getdata('ms_state',"");
 		$data['city']=$this->model_app->getdata('ms_city',"");
@@ -81,8 +79,7 @@ function edit_customer(){
 			'city'=>$this->model_app->getdata('ms_city',""),
         );
         $data['title']='list_customer';
-		$data['scrumb_name']='Data Customers';
-		$data['scrumb']='customer/view_customer';
+		$data['link']='<a href="'.base_url().'customer/view_customer">Data Customers</a>';
 		$data['type']=$this->model_app->getdatapaging('*',
 		'ms_address_type a',"order by a.AddressTypeName");
 		$data['contact']=$this->model_app->getdatapaging('*',
@@ -325,8 +322,7 @@ $this->form_validation->set_rules('initial','initial','required|trim|xss_clean')
 		$offset = $page;
 		endif;
         $data['title']='list customer';
-		$data['scrumb_name']='Data customer';
-		$data['scrumb']='customer/view_customer';
+		$data['link']='<a href="'.base_url().'customer/view_customer">Data customer</a>';
 		$data['message']=$message;
 		$data['clas']=$clas;
 		$data['list']=$this->model_app->getdatapaging('a.Fax,a.email,a.isAgent,a.isActive,a.isShipper,a.isCnee,a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,
@@ -464,8 +460,8 @@ function search_customer(){
 			'city'=>$this->model_app->getdata('ms_city',""),
         );
         $data['title']='list_customer';
-		$data['scrumb_name']='Data Customers';
-		$data['scrumb']='master/view_customer';
+		$data['link']='<a href="'.base_url().'master/view_customer">Data Customers</a>';
+		
 		$data['list']=$this->model_app->getdatapaging('a.Fax,a.email,a.isAgent,a.isActive,a.isShipper,a.isCnee,a.PIC01,a.PIC02,a.HPPIC01,a.HPPIC02,a.CreditLimit,
 		a.TermsPayment,a.PostalCode,a.CustCode,a.custName,a.Remarks,a.NPWPAddress,
 		a.Address,a.Phone,a.Email,a.CreditLimit,a.Deposit,a.NPWP,

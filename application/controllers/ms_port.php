@@ -21,8 +21,7 @@ function view_port(){
 		$offset = $page;
 		endif;
 		$data['title']='list port';
-		$data['scrumb_name']='Data port';
-		$data['scrumb']='ms_port/view_port';
+		$data['link']='<a href="'.base_url().'ms_port/view_port">Data port</a>';
 		$data['country']=$this->model_app->getdata('ms_country',"");
 		$data['city']=$this->model_app->getdata('ms_city',"");
 		$data['organitation']=$this->model_app->getdata('ms_organitation',"");
@@ -141,8 +140,7 @@ function search_city(){
 		$offset = $page;
 		endif;	
 	    $data['title']='list City';
-		$data['scrumb_name']='Data City';
-		$data['scrumb']='master/view_city';
+		$data['link']='<a href="'.base_url().'master/view_city">Data City</a>';
 		$data['country']=$this->model_app->getdata('ms_country',"");
 		$data['state']=$this->model_app->getdata('ms_state',"");
 $data['list']=$this->model_app->getdatapaging("a.CityCode,a.CityName,a.State,b.CountryCode,b.CountryName,c.StateCode,c.StateName",

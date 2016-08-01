@@ -41,6 +41,7 @@
 			{ "data": "PaymentValue" },
 			{ "data": "Balance"},
 			{ "data": "status" },
+			{ "data": "print" },
             ]
           });  
     
@@ -95,7 +96,7 @@ function edit_closed(id)
     });
     }
 
-    function reloadClosedsmu()
+    function reloadPayment()
     {
       list_tabel.ajax.reload(null,false); //reload datatable ajax 
     }
@@ -122,7 +123,7 @@ function update_cwt_closed()
             {
                //if success close modal and reload ajax table
                $('#modal_closed').modal('hide');
-               reloadClosedsmu();
+               reloadPayment();
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -147,7 +148,7 @@ function delete_person5(id)
             {
                //if success reload ajax table
                $('#modal_closed').modal('hide');
-               reloadClosedsmu();
+               reloadPayment();
             },
             error: function (jqXHR, textStatus, errorThrown)
             {
@@ -164,7 +165,7 @@ function delete_person5(id)
 <div class="container">
 <div class="info-box">
      <div class="col-sm-3 col-xs-4"><i class="fa fa-th-list"></i></div>
-     <div class="col-sm-9 col-xs-8">List of Payment House</div>
+     <div class="col-sm-9 col-xs-8">Payment by House</div>
 </div>
 </div>
 </div>
@@ -242,6 +243,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
           <th width="9%" >Pay</th>
           <th width="14%">Balance</th>
           <th width="14%">Status</th>
+          <th width="14%">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -260,6 +262,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
           <th>Pay</th>
           <th>Balance</th>
           <th>Status</th>
+          <th>Action</th>
         </tr>
       </tfoot>
     </table>
@@ -269,7 +272,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
  <div class="col-sm-12 alert alert-warning green" style="margin-left:-23px;font-style:italic">
 <i class="icon-bullhorn green bigger-150">&raquo;</i>
 <strong> List of Payment </strong>
-<p>List untuk menampilkan history pembayaran terhadap house</p>
+<p>List untuk menampilkan Jurnal pembayaran terhadap House</p>
 
 
 </div>
@@ -343,15 +346,15 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
   
- <div class="modal fade" id="modalpaymenthouse" role="dialog">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
+ <div class="modal fade" id="modalpaymenthouse" role="dialog" >
+  <div class="modal-dialog modal-lg" >
+    <div class="modal-content" >
+      <div class="modal-header" >
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 class="modal-title"> Detail Payment House</h3>
+                <h3 class="modal-title"> Detail Payment Transaction</h3>
       </div>
       <div class="modal-body form">
-      <div id="tablepaymenthouse">
+      <div id="tablepaymenthouse" style="overflow:scroll; height:520px">
                      Detail
 
         </div>

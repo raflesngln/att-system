@@ -28,8 +28,7 @@ function view_user(){
 		$offset = $page;
 endif;
         $data['title']='list User';
-		$data['scrumb_name']='Data User';
-		$data['scrumb']='master/view_user';
+		$data['link']='<a href="'.base_url().'master/view_user">Data User</a>';
 		//$data['usercode']=$this->model_app->usercode();
 		$data['list']=$this->model_app->getdata('ms_user',"order by UserName ASC LIMIT $offset,$limit");
 		$data['user']=$this->model_app->getdatapaging('*','ms_user',"");
@@ -62,8 +61,7 @@ function view_disc(){
 		$offset = $page;
 endif;
         $data['title']='list Disc';
-		$data['scrumb_name']='Data Disc';
-		$data['scrumb']='master/view_disc';
+		$data['link']='<a href="'.base_url().'master/view_disc">Data Disc</a>';
 		$data['cust']=$this->model_app->getdata('ms_customer',"");
 		$data['service']=$this->model_app->getdata('ms_service',"");
 		$data['city']=$this->model_app->getdata('ms_port',"");
@@ -115,8 +113,7 @@ $page=$this->uri->segment(3);
 		$offset = $page;
 endif;
         $data['title']='list_customer';
-		$data['scrumb_name']='Data User';
-		$data['scrumb']='master/view_user';
+		$data['link']='<a href="'.base_url().'master/view_user">Data User</a>';
 		//$data['usercode']=$this->model_app->usercode();
 		$data['list']=$this->model_app->getdata('ms_user',"order by UserName ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel('*','ms_user',"order by UserName ASC");
@@ -174,8 +171,7 @@ $page=$this->uri->segment(3);
 		$offset = $page;
 endif;
         $data['title']='list disc';
-		$data['scrumb_name']='Data disc';
-		$data['scrumb']='master/view_disc';
+		$data['link']='<a href="'.base_url().'master/view_disc">Data disc</a>';
 		//$data['usercode']=$this->model_app->usercode();
 		$data['list']=$this->model_app->getdata('ms_disc',"order by Name ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel('ms_disc',"order by Name ASC");
@@ -299,8 +295,7 @@ $page=$this->uri->segment(3);
 		$offset = $page;
 endif;
         $data['title']='list_customer';
-		$data['scrumb_name']='Data User';
-		$data['scrumb']='master/view_user';
+		$data['link']='<a href="'.base_url().'master/view_user">Data User</a>';
 		//$data['usercode']=$this->model_app->usercode();
 		$data['list']=$this->model_app->getdata('ms_user',"order by UserName ASC LIMIT $offset,$limit");
 		$tot_hal = $this->model_app->hitung_isi_tabel('ms_user',"order by UserName ASC");
@@ -398,8 +393,7 @@ public function backup()
  function restoreDB(){
  	    $data=array(
  	    'title'=>'Restore Database',
-		'scrumb_name'=>'Restore Database',
-		'scrumb'=>'master/restoreDB',
+		'link'=>'<a href="'.base_url().'master/restoreDB">Restore Database</a>',
 		'view'=>'pages/backup/restore'
 		);
         $this->load->view('home/home',$data);
@@ -430,8 +424,7 @@ function restore(){
 			}
 		   $data=array(
 	 	    'title'=>'Restore Database',
-			'scrumb_name'=>'Restore Database',
-			'scrumb'=>'master/restoreDB',
+			'link'=>'<a href="'.base_url().'master/restoreDB">Restore Database</a>',
 			'message'=>$message,
 			'status'=>$status,
 			'view'=>'pages/backup/restore',
