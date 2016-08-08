@@ -77,7 +77,8 @@ function editFinal(id)
 			 $('[name="smu"]').val(data.NoSMU);
 			$('[name="cwt"]').val(data.CWT);
             $('[name="remarks"]').val(data.Remarks); 
-			$('[name="finalcwt"]').val(data.FinalCWT); 
+			$('[name="finalcwt"]').val(data.CWT); 
+			
             $('#modal_master_final').modal('show');
             $('.modal-title').text('Edit CWT Final');
 			document.getElementById("BankCode2").disabled=true;

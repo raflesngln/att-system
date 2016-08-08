@@ -45,11 +45,26 @@ class Transaction extends CI_Controller{
 	 */
 
     function getChargeOptional(){
-      $result=$this->model_app->getdatapaging("ChargeCode,ChargeName,ChargeDetails","ms_charge","WHERE DefaultCharge='0' AND HouseMethode='OUT' ORDER BY ChargeName");
+      $result=$this->model_app->getdatapaging("Reff_Account,ChargeCode,ChargeName,ChargeDetails","ms_charge","WHERE DefaultCharge='0' AND HouseMethode='OUT'  AND LEFT(ChargeCode,1)='8' AND MID(ChargeCode,2,1)='4'  ORDER BY ChargeName");
 	foreach($result as $list){
 		$row = array(
 				'ChargeCode' =>$list->ChargeCode,
 				'ChargeName' =>$list->ChargeName,
+				'Reff_Account' =>$list->Reff_Account,
+			);
+			$data[] = $row;
+		} 
+		echo json_encode($data);
+	}
+    function getAccountCharge(){
+	  
+	  $cargecode=$this->input->post('cargecode');
+      $result=$this->model_app->getdatapaging("Reff_Account,ChargeCode,ChargeName","ms_charge","WHERE ChargeCode='$cargecode'");
+	foreach($result as $list){
+		$row = array(
+				'ChargeCode' =>$list->ChargeCode,
+				'ChargeName' =>$list->ChargeName,
+				'Reff_Account'=>$list->Reff_Account
 			);
 			$data[] = $row;
 		} 
@@ -85,48 +100,12 @@ class Transaction extends CI_Controller{
 		$data['pesan']='data berhasil di load';
         $this->load->view('pages/booking/outgoing/detail_outgoing',$data);
 }
- function edit_outgoing_master(){
-        $idusr=$this->session->userdata('idusr');
-		$houseno=$this->uri->segment(3);
-        $data = array(
-            'title'=>'domesctic-outgoing-master',
-            'scrumb_name'=>'Domesctic outgoing master',
-            'scrumb'=>'transaction/domestic_outgoing_master',
-            'payment_type'=>$this->model_app->getdatapaging("PayCode,PayName","ms_payment_type","ORDER BY PayCode ASC"),
-            'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
-            'cnee'=>$this->model_app->getdata('ms_customer',"WHERE IsCnee ='1' ORDER BY CustCode Desc"),
-            'city'=>$this->model_app->getdatapaging("PortCode,PortName","ms_port","GROUP BY PortName"),
-            'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
-			'charge'=>$this->model_app->getdatapaging("*","ms_charge","WHERE DefaultCharge='0'"),
-			'airline'=>$this->model_app->getdatapaging("*","ms_airline","ORDER BY AirLineName"),
-			'chargeoptional'=>$this->model_app->getdatapaging("*","booking_charge a",
-			"INNER JOIN ms_charge b on a.CostID=b.ChargeCode 
-			 WHERE b.DefaultCharge='0' AND a.Reff='$houseno'"),
-			'airfreight'=>$this->model_app->getdatapaging("*","booking_charge a","INNER JOIN ms_charge b on a.CostID=b.ChargeCode WHERE a.Reff='$houseno' AND b.ChargeCode='1'"),
-			'cost_smu'=>$this->model_app->getdatapaging("*","booking_charge a","INNER JOIN ms_charge b on a.CostID=b.ChargeCode WHERE a.Reff='$houseno' AND b.ChargeCode='2'"),
-     'commodity'=>$this->model_app->getdatapaging("CommCode,CommName","ms_commodity","ORDER BY CommName ASC"),
-     
-	 'master'=>$this->model_app->getdatapaging("a.*,b.CustName as sender,b.Address as address1,b.Phone as phone1,c.Phone as phone2,c.Address as address2,c.CustName as receiver,d.PortName as ori,e.PortName as desti,f.AirLineName",
-	 "outgoing_master a", 
-	 "LEFT JOIN ms_customer b on a.Shipper=b.CustCode
-	 LEFT JOIN ms_customer c on a.Consigne=c.CustCode
-	 LEFT JOIN ms_port d on a.Origin=d.PortCode
-	 LEFT JOIN ms_port e on a.Destination=e.PortCode
-	 LEFT JOIN ms_airline f on a.Airlines=f.AirlineCode
-	 WHERE a.NoSMU='$houseno' ORDER BY a.NoSMU DESC"),
-			//'list_charges'=>$this->model_app->getdatapaging("*","booking_charges","WHERE HouseNo ='$houseno'"),
-			'items'=>$this->model_app->getdatapaging("*","booking_items","WHERE Reff ='$houseno'"),
-            'view'=>'pages/booking/outgoing_master/edit_outgoing_master',
-        );  
-      $this->load->view('home/home',$data);
-    }
  function edit_outgoing_house(){
         $idusr=$this->session->userdata('idusr');
 		$houseno=$this->uri->segment(3);
         $data = array(
             'title'=>'domesctic-outgoing-house',
-            'scrumb_name'=>'Domesctic outgoing house',
-            'scrumb'=>'transaction/domestic_outgoing_house',
+            'link'=>'<a href="'.base_url().'outgoing_house">Outgoing House</a> / Edit data ( '.$houseno.' )',
             'payment_type'=>$this->model_app->getdatapaging("PayCode,PayName","ms_payment_type","ORDER BY PayCode ASC"),
             'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
             'shipper'=>$this->model_app->getdata('ms_customer',"WHERE isShipper ='1' ORDER BY custCode Desc"),
@@ -897,9 +876,7 @@ function delete_outgoing_master(){
 		}
 	}	
    //     consolidation
-function outgoing_consolidation(){
-			  
-}
+
 function filter_consol(){
 		$tgl=$this->input->post('tgl');
 		$destination=$this->input->post('destination');
@@ -1246,108 +1223,6 @@ function geteta(){
     }  
 
 //=====================save cargo manifest ==========
- function insert_consol(){	
-
-	$nosmu=$this->input->post('nosmu');
-	$totcwt=$this->input->post('totcwt');
-	$totpcs=$this->input->post('totpcs');
-		
-	$delete=$this->model_app->delete_data('consol','MasterNo',$nosmu);
-	
-	//==== INSSERT CONSOL ==============//	
-	$house=$_POST['righthouse'];
-	foreach($house as $key => $val){
-   		$nohouse =$_POST['righthouse'][$key];
-		$cwt=$_POST['rightcwt'][$key];
-		$desc =$_POST['desc'][$key];
-		$cwt =$_POST['rightcwt'][$key];
-		$pcs =$_POST['rightpcs'][$key];
-		$commodity =$_POST['rightcommodity'][$key];
-			$newitem=array(
-			'MasterNo' =>$this->input ->post('nosmu'),
-			'FlightNo' =>$this->input ->post('flightid'),
-			'HouseNo'=>$nohouse, 
-			'ConsolDesc'=>'',
-			'CWT'=>$cwt,
-			'PCS'=>$pcs,
-			);	
-			$cekhouse=$this->model_app->getdata('outgoing_house',"WHERE HouseNo='$nohouse'");
-			foreach($cekhouse as $cek){
-				$oldcwt=$cek->CWT;
-				$oldpcs=$cek->PCS;
-				$consolcwt=$cek->ConsoledCWT;
-				$remaincwt=$cek->RemainCWT;
-				$consolpcs=$cek->ConsoledPCS;
-				$remainpcs=$cek->RemainPCS;
-				
-				$makscwt=$cwt >=$oldcwt?$oldcwt:$consolcwt+$cwt;
-				$makspcs=$cwt >=$oldpcs?$oldpcs:$consolpcs+$pcs;
-				$hasilcwt=$remaincwt<=0?'0':$remaincwt-$cwt;
-				$hasilpcs=$remainpcs<=0?'0':$remainpcs-$pcs;
-			$nomorconsol=($remaincwt-$cwt  <=0)?'2':'1';
-
-			$updatehouse=array(
-			'Consolidation' =>$nomorconsol,
-			'ConsoledCWT' =>$makscwt,
-			'RemainCWT' =>$hasilcwt,
-			'ConsoledPCS' =>$makspcs,
-			'RemainPCS' =>$hasilpcs,
-			);	
-			 $this->model_app->insert('consol',$newitem); 
-			 $this->model_app->update('outgoing_house','HouseNo',$nohouse,$updatehouse);
-		}
-	}
-	
-		$house2=$_POST['lefthouse'];
-		foreach($house2 as $key => $val){
-			$nohouse2 =$_POST['lefthouse'][$key];
-			$leftcwt =$_POST['leftcwt'][$key];
-			$leftconsoled=$_POST['leftconsoled'][$key];
-			$leftremain=$_POST['leftremain'][$key];
-			$leftconsoledpcs=$_POST['leftconsoledpcs'][$key];
-			$leftremainpcs=$_POST['leftremainpcs'][$key];
-			$cekhouse2=$this->model_app->getdata('outgoing_house',"WHERE HouseNo='$nohouse2'");
-			foreach($cekhouse2 as $row){
-				$cekcwt=$row->CWT;
-				$cekconsolcwt=$row->ConsoledCWT;
-				$cekconsolpcs=$row->ConsoledPCS;
-				$cekremaincwt=$row->RemainCWT;
-				$cekremainpcs=$row->RemainPCS;
-
-			if($leftcwt==$cekcwt){
-				$realremaincwt=$leftremain;
-				$realremainpcs=$leftremainpcs;
-				$realconsolcwt=$leftconsoled;
-				$realconsolpcs=$leftconsoledpcs;
-				$nomorconsol2='0';
-			} else {
-				$realremaincwt=$cekremaincwt+$leftremain;
-				$realremainpcs=$cekremainpcs+$leftremainpcs;
-				$realconsolcwt=$cekconsolcwt-$leftremain;
-				$realconsolpcs=$cekconsolpcs-$leftremainpcs;
-				$nomorconsol2='1';
-			}	
-			$updatehouse2=array(
-			'Consolidation' =>$nomorconsol2,
-			'ConsoledCWT' =>$realconsolcwt,
-			'ConsoledPCS' =>$realconsolpcs,
-			'RemainCWT' =>$realremaincwt,
-			'RemainPCS' =>$realremainpcs,
-			);
-			$this->model_app->update('outgoing_house','HouseNo',$nohouse2,$updatehouse2);
-		}
-	}
-	$updatesmu=array(
-		'StatusProses' =>2,
-		'CWT' =>$totcwt,
-		'PCS' =>$totpcs,
-		'Commodity' =>$commodity
-		);		
-		$this->model_app->update('outgoing_master','NoSMU',$nosmu,$updatesmu);
-		
-		redirect('transaction/outgoing_consolidation');
-}
-//=====================save cargo manifest ==========
  function edit_consol(){	
 	 $nosmu=$this->input->post('nosmu');
 	 $house=$this->input->post('house');
@@ -1389,62 +1264,7 @@ function geteta(){
       $this->load->view('pages/booking/consol/consol_replace',$data);
 	  			  
 	}
-//=====================save cargo manifest ==========
- function confirm_outgoing_master(){	
- 		$kodept=$this->session->userdata('company');
-		$getjob=$this->model_app->getJobMaster();
-		$getInvoice=$this->model_app->getInvoice();
-		$kodetrans=$this->model_app->getKodeTrans($kodept,'OM','Notrans','outgoing_master');
-		$NoSMU=$this->input ->post('prefixsmu').'-'.$this->input ->post('smu');
-		$etd=$this->input->post('etd');
-		
-	//----- SAVE OF OUT GOING Master --------------////
-	$insert=array(
-		'Notrans' =>$kodetrans,
-		'NoSMU' =>$NoSMU,
-		'JobNo' =>$getjob,
-		'BookingNo' =>$this->input->post('booking'),
-		'PayCode' =>$this->input->post('paymentype'),
-		'Service' =>$this->input->post('service'),
-		'Origin' =>$this->input->post('origin'),
-		'Destination' =>$this->input->post('desti'),
-		'ETD' =>date($etd),
-		'Shipper' =>$this->input->post('idsender'),
-		'Airlines' =>$this->input->post('airline'),
-		'FlightNumbDate1' =>$this->input->post('flightno1'),
-		'FlightNumbDate2' =>$this->input->post('flightno1'),
-		'FlightNumbDate3' =>$this->input->post('flightno1'),
-		'CodeShipper' =>$this->input->post('codeship'),
-		'Consigne' =>$this->input->post('idreceivement'),
-		'CodeConsigne' =>$this->input->post('codesigne'),
-		'Commodity' =>$this->input->post('commodity'),
-		'GrossWeight' =>$this->input->post('t_weight'),
-		'grandVolume' =>$this->input->post('t_volume'),
-		'PCS' =>$this->input->post('t_pacs'),
-		'Discount' =>$this->input->post('txtdiskon'),
-		'LimitCWT' =>$this->input->post('limitcwt'),
-		'Amount' =>$this->input->post('txtgrandtotal'),
-		'SpecialIntraction' =>$this->input->post('special'),
-		'CWT' =>'1',
-		'StatusProses' =>'1',
-		'status_invoice'=>'1',
-		'DeclareValue' =>$this->input->post('declare'),
-		'DescofShipment' =>$this->input->post('description'),
-		'CreatedBy' =>$this->session->userdata('idusr'),
-		'CreatedDate'=>date('Y-m-d H:i:s'),
-		);		
-		$insert_invoice=array(
-		'InvoiceNo' =>$getInvoice,
-		'Reff' =>$NoSMU,
-		'CreateBy' =>$this->session->userdata('idusr'),
-		'CreateDate' =>date('Y-m-d H:i:s'),
-		'InvoiceStatus' =>'1'
-		);
-		$save=$this->model_app->insert('invoice',$insert_invoice);
-		 $this->model_app->insert('outgoing_master',$insert);	
-		//=======  print view in HTML   ============//
-        redirect('transaction/domestic_outgoing_master');		
-}
+
 	
 function print_outgoing_master(){
 	$kode=$this->uri->segment(3);
@@ -1652,189 +1472,6 @@ function confirm_incoming_house(){
  			$this->load->view('home/home',$data);
     
     }  
-
-// Save outgoing house
-function confirm_outgoing_house(){
-	  	$kodept=$this->session->userdata('company');
-		$getHouse=$this->model_app->getHouseNo();
-		$getjob=$this->model_app->getJob();
-		$smu=$this->input->post('smu');
-		$statusconsol=($smu=='0')?'0':3;
-		$etd=$this->input->post('etd'); 		
-		$kodesmu=$this->model_app->getKodeTrans($kodept,'OM','Notrans','outgoing_master');
-		$kodetrans=$this->model_app->getKodeTrans($kodept,'OH','Notrans','outgoing_house');
-				
-	//====Save charges and items in every table refer to SMU number ==============//
-	$pcs=$_POST['pcs'];	
-	foreach($pcs as $key => $val)
-	{
-   		$pcs =$_POST['pcs'][$key];
-        $p  =$_POST['p'][$key];
-		$l  =$_POST['l'][$key];	
-		$t  =$_POST['t'][$key];	
-		$v  =$_POST['v'][$key];	
-		$w  =$_POST['w'][$key];	
-		$newitem=array(
-		'Reff' =>$getHouse,
-		'NoPack'=>$pcs, 
-		'Length'=>$p,
-		'Width'=>$l,
-		'Height'=>$t,
-		'Volume'=>$v,
-		'G_Weight'=>$w,
-		'Date'=>date('Y-m-d H:i:s')
-		);		
-		 $this->model_app->insert('booking_items',$newitem);
-	}
-	
-	$idcharge=$_POST['idcharge'];	
-	foreach($idcharge as $key => $val)
-	{
-   		$idcharge2 =$_POST['idcharge'][$key];
-        $unit =$_POST['unit'][$key];
-		$qty  =$_POST['qty'][$key];
-		$desc =$_POST['desc'][$key];
-		$totalcharges =$_POST['totalcharges'][$key];
-		$newcharge=array(
-		'JobNo' =>$getHouse,
-		'Reff'=>$getHouse,
-		'CostID'=>$idcharge2,
-		'BusinessCode'=>$this->input->post('idsender'),
-		'Currency'=>'Rp',
-		'Qty'=>$qty,
-		'Price'=>$unit,
-		'Total'=>$totalcharges,
-		'ChargeDetail'=>$desc,
-		'ISPPN'=>'11111',
-		'ISPPNValue'=>'12121212'
-		);		
-		 $this->model_app->insert('booking_charge',$newcharge);
-}
-		 
-	//----- SAVE OF OUT GOING HOUSE --------------////
-	$OutHouse=array(
-		'Notrans' =>$kodetrans,
-		'HouseNo' =>$getHouse,
-		'JobNo' =>$getjob,
-		'BookingNo' =>$this->input->post('booking'),
-		'PayCode' =>$this->input->post('paymentype'),
-		'Service' =>$this->input->post('service'),
-		'Origin' =>$this->input->post('origin'),
-		'Destination' =>$this->input->post('desti'),
-		'ETD' =>date($etd),
-		'Shipper' =>$this->input->post('idsender'),
-		'CodeShipper' =>$this->input->post('codeship'),
-		'Consigne' =>$this->input->post('idreceivement'),
-		'CodeConsigne' =>$this->input->post('codesigne'),
-		'Commodity' =>$this->input->post('commodity'),
-		'GrossWeight' =>$this->input->post('t_weight'),
-		'grandVolume' =>$this->input->post('t_volume'),
-		'Discount' =>$this->input->post('txtdiskon'),
-		'PCS' =>$this->input->post('t_pacs'),
-		'RemainPCS' =>$this->input->post('t_pacs'),		
-		'CWT' =>$this->input->post('ori_cwt'),
-		'RemainCWT' =>$this->input->post('ori_cwt'),
-		'SpecialIntraction' =>$this->input->post('special'),
-		'DeclareValue' =>$this->input->post('declare'),		
-		'DescofShipment' =>$this->input->post('description'),
-		'Attention' =>$this->input->post('attention'),
-		'Discount'=>$this->input->post('txtdiskon'),
-		'Consolidation'=>$statusconsol,
-		'Amount' =>$this->input->post('txtgrandtotal'),
-		'RemainAmount' =>$this->input->post('txtgrandtotal'),
-		'CreateBy' =>$this->session->userdata('idusr'),
-		'CreateDate'=>date('Y-m-d H:i:s'),
-		'ModifiedBy' =>'',
-		'ModifiedDate' =>''
-		);		
-		 $this->model_app->insert('outgoing_house',$OutHouse);	
-		 
-	//insert sekalian smu jika service PORT
-		if($smu !='0'){
-		$insertsmu=array(
-		'Notrans' =>$kodesmu,
-		'NoSMU' =>$this->input->post('prefixsmu').'-'.$smu,
-		'JobNo' =>$getjob,
-		'BookingNo' =>$this->input->post('booking'),
-		'PayCode' =>$this->input->post('paymentype'),
-		'Service' =>$this->input->post('service'),
-		'Origin' =>$this->input->post('origin'),
-		'Destination' =>$this->input->post('desti'),
-		'ETD' =>date($etd),
-		'Shipper' =>$this->input->post('idsender'),
-		'Airlines' =>$this->input->post('airline'),
-		'FlightNumbDate1' =>$this->input->post('flightno1'),
-		//'FlightNumbDate2' =>$this->input->post('flightno2'),
-		//'FlightNumbDate3' =>$this->input->post('flightno3'),
-		'CodeShipper' =>$this->input->post('codeship'),
-		'Consigne' =>$this->input->post('idreceivement'),
-		'CodeConsigne' =>$this->input->post('codesigne'),
-		'Commodity' =>$this->input->post('commodity'),
-		'GrossWeight' =>$this->input->post('t_weight'),
-		'grandVolume' =>$this->input->post('t_volume'),
-		'PCS' =>$this->input->post('t_pacs'),
-		'Discount' =>$this->input->post('txtdiskon'),
-		'LimitCWT' =>$this->input->post('limitcwt'),
-		'Amount' =>$this->input->post('txtgrandtotal'),
-		'SpecialIntraction' =>$this->input->post('special'),
-		'CWT' =>$this->input->post('ori_cwt'),
-		'StatusProses' =>'3',
-		'status_invoice'=>'2',
-		'DeclareValue' =>$this->input->post('declare'),
-		'DescofShipment' =>$this->input->post('description'),
-		'CreatedBy' =>$this->session->userdata('idusr'),
-		'CreatedDate'=>date('Y-m-d H:i:s'),
-		);		
-		$updatestoksmu=array(
-			'isActive'=>'0',
-		);		
-		$insertconsol=array(
-			'MasterNo' =>$this->input->post('prefixsmu').'-'.$smu,
-			'FlightNo' =>$this->input ->post('flightno1'),
-			'HouseNo'=>$getHouse, 
-			'ConsolDesc'=>'',
-			'CWT'=>$this->input->post('ori_cwt'),
-			'PCS'=>$this->input->post('t_pacs'),
-			);	
-			$this->model_app->insert('consol',$insertconsol);
-			$this->model_app->insert('outgoing_master',$insertsmu);
-			$this->model_app->update('stock_smu','NoSMU',$smu,$updatestoksmu);
-		
-		}
-		 //redirect('transaction/domestic_outgoing_house');
-//==============  print view in HTML   =======================//
-            $data = array(
-            'title'=>'domestic_outgoing_house',
-            'scrumb_name'=>'domestic_outgoing_house',
-			'houseno'=>$getHouse,
-			'jobno'=>$getjob, 
-            'scrumb'=>'transaction/domestic_outgoing_house',
-/*            'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
-            'shipper'=>$this->model_app->getdata('ms_customer',"WHERE IsShipper ='1' ORDER BY CustCode Desc"),
-            'cnee'=>$this->model_app->getdata('ms_customer',"WHERE IsCnee ='1' ORDER BY CustCode Desc"),
-            'city'=>$this->model_app->getdatapaging("PortCode,PortName","ms_port","GROUP BY PortName"),*/
-            'commodity'=>$this->model_app->getdatapaging("CommCode,CommName","ms_commodity","ORDER BY CommName ASC"),			
-			 'house'=>$this->model_app->getdatapaging("a.*,b.PortName as ori,c.PortName as desti,d.CustName as pengirim,d.Phone as ph1,d.Address as add1,e.CustName as penerima,e.Phone as ph2,e.Address as add2,f.CommName",
-			 "outgoing_house a",
-			 "INNER JOIN ms_port b on a.Origin=b.PortCode
-			 INNER JOIN ms_port c on a.Destination=c.PortCode
-			 INNER JOIN ms_customer d on a.Shipper=d.CustCode
-			 INNER JOIN ms_customer e on a.Consigne=e.CustCode
-			 LEFT JOIN ms_commodity f on a.Commodity=f.CommCode
-			 WHERE a.HouseNo='$getHouse' ORDER BY a.HouseNo LIMIT 1"),
-			 
-			'connote'=>$this->model_app->getdatapaging("*","outgoing_house","where HouseNo='$getHouse' ORDER BY HouseNo ASC"),
-			'items'=>$this->model_app->getdatapaging("*","booking_items","where Reff='$getHouse' ORDER BY IdItems ASC"),
-			'charges'=>$this->model_app->getdatapaging("*","booking_charge a","inner join ms_charge b on a.CostID=b.ChargeCode where a.Reff='$getHouse' ORDER BY a.Reff ASC"),
-            'view'=>'pages/booking/outgoing/confirm_outgoing_house',
-        );  
-        ob_start();
-   
- 			$this->load->view('home/home',$data);
-			
-		
-    
-    }  
 //     DATA TO PDF
  function update_outgoing_master(){
 		$notrans=$this->input->post('notrans');
@@ -2012,7 +1649,7 @@ function confirm_outgoing_house(){
 		'ModifiedDate'=>date('Y-m-d H:i:s')
 		);		
 		$this->model_app->update('outgoing_house','HouseNo',$houseno,$update);
-		redirect('transaction/domestic_outgoing_house');
+		redirect('outgoing_house');
     }  
 function add_invoice(){
 	$kode=$this->input->post('houseno');
@@ -2303,35 +1940,14 @@ $OutHouse=array(
 		");	 
         $this->load->view('pages/booking/soa/tabel_SOA',$data);
 }
- function filter_payment(){
-        $idcust=$this->input->post('idcust');
+//   DATA TO PDF 
+function print_SOA(){
+	    $idcust=$this->input->post('customers');
 		$etd1=$this->input->post('etd1');
 		$etd2=$this->input->post('etd2');
 		
-		$data=array(
-		'list'=>$this->model_app->getdatapaging("a.*,b.CustName as sender,b.Address as address1,b.Phone as phone1,c.Phone as phone2,c.Address as address2,c.CustName as receiver,d.PortName as ori,e.PortName as desti,f.MasterNo as NoSMU",
-	 "outgoing_house a", 
-	 "LEFT JOIN ms_customer b on a.Shipper=b.CustCode
-	 LEFT JOIN ms_customer c on a.Consigne=c.CustCode
-	 LEFT JOIN ms_port d on a.Origin=d.PortCode
-	 LEFT JOIN ms_port e on a.Destination=e.PortCode
-	 INNER JOIN consol f on a.HouseNo=f.HouseNo
-	WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust' AND a.PaymentStatus='0' AND a.RemainAmount >'0' 
-	GROUP BY f.HouseNo asc
-		"),
-'account_detail'=>$this->model_app->getdata('account a', "WHERE a.level='4' ORDER BY a.nmac")	
-		); 
-        $this->load->view('pages/booking/payment/replace_payment',$data);
-}	
-//   DATA TO PDF 
-function print_SOA(){
-	 $idcust=$this->input->post('customers');
-		$etd1=$this->input->post('etd1');
-		$etd2=$this->input->post('etd2');
-		     $data['title']='SOA';
-            $data['scrumb_name']='SOA';
-			$data['houseno']=$getHouse;
-            $data['scrumb']='transaction/soa';
+		$data['title']='SOA';
+	    $data['houseno']=$getHouse;
 			
 		$currency=$this->input->post('currency');
 		$data=array(

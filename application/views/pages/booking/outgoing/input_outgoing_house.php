@@ -499,7 +499,7 @@ $("#smu").autocomplete({
 </div>
 
 
-<form method="post" action="<?php echo base_url();?>transaction/confirm_outgoing_house" autocomplete="off" id="myform" onsubmit="return validasiform()" name="myform">
+<form method="post" action="<?php echo base_url();?>outgoing_house/confirm_outgoing_house" autocomplete="off" id="myform" onsubmit="return validasiform()" name="myform">
 
 <div class="row">
 <!--LEFT COLOMN -->
@@ -776,8 +776,9 @@ $("#smu").autocomplete({
  <tbody>
                                                 <tr>
   <th height="26"><span class="col-sm-4">AirFreight
- <input type="hidden" name="idcharge[]" id="idcharge[]" value="1">
-   </span></th>
+ <input type="hidden" name="idcharge[]" id="idcharge[]" value="84AF">
+   <input type="hidden" name="Reff_Account[]" id="Reff_Account[]" value="4-01-801-0-1-00" />
+  </span></th>
  
  <th><input type="text" name="unit[]" id="pricefreight" onChange="return count_freight3(this);" required class="form-control" style=" text-align:right" value="0" onkeypress="return isNumberKey(event)"><label id="label_price" style="text-align:right;color:#1963aa;font-style:italic">0</label></th>
                                                   <th><input type="text" name="qty[]" id="qtyfreight" style="width:85px;text-align:right" value="1" class="form-control" readonly></th>
@@ -791,7 +792,9 @@ $("#smu").autocomplete({
                                                 </tr>
                                                 <tr>
                                                   <th width="77"><span class="col-sm-4">SMU
-                                                    <input type="hidden" name="idcharge[]" id="idcharge[]" value="2">
+                                                    
+                                                  <input type="hidden" name="Reff_Account[]" id="Reff_Account[]" value="4-01-809-0-1-00" />
+                                                  <input type="hidden" name="idcharge[]3" id="idcharge[]3" value="84AD" />
                                                   </span></th>
                                                   <th width="144"><input type="text" name="unit[]" id="pricefreight2" style="width:98%; text-align:right" onChange="return count_freight2(this)" required class="form-control" onkeypress="return isNumberKey(event)">
  <label id="label_price2" style="text-align:right;color:#1963aa;font-style:italic">0</label>
@@ -956,11 +959,13 @@ $("#smu").autocomplete({
 <div class="form-group">
                         <label class="col-sm-3 control-label">Charges<sup class="must"> *</sup> </label>
                         <div class="col-sm-9"><span class="controls">
-              <select name="charge" class="form-control" required="required" id="charge">
+              <select name="charge" class="form-control select2" style="width:99%" required="required" id="charge" onchange="return load_account()">
           
               </select> 
                           </span>
-                          </div>
+                          <span class="controls">
+                          <input name="txtaccount" type="hidden" class="form-control" onkeypress="return isNumberKey(event)" id="txtaccount" />
+                          </span></div>
                         <div class="clearfix"></div>
   </div>
 
@@ -974,7 +979,7 @@ $("#smu").autocomplete({
 <div class="form-group">
                         <label class="col-sm-3 control-label">Qty<sup class="must"> *</sup></label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="qty" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="txtqty" value="1" />
+                          <input name="qty" type="number" class="form-control" onkeypress="return isNumberKey(event)" id="txtqty" value="1" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>                    
@@ -1347,7 +1352,6 @@ function editcharge(myid){
 	
 	$("#modaladdCharge").modal('show');	
 //	text='<option value="'+ code +'">'+ name +'</option>';
-//	
 //	//$('#charge').empty();
 //	$('#charge').append(text);
 	
@@ -1552,9 +1556,10 @@ function savecharges(){
  	var total_charge=$('#total_charge').val();
 	var jumlah=parseFloat(total_charge) + parseFloat(kali);	
 	
-	var pecah=charge.split('-');
+	var pecah=charge.split('_');
 	var idcharge=pecah[0];
 	var nmcharge=pecah[1];
+	var account=pecah[2];
 			
 if (charge == '' || txtunit == '' || txtqty == ''){
 	alert('Mohon isi data dengan lengkap');	
@@ -1562,9 +1567,10 @@ if (charge == '' || txtunit == '' || txtqty == ''){
 	else
 	{
 	text='<tr class="gradeX">'
-    + '<td>' + '<input type="hidden" name="idcharge[]" id="idcharge[]" value="'+ idcharge +'">'+ '<label id="l_pcs">'+ idcharge +'</label>' +'</td>'
-	
-    + '<td align="right">' +  '<input type="hidden" name="unit[]" id="l[]" value="'+ txtunit +'">'+ '<label id="l_pcs">'+ toRp(txtunit) +'</label>' +'</td>'
+    + '<td>' + '<input type="hidden" name="idcharge[]" id="idcharge[]" value="'+ idcharge +'">'+ '<label id="l_pcs">'+ nmcharge +'</label>' +'</td>'
+		  
+		
+    + '<td align="right">' +  '<input type="hidden" name="unit[]" id="l[]" value="'+ txtunit +'"><input type="hidden" name="Reff_Account[]" id="Reff_Account[]" value="'+ account +'">'+ '<label id="l_pcs">'+ toRp(txtunit) +'</label>' +'</td>'
 	
     + '<td align="right">' +  '<input type="hidden" name="qty[]" id="t[]" size="5" value="'+ txtqty +'">'+ '<label id="l_pcs">'+ txtqty +'</label>' +'</td>'
     
@@ -1786,16 +1792,34 @@ function load_combo_charge(){
            dataType: "json",
            success: function(data){
                $("#charge").empty();
-               //$("#Country").append("<option value=''>Select Country.....</option>");
+               $("#charge").append("<option value=''>Select charge</option>");
                      for (var i =0; i<data.length; i++){
-                   var option = "<option value='"+data[i].ChargeCode+"-"+data[i].ChargeName+"'>"+data[i].ChargeName+"</option>";
+                   var option = "<option value='"+data[i].ChargeCode+"_"+data[i].ChargeName+"_"+data[i].Reff_Account+"'>"+data[i].ChargeName+"</option>";
                           $("#charge").append(option);
+				
 						  //load_state();
                        }
   
                }
        }); 
     }
-
+function load_account(){
+	var cargecode=$("#charge").val();
+	
+       $.ajax({
+           url : "<?php echo site_url('transaction/getAccountCharge')?>",
+           dataType: "json",
+		   type: "POST",
+     	   data: "cargecode="+cargecode,
+           success: function(data){
+               $("#txtaccount").empty();
+                     for (var i =0; i<data.length; i++){
+                          $("#txtaccount").val(data[i].Reff_Account);
+						
+                       }
+  
+               }
+       }); 
+    }
 
 </script>

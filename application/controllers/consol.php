@@ -316,6 +316,108 @@ function filter_closed(){
       $this->load->view('pages/booking/outgoing_master/filter_master_closed',$data);	  
 }	
 
+//=====================save cargo manifest ==========
+ function insert_consol(){	
+
+	$nosmu=$this->input->post('nosmu');
+	$totcwt=$this->input->post('totcwt');
+	$totpcs=$this->input->post('totpcs');
+		
+	$delete=$this->model_app->delete_data('consol','MasterNo',$nosmu);
+	
+	//==== INSSERT CONSOL ==============//	
+	$house=$_POST['righthouse'];
+	foreach($house as $key => $val){
+   		$nohouse =$_POST['righthouse'][$key];
+		$cwt=$_POST['rightcwt'][$key];
+		$desc =$_POST['desc'][$key];
+		$cwt =$_POST['rightcwt'][$key];
+		$pcs =$_POST['rightpcs'][$key];
+		$commodity =$_POST['rightcommodity'][$key];
+			$newitem=array(
+			'MasterNo' =>$this->input ->post('nosmu'),
+			'FlightNo' =>$this->input ->post('flightid'),
+			'HouseNo'=>$nohouse, 
+			'ConsolDesc'=>'',
+			'CWT'=>$cwt,
+			'PCS'=>$pcs,
+			);	
+			$cekhouse=$this->model_app->getdata('outgoing_house',"WHERE HouseNo='$nohouse'");
+			foreach($cekhouse as $cek){
+				$oldcwt=$cek->CWT;
+				$oldpcs=$cek->PCS;
+				$consolcwt=$cek->ConsoledCWT;
+				$remaincwt=$cek->RemainCWT;
+				$consolpcs=$cek->ConsoledPCS;
+				$remainpcs=$cek->RemainPCS;
+				
+				$makscwt=$cwt >=$oldcwt?$oldcwt:$consolcwt+$cwt;
+				$makspcs=$cwt >=$oldpcs?$oldpcs:$consolpcs+$pcs;
+				$hasilcwt=$remaincwt<=0?'0':$remaincwt-$cwt;
+				$hasilpcs=$remainpcs<=0?'0':$remainpcs-$pcs;
+			$nomorconsol=($remaincwt-$cwt  <=0)?'2':'1';
+
+			$updatehouse=array(
+			'Consolidation' =>$nomorconsol,
+			'ConsoledCWT' =>$makscwt,
+			'RemainCWT' =>$hasilcwt,
+			'ConsoledPCS' =>$makspcs,
+			'RemainPCS' =>$hasilpcs,
+			);	
+			 $this->model_app->insert('consol',$newitem); 
+			 $this->model_app->update('outgoing_house','HouseNo',$nohouse,$updatehouse);
+		}
+	}
+	
+		$house2=$_POST['lefthouse'];
+		foreach($house2 as $key => $val){
+			$nohouse2 =$_POST['lefthouse'][$key];
+			$leftcwt =$_POST['leftcwt'][$key];
+			$leftconsoled=$_POST['leftconsoled'][$key];
+			$leftremain=$_POST['leftremain'][$key];
+			$leftconsoledpcs=$_POST['leftconsoledpcs'][$key];
+			$leftremainpcs=$_POST['leftremainpcs'][$key];
+			$cekhouse2=$this->model_app->getdata('outgoing_house',"WHERE HouseNo='$nohouse2'");
+			foreach($cekhouse2 as $row){
+				$cekcwt=$row->CWT;
+				$cekconsolcwt=$row->ConsoledCWT;
+				$cekconsolpcs=$row->ConsoledPCS;
+				$cekremaincwt=$row->RemainCWT;
+				$cekremainpcs=$row->RemainPCS;
+
+			if($leftcwt==$cekcwt){
+				$realremaincwt=$leftremain;
+				$realremainpcs=$leftremainpcs;
+				$realconsolcwt=$leftconsoled;
+				$realconsolpcs=$leftconsoledpcs;
+				$nomorconsol2='0';
+			} else {
+				$realremaincwt=$cekremaincwt+$leftremain;
+				$realremainpcs=$cekremainpcs+$leftremainpcs;
+				$realconsolcwt=$cekconsolcwt-$leftremain;
+				$realconsolpcs=$cekconsolpcs-$leftremainpcs;
+				$nomorconsol2='1';
+			}	
+			$updatehouse2=array(
+			'Consolidation' =>$nomorconsol2,
+			'ConsoledCWT' =>$realconsolcwt,
+			'ConsoledPCS' =>$realconsolpcs,
+			'RemainCWT' =>$realremaincwt,
+			'RemainPCS' =>$realremainpcs,
+			);
+			$this->model_app->update('outgoing_house','HouseNo',$nohouse2,$updatehouse2);
+		}
+	}
+	$updatesmu=array(
+		'StatusProses' =>2,
+		'CWT' =>$totcwt,
+		'PCS' =>$totpcs,
+		'Commodity' =>$commodity
+		);		
+		$this->model_app->update('outgoing_master','NoSMU',$nosmu,$updatesmu);
+		
+		redirect('consol');
+}
 
 
 	

@@ -1,11 +1,6 @@
- <style>
- .select2{
-	 padding-bottom:3px;
-	 padding-top:2px;
- }
- </style>
+
  
- <link href="<?php echo base_url();?>asset/select2/css/select2.min.css" rel="stylesheet" />
+ <link href="<?php echo base_url();?>asset/select2/css/select2.css" rel="stylesheet" />
 <script src="<?php echo base_url();?>asset/select2/js/select2.min.js"></script>
         
   <script>
@@ -28,13 +23,13 @@
 <div class="container">
 <div class="info-box">
      <div class="col-sm-3 col-xs-4"><i class="fa fa-bar-chart"></i></div>
-     <div class="col-sm-9 col-xs-8">Input Cash / Bank in</div>
+     <div class="col-sm-9 col-xs-8">Credit Payment</div>
 </div>
 </div>
       
 
 <br style="clear:both">
-<form method="post" action="<?php echo base_url();?>payment/process_payment" id="myform" onsubmit="return konfirmasi()" class="myform"  name="myform" target="new">
+<form method="post" action="<?php echo base_url();?>payment/process_credit_payment" id="creditForm" onsubmit="return konfirmasi2()" class="creditForm"  name="creditForm" target="new">
 <div class="container">
   <div class="row">
                <!--LEFT INPUT-->
@@ -52,11 +47,10 @@
           </div>
 </div>
    
-
- <div class="form-group">             
+<div class="form-group">             
           <label class="col-sm-3"> Customers<sup class="must"> *</sup></label>
           <div class="col-sm-7">
-           <select name="paymentcustomers" id="paymentcustomers" class="form-control select2" required="required" onchange="return filter_payment()">
+           <select name="customer" id="customer" class="form-control select2" required="required" onchange="return filter_payment2()" style="width:98%">
           <option value="">Choose Customer</option>
           <?php foreach ($customer as $cust) {
           ?>
@@ -65,17 +59,30 @@
           </select>
           </div>
 </div>
+ <div class="form-group">             
+          <label class="col-sm-3"> methode2<sup class="must"> *</sup></label>
+          <div class="col-sm-7">
+           <select name="methode2" id="methode2" class="form-control select2" required="required" onchange="return filter_payment2()" style="width:98%">
+ 
+          <option value="outgoing_house">Outgoing</option>
+          <option value="incoming_house">Incoming</option>
+          </select>
+          </div>
+</div>
+
+
+
 <div class="form-group">
  <label class="col-sm-3"> E.T.D Periode<sup class="must"> *</sup></label></strong>
           <div class="col-sm-3">
 <?php
 $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
 ?>
-           <input name="periode1" type="text" class="form-control"  id="periode1" required readonly value="<?php echo $kurangtanggal ;?>" onchange="return filter_payment()"/>
+           <input name="periode1" type="text" class="form-control"  id="periode1" required readonly value="<?php echo $kurangtanggal ;?>" onchange="return filter_payment2()"/>
           </div>
      <div class="col-sm-1"><p style="margin-top:10px">/</p></div>
     <div class="col-sm-3">
-           <input name="periode2" type="text" class="form-control"  id="periode2" readonly value="<?php echo date("Y-m-d") ;?>" onchange="return filter_payment()"/>
+           <input name="periode2" type="text" class="form-control"  id="periode2" readonly value="<?php echo date("Y-m-d") ;?>" onchange="return filter_payment2()"/>
        </div>
 </div>
 <div class="clearfix"></div> 
@@ -83,7 +90,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
 <div class="form-group"> 
           <label class="col-sm-3"> Total Payment<sup class="must"> *</sup></label>
           <div class="col-sm-7">
-            <input name="payment" type="text" class="form-control"  id="payment" required="required" onkeyup="return countBalance()" onkeypress="return isNumberKey(event)" value="0" />
+            <input name="payment" type="text" class="form-control"  id="payment" required="required" onkeyup="return countBalance2()" onkeypress="return isNumberKey(event)" value="0" />
          
           </div>
  <label class="col-sm-12 text-center" id="labelpay"></label>
@@ -122,7 +129,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
 <div class="form-group"> 
           <label class="col-sm-3"> Account<sup class="must"> *</sup></label>
           <div class="col-sm-7">
-            <select name="accountheader" id="accountheader" class="form-control select2" required="required">
+            <select name="accountheader" id="accountheader" class="form-control select2" required="required" style="width:98%">
       <option value="">Select account</option>
           <?php foreach ($account_header as $acc) {
           ?>
@@ -135,9 +142,9 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
 </div>
 
 <div class="form-group"> 
-          <label class="col-sm-3"> Remarks</label>
+          <label class="col-sm-3"> remarks2</label>
           <div class="col-sm-7">
-            <textarea name="remarks" rows="5"  class="form-control" id="remarks"></textarea>
+            <textarea name="remarks2" rows="5"  class="form-control" id="remarks2"></textarea>
           </div>
 </div>
 
@@ -156,7 +163,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
                         <!--<div class="panel-header"></div>-->
                         
                                     <div class="form-group">
-                                        <div class="table-responsive" id="table_payment">
+                                        <div class="table-responsive" id="credit_payment">
  
 
    <table width="100%" border="1" class="table table-striped table-bordered table-hover">
@@ -211,7 +218,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
                                       <div class="col-md-4"></div>
                                        
                                          <div class="col-md-2">
-           <button style="display:none" id="btnProcess" class="btn btn-primary"><i class="icon-refresh bigger-160 icons">&nbsp;</i> Process Payment</button>
+           <button style="display:none" id="btnProcess2" class="btn btn-primary"><i class="icon-refresh bigger-160 icons">&nbsp;</i> Process Payment</button>
                                         </div>  </div>     
               </div>
           </div>
@@ -222,140 +229,10 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
    </div>
   
 
-<!-----edit data------->
-<?php
 
-    foreach($list as $row){
-		$isagen=$row->isAgent;
-		$isaktif=$row->isAktive;
-		$isCnee=$row->isCnee;
-		$isShipper=$row->isShipper;
-		if($isagen==1){ $status1='YES';}else{$status1='NO';}
-		if($isShipper==1){ $status2='YES';}else{$status2='NO';}
-		if($isCnee==1){ $status3='YES';}else{$status3='NO';}
-		if($isaktif==1){ $status4='YES';}else{$status4='NO';}
-        ?>
-<div id="modaledit<?php echo $row->discCode;?>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel">Edit Data</h3>
-            </div>
-            <div class="smart-form">
-                <form method="post" action="<?php echo site_url('master/update_disc')?>">
-                    <div class="modal-body">
-                      <div class="form-group">
-                        <label class="col-sm-3 control-label"> Customer </label>
-                        <div class="col-sm-9"><span class="controls">
-<select name="cust" id="cust" required="required" class="form-control">
-                            <option value="<?php echo $row->custCode;?>"><?php echo $row->custName;?></option>
-                            <?php
-	foreach($cust as $ct){
-	    ?>
-                            <option value="<?php echo $ct->custCode;?>"><?php echo $ct->custName;?></option>
-                            <?php } ?>
-                          </select>
-                        </span>
-                          <input type="hidden" name="id" id="id" value="<?php echo $row->discCode;?>" />
-                        </div>
-                        <div class="clearfix"></div>
-                      </div>
-                      <div class="form-group">
-                        <label class="col-sm-3 control-label">Service</label>
-                        <div class="col-sm-9"><span class="controls">
-<select name="service" id="service" required="required" class="form-control">
-                            <option value="<?php echo $row->svCode;?>"><?php echo $row->Name;?></option>
-                            <?php
-	foreach($service as $sv){
-	    ?>
-                            <option value="<?php echo $sv->svCode;?>"><?php echo $sv->Name;?></option>
-                            <?php } ?>
-                          </select>
-                        </span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Origin</label>
-                        <div class="col-sm-9"><span class="controls">
-<select name="ori" id="ori" required="required" class="form-control">
-                            <option value="<?php echo $row->Ori;?>"><?php echo $row->Ori;?></option>
-                            <?php
-	foreach($city as $cty){
-	    ?>
-                            <option value="<?php echo $cty->cyName;?>"><?php echo $cty->cyName;?></option>
-                            <?php } ?>
-                          </select>
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Destination</label>
-                        <div class="col-sm-9"><span class="controls">
-<select name="dest" id="dest" required="required" class="form-control">
-                            <option value="<?php echo $row->Dest;?>"><?php echo $row->Dest;?></option>
-                            <?php
-	foreach($city as $cty){
-	    ?>
-                            <option value="<?php echo $cty->cyName;?>"><?php echo $cty->cyName;?></option>
-                            <?php } ?>
-                          </select>
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-              <label class="col-sm-3 control-label">Vendor</label>
-                        <div class="col-sm-9"><span class="controls">
-<select name="vendor" id="vendor" required="required" class="form-control">
-                            <option value="<?php echo $row->venCode;?>"><?php echo $row->venName;?></option>
-                            <?php
-	foreach($vendor as $vd){
-	    ?>
-                            <option value="<?php echo $vd->venCode;?>"><?php echo $vd->venName;?></option>
-                            <?php } ?>
-                          </select>
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>
-<div class="form-group">
-                        <label class="col-sm-3 control-label">Disc %</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="persen" type="text" class="form-control" placeholder="" id="persen" value="<?php echo $row->DiscPersen;?>" />
-</span></div>
-                        <div class="clearfix"></div>
-                      </div>
- <div class="form-group">
-                        <label class="col-sm-3 control-label">Disc Rp</label>
-                        <div class="col-sm-9"><span class="controls">
-                          <input name="rp" type="text" class="form-control" placeholder="" id="rp" value="<?php echo $row->DiscRupiah;?>" />
-    </span></div>
-                        <div class="clearfix"></div>
-                      </div>
-  
-  <div class="form-group">
-<label class="col-sm-3 control-label">Remarks</label>
-                        <div class="col-sm-9">
-                          <textarea name="remarks" cols="30" rows="2" class="form-control" id="remarks" required><?php echo $row->Remarks;?></textarea>
-</div>
-                        <div class="clearfix"></div>
-                    </div>
-  <div class="modal-footer">
-<button class="btn btn-danger" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close">&nbsp;</i> Close</button>
-                        <button class="btn btn-primary"><i class="icon-save bigger-160 icons">&nbsp;</i> Save</button>
-    </div>
-                    </div>
-            
-                </form>
-            </div>
-        </div>
-    </div>
-    </div>
-<?php } ?>
-<!--adding form-->
 
 <script type="text/javascript">	
-$("#myform").submit(function(e) {
+$("#creditForm").submit(function(e) {
     reloadIncome();
 	 reloadPayment();
 });
@@ -385,7 +262,7 @@ function ubahRP(myid){
 	
 }
 
-function filter_payment(){
+function filter_payment2(){
 	swal({
 		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
 		text:'<p>Loading Content.......</p>',
@@ -394,39 +271,42 @@ function filter_payment(){
 		html:true
 		});
 		
-            var idcust = $("#paymentcustomers").val();
+            var idcust = $("#customer").val();
 			var etd1 = $("#periode1").val();
 			var etd2 = $("#periode2").val();
+			var methode = $("#methode2").val();
+			var payTipe='CRD-CREDIT';
+			
           $.ajax({
                 type: "POST",
-                url : "<?php echo base_url('transaction/filter_payment'); ?>",
- 				data: "idcust="+idcust+"&etd1="+etd1+"&etd2="+etd2,
+                url : "<?php echo base_url('payment/filter_pay_credit'); ?>",
+ 			data: "idcust="+idcust+"&etd1="+etd1+"&etd2="+etd2+"&methode="+methode+"&payTipe="+payTipe,
 
                 success: function(data){
 					swal.close();
-					$("#table_payment").show();
-					$("#btnProcess").show();
-                    $('#table_payment').html(data);
-					countBalance();
+					$("#credit_payment").show();
+					$("#btnProcess2").show();
+                    $('#credit_payment').html(data);
+					countBalance2();
                 }
             });
 }
 
-function konfirmasi(){
+function konfirmasi2(){
 	 
-	var payment=document.getElementById("payment").value;
+	//var payment=document.getElementById("payment").value;
     var a=confirm("Are You Sure To Processing Data ?");
 	if(a===true){
 
 	var chk= $(".ceklis:checked");
-	if(chk.length <=0 || payment <=0){
+	if(chk.length <=0){
 	swal("Warning !","Please Select ( Check ) house and Payment value grather than 0 ","error");
 	$("#payment").focus();
 	return false;
 	} else {
 	  swal.close();	
-	 $("#table_payment").hide();
-	 $("#btnProcess").hide();
+	 $("#credit_payment").hide();
+	 $("#btnProcess2").hide();
 	 
 	}
 		} else {
@@ -447,7 +327,7 @@ $("#paymentcurrency").change(function() {
 	}
 });
 
-function hitung_bayar(){
+function hitung_bayar2(){
 	var payment=$("#payment").val();
 	
   var nomorhouse=document.getElementsByName('lastbalance[]').checked=true;
@@ -460,7 +340,7 @@ function hitung_bayar(){
 }
 
 
-function countBalance() {
+function countBalance2() {
     var payment=document.getElementById("payment").value;
     var lastbalance =document.getElementsByName('lastbalance[]');
      var paid =document.getElementsByName('paid[]');

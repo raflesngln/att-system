@@ -96,8 +96,11 @@ p{ margin-top:-8px}
 	$delivery=$row->delivery;
 	$other=$row->other;
 	
-	$subtotal=$airfreight+$quarantine+$smu+$delivery+$other;   
-	$pay=$subtotal-($row->RemainAmount);
+	$subtotal=$airfreight+$quarantine+$smu+$delivery+$other;  
+	 
+	 $amount=$row->Amount;
+	$pay=$amount-($row->RemainAmount);
+	
 	$grandtotal+=$row->RemainAmount;
    ?>
   <tr>
@@ -115,7 +118,7 @@ p{ margin-top:-8px}
     <td style="font-size:10px"><div align="right"><?php echo number_format($row->quarantine,0,'.','.');?></div></td>
     <td style="font-size:10px"><div align="right"><?php echo number_format($row->delivery,0,'.','.');?></div></td>
     <td style="font-size:10px"><div align="right"><?php echo number_format($row->delivery,0,'.','.');?></div></td>
-    <td align="right" style="font-size:10px"><?php echo number_format($subtotal,0,'.',',');?></td>
+    <td align="right" style="font-size:10px"><?php echo number_format($amount,0,'.',',');?></td>
     <td align="right" style="font-size:10px"><?php echo number_format($pay,0,'.',',');?></td>
     <td align="right" style="font-size:10px"><?php echo number_format($row->RemainAmount,0,'.',',');?></td>
     </tr>

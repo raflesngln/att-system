@@ -109,7 +109,7 @@ public function ajax_list()
 
 			'status'=>'<div class="text-left">'.$status=($datalist->CWT <= "1")?"<label class='label label-inverse arrowed-right white'>No</label>":"<label class='label label-warning arrowed-right white'>Remain</label>".'</div>',
 		
-            'action'=> '<div class="form-inline text-center"> <a onclick="return EditConfirm('.$datalist->StatusProses.')" href="'.base_url().'transaction/edit_outgoing_master/'.$datalist->NoSMU.'" title="Edit item"><button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>
+            'action'=> '<div class="form-inline text-center"> <a onclick="return EditConfirm('.$datalist->StatusProses.')" href="'.base_url().'outgoing_master/edit_outgoing_master/'.$datalist->NoSMU.'" title="Edit item"><button class="btn btn-mini btn-primary" type="button"><i class="fa fa-edit bigger-120"></i></button>
  </a>
 				    <a style="display:none" class="red" href="javascript:void()" title="Hapus" onclick="deleteOpenMaster('."'".$datalist->NoSMU."'".')"><button class="btn btn-mini btn-danger" type="button"><i class="icon-trash bigger-150"></i></button></a>			
 			</div>
@@ -540,6 +540,99 @@ public function ajax_detailHouse()
 	);
 	$this->load->view('pages/booking/outgoing_master/details/detail_house',$data);
 	}
+	
+//=====================save cargo manifest ==========
+ function confirm_outgoing_master(){	
+ 		$kodept=$this->session->userdata('company');
+		$getjob=$this->model_app->getJobMaster();
+		$getInvoice=$this->model_app->getInvoice();
+		$kodetrans=$this->model_app->getKodeTrans($kodept,'OM','Notrans','outgoing_master');
+		$NoSMU=$this->input ->post('prefixsmu').'-'.$this->input ->post('smu');
+		$etd=$this->input->post('etd');
+		
+	//----- SAVE OF OUT GOING Master --------------////
+	$insert=array(
+		'Notrans' =>$kodetrans,
+		'NoSMU' =>$NoSMU,
+		'JobNo' =>$getjob,
+		'BookingNo' =>$this->input->post('booking'),
+		'PayCode' =>$this->input->post('paymentype'),
+		'Service' =>$this->input->post('service'),
+		'Origin' =>$this->input->post('origin'),
+		'Destination' =>$this->input->post('desti'),
+		'ETD' =>date($etd),
+		'Shipper' =>$this->input->post('idsender'),
+		'Airlines' =>$this->input->post('airline'),
+		'FlightNumbDate1' =>$this->input->post('flightno1'),
+		'FlightNumbDate2' =>$this->input->post('flightno1'),
+		'FlightNumbDate3' =>$this->input->post('flightno1'),
+		'CodeShipper' =>$this->input->post('codeship'),
+		'Consigne' =>$this->input->post('idreceivement'),
+		'CodeConsigne' =>$this->input->post('codesigne'),
+		'Commodity' =>$this->input->post('commodity'),
+		'GrossWeight' =>$this->input->post('t_weight'),
+		'grandVolume' =>$this->input->post('t_volume'),
+		'PCS' =>$this->input->post('t_pacs'),
+		'Discount' =>$this->input->post('txtdiskon'),
+		'LimitCWT' =>$this->input->post('limitcwt'),
+		'Amount' =>$this->input->post('txtgrandtotal'),
+		'SpecialIntraction' =>$this->input->post('special'),
+		'CWT' =>'1',
+		'StatusProses' =>'1',
+		'status_invoice'=>'1',
+		'DeclareValue' =>$this->input->post('declare'),
+		'DescofShipment' =>$this->input->post('description'),
+		'CreatedBy' =>$this->session->userdata('idusr'),
+		'CreatedDate'=>date('Y-m-d H:i:s'),
+		);		
+		$insert_invoice=array(
+		'InvoiceNo' =>$getInvoice,
+		'Reff' =>$NoSMU,
+		'CreateBy' =>$this->session->userdata('idusr'),
+		'CreateDate' =>date('Y-m-d H:i:s'),
+		'InvoiceStatus' =>'1'
+		);
+		$save=$this->model_app->insert('invoice',$insert_invoice);
+		 $this->model_app->insert('outgoing_master',$insert);	
+		//=======  print view in HTML   ============//
+        redirect('outgoing_master');		
+}
+ function edit_outgoing_master(){
+        $idusr=$this->session->userdata('idusr');
+		$houseno=$this->uri->segment(3);
+        $data = array(
+            'title'=>'domesctic-outgoing-master',
+            'link'=>'<a href="'.base_url().'outgoing_master">Outgoing Master</a> / Edit master ( '.$houseno.' )',
+            'payment_type'=>$this->model_app->getdatapaging("PayCode,PayName","ms_payment_type","ORDER BY PayCode ASC"),
+            'sales'=>$this->model_app->getdata('ms_staff',"where devisi='sales'"),
+            'cnee'=>$this->model_app->getdata('ms_customer',"WHERE IsCnee ='1' ORDER BY CustCode Desc"),
+            'city'=>$this->model_app->getdatapaging("PortCode,PortName","ms_port","GROUP BY PortName"),
+            'service'=>$this->model_app->getdatapaging("svCode,Name","ms_service","ORDER BY Name"),
+			'charge'=>$this->model_app->getdatapaging("*","ms_charge","WHERE DefaultCharge='0'"),
+			'airline'=>$this->model_app->getdatapaging("*","ms_airline","ORDER BY AirLineName"),
+			'chargeoptional'=>$this->model_app->getdatapaging("*","booking_charge a",
+			"INNER JOIN ms_charge b on a.CostID=b.ChargeCode 
+			 WHERE b.DefaultCharge='0' AND a.Reff='$houseno'"),
+			'airfreight'=>$this->model_app->getdatapaging("*","booking_charge a","INNER JOIN ms_charge b on a.CostID=b.ChargeCode WHERE a.Reff='$houseno' AND b.ChargeCode='1'"),
+			'cost_smu'=>$this->model_app->getdatapaging("*","booking_charge a","INNER JOIN ms_charge b on a.CostID=b.ChargeCode WHERE a.Reff='$houseno' AND b.ChargeCode='2'"),
+     'commodity'=>$this->model_app->getdatapaging("CommCode,CommName","ms_commodity","ORDER BY CommName ASC"),
+     
+	 'master'=>$this->model_app->getdatapaging("a.*,b.CustName as sender,b.Address as address1,b.Phone as phone1,c.Phone as phone2,c.Address as address2,c.CustName as receiver,d.PortName as ori,e.PortName as desti,f.AirLineName",
+	 "outgoing_master a", 
+	 "LEFT JOIN ms_customer b on a.Shipper=b.CustCode
+	 LEFT JOIN ms_customer c on a.Consigne=c.CustCode
+	 LEFT JOIN ms_port d on a.Origin=d.PortCode
+	 LEFT JOIN ms_port e on a.Destination=e.PortCode
+	 LEFT JOIN ms_airline f on a.Airlines=f.AirlineCode
+	 WHERE a.NoSMU='$houseno' ORDER BY a.NoSMU DESC"),
+			//'list_charges'=>$this->model_app->getdatapaging("*","booking_charges","WHERE HouseNo ='$houseno'"),
+			'items'=>$this->model_app->getdatapaging("*","booking_items","WHERE Reff ='$houseno'"),
+            'view'=>'pages/booking/outgoing_master/edit_outgoing_master',
+        );  
+      $this->load->view('home/home',$data);
+    }
+	
+	
 	
 	
 }

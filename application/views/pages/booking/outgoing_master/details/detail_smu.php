@@ -49,7 +49,7 @@ foreach($header as $row){
     
 <div class="form-group">
     <div class="col-sm-5">Final CWT</div>
-    <div class="col-sm-7">: <?php echo $row->FinalCWT;?></div>
+    <div class="col-sm-9">: <?php echo $row->FinalCWT;?></div>
 	</div>
 </div>
 
@@ -61,7 +61,7 @@ if($statusproses=='5'){
 	<div class="form-group">
     <div class="col-sm-12"><strong>Remarks :</strong></div>
     
-    <div class="col-sm-12"><textarea name="remark" rows="4" readonly="readonly" class="form-control"><?php echo $row->Remarks;?></textarea></div>
+    <div class="col-sm-12"><textarea style="width:95%" name="remark" readonly="readonly" class="form-control"><?php echo $row->Remarks;?></textarea></div>
 	</div>
 
 </div>

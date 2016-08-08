@@ -119,44 +119,36 @@ function toRp(angka){
 										<ul class="nav nav-tabs" id="myTab">
 											<li class="active">
 												<a data-toggle="tab" href="#home">
-													<i class="green fa fa-plus bigger-110"></i>
-		Input Cash / Bank in
-												</a>
-											</li>
+													Cash Payment</a></li>
 
-											<li>
-												<a data-toggle="tab" href="#profile">
-  <i class="green fa fa-list bigger-110"></i>
-		Payment by House
-		
-												</a>
-											</li>
+<li><a data-toggle="tab" href="#credit">Credit Payment</a></li>
 
-											<li>
-												<a data-toggle="tab" href="#transaksi">
-  <i class="green fa fa-list bigger-110"></i>
-		List Payment
-		
-												</a>
-											</li>
+<li><a data-toggle="tab" href="#profile">Payment by House</a></li>
+
+<li><a data-toggle="tab" href="#transaksi">List Payment</a></li>
 
 										</ul>
 
 										<div class="tab-content container">
 											<div id="home" class="tab-pane in active">
 <p>
- <?php $this->load->view('pages/booking/payment/input_payment');?>
+ <?php $this->load->view('pages/booking/payment/cash_payment');?>
 </p>
 											</div>
 
-											<div id="profile" class="tab-pane">
+											<div id="credit" class="tab-pane">
 <p>
-  <?php $this->load->view('pages/booking/payment/list_payment');?>
+  <?php $this->load->view('pages/booking/payment/credit_payment');?>
+</p>
+											</div>
+ <div id="profile" class="tab-pane">
+<p>
+  <?php //$this->load->view('pages/booking/payment/list_payment');?>
 </p>
 											</div>
  <div id="transaksi" class="tab-pane">
 <p>
-  <?php $this->load->view('pages/booking/payment/list_income');?>
+  <?php //$this->load->view('pages/booking/payment/list_income');?>
 </p>
 											</div>
 										</div>

@@ -137,36 +137,35 @@ public function report_master()
 }
 public function filter_report_house()
 	{
-		$ab=$this->uri->segment(3);
-		$pecah=explode("_", $ab);
+		$inputan=$this->uri->segment(3);
+		$pecah=explode(":", $inputan);
 		$date1=$pecah[0];
 		$date2=$pecah[1];
 		$methode=$pecah[2];
 		$user=$pecah[3];
 		$txtsearch=$pecah[4];
+		$nmtabel=$pecah[5];
 		
-		$pecahuser=explode('-',$user);
-		$iduser=$pecahuser[0];
-		$nmuser=$pecahuser[1];
+
 	if($methode=='' AND $user=='' AND $txtsearch ==''){
 		$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1);
 	} else if($methode=='' AND $user=='' AND $txtsearch !=''){
 		$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1,'b.CustName LIKE '=>$txtsearch.'%');
 	} else if($methode=='' AND $user !='' AND $txtsearch ==''){
-		$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1,'a.CreateBy'=>$iduser);
+		$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1,'a.CreateBy'=>$user);
 	} else if($methode=='' AND $user !='' AND $txtsearch !=''){
-	$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1,'a.CreateBy'=>$iduser,'b.CustName LIKE '=>$txtsearch.'%');
+	$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1,'a.CreateBy'=>$user,'b.CustName LIKE '=>$txtsearch.'%');
 	} else if($methode !='' AND $user !='' AND $txtsearch !=''){
-	$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1,'a.PayCode'=>$methode,'a.CreateBy'=>$iduser,'b.CustName LIKE '=>$txtsearch.'%');
+	$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1,'a.PayCode'=>$methode,'a.CreateBy'=>$user,'b.CustName LIKE '=>$txtsearch.'%');
 	} else if($methode !='' AND $user =='' AND $txtsearch ==''){
 	$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1,'a.PayCode'=>$methode);
 	} else if($methode !='' AND $user !='' AND $txtsearch ==''){
-	$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1,'a.PayCode'=>$methode,'a.CreateBy'=>$iduser);
+	$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1,'a.PayCode'=>$methode,'a.CreateBy'=>$user);
 	} else if($methode !='' AND $user =='' AND $txtsearch !=''){
 	$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1,'a.PayCode'=>$methode,'b.CustName LIKE '=>$txtsearch.'%');
 	}
 		
-		$nm_tabel='outgoing_house a';
+		$nm_tabel=$nmtabel.' a';
 		$nm_tabel2='ms_customer b';
 		$kolom1='a.Shipper';
 		$kolom2='b.CustCode';
@@ -304,6 +303,8 @@ function print_report_house(){
 	$idusers=$pecah[0];
 	$nmusers=($user=='')?'All User':$pecah[1];
 	
+	$nmtabel=$this->input->post('nmtabel');
+	          $header_tittle=($nmtabel=='outgoing_house')?'OUTGOING HOUSE':'INCOMING HOUSE';
 	$tgl1=$this->input->post('start2');
 	$tgl2=$this->input->post('end2');
 	$txtsearch=$this->input->post('txtshipper');
@@ -333,8 +334,8 @@ function print_report_house(){
 	}
 	
 
-			$query=$this->model_app->getdatapaging("a.*,b.CustName as sender,c.CustName as receiver,d.UserName",
-			"outgoing_house a",
+			$outgoing=$this->model_app->getdatapaging("a.*,b.CustName as sender,c.CustName as receiver,d.UserName",
+			"$nmtabel a",
 			"LEFT JOIN ms_customer b on a.Shipper=b.CustCode
 			LEFT JOIN ms_customer c on a.Consigne=c.CustCode
 			LEFT JOIN ms_user d on a.CreateBy=d.id_user
@@ -344,11 +345,12 @@ function print_report_house(){
 			'periode'=>date('d-m-Y',strtotime($tgl1)).'  s/d  '.date('d-m-Y',strtotime($tgl2)),
 			'Methode'=>$status,
 			'user'=>$nmusers,
-			'tittle'=>'OUTGOING HOUSE ',
-			'jobtype'=>'Outgoing',
+			'tittle'=>$header_tittle,
+			'jobtype'=>$header_tittle,
 			'header'=>$this->model_app->getdatapaging("*","outgoing_house","LIMIT 1"),
-			'list'=>$query,
+			'list'=>$outgoing,
         );  
+		
         ob_start();
         $content = $this->load->view('pages/booking/report/outgoing_report/print_report_house',$data);
         $content = ob_get_clean();      

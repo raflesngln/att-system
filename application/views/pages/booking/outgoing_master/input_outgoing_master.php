@@ -389,7 +389,7 @@ $("#idconsigne").click(function(){
       
 
 <br style="clear:both">
-<form method="post" action="<?php echo base_url();?>transaction/confirm_outgoing_master" autocomplete="off" id="myform" onsubmit="return validasiform()" name="myform">
+<form method="post" action="<?php echo base_url();?>outgoing_master/confirm_outgoing_master" autocomplete="off" id="myform" onsubmit="return validasiform()" name="myform">
   <div class="row">
                <!--LEFT INPUT-->
   <div class="col-sm-6">      

@@ -43,7 +43,7 @@
       
 
 <br style="clear:both">
-<form method="post" action="<?php echo base_url()?>transaction/insert_consol">
+<form method="post" action="<?php echo base_url()?>consol/insert_consol">
 <div class="container">
   <div class="row">
                <!--LEFT INPUT-->

@@ -56,6 +56,56 @@
 			{ "data": "format_Credit" },
 
             ],
+ "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+            // Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+ 
+            // Total over all pages
+            total = api
+                .column( 6 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+			            // Total over all pages
+            total2 = api
+				.column( 7 )
+                .data()
+                .reduce( function (c, d) {
+                    return intVal(c) + intVal(d);
+                }, 0 );
+ 
+            // Total over this page
+            pageTotal = api
+				.column( 6, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+			            // Total over this page
+            pageTotal2 = api
+				.column( 7, { page: 'current'} )
+                .data()
+                .reduce( function (c, d) {
+                    return intVal(c) + intVal(d);
+                }, 0 );
+ 
+            // Update footer
+            $( api.column( 8 ).footer() ).html(
+                'Rp '+toRp(pageTotal)+''
+            );
+			            // Update footer
+            $( api.column( 9 ).footer() ).html(
+                'Rp '+toRp(pageTotal2) +''
+            );
+        }
           });  
 
 $('#list_transaksi tbody').on('dblclick', 'tr', function () {
@@ -269,8 +319,8 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
           <th>&nbsp;</th>
           <th>&nbsp;</th>
           <th>&nbsp;</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
+          <th>Debit</th>
+          <th>Credit</th>
         </tr>
       </tfoot>
     </table>
@@ -279,8 +329,8 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
   <!-- INFO --><br />
  <div class="col-sm-12 alert alert-warning green" style="margin-left:-23px;font-style:italic">
 <i class="icon-bullhorn green bigger-150">&raquo;</i>
-<strong> List of Journal </strong>
-<p>List Jurnal Umum</p>
+<strong> List of Payment </strong>
+<p>List untuk menampilkan history   Transaksi pembayaran oleh customers ( INCOME )</p>
 
 
 </div>

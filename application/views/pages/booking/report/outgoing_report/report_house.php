@@ -228,6 +228,15 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-7,date("Y")));
 </div></div><div class="clearfix"></div>
 
 <div class="form-group">
+<div class="col-sm-5">Methode</div>
+<div class="col-sm-6">
+  <select name="nmtabel" id="nmtabel" class="form-control" onchange="return filterList()">
+    <option value="outgoing_house">Outgoing</option>
+    <option value="incoming_house">Incoming</option>
+  </select>
+</div></div><div class="clearfix"></div>
+
+<div class="form-group">
 <div class="col-sm-5">User</div>
 <div class="col-sm-6">
   <select name="user" id="user" class="form-control" onchange="return filterList()">
@@ -235,7 +244,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-7,date("Y")));
     <?php
 foreach($user as $row){
 ?>
-    <option value="<?php echo $row->id_user.'-'.$row->UserName?>"><?php echo $row->UserName;?></option>
+    <option value="<?php echo $row->id_user;?>"><?php echo $row->UserName;?></option>
     <?php } ?>
   </select>
 </div></div><div class="clearfix"></div>
@@ -499,9 +508,10 @@ function filterList(){
 	var methode=$("#methode").val();
 	var user=$("#user").val();
 	var txtsearch=$("#txtshipper").val();
+	var nmtabel=$("#nmtabel").val();
 	
-	var inputan=start2+"_"+end2+"_"+methode+"_"+user+"_"+txtsearch;
-
+	var inputan=start2+":"+end2+":"+methode+":"+user+":"+txtsearch+":"+nmtabel;
+	
 tableclosed.ajax.url('<?php echo site_url()?>outgoing_report/filter_report_house/'+inputan).load();
 	
 }

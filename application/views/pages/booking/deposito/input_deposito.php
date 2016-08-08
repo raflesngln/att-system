@@ -1,37 +1,9 @@
- <link href="<?php echo base_url();?>asset/select2/css/select2.min.css" rel="stylesheet" />
-<script src="<?php echo base_url();?>asset/jquery_ui/jquery-1.8.2.min.js"></script>
-<script src="<?php echo base_url();?>asset/select2/js/select2.min.js"></script>
 
- <style>
- .select2{
-	 padding-bottom:3px;
-	 padding-top:2px;
- }
- 
- .btn-search{ height:32px; margin-left:-10px;}
- input[type=text],input[type=select]{
-  border:1px #B5B5B5 solid;
-  margin-bottom:3px;
-  margin-top: 3px;
- }
-.boxinput{
-	box-shadow: 1px 2px 8px 2px rgba(158, 158, 158, 0.4);
-    padding: 10px 0px 20px 5px;
-}
 
- </style>
-     <link rel="stylesheet" href="<?php echo base_url();?>asset/jquery_ui/jquery-ui.theme.min.css">
-  <script src="<?php echo base_url();?>asset/jquery_ui/external/jquery/jquery.js"></script>
-  <script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
-  <script>
-  $(function() {
-    $("#tgl").datepicker();
-    $("#tgl2").datepicker();
+<script src="<?php echo base_url();?>asset/jquery_ui/jquery-ui.js"></script>
 
-  });
 
-  </script>
-
+<form method="post" action="javascript:void(0);" id="inputform" name="inputform">
 
    <div class="row-fluid" >
     <div class="span11 boxinput" >
@@ -46,7 +18,6 @@
 
 <br style="clear:both">
 
-<form method="post" action="javascript:void(0);" id="inputform" name="inputform">
 <div class="container">
   <div class="row">
                <!--LEFT INPUT-->
@@ -60,16 +31,17 @@
           <strong>
           <label class="col-sm-3"> Customer </label></strong>
           <div class="col-sm-8">
-            <select name="customers" id="customers" class="combo select2" required="required" onchange="return filter_soa()">
+            <select name="customers" id="customers" class="form-control select2" required="required" onChange="return filter_soa()">
           <option value="">Choose Customer</option>
           <?php foreach ($customer as $cust) {
           ?>
           <option value="<?php echo $cust->CustCode;?>"><?php echo $cust->CustName;?></option>
           <?php } ?>
           </select>
-          </div>          <strong><label class="col-sm-3"> Amount Rp. </label></strong>
+          </div>          
+          <strong><label class="col-sm-3"> Amount Rp. </label></strong>
           <div class="col-sm-8">
-           <input name="amount" type="text" class="form-control"  id="amount" required="required" onkeypress="return isNumberKey(event)"/>
+           <input name="amount" type="text" class="form-control"  id="amount" required="required" onKeyPress="return isNumberKey(event)" placeholder="amount"/>
           </div>
           <strong><label class="col-sm-3"> Note</label></strong>
           <div class="col-sm-8">
@@ -103,18 +75,18 @@
                                           </div>
       <div style="margin-bottom:20px;"></div>
 
-      </form>
+    
      </div>
    </div>
       </div>
   </div>
+    
 
 </div>
 
-</form>
             </div>
   
-
+</form>
 
 
 <!-- ADD NEW ITEMS -->
@@ -123,6 +95,8 @@
 
 	<!-- Save Transaction -->
 $("#inputform").submit(function(e) {
+
+
 	var conf=confirm("Anda Yakin simpan data ? ");
 	if(conf==true){
        $.ajax({

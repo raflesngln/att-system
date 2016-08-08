@@ -55,9 +55,9 @@ foreach($header as $row){
     <td style="font-size:10px"><span class="col-sm-7"><?php echo $row->PayDate?></span></td>
   </tr>
   <tr>
-    <td style="font-size:10px"><span class="col-sm-5">Custolmers</span></td>
+    <td style="font-size:10px"><span class="col-sm-5">Users</span></td>
     <td style="font-size:10px">:</td>
-    <td style="font-size:10px"><span class="col-sm-7"><?php echo $row->CustName?></span></td>
+    <td style="font-size:10px"><span class="col-sm-7"><?php echo $row->FullName?></span></td>
   </tr>
   <tr>
     <td width="25%" style="font-size:10px"><span class="col-sm-5">Currency</span></td>

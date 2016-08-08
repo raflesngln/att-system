@@ -355,4 +355,231 @@ public function ajax_detailSMU()
 	);
 	$this->load->view('pages/booking/outgoing/details/detail_smu',$data);	
 }
+
+// Save outgoing house
+function confirm_outgoing_house(){
+	  $kodejurnal=$this->model_app->generateNo("payment_house","JurnalNo","JRN");
+	  	$kodept=$this->session->userdata('company');
+		$getHouse=$this->model_app->getHouseNo();
+		$getjob=$this->model_app->getJob();
+		$smu=$this->input->post('smu');
+		$statusconsol=($smu=='0')?'0':3;
+		$etd=$this->input->post('etd'); 		
+		$kodesmu=$this->model_app->getKodeTrans($kodept,'OM','Notrans','outgoing_master');
+		$kodetrans=$this->model_app->getKodeTrans($kodept,'OH','Notrans','outgoing_house');
+				
+	//====Looping pcs for save in items booking ==============//
+	$pcs=$_POST['pcs'];	
+	foreach($pcs as $key => $val)
+	{
+   		$pcs =$_POST['pcs'][$key];
+        $p  =$_POST['p'][$key];
+		$l  =$_POST['l'][$key];	
+		$t  =$_POST['t'][$key];	
+		$v  =$_POST['v'][$key];	
+		$w  =$_POST['w'][$key];	
+		$newitem=array(
+		'Reff' =>$getHouse,
+		'NoPack'=>$pcs, 
+		'Length'=>$p,
+		'Width'=>$l,
+		'Height'=>$t,
+		'Volume'=>$v,
+		'G_Weight'=>$w,
+		'Date'=>date('Y-m-d H:i:s')
+		);		
+		 $this->model_app->insert('booking_items',$newitem);
+	}
+	//====Looping charge for save in bookinng charges n jurnal ==============//	
+	$idcharge=$_POST['idcharge'];	
+	foreach($idcharge as $key => $val)
+	{
+   		$idcharge2 =$_POST['idcharge'][$key];
+        $unit =$_POST['unit'][$key];
+		$qty  =$_POST['qty'][$key];
+		$desc =$_POST['desc'][$key];
+		$subcharges =$_POST['totalcharges'][$key];
+		$kd_account=$_POST['Reff_Account'][$key];
+		
+		$newcharge=array(
+		'JobNo' =>$getHouse,
+		'Reff'=>$getHouse,
+		'CostID'=>$idcharge2,
+		'BusinessCode'=>$this->input->post('idsender'),
+		'Currency'=>'Rp',
+		'Qty'=>$qty,
+		'Price'=>$unit,
+		'Total'=>$subcharges,
+		'ChargeDetail'=>$desc,
+		'ISPPN'=>'11111',
+		'ISPPNValue'=>'12121212'
+		);		
+		$jurnal_kredit=array(
+		'PaymentDate' =>date('Y-m-d H:i:s'),
+		'JurnalNo' =>$kodejurnal,
+		'kdac' =>$kd_account,
+		'house' =>$getHouse,
+		'Debit' =>'0',
+		'Credit' =>$subcharges,
+		'CreatedBy' =>$this->session->userdata('idusr'),
+		'CreatedDate'=>date('Y-m-d H:i:s'),
+		);
+		 $this->model_app->insert('booking_charge',$newcharge);
+		 $kredit=$this->model_app->insert('jurnal',$jurnal_kredit);
+}
+		$jurnal_debit=array(
+		'PaymentDate' =>date('Y-m-d H:i:s'),
+		'JurnalNo' =>$kodejurnal,
+		'kdac' =>'1-01-101-0-1-00',
+		'Debit' =>$this->input->post('txtgrandtotal'),
+		'Credit' =>'0',
+		'house' =>$getHouse,
+		'CreatedBy' =>$this->session->userdata('idusr'),
+		'CreatedDate'=>date('Y-m-d H:i:s'),
+		);
+		$debit=$this->model_app->insert('jurnal',$jurnal_debit);
+		 
+	//----- SAVE OF OUT GOING HOUSE --------------////
+	$OutHouse=array(
+		'Notrans' =>$kodetrans,
+		'HouseNo' =>$getHouse,
+		'JobNo' =>$getjob,
+		'BookingNo' =>$this->input->post('booking'),
+		'PayCode' =>$this->input->post('paymentype'),
+		'Service' =>$this->input->post('service'),
+		'Origin' =>$this->input->post('origin'),
+		'Destination' =>$this->input->post('desti'),
+		'ETD' =>date($etd),
+		'Shipper' =>$this->input->post('idsender'),
+		'CodeShipper' =>$this->input->post('codeship'),
+		'Consigne' =>$this->input->post('idreceivement'),
+		'CodeConsigne' =>$this->input->post('codesigne'),
+		'Commodity' =>$this->input->post('commodity'),
+		'GrossWeight' =>$this->input->post('t_weight'),
+		'grandVolume' =>$this->input->post('t_volume'),
+		'Discount' =>$this->input->post('txtdiskon'),
+		'PCS' =>$this->input->post('t_pacs'),
+		'RemainPCS' =>$this->input->post('t_pacs'),		
+		'CWT' =>$this->input->post('ori_cwt'),
+		'RemainCWT' =>$this->input->post('ori_cwt'),
+		'SpecialIntraction' =>$this->input->post('special'),
+		'DeclareValue' =>$this->input->post('declare'),		
+		'DescofShipment' =>$this->input->post('description'),
+		'Attention' =>$this->input->post('attention'),
+		'Discount'=>$this->input->post('txtdiskon'),
+		'Consolidation'=>$statusconsol,
+		'Amount' =>$this->input->post('txtgrandtotal'),
+		'RemainAmount' =>$this->input->post('txtgrandtotal'),
+		'CreateBy' =>$this->session->userdata('idusr'),
+		'CreateDate'=>date('Y-m-d H:i:s'),
+		'ModifiedBy' =>'',
+		'ModifiedDate' =>''
+		);		
+		 $this->model_app->insert('outgoing_house',$OutHouse);	
+		 
+		//insert header payment
+	 	$insert_pay_house=array(
+		'JurnalNo' =>$kodejurnal,
+		'kdac' =>'1-01-101-0-1-00',
+		'PayDate' =>date('Y-m-d H:i:s'),
+		'Rate' =>'',
+		'Currency' =>'',
+		'Customer' =>$this->input->post('idsender'),
+		'TotalPayment' =>$this->input->post('grandtotal'),
+		'Remarks' =>$this->input->post('description'),
+		'CreatedBy' =>$this->session->userdata('idusr'),
+		'CreatedDate'=>date('Y-m-d H:i:s'),
+		);	
+		$savehousepay=$this->model_app->insert('payment_house',$insert_pay_house);
+
+	//insert sekalian smu jika service PORT
+		if($smu !='0'){
+		$insertsmu=array(
+		'Notrans' =>$kodesmu,
+		'NoSMU' =>$this->input->post('prefixsmu').'-'.$smu,
+		'JobNo' =>$getjob,
+		'BookingNo' =>$this->input->post('booking'),
+		'PayCode' =>$this->input->post('paymentype'),
+		'Service' =>$this->input->post('service'),
+		'Origin' =>$this->input->post('origin'),
+		'Destination' =>$this->input->post('desti'),
+		'ETD' =>date($etd),
+		'Shipper' =>$this->input->post('idsender'),
+		'Airlines' =>$this->input->post('airline'),
+		'FlightNumbDate1' =>$this->input->post('flightno1'),
+		//'FlightNumbDate2' =>$this->input->post('flightno2'),
+		//'FlightNumbDate3' =>$this->input->post('flightno3'),
+		'CodeShipper' =>$this->input->post('codeship'),
+		'Consigne' =>$this->input->post('idreceivement'),
+		'CodeConsigne' =>$this->input->post('codesigne'),
+		'Commodity' =>$this->input->post('commodity'),
+		'GrossWeight' =>$this->input->post('t_weight'),
+		'grandVolume' =>$this->input->post('t_volume'),
+		'PCS' =>$this->input->post('t_pacs'),
+		'Discount' =>$this->input->post('txtdiskon'),
+		'LimitCWT' =>$this->input->post('limitcwt'),
+		'Amount' =>$this->input->post('txtgrandtotal'),
+		'SpecialIntraction' =>$this->input->post('special'),
+		'CWT' =>$this->input->post('ori_cwt'),
+		'StatusProses' =>'3',
+		'status_invoice'=>'2',
+		'DeclareValue' =>$this->input->post('declare'),
+		'DescofShipment' =>$this->input->post('description'),
+		'CreatedBy' =>$this->session->userdata('idusr'),
+		'CreatedDate'=>date('Y-m-d H:i:s'),
+		);
+		
+			$updatestoksmu=array(
+			'isActive'=>'0',
+		);		
+		$insertconsol=array(
+			'MasterNo' =>$this->input->post('prefixsmu').'-'.$smu,
+			'FlightNo' =>$this->input ->post('flightno1'),
+			'HouseNo'=>$getHouse, 
+			'ConsolDesc'=>'',
+			'CWT'=>$this->input->post('ori_cwt'),
+			'PCS'=>$this->input->post('t_pacs'),
+			);	
+			$this->model_app->insert('consol',$insertconsol);
+			$this->model_app->insert('outgoing_master',$insertsmu);
+			$this->model_app->update('stock_smu','NoSMU',$smu,$updatestoksmu);
+		
+		}
+		 //redirect('transaction/domestic_outgoing_house');
+//==============  print view in HTML   =======================//
+            $data = array(
+            'title'=>'domestic_outgoing_house',
+            'scrumb_name'=>'domestic_outgoing_house',
+			'houseno'=>$getHouse,
+			'jobno'=>$getjob, 
+            'scrumb'=>'transaction/domestic_outgoing_house',
+			'link'=>'<a href="'.base_url().'outgoing_house">Outgoing House</a>',
+            'commodity'=>$this->model_app->getdatapaging("CommCode,CommName","ms_commodity","ORDER BY CommName ASC"),			
+			 'house'=>$this->model_app->getdatapaging("a.*,b.PortName as ori,c.PortName as desti,d.CustName as pengirim,d.Phone as ph1,d.Address as add1,e.CustName as penerima,e.Phone as ph2,e.Address as add2,f.CommName",
+			 "outgoing_house a",
+			 "INNER JOIN ms_port b on a.Origin=b.PortCode
+			 INNER JOIN ms_port c on a.Destination=c.PortCode
+			 INNER JOIN ms_customer d on a.Shipper=d.CustCode
+			 INNER JOIN ms_customer e on a.Consigne=e.CustCode
+			 LEFT JOIN ms_commodity f on a.Commodity=f.CommCode
+			 WHERE a.HouseNo='$getHouse' ORDER BY a.HouseNo LIMIT 1"),
+			 
+			'connote'=>$this->model_app->getdatapaging("*","outgoing_house","where HouseNo='$getHouse' ORDER BY HouseNo ASC"),
+			'items'=>$this->model_app->getdatapaging("*","booking_items","where Reff='$getHouse' ORDER BY IdItems ASC"),
+			'charges'=>$this->model_app->getdatapaging("*","booking_charge a","inner join ms_charge b on a.CostID=b.ChargeCode where a.Reff='$getHouse' ORDER BY a.Reff ASC"),
+            'view'=>'pages/booking/outgoing/confirm_outgoing_house',
+        );  
+        ob_start();
+   
+ 			$this->load->view('home/home',$data);
+			
+		
+    
+    }  
+
+
+
+
+
+
 }
