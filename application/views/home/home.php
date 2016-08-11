@@ -83,7 +83,6 @@
 	text-align:left;
 	padding-top:5%;
 	height:100%;
-	background: -webkit-linear-gradient(-30deg, #56AF78, #47A96C);
     background: -o-linear-gradient(-30deg, #56AF78, #47A96C);
     background: -moz-linear-gradient(-30deg, #56AF78, #47A96C); 
     background:linear-gradient(-30deg, #56AF78, #47A96C);
@@ -415,13 +414,13 @@ return true;
  <li> <label class="label label-large label-purple"> FINANCE</label></li>
        <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-dollar bigger-150" aria-hidden="true"></i> <span class="menu-text">&nbsp;Finance </span> <b class="arrow icon-angle-down"></b> </a>
         <ul class="submenu">
-         <li><a href="<?php echo base_url();?>payment"> <i class="fa fa-archive bigger-140"></i> Cash / Bank in </a> </li>
+         <li><a id="bankin" href="#" onClick="menuklik(this)"> <i class="fa fa-archive bigger-140"></i> Cash / Bank in </a> </li>
          <li><a href="<?php echo base_url();?>payment/deposito"> <i class="fa fa-money bigger-140"></i> </i> &nbsp; Deposito </a> </li>
          <li><a href="<?php echo base_url();?>payment/journal"> <i class="fa fa-book bigger-140"></i> </i> &nbsp; Journal </a> </li>
          <li><a href="<?php echo base_url();?>payment/payment_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-arrow-circle-o-left bigger-140"></i> &nbsp; Payment Request </a> </li>
          <li> <a href="<?php echo base_url();?>payment/settlement_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-info-circle  bigger-140"></i> &nbsp; Sentlement Req</a></li>
 
-         <li><a href="<?php echo base_url();?>payment_report"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-line-chart bigger-140"></i> Report </a> </li>
+         <li><a id="klik" href="<?php echo base_url();?>payment_report"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-line-chart bigger-140"></i> Report </a> </li>
 		 </ul>
 	  </li>
 	  
@@ -446,6 +445,7 @@ return true;
 							</span>
 						</li>
 <?php echo $link;?>
+
 					</ul><!--.breadcrumb-->
 
 					<div class="nav-search" id="nav-search">
@@ -455,7 +455,7 @@ return true;
 
 				<div class="container">
 					<div class="row" >
-						<div class="span12">
+						<div class="span12" id="box-content">
 
 							<!--PAGE CONTENT BEGINS-->
 							<?php $this->load->view($view);?>
@@ -519,6 +519,30 @@ return true;
 
 		<!--For select/combo search methode-->
         <script>
+function menuklik(menu){
+ 	swal({
+		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
+		text:'<p>Loading Content.......</p>',
+		showConfirmButton:false,
+		//type:"success",
+		html:true
+		});
+		
+            var id = 'dd';
+			var nm ='dd';
+          $.ajax({
+                type: "POST",
+                url : "<?php echo base_url('payment/page'); ?>",
+ 			data: "id="+id+"&nm="+nm,
+
+                success: function(data){
+					swal.close();
+					$("#box-content").html(data);
+                    $("#bankin").css("color","#4CAF50");
+				
+                }
+            });
+		}
 		//for select input 		
 $(".select2").select2();
 		</script>

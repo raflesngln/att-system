@@ -2148,7 +2148,96 @@ public function ajax_detailHouse()
 	$this->load->view('pages/booking/consol/detail_house',$data);
 		
 	}
-
+	//save jurnal credit
+ function process_payment(){
+     $kode=$this->model_app->generateNo("payment_house","JurnalNo","JRN");
+ 
+	$customer=$this->input->post('customer');	
+	$jumlah=$this->input->post('payment');		
+	
+	$lastbalance=$this->input->post('lastbalance');
+	foreach($lastbalance as $key => $val)
+	{
+		$housecek=$_POST['nomorhouse'][$key];	
+		
+   $cari=$this->model_app->getdatapaging("HouseNo,CWT,PCS,Amount,RemainAmount","outgoing_house", "WHERE Shipper='$customer' AND HouseNo='$housecek' AND PaymentStatus='0' ORDER BY HouseNo asc");	 
+		
+	foreach($cari as $row){
+    	$house=$row->HouseNo;
+	   $amount=$row->RemainAmount;
+ 	 if ($jumlah >0) { 
+	 	if($jumlah >$amount){
+			$simpan=0;
+			$bayar=$amount;
+			$balance=0;
+			$paymentstatus='1';
+		} else {
+			$simpan=$amount-$jumlah;	
+			$bayar=$jumlah;
+			$balance=$amount-$jumlah;
+			$paymentstatus='0';
+		}
+		$jumlah=$jumlah-$amount;
+		//echo $amount.' => '.$simpan.' Buat bayar '.$bayar.'<br>';
+	 	$payment_detail=array(
+		'PaymentDate' =>date('Y-m-d H:i:s'),
+		'JurnalNo' =>$kode,
+		'kdac' =>'1-01-400-0-1-00',
+		'House' =>$house,
+		'Balance' =>$balance,
+		'PaymentValue' =>$bayar,
+		'CreatedBy' =>$this->session->userdata('idusr'),
+		'CreatedDate'=>date('Y-m-d H:i:s'),
+		);	
+		$jurnal_credit=array(
+		'PaymentDate' =>date('Y-m-d H:i:s'),
+		'JurnalNo' =>$kode,
+		'kdac' =>'1-01-400-0-1-00',
+		'Debit' =>'0',
+		'House' =>$house,
+		'Credit' =>$bayar,
+		'CreatedBy' =>$this->session->userdata('idusr'),
+		'CreatedDate'=>date('Y-m-d H:i:s'),
+		);
+		$updatehouse=array(
+		'RemainAmount'=>$balance,
+		'PaymentStatus'=>$paymentstatus
+		);
+		$save_credit=$this->model_app->insert('jurnal',$jurnal_credit);
+		$savedetail=$this->model_app->insert('payment_house_detail',$payment_detail);	
+		$update=$this->model_app->update('outgoing_house','HouseNo',$house,$updatehouse);
+			} 
+		}
+	}
+	 	$jurnal_debit=array(
+		'PaymentDate' =>date('Y-m-d H:i:s'),
+		'JurnalNo' =>$kode,
+		'kdac' =>$this->input->post('accountheader'),
+		'Debit' =>$this->input->post('payment'),
+		'Credit' =>'0',
+		'House' =>'',
+		'CreatedBy' =>$this->session->userdata('idusr'),
+		'CreatedDate'=>date('Y-m-d H:i:s'),
+		);
+		$savedetail=$this->model_app->insert('jurnal',$jurnal_debit);
+		
+		//insert header payment
+	 	$insertpayment=array(
+		'JurnalNo' =>$kode,
+		'PayDate' =>date('Y-m-d H:i:s'),
+		'Rate' =>$this->input->post('rate'),
+		'Currency' =>$this->input->post('paymentcurrency'),
+		'Customer' =>$this->input->post('customer'),
+		'TotalPayment' =>$this->input->post('payment'),
+		'Remarks' =>$this->input->post('remarks2'),
+		'CreatedBy' =>$this->session->userdata('idusr'),
+		'CreatedDate'=>date('Y-m-d H:i:s'),
+		);	
+		$savepayment=$this->model_app->insert('payment_house',$insertpayment);	
+				//redirect invoice
+		$this->session->set_flashdata('my_flash_data', $kode);
+		redirect('payment/invoice_payment');		
+	}
 
 
 

@@ -129,7 +129,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
           <option value="<?php echo $acc->kdac;?>"><?php echo $acc->nmac.' ('.$acc->kdac.')';?></option>
           <?php } ?>
           </select>
-    </select>
+  
         
           </div>
 </div>
@@ -412,7 +412,7 @@ function konfirmasi(){
 
 	var chk= $(".ceklis:checked");
 	if(chk.length <=0){
-	swal("Warning !","Please Select ( Check ) house and Payment value grather than 0 ","error");
+	swal("Warning !","Please Select ( Check ) house","error");
 	
 	return false;
 	} else {

@@ -32,6 +32,7 @@
 			{ "data": "desti"},
 			{ "data": "pcs","orderable":false,"visible":true},
 			{ "data": "cwt","orderable":false,"visible":true},
+			{ "data": "PayCode"},
 			{ "data": "status"},
             { "data": "action","orderable":false,"visible":true }
             ]
@@ -161,17 +162,18 @@ function delete_opened(id)
     <table id="tableopened" class="table table-striped table-bordered" cellspacing="0" width="100%">
       <thead>
         <tr>
-          <th>No</th>  
-          <th>House</th>
-          <th>ETD</th>
-          <th> Shipper</th>
-          <th>Consigne</th>
-          <th>Origin</th>
-          <th>Destination</th>
-          <th >QTY</th>
-          <th >CWT</th>
-          <th >Status Consol</th>
-          <th >Action</th>
+          <th width="43">No</th>  
+          <th width="93">House</th>
+          <th width="95">ETD</th>
+          <th width="137"> Shipper</th>
+          <th width="165">Consigne</th>
+          <th width="215">Origin</th>
+          <th width="207">Destination</th>
+          <th width="64" >QTY</th>
+          <th width="52" >CWT</th>
+          <th width="53" >Metode</th>
+          <th width="96" >Status Consol</th>
+          <th width="96" >Action</th>
         </tr>
       </thead>
       <tbody>
@@ -188,6 +190,7 @@ function delete_opened(id)
           <th>Destination</th>
           <th>QTY</th>
           <th>CWT</th>
+          <th>Metode</th>
           <th>Status Consol</th>
           <th style="width:90px;">Action</th>
         </tr>

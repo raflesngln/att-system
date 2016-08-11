@@ -143,6 +143,7 @@ public function filter_report_house()
 		$date2=$pecah[1];
 		$methode=$pecah[2];
 		$user=$pecah[3];
+			$iduser=explode("-",$user);
 		$txtsearch=$pecah[4];
 		$nmtabel=$pecah[5];
 		
@@ -152,15 +153,15 @@ public function filter_report_house()
 	} else if($methode=='' AND $user=='' AND $txtsearch !=''){
 		$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1,'b.CustName LIKE '=>$txtsearch.'%');
 	} else if($methode=='' AND $user !='' AND $txtsearch ==''){
-		$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1,'a.CreateBy'=>$user);
+		$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1,'a.CreateBy'=>$iduser[0]);
 	} else if($methode=='' AND $user !='' AND $txtsearch !=''){
-	$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1,'a.CreateBy'=>$user,'b.CustName LIKE '=>$txtsearch.'%');
+	$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1,'a.CreateBy'=>$iduser[0],'b.CustName LIKE '=>$txtsearch.'%');
 	} else if($methode !='' AND $user !='' AND $txtsearch !=''){
-	$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1,'a.PayCode'=>$methode,'a.CreateBy'=>$user,'b.CustName LIKE '=>$txtsearch.'%');
+	$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1,'a.PayCode'=>$methode,'a.CreateBy'=>$iduser[0],'b.CustName LIKE '=>$txtsearch.'%');
 	} else if($methode !='' AND $user =='' AND $txtsearch ==''){
 	$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1,'a.PayCode'=>$methode);
 	} else if($methode !='' AND $user !='' AND $txtsearch ==''){
-	$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1,'a.PayCode'=>$methode,'a.CreateBy'=>$user);
+	$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1,'a.PayCode'=>$methode,'a.CreateBy'=>$iduser[0]);
 	} else if($methode !='' AND $user =='' AND $txtsearch !=''){
 	$query= array('LEFT(a.ETD,10) <= '=>$date2,'LEFT(a.ETD,10) >='=>$date1,'a.PayCode'=>$methode,'b.CustName LIKE '=>$txtsearch.'%');
 	}

@@ -1,5 +1,5 @@
 
-<table width="100%" border="1" class="table table-striped table-bordered table-hover" style="margin-left:-5px">
+<table width="100%" border="1" class="table table-striped table-bordered table-hover">
 <thead>
   <tr>
     <td width="3%" height="32">No</td>
@@ -8,17 +8,17 @@
     <div align="left">
       <input type="checkbox" name="checkall" id="checkall" onclick="return Checkall()" checked="checked" value="Check all" /> 
       
-  &nbsp; </div></td>
+  &nbsp; </div><span> All</span></td>
     <td width="18%">Account</td>
     <td width="14%">SMU</td>
     <td width="12%">House</td>
-    <td width="10%">ETD</td>
+    <td width="9%">ETD</td>
     <td width="9%">Origin-Dest.</td>
     <td width="6%">Qty</td>
     <td width="7%">CWT</td>
     <td width="9%">Amount</td>
     <td width="9%">Balance</td>
-    <td width="9%" >Paid</td>
+    <td width="9%">Paid</td>
     <td width="4%" style=" display:none">New Balance</td>
     </tr>
     </thead>
@@ -26,7 +26,7 @@
    foreach($list as $row){
 	$amount=$row->Amount;
 	$t_amount+=$amount;  
-	$RemainAmount=$row->RemainAmount;
+		$RemainAmount=$row->RemainAmount;
 	$t_RemainAmount+=$RemainAmount;   
    ?>
   <tr>
@@ -35,18 +35,12 @@
     <input type="checkbox" name="lastbalance[]" id="lastbalance[]" checked="checked" class="ceklis" value="<?php echo $row->RemainAmount; ?>" onclick="countBalance()" />
       </div></td>
     <td><label for="account[]"></label>
-      <span class="col-sm-7">
-      <select name="accountdetail[]" id="accountdetail[]" required="required" style="width:280px; font-size:9px" class="form-control select2">
-        <option value="">Select account</option>
-        <?php foreach ($account_detail as $accDet) {
-			$kdac='('.$accDet->kdac.')';
-          ?>
-        <option value="<?php echo $accDet->kdac;?>"><?php echo $accDet->nmac.'  '.$kdac;?></option>
-        <?php } ?>
-      </select>
-    </span></td>
-    <td><?php echo $row->NoSMU;?>
-    <input name="nomormaster[]" type="hidden" id="nomormaster[]" value="<?php echo $row->NoSMU;?>" /></td>
+      <select name="account[]" id="account[]">
+      <option value="">Select account</option>
+      <option value="">Cash in Bank BCA</option>
+      <option value="">Cash in Bank Mandiri</option>
+    </select></td>
+    <td><?php echo $row->NoSMU;?></td>
     <td><?php echo $row->HouseNo;?><input name="nomorhouse[]" type="hidden" id="nomorhouse[]" value="<?php echo $row->HouseNo;?>" /></td>
     <td><?php echo date('d-m-Y',strtotime($row->ETD));?></td>
     <td><?php echo substr($row->Origin,0,15).' - ';?><?php echo substr($row->Destination,0,15);?></td>
@@ -60,7 +54,7 @@
       <?php echo number_format($row->RemainAmount,0,'.','.');?>
       <input name="lastbalanceview[]" type="hidden" id="lastbalanceview[]" value="<?php echo $row->RemainAmount;?>" style="width:100px" />
     </div></td>
-    <td><input type="text" name="paid[]" id="paid[]" style="width:100px; text-align:right; border:none; height:30px; padding-right:5px;background-color:hsl(231, 3%, 82%); color:#000" readonly="readonly" />
+    <td><input type="text" name="paid[]" id="paid[]" style="width:100px; text-align:right; border:1px #CCC solid; padding-right:5px;background-color:#FFF; box-shadow:none" readonly="readonly" />
     </td>
     <td style="display:none"><div id="cek" style="text-align:left">
       <input type="text" name="newbalance[]" id="newbalance[]" style="width:100px" readonly="readonly"/>
@@ -92,7 +86,4 @@ function cek_checked(){
 	}
 	
 }
-
-//for select input 		
-$(".select2").select2();
 </script>

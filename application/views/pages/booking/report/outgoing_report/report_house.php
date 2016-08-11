@@ -244,7 +244,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-7,date("Y")));
     <?php
 foreach($user as $row){
 ?>
-    <option value="<?php echo $row->id_user;?>"><?php echo $row->UserName;?></option>
+    <option value="<?php echo $row->id_user.'-'.$row->UserName;?>"><?php echo $row->UserName;?></option>
     <?php } ?>
   </select>
 </div></div><div class="clearfix"></div>

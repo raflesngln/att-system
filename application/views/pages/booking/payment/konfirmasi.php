@@ -28,7 +28,7 @@ p{ margin-top:-8px}
 </head>
 
 <body>
-<div class="container" style="border:1px #999 solid; background-color:#FFF; position:relative; width:50%; margin-top:8px" id="box">
+<div class="container" style="border:1px #999 solid; background-color:#FFF; position:relative; width:50%; margin-top:8px; padding-bottom:10px" id="box">
  
 <h1 style=" text-align:center;font-size:12px">PT. ATT CARGO</h1>
 <p style="text-align:center;margin-top:-11px;font-size:10px">Domestic and International Freight Forwarding</p>
@@ -44,6 +44,9 @@ foreach($header as $row){
 	
 ?>
 <table width="98%" border="0">
+  <tr>
+    <td colspan="3" style="font-size:10px"><h2>Penjualan Cash</h2></td>
+    </tr>
   <tr>
     <td style="font-size:10px"><span class="col-sm-5">Jurnal</span></td>
     <td style="font-size:10px">:</td>
@@ -92,7 +95,7 @@ foreach($header as $row){
   <tr bgcolor="#E9E9E9">
     <td width="13%" height="33" style="font-size:10px">No</td>
     <td width="55%" style="font-size:10px">House</td>
-    <td width="32%" style="font-size:10px"><div align="center">Paid</div></td>
+    <td width="32%" style="font-size:10px"><div align="center">Amount</div></td>
   </tr>
         <?php 
  $no=1;
@@ -122,7 +125,20 @@ foreach($header as $row){
 <hr style="border:1px #CCC dashed; width:99%" />
 
 
-<p>Thank you for paying</p>
+<div class="foot">
+<div style="width:30%; float:left">
+<p>&nbsp; Accounting</p>
+<br />
+<p>(...............................)<p>
+</div>
+
+<div style="width:30%; float:right">
+<p>&nbsp; User/Kasir</p>
+<br />
+<p>(...............................)<p>
+</div>
+
+</div>
 
 
 </div>

@@ -83,7 +83,7 @@ public function ajax_list()
 		$kolom1='a.Shipper';
 		$kolom2='b.CustCode';
 		
-        $nm_coloum= array('a.Consolidation,a.HouseNo','a.HouseNo','a.ETD','b.CustName','a.Consigne','a.Origin','e.PortName','a.PCS','a.CWT','a.ConsoledCWT');
+        $nm_coloum= array('a.Consolidation,a.HouseNo','a.HouseNo','a.ETD','b.CustName','a.Consigne','a.Origin','e.PortName','a.PCS','a.CWT','a.PayCode','a.ConsoledCWT');
         $orderby= array('HouseNo' => 'DESC');
         $where=  array('a.Consolidation <= '=>'1');
         $list = $this->mhouse->get_datatables2($nm_tabel,$nm_coloum,$orderby,$where,$nm_tabel2,$kolom1,$kolom2);
@@ -104,6 +104,7 @@ public function ajax_list()
 			'cwt' =>$datalist->CWT,
 			'pcs' =>$datalist->PCS,
 			'Service' =>$datalist->Service,
+			'PayCode' =>substr($datalist->PayCode,4,7),
 			'ETD' =>date('d-m-Y',strtotime($datalist->ETD)),
 			
 			'status'=>'<div class="text-left">'.$status=($datalist->ConsoledCWT >=1)?"<label class='label label-warning arrowed-right white'>Remain</label>":"<label class='label label-inverse arrowed-right white'>No</label>".'</div>',
@@ -364,9 +365,10 @@ function confirm_outgoing_house(){
 		$getjob=$this->model_app->getJob();
 		$smu=$this->input->post('smu');
 		$statusconsol=($smu=='0')?'0':3;
-		$etd=$this->input->post('etd'); 		
+		$etd=$this->input->post('etd');	
 		$kodesmu=$this->model_app->getKodeTrans($kodept,'OM','Notrans','outgoing_master');
 		$kodetrans=$this->model_app->getKodeTrans($kodept,'OH','Notrans','outgoing_house');
+	$kd_debit=($this->input->post('paymentype')=='CRD-CREDIT')?'1-01-408-0-1-00':'1-01-100-0-1-00';	//jika credit maka account AR OUTGOING else CASH
 				
 	//====Looping pcs for save in items booking ==============//
 	$pcs=$_POST['pcs'];	
@@ -430,7 +432,7 @@ function confirm_outgoing_house(){
 		$jurnal_debit=array(
 		'PaymentDate' =>date('Y-m-d H:i:s'),
 		'JurnalNo' =>$kodejurnal,
-		'kdac' =>'1-01-101-0-1-00',
+		'kdac' =>$kd_debit,
 		'Debit' =>$this->input->post('txtgrandtotal'),
 		'Credit' =>'0',
 		'house' =>$getHouse,
@@ -480,7 +482,7 @@ function confirm_outgoing_house(){
 		//insert header payment
 	 	$insert_pay_house=array(
 		'JurnalNo' =>$kodejurnal,
-		'kdac' =>'1-01-101-0-1-00',
+		'kdac' =>$kd_debit,
 		'PayDate' =>date('Y-m-d H:i:s'),
 		'Rate' =>'',
 		'Currency' =>'',
@@ -545,7 +547,7 @@ function confirm_outgoing_house(){
 			$this->model_app->update('stock_smu','NoSMU',$smu,$updatestoksmu);
 		
 		}
-		 //redirect('transaction/domestic_outgoing_house');
+		 
 //==============  print view in HTML   =======================//
             $data = array(
             'title'=>'domestic_outgoing_house',

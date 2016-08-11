@@ -1,9 +1,4 @@
-
- 
- <link href="<?php echo base_url();?>asset/select2/css/select2.css" rel="stylesheet" />
-<script src="<?php echo base_url();?>asset/select2/js/select2.min.js"></script>
-        
-  <script>
+ <script>
   $(function() {
 	$("#periode1").datepicker({
 		dateFormat:'yy-mm-dd',
@@ -11,8 +6,6 @@
 	$("#periode2").datepicker({
 		dateFormat:'yy-mm-dd',
 		});
-
-
   });
   
   </script>
@@ -22,14 +15,15 @@
   
 <div class="container">
 <div class="info-box">
-     <div class="col-sm-3 col-xs-4"><i class="fa fa-bar-chart"></i></div>
+     <div class="col-sm-3 col-xs-4">
+     <i class="fa fa-cc-mastercard"></i></div>
      <div class="col-sm-9 col-xs-8">Credit Payment</div>
 </div>
 </div>
       
 
 <br style="clear:both">
-<form method="post" action="<?php echo base_url();?>payment/process_credit_payment" id="creditForm" onsubmit="return konfirmasi2()" class="creditForm"  name="creditForm" target="new">
+<form method="post" action="<?php echo base_url();?>transaction/process_payment" id="formpayment" onsubmit="return konfirmasi2()" target="new">
 <div class="container">
   <div class="row">
                <!--LEFT INPUT-->
@@ -47,10 +41,11 @@
           </div>
 </div>
    
-<div class="form-group">             
+
+ <div class="form-group">             
           <label class="col-sm-3"> Customers<sup class="must"> *</sup></label>
           <div class="col-sm-7">
-           <select name="customer" id="customer" class="form-control select2" required="required" onchange="return filter_payment2()" style="width:98%">
+           <select name="customer" id="customer" class="form-control" required="required" onchange="return filter_payment2()">
           <option value="">Choose Customer</option>
           <?php foreach ($customer as $cust) {
           ?>
@@ -59,7 +54,8 @@
           </select>
           </div>
 </div>
- <div class="form-group">             
+
+<div class="form-group">             
           <label class="col-sm-3"> methode2<sup class="must"> *</sup></label>
           <div class="col-sm-7">
            <select name="methode2" id="methode2" class="form-control select2" required="required" onchange="return filter_payment2()" style="width:98%">
@@ -69,8 +65,6 @@
           </select>
           </div>
 </div>
-
-
 
 <div class="form-group">
  <label class="col-sm-3"> E.T.D Periode<sup class="must"> *</sup></label></strong>
@@ -93,7 +87,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
             <input name="payment" type="text" class="form-control"  id="payment" required="required" onkeyup="return countBalance2()" onkeypress="return isNumberKey(event)" value="0" />
          
           </div>
- <label class="col-sm-12 text-center" id="labelpay"></label>
+          <label class="col-sm-12 text-center" id="labelpay"></label>
 </div>
 
 
@@ -110,7 +104,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
 <div class="form-group"> 
           <label class="col-sm-3"> Currency<sup class="must"> *</sup></label>
           <div class="col-sm-7">
-            <select name="paymentcurrency" id="paymentcurrency" class="form-control">
+            <select name="paymentcurrency2" id="paymentcurrency2" class="form-control">
               <option value="IDR">IDR</option>
               <option value="USD">USD</option>
             </select>
@@ -129,20 +123,19 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
 <div class="form-group"> 
           <label class="col-sm-3"> Account<sup class="must"> *</sup></label>
           <div class="col-sm-7">
-            <select name="accountheader" id="accountheader" class="form-control select2" required="required" style="width:98%">
+               <select name="accountheader" id="accountheader" class="form-control select2" required="required" style="width:99%">
       <option value="">Select account</option>
           <?php foreach ($account_header as $acc) {
           ?>
           <option value="<?php echo $acc->kdac;?>"><?php echo $acc->nmac.' ('.$acc->kdac.')';?></option>
           <?php } ?>
           </select>
-    </select>
         
           </div>
 </div>
 
 <div class="form-group"> 
-          <label class="col-sm-3"> remarks2</label>
+          <label class="col-sm-3"> Remarks</label>
           <div class="col-sm-7">
             <textarea name="remarks2" rows="5"  class="form-control" id="remarks2"></textarea>
           </div>
@@ -163,7 +156,7 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
                         <!--<div class="panel-header"></div>-->
                         
                                     <div class="form-group">
-                                        <div class="table-responsive" id="credit_payment">
+                                        <div class="table-responsive" id="table_credit">
  
 
    <table width="100%" border="1" class="table table-striped table-bordered table-hover">
@@ -212,13 +205,15 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
                                         </div>
                                     </div>
                      
-<div class="cpl-sm-12">
+<div class="cpl-sm-12"><h2>&nbsp;</h2>
                                 
                                   <div class="row">
                                       <div class="col-md-4"></div>
-                                       
+                                        <div class="col-md-2">
+                                            <a class="btn btn-danger btn-addnew" href="<?php echo base_url();?>transaction/domesctic_outgoing_house" data-toggle="modal" title="Add"><i class="icon-reply bigger-120 icons"></i>Cancel </a>
+                                        </div>
                                          <div class="col-md-2">
-           <button style="display:none" id="btnProcess2" class="btn btn-primary"><i class="icon-refresh bigger-160 icons">&nbsp;</i> Process Payment</button>
+                                             <button class="btn btn-primary"><i class="icon-refresh bigger-160 icons">&nbsp;</i> Process Payment</button>
                                         </div>  </div>     
               </div>
           </div>
@@ -229,15 +224,11 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
    </div>
   
 
+<!-----edit data------->
 
+<!--adding form-->
 
 <script type="text/javascript">	
-$("#creditForm").submit(function(e) {
-    reloadIncome();
-	 reloadPayment();
-});
-
-
 function toRp(angka){
   //var angka =document.getElementById("rp").value;
     var rev     = parseFloat(angka, 10).toString().split('').reverse().join('');
@@ -251,7 +242,6 @@ function toRp(angka){
    // return 'Rp' + rev2.split('').reverse().join('') + ',00';
     return rev2.split('').reverse().join('');
 }
-
 function ubahRP(myid){
 	var payment=$("#payment").val();
 	if(payment==''){	
@@ -261,7 +251,6 @@ function ubahRP(myid){
 	}
 	
 }
-
 function filter_payment2(){
 	swal({
 		title:'<div><i class="fa fa-spinner fa-spin fa-4x blue"></i></div>',
@@ -281,33 +270,25 @@ function filter_payment2(){
                 type: "POST",
                 url : "<?php echo base_url('payment/filter_pay_credit'); ?>",
  			data: "idcust="+idcust+"&etd1="+etd1+"&etd2="+etd2+"&methode="+methode+"&payTipe="+payTipe,
-
                 success: function(data){
 					swal.close();
-					$("#credit_payment").show();
-					$("#btnProcess2").show();
-                    $('#credit_payment').html(data);
+                    $('#table_credit').html(data);
 					countBalance2();
                 }
             });
 }
-
 function konfirmasi2(){
-	 
-	//var payment=document.getElementById("payment").value;
+	var payment=document.getElementById("payment").value;
     var a=confirm("Are You Sure To Processing Data ?");
 	if(a===true){
-
 	var chk= $(".ceklis:checked");
-	if(chk.length <=0){
+	if(chk.length <=0 || payment <=0){
 	swal("Warning !","Please Select ( Check ) house and Payment value grather than 0 ","error");
 	$("#payment").focus();
 	return false;
+	
 	} else {
 	  swal.close();	
-	 $("#credit_payment").hide();
-	 $("#btnProcess2").hide();
-	 
 	}
 		} else {
 	
@@ -316,9 +297,8 @@ function konfirmasi2(){
 	}
 	
 }
-
-$("#paymentcurrency").change(function() {
-    var currency=$("#paymentcurrency").val();
+$("#paymentcurrency2").change(function() {
+    var currency=$("#paymentcurrency2").val();
 	if(currency=="IDR"){
 		document.getElementById("rate").readOnly=true;
 	} else {
@@ -326,20 +306,16 @@ $("#paymentcurrency").change(function() {
 		$("#rate").focus();
 	}
 });
-
 function hitung_bayar2(){
 	var payment=$("#payment").val();
 	
   var nomorhouse=document.getElementsByName('lastbalance[]').checked=true;
   var balance=document.getElementsByName('balance[]');
         for(i=0; i < nomorhouse.length; i++)  {  
-
 		alert(nomorhouse[i].value+ ' dan sisa adalah  '+ balance[i].value);
 		console.log(nomorhouse[i].value+ ' dan sisa adalah  '+ balance[i].value);
 	}
 }
-
-
 function countBalance2() {
     var payment=document.getElementById("payment").value;
     var lastbalance =document.getElementsByName('lastbalance[]');
@@ -354,7 +330,6 @@ function countBalance2() {
     if (lastbalance[i].checked) {
 		
         if(parseFloat(payment) >0) {
-
            if(parseFloat(payment) > parseFloat(lastbalance[i].value)){
                 var simpan=0;
                 var bayar=parseFloat(lastbalance[i].value);
@@ -367,7 +342,6 @@ function countBalance2() {
                 var status='0';
               }
               var payment=parseFloat(payment)-parseFloat(lastbalance[i].value);
-
               //alert(' lastbalance db ='+lastbalance[i].value+' / buat simpan udate= '+simpan+' / jumlah bayar= '+bayar);
                
                paid[i].value=toRp(bayar);
@@ -376,15 +350,11 @@ function countBalance2() {
               //console.log(lastbalance[i].value+'\n');
          }
             
-
         }
         
     }
   ubahRP();
    
 }
-
-//for select input 		
-$(".select2").select2();
-	
+			
 </script>

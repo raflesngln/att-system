@@ -143,12 +143,12 @@ function toRp(angka){
 											</div>
  <div id="profile" class="tab-pane">
 <p>
-  <?php //$this->load->view('pages/booking/payment/list_payment');?>
+  <?php $this->load->view('pages/booking/payment/list_payment');?>
 </p>
 											</div>
  <div id="transaksi" class="tab-pane">
 <p>
-  <?php //$this->load->view('pages/booking/payment/list_income');?>
+  <?php $this->load->view('pages/booking/payment/list_income');?>
 </p>
 											</div>
 										</div>

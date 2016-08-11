@@ -10,6 +10,24 @@ class Payment extends CI_Controller{
 		 $this->load->model('model_app');
 		  $this->load->model('m_payment');
     }
+ function page(){	
+   	$id=$this->input->post('id');
+	$nm=$this->input->post('nm');
+ 		$data=array(
+		'title'=>' Payment',
+		'link'=>'<a href="'.base_url().'payment">Cash / Bank in</a>',
+		'customer'=>$this->model_app->getdata('ms_customer a',
+		             " ORDER BY a.CustName"),
+		'user'=>$this->model_app->getdata('ms_user a',
+		             "INNER JOIN outgoing_house b on a.id_user=b.CreateBy WHERE b.PaymentStatus='0' GROUP BY a.id_user"),
+		'account_header'=>$this->model_app->getdata('account a',
+		             "WHERE a.level='4' AND a.induk IN('1-01-100-0-1-00','1-01-200-0-1-00') ORDER BY a.nmac"),
+		'account_detail'=>$this->model_app->getdata('account a',
+		             "WHERE a.level='4' ORDER BY a.nmac")
+		);
+	$this->load->view('pages/booking/payment/v_payment',$data);
+ 
+ }
   function index(){	
  		$data=array(
 		'title'=>' Payment',
@@ -423,8 +441,7 @@ public function ajax_detailHousePayment()
 	$iduser=$this->input->post('iduser');
 	$table_house=$this->input->post('methode');
 	$jumlah=$this->input->post('grandtotal');	
-	$nomorhouse=$this->input->post('nomorhouse');		
-	
+	$nomorhouse=$this->input->post('nomorhouse');
 	$lastbalance=$this->input->post('lastbalance');
 	//$accountdetail=$this->input->post('accountdetail');
 	
@@ -892,7 +909,7 @@ public function list_journal()
 			'Debit'=>$datalist->Debit,
 			'Credit'=>$datalist->Credit,
 			'House'=>$datalist->House,
-			'Remarks' =>$datalist->Remarks,
+			'Remarks' =>strlen($datalist->Remarks)>28?substr($datalist->Remarks,0,28).'..':$datalist->Remarks,
 			'JurnalNo' =>$datalist->JurnalNo,
 			'JurnalId' =>$datalist->JurnalId,
 			
@@ -954,7 +971,7 @@ public function list_journal()
 		"),
 'account_detail'=>$this->model_app->getdata('account a', "WHERE a.level='4' ORDER BY a.nmac")	
 		); 
-        $this->load->view('pages/booking/payment/replace_payment',$data);
+        $this->load->view('pages/booking/payment/replace_payment2',$data);
 }
 
 
