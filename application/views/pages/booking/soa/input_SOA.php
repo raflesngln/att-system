@@ -192,11 +192,11 @@ $kurangtanggal = date("Y-m-d", mktime(0,0,0,date("m"),date("d")-30,date("Y")));
                         <label class="col-sm-3 control-label"> Customer </label>
                         <div class="col-sm-9"><span class="controls">
 <select name="cust" id="cust" required="required" class="form-control">
-                            <option value="<?php echo $row->custCode;?>"><?php echo $row->custName;?></option>
+                            <option value="<?php echo $row->CustCode;?>"><?php echo $row->CustName;?></option>
                             <?php
 	foreach($cust as $ct){
 	    ?>
-                            <option value="<?php echo $ct->custCode;?>"><?php echo $ct->custName;?></option>
+                            <option value="<?php echo $ct->CustCode;?>"><?php echo $ct->CustName;?></option>
                             <?php } ?>
                           </select>
                         </span>
@@ -310,6 +310,7 @@ function filter_soa(){
             var idcust = $("#customers").val();
 			var etd1 = $("#etd1").val();
 			var etd2 = $("#etd2").val();
+			
           $.ajax({
                 type: "POST",
                 url : "<?php echo base_url('transaction/filter_soa'); ?>",

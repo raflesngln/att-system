@@ -56,10 +56,13 @@ class Transaction extends CI_Controller{
 		} 
 		echo json_encode($data);
 	}
-    function getAccountCharge(){
+function getAccountCharge(){
 	  
 	  $cargecode=$this->input->post('cargecode');
-      $result=$this->model_app->getdatapaging("Reff_Account,ChargeCode,ChargeName","ms_charge","WHERE ChargeCode='$cargecode'");
+	  $pecah=explode('_',$cargecode);
+	  $kode=$pecah[0];
+	  
+      $result=$this->model_app->getdatapaging("Reff_Account,ChargeCode,ChargeName","ms_charge","WHERE ChargeCode='$kode'");
 	foreach($result as $list){
 		$row = array(
 				'ChargeCode' =>$list->ChargeCode,
@@ -1917,7 +1920,7 @@ $OutHouse=array(
 		'title'=>' SOA',
 		'link'=>'<a href="'.base_url().'transaction/soa">SOA</a>',
 		'customer'=>$this->model_app->getdata('ms_customer a',
-		"INNER JOIN outgoing_house b on a.CustCode=b.Shipper WHERE b.PayCode='CRD-CREDIT' AND b.PaymentStatus='0' GROUP BY a.CustCode"),
+		"INNER JOIN outgoing_house b on a.CustCode=b.Shipper WHERE b.PayCode='CRD-CREDIT'  GROUP BY a.CustCode"),
 		
 		'view'=>'pages/booking/soa/input_SOA',
 		);
@@ -1934,10 +1937,12 @@ $OutHouse=array(
 	 LEFT JOIN ms_customer c on a.Consigne=c.CustCode
 	 LEFT JOIN ms_port d on a.Origin=d.PortCode
 	 LEFT JOIN ms_port e on a.Destination=e.PortCode
-	 INNER JOIN consol f on a.HouseNo=f.HouseNo
-	WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust' AND a.PayCode='CRD-CREDIT' AND a.PaymentStatus='0' AND a.RemainAmount >'0'
+	 LEFT JOIN consol f on a.HouseNo=f.HouseNo
+	WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust' AND a.PayCode='CRD-CREDIT'
 	GROUP BY f.HouseNo
 		");	 
+/*	WHERE LEFT(a.ETD,10) BETWEEN '$etd1' AND '$etd2' AND a.Shipper='$idcust' AND a.PayCode='CRD-CREDIT' AND a.PaymentStatus='0' AND a.RemainAmount >'0'
+*/	
         $this->load->view('pages/booking/soa/tabel_SOA',$data);
 }
 //   DATA TO PDF 
@@ -1956,8 +1961,9 @@ function print_SOA(){
 	    'list'=>$this->model_app->soadetail($idcust),
 	    'cust'=>$this->model_app->getdatapaging("*","outgoing_house a",
 	            "INNER JOIN ms_customer b on b.CustCode=a.Shipper
-				WHERE a.RemainAmount > 0 AND a.Shipper='$idcust' LIMIT 1"),
+				WHERE a.Shipper='$idcust' LIMIT 1"),
 				);
+	//WHERE a.RemainAmount > 0 AND a.Shipper='$idcust' LIMIT 1"),
 	
 /*	$data['view']='pages/booking/soa/report_SOA';
 	$this->load->view('pages/booking/soa/report_SOA',$data);*/
@@ -2153,7 +2159,9 @@ public function ajax_detailHouse()
      $kode=$this->model_app->generateNo("payment_house","JurnalNo","JRN");
  
 	$customer=$this->input->post('customer');	
-	$jumlah=$this->input->post('payment');		
+	$jumlah=$this->input->post('payment');	
+	$grandtotal=$this->input->post('grandtotal');	
+	$debit_amount=$jumlah > $grandtotal?$grandtotal:$jumlah;
 	
 	$lastbalance=$this->input->post('lastbalance');
 	foreach($lastbalance as $key => $val)
@@ -2213,7 +2221,7 @@ public function ajax_detailHouse()
 		'PaymentDate' =>date('Y-m-d H:i:s'),
 		'JurnalNo' =>$kode,
 		'kdac' =>$this->input->post('accountheader'),
-		'Debit' =>$this->input->post('payment'),
+		'Debit' =>$debit_amount,
 		'Credit' =>'0',
 		'House' =>'',
 		'CreatedBy' =>$this->session->userdata('idusr'),

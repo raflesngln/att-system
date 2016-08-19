@@ -770,7 +770,7 @@ $("#smu").autocomplete({
                                                   <th>Qty</th>
                                                   <th style="width:28%">Desc</th>
                                                   <th>Total</th>
-                                                  <th class="text-center"><a  id="addchrg" class="btn  btn-primary btn-round" href="#modaladdCharge" data-toggle="modal" title="Add item"><i class="icon-plus icons" id="addchrg"></i> Add Cost</a></th>
+                                                  <th class="text-center"><a  id="addchrg" class="btn  btn-primary btn-round" href="#modaladdCharge" data-toggle="modal" title="Add item"><i class="icon-plus icons"></i> Add Cost</a></th>
                                                 </tr>
  </thead>
  <tbody>

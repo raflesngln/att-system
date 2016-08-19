@@ -10,15 +10,10 @@
 											<li class="active">
 												<a data-toggle="tab" href="#home">
 													<i class="green fa fa-plus bigger-110"></i>
-	Add  Deposito
+	Add  CN / DN
 												</a>
 											</li>
-											<li>
-												<a data-toggle="tab" href="#bayar">
-  <i class="green fa fa-folder-open bigger-110"></i>
-		Withdraw Deposito
-		
-											</a></li>
+
 											<li>
 												<a data-toggle="tab" href="#profile">
   <i class="green fa fa-folder-open bigger-110"></i>
@@ -31,15 +26,11 @@
 
 										<div class="tab-content container">
 											<div id="home" class="tab-pane in active">
-<p><?php $this->load->view('pages/booking/deposito/input_deposito');?>
-  </p>
+<p><?php $this->load->view('pages/booking/cndn/input_cndn');?></p>
 											</div>
 
-											<div id="bayar" class="tab-pane">
-<p><?php $this->load->view('pages/booking/deposito/input_kembali');?></p>
-											</div>
- <div id="profile" class="tab-pane">
-<p><?php $this->load->view('pages/booking/deposito/list_transaction');?></p>
+											<div id="profile" class="tab-pane">
+<p><?php $this->load->view('pages/booking/cndn/list_transaction');?></p>
 											</div>
 										</div>
 									</div>

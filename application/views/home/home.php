@@ -414,9 +414,10 @@ return true;
  <li> <label class="label label-large label-purple"> FINANCE</label></li>
        <li> <a href="#" class="dropdown-toggle"> <i class="fa fa-dollar bigger-150" aria-hidden="true"></i> <span class="menu-text">&nbsp;Finance </span> <b class="arrow icon-angle-down"></b> </a>
         <ul class="submenu">
-         <li><a id="bankin" href="#" onClick="menuklik(this)"> <i class="fa fa-archive bigger-140"></i> Cash / Bank in </a> </li>
+         <li><a href="<?php echo base_url();?>payment"> <i class="fa fa-archive bigger-140"></i> Cash / Bank in </a> </li>
          <li><a href="<?php echo base_url();?>payment/deposito"> <i class="fa fa-money bigger-140"></i> </i> &nbsp; Deposito </a> </li>
          <li><a href="<?php echo base_url();?>payment/journal"> <i class="fa fa-book bigger-140"></i> </i> &nbsp; Journal </a> </li>
+<li><a href="<?php echo base_url();?>cndn"> <i class="fa fa-book bigger-140"></i> </i> &nbsp; DN / CN </a> </li>
          <li><a href="<?php echo base_url();?>payment/payment_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-arrow-circle-o-left bigger-140"></i> &nbsp; Payment Request </a> </li>
          <li> <a href="<?php echo base_url();?>payment/settlement_request"> <i class="icon-double-angle-right"></i> </i><i class="fa fa-info-circle  bigger-140"></i> &nbsp; Sentlement Req</a></li>
 

@@ -957,11 +957,13 @@ $("#smu").autocomplete({
 <div class="form-group">
                         <label class="col-sm-3 control-label">Charges<sup class="must"> *</sup> </label>
                         <div class="col-sm-9"><span class="controls">
-              <select name="charge" class="form-control" required="required" id="charge">
+              <select name="charge" class="form-control select2" style="width:99%" required="required" id="charge" onchange="return load_account()">
           
               </select> 
                           </span>
-                          </div>
+                          <span class="controls">
+                          <input name="txtaccount" type="text" class="form-control" id="txtaccount" value="" />
+                          </span></div>
                         <div class="clearfix"></div>
   </div>
 
@@ -975,7 +977,7 @@ $("#smu").autocomplete({
 <div class="form-group">
                         <label class="col-sm-3 control-label">Qty<sup class="must"> *</sup></label>
                         <div class="col-sm-9"><span class="controls">
-                          <input name="qty" type="text" class="form-control" onkeypress="return isNumberKey(event)" id="txtqty" value="1" />
+                          <input name="qty" type="number" class="form-control" onkeypress="return isNumberKey(event)" id="txtqty" value="1" />
 </span></div>
                         <div class="clearfix"></div>
                       </div>                    
@@ -1785,15 +1787,32 @@ function add_customer(){
 }
 function load_combo_charge(){
        $.ajax({
-           url : "<?php echo site_url('incoming_house/getChargeOptional')?>",
+           url : "<?php echo site_url('transaction/getChargeOptional')?>",
            dataType: "json",
            success: function(data){
                $("#charge").empty();
-               //$("#Country").append("<option value=''>Select Country.....</option>");
+               $("#charge").append("<option value=''>Select charge</option>");
                      for (var i =0; i<data.length; i++){
-                   var option = "<option value='"+data[i].ChargeCode+"-"+data[i].ChargeName+"'>"+data[i].ChargeName+"</option>";
+                   var option = "<option value='"+data[i].ChargeCode+"_"+data[i].ChargeName+"'>"+data[i].ChargeName+"</option>";
                           $("#charge").append(option);
 						  //load_state();
+                       }
+  
+               }
+       }); 
+  }
+function load_account(){
+	var cargecode=$("#charge").val();
+       $.ajax({
+           url : "<?php echo site_url('transaction/getAccountCharge')?>",
+           dataType: "json",
+		   type: "POST",
+     	   data: "cargecode="+cargecode,
+           success: function(data){
+               $("#txtaccount").empty();
+                     for (var i =0; i<data.length; i++){
+                          $("#txtaccount").val(data[i].Reff_Account);
+						
                        }
   
                }

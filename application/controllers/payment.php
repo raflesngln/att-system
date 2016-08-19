@@ -646,7 +646,6 @@ public function ajax_detailHousePayment()
         );	
        $this->load->view('home/home',$data);
     }
-
 public function save_deposito()
 	{  
 	$kode=$this->model_app->generateNo("payment_house","JurnalNo","JRN");
@@ -688,6 +687,74 @@ public function save_deposito()
 		'PaymentDate' =>date('Y-m-d H:i:s'),
 		'JurnalNo' =>$kode,
 		'kdac' =>'2-01-530-0-1-00',
+		'Debit' =>'0',
+		'Credit' =>$this->input->post('amount'),
+		'House' =>'',
+		'CreatedBy' =>$this->session->userdata('idusr'),
+		'CreatedDate'=>date('Y-m-d H:i:s'),
+		);
+		$savedetail=$this->model_app->insert('jurnal',$jurnal_kredit);
+		$savedetail=$this->model_app->insert('jurnal',$jurnal_debit);
+		$insert = $this->m_payment->save($data,$nmtabel);
+				//insert header payment
+	 	$insertpayment=array(
+		'JurnalNo' =>$kode,
+		'kdac' =>'',
+		'PayDate' =>date('Y-m-d H:i:s'),
+		'Currency' =>'',
+		'Customer' =>$this->input->post('customers'),
+		'TotalPayment' =>$this->input->post('amount'),
+		'Remarks' =>$this->input->post('remarks'),
+		'CreatedBy' =>$this->session->userdata('idusr'),
+		'CreatedDate'=>date('Y-m-d H:i:s'),
+		);	
+		$savepayment=$this->model_app->insert('payment_house',$insertpayment);
+		
+		echo json_encode(array("status" => TRUE));
+	     }  
+}
+public function save_withdraw()
+	{  
+	$kode=$this->model_app->generateNo("payment_house","JurnalNo","JRN");
+	 $nmtabel='topup_deposito';
+	 $custcode=$this->input->post('customers');
+	 $amount=$this->input->post('amount');	
+	 
+	      $cari=$this->model_app->getdatapaging("*","ms_customer", "where CustCode='$custcode'");
+		  if($cari){
+		  	foreach($cari as $row){
+	        	$custcodeDB=$row->CustCode;
+				$Deposit=$row->Deposit;
+				$depodecrease=$Deposit - $amount;
+			}
+			$updatedeposito=array(
+			'Deposit'=>$depodecrease
+			);
+			$update=$this->model_app->update('ms_customer','CustCode',$custcode,$updatedeposito);
+			
+		$data = array(
+				'TopupDate' => $this->input->post('tgl'),
+				'CustCode' => $this->input->post('customers'),
+				'TopupAmount' => $this->input->post('amount'), 
+				'Remarks' =>$this->input->post('remarks'),
+				'CreatedBy' =>$this->session->userdata('idusr'),
+		        'CreatedDate'=>date('Y-m-d H:i:s'),
+				'TopupDate'=>date('Y-m-d H:i:s'),
+			);
+	 	$jurnal_debit=array(
+		'PaymentDate' =>date('Y-m-d H:i:s'),
+		'JurnalNo' =>$kode,
+		'kdac' =>'2-01-530-0-1-00',
+		'Debit' =>$this->input->post('amount'),
+		'Credit' =>'0',
+		'House' =>'',
+		'CreatedBy' =>$this->session->userdata('idusr'),
+		'CreatedDate'=>date('Y-m-d H:i:s'),
+		);
+	 	$jurnal_kredit=array(
+		'PaymentDate' =>date('Y-m-d H:i:s'),
+		'JurnalNo' =>$kode,
+		'kdac' =>'1-01-100-0-1-00',
 		'Debit' =>'0',
 		'Credit' =>$this->input->post('amount'),
 		'House' =>'',

@@ -547,7 +547,6 @@ function confirm_outgoing_house(){
 			$this->model_app->update('stock_smu','NoSMU',$smu,$updatestoksmu);
 		
 		}
-		 
 //==============  print view in HTML   =======================//
             $data = array(
             'title'=>'domestic_outgoing_house',
